@@ -1,0 +1,55 @@
+"""Inspect a built APK without installing an emulator. Does not prove inference."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import struct
+import re
+import subprocess
+import zipfile
+
+
+def inspect(apk, aapt):
+    permissions = subprocess.check_output([str(aapt), "dump", "permissions", str(apk)]).decode("utf-8")
+    assert "android.permission.INTERNET" not in permissions, permissions
+    manifest = subprocess.check_output([str(aapt), "dump", "xmltree", str(apk), "AndroidManifest.xml"]).decode("utf-8")
+    services = [block.split("E:", 1)[0] for block in manifest.split("E: service")[1:]]
+    worker = next(block for block in services if '"ru.neurostenographer.app.DiarizationService"' in block)
+    assert '":diarization"' in worker and re.search(r'android:exported[^\n]*=\(type 0x12\)0x0\b', worker), worker
+    with zipfile.ZipFile(apk) as z:
+        names = z.namelist()
+        assert len(names) == len(set(names)), "Duplicate ZIP entries"
+        assert not any(n.lower().endswith((".onnx", ".wav", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".amr"))
+                       for n in names), "Model/audio accidentally bundled"
+        native = {n for n in names if n.startswith("lib/") and n.endswith(".so")}
+        expected = {f"lib/{abi}/{lib}.so" for abi in ["arm64-v8a", "x86_64"]
+                    for lib in ["libonnxruntime", "libsherpa-onnx-jni", "libandroidx.graphics.path"]}
+        assert native == expected, native
+        alignment = {}
+        for name in sorted(native):
+            b = z.read(name)
+            assert b[:6] == b"\x7fELF\x02\x01", name
+            offset = struct.unpack_from("<Q", b, 32)[0]
+            size, count = struct.unpack_from("<HH", b, 54)
+            loads = [struct.unpack_from("<IIQQQQQQ", b, offset + i * size)[-1]
+                     for i in range(count) if struct.unpack_from("<I", b, offset + i * size)[0] == 1]
+            assert loads and all(n >= 16384 for n in loads), (name, loads)
+            alignment[name] = loads
+        assert "assets/licenses/sherpa-onnx-LICENSE.txt" in names
+        assert "assets/licenses/onnxruntime-LICENSE.txt" in names
+    return {"apk_sha256": hashlib.sha256(apk.read_bytes()).hexdigest(), "apk_bytes": apk.stat().st_size,
+            "permissions": permissions.splitlines(), "native_load_alignment": alignment,
+            "diarization_worker": {"process": ":diarization", "exported": False, "runtime_test": "NOT_RUN"},
+            "android_inference": "NOT_RUN_BY_THIS_CHECK", "distribution_cleared": False}
+
+
+if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+    p.add_argument("apk", type=Path)
+    p.add_argument("--aapt", required=True, type=Path)
+    p.add_argument("--output", type=Path)
+    args = p.parse_args()
+    result = json.dumps(inspect(args.apk, args.aapt), indent=2)
+    if args.output:
+        args.output.write_text(result + "\n", encoding="utf-8")
+    print(result)

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": {
+    "ogg": "REJECTED",
+    "flac": "REJECTED",
+    "OPUS": "REJECTED"
+  },
+  "ordinary_apk_regression": "PASS",
+  "android": "NOT_RUN"
+}

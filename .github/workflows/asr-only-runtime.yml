@@ -1,0 +1,60 @@
+name: Build pinned ASR-only Android runtime candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: k2-fsa/sherpa-onnx
+          ref: 5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f
+          path: .local/sherpa-source
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Pinned NDK
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          "$SDKMGR" --install 'ndk;27.2.12479018'
+      - name: Build JNI without TTS (ARM64 and x86_64)
+        env:
+          SHERPA_ONNX_ENABLE_TTS: 'OFF'
+          SHERPA_ONNX_ENABLE_SPEAKER_DIARIZATION: 'ON'
+          SHERPA_ONNX_ENABLE_BINARY: 'OFF'
+          SHERPA_ONNX_ENABLE_C_API: 'OFF'
+          SHERPA_ONNX_ENABLE_JNI: 'ON'
+          BUILD_SHARED_LIBS: 'ON'
+        run: |
+          export ANDROID_NDK="$ANDROID_HOME/ndk/27.2.12479018"
+          cd .local/sherpa-source
+          ./build-android-arm64-v8a.sh
+          ./build-android-x86-64.sh
+          for pair in arm64-v8a:build-android-arm64-v8a x86_64:build-android-x86-64; do
+            abi=${pair%%:*}; build=${pair#*:}
+            grep '^SHERPA_ONNX_ENABLE_TTS:BOOL=OFF$' "$build/CMakeCache.txt"
+            test ! -d "$build/_deps/espeak_ng-src"
+            for lib in "$build/install/lib"/*.so; do
+              if strings "$lib" | grep -q 'espeak-ng-data'; then exit 1; fi
+            done
+            cp "$build/install/lib/libsherpa-onnx-jni.so" "android/SherpaOnnxAar/sherpa_onnx/src/main/jniLibs/$abi/"
+            cp "$build/install/lib/libonnxruntime.so" "android/SherpaOnnxAar/sherpa_onnx/src/main/jniLibs/$abi/"
+          done
+      - name: Build candidate AAR and checksums
+        run: |
+          cd .local/sherpa-source/android/SherpaOnnxAar
+          ./gradlew :sherpa_onnx:assembleRelease
+          cp sherpa_onnx/build/outputs/aar/sherpa_onnx-release.aar "$GITHUB_WORKSPACE/.local/sherpa-onnx-1.12.20-no-tts-candidate.aar"
+          cd "$GITHUB_WORKSPACE/.local"
+          sha256sum sherpa-onnx-1.12.20-no-tts-candidate.aar > runtime-sha256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: asr-only-runtime-candidate-NOT-DEVICE-VERIFIED
+          path: |
+            .local/sherpa-onnx-1.12.20-no-tts-candidate.aar
+            .local/runtime-sha256.txt

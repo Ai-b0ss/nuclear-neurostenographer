@@ -1,0 +1,51 @@
+{
+  "round": 1,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "pinned sherpa-onnx 1.12.20 / GigaAM v3 CTC Android path",
+    "verified local model ZIP install",
+    "bounded PCM16 WAV, background ASR, cancellation",
+    "actual-output TXT/JSON/SRT with input-window provenance"
+  ],
+  "verification": {
+    "core_test_groups": 8,
+    "pinned_download_negative_tests": "PASS",
+    "host_real_russian_asr": "PASS",
+    "host_silence_short_tail_cancellation": "PASS",
+    "android_debug_build": "PASS",
+    "android_instrumentation_apk_build": "PASS",
+    "android_lint_errors": 0,
+    "android_lint_dependency_update_warnings": 7,
+    "apk_static_inspection": "PASS",
+    "android_inference": "NOT_RUN",
+    "physical_arm64": "NOT_RUN",
+    "diarization": "NOT_IMPLEMENTED"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "main_unchanged_verified_via_connector": true
+  },
+  "blockers": [
+    "Local .git read-only",
+    "GitHub CLI authentication invalid",
+    "GitHub create_tree rejected by automatic approval: approval policy is never",
+    "Ramus android_start_session rejected by automatic approval: approval policy is never",
+    "Full upstream AAR includes GPL TTS; ASR-only runtime candidate requires build/review/pin",
+    "No Android runtime or physical phone evidence; genuine diarization missing"
+  ],
+  "evidence": [
+    "docs/PROGRESS.md",
+    "docs/RUNTIME_LICENSES.md",
+    "docs/evidence/round1-host-asr.json",
+    "docs/evidence/round1-apk-inspection.json"
+  ],
+  "build_log_sha256": "cdb75d8ba923ab5cd0151ba1bf61df60a11e1970ef672ed871b5d622e315e5ce",
+  "checkpoint": [
+    ".local/round1-source.zip",
+    ".local/round1-recovery.patch",
+    ".local/round1-checkpoint.json"
+  ]
+}

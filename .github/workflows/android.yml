@@ -1,7 +1,7 @@
 name: Android debug APK and core tests
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/**']
   pull_request:
   workflow_dispatch:
 permissions:
@@ -26,9 +26,25 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Verify pinned sherpa-onnx runtime
+        run: |
+          python3 tools/test_provision_asr.py
+          python3 tools/test_create_checkpoint.py
+          python3 tools/test_score_transcript.py
+          python3 tools/test_android_workflow.py
+          python3 tools/provision_asr.py
       - name: Test core and assemble debug APK
-        run: gradle --no-daemon :core:runCoreTests :app:assembleDebug
+        run: gradle --no-daemon :core:runCoreTests :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
+      - name: Inspect permissions, ABIs, ELF alignment and accidental bundled data
+        run: python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --output apk-inspection.json
       - uses: actions/upload-artifact@v4
+        with:
+          name: apk-inspection-no-binary
+          path: apk-inspection.json
+      - uses: actions/upload-artifact@v4
+        # Full upstream AAR enables TTS/espeak-ng (GPL-3.0). Build/test only until
+        # an ASR-only runtime is verified and pinned; see docs/RUNTIME_LICENSES.md.
+        if: ${{ false }}
         with:
           name: neurostenographer-debug-apk
           path: app/build/outputs/apk/debug/*.apk

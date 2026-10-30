@@ -10,6 +10,8 @@ Online streaming, personal name identification and word-level timestamps are opt
 
 ## Target on-device pipeline
 
+Current implemented baseline is `PCM16 WAV -> bounded mono/resampling -> verified GigaAM v3 CTC -> 20-second input chunks -> TranscriptFusion.attributeChunks(empty speaker turns) -> UI/export`. Optional pinned pyannote + ERes2Net full-recording diarization runs in a private worker process before ASR, and supplies speech windows/global cluster IDs through a strictly validated reply. Worker failure falls back to unknown speakers. See DIARIZATION.md for the known native overlap crash and unexecuted Android containment tests. Native resources are owned by the IO worker and released in `finally`; ViewModel retains operations across rotation. ASR cancellation is cooperative between blocking JNI steps. Diarization cancellation releases the bound service, which terminates its guarded dedicated process; the caller observes death and blocks another request while prior exit is unknown. Android execution of that lifecycle is NOT_RUN. Model installation switches the selected directory only after all hashes pass. The compressed-codec decoding is implemented through Android platform APIs (execution NOT_RUN); word alignment remains unimplemented. See [audio import and privacy](AUDIO_IMPORT.md).
+
 ```
 Recorded/imported audio -> decoder -> PCM16 mono -> 16 kHz -> samples
                                             |
@@ -26,6 +28,8 @@ Recorded/imported audio -> decoder -> PCM16 mono -> 16 kHz -> samples
 ```
 
 Important: run diarization on the **entire conversation or globally reconciled windows**, not independently isolated VAD chunks; otherwise speaker labels may change with each chunk.
+
+Imported WAVs are copied into bounded app-private cache snapshots and validated before replacing the selected source. A bad/short/oversized/cancelled import removes its staged copy and keeps the previous result. This avoids relying on document-provider access or mutable source bytes during subsequent inference. A successful `TranscriptDocument` owns the output intervals, audio duration, model/timestamp/speaker provenance and warnings. Export captures its UTF-8 body before opening the document chooser; selecting a new source cannot silently change that pending export. JSON retains metadata even when no text was recognized; TXT/UI retain milliseconds and SRT uses the same chunk boundaries. No provider URI or private path is exported. Cache eviction and process death can require reimport; transcript history persistence is not implemented.
 
 `TranscriptFusion.attributeWords` requires genuine timestamps for each recognized word. When ASR only gives timestamps for entire chunks, use `attributeChunks`, which refuses to invent speaker identity if a chunk crosses two speakers. Do not interpolate word times and present them as model evidence.
 

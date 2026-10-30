@@ -1,0 +1,24 @@
+{
+  "platform": "Windows JDK17 host; Android NOT_RUN",
+  "fixture": "generated numeric PCM16 48kHz stereo 120s, not speech",
+  "scope": "parser only; in-memory source counters and current-thread allocations, not process peak RAM or ASR RTF",
+  "exact_pcm_parity": true,
+  "baseline": {
+    "elapsed_ns": 553118600,
+    "thread_allocated_bytes": 30725064,
+    "single_source_reads": 23040028,
+    "bulk_source_reads": 4,
+    "output_samples": 1920000
+  },
+  "streaming": {
+    "elapsed_ns": 585946100,
+    "thread_allocated_bytes": 7750672,
+    "single_source_reads": 0,
+    "bulk_source_reads": 352,
+    "output_samples": 1920000
+  },
+  "baseline_source_sha256": "50430a0a274eed6b360bf794bcb882130aabd5422af9a01486f77c05af6cc5ca",
+  "streaming_source_sha256": "49da5dd2e6c70323781a19f8e555c5f29a9d5c5868fb3271370584300aa41ab3",
+  "allocation_reduction_bytes": 22974392,
+  "allocation_reduction_percent": 74.77
+}
