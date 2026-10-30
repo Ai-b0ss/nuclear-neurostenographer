@@ -15,7 +15,7 @@ import java.io.File
  */
 object AudioImport {
     private val codecs = setOf("audio/mpeg", "audio/mp4a-latm", "audio/vorbis", "audio/opus",
-        "audio/flac", "audio/3gpp", "audio/amr-wb")
+        "audio/flac", "audio/3gpp", "audio/amr-wb", "audio/raw")
 
     fun import(context: Context, uri: Uri, checkCancelled: () -> Unit = {}): AudioSnapshot {
         require(uri.scheme == "content" || uri.scheme == "file") { "Выберите локальный аудиодокумент" }
@@ -82,6 +82,40 @@ object AudioImport {
                 return rate to channels
             }
             properties(format)
+            if (mime == "audio/raw") {
+                // Android's FLAC extractor can already return PCM. It is not a
+                // compressed codec and must not be sent to createDecoderByType.
+                // Reject missing/float/24-bit encoding instead of guessing bytes.
+                require(format.containsKey(MediaFormat.KEY_PCM_ENCODING)) { "Неизвестная разрядность PCM" }
+                val (rate, channels) = properties(format)
+                extractor.selectTrack(track)
+                val sink = Pcm16WavWriter(destination, rate, channels).also { writer = it }
+                val clock = DecodedPcmTimeline(rate, channels)
+                val capacity = if (format.containsKey(MediaFormat.KEY_MAX_INPUT_SIZE))
+                    format.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE) else 1_048_576
+                require(capacity in 1..1_048_576) { "Слишком большой PCM пакет" }
+                val buffer = java.nio.ByteBuffer.allocate(capacity)
+                val deadline = SystemClock.elapsedRealtime() + 60_000
+                while (true) {
+                    checkCancelled()
+                    require(SystemClock.elapsedRealtime() < deadline) { "Превышено время чтения PCM" }
+                    buffer.clear()
+                    val count = extractor.readSampleData(buffer, 0)
+                    if (count < 0) break
+                    require(count in 1..capacity) { "Некорректный PCM пакет" }
+                    require(extractor.sampleFlags and (MediaExtractor.SAMPLE_FLAG_ENCRYPTED or
+                        MediaExtractor.SAMPLE_FLAG_PARTIAL_FRAME) == 0) { "Защищённый/неполный PCM пакет" }
+                    clock.accept(count, extractor.sampleTime)
+                    buffer.position(0); buffer.limit(count)
+                    sink.append(buffer, checkCancelled)
+                    extractor.advance()
+                }
+                val duration = sink.finish()
+                destination.inputStream().use { PcmWav.read(it, checkCancelled) }
+                checkCancelled()
+                accepted = true
+                return AudioSnapshot(destination, duration)
+            }
             format.setInteger(MediaFormat.KEY_PCM_ENCODING, AudioFormat.ENCODING_PCM_16BIT)
             extractor.selectTrack(track)
             val codec = MediaCodec.createDecoderByType(mime)

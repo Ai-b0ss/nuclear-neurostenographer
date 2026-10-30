@@ -33,6 +33,18 @@ def main():
         with patch("urllib.request.urlretrieve", side_effect=AssertionError("Cache redownloaded")):
             provision_asr.download("https://example.invalid/model", path, expected)
     print("PASS pinned download: corruption rejected, previous file retained, replacement verified, cache verified")
+    with tempfile.TemporaryDirectory() as tmp:
+        candidate, destination = Path(tmp) / "candidate.aar", Path(tmp) / "selected.aar"
+        candidate.write_bytes(b"unknown runtime")
+        destination.write_bytes(b"previous runtime")
+        try:
+            provision_asr.select_runtime(candidate, destination)
+            raise AssertionError("Unpinned native binary selected")
+        except ValueError:
+            pass
+        assert destination.read_bytes() == b"previous runtime"
+        assert not destination.with_suffix(".aar.part").exists()
+    print("PASS runtime selection: unpinned candidate rejected, previous runtime retained")
 
 
 if __name__ == "__main__":

@@ -79,7 +79,11 @@ class CodecImportTest {
                 instrumentation.context.assets.open("codecs/$name").use { input -> source.outputStream().use { input.copyTo(it) } }
                 val error = runCatching { AudioImport.import(context, Uri.fromFile(source)) }.exceptionOrNull()
                 assertNotNull("Accepted negative fixture $name", error)
-                val reason = if (name == "two-tracks.m4a") "ровно один" else "120 секунд"
+                val reason = when (name) {
+                    "two-tracks.m4a" -> "ровно один"
+                    "float-output.flac" -> "PCM16"
+                    else -> "120 секунд"
+                }
                 assertTrue("$name: $error", error!!.message.orEmpty().contains(reason))
                 assertEquals(before, root.list()!!.toSet())
             }

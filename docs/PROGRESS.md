@@ -60,6 +60,20 @@
   Added structured known-mixture evidence separating native completion, caller
   survival, unknown turns and actual overlap detection. Collector includes both
   records; four collector methods PASS locally. New instrumentation pending CI.
+- Android run 41040228527 executes **14 PASS / 1 FAIL**. Genuine diarization
+  recurrence/repetition/silence/short-input, Russian combined ASR, process-death
+  recovery and success/cancel/retry worker-exit tests PASS. Raw JSON collection
+  now works (six metadata records retrieved). The known mixture crashes its
+  worker and caller survives; that is containment PASS, overlap accuracy unproven.
+  Remaining failure is FLAC reported as audio/raw, not a compressed MediaCodec
+  MIME. AOSP Android 13 FLACExtractor source confirms it decodes PCM and supplies
+  PCM encoding explicitly. Added bounded raw-PCM16 path and float-output negative.
+- Patched no-TTS native build PASS in run 41039830327. Original C++ checked-STL
+  replay aborts on the invalid iterator; patched numeric ASan/UBSan tests PASS.
+  Candidate SHA-256 `771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8`.
+  Official Kotlin API bytes retained, all JNI replaced with only two intended
+  ABI/library pairs. Added explicit --runtime-file selector with hardcoded digest;
+  wrong binary negative preserves previous runtime. Candidate emulator run pending.
 
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.

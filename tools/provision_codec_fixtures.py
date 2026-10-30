@@ -30,6 +30,7 @@ def main():
                 "tone.flac": ["-c:a", "flac"]}
     manifest = args.output / "manifest.json"
     rejected = {"two-tracks.m4a": ["-map", "0:a", "-map", "0:a", "-c:a", "aac"],
+                "float-output.flac": ["-c:a", "flac", "-sample_fmt", "s32"],
                 "too-long.m4a": ["-t", "121", "-c:a", "aac", "-b:a", "32k"]}
     manifest.unlink(missing_ok=True)
     for name in variants | rejected:

@@ -56,7 +56,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_run_id != '' }}
         run: |
           (cd .local/candidate && sha256sum -c runtime-sha256.txt)
-          cp .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar app/libs/sherpa-onnx-1.12.20.aar
+          python3 tools/provision_asr.py --runtime-file .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar
       - uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 33
