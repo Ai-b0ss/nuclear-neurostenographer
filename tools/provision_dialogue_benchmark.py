@@ -84,7 +84,7 @@ def compose(source, output, lock=LOCK):
     (output / "reference.json").write_text(json.dumps(reference, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     shutil.copyfile(source / "LICENSE.md", output / "LICENSE.md")
     provenance = {"source_lock": lock, "composite_sha256": digest, "source_frames": at,
-        "preprocessing": "Unchanged source PCM concatenation with two 500-ms zero gaps, canonical mono PCM16 44.1-kHz WAV. App performs its own normal resampling.",
+        "preprocessing": f"Unchanged source PCM concatenation with {len(selected) - 1} 500-ms zero gaps, canonical mono PCM16 44.1-kHz WAV. App performs its own normal resampling.",
         "license_note": "Dataset and derivative references/hypotheses require attached license and Section 2 restrictions; application/model licensing is separate."}
     (output / "provenance.json").write_text(json.dumps(provenance, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return reference

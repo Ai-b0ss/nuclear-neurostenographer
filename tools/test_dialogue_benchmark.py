@@ -57,6 +57,8 @@ class BenchmarkTests(unittest.TestCase):
             self.assertEqual((root / "output/aba.wav").read_bytes(), expected.getvalue())
             self.assertEqual([s["text"] for s in ref["text_segments"]], ["0", "1", "2"])
             self.assertNotIn("diarization", ref)
+            self.assertIn("2 500-ms zero gaps",
+                json.loads((root / "output/provenance.json").read_text(encoding="utf-8"))["preprocessing"])
             self.assertEqual(ref["audio_duration_ms"], 1300)
             for path in ["test.csv", "LICENSE.md", "clip0.wav"]:
                 original = (source / path).read_bytes()

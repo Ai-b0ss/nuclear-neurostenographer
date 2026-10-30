@@ -1,6 +1,6 @@
 # Progress — 2026-10-30
 
-## Disjoint acted holdout preparation — result not yet measured
+## Disjoint acted holdout — first measured production-only Android result
 
 - Pinned four new neutral Russian acted source clips, M-D-M-D, from the same
   dataset, disjoint from the three clips used to tune threshold 0.8.
@@ -13,8 +13,19 @@
   Audio is installed in the test APK without reference speaker/text labels.
 - Host JNI evidence strings now report the ACTUAL 0.8 threshold rather than
   mislabeled historical 0.9. Historical archive reports remain untouched.
-  Code change itself is not a new accuracy measurement; independent Android
-  execution and scoring are pending.
+  The first independent-from-development-clips Android x86_64/API 33 run
+  41127309893 at 423eed6 **PASS**: WER 2/92 = 2.17%, cpWER 2/92 =
+  2.17%, 4/4 M-D-M-D speaker recurrence and all six same/different
+  source-clip pair checks PASS. Inference 16,596 ms on 42,237 ms recording
+  (emulator RTF 0.393). DER NOT_SCORED, as no boundary reference exists.
+  Independently downloaded evidence was checked against both JSON hashes,
+  invocation ID, locked audio hash, no sweep, and JUnit (1 test, 0 failures).
+  Run: https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41127309893
+  Saved machine-readable result: docs/evidence/holdout-first-run-20261030.json.
+  A separate previous development sweep 41127281473 FAILED on
+  unconfirmed Binder death of the previous worker, known intermittent
+  lifecycle risk; do not relabel this old failure as a PASS. The production-only
+  holdout used one worker request and completed normally.
 - Same acted dataset, no independent natural conversational corpus, no
   annotated speech boundaries (DER remains NOT_SCORED). Phone ARM64, peak RAM,
   overlap quality and redistribution reviews remain open. NOT_READY;

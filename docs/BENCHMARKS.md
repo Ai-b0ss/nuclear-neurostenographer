@@ -159,3 +159,30 @@ Scope: previously unused acted same-dataset clips, NOT natural dialogue
 or a representative corpus, no proof of training disjointness or physical
 ARM64 performance. A failed holdout must remain recorded, not used for
 post-hoc production threshold selection.
+
+## Measured disjoint acted four-clip evaluation — 2026-10-30
+
+Run 41127309893, production 0.8 only, Android x86_64 emulator API 33,
+code 423eed6. SHA-256 pinned original M-D-M-D recording
+52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070
+(42,237 ms), same external acted dataset but source clips disjoint from the
+three used in threshold tuning. The run passes its single device instrumentation
+test. Downloaded hypothesis/reference and invocation IDs were independently
+verified against exact recorded input hashes. APK test media contains no
+reference text/speaker IDs; output archive contains no raw WAV.
+
+- WER: 2 substitutions out of 92 scripted reference words = 2.17%.
+- cpWER: same two errors (2.17%) after global D/M to Speaker 2/1 matching.
+- Speaker recurrence: M-D-M-D = Speaker 1-2-1-2; all six source-clip pair
+  relations match, status PASS. This is a clip-recurrence probe, NOT DER.
+- DER: NOT_SCORED (no independently marked speech boundaries).
+- Total measured inference: 16,596 ms; RTF 0.393 on emulated x86_64, not
+  a physical Android smartphone performance estimate.
+
+A separate development sweep on the same commit (41127281473) failed at
+a second worker call with the known safety guard that refuses reuse before
+the preceding service's Binder death is confirmed. Its failure is real and
+remains tracked separately. These results do not clear real conversations,
+overlap, device memory, or distribution licenses. See machine-readable summary
+in docs/evidence/holdout-first-run-20261030.json and the CI artifact:
+https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41127309893
