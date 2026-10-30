@@ -4,6 +4,19 @@
 
 ### Recovery call 9 — collect pinned ASIO nested notices
 
+- Code **f9af8ad** [standard CI 41061172426](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172426)
+  PASS: 2 inventory methods on Linux plus build/lint, 16 core groups and packaged
+  runtime identity. Both methods also PASS locally on Windows, including exact
+  persisted-byte digest. Notice Git blobs match the verified archive members;
+  274-file source-only guard PASS. Native 41061172511 and automatic Android
+  repeat 41061172278 remain in progress at the recorded snapshot, not PASS.
+- Updated inventory from an actual new native build is still pending. Default AAR
+  remains unchanged and no candidate is promoted. Prior 17+11 Android evidence,
+  Russian WER/cpWER/recurrence failure and all remaining gates are unchanged.
+  Exact separate statuses: round11-recovery9-status.json / build CI JSON.
+  Obsolete own native/Android runs at ce06c06 were cancelled after the byte fix;
+  they are not counted as successful validations. Backup and old evidence retained.
+
 - Added actual output-byte hash regression and reproduced a Windows failure:
   text-mode newline translation changed runtime-notices.txt after hashing. Write
   exact UTF-8 bytes instead; recorded hash now matches the persisted file.
