@@ -1,6 +1,21 @@
-# Progress — 2026-10-30, round 1
+# Progress — 2026-10-30
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
+
+### Recovery call 7 — front-page claims match measured limits
+
+- Rechecked clean a6d9bfa, full instructions/handoff, draft PR #6, deferred issue
+  #7 and actual completed code CI. No new runtime defect or lost work found.
+  Code 6afd8d1 remains verified by Android 41058719146 PASS 17+11 and build
+  41058718972 PASS. Interrupted backup, logs and prior snapshots remain intact.
+- Corrected both README introductions: the separate Chinese-fixture recurrence
+  success must not imply Russian speaker quality. The independent tiny acted
+  Russian D/M/D failure and WER/cpWER scope now appear upfront. Clarified that
+  Kotlin fusion preserves supplied model labels rather than fixing clustering.
+  CI badge now names the WIP branch instead of silently reporting main's UI base.
+- Documentation-only change; no model calls, parameter tuning, new models or
+  additional Android coverage claimed. Physical-device and distribution gates
+  remain open; APK publication remains disabled and verdict stays NOT_READY.
 
 ### Recovery call 6 — validation under optimized Python
 

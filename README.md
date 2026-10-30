@@ -1,10 +1,10 @@
 # Nuclear Neurostenographer
 
-[![Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml)
+[![WIP branch Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg?branch=codex%2Fovernight-20261030-wip)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml?query=branch%3Acodex%2Fovernight-20261030-wip)
 
 **Nuclear IT Hack (MEPhI, November 2026)**. Offline Android application for transcribing recorded conversations with speaker attribution and timestamps.
 
-Status: **experimental real offline ASR and diarization**. GitHub-hosted Android x86_64/API 33 execution verifies Russian GigaAM v3 recognition, repeated output, silence, real exports, global A-B-A voice recurrence and worker success/cancellation/crash recovery. A public known-mixture input crashes the original native worker; a pinned no-TTS candidate with a defensive clustering patch completes that input with unknown identities. It does **not** establish overlap recognition or separation. Physical ARM64 and independent Russian dialogue accuracy remain unverified. See [diarization details](docs/DIARIZATION.md) and [exact test runs and failures](docs/PROGRESS.md).
+Status: **experimental, NOT_READY**. Real offline Russian GigaAM v3 recognition and the import/export flow execute on Android x86_64/API 33. **Speaker attribution fails the independent three-utterance acted Russian probe:** D/M/D collapses into Speaker 1 (WER 2.44%, cpWER 60.98%, A-B-A FAIL; DER has no independent reference). The separate upstream Chinese-fixture recurrence check passes; it does not establish Russian dialogue quality. Worker recovery and the no-TTS bounds patch are tested, but overlap recognition/separation remains unproven. Physical ARM64, spoken microphone dialogue and representative accuracy remain open. See [probe scope](docs/RUSSIAN_EVALUATION.md), [diarization details](docs/DIARIZATION.md) and [exact runs](docs/PROGRESS.md).
 
 ### Architecture
 - User WAV imports are validated bounded local snapshots; failed replacement keeps the previous input/result. Export captures one inference document, so a returning document picker cannot export a later input by mistake. UI/TXT/SRT show exact chunk milliseconds; JSON also retains duration, provenance and warnings. Word alignment is not implemented.
