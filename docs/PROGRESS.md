@@ -14,8 +14,15 @@
   clip-level recurrence for each threshold. This is NOT DER or representative
   Russian-dialogue accuracy and does not automatically select a new threshold.
 - Local Python authored probes: **7 passed**; Python bytecode compilation and
-  git diff --check passed. **Android instrumentation and native model sweep are
-  pending CI**; no threshold is considered superior until genuinely measured.
+  git diff --check passed. Android build 41067160535 and pinned host regression
+  41067160539 **PASS**. Actual Android Russian benchmark 41067160626 **PASS**:
+  0.5, 0.65 and 0.8 each yield two speakers, correct clip-level D/M/D recurrence,
+  zero unknown turns; baseline 0.9 collapses all three to one speaker.
+  This is one tiny acted fixture, not a general accuracy guarantee.
+- Added independent Android regression checks on public four-speaker Chinese
+  recurrence and clean one-speaker Russian ASR fixture using candidate 0.8,
+  plus invalid-threshold guards. These NEW checks await their own CI run.
+  Production still uses 0.9 until compatibility is proven.
 - This experiment specifically targets the known baseline speaker collapse
   (WER 2.44%, cpWER 60.98%, D/M/D => one cluster on three acted clips).
   These prior metrics are not changed by this source-only experiment.

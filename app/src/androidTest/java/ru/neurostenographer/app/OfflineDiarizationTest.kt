@@ -14,6 +14,20 @@ import java.io.File
 
 class OfflineDiarizationTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
+    @Test fun experimentalThresholdRejectsInvalidValuesBeforeNativeWork(): Unit = runBlocking {
+        val context = instrumentation.targetContext
+        val samples = PcmAudio(FloatArray(1600), 16000)
+        val nonModel = File(context.cacheDir, "must-not-load-native")
+        for (threshold in floatArrayOf(Float.NaN, Float.POSITIVE_INFINITY, -1f, 0.1f, 1.0f)) {
+            try {
+                IsolatedDiarization.process(context, samples, nonModel,
+                    clusteringThreshold = threshold)
+                fail("Invalid threshold accepted: $threshold")
+            } catch (_: IllegalArgumentException) { }
+        }
+        assertTrue(OfflineDiarization.validThreshold(0.8f))
+        assertTrue(OfflineDiarization.validThreshold(OfflineDiarization.THRESHOLD))
+    }
     @Test fun finalUnbindStopsNativeWorkerAfterSuccessAndCancellation(): Unit = runBlocking {
         val context = instrumentation.targetContext
         File(context.filesDir, "worker-lifecycle-evidence.json").delete()
@@ -111,6 +125,14 @@ class OfflineDiarizationTest {
             previous = result.turns
             Log.i("DiarizationEvidence", "public_zh run=$it load_ms=${result.loadMs} process_ms=${result.processMs} turns=${result.turns}")
         }
+        // Before promoting a Russian-dialogue threshold, protect the existing
+        // independent public four-speaker A-B-A recurrence baseline.
+        val candidate = OfflineDiarization.process(audio, model, clusteringThreshold = 0.8f)
+        fun candidateAt(ms: Long) = candidate.turns.filter { ms in it.startMs until it.endMs }
+            .single().speakerId
+        assertEquals(candidateAt(2000), candidateAt(23000))
+        assertNotEquals(candidateAt(2000), candidateAt(8000))
+        assertTrue(candidate.turns.all { it.endMs <= audio.durationMs })
         assertTrue(OfflineDiarization.process(PcmAudio(FloatArray(32000), 16000), model).turns.isEmpty())
         val short = OfflineDiarization.process(PcmAudio(audio.samples.copyOfRange(16000, 6 * 16000), 16000), model)
         assertTrue(short.turns.isNotEmpty())
@@ -128,6 +150,10 @@ class OfflineDiarizationTest {
         val speakerModel = instrumentation.context.assets.open("diarization.zip").use { speakers.install(it) }
         val audio = instrumentation.context.assets.open("example.wav").use { PcmWav.read(it) }
         val diarization = OfflineDiarization.process(audio, speakerModel)
+        val candidate = OfflineDiarization.process(audio, speakerModel, clusteringThreshold = 0.8f)
+        assertEquals("Lower threshold must not split one clean Russian voice",
+            1, candidate.turns.filter { it.attributionEligible }
+                .map { it.speakerId }.distinct().size)
         val result = OfflineAsr.transcribe(audio, asrModel, turns = diarization.turns, speechWindows = diarization.windows)
         assertTrue(result.segments.any { it.speakerId != null && it.attributionReliable })
         assertTrue(result.segments.any { Regex("[а-яА-Я]{3,}").containsMatchIn(it.text) })
