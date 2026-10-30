@@ -81,7 +81,7 @@ def main():
     # These are generator-owned outputs. Failed provisioning must not leave a
     # previous favorable hypothesis/score/reference available as current evidence.
     for directory in [args.output, assets]:
-        for name in ["aba.wav", "reference.json", "provenance.json", "hypothesis.json", "scores.json", "LICENSE.md"]:
+        for name in ["aba.wav", "reference.json", "provenance.json", "hypothesis.json", "scores.json", "invocation.json", "LICENSE.md"]:
             (directory / name).unlink(missing_ok=True)
     source = ROOT / ".local/dialogs-ru-source"
     base = f"https://huggingface.co/datasets/{LOCK['repository']}/resolve/{LOCK['revision']}/"

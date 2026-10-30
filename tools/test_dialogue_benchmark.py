@@ -110,6 +110,28 @@ class BenchmarkTests(unittest.TestCase):
             self.assertEqual(result.returncode, 1)
             self.assertEqual(json.loads((root / "scores.json").read_text())["status"], "ERROR")
 
+    def test_cli_rejects_stale_device_output_even_when_audio_and_text_match(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+            root = Path(tmp)
+            reference = {"schema_version": 1, "recording_id": "authored", "annotation_source": "authored",
+                "license": "authored", "kind": "authored", "audio_sha256": "0" * 64,
+                "audio_duration_ms": 1000, "text_segments": [
+                    {"start_ms": 0, "end_ms": 1000, "speaker_id": "A", "text": "слово"}]}
+            hypothesis = {"audio_sha256": "0" * 64, "audio_duration_ms": 1000,
+                "segments": reference["text_segments"], "diarization": []}
+            (root / "reference.json").write_text(json.dumps(reference))
+            (root / "invocation.json").write_text(json.dumps({"id": "a" * 32}))
+            for nonce, expected in [(None, 1), ("b" * 32, 1), ("a" * 32, 0)]:
+                hypothesis["benchmark_invocation"] = nonce
+                (root / "hypothesis.json").write_text(json.dumps(hypothesis))
+                result = subprocess.run([sys.executable, ROOT / "tools/evaluate_dialogue_benchmark.py", root], capture_output=True)
+                self.assertEqual(result.returncode, expected)
+                score = json.loads((root / "scores.json").read_text())
+                if expected:
+                    self.assertEqual(score["status"], "ERROR")
+                else:
+                    self.assertEqual(score["wer"]["rate"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,6 +10,27 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class UiSelectorTests(unittest.TestCase):
+    def test_empty_picker_bounds_require_verified_keyboard_focus(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+            ui = AndroidUi(Path(tmp))
+            field = ET.fromstring('<node text="transcript.txt" resource-id="android:id/title" class="android.widget.EditText" bounds="[0,0][0,0]" focusable="true" focused="false" enabled="true"/>')
+            focused = ET.fromstring(ET.tostring(field))
+            focused.set("focused", "true")
+            commands = []
+            trees = iter([field, focused])
+            ui.tree = lambda: next(trees)
+            ui.shell = lambda *args: commands.append(args)
+            ui.tap_node(field)
+            self.assertEqual(commands, [("input", "keyevent", "KEYCODE_TAB")])
+            field.set("class", "android.widget.Button")
+            field.set("focused", "true")
+            ui.tree = lambda: field
+            ui.tap_node(field)
+            self.assertEqual(commands[-1], ("input", "keyevent", "KEYCODE_ENTER"))
+            field.set("enabled", "false")
+            with self.assertRaises(ValueError):
+                ui.tap_node(field)
+
     def test_selector_filters_are_conjunctive_and_ambiguity_fails(self):
         node = ET.fromstring('<node text="SAVE" class="android.widget.Button" resource-id="picker:id/save"/>')
         self.assertTrue(AndroidUi.matches(node, label="Save", exact=True, class_name="android.widget.Button"))

@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 from score_transcript import evaluate, validate_segments
 
@@ -41,7 +42,14 @@ def main():
     output = args.directory / "scores.json"
     try:
         rbytes, hbytes = [(args.directory / n).read_bytes() for n in ["reference.json", "hypothesis.json"]]
-        report = assess(json.loads(rbytes), json.loads(hbytes))
+        invocation = json.loads((args.directory / "invocation.json").read_bytes())["id"]
+        if not isinstance(invocation, str) or not re.fullmatch(r"[0-9a-f]{32}", invocation):
+            raise ValueError("Invalid invocation identity")
+        hypothesis = json.loads(hbytes)
+        if not isinstance(hypothesis, dict) or hypothesis.get("benchmark_invocation") != invocation:
+            raise ValueError("Device output is missing or belongs to a different invocation")
+        report = assess(json.loads(rbytes), hypothesis)
+        report["benchmark_invocation"] = invocation
         report["reference_sha256"] = hashlib.sha256(rbytes).hexdigest()
         report["hypothesis_sha256"] = hashlib.sha256(hbytes).hexdigest()
         code = 0 if report["wer"]["status"] == "SCORED" else 1

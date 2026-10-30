@@ -20,6 +20,9 @@ class RussianDialogueBenchmarkTest {
     @Test fun publicActedComposedRussianDialogue(): Unit = runBlocking {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
+        val invocation = requireNotNull(InstrumentationRegistry.getArguments().getString("benchmarkInvocation"))
+        require(Regex("[0-9a-f]{32}").matches(invocation))
+        assertEquals(setOf("aba.wav", "LICENSE.md"), instrumentation.context.assets.list("dialogs")!!.toSet())
         val evidence = File(context.filesDir, "dialogue-benchmark-hypothesis.json")
         evidence.delete()
         assertEquals(PackageManager.PERMISSION_DENIED, context.checkSelfPermission(Manifest.permission.INTERNET))
@@ -50,6 +53,7 @@ class RussianDialogueBenchmarkTest {
         }
         hypothesis.put("audio_sha256", MessageDigest.getInstance("SHA-256").digest(bytes)
             .joinToString("") { "%02x".format(it) })
+            .put("benchmark_invocation", invocation)
             .put("diarization", turns).put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256)
             .put("sdk_int", Build.VERSION.SDK_INT).put("abis", JSONArray(Build.SUPPORTED_ABIS.toList()))
             .put("device_model", Build.MODEL).put("total_inference_ms", elapsed)

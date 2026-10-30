@@ -65,6 +65,10 @@ ordinary UI QA. It receives only audio/models; reference text/speaker labels are
 not supplied to either inference engine. Scoring occurs after inference on the
 runner. Fixed outputs and stale score files are removed before a new generation;
 malformed/missing hypotheses replace favorable scores with explicit ERROR.
+Every new invocation passes a fresh ID to instrumentation and requires the same
+ID in device output before scoring, preventing reuse of a prior valid result
+after failed installation or cleanup. The test APK asset list also excludes
+external reference text and speaker labels.
 
 Artifacts contain the reference/provenance, actual hypothesis, scoring result,
 test report and full dataset license, never audio/models. Read the report's scope

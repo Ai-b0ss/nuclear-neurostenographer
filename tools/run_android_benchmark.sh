@@ -3,6 +3,16 @@
 set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 OUTPUT=.local/dialogue-benchmark
+# Bind device output to this invocation even if install/pm-clear fails and a
+# previous app installation survives. A stale valid JSON must not be rescored.
+INVOCATION=$(python3 - <<'PY'
+import json, uuid
+from pathlib import Path
+invocation = uuid.uuid4().hex
+Path('.local/dialogue-benchmark/invocation.json').write_text(json.dumps({'id': invocation}) + '\n')
+print(invocation)
+PY
+)
 collect() {
   status=$?
   trap - EXIT
@@ -20,4 +30,4 @@ trap collect EXIT
 adb shell svc wifi disable
 adb shell svc data disable
 adb shell pm clear ru.neurostenographer.app >/dev/null || true
-gradle --no-daemon -PrussianBenchmark=true -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.class=ru.neurostenographer.app.RussianDialogueBenchmarkTest :app:connectedDebugAndroidTest
+gradle --no-daemon -PrussianBenchmark=true -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.benchmarkInvocation="$INVOCATION" -Pandroid.testInstrumentationRunnerArguments.class=ru.neurostenographer.app.RussianDialogueBenchmarkTest :app:connectedDebugAndroidTest

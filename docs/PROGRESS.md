@@ -2,6 +2,17 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+- Picker run 41048853466 passes all 17 instrumentation tests but stops UI QA
+  after seven checks: API33 DocumentsUI reports [0,0][0,0] for visible filename
+  and SAVE controls. Screenshot and XML reviewed; no guessed coordinate used.
+  Added bounded TAB navigation with matching focused node verification, and an
+  authored negative/control test. This remains pending real CI execution.
+- Benchmark output now carries a fresh per-invocation identity passed through
+  instrumentation and checked before scoring. Missing/stale IDs must overwrite
+  favorable scores with ERROR, even when the audio hash/text match; control and
+  negatives PASS (benchmark methods now 5). APK asset assertion forbids reference
+  text/IDs. No previous benchmark measurement is reclassified by this change.
+
 - Actual external acted-probe Android run **41048642815 PASS execution** at
   `ab46587`: one instrumentation test, WER 1/41 (2.44%), cpWER 25/41 (60.98%),
   **A-B-A FAIL** (all D/M/D clips merged into Speaker 1). DER NOT_SCORED, no

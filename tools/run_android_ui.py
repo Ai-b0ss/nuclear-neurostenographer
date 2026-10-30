@@ -101,7 +101,24 @@ class AndroidUi:
         raise AssertionError(f"UI control/text not found: {label}")
 
     def tap_node(self, node):
-        x1, y1, x2, y2 = self.bounds(node)
+        try:
+            x1, y1, x2, y2 = self.bounds(node)
+        except ValueError:
+            # API33 DocumentsUI can expose visible save-bar controls with empty
+            # bounds. Use verified keyboard focus, never screenshot coordinates.
+            if node.get("focusable") != "true" or node.get("enabled") != "true":
+                raise
+            for _ in range(24):
+                root = self.tree()
+                focused = [n for n in root.iter("node") if n.get("focused") == "true"
+                    and self.matches(n, label=node.get("text"), exact=True,
+                        resource_suffix=node.get("resource-id"), class_name=node.get("class"))]
+                if len(focused) == 1:
+                    if node.get("class") != "android.widget.EditText":
+                        self.shell("input", "keyevent", "KEYCODE_ENTER")
+                    return
+                self.shell("input", "keyevent", "KEYCODE_TAB")
+            raise AssertionError("Visible control has no bounds and keyboard focus could not be verified")
         self.shell("input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
 
     def tap(self, label=None, resource_suffix=None, description=None, exact=False):
