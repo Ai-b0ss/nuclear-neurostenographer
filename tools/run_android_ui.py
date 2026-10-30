@@ -163,6 +163,10 @@ class AndroidUi:
     def save_document(self, format, rotate=False):
         self.tap(label=format.upper(), exact=True)
         self.downloads()
+        if rotate:
+            self.rotate_picker(1)
+            self.screenshot("picker-rotated", landscape=True)
+            self.rotate_picker(0)
         root, field = self.find(class_name="android.widget.EditText")
         if field is None:
             raise AssertionError("Document filename field missing")
@@ -174,18 +178,31 @@ class AndroidUi:
         self.shell("input", "keyevent", *(["KEYCODE_DEL"] * len(current)))
         name = "neuro-qa-ui." + format
         self.shell("input", "text", name)
+        _, renamed = self.find(label=name, class_name="android.widget.EditText", exact=True)
+        if renamed is None:
+            raise AssertionError("Document filename edit was not retained")
         keyboard = self.shell("dumpsys", "input_method")
         if re.search(r"mInputShown\s*[=:]\s*true", keyboard):
             self.shell("input", "keyevent", "KEYCODE_BACK")
-        if rotate:
-            self.shell("settings", "put", "system", "user_rotation", "1")
-            self.screenshot("picker-rotated", landscape=True)
-            self.shell("settings", "put", "system", "user_rotation", "0")
         self.tap(label="Save", exact=True)
         self.visible(f"Экспорт {format} сохранён")
         body = self.command("exec-out", "cat", "/sdcard/Download/" + name)
+        if not body or body.startswith((b"cat:", b"error:", b"run-as:")):
+            raise AssertionError(f"Provider-saved {format} file missing or unreadable: {body[:160]!r}")
         (self.directory / name).write_bytes(body)
         return body
+
+    def rotate_picker(self, rotation):
+        self.shell("settings", "put", "system", "user_rotation", str(rotation))
+        deadline, stable = time.monotonic() + 20, 0
+        while time.monotonic() < deadline:
+            root = self.tree()
+            ready = root.get("rotation") == str(rotation) and any(
+                n.get("class") == "android.widget.EditText" for n in root.iter("node"))
+            stable = stable + 1 if ready else 0
+            if stable >= 2:
+                return
+        raise AssertionError("Document picker rotation did not settle")
 
 
 def verify_saved_exports(exports, expected_runtime, directory):

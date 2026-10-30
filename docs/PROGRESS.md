@@ -2,6 +2,20 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+### Recovery call 4
+
+- Preserved interrupted HEAD a3ff0dc, untracked exact-byte evidence and
+  .gitattributes; source backup .codex-local/round11-interrupted-sources.zip remains.
+  Re-read AGENTS/handoff, PR #6 and issue #7; no new models or main changes.
+- Run 41050157496: 17 instrumentation PASS, whole workflow FAIL after seven UI
+  checks. Actual retained JSON artifact is 66-byte `cat: ... No such file`, not
+  an empty UI dump. Screenshot shows edited JSON filename before rotation;
+  subsequent tree restores transcript.json. DocumentsUI recreation reset the
+  filename while QA expected neuro-qa-ui.json. This is not model/diarization PASS.
+- Moved filename editing after two observed stable picker-rotation trees, verify
+  exact edited filename before saving, and reject adb error bytes with explicit
+  provider-read diagnostics. Actual Android retry remains required.
+
 - Added actual-shell collector regression using authored commands: fresh output,
   prior Gradle failure preservation, stale invocation and zero-exit adb error text.
   All four scenarios PASS; benchmark suite now 6 methods, UI 5, collector 5,

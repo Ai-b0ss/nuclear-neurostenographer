@@ -13,6 +13,19 @@ class UiSelectorTests(unittest.TestCase):
     def setUp(self):
         (ROOT / ".local").mkdir(exist_ok=True)
 
+    def test_picker_rotation_waits_for_recreated_tree_before_filename_edit(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+            ui = AndroidUi(Path(tmp))
+            trees = iter([ET.fromstring('<hierarchy rotation="0"/>'),
+                ET.fromstring('<hierarchy rotation="1"/>'),
+                ET.fromstring('<hierarchy rotation="1"><node class="android.widget.EditText"/></hierarchy>'),
+                ET.fromstring('<hierarchy rotation="1"><node class="android.widget.EditText"/></hierarchy>')])
+            ui.tree = lambda: next(trees)
+            commands = []
+            ui.shell = lambda *args: commands.append(args)
+            ui.rotate_picker(1)
+            self.assertEqual(commands, [("settings", "put", "system", "user_rotation", "1")])
+
     def test_empty_picker_bounds_require_verified_keyboard_focus(self):
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             ui = AndroidUi(Path(tmp))
