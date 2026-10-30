@@ -37,6 +37,8 @@ jobs:
           python3 tools/test_android_workflow.py
           python3 tools/test_runtime_identity.py
           python3 tools/test_android_ui.py
+          python3 tools/test_android_evidence.py
+          python3 tools/verify_android_evidence.py --ui-report docs/evidence/round11-ui-flow.json --apk-report docs/evidence/round11-apk-inspection.json --directory docs/evidence --prefix round11-provider-export
           python3 tools/provision_asr.py
       - name: Test core and assemble debug APK
         run: gradle --no-daemon :core:runCoreTests :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest

@@ -2,6 +2,19 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+### Recovery call 5 — durable archived-evidence verification
+
+- Rechecked actual clean HEAD 594ebb0, preserved backup/logs, full AGENTS/handoff,
+  draft PR #6 and deferred issue #7. The old picker failure is already fixed:
+  run 41056348245 PASS 17+11; no repetition of the old failure as current status.
+- Added lightweight archived-export verification to standard CI. It checks all
+  three provider-file hashes/byte counts, cross-format millisecond timelines and
+  JSON runtime against the recorded APK native/DEX identity report. It explicitly
+  labels its result archived integrity, never fresh Android execution or accuracy.
+  Actual retained files are the control; corrupt payloads, mismatched runtime,
+  failed packaging identity and altered SRT timeline with recomputed hash are
+  negative cases. No audio/models downloaded, baseline or thresholds changed.
+
 ### Completed verification after recovery call 4
 
 - Code **12b81bb**: [Android 41056348245](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41056348245)
