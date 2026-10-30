@@ -43,9 +43,15 @@ def inspect(apk, aapt, runtime=None):
                     for lib in ["libonnxruntime", "libsherpa-onnx-jni", "libandroidx.graphics.path"]}
         assert native == expected, native
         alignment = {}
+        machines = {}
         for name in sorted(native):
             b = z.read(name)
             assert b[:6] == b"\x7fELF\x02\x01", name
+            machine = struct.unpack_from("<H", b, 18)[0]
+            expected_machine = {"arm64-v8a": 183, "x86_64": 62}[name.split("/")[1]]
+            if machine != expected_machine:
+                raise ValueError(f"ELF machine does not match ABI: {name} ({machine})")
+            machines[name] = machine
             offset = struct.unpack_from("<Q", b, 32)[0]
             size, count = struct.unpack_from("<HH", b, 54)
             loads = [struct.unpack_from("<IIQQQQQQ", b, offset + i * size)[-1]
@@ -58,6 +64,7 @@ def inspect(apk, aapt, runtime=None):
     return {"apk_sha256": hashlib.sha256(apk.read_bytes()).hexdigest(), "apk_bytes": apk.stat().st_size,
             "runtime_identity": identity,
             "permissions": permissions.splitlines(), "native_load_alignment": alignment,
+            "native_elf_machine": machines,
             "diarization_worker": {"process": ":diarization", "exported": False, "runtime_test": "NOT_RUN"},
             "android_inference": "NOT_RUN_BY_THIS_CHECK", "distribution_cleared": False}
 

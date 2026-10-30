@@ -1,5 +1,22 @@
 # Progress — 2026-10-30
 
+## Late continuation 13 — verify ELF CPU identity, not only ABI paths
+
+- Continued clean 691697e. Preserved threshold 0.8, peer worktree, recovered
+  backup/evidence and draft PR #6. Previous native 41119047210 and Android repeat
+  41119047036 were still IN_PROGRESS at entry; neither is relabeled as PASS.
+- Reproduced an APK inspection gap with six authored corruptions: CPU machine
+  headers exchanged between ARM64 and x86_64 were accepted under the original
+  directory names, despite matching ELF class and alignment. These are minimal
+  numeric test headers, not loadable JNI or actual device failures.
+- APK inspection now requires ELF e_machine 183 for arm64-v8a and 62 for x86_64
+  for all six packaged libraries, and records each actual machine value. New
+  six-corruption regression and existing runtime-byte/digest tests PASS: 2 methods.
+  Inventory regression remains 3 PASS; five recovered Git blobs still exactly
+  match the preserved ZIP. Runtime bytes, models and clustering are unchanged.
+  Actual APK cloud validation follows. Physical ARM64 execution, independent
+  holdout/DER, overlap quality and distribution review remain required.
+
 ## Late continuation 12 — require dependency evidence for both native ABIs
 
 - Continued clean ac59f21 on WIP; prior recovered files are already committed.
