@@ -36,6 +36,7 @@ jobs:
           python3 tools/test_score_transcript.py
           python3 tools/test_android_workflow.py
           python3 tools/test_runtime_identity.py
+          python3 tools/test_android_ui.py
           python3 tools/provision_asr.py
       - name: Test core and assemble debug APK
         run: gradle --no-daemon :core:runCoreTests :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest

@@ -14,7 +14,7 @@ BASH = "C:/Program Files/Git/bin/bash.exe" if os.name == "nt" else shutil.which(
 
 @unittest.skipUnless(BASH and Path(BASH).exists(), "Bash unavailable")
 class CollectorTests(unittest.TestCase):
-    def run_collector(self, gradle_code, adb_fail=False, false_success=False):
+    def run_collector(self, gradle_code, adb_fail=False, false_success=False, ui_code=0):
         (ROOT / ".local").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)
@@ -42,7 +42,13 @@ adb() {
   return 0
 }
 gradle() { echo FAKE_GRADLE; return "$FAKE_GRADLE_EXIT"; }
-python3() { "$TEST_PYTHON" "$@"; }
+python3() {
+  if [[ "$*" == *"run_android_ui.py"* ]]; then
+    echo FAKE_UI_FLOW_NOT_ANDROID
+    return "$FAKE_UI_EXIT"
+  fi
+  "$TEST_PYTHON" "$@"
+}
 ''', encoding="utf-8", newline="\n")
             # A stale collector-owned output must disappear when retrieval fails.
             (root / "device-evidence").mkdir()
@@ -54,10 +60,11 @@ python3() { "$TEST_PYTHON" "$@"; }
             (root / "device-evidence/recording-pipeline.json").write_text('{"old_pipeline":true}')
             env = dict(os.environ, BASH_ENV=startup.as_posix(), FAKE_GRADLE_EXIT=str(gradle_code),
                        FAKE_ADB_EXIT="9" if adb_fail else "0", FAKE_ADB_FALSE_SUCCESS="1" if false_success else "0",
-                       TEST_PYTHON=Path(sys.executable).as_posix())
+                       TEST_PYTHON=Path(sys.executable).as_posix(), FAKE_UI_EXIT=str(ui_code))
             completed = subprocess.run([BASH, (ROOT / "tools/run_android_inference.sh").as_posix()],
                                        cwd=root, env=env, capture_output=True, text=True)
-            self.assertEqual(completed.returncode, 9 if adb_fail else 1 if false_success else gradle_code, completed.stderr)
+            expected = 9 if adb_fail else gradle_code or ui_code or (1 if false_success else 0)
+            self.assertEqual(completed.returncode, expected, completed.stderr)
             self.assertEqual(json.loads((root / "device-evidence/asr-0.json").read_text())["fixture"], "FAKE_COLLECTOR_UNIT_TEST")
             complete = not adb_fail and gradle_code == 0 and not false_success
             for name in ["asr-1", "codec-import", "recording", "worker-lifecycle", "mixture", "recording-pipeline"]:
@@ -81,6 +88,9 @@ python3() { "$TEST_PYTHON" "$@"; }
 
     def test_zero_exit_adb_error_is_not_json_evidence_or_green_run(self):
         self.run_collector(0, false_success=True)
+
+    def test_ui_failure_preserved_with_completed_instrumentation_collection(self):
+        self.run_collector(0, ui_code=5)
 
 
 if __name__ == "__main__":

@@ -24,6 +24,17 @@
   from both ABI builds. Missing notices and toolchain/stdlib review stay visible;
   inventory is not blanket legal clearance. Inventory corruption/TTS negatives
   PASS locally. Cloud build/emulator/rebuilt-native verification follows.
+- Default no-TTS build/core/lint/APK identity verification PASS in cloud:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044063915 .
+  This checks the actual packaged four native libraries and BuildConfig digest,
+  not merely successful AAR selection. Emulator/native rerun still in progress.
+- Added tree-driven disposable-emulator UI flow: real permission denial/grant,
+  actual landscape capture plus continued recording, HOME auto-stop, recorded
+  transcription/export controls, UI cleanup and permission-revocation restart.
+  Uses the android-emulator-qa skill's UI-tree coordinate rule. Screenshots/XML
+  and explicit failure metadata are retained; no private/microphone audio.
+  Selector negatives 2 PASS and collector tests 5 PASS locally; real UI flow
+  remains pending until cloud execution. A UI failure must fail the workflow.
 
 ## Continuation 1 / round 9 — GitHub access restored
 - Supervisor preserved rounds 1–8 in WIP commit `8d9c1e7` on

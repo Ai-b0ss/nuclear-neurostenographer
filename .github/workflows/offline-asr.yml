@@ -46,6 +46,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends ffmpeg
           python3 tools/test_score_transcript.py
           python3 tools/test_android_workflow.py
+          python3 tools/test_android_ui.py
           runtime_args=()
           if [[ "$UPSTREAM_RUNTIME" == true ]]; then runtime_args+=(--upstream-runtime); fi
           python3 tools/provision_asr.py --test-assets "${runtime_args[@]}"
