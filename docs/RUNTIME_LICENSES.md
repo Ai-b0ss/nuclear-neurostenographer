@@ -99,9 +99,24 @@ The rebuild also inventories downloaded dependency source trees and their
 top-level license/notice files. These are build inputs, not proof that every
 downloaded component is linked. Eigen's tree includes MPL2 and optional GPL/LGPL
 texts; listing those files is not a determination that GPL code is present in
-the selected Dense headers. Missing source-tree notices (including the ASIO root),
-toolchain/stdlib notices, exact header/link scope and redistribution packaging
+the selected Dense headers. The earlier inventory missed ASIO's nested notices
+(resolved below). Toolchain/stdlib notices, exact header/link scope and redistribution packaging
 still require review. APK publication remains disabled; no blanket clearance.
+
+## Recovery call 9: ASIO nested notices
+
+The pinned [upstream CMake input](https://github.com/k2-fsa/sherpa-onnx/blob/5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f/cmake/asio.cmake)
+selects ASIO 1.24.0 archive SHA-256 `cbcaaba0f66722787b1a7c33afe1befb3a012b5af3ad7da7ff0f6b8c9b7a8a5b`.
+That exact archive was verified and inspected without building native code.
+Its [COPYING](licenses/asio-COPYING) and [Boost license](licenses/asio-LICENSE_1_0.txt)
+are under `asio/`, rather than the FetchContent root. The collector now includes
+that explicitly mapped directory, preserving relative paths and existing
+size/binary/containment guards. It does not recursively collect arbitrary files.
+
+Exact archive/member hashes are in `evidence/round11-recovery9-asio-notices.json`.
+This closes the known collection gap, not linked-header/toolchain analysis or
+whole-APK distribution clearance. Old round-10 inventory is retained unchanged;
+a subsequent native build must produce its own updated inventory.
 
 Sources:
 - https://github.com/k2-fsa/sherpa-onnx/blob/5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f/LICENSE

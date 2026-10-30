@@ -8,6 +8,28 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class InventoryTests(unittest.TestCase):
+    def test_nested_asio_notices_preserve_paths_and_size_binary_guards(self):
+        (ROOT / ".local").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+            root = Path(tmp)
+            for build in ["build-android-arm64-v8a", "build-android-x86-64"]:
+                directory = root / "source" / build
+                dep = directory / "_deps/asio-src"
+                (dep / "asio").mkdir(parents=True)
+                (directory / "CMakeCache.txt").write_text("SHERPA_ONNX_ENABLE_TTS:BOOL=OFF\n")
+                (dep / "COPYING").write_text("Authored outer notice")
+                (dep / "asio/COPYING").write_text("Authored nested notice")
+                (dep / "asio/LICENSE_1_0.txt").write_text("Authored test license")
+            report = inventory(root / "source", root / "output")
+            for dependency in report["dependencies"]:
+                self.assertEqual(set(dependency["licenses"]), {"COPYING", "asio/COPYING", "asio/LICENSE_1_0.txt"})
+            nested = root / "source/build-android-arm64-v8a/_deps/asio-src/asio/LICENSE_1_0.txt"
+            for invalid in [b"binary\x00notice", b"x" * (256 * 1024 + 1)]:
+                nested.write_bytes(invalid)
+                with self.assertRaises(ValueError):
+                    inventory(root / "source", root / "rejected")
+                self.assertFalse((root / "rejected").exists())
+
     def test_actual_cache_and_bounded_text_are_required(self):
         (ROOT / ".local").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:

@@ -2,6 +2,21 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+### Recovery call 9 — collect pinned ASIO nested notices
+
+- Continued clean e549ccb, read full instructions/handoff and checked PR #6,
+  deferred issue #7 and current CI. Existing Android 41058719146 remains PASS
+  17+11; runtime and Russian benchmark are unchanged. Prior files/logs preserved.
+- Verified the exact upstream-pinned ASIO archive SHA cbcaaba0...b7a8a5b.
+  Its COPYING and LICENSE_1_0.txt are nested in asio/, explaining the empty
+  round-10 inventory entry. Preserved exact notice bytes and archive/member hashes.
+  This is archive inspection, not a fresh native build or blanket license clearance.
+- Collector now includes only the explicit ASIO subdirectory and preserves
+  relative paths. Nested binary/oversize negatives and same-name root/nested
+  notices PASS; 2 local methods. Standard CI now executes these fast tests.
+  Full native workflow is triggered for actual build-input inventory verification;
+  no runtime promotion, model changes or new accuracy claims are made.
+
 ### Recovery call 7 — front-page claims match measured limits
 
 - Rechecked clean a6d9bfa, full instructions/handoff, draft PR #6, deferred issue
