@@ -22,7 +22,9 @@
 ## Как получить APK
 Откройте [Actions](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions), выберите успешную сборку **Android debug APK and core tests** и скачайте `neurostenographer-debug-apk` из раздела Artifacts. Установите извлечённый `app-debug.apk` на Android 8.0+.
 
-**Старые APK на main содержат только исходную UI-демонстрацию.** Интеграция сохранена и проверяется в `codex/overnight-20261030-wip`, без слияния в main. Публикация нового APK отключена: runtime по умолчанию всё ещё содержит TTS/espeak-ng (GPL). Собран отдельный кандидат без TTS с явным выбором по SHA-256; подробности — [RUNTIME_LICENSES.md](docs/RUNTIME_LICENSES.md).
+**Старые APK на main содержат только исходную UI-демонстрацию.** Интеграция сохранена и проверяется в `codex/overnight-20261030-wip`, без слияния в main. Стандартная сборка теперь выбирает закреплённый runtime без TTS; полный GPL/TTS AAR доступен только как явная регрессия. JSON сохраняет хеш runtime, а CI сверяет упакованные JNI с AAR. Публикация нового APK пока отключена до завершения проверки notices и приёмки устройства; [подробности](docs/RUNTIME_LICENSES.md).
+
+`python tools/provision_asr.py` использует проверенный локальный кеш или существующую авторизацию GitHub CLI для загрузки точного artifact сборки. Недоступность artifact завершает команду ошибкой, без возврата к GPL/TTS. Можно передать уже скачанный файл через `--runtime-file`; его SHA-256 всё равно проверяется.
 
 ## Метрики и память
 

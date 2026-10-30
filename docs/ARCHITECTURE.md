@@ -33,6 +33,13 @@ Imported WAVs are copied into bounded app-private cache snapshots and validated 
 
 `TranscriptFusion.attributeWords` requires genuine timestamps for each recognized word. When ASR only gives timestamps for entire chunks, use `attributeChunks`, which refuses to invent speaker identity if a chunk crosses two speakers. Do not interpolate word times and present them as model evidence.
 
+Round 10 pins the default no-TTS runtime in a shared provisioning/Gradle lock.
+PreBuild verifies actual AAR bytes; generated BuildConfig identifies that AAR in
+JSON document provenance and instrumented inference metadata. APK checks compare
+packaged native bytes against the selected input, so a filename or stale sidecar
+cannot establish runtime identity. Upstream and new native candidates are explicit
+regression/validation modes. This metadata does not establish model accuracy.
+
 ## Engineering constraints
 - Audio samples and diarization must share a time origin. Resampling changes the sample index, not the timeline in seconds.
 - 16 kHz mono float32 is a common runtime input; input MP3/M4A/OGG should be decoded and resampled on device.

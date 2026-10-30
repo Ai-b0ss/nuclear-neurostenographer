@@ -36,6 +36,54 @@
   Selector negatives 2 PASS and collector tests 5 PASS locally; real UI flow
   remains pending until cloud execution. A UI failure must fail the workflow.
 
+### Round 10 completed verification
+
+- Validated code `f1dbfb9`; no main merge. Default no-TTS Android suite and actual
+  UI flow PASS: **17 instrumentation tests / zero skips + 7 UI checks**,
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044710621 .
+- Explicit original-runtime regression also PASS **17 + 7**, preserving known
+  mixture native worker failure as containment-only evidence:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044824154 .
+  Default runtime completes that mixture with four unknown turns and no detected
+  overlap. Neither result is Russian dialogue accuracy or source separation.
+- The seven UI checks execute real permission deny/grant dialogs, confirmed
+  landscape recording, HOME auto-stop/finalization, recorded-input transcript and
+  export controls, cleanup and expected OS process restart after permission
+  revocation. Four default-run screenshots viewed: readable portrait/landscape,
+  recording guards, empty recorded-emulator transcript and cleaned state. This
+  does not drive the document-provider save picker or establish physical-phone UI.
+- Latest build/core/lint/static identity PASS, 16 core groups:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044710275 .
+  All four packaged JNI/ORT byte hashes match the locked AAR; DEX and real JSON
+  inference metadata identify the same SHA-256. No APK/audio/model published.
+- Full independent native rebuild + candidate Android job PASS:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044063814 .
+  Rebuilt AAR is **byte-identical** to run 41039830327, SHA-256 `771fda6a...511c1c8`.
+  This establishes these two same-source/NDK/patch builds, not every toolchain.
+- Local actual-byte Gradle negatives PASS: upstream AAR is rejected by default,
+  accepted only with explicit regression property, then no-TTS is restored and
+  passes. `round10-runtime-gate-negative.json` records exit codes/log hashes.
+- New Python methods PASS: default provisioning 5, APK identity 1 (four native
+  swaps + wrong DEX digest), UI selectors 2, collector 5 (including UI-failure exit
+  preservation), dependency inventory 1, runtime patch 3. Earlier round-9 scorer
+  and codec model results were not relabeled as new measurements.
+- Dependency inventory/notices retained from both real builds. Missing ASIO-root
+  notice, Eigen optional-license/header scope and toolchain/stdlib review remain
+  explicit; downloaded source is not proof of linked code. Default GPL/TTS
+  provisioning blocker is removed; final redistribution clearance is still open.
+
+Machine status and reproducible metadata: `docs/evidence/round10-status.json` and
+`round10-*.json`; source-tree notice text is `round10-runtime-source-notices.txt`.
+PNG/XML UI evidence stays in the linked Actions artifacts, with hashes/dimensions
+committed. No microphone samples are collected or committed. Git main remains
+`2cec9dd`; draft PR #6 remains open, no force push or paid API.
+
+Verdict **NOT READY** pending physical ARM64/airplane mode/spoken dialogue,
+independent licensed Russian annotations/metrics, overlap quality, phone peak
+RAM/thermal/power and final notices/distribution review. Actions artifact expiry
+is a provisioning limitation with an explicit failure; no permanent release URL
+is claimed. Those open gates do not negate the executed Android/UI improvements.
+
 ## Continuation 1 / round 9 — GitHub access restored
 - Supervisor preserved rounds 1–8 in WIP commit `8d9c1e7` on
   `codex/overnight-20261030-wip`. Current authenticated fetch succeeds; main is

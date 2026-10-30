@@ -15,7 +15,7 @@ Status: **experimental real offline ASR and diarization**. GitHub-hosted Android
 ### Build
 GitHub Actions builds the debug APK on GitHub-hosted runners. Android SDK is **not** required on the developer PC for cloud builds. Core tests run on JDK 17.
 
-Before Gradle, run `python tools/provision_asr.py` (Python 3.11+, standard library). This downloads and verifies the pinned AAR into ignored `app/libs/`. Then `gradle :core:runCoreTests :app:assembleDebug` with JDK 17 / Gradle 8.9 / Android SDK 35. No model weights are bundled in the APK.
+Before Gradle, run `python tools/provision_asr.py` (Python 3.11+, standard library). This selects the Android-tested **no-TTS runtime** pinned in `tools/runtime/runtime.properties`, using a verified local cache or existing GitHub CLI authentication for the exact source-build artifact. An unavailable artifact fails explicitly; it never falls back to the full GPL/TTS AAR. An exact local file can be supplied with `--runtime-file`. Then `gradle :core:runCoreTests :app:assembleDebug` with JDK 17 / Gradle 8.9 / Android SDK 35. Gradle rejects unapproved runtime bytes. No model weights are bundled in the APK.
 
 ### Offline model installation and use
 1. On a networked PC run `python tools/provision_asr.py --model`. It creates `.local/gigaam-v3.zip` (~225 MB), using an immutable Hugging Face revision and SHA-256 for every file.
@@ -25,7 +25,7 @@ Before Gradle, run `python tools/provision_asr.py` (Python 3.11+, standard libra
 
 The manual **Real offline Russian ASR (x86_64)** workflow provisions a checksum-verified public upstream WAV and model outside Git, disables emulator Wi-Fi/data and runs genuine JNI inference, repetition/silence/invalid-ZIP tests. Current run status is in PROGRESS.md. No physical ARM64 claim.
 
-**APK publication is currently disabled:** the default full upstream AAR includes GPL TTS dependencies. A no-TTS candidate has now been built for ARM64/x86_64 and exercised on the emulator; selection is explicit and checksum pinned. See [runtime provenance and instructions](docs/RUNTIME_LICENSES.md). Main-branch APKs still contain only the UI/demo baseline. Integration is preserved and tested on `codex/overnight-20261030-wip`; it has not been merged into main.
+**APK publication is currently disabled** pending distribution/notices review and device acceptance. The standard build now uses the pinned no-TTS runtime for ARM64/x86_64, verified on the emulator. The full upstream GPL/TTS AAR is an explicit regression option. JSON exports identify the actual runtime hash; CI compares packaged JNI bytes with the selected AAR. See [runtime provenance and instructions](docs/RUNTIME_LICENSES.md). Main-branch APKs still contain only the UI/demo baseline. Integration remains on `codex/overnight-20261030-wip`, without merging main.
 
 ### Reproducible metrics and performance
 

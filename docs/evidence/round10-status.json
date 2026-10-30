@@ -1,0 +1,80 @@
+{
+  "round": 10,
+  "continuation": 2,
+  "verdict": "NOT_READY",
+  "validated_code_commit": "f1dbfb9f86be9c18ad2b2238cb992b70914063f7",
+  "branch": "codex/overnight-20261030-wip",
+  "draft_pr": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/6",
+  "implemented": [
+    "Default fail-closed no-TTS runtime provisioning with exact shared pin",
+    "Gradle preBuild identity gate, explicit upstream/new-candidate validation modes",
+    "Actual runtime hash in document JSON and Android inference metadata",
+    "APK native-byte/AAR/DEX identity checks and corruption negatives",
+    "Tree-driven actual permission/rotation/HOME/transcription-controls/cleanup/revocation UI tests",
+    "Actual native dependency/notice inventory and independent byte-identical rebuild"
+  ],
+  "verification": {
+    "android_default": {
+      "run": 41044710621,
+      "instrumentation_pass": 17,
+      "ui_checks_pass": 7,
+      "skips": 0
+    },
+    "android_upstream_regression": {
+      "run": 41044824154,
+      "instrumentation_pass": 17,
+      "ui_checks_pass": 7,
+      "skips": 0,
+      "known_mixture": "Native worker failure remains; caller survives"
+    },
+    "default_known_mixture": "Completes with four unknown turns; overlap not detected",
+    "native_rebuild_full_workflow": {
+      "run": 41044063814,
+      "status": "PASS"
+    },
+    "default_build_lint_core_packaging": {
+      "run": 41044710275,
+      "status": "PASS",
+      "core_groups": 16
+    },
+    "local_core_gate": "PASS_16_GROUPS_58_SECONDS",
+    "local_actual_upstream_reject_optin_and_restore": "PASS",
+    "python_default_provisioning_methods": 5,
+    "python_apk_identity_methods": 1,
+    "python_ui_selector_methods": 2,
+    "python_collector_methods": 5,
+    "python_inventory_methods": 1,
+    "python_patch_methods": 3,
+    "screenshot_visual_review": "Four default-run screenshots viewed; no geometry/visual failure seen",
+    "independent_russian_dialogue_wer_der_cpwer": "NOT_SCORED",
+    "physical_arm64_airplane_mode_phone_peak_ram_thermal": "NOT_RUN"
+  },
+  "runtime": {
+    "default": "NO_TTS",
+    "sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "upstream": "EXPLICIT_REGRESSION_ONLY",
+    "artifact_expiry_behavior": "FAIL_CLOSED_WITH_PREVIOUS_RUNTIME_PRESERVED",
+    "distribution_cleared": false,
+    "apk_published": false
+  },
+  "blockers": [
+    "Physical ARM64/airplane mode and real spoken microphone dialogue evidence absent",
+    "Independent licensed Russian dialogue annotations and accuracy metrics absent",
+    "Overlap recognition remains unproven; native guard preserves unknown identity",
+    "Dependency/header/link/toolchain notices and distribution review remain open",
+    "No permanent public runtime artifact URL; pinned Actions artifact can expire",
+    "UI tests reach export controls; real document-provider picker/save flow not yet driven",
+    "Phone peak memory/thermal/power and full device diversity untested"
+  ],
+  "git": {
+    "main_untouched": true,
+    "merged": false,
+    "force_push": false
+  },
+  "privacy": {
+    "microphone_audio_uploaded": false,
+    "model_audio_binary_committed": false,
+    "ui_artifact_scope": "Disposable emulator only",
+    "paid_inference": false
+  }
+}

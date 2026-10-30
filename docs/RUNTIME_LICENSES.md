@@ -19,7 +19,7 @@ Therefore **do not describe the full AAR/APK as Apache/MIT-only or redistribute 
 
 The chosen resolution is a separately built pinned source with
 `SHERPA_ONNX_ENABLE_TTS=OFF`, retaining speaker diarization. It is built and tested
-as described below, with explicit selection. An alternative GPL distribution
+as described below, and is now the standard build selection. An alternative GPL distribution
 strategy would require corresponding-source and application-license review; it
 has not been chosen.
 
@@ -50,9 +50,9 @@ python tools/provision_asr.py --runtime-file .local/no-tts-candidate/sherpa-onnx
 ```
 
 Selection checks the digest pinned in source, not a checksum supplied with an
-arbitrary file. A failure preserves the previous runtime. Provisioning without
-`--runtime-file` selects the original full upstream AAR, so its distribution
-restriction still applies. GitHub Actions artifacts expire; this is a candidate
+arbitrary file. A failure preserves the previous runtime. In round 9 no-TTS
+selection was explicit; round 10 promotes the same verified bytes to the default.
+GitHub Actions artifacts expire; this is a candidate
 retrieval route and build recipe, not a permanent public release URL.
 
 Android x86_64 run
@@ -70,6 +70,38 @@ Final candidate execution at code `d37a030`:
 uses the same pinned candidate bytes above after the codec-test fixes. It includes
 actual ASR, diarization, worker success/cancel/death recovery, imports, recording
 pipeline and exports. Detailed output is retained in `docs/evidence/round9-*.json`.
+
+## Round 10: default no-TTS build and verifiable identity
+
+`python tools/provision_asr.py` now uses this exact no-TTS SHA-256 by default.
+The lock is shared with Gradle in `tools/runtime/runtime.properties`. Valid
+installation/cache requires no CLI/network. Otherwise the existing GitHub CLI
+login (or Actions ephemeral token) retrieves only the pinned artifact from this
+repository. Auth/expiry/network/corruption failures preserve the prior runtime
+and do not select the upstream AAR. No credentials or settings are changed.
+
+The old baseline is explicitly `--upstream-runtime`, with Gradle opt-in
+`-PallowUpstreamRuntime=true`; it remains unsuitable for cleared distribution.
+New native builds can be tested with an explicit candidate hash before promotion.
+Ordinary Gradle preBuild rejects other bytes. Generated BuildConfig hashes the
+actual input AAR; JSON exports and Android inference evidence retain that digest.
+The APK check compares all four packaged JNI/ORT files byte-for-byte to the AAR
+and verifies its digest is present in DEX. This is packaging identity, not accuracy.
+
+Default build/core/lint/packaging identity PASS:
+[41044063915](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044063915).
+Default runtime Android instrumentation **17/17 PASS**:
+[41044063778](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044063778).
+Both use the same no-TTS digest above; exact native hashes are retained in evidence.
+The round-10 independent native rebuild produces the same AAR digest byte-for-byte.
+
+The rebuild also inventories downloaded dependency source trees and their
+top-level license/notice files. These are build inputs, not proof that every
+downloaded component is linked. Eigen's tree includes MPL2 and optional GPL/LGPL
+texts; listing those files is not a determination that GPL code is present in
+the selected Dense headers. Missing source-tree notices (including the ASIO root),
+toolchain/stdlib notices, exact header/link scope and redistribution packaging
+still require review. APK publication remains disabled; no blanket clearance.
 
 Sources:
 - https://github.com/k2-fsa/sherpa-onnx/blob/5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f/LICENSE

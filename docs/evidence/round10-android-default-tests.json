@@ -1,0 +1,133 @@
+{
+  "run_id": 41044710621,
+  "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41044710621",
+  "code_commit": "f1dbfb9f86be9c18ad2b2238cb992b70914063f7",
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "scope": "Cloud Android x86_64 API 33 CPU, not physical ARM64",
+  "instrumentation": {
+    "pass": 17,
+    "fail": 0,
+    "skip": 0,
+    "tests": [
+      {
+        "name": "exportsWriteUtf8AndTruncateExistingDestination",
+        "classname": "ru.neurostenographer.app.AudioInputTest",
+        "time": "0.009",
+        "status": "PASS"
+      },
+      {
+        "name": "validImportIsSnapshotAndBadReplacementKeepsPreviousInput",
+        "classname": "ru.neurostenographer.app.AudioInputTest",
+        "time": "0.112",
+        "status": "PASS"
+      },
+      {
+        "name": "explicitAudioCleanupRemovesOwnedFilesAndClearsSelection",
+        "classname": "ru.neurostenographer.app.AudioInputTest",
+        "time": "0.031",
+        "status": "PASS"
+      },
+      {
+        "name": "rejectedAndCancelledImportLeavesNoStagedFiles",
+        "classname": "ru.neurostenographer.app.CodecImportTest",
+        "time": "0.077",
+        "status": "PASS"
+      },
+      {
+        "name": "highBitFlacUsesActualExtractorEncodingRatherThanAssumedFloat",
+        "classname": "ru.neurostenographer.app.CodecImportTest",
+        "time": "0.032",
+        "status": "PASS"
+      },
+      {
+        "name": "generatedCodecsBecomeValidatedPrivatePcm",
+        "classname": "ru.neurostenographer.app.CodecImportTest",
+        "time": "0.352",
+        "status": "PASS"
+      },
+      {
+        "name": "importedUserAudioThroughViewModelAndDocumentExports",
+        "classname": "ru.neurostenographer.app.OfflineAsrTest",
+        "time": "5.322",
+        "status": "PASS"
+      },
+      {
+        "name": "maliciousOrIncompleteModelDoesNotReplaceInstalledModel",
+        "classname": "ru.neurostenographer.app.OfflineAsrTest",
+        "time": "0.012",
+        "status": "PASS"
+      },
+      {
+        "name": "actualRussianInferenceRepeatedAndSilent",
+        "classname": "ru.neurostenographer.app.OfflineAsrTest",
+        "time": "9.632",
+        "status": "PASS"
+      },
+      {
+        "name": "knownMixedVoicesCannotKillCaller",
+        "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+        "time": "1.456",
+        "status": "PASS"
+      },
+      {
+        "name": "workerDeathLeavesCallerAliveAndCanRestart",
+        "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+        "time": "1.46",
+        "status": "PASS"
+      },
+      {
+        "name": "realEmbeddingsGlobalRecurrenceSilenceAndShortInput",
+        "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+        "time": "18.904",
+        "status": "PASS"
+      },
+      {
+        "name": "realRussianAsrUsesInferredBoundariesAndExports",
+        "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+        "time": "6.101",
+        "status": "PASS"
+      },
+      {
+        "name": "finalUnbindStopsNativeWorkerAfterSuccessAndCancellation",
+        "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+        "time": "2.335",
+        "status": "PASS"
+      },
+      {
+        "name": "failedRecordingAndStopTimeoutPreservePreviousInput",
+        "classname": "ru.neurostenographer.app.RecordingTest",
+        "time": "0.178",
+        "status": "PASS"
+      },
+      {
+        "name": "platformMicrophoneProducesBoundedWavAndReleasesForNextSession",
+        "classname": "ru.neurostenographer.app.RecordingTest",
+        "time": "1.088",
+        "status": "PASS"
+      },
+      {
+        "name": "recordedPlatformAudioThroughViewModelWorkerAndTranscript",
+        "classname": "ru.neurostenographer.app.RecordingTest",
+        "time": "6.102",
+        "status": "PASS"
+      }
+    ]
+  },
+  "ui": {
+    "status": "PASS",
+    "checks": [
+      "real_permission_dialog_denied",
+      "foreground_permission_starts_recording",
+      "recording_survives_rotation",
+      "background_stops_and_finalizes_recording",
+      "recorded_input_reaches_real_transcript_export_controls",
+      "ui_audio_cleanup_clears_source",
+      "permission_revocation_restarts_without_phantom_recording"
+    ],
+    "scope": "Disposable emulator UI and lifecycle; not physical-phone or microphone speech accuracy",
+    "private_audio_collected": false
+  },
+  "xml_sha256": {
+    "TEST-emulator-5554 - 13-_app-.xml": "da436ff1cca58be84a243f06b3b936be2b9738dbef407f316b1f3bd0e7baa42c"
+  }
+}

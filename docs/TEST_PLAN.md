@@ -1,5 +1,14 @@
 # Test plan — not benchmark results
 
+Round 10 validates the standard no-TTS build and explicit upstream regression:
+each passes **17 instrumentation tests and 7 actual UI checks**, zero skips.
+See PROGRESS.md for exact CI URLs. UI assertions cover real microphone dialogs,
+rotation, HOME stop, recorded-input document controls, cleanup and permission
+revocation. Tests use an isolated emulator; screenshots/XML are retained in CI.
+The full system document-provider save dialog remains outside these UI checks.
+Default runtime identity is checked in Gradle, packaged native bytes, DEX and
+actual Android inference metadata. These checks establish no accuracy metric.
+
 Round 9 executes the Android x86_64/API 33 suite in GitHub Actions. Russian ASR,
 global recurrence, worker success/cancel/crash recovery, recorded-input pipeline,
 WAV state/cleanup and exports have executed successfully. Codec failures exposed

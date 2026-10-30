@@ -48,6 +48,14 @@ test. The emulator supplies non-speech samples; empty output is valid and does n
 establish microphone speech accuracy. Background stopping, rotation, permission
 denial/revocation and physical ARM64/airplane-mode record-to-export need execution.
 
+Round 10 executes real permission denial/grant, landscape rotation during capture,
+HOME auto-stop and expected OS process restart after permission revocation through
+the actual UI on Android x86_64/API 33. A subsequent UI launch has no phantom
+recording and explicit cleanup removes abandoned owned audio. Screenshots and
+tree-driven assertions are retained in the Actions artifact. This verifies the
+emulator path, not physical-phone permissions, audible microphone ASR accuracy,
+document-provider save dialogs or all background-driver behavior.
+
 ## References
 
 - [Official AudioRecord API: short-array reads, READ_NON_BLOCKING, error codes,
