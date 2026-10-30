@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class BenchmarkTests(unittest.TestCase):
+    def setUp(self):
+        (ROOT / ".local").mkdir(exist_ok=True)
+
     def test_fixture_uses_external_text_and_preserves_exact_pcm(self):
         (ROOT / ".local").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:

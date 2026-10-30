@@ -38,6 +38,10 @@
   byte hashes regenerated identically. Android inference/actual metrics pending.
   See RUSSIAN_EVALUATION.md for limitations and the separate workflow. No accuracy
   threshold or favorable result is asserted before model execution.
+- First evaluation CI (41048414798) stopped before model provisioning: its first
+  alphabetically ordered unit test needed the workspace .local directory, which
+  existed locally but not on a clean runner. Moved directory creation into test
+  setUp for every method; no test/measurement skipped or relabeled as success.
 
 ## Round 10 / continuation 2 — default no-TTS runtime and identity
 

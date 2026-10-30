@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: ['codex/**']
-    paths: ['.github/workflows/dialogue-benchmark.yml', 'tools/*dialogue_benchmark*', 'tools/fixtures/dialogs-ru-smoke-lock.json', 'app/src/benchmarkTest/**']
+    paths: ['.github/workflows/dialogue-benchmark.yml', 'tools/*dialogue_benchmark*', 'tools/run_android_benchmark.sh', 'tools/fixtures/dialogs-ru-smoke-lock.json', 'app/src/benchmarkTest/**']
 permissions:
   contents: read
   actions: read
