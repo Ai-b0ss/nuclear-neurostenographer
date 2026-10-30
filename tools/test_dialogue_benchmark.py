@@ -103,6 +103,45 @@ class BenchmarkTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             assess(r, h)
 
+    def test_threshold_sweep_preserves_baseline_and_rejects_malformed_evidence(self):
+        # Small authored arithmetic probe; no neural network execution claimed.
+        reference = {"schema_version": 1, "recording_id": "authored",
+            "annotation_source": "authored", "license": "authored", "kind": "authored",
+            "audio_sha256": "0" * 64, "audio_duration_ms": 3000,
+            "text_segments": [{"start_ms": i * 1000, "end_ms": (i + 1) * 1000,
+                "speaker_id": speaker, "text": word}
+                for i, (speaker, word) in enumerate([("D", "один"), ("M", "два"), ("D", "три")])]}
+        def turns(labels):
+            return [{"start_ms": i * 1000, "end_ms": (i + 1) * 1000,
+                "speaker_id": name, "attribution_eligible": True}
+                for i, name in enumerate(labels)]
+        collapsed = turns(["Speaker 1"] * 3)
+        distinct = turns(["Speaker 1", "Speaker 2", "Speaker 1"])
+        hypothesis = {"audio_sha256": "0" * 64, "audio_duration_ms": 3000,
+            "segments": [{**item, "speaker_id": "Speaker 1", "attribution_reliable": True}
+                for item in reference["text_segments"]],
+            "diarization": collapsed,
+            "clustering_sweep": [{"threshold": threshold,
+                "diarization": distinct if threshold <= 0.65 else collapsed,
+                "process_ms": 123} for threshold in (0.5, 0.65, 0.8, 0.9)]}
+        report = assess(reference, hypothesis)
+        self.assertEqual(report["recurrence_probe"]["status"], "FAIL")
+        self.assertEqual([t["recurrence_probe"]["status"] for t in report["clustering_sweep"]],
+                         ["PASS", "PASS", "FAIL", "FAIL"])
+        self.assertEqual(report["clustering_experiment_status"], "EXPERIMENT_ONLY_NO_AUTO_SELECTION")
+        self.assertEqual(report["cpwer"]["status"], "SCORED")
+        self.assertEqual(report["clustering_sweep"][0]["eligible_speaker_count"], 2)
+        for change in ("threshold", "baseline", "missing", "duration", "eligible", "nan"):
+            bad = copy.deepcopy(hypothesis)
+            if change == "threshold": bad["clustering_sweep"][0]["threshold"] = 0.9
+            if change == "baseline": bad["clustering_sweep"][-1]["diarization"] = distinct
+            if change == "missing": bad["clustering_sweep"].pop()
+            if change == "duration": bad["clustering_sweep"][1]["process_ms"] = -1
+            if change == "eligible": bad["clustering_sweep"][2]["diarization"][1]["attribution_eligible"] = "true"
+            if change == "nan": bad["clustering_sweep"][0]["threshold"] = float("nan")
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                assess(reference, bad)
+
     def test_cli_corruption_replaces_previous_favorable_score(self):
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)

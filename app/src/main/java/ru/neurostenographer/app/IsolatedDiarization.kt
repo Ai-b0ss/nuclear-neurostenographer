@@ -18,7 +18,11 @@ object IsolatedDiarization {
     private val lease = Mutex()
     private var pendingWorkerDeath: CompletableDeferred<Unit>? = null
     suspend fun process(context: Context, audio: PcmAudio, model: File,
+                        clusteringThreshold: Float = OfflineDiarization.THRESHOLD,
                         onWorkerStarted: (Int) -> Unit = {}): DiarizationOutput = withContext(Dispatchers.IO) {
+        // Never let callers silently change production inference settings.
+        require(OfflineDiarization.validThreshold(clusteringThreshold))
+        require(BuildConfig.DEBUG || clusteringThreshold == OfflineDiarization.THRESHOLD)
         lease.withLock {
             // A previous timed-out cleanup must not permit another native task while
             // the old process may still own samples/models. A later observed death
@@ -37,13 +41,16 @@ object IsolatedDiarization {
                     }
                 }
                 try {
-                    withTimeout(10 * 60 * 1000L) { awaitWorker(context, input, model, audio.durationMs, onWorkerStarted) }
+                    withTimeout(10 * 60 * 1000L) {
+                        awaitWorker(context, input, model, audio.durationMs, clusteringThreshold, onWorkerStarted)
+                    }
                 } catch (_: TimeoutCancellationException) { throw DiarizationUnavailable("Превышено время диаризации") }
             } finally { input.delete() }
         }
     }
 
     private suspend fun awaitWorker(context: Context, input: File, model: File, audioMs: Long,
+                                    clusteringThreshold: Float,
                                     onWorkerStarted: (Int) -> Unit): DiarizationOutput = withContext(Dispatchers.Main.immediate) {
         val result = CompletableDeferred<DiarizationOutput>()
         var workerDeath: CompletableDeferred<Unit>? = null
@@ -80,7 +87,11 @@ object IsolatedDiarization {
                     binder.linkToDeath({ death.complete(Unit); disconnected() }, 0)
                     Messenger(binder).send(Message.obtain(null, DiarizationService.RUN).apply {
                         replyTo = receiver
-                        data = Bundle().apply { putString("input", input.absolutePath); putString("model", model.absolutePath) }
+                        data = Bundle().apply {
+                            putString("input", input.absolutePath)
+                            putString("model", model.absolutePath)
+                            putFloat("clusteringThreshold", clusteringThreshold)
+                        }
                     })
                 } catch (_: RemoteException) { death.complete(Unit); disconnected() }
             }

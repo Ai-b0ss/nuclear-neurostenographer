@@ -43,10 +43,13 @@ class DiarizationService : Service() {
                 val model = File(requireNotNull(data.getString("model"))).canonicalFile
                 require(model.parentFile == File(filesDir, "diarization-models").canonicalFile)
                 DiarizationModelStore(this).verify(model)
+                val threshold = data.getFloat("clusteringThreshold", OfflineDiarization.THRESHOLD)
+                require(OfflineDiarization.validThreshold(threshold))
+                require(BuildConfig.DEBUG || threshold == OfflineDiarization.THRESHOLD)
                 val samples = DataInputStream(input.inputStream().buffered()).use { stream ->
                     FloatArray((input.length() / 4).toInt()) { stream.readFloat() }
                 }
-                val result = OfflineDiarization.process(PcmAudio(samples, 16000), model)
+                val result = OfflineDiarization.process(PcmAudio(samples, 16000), model, clusteringThreshold = threshold)
                 require(result.turns.size <= DiarizationReply.MAX_ITEMS && result.windows.size <= DiarizationReply.MAX_ITEMS)
                 val output = Bundle().apply {
                     putLongArray("starts", result.turns.map { it.startMs }.toLongArray())

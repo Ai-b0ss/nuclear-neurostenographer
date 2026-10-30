@@ -12,8 +12,13 @@ data class DiarizationOutput(val turns: List<SpeakerTurn>, val loadMs: Long, val
  */
 object OfflineDiarization {
     const val THRESHOLD = 0.9f
+    // Do not tune the user's runtime on one tiny acted fixture. The override is
+    // strictly for debug-only independent measurements on identical recordings.
+    fun validThreshold(value: Float): Boolean = value.isFinite() && value in 0.30f..0.95f
     fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
-                progress: (Int, Int) -> Unit = { _, _ -> }): DiarizationOutput {
+                progress: (Int, Int) -> Unit = { _, _ -> },
+                clusteringThreshold: Float = THRESHOLD): DiarizationOutput {
+        require(validThreshold(clusteringThreshold)) { "Invalid speaker clustering threshold" }
         require(audio.sampleRate == 16000 && audio.samples.size in 1600..(120 * 16000))
         require(audio.samples.all { it.isFinite() && it in -1f..1f })
         checkCancelled()
@@ -24,7 +29,7 @@ object OfflineDiarization {
                 numThreads = 2, provider = "cpu", debug = false),
             embedding = SpeakerEmbeddingExtractorConfig(
                 model = File(model, "embedding.onnx").absolutePath, numThreads = 2, provider = "cpu", debug = false),
-            clustering = FastClusteringConfig(numClusters = -1, threshold = THRESHOLD),
+            clustering = FastClusteringConfig(numClusters = -1, threshold = clusteringThreshold),
             minDurationOn = 0.2f, minDurationOff = 0.0f
         ))
         val loaded = System.nanoTime()

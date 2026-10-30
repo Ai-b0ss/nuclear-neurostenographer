@@ -34,8 +34,29 @@ class RussianDialogueBenchmarkTest {
         val bytes = instrumentation.context.assets.open("dialogs/aba.wav").use { it.readBytes() }
         val audio = bytes.inputStream().use { PcmWav.read(it) }
         val before = InferenceEvidence.memorySnapshot()
-        val started = System.nanoTime()
+        fun turnsJson(result: DiarizationOutput): JSONArray = JSONArray().apply {
+            result.turns.forEach {
+                put(JSONObject().put("start_ms", it.startMs).put("end_ms", it.endMs)
+                    .put("speaker_id", if (it.attributionEligible) it.speakerId else JSONObject.NULL)
+                    .put("attribution_eligible", it.attributionEligible))
+            }
+        }
+        // The evaluator, not the Android model, knows the externally annotated
+        // D-M-D clip boundaries. A sweep must not change the production default
+        // or be presented as representative Russian conversation accuracy.
+        val sweep = JSONArray()
+        for (threshold in floatArrayOf(0.5f, 0.65f, 0.8f)) {
+            val result = IsolatedDiarization.process(context, audio, speakerModel,
+                clusteringThreshold = threshold)
+            sweep.put(JSONObject().put("threshold", threshold.toDouble())
+                .put("diarization", turnsJson(result))
+                .put("process_ms", result.processMs))
+        }
+        val started = System.nanoTime() // Baseline production processing only, not experimental sweeps.
         val diarization = IsolatedDiarization.process(context, audio, speakerModel)
+        sweep.put(JSONObject().put("threshold", OfflineDiarization.THRESHOLD.toDouble())
+            .put("diarization", turnsJson(diarization))
+            .put("process_ms", diarization.processMs))
         val asr = OfflineAsr.transcribe(audio, asrModel, turns = diarization.turns, speechWindows = diarization.windows)
         val elapsed = (System.nanoTime() - started) / 1_000_000
         val document = TranscriptDocument(asr.segments, audio.durationMs, TranscriptProvenance(
@@ -45,16 +66,12 @@ class RussianDialogueBenchmarkTest {
                 "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
                 "Chunk boundaries are not word alignment; no independent speech-boundary reference."))
         val hypothesis = JSONObject(document.export("json"))
-        val turns = JSONArray()
-        diarization.turns.forEach {
-            turns.put(JSONObject().put("start_ms", it.startMs).put("end_ms", it.endMs)
-                .put("speaker_id", if (it.attributionEligible) it.speakerId else JSONObject.NULL)
-                .put("attribution_eligible", it.attributionEligible))
-        }
+        val turns = turnsJson(diarization)
         hypothesis.put("audio_sha256", MessageDigest.getInstance("SHA-256").digest(bytes)
             .joinToString("") { "%02x".format(it) })
             .put("benchmark_invocation", invocation)
-            .put("diarization", turns).put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256)
+            .put("diarization", turns).put("clustering_sweep", sweep)
+            .put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256)
             .put("sdk_int", Build.VERSION.SDK_INT).put("abis", JSONArray(Build.SUPPORTED_ABIS.toList()))
             .put("device_model", Build.MODEL).put("total_inference_ms", elapsed)
             .put("rtf", elapsed.toDouble() / audio.durationMs)

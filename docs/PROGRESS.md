@@ -1,5 +1,26 @@
 # Progress — 2026-10-30
 
+## Independent development — Android Russian speaker-clustering diagnostic
+
+- Isolated experiment branch, based on production WIP commit 4aff651; original
+  unfinished source/evidence left untouched in the primary worktree. Existing
+  default speaker-clustering threshold remains **0.9**.
+- Added debug-only, range-validated threshold override propagated across private
+  diarization IPC; release builds cannot switch it. The tiny externally annotated
+  D/M/D Android benchmark now measures 0.5, 0.65, 0.8 and baseline 0.9
+  independently, without showing reference identities to the native model.
+- External scorer validates threshold order, runtime duration, eligible labels,
+  and exact production-baseline identity. It reports eligible speaker count and
+  clip-level recurrence for each threshold. This is NOT DER or representative
+  Russian-dialogue accuracy and does not automatically select a new threshold.
+- Local Python authored probes: **7 passed**; Python bytecode compilation and
+  git diff --check passed. **Android instrumentation and native model sweep are
+  pending CI**; no threshold is considered superior until genuinely measured.
+- This experiment specifically targets the known baseline speaker collapse
+  (WER 2.44%, cpWER 60.98%, D/M/D => one cluster on three acted clips).
+  These prior metrics are not changed by this source-only experiment.
+
+
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
 ### Recovery call 10 — reconcile actual native/runtime evidence
