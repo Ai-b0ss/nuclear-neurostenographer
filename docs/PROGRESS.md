@@ -1,5 +1,23 @@
 # Progress — 2026-10-30
 
+## Late continuation 12 — require dependency evidence for both native ABIs
+
+- Continued clean ac59f21 on WIP; prior recovered files are already committed.
+  Main and draft PR #6 are unchanged; threshold 0.8 and the peer worktree are
+  preserved. Latest completed head build 41118545214 PASS. The actual Android
+  19-instrumentation/11-UI and development-probe evidence below remains separate
+  from this build-input collector change; no new accuracy or device claim.
+- Reproduced a concrete inventory defect: missing/empty `_deps` for either ABI
+  was accepted if the other ABI supplied records. Four authored corruption cases
+  failed before the fix. Require nonempty dependency inputs independently for
+  ARM64 and x86_64 before publishing the inventory. Three methods now PASS in
+  normal and optimized Python, including all four negatives and valid controls.
+- Rechecked all five recovered evidence Git blobs against the existing backup:
+  exact bytes agree; benchmark hypothesis hash agrees with its retained score.
+  No runtime/model/default changed or new license clearance inferred. Cloud
+  verification of this collector increment follows; physical ARM64, untouched
+  dialogue holdout/DER, overlap quality and full distribution review remain open.
+
 ## Late continuation 11 — preserve peer integration and recovery evidence
 
 - Completed verification at **acb9539**: Android

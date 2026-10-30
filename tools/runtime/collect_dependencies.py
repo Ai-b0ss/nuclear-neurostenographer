@@ -17,7 +17,10 @@ def inventory(source, output):
         cache = (directory / "CMakeCache.txt").read_text(encoding="utf-8")
         if "SHERPA_ONNX_ENABLE_TTS:BOOL=OFF" not in cache.splitlines():
             raise ValueError("Expected actual no-TTS build cache")
-        for dependency in sorted((directory / "_deps").glob("*-src")):
+        dependencies = sorted((directory / "_deps").glob("*-src"))
+        if not dependencies:
+            raise ValueError(f"No actual dependencies found for {abi} ({build})")
+        for dependency in dependencies:
             if not dependency.resolve().is_relative_to(source):
                 raise ValueError("Dependency escapes owned source checkout")
             if any(word in dependency.name.lower() for word in ("espeak", "piper", "phonemize")):

@@ -9,6 +9,35 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class InventoryTests(unittest.TestCase):
+    def test_each_abi_requires_actual_dependency_inputs(self):
+        (ROOT / ".local").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+            root = Path(tmp)
+            for build in ["build-android-arm64-v8a", "build-android-x86-64"]:
+                directory = root / "source" / build
+                dep = directory / "_deps/test-src"
+                dep.mkdir(parents=True)
+                (directory / "CMakeCache.txt").write_text("SHERPA_ONNX_ENABLE_TTS:BOOL=OFF\n")
+                (dep / "LICENSE").write_text("Authored test notice")
+            for build in ["build-android-arm64-v8a", "build-android-x86-64"]:
+                deps = root / "source" / build / "_deps"
+                dep = deps / "test-src"
+                # Empty and absent _deps must both fail even if the other ABI
+                # supplies valid records and this ABI has a no-TTS cache.
+                for missing in [False, True]:
+                    with self.subTest(build=build, missing_directory=missing):
+                        original = deps if missing else dep
+                        saved = original.with_name(original.name + "-saved")
+                        original.rename(saved)
+                        try:
+                            with self.assertRaisesRegex(ValueError, "No actual dependencies.*" + build):
+                                inventory(root / "source", root / "rejected")
+                            self.assertFalse((root / "rejected").exists())
+                        finally:
+                            saved.rename(original)
+            result = inventory(root / "source", root / "output")
+            self.assertEqual({record["abi"] for record in result["dependencies"]}, {"arm64-v8a", "x86_64"})
+
     def test_nested_asio_notices_preserve_paths_and_size_binary_guards(self):
         (ROOT / ".local").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
