@@ -4,6 +4,17 @@
 
 ### Recovery call 5 — durable archived-evidence verification
 
+- Commit 952f713 [standard CI 41058035458](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058035458)
+  PASS: new 3 evidence corruption methods, archive verification, build/lint,
+  16 core groups and actual packaged runtime identity. Local UI 6 methods,
+  Python compile, workflow YAML and 265-file source-only guard also PASS.
+  Main still 2cec9dd; prior evidence/backup retained without replacement.
+- Automatic Android repeat 41058035642 was still in progress at this evidence
+  snapshot. Last completed actual device flow remains 41056348245 PASS 17+11;
+  application/models/threshold are unchanged. New archive checks are not a new
+  device run. Exact separate statuses: round11-recovery5-status.json / CI JSON.
+  NOT_READY and the independent speaker-merging failure remain unchanged.
+
 - Rechecked actual clean HEAD 594ebb0, preserved backup/logs, full AGENTS/handoff,
   draft PR #6 and deferred issue #7. The old picker failure is already fixed:
   run 41056348245 PASS 17+11; no repetition of the old failure as current status.

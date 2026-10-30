@@ -1,5 +1,12 @@
 # Test plan — not benchmark results
 
+Archived public provider exports can be audited without Android or downloads:
+`python tools/test_android_evidence.py`, then
+`python tools/verify_android_evidence.py --ui-report docs/evidence/round11-ui-flow.json --apk-report docs/evidence/round11-apk-inspection.json --directory docs/evidence --prefix round11-provider-export`.
+This checks recorded hashes/byte counts, cross-format intervals and runtime
+agreement. It does not authenticate external reports or execute a model/device;
+its result is explicitly archived-file integrity, separate from accuracy.
+
 Round 10 validates the standard no-TTS build and explicit upstream regression:
 each passes **17 instrumentation tests and 7 actual UI checks**, zero skips.
 See PROGRESS.md for exact CI URLs. UI assertions cover real microphone dialogs,
