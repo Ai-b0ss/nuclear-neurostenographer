@@ -2,6 +2,35 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+### Completed verification after recovery call 4
+
+- Code **12b81bb**: [Android 41056348245](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41056348245)
+  **17 instrumentation + 11 actual UI checks PASS, zero skips**. System OpenDocument
+  import, real public Russian ASR/diarization, CreateDocument TXT/JSON/SRT saves,
+  cancellation, pending JSON-picker rotation, persisted-file readback, exact
+  cross-format content/timeline, runtime hash and post-cleanup persistence pass.
+  Filename is edited only after rotation settles; earlier failures remain recorded.
+- Actual emulator microphone recording/lifecycle passes, but capture has no detected
+  speech and correctly skips ASR. This is NOT spoken microphone accuracy evidence.
+  Public imported speech exercises actual inference. Physical ARM64/airplane-mode
+  spoken conversation remains a required gate.
+- [Build 41056348279](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41056348279)
+  PASS: 16 core groups, lint, APK/native-byte/runtime identity. Default no-TTS AAR
+  hash remains 771fda6a...511c1c8. Source/notice inventory is unchanged; distribution
+  review remains open and APK publication disabled.
+- Independent invocation-bound run 41049800881 at dd2e1f2: WER **1/41=2.44%**,
+  cpWER **25/41=60.98%**, D/M/D all Speaker 1 (**FAIL**), DER NOT_SCORED. These
+  three acted clips are not a representative corpus. No parameter was tuned.
+- Exact exports and reports: docs/evidence/round11-provider-export.*, round11-ui-*,
+  round11-apk-inspection.json, round11-final-build-ci.json, round11-status.json.
+  Three final screenshots visually reviewed; PNG/XML remain in CI artifact, no audio.
+  Downloaded hypothesis Git blobs match scorer hashes; dataset license Git blob
+  matches the frozen source hash. Interrupted source backup and logs preserved.
+- Local UI 6, benchmark 6 (including four actual-shell failure scenarios), collector
+  5, runtime identity 1, native patch 3 and notice inventory 1 methods PASS.
+  Verdict **NOT_READY**: Russian speaker merging, independent DER/natural dialogue,
+  ARM64/spoken capture/phone performance and license-distribution gates remain.
+
 ### Recovery call 4
 
 - Preserved interrupted HEAD a3ff0dc, untracked exact-byte evidence and

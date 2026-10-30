@@ -5,7 +5,12 @@ each passes **17 instrumentation tests and 7 actual UI checks**, zero skips.
 See PROGRESS.md for exact CI URLs. UI assertions cover real microphone dialogs,
 rotation, HOME stop, recorded-input document controls, cleanup and permission
 revocation. Tests use an isolated emulator; screenshots/XML are retained in CI.
-The full system document-provider save dialog remains outside these UI checks.
+Round 11 adds actual system import/save: **17 instrumentation + 11 UI checks PASS**
+in run 41056348245 at 12b81bb. TXT/JSON/SRT provider files are read and compared,
+including cancellation and pending-picker rotation. Emulator microphone capture
+is silent; no spoken microphone recognition accuracy is established. The separate
+three-utterance Russian acted probe fails speaker recurrence (cpWER 60.98%),
+despite WER 2.44%; DER has no independent reference. See RUSSIAN_EVALUATION.md.
 Default runtime identity is checked in Gradle, packaged native bytes, DEX and
 actual Android inference metadata. These checks establish no accuracy metric.
 
