@@ -9,7 +9,24 @@ import subprocess
 import zipfile
 
 
-def inspect(apk, aapt):
+def runtime_identity(apk, runtime):
+    """Compare packaged native bytes to the selected AAR, not its filename/claim."""
+    with zipfile.ZipFile(apk) as installed, zipfile.ZipFile(runtime) as source:
+        names = [f"lib/{abi}/{lib}.so" for abi in ["arm64-v8a", "x86_64"]
+                 for lib in ["libonnxruntime", "libsherpa-onnx-jni"]]
+        hashes = {}
+        for name in names:
+            data = installed.read(name)
+            assert data == source.read(name.replace("lib/", "jni/", 1)), f"Packaged JNI differs: {name}"
+            hashes[name] = hashlib.sha256(data).hexdigest()
+        digest = hashlib.sha256(runtime.read_bytes()).hexdigest()
+        dex = b"".join(installed.read(n) for n in installed.namelist() if n.endswith(".dex"))
+        assert digest.encode("ascii") in dex, "BuildConfig does not identify actual runtime AAR"
+    return {"aar_sha256": digest, "packaged_native_sha256": hashes,
+            "build_config_digest": "MATCH", "native_bytes": "MATCH"}
+
+
+def inspect(apk, aapt, runtime=None):
     permissions = subprocess.check_output([str(aapt), "dump", "permissions", str(apk)]).decode("utf-8")
     assert "android.permission.INTERNET" not in permissions, permissions
     manifest = subprocess.check_output([str(aapt), "dump", "xmltree", str(apk), "AndroidManifest.xml"]).decode("utf-8")
@@ -37,7 +54,9 @@ def inspect(apk, aapt):
             alignment[name] = loads
         assert "assets/licenses/sherpa-onnx-LICENSE.txt" in names
         assert "assets/licenses/onnxruntime-LICENSE.txt" in names
+    identity = runtime_identity(apk, runtime) if runtime else None
     return {"apk_sha256": hashlib.sha256(apk.read_bytes()).hexdigest(), "apk_bytes": apk.stat().st_size,
+            "runtime_identity": identity,
             "permissions": permissions.splitlines(), "native_load_alignment": alignment,
             "diarization_worker": {"process": ":diarization", "exported": False, "runtime_test": "NOT_RUN"},
             "android_inference": "NOT_RUN_BY_THIS_CHECK", "distribution_cleared": False}
@@ -48,8 +67,9 @@ if __name__ == "__main__":
     p.add_argument("apk", type=Path)
     p.add_argument("--aapt", required=True, type=Path)
     p.add_argument("--output", type=Path)
+    p.add_argument("--runtime-aar", type=Path)
     args = p.parse_args()
-    result = json.dumps(inspect(args.apk, args.aapt), indent=2)
+    result = json.dumps(inspect(args.apk, args.aapt, args.runtime_aar), indent=2)
     if args.output:
         args.output.write_text(result + "\n", encoding="utf-8")
     print(result)

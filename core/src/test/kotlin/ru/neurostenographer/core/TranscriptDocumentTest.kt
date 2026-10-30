@@ -19,6 +19,12 @@ fun testTranscriptDocument() {
         check(document.export("srt").contains("01:00:00,001 --> 01:00:00,999"))
         check(document.export("srt").contains("[перекрытие речи]"))
         check(TranscriptDocument(emptyList(), 1000, provenance).export("json").contains("\"segments\": ["))
+        val pinned = provenance.copy(runtimeSha256 = "a".repeat(64))
+        check(TranscriptDocument(items, 3601000, pinned).export("json").contains("\"runtime_sha256\": \"${"a".repeat(64)}\""))
+        for (bad in listOf("unknown", "", "A".repeat(64), "a".repeat(63))) {
+            try { provenance.copy(runtimeSha256 = bad); error("Invalid runtime digest accepted") }
+            catch (_: IllegalArgumentException) { }
+        }
         try { TranscriptDocument(items, 100, provenance); error("Out-of-audio timestamp accepted") }
         catch (_: IllegalArgumentException) { }
         try { document.export("html"); error("Unknown format accepted") }

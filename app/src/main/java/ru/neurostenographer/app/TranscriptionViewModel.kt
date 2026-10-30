@@ -125,7 +125,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
             if (diarization == null) "Говорящие не определены." else null)
         val document = TranscriptDocument(output.segments.toList(), output.audioMs, TranscriptProvenance(
-            "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", AsrModelStore.REVISION, timestampSource, speakerSource), warnings)
+            "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", AsrModelStore.REVISION, timestampSource, speakerSource,
+            BuildConfig.SHERPA_RUNTIME_SHA256), warnings)
         mutable.value = mutable.value.copy(segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
             message = (if (output.decodedWindows == 0) "Речевые окна не обнаружены; ASR не запускался. " else

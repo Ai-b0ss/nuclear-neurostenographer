@@ -65,7 +65,9 @@ jobs:
           done
       - name: Package pinned API plus no-TTS JNI and checksums
         run: |
-          python3 tools/provision_asr.py
+          python3 tools/runtime/test_dependencies.py
+          python3 tools/runtime/collect_dependencies.py .local/sherpa-source .local/dependency-evidence
+          python3 tools/provision_asr.py --upstream-runtime
           python3 tools/runtime/package_runtime.py app/libs/sherpa-onnx-1.12.20.aar .local/sherpa-source .local/sherpa-onnx-1.12.20-no-tts-candidate.aar
           cd .local
           sha256sum sherpa-onnx-1.12.20-no-tts-candidate.aar > runtime-sha256.txt
@@ -83,6 +85,7 @@ jobs:
           path: |
             .local/topk-baseline.log
             .local/sherpa-source/runtime-patch.json
+            .local/dependency-evidence/
   android-candidate:
     needs: native
     runs-on: ubuntu-latest
@@ -106,11 +109,12 @@ jobs:
           "$SDKMGR" --install 'platforms;android-35' 'build-tools;35.0.0'
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg
-          python3 tools/provision_asr.py --test-assets
+          python3 tools/provision_asr.py --test-assets --upstream-runtime
           python3 tools/provision_diarization.py --test-assets
           python3 tools/provision_codec_fixtures.py
           (cd .local/candidate && sha256sum -c runtime-sha256.txt)
           cp .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar app/libs/sherpa-onnx-1.12.20.aar
+          echo "CANDIDATE_RUNTIME_SHA256=$(sha256sum app/libs/sherpa-onnx-1.12.20.aar | cut -d' ' -f1)" >> "$GITHUB_ENV"
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules

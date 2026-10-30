@@ -1,5 +1,30 @@
 # Progress — 2026-10-30, round 1
 
+## Round 10 / continuation 2 — default no-TTS runtime and identity
+
+- Entire AGENTS.md/handoff and round-8/9 status re-read; continued clean WIP HEAD
+  `c19f325`, draft PR #6. Fetch succeeds; remote main still `2cec9dd`. Previous
+  documentation HEAD cloud builds also PASS (41042795276 / 41042803870).
+- Default provisioning now selects the Android-tested no-TTS AAR locked in
+  `tools/runtime/runtime.properties`. Verified local cache needs no CLI/network;
+  uncached acquisition uses existing GitHub CLI authentication for exactly this
+  repo/run/artifact. Wrong/expired/unauthorized artifact fails without upstream
+  fallback or replacing the previous runtime. No credential lookup/settings edit.
+- Upstream GPL/TTS AAR is explicit `--upstream-runtime` regression only. Gradle
+  verifies the selected bytes before preBuild; upstream and new source-build
+  candidates require explicit validation opt-ins. JSON document and Android
+  inference metadata include the actual AAR SHA-256 from generated BuildConfig.
+- APK inspection compares all four packaged JNI/ORT files byte-for-byte with the
+  selected AAR and checks its digest in DEX. Authored native-swap/fake-digest
+  negatives PASS. New downloader tests: 5 PASS; existing integrity/cache/selection
+  negatives PASS. Collector 4 methods PASS; patch tests 3 PASS.
+- Local offline Gradle core/runtime gate PASS: 16 core groups, 5 tasks, 58s.
+  No SDK/emulator/toolchain installed; reused ignored portable build tools.
+- Native workflow now collects bounded actual dependency/notice input inventories
+  from both ABI builds. Missing notices and toolchain/stdlib review stay visible;
+  inventory is not blanket legal clearance. Inventory corruption/TTS negatives
+  PASS locally. Cloud build/emulator/rebuilt-native verification follows.
+
 ## Continuation 1 / round 9 — GitHub access restored
 - Supervisor preserved rounds 1–8 in WIP commit `8d9c1e7` on
   `codex/overnight-20261030-wip`. Current authenticated fetch succeeds; main is

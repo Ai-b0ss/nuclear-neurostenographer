@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
   smoke:
     runs-on: ubuntu-latest
@@ -23,6 +24,8 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Verify pinned sherpa-onnx runtime
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python3 tools/provision_asr.py
       - name: Enable KVM
         run: |

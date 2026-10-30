@@ -122,7 +122,9 @@ object TranscriptFusion {
 }
 
 data class TranscriptProvenance(val engine: String, val modelRevision: String,
-    val timestampSource: String, val speakerSource: String)
+    val timestampSource: String, val speakerSource: String, val runtimeSha256: String? = null) {
+    init { require(runtimeSha256 == null || runtimeSha256.matches(Regex("[0-9a-f]{64}"))) }
+}
 
 /** One immutable inference result. No source URI/name or private path in exports. */
 data class TranscriptDocument(val segments: List<TranscriptSegment>, val audioMs: Long,
@@ -179,7 +181,8 @@ object TranscriptExport {
             (provenance?.let { "  \"provenance\": {\"engine\": " + jsonString(it.engine) +
                 ", \"model_revision\": " + jsonString(it.modelRevision) +
                 ", \"timestamp_source\": " + jsonString(it.timestampSource) +
-                ", \"speaker_source\": " + jsonString(it.speakerSource) + "},\n" } ?: "") +
+                ", \"speaker_source\": " + jsonString(it.speakerSource) +
+                (it.runtimeSha256?.let { sha -> ", \"runtime_sha256\": " + jsonString(sha) } ?: "") + "},\n" } ?: "") +
             "  \"segments\": [\n" +
             items.joinToString(",\n") {
                 "    {\"start_ms\": " + it.startMs + ", \"end_ms\": " + it.endMs +

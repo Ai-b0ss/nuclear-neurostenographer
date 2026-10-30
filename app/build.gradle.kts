@@ -1,7 +1,38 @@
+import java.security.MessageDigest
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+val runtimeFile = file("libs/sherpa-onnx-1.12.20.aar")
+val runtimeLock = Properties().apply {
+    rootProject.file("tools/runtime/runtime.properties").inputStream().use { load(it) }
+}
+fun runtimeDigest(): String = if (!runtimeFile.isFile) "UNPROVISIONED" else {
+    val digest = MessageDigest.getInstance("SHA-256")
+    runtimeFile.inputStream().use { stream ->
+        val buffer = ByteArray(65536)
+        while (true) {
+            val count = stream.read(buffer)
+            if (count < 0) break
+            digest.update(buffer, 0, count)
+        }
+    }
+    digest.digest().joinToString("") { "%02x".format(it) }
+}
+val selectedRuntimeDigest = runtimeDigest()
+val verifySherpaRuntime by tasks.registering {
+    doLast {
+        val expected = providers.gradleProperty("candidateRuntimeSha256").orNull
+            ?: if (providers.gradleProperty("allowUpstreamRuntime").orNull == "true")
+                runtimeLock.getProperty("upstream_sha256") else runtimeLock.getProperty("sha256")
+        check(expected.matches(Regex("[0-9a-f]{64}")) && runtimeDigest() == expected) {
+            "Unprovisioned/unapproved runtime. Run python tools/provision_asr.py; upstream requires explicit regression opt-in."
+        }
+    }
+}
+tasks.named("preBuild").configure { dependsOn(verifySherpaRuntime) }
 android {
     namespace = "ru.neurostenographer.app"
     compileSdk = 35
@@ -14,6 +45,7 @@ android {
         versionName = "0.1.0-alpha"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
     }
     // Optional workspace-owned debug key for restricted local build environments.
     providers.gradleProperty("localDebugStore").orNull?.let { debugKeyRelativePath ->
@@ -29,7 +61,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
-    buildFeatures { compose = true }
+    buildFeatures { compose = true; buildConfig = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
     sourceSets.getByName("androidTest").assets.srcDir(rootProject.file(".local/androidTestAssets"))
     // Explicit private cloud-test variant; ordinary builds never include model/audio assets.

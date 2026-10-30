@@ -36,7 +36,7 @@ def main():
     args = parser.parse_args()
     assert platform.machine().lower() in ("amd64", "x86_64")
     name, digest = NATIVE[platform.system()]
-    subprocess.run([sys.executable, ROOT / "tools/provision_asr.py", "--test-assets"], check=True)
+    subprocess.run([sys.executable, ROOT / "tools/provision_asr.py", "--test-assets", "--upstream-runtime"], check=True)
     subprocess.run([sys.executable, ROOT / "tools/provision_diarization.py", "--test-assets"], check=True)
     compiler = ROOT / ".local/kotlin"
     for jar, (url, checksum) in COMPILER.items():

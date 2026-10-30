@@ -47,4 +47,7 @@ adb logcat -c
 adb shell pm clear ru.neurostenographer.app >/dev/null || true
 # AGP 8.7.3 BooleanOption: keep this disposable test installation for collection.
 # Otherwise connectedDebugAndroidTest uninstalls it before the EXIT trap can read.
-gradle --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true :core:runCoreTests :app:connectedDebugAndroidTest
+runtime_args=()
+if [[ "${UPSTREAM_RUNTIME:-false}" == true ]]; then runtime_args+=(-PallowUpstreamRuntime=true); fi
+if [[ -n "${CANDIDATE_RUNTIME_SHA256:-}" ]]; then runtime_args+=("-PcandidateRuntimeSha256=$CANDIDATE_RUNTIME_SHA256"); fi
+gradle --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true "${runtime_args[@]}" :core:runCoreTests :app:connectedDebugAndroidTest

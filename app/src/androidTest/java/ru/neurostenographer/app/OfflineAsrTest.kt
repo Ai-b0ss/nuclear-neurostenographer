@@ -70,6 +70,7 @@ class OfflineAsrTest {
                     assertEquals(document.audioMs, json.getLong("audio_duration_ms"))
                     assertEquals(document.segments.size, json.getJSONArray("segments").length())
                     assertEquals(document.provenance.timestampSource, json.getJSONObject("provenance").getString("timestamp_source"))
+                    assertEquals(BuildConfig.SHERPA_RUNTIME_SHA256, json.getJSONObject("provenance").getString("runtime_sha256"))
                 }
                 if (format == "srt") assertTrue(saved.contains(" --> "))
             }

@@ -32,6 +32,7 @@ object InferenceEvidence {
             }
         }
         return JSONObject().put("schema_version", 1).put("platform", "Android instrumentation")
+            .put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256)
             .put("sdk_int", Build.VERSION.SDK_INT).put("abis", JSONArray(Build.SUPPORTED_ABIS.toList()))
             .put("device_model", Build.MODEL).put("audio_duration_ms", audio.durationMs)
             .put("audio_sha256", digest.digest().joinToString("") { "%02x".format(it) })

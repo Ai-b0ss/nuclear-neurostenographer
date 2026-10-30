@@ -1,6 +1,6 @@
 """Pinned public downloads only; no inference service, credentials or pip dependencies.
 
-python tools/provision_asr.py          # AAR for build
+python tools/provision_asr.py          # verified no-TTS AAR (GitHub CLI if not cached)
 python tools/provision_asr.py --model # also create .local/gigaam-v3.zip for phone
 python tools/provision_asr.py --test-assets # model + public upstream test WAV
 python tools/provision_asr.py --runtime-file PATH # select exact pinned no-TTS candidate
@@ -9,6 +9,8 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import subprocess
+import tempfile
 import urllib.request
 import zipfile
 
@@ -20,8 +22,11 @@ FILES = {
     "tokens.txt": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2",
     "LICENSE": "f00de6715714c7a63d08639cdbfaa40224eefc407302614bd19f1a8b98c875aa",
 }
-NO_TTS_CANDIDATE_SHA256 = "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"
-NO_TTS_CANDIDATE_RUN = 41039830327
+LOCK = dict(line.split("=", 1) for line in
+            (ROOT / "tools/runtime/runtime.properties").read_text(encoding="utf-8").splitlines()
+            if line and not line.startswith("#"))
+NO_TTS_CANDIDATE_SHA256 = LOCK["sha256"]
+NO_TTS_CANDIDATE_RUN = int(LOCK["run_id"])
 
 
 def sha256(path):
@@ -50,19 +55,53 @@ def select_runtime(candidate, destination):
     download(candidate.resolve().as_uri(), destination, NO_TTS_CANDIDATE_SHA256)
 
 
+def provision_runtime(destination, cache=None):
+    if destination.is_file() and sha256(destination) == NO_TTS_CANDIDATE_SHA256:
+        return
+    cache = cache or ROOT / ".local/runtime-cache"
+    cache.mkdir(parents=True, exist_ok=True)
+    cached = cache / LOCK["filename"]
+    if cached.is_file() and sha256(cached) == NO_TTS_CANDIDATE_SHA256:
+        select_runtime(cached, destination)
+        return
+    # No token lookup or settings changes. gh uses the caller's existing login
+    # (or the Actions job's ephemeral token). Expiry/auth/network errors fail
+    # explicitly, never fall back to the GPL/TTS upstream runtime.
+    with tempfile.TemporaryDirectory(dir=cache) as temporary:
+        try:
+            subprocess.run(["gh", "run", "download", str(NO_TTS_CANDIDATE_RUN),
+                "--repo", LOCK["repository"], "--name", LOCK["artifact"], "--dir", temporary],
+                check=True, timeout=120, capture_output=True)
+        except (OSError, subprocess.SubprocessError) as error:
+            raise RuntimeError("Pinned no-TTS artifact unavailable. Use existing gh authentication or "
+                "supply --runtime-file with the exact pinned AAR. No upstream fallback was selected.") from error
+        downloaded = Path(temporary) / LOCK["filename"]
+        select_runtime(downloaded, destination)
+        # Cache only after full validation; no untrusted checksum sidecar is used.
+        select_runtime(downloaded, cached)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", action="store_true")
     parser.add_argument("--test-assets", action="store_true")
-    parser.add_argument("--runtime-file", type=Path,
-                        help="Exact pinned no-TTS candidate from same-repo run 41039830327")
+    runtime_args = parser.add_mutually_exclusive_group()
+    runtime_args.add_argument("--runtime-file", type=Path, help="Exact pinned no-TTS AAR")
+    runtime_args.add_argument("--upstream-runtime", action="store_true",
+                              help="Explicit GPL/TTS baseline for regression only, not distribution")
     args = parser.parse_args()
     runtime = ROOT / "app/libs/sherpa-onnx-1.12.20.aar"
     if args.runtime_file:
         select_runtime(args.runtime_file, runtime)
-    else:
+    elif args.upstream_runtime:
         download("https://github.com/k2-fsa/sherpa-onnx/releases/download/v1.12.20/sherpa-onnx-1.12.20.aar",
-                 runtime, "e3905b1258b577d8d374db798618602ceaaff5805cbf9b356ab25267cd98144d")
+                 runtime, LOCK["upstream_sha256"])
+    else:
+        provision_runtime(runtime)
+    selection = {"sha256": sha256(runtime), "upstream_regression": args.upstream_runtime,
+                 "repository": LOCK["repository"], "native_build_run": NO_TTS_CANDIDATE_RUN if not args.upstream_runtime else None}
+    (ROOT / ".local").mkdir(exist_ok=True)
+    (ROOT / ".local/runtime-selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
     if args.model or args.test_assets:
         for name, digest in FILES.items():
             download(BASE + name, ROOT / ".local/model" / name, digest)
@@ -80,7 +119,8 @@ def main():
         download(BASE + "test_wavs/example.wav", assets / "example.wav",
                  "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69")
         (ROOT / ".local/provenance.json").write_text(json.dumps(
-            {"revision": HF_REV, "files": FILES, "fixture": BASE + "test_wavs/example.wav"}, indent=2))
+            {"revision": HF_REV, "files": FILES, "fixture": BASE + "test_wavs/example.wav",
+             "runtime": selection}, indent=2))
 
 
 if __name__ == "__main__":

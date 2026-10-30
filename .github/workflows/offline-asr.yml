@@ -2,8 +2,13 @@ name: Real offline Russian ASR (x86_64)
 on:
   workflow_dispatch:
     inputs:
+      upstream_runtime:
+        description: 'Explicit GPL/TTS upstream regression instead of default no-TTS runtime'
+        type: boolean
+        required: false
+        default: false
       runtime_run_id:
-        description: 'Optional successful native candidate build run in THIS repo; empty uses pinned upstream baseline'
+        description: 'Optional source run of the exact pinned no-TTS artifact; empty uses default lock'
         required: false
         default: ''
   push:
@@ -11,10 +16,13 @@ on:
     paths: ['app/**', 'core/**', 'tools/**', '.github/workflows/offline-asr.yml']
 permissions:
   contents: read
+  actions: read
 jobs:
   inference:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    env:
+      UPSTREAM_RUNTIME: ${{ inputs.upstream_runtime || false }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -31,12 +39,16 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Provision checksum-verified public model and upstream fixture
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg
           python3 tools/test_score_transcript.py
           python3 tools/test_android_workflow.py
-          python3 tools/provision_asr.py --test-assets
+          runtime_args=()
+          if [[ "$UPSTREAM_RUNTIME" == true ]]; then runtime_args+=(--upstream-runtime); fi
+          python3 tools/provision_asr.py --test-assets "${runtime_args[@]}"
           python3 tools/provision_diarization.py --test-assets
           python3 tools/provision_codec_fixtures.py
           python3 tools/test_codec_fixtures.py
@@ -67,6 +79,8 @@ jobs:
           heap-size: 1024M
           disk-size: 4096M
           script: bash tools/run_android_inference.sh
+      - name: Verify packaged runtime identity
+        run: python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output device-evidence/apk-inspection.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -81,3 +95,4 @@ jobs:
             .local/provenance.json
             .local/candidate/*.json
             .local/candidate/runtime-sha256.txt
+            .local/runtime-selection.json
