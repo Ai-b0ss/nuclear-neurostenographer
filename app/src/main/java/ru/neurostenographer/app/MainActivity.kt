@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
                 }
                 item { HorizontalDivider() }
                 item { Text("Стенограмма", style = MaterialTheme.typography.titleLarge) }
-                item { Text("Время — границы модельных реплик/входных фрагментов до 20 с, не слов. Speaker — кластер голоса в этой записи, не личность. Перекрытия и короткие участки могут остаться неопределёнными.") }
+                item { Text("Время — границы модельных реплик/входных фрагментов до 20 с, не слов. Speaker — предположение модели, не личность: разные голоса могут объединиться, один голос — разделиться. Проверьте распределение реплик вручную. Перекрытия и короткие участки могут остаться неопределёнными.") }
                 items(state.segments) { segment ->
                     Card(modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.padding(12.dp)) {

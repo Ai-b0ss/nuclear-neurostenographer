@@ -70,3 +70,20 @@ Artifacts contain the reference/provenance, actual hypothesis, scoring result,
 test report and full dataset license, never audio/models. Read the report's scope
 and metric availability together with its numbers. Exact executed results are
 recorded in PROGRESS.md; provisioning or compilation alone is not model evidence.
+
+## Executed baseline — 30 October 2026
+
+[Android run 41048642815](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41048642815)
+at `ab46587` completed real CPU inference on API 33/x86_64 with the default
+no-TTS runtime. **WER 1/41 = 2.44%; cpWER 25/41 = 60.98%; A-B-A FAIL**:
+all three source clips were assigned Speaker 1. DER remains NOT_SCORED.
+This exposes a speaker-merging failure, despite good text recognition on these
+three clips. The workflow succeeded in collecting measurements; quality did
+not pass the recurrence probe. No threshold was changed in response.
+
+Inference took 5,129 ms / RTF 0.261 on that cloud emulator, including worker
+bind/load/process/exit and ASR load/decode, excluding import/model verification.
+PSS snapshots are not peak memory and exclude the worker. These figures do not
+predict physical-phone performance. Exact dataset-derived reference, hypothesis,
+scores and provenance are in `docs/evidence/round11-acted-*.json`, subject to
+the full [dataset license](licenses/dialogs-OpenRAIL.md), including Section 2.

@@ -2,6 +2,22 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+- Actual external acted-probe Android run **41048642815 PASS execution** at
+  `ab46587`: one instrumentation test, WER 1/41 (2.44%), cpWER 25/41 (60.98%),
+  **A-B-A FAIL** (all D/M/D clips merged into Speaker 1). DER NOT_SCORED, no
+  independent speech boundaries. 5,129 ms / RTF 0.261 on API33 x86_64 cloud CPU,
+  including engine load/worker lifetime, excluding import/model verification;
+  memory snapshots exclude worker and are not peak. Exact original artifacts
+  copied to docs/evidence/round11-acted-*.json under the attached dataset license.
+  No threshold tuned and no representative accuracy claim. This is a P0 quality
+  blocker revealed by the independent source, not a successful dialogue demo.
+- Exposed metric/recurrence status in the benchmark Actions summary so a green
+  execution job cannot hide the speaker failure. Benchmark triggers now include
+  production engine/core/runtime changes. Reference text/IDs stay outside the
+  instrumentation APK; only public audio and required license are copied to assets.
+  UI now explicitly warns that voices can merge/split and need manual review.
+  Local benchmark 4, UI 4 and scorer 12 methods PASS; workflow YAML parses.
+
 - Re-read full AGENTS.md/handoff and historical round-8 status; continued clean
   HEAD `94d7680` on the WIP branch. Fetch shows no divergence. Main is untouched;
   draft PR #6 remains open. New owner issue #7 is an alternative-model evaluation,

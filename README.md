@@ -33,6 +33,10 @@ Run `python tools/test_score_transcript.py` for checked WER/cpWER/DER arithmetic
 tests. [Scoring format and conventions](docs/BENCHMARKS.md) document reference
 provenance, collars, overlap, unknown speakers and missing ground truth. The public
 Russian WAV has no full independent annotations: its metrics remain **NOT_SCORED**.
+The separate [three-utterance acted Russian probe](docs/RUSSIAN_EVALUATION.md)
+now has external scripted references: WER 2.44%, cpWER 60.98%, **A-B-A FAIL**
+(voices merged), DER NOT_SCORED. These small-probe results do not establish
+natural-dialogue accuracy or contest readiness.
 Round 4 reduces WAV import allocation with exact PCM parity; host allocation
 evidence is not Android peak RAM or ASR speed. Cloud tests retain public-fixture
 JSON and memory snapshots on failure. Emulator snapshots and timing are not

@@ -89,7 +89,9 @@ def main():
         download(base + item["path"], source / Path(item["path"]).name, item["sha256"])
     reference = compose(source, args.output)
     assets.mkdir(parents=True, exist_ok=True)
-    for name in ["aba.wav", "reference.json", "LICENSE.md", "provenance.json"]:
+    # External answers remain on the scoring runner, outside the test APK.
+    # Inference receives audio and the required license, never reference text/IDs.
+    for name in ["aba.wav", "LICENSE.md"]:
         shutil.copyfile(args.output / name, assets / name)
     print(json.dumps({"kind": reference["kind"], "audio_sha256": reference["audio_sha256"],
                       "audio_duration_ms": reference["audio_duration_ms"], "der": "NO_REFERENCE"}))

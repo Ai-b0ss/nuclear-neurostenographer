@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: ['codex/**']
-    paths: ['.github/workflows/dialogue-benchmark.yml', 'tools/*dialogue_benchmark*', 'tools/run_android_benchmark.sh', 'tools/fixtures/dialogs-ru-smoke-lock.json', 'app/src/benchmarkTest/**']
+    paths: ['.github/workflows/dialogue-benchmark.yml', 'tools/*dialogue_benchmark*', 'tools/run_android_benchmark.sh', 'tools/score_transcript.py', 'tools/fixtures/dialogs-ru-smoke-lock.json', 'tools/runtime/runtime.properties', 'app/src/benchmarkTest/**', 'app/src/main/**', 'app/build.gradle.kts', 'core/src/**']
 permissions:
   contents: read
   actions: read
@@ -57,3 +57,21 @@ jobs:
             .local/runtime-selection.json
             app/build/reports/androidTests/
             app/build/outputs/androidTest-results/
+      - name: Expose measurements and quality failures separately from execution
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path('.local/dialogue-benchmark/scores.json')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('### Three acted utterances: execution is not accuracy acceptance\n\n')
+              if not path.is_file():
+                  out.write('No score file: evaluation did not complete.\n')
+              else:
+                  score = json.loads(path.read_text())
+                  out.write('Not a representative corpus. DER has no independent speech-boundary reference.\n\n')
+                  for name in ['wer', 'cpwer', 'der', 'recurrence_probe']:
+                      out.write(f'- {name}: `{json.dumps(score.get(name), ensure_ascii=False)}`\n')
+                  out.write('\nNo competition accuracy threshold is defined. Read the attached license and scope.\n')
+          PY
