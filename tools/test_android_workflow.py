@@ -50,6 +50,8 @@ python3() { "$TEST_PYTHON" "$@"; }
             (root / "device-evidence/codec-import.json").write_text('{"old_codec":true}')
             (root / "device-evidence/recording.json").write_text('{"old_recording":true}')
             (root / "device-evidence/worker-lifecycle.json").write_text('{"old_worker":true}')
+            (root / "device-evidence/mixture.json").write_text('{"old_mixture":true}')
+            (root / "device-evidence/recording-pipeline.json").write_text('{"old_pipeline":true}')
             env = dict(os.environ, BASH_ENV=startup.as_posix(), FAKE_GRADLE_EXIT=str(gradle_code),
                        FAKE_ADB_EXIT="9" if adb_fail else "0", FAKE_ADB_FALSE_SUCCESS="1" if false_success else "0",
                        TEST_PYTHON=Path(sys.executable).as_posix())
@@ -58,7 +60,7 @@ python3() { "$TEST_PYTHON" "$@"; }
             self.assertEqual(completed.returncode, 9 if adb_fail else 1 if false_success else gradle_code, completed.stderr)
             self.assertEqual(json.loads((root / "device-evidence/asr-0.json").read_text())["fixture"], "FAKE_COLLECTOR_UNIT_TEST")
             complete = not adb_fail and gradle_code == 0 and not false_success
-            for name in ["asr-1", "codec-import", "recording", "worker-lifecycle"]:
+            for name in ["asr-1", "codec-import", "recording", "worker-lifecycle", "mixture", "recording-pipeline"]:
                 self.assertEqual(complete, (root / f"device-evidence/{name}.json").exists())
             report = json.loads((root / "device-evidence/collection-summary.json").read_text())
             self.assertEqual(complete, report["complete"])

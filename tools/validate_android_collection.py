@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 NAMES = ["asr-0", "asr-1", "diarization-0", "diarization-1", "codec-import",
-         "recording", "worker-lifecycle"]
+         "recording", "worker-lifecycle", "mixture", "recording-pipeline"]
 
 
 def validate(directory):

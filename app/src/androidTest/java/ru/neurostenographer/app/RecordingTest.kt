@@ -36,6 +36,65 @@ class RecordingTest {
         }
     }
 
+    @Test fun recordedPlatformAudioThroughViewModelWorkerAndTranscript() {
+        permission()
+        File(context.filesDir, "recording-pipeline-evidence.json").delete()
+        // Public model assets only. Captured samples stay app-private and are
+        // deleted in finally; evidence contains metadata, never microphone text.
+        instrumentation.context.assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
+        instrumentation.context.assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
+        val owner = ViewModelStore()
+        lateinit var model: TranscriptionViewModel
+        fun idle() {
+            val deadline = SystemClock.elapsedRealtime() + 180_000
+            while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(25)
+            assertFalse("Pipeline timeout: ${model.state.value.message}", model.state.value.busy)
+        }
+        try {
+            instrumentation.runOnMainSync {
+                model = TranscriptionViewModel(context.applicationContext as Application)
+                owner.put("platform-recording-pipeline", model)
+                model.startRecording()
+            }
+            assertTrue(model.recording.value)
+            SystemClock.sleep(800)
+            instrumentation.runOnMainSync { model.stopRecording() }
+            idle()
+            assertFalse(model.recording.value)
+            val selected = requireNotNull(model.state.value.source) { model.state.value.message }
+            val file = File(requireNotNull(selected.path))
+            val audio = file.inputStream().use { PcmWav.read(it) }
+            assertTrue(audio.durationMs in 100..3000)
+            instrumentation.runOnMainSync { model.transcribe() }
+            idle()
+            val document = requireNotNull(model.state.value.document) { model.state.value.message }
+            assertEquals(audio.durationMs, document.audioMs)
+            // A generic worker-failure fallback is not a successful worker test.
+            assertEquals(DiarizationModelStore.REVISION, document.provenance.speakerSource)
+            assertTrue(document.segments.all { it.endMs <= audio.durationMs })
+            val json = JSONObject(document.export("json"))
+            assertEquals(audio.durationMs, json.getLong("audio_duration_ms"))
+            File(context.filesDir, "recording-pipeline-evidence.json").writeText(JSONObject()
+                .put("status", "PASS").put("scope", "platform_capture_viewmodel_worker_document_not_speech_accuracy")
+                .put("sdk", android.os.Build.VERSION.SDK_INT).put("abi", android.os.Build.SUPPORTED_ABIS.first())
+                .put("duration_ms", audio.durationMs).put("segments", document.segments.size)
+                .put("speaker_source", document.provenance.speakerSource)
+                .put("speech_accuracy", "NOT_SCORED").toString(2))
+            instrumentation.runOnMainSync { model.clearLocalAudio() }
+            idle()
+            assertFalse(file.exists())
+            assertNull(model.state.value.document)
+        } finally {
+            instrumentation.runOnMainSync {
+                if (model.recording.value) model.stopRecording()
+            }
+            idle()
+            instrumentation.runOnMainSync { model.clearLocalAudio() }
+            idle()
+            instrumentation.runOnMainSync { owner.clear() }
+        }
+    }
+
     @Test fun failedRecordingAndStopTimeoutPreservePreviousInput() {
         permission()
         val owner = ViewModelStore()

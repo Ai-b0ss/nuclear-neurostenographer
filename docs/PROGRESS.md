@@ -48,6 +48,18 @@
   adb corruption. No missing JSON is treated as valid inference evidence.
 - Added explicit candidate-run input to Android workflow so fixed app/tests can
   validate the same no-TTS artifact without rebuilding native code or merging main.
+- Unpatched no-TTS native candidate build PASS for both ABIs:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41039298608 .
+  Candidate SHA-256 `c39f58ed711872374b59570588e5f46331cfc65fe5855a7ae8280088b6c9561e`,
+  14,948,166 bytes. Download inspection finds only ARM64/x86_64 JNI + ORT, no
+  espeak-ng-data string, and 16-KB ELF LOAD alignment. This candidate is NOT
+  selected for app distribution; patched candidate/testing remains in progress.
+- Added Android platform-recording -> ViewModel -> actual worker -> transcript
+  document/cleanup test. It collects only duration/count/provenance metadata and
+  deletes captured audio; it is not a spoken microphone accuracy benchmark.
+  Added structured known-mixture evidence separating native completion, caller
+  survival, unknown turns and actual overlap detection. Collector includes both
+  records; four collector methods PASS locally. New instrumentation pending CI.
 
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.

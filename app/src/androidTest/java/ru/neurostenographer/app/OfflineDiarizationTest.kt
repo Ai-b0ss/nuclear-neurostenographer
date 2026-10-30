@@ -69,6 +69,8 @@ class OfflineDiarizationTest {
 
     @Test fun knownMixedVoicesCannotKillCaller(): Unit = runBlocking {
         val context = instrumentation.targetContext
+        val evidence = File(context.filesDir, "mixture-evidence.json")
+        evidence.delete()
         val store = DiarizationModelStore(context)
         val model = instrumentation.context.assets.open("diarization.zip").use { store.install(it) }
         val audio = instrumentation.context.assets.open("four-speakers.wav").use { PcmWav.read(it) }
@@ -81,8 +83,14 @@ class OfflineDiarizationTest {
                 RecognizedChunk(it.startMs, it.endMs, "synthetic attribution test only")
             }, result.turns)
             assertTrue(segments.filter { it.overlappingSpeech }.all { it.speakerId == null && !it.attributionReliable })
+            evidence.writeText(org.json.JSONObject().put("scope", "public_known_mixture_worker_containment")
+                .put("native_completed", true).put("caller_alive", true)
+                .put("overlap_detected", segments.any { it.overlappingSpeech })
+                .put("unknown_turns", result.turns.count { !it.attributionEligible })
+                .put("accuracy_status", "NOT_SCORED").toString(2))
             Log.i("DiarizationEvidence", "known_mixture native_completed overlap_detected=${segments.any { it.overlappingSpeech }}")
         } catch (_: DiarizationUnavailable) {
+            evidence.writeText("""{"scope":"public_known_mixture_worker_containment","native_completed":false,"caller_alive":true,"accuracy_status":"FAIL_OR_UNPROVEN"}""")
             Log.i("DiarizationEvidence", "known_mixture WORKER_FAILED caller_alive=true; overlap accuracy FAIL/UNPROVEN")
         }
     }

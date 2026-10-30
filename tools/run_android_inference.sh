@@ -26,6 +26,12 @@ collect_evidence() {
   if ! adb exec-out run-as ru.neurostenographer.app cat files/worker-lifecycle-evidence.json > device-evidence/worker-lifecycle.json; then
     rm -f device-evidence/worker-lifecycle.json
   fi
+  if ! adb exec-out run-as ru.neurostenographer.app cat files/mixture-evidence.json > device-evidence/mixture.json; then
+    rm -f device-evidence/mixture.json
+  fi
+  if ! adb exec-out run-as ru.neurostenographer.app cat files/recording-pipeline-evidence.json > device-evidence/recording-pipeline.json; then
+    rm -f device-evidence/recording-pipeline.json
+  fi
   if [[ "$status" == 0 ]]; then
     python3 "$SCRIPT_DIR/validate_android_collection.py" device-evidence --require-complete || status=1
   else
