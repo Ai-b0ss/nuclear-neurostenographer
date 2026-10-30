@@ -14,9 +14,17 @@
   normal and optimized Python, including all four negatives and valid controls.
 - Rechecked all five recovered evidence Git blobs against the existing backup:
   exact bytes agree; benchmark hypothesis hash agrees with its retained score.
-  No runtime/model/default changed or new license clearance inferred. Cloud
-  verification of this collector increment follows; physical ARM64, untouched
-  dialogue holdout/DER, overlap quality and full distribution review remain open.
+  No runtime/model/default changed or new license clearance inferred.
+- Collector code **e4aff33**: [standard CI 41119047166](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047166)
+  and PR CI 41119058581 PASS, including Linux inventory regression, core/lint and
+  packaged-runtime identity. Source-only tracked guard PASS: 290 files.
+  At the saved snapshot, [native rebuild 41119047210](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047210)
+  and [Android repeat 41119047036](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047036)
+  remain IN_PROGRESS, not PASS. Review their results next; no new native/device
+  success is inferred. Exact snapshot: docs/evidence/late12-status.json.
+  Stop at a clean pushed checkpoint to conserve quota. Physical ARM64, untouched
+  dialogue holdout/DER, overlap quality and full distribution review remain open;
+  verdict stays NOT_READY, public APK disabled, PR #6 remains draft.
 
 ## Late continuation 11 — preserve peer integration and recovery evidence
 
