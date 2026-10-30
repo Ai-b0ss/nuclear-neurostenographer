@@ -28,6 +28,11 @@ class UiSelectorTests(unittest.TestCase):
             ui.shell = lambda *args: commands.append(args)
             ui.tap(label="Recognize")
             self.assertEqual(commands, [("input", "tap", "60", "50")])
+            root = ET.fromstring('<hierarchy><node text="Downloads" resource-id="picker:id/breadcrumb_text" bounds="[0,0][100,50]"/><node text="Downloads" resource-id="android:id/title" bounds="[20,200][220,280]"/></hierarchy>')
+            ui.tree = lambda: root
+            commands.clear()
+            ui.tap(label="Downloads", resource_suffix="android:id/title", exact=True)
+            self.assertEqual(commands, [("input", "tap", "120", "240")])
 
     def test_saved_provider_bytes_require_consistent_real_document_structure(self):
         phrase = "у лукоморья дуб зеленый"

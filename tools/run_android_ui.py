@@ -139,7 +139,9 @@ class AndroidUi:
         if node is None:
             raise AssertionError("Document picker root navigation missing")
         self.tap_node(node)
-        self.tap(label="Downloads", exact=True)
+        # The drawer can coexist in the tree with a toolbar and breadcrumb also
+        # named Downloads. Select its observed Android title resource explicitly.
+        self.tap(label="Downloads", resource_suffix="android:id/title", exact=True)
 
     def save_document(self, format, rotate=False):
         self.tap(label=format.upper(), exact=True)

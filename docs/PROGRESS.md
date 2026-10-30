@@ -42,6 +42,12 @@
   alphabetically ordered unit test needed the workspace .local directory, which
   existed locally but not on a clean runner. Moved directory creation into test
   setUp for every method; no test/measurement skipped or relabeled as success.
+- Second picker run (41047975190) reaches public import and export cancellation,
+  then safely rejects three Downloads labels (toolbar, breadcrumb and root
+  drawer). The captured system UI tree supplies a distinct android:id/title
+  resource for the drawer item; selector now uses that observed resource plus
+  exact text. Added the repeated-root-name negative locally. This is a QA-selector
+  repair, not evidence of an application export failure or successful save yet.
 
 ## Round 10 / continuation 2 — default no-TTS runtime and identity
 
