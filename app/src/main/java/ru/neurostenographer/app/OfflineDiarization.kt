@@ -11,7 +11,9 @@ data class DiarizationOutput(val turns: List<SpeakerTurn>, val loadMs: Long, val
  * complete-link cosine clustering. Threshold is experimental, not confidence.
  */
 object OfflineDiarization {
-    const val THRESHOLD = 0.9f
+    // Validated on acted Russian D/M/D, the public four-speaker Chinese fixture,
+    // and clean single-voice Russian speech. Not a universal DER guarantee.
+    const val THRESHOLD = 0.8f
     // Do not tune the user's runtime on one tiny acted fixture. The override is
     // strictly for debug-only independent measurements on identical recordings.
     fun validThreshold(value: Float): Boolean = value.isFinite() && value in 0.30f..0.95f

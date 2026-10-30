@@ -71,12 +71,20 @@ def assess(reference, hypothesis):
                     if t["attribution_eligible"] and t["speaker_id"] is not None}),
                 "unknown_turns": sum(not t["attribution_eligible"] for t in validated),
                 "process_ms": duration})
-        # The last experiment must be the exact production .9 result. A mismatch
-        # would silently compare different recordings/inference runs.
-        if sweep[-1]["diarization"] != hypothesis.get("diarization"):
+        # Model-generated baseline must be exactly one trial, never a guessed
+        # post-hoc "best" score. This also guards a later default change.
+        baseline = hypothesis.get("production_clustering_threshold")
+        if type(baseline) not in (int, float):
+            raise ValueError("Missing production clustering threshold")
+        indexes = [i for i, v in enumerate(expected) if abs(v - baseline) < 1e-5]
+        if len(indexes) != 1:
+            raise ValueError("Unknown production clustering threshold")
+        selected = indexes[0]
+        if sweep[selected]["diarization"] != hypothesis.get("diarization"):
             raise ValueError("Production baseline differs from threshold sweep")
-        if outcomes[-1]["recurrence_probe"] != report["recurrence_probe"]:
+        if outcomes[selected]["recurrence_probe"] != report["recurrence_probe"]:
             raise ValueError("Baseline speaker recurrence is inconsistent")
+        report["production_clustering_threshold"] = expected[selected]
         report["clustering_sweep"] = outcomes
         report["clustering_experiment_status"] = "EXPERIMENT_ONLY_NO_AUTO_SELECTION"
     report["evaluation_scope"] = "Three composed acted utterances from external test.csv; not natural conversation or a representative corpus benchmark"

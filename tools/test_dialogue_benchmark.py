@@ -121,6 +121,7 @@ class BenchmarkTests(unittest.TestCase):
             "segments": [{**item, "speaker_id": "Speaker 1", "attribution_reliable": True}
                 for item in reference["text_segments"]],
             "diarization": collapsed,
+            "production_clustering_threshold": 0.9,
             "clustering_sweep": [{"threshold": threshold,
                 "diarization": distinct if threshold <= 0.65 else collapsed,
                 "process_ms": 123} for threshold in (0.5, 0.65, 0.8, 0.9)]}
@@ -131,7 +132,7 @@ class BenchmarkTests(unittest.TestCase):
         self.assertEqual(report["clustering_experiment_status"], "EXPERIMENT_ONLY_NO_AUTO_SELECTION")
         self.assertEqual(report["cpwer"]["status"], "SCORED")
         self.assertEqual(report["clustering_sweep"][0]["eligible_speaker_count"], 2)
-        for change in ("threshold", "baseline", "missing", "duration", "eligible", "nan"):
+        for change in ("threshold", "baseline", "missing", "duration", "eligible", "nan", "production"):
             bad = copy.deepcopy(hypothesis)
             if change == "threshold": bad["clustering_sweep"][0]["threshold"] = 0.9
             if change == "baseline": bad["clustering_sweep"][-1]["diarization"] = distinct
@@ -139,6 +140,7 @@ class BenchmarkTests(unittest.TestCase):
             if change == "duration": bad["clustering_sweep"][1]["process_ms"] = -1
             if change == "eligible": bad["clustering_sweep"][2]["diarization"][1]["attribution_eligible"] = "true"
             if change == "nan": bad["clustering_sweep"][0]["threshold"] = float("nan")
+            if change == "production": bad["production_clustering_threshold"] = 0.5
             with self.subTest(change=change), self.assertRaises(ValueError):
                 assess(reference, bad)
 

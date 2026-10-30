@@ -44,19 +44,26 @@ class RussianDialogueBenchmarkTest {
         // The evaluator, not the Android model, knows the externally annotated
         // D-M-D clip boundaries. A sweep must not change the production default
         // or be presented as representative Russian conversation accuracy.
-        val sweep = JSONArray()
-        for (threshold in floatArrayOf(0.5f, 0.65f, 0.8f)) {
+        val outcomes = linkedMapOf<Float, JSONObject>()
+        // Legacy 0.9 remains an explicit comparator after changing the default;
+        // do not change the user-visible model based only on an authored fixture.
+        for (threshold in floatArrayOf(0.5f, 0.65f, 0.9f)) {
             val result = IsolatedDiarization.process(context, audio, speakerModel,
                 clusteringThreshold = threshold)
-            sweep.put(JSONObject().put("threshold", threshold.toDouble())
+            outcomes[threshold] = JSONObject().put("threshold", threshold.toDouble())
                 .put("diarization", turnsJson(result))
-                .put("process_ms", result.processMs))
+                .put("process_ms", result.processMs)
         }
-        val started = System.nanoTime() // Baseline production processing only, not experimental sweeps.
+        val started = System.nanoTime() // Production timing excludes the experimental sweeps.
         val diarization = IsolatedDiarization.process(context, audio, speakerModel)
-        sweep.put(JSONObject().put("threshold", OfflineDiarization.THRESHOLD.toDouble())
+        outcomes[OfflineDiarization.THRESHOLD] = JSONObject()
+            .put("threshold", OfflineDiarization.THRESHOLD.toDouble())
             .put("diarization", turnsJson(diarization))
-            .put("process_ms", diarization.processMs))
+            .put("process_ms", diarization.processMs)
+        val sweep = JSONArray().apply {
+            for (threshold in floatArrayOf(0.5f, 0.65f, 0.8f, 0.9f))
+                put(requireNotNull(outcomes[threshold]))
+        }
         val asr = OfflineAsr.transcribe(audio, asrModel, turns = diarization.turns, speechWindows = diarization.windows)
         val elapsed = (System.nanoTime() - started) / 1_000_000
         val document = TranscriptDocument(asr.segments, audio.durationMs, TranscriptProvenance(
@@ -71,6 +78,7 @@ class RussianDialogueBenchmarkTest {
             .joinToString("") { "%02x".format(it) })
             .put("benchmark_invocation", invocation)
             .put("diarization", turns).put("clustering_sweep", sweep)
+            .put("production_clustering_threshold", OfflineDiarization.THRESHOLD.toDouble())
             .put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256)
             .put("sdk_int", Build.VERSION.SDK_INT).put("abis", JSONArray(Build.SUPPORTED_ABIS.toList()))
             .put("device_model", Build.MODEL).put("total_inference_ms", elapsed)

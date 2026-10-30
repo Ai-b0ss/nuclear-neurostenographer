@@ -2,9 +2,10 @@
 
 ## Independent development — Android Russian speaker-clustering diagnostic
 
-- Isolated experiment branch, based on production WIP commit 4aff651; original
-  unfinished source/evidence left untouched in the primary worktree. Existing
-  default speaker-clustering threshold remains **0.9**.
+- Isolated experiment branch based on production WIP commit 4aff651; original
+  unfinished source/evidence left untouched in the primary worktree. Original
+  default **0.9** remains available as an experimental comparator; candidate
+  **0.8** becomes this branch's default after actual regression checks.
 - Added debug-only, range-validated threshold override propagated across private
   diarization IPC; release builds cannot switch it. The tiny externally annotated
   D/M/D Android benchmark now measures 0.5, 0.65, 0.8 and baseline 0.9
@@ -21,8 +22,15 @@
   This is one tiny acted fixture, not a general accuracy guarantee.
 - Added independent Android regression checks on public four-speaker Chinese
   recurrence and clean one-speaker Russian ASR fixture using candidate 0.8,
-  plus invalid-threshold guards. These NEW checks await their own CI run.
-  Production still uses 0.9 until compatibility is proven.
+  plus invalid-threshold guards. Actual Android x86_64 run
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41068127258
+  **PASS: 18/18 instrumentation, 0 failed, and full UI/export flow**.
+- Select 0.8 as this branch's runtime default; preserve 0.9 as explicit legacy
+  benchmark comparator. The benchmark now binds its primary output to the actual
+  selected default rather than picking a favorable trial afterward. Android CI
+  for the new default and its Russian cpWER is still pending. Four-speaker and
+  single-voice smoke tests are necessary, not independent DER evidence or an
+  ARM64-device performance claim.
 - This experiment specifically targets the known baseline speaker collapse
   (WER 2.44%, cpWER 60.98%, D/M/D => one cluster on three acted clips).
   These prior metrics are not changed by this source-only experiment.
