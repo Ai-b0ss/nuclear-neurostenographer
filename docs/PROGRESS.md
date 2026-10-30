@@ -1,5 +1,25 @@
 # Progress — 2026-10-30, round 1
 
+## Round 11 / continuation 3 — system documents and Russian evaluation
+
+- Re-read full AGENTS.md/handoff and historical round-8 status; continued clean
+  HEAD `94d7680` on the WIP branch. Fetch shows no divergence. Main is untouched;
+  draft PR #6 remains open. New owner issue #7 is an alternative-model evaluation,
+  explicitly lower priority than ongoing Android fixes; no model swap attempted.
+- Extended actual UI QA to import the pinned public Russian WAV through the
+  system document picker and run real in-app inference. TXT/JSON/SRT must then
+  survive real CreateDocument save, cancellation and JSON-picker rotation. Saved
+  bytes are read from the disposable Downloads provider, checked for the known
+  public phrase, runtime identity and independent exact cross-format timeline.
+  App cleanup must leave provider-owned exports unchanged.
+- UI selectors now combine role/resource/text constraints and refuse ambiguous
+  matches. Four selector/export corruption methods PASS locally; collector five
+  PASS. First host-export test invocation used a JSON-only downloaded artifact
+  and failed because SRT/TXT were absent; corrected execution against retained
+  actual round-8 host exports PASS, including corruption negatives.
+- New system-picker UI flow remains pending CI. Audio is public, transient and
+  excluded from artifacts; screenshots and text exports contain only that fixture.
+
 ## Round 10 / continuation 2 — default no-TTS runtime and identity
 
 - Entire AGENTS.md/handoff and round-8/9 status re-read; continued clean WIP HEAD

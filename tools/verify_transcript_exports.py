@@ -17,16 +17,16 @@ def milliseconds(value):
     return ((h * 60 + m) * 60 + s) * 1000 + ms
 
 
-def verify(directory):
+def verify(directory, prefix="dialogue"):
     directory = Path(directory)
-    data = json.loads((directory / "dialogue.json").read_text(encoding="utf-8"))
+    data = json.loads((directory / (prefix + ".json")).read_text(encoding="utf-8"))
     assert data["units"] == "milliseconds" and data["audio_duration_ms"] > 0
     assert data["provenance"]["timestamp_source"] == "diarization_boundaries_and_input_windows"
     assert isinstance(data["warnings"], list) and data["warnings"]
     segments = data["segments"]
     assert segments, "Expected nonempty actual public Russian fixture output"
-    subtitles = (directory / "dialogue.srt").read_text(encoding="utf-8").strip().split("\n\n")
-    txt = (directory / "dialogue.txt").read_text(encoding="utf-8")
+    subtitles = (directory / (prefix + ".srt")).read_text(encoding="utf-8").strip().split("\n\n")
+    txt = (directory / (prefix + ".txt")).read_text(encoding="utf-8")
     assert len(subtitles) == len(segments)
     previous = -1
     for index, (segment, cue) in enumerate(zip(segments, subtitles), 1):
@@ -50,7 +50,7 @@ def verify(directory):
     return {"status": "PASS", "segments": len(segments), "audio_ms": data["audio_duration_ms"],
             "formats": ["json", "srt", "txt"], "checks": ["UTF8", "milliseconds", "duration_bounds",
             "cue_order", "same_text_speaker_and_intervals", "provenance_and_warnings"],
-            "accuracy_benchmark": "NOT_RUN", "android": "NOT_RUN"}
+            "accuracy_benchmark": "NOT_RUN", "android": "NOT_RUN_BY_THIS_FILE_CHECK"}
 
 
 def main():
