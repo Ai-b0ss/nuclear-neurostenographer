@@ -36,6 +36,7 @@ jobs:
           python3 tools/test_score_transcript.py
           python3 tools/test_android_workflow.py
           python3 tools/test_runtime_identity.py
+          python3 -O tools/test_runtime_identity.py
           python3 tools/test_android_ui.py
           python3 tools/test_android_evidence.py
           python3 tools/runtime/test_dependencies.py

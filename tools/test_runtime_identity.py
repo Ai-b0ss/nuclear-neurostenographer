@@ -6,6 +6,7 @@ import struct
 import unittest
 from unittest.mock import patch
 import zipfile
+import warnings
 from check_apk import inspect, runtime_identity
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,6 +48,72 @@ class IdentityTests(unittest.TestCase):
                 with self.subTest(library=name):
                     with self.assertRaisesRegex(ValueError, "ELF machine does not match ABI"):
                         check(name)
+
+    def test_apk_guards_are_active_with_python_optimized(self):
+        # Run this file with both python and python -O in CI. A malformed archive
+        # must never be accepted when CPython strips bare assert statements.
+        (ROOT / ".local").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+            apk = Path(tmp) / "fixture.apk"
+            native = {}
+            for abi, machine in [("arm64-v8a", 183), ("x86_64", 62)]:
+                header = bytearray(120)
+                header[:6] = b"\x7fELF\x02\x01"
+                struct.pack_into("<H", header, 18, machine)
+                struct.pack_into("<Q", header, 32, 64)
+                struct.pack_into("<HH", header, 54, 56, 1)
+                struct.pack_into("<I", header, 64, 1)
+                struct.pack_into("<Q", header, 112, 16384)
+                for lib in ["libonnxruntime", "libsherpa-onnx-jni", "libandroidx.graphics.path"]:
+                    native[f"lib/{abi}/{lib}.so"] = bytes(header)
+            notices = {
+                "assets/licenses/sherpa-onnx-LICENSE.txt": b"Authored test notice",
+                "assets/licenses/onnxruntime-LICENSE.txt": b"Authored test notice",
+            }
+            default_manifest = (
+                b'E: service\n "ru.neurostenographer.app.DiarizationService"\n'
+                b' ":diarization"\n android:exported=(type 0x12)0x0\n'
+            )
+            def run(removed=(), altered=None, extra=None, permissions=b"",
+                    manifest=default_manifest):
+                contents = dict(native, **notices)
+                for name in removed:
+                    contents.pop(name)
+                if altered is not None:
+                    name, data = altered
+                    contents[name] = data
+                with zipfile.ZipFile(apk, "w") as archive:
+                    for name, data in contents.items():
+                        archive.writestr(name, data)
+                    if extra:
+                        # A deliberately duplicated ZIP entry is part of this negative.
+                        with warnings.catch_warnings():
+                            warnings.filterwarnings("ignore", message=r"Duplicate name:", category=UserWarning)
+                            archive.writestr(*extra)
+                with patch("check_apk.subprocess.check_output",
+                           side_effect=[permissions, manifest]):
+                    return inspect(apk, Path("unused-aapt"))
+            self.assertEqual(len(run()["native_elf_machine"]), 6)
+            with self.assertRaisesRegex(AssertionError, "INTERNET"):
+                run(permissions=b"uses-permission: android.permission.INTERNET")
+            with self.assertRaisesRegex(AssertionError, "exported"):
+                run(manifest=default_manifest.replace(b"0x0", b"0x1"))
+            with self.assertRaisesRegex(AssertionError, "native"):
+                run(removed=["lib/x86_64/libonnxruntime.so"])
+            with self.assertRaisesRegex(AssertionError, "ELF"):
+                name = "lib/x86_64/libonnxruntime.so"
+                run(altered=(name, b"Not an ELF" + native[name][10:]))
+            with self.assertRaisesRegex(AssertionError, "alignment"):
+                name = "lib/arm64-v8a/libonnxruntime.so"
+                bad = bytearray(native[name])
+                struct.pack_into("<Q", bad, 112, 4096)
+                run(altered=(name, bytes(bad)))
+            with self.assertRaisesRegex(AssertionError, "license"):
+                run(removed=["assets/licenses/onnxruntime-LICENSE.txt"])
+            with self.assertRaisesRegex(AssertionError, "Model/audio"):
+                run(extra=("assets/secret.wav", b"Authored empty wav marker"))
+            with self.assertRaisesRegex(AssertionError, "Duplicate ZIP"):
+                run(extra=("lib/x86_64/libonnxruntime.so", native["lib/x86_64/libonnxruntime.so"]))
 
     def test_native_swap_and_false_build_digest_are_rejected(self):
         (ROOT / ".local").mkdir(exist_ok=True)

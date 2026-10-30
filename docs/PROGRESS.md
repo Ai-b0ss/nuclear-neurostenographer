@@ -1,5 +1,28 @@
 # Progress — 2026-10-30
 
+## Direct continuation after Codex quota — optimized APK integrity gate
+
+- Continued saved WIP at 3a02740 directly through Windows Bridge, without
+  Codex or paid APIs. Preserved both original late13 reports. Downloaded CI
+  artifact from 41119745856 and independently confirmed exact JSON equality
+  plus SHA-256 b09753c3df9f57c4991f5a8ff7c563ad0b77230a0c236ac6cbff1459338f8bd9.
+  Prior pending ASR run 41119746029 and native 41119047210 finished SUCCESS.
+- Reproduced a critical python -O integrity gap in tools/check_apk.py: bare
+  asserts vanished for JNI byte equality, APK BuildConfig runtime digest,
+  INTERNET permission, private worker, ZIP contents, ELF header/load alignment
+  and bundled license notices. Before the fix the native-swap negative failed.
+- Replaced those with explicit fail-closed checks. Added authored negatives
+  for internet, exported worker, missing ABI, invalid ELF, 4KB alignment,
+  missing notice, bundled audio and duplicate ZIP.
+  Locally 3/3 normal and 3/3 optimized runtime identity methods PASS;
+  Android workflow 5/5, optimized evidence 3/3 and dependency 3/3 PASS.
+  Android CI now runs both Python modes for the new regression.
+- No change to actual Android runtime, ASR, diarization threshold or model.
+  Physical ARM64, untouched dialogue DER/holdout, overlap and distribution
+  review remain unfinished. This is not new phone or model accuracy evidence.
+  Public APK publication stays disabled and PR #6 remains draft.
+  Evidence: docs/evidence/direct-after-codex-optimized-apk-guard.json.
+
 ## Late continuation 13 — verify ELF CPU identity, not only ABI paths
 
 - Continued clean 691697e. Preserved threshold 0.8, peer worktree, recovered
