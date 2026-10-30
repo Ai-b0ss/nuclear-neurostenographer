@@ -2,6 +2,19 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+### Recovery call 6 — validation under optimized Python
+
+- Verified clean HEAD 5d4b05b, current CI, full AGENTS/handoff, draft PR #6 and
+  deferred issue #7. Prior files/backup/logs remain intact; no new models.
+- Reproduced an actual integrity-check defect: `python -O tools/test_android_evidence.py`
+  fails its altered-SRT/recomputed-hash negative because Python removes assert
+  statements in the shared export validator. Normal-mode previous results remain
+  valid; this is not a model or Android inference failure.
+- Replaced those assertions with explicit checks preserving their failure API.
+  Local archive methods 3 PASS in normal and optimized mode; optimized UI methods
+  6 PASS; real retained host-export corruption regression PASS. Added optimized
+  negatives to standard CI. No model, threshold, app or historical evidence changed.
+
 ### Recovery call 5 — durable archived-evidence verification
 
 - Commit 952f713 [standard CI 41058035458](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058035458)

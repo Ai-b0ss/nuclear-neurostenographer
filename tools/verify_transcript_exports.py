@@ -9,44 +9,50 @@ from pathlib import Path
 import re
 
 
+def require(condition, message):
+    # Validation must remain active with python -O / PYTHONOPTIMIZE.
+    if not condition:
+        raise AssertionError(message)
+
+
 def milliseconds(value):
     match = re.fullmatch(r"([0-9]{2,}):([0-9]{2}):([0-9]{2})[,.]([0-9]{3})", value)
-    assert match, f"Invalid timestamp: {value}"
+    require(match, f"Invalid timestamp: {value}")
     h, m, s, ms = map(int, match.groups())
-    assert m < 60 and s < 60
+    require(m < 60 and s < 60, 'Export consistency check failed')
     return ((h * 60 + m) * 60 + s) * 1000 + ms
 
 
 def verify(directory, prefix="dialogue"):
     directory = Path(directory)
     data = json.loads((directory / (prefix + ".json")).read_text(encoding="utf-8"))
-    assert data["units"] == "milliseconds" and data["audio_duration_ms"] > 0
-    assert data["provenance"]["timestamp_source"] == "diarization_boundaries_and_input_windows"
-    assert isinstance(data["warnings"], list) and data["warnings"]
+    require(data["units"] == "milliseconds" and data["audio_duration_ms"] > 0, 'Export consistency check failed')
+    require(data["provenance"]["timestamp_source"] == "diarization_boundaries_and_input_windows", 'Export consistency check failed')
+    require(isinstance(data["warnings"], list) and data["warnings"], 'Export consistency check failed')
     segments = data["segments"]
-    assert segments, "Expected nonempty actual public Russian fixture output"
+    require(segments, "Expected nonempty actual public Russian fixture output")
     subtitles = (directory / (prefix + ".srt")).read_text(encoding="utf-8").strip().split("\n\n")
     txt = (directory / (prefix + ".txt")).read_text(encoding="utf-8")
-    assert len(subtitles) == len(segments)
+    require(len(subtitles) == len(segments), 'Export consistency check failed')
     previous = -1
     for index, (segment, cue) in enumerate(zip(segments, subtitles), 1):
         start, end = segment["start_ms"], segment["end_ms"]
-        assert previous <= start < end <= data["audio_duration_ms"]
+        require(previous <= start < end <= data["audio_duration_ms"], 'Export consistency check failed')
         previous = start
         lines = cue.splitlines()
-        assert lines[0] == str(index)
+        require(lines[0] == str(index), 'Export consistency check failed')
         times = lines[1].split(" --> ")
-        assert len(times) == 2 and list(map(milliseconds, times)) == [start, end]
+        require(len(times) == 2 and list(map(milliseconds, times)) == [start, end], 'Export consistency check failed')
         speaker = segment["speaker_id"] or "Не определён"
         body = speaker + ": " + segment["text"]
         if segment["overlapping_speech"]:
-            assert segment["speaker_id"] is None and not segment["attribution_reliable"]
+            require(segment["speaker_id"] is None and not segment["attribution_reliable"], 'Export consistency check failed')
             body += " [перекрытие речи]"
-        assert "\n".join(lines[2:]) == body
-        assert body in txt
+        require("\n".join(lines[2:]) == body, 'Export consistency check failed')
+        require(body in txt, 'Export consistency check failed')
         interval = re.escape(body)
         match = re.search(r"\[([^\]\n]+)–([^\]\n]+)\] " + interval, txt)
-        assert match and list(map(milliseconds, match.groups())) == [start, end]
+        require(match and list(map(milliseconds, match.groups())) == [start, end], 'Export consistency check failed')
     return {"status": "PASS", "segments": len(segments), "audio_ms": data["audio_duration_ms"],
             "formats": ["json", "srt", "txt"], "checks": ["UTF8", "milliseconds", "duration_bounds",
             "cue_order", "same_text_speaker_and_intervals", "provenance_and_warnings"],
