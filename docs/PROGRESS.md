@@ -19,6 +19,11 @@
   actual round-8 host exports PASS, including corruption negatives.
 - New system-picker UI flow remains pending CI. Audio is public, transient and
   excluded from artifacts; screenshots and text exports contain only that fixture.
+- First picker run (41047018642) executes the import picker successfully but
+  fails safely on an ambiguous QA selector: the status sentence repeats the
+  recognition button label. Changed action taps to exact labels while keeping
+  substring searches for status messages. The repeated-label negative now checks
+  the selected coordinate comes from the button, not the surrounding prose.
 
 ## Round 10 / continuation 2 — default no-TTS runtime and identity
 

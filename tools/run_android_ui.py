@@ -87,15 +87,15 @@ class AndroidUi:
                    str(top if down else bottom), "350")
         return True
 
-    def visible(self, label):
-        root, node = self.find(label=label, timeout=1)
+    def visible(self, label, exact=False):
+        root, node = self.find(label=label, timeout=1, exact=exact)
         if node is not None:
             return root, node
         # Search both directions. Each swipe comes from current UI-tree bounds.
         for down in [True] * 4 + [False] * 7:
             if not self.scroll(root, down):
                 break
-            root, node = self.find(label=label, timeout=0)
+            root, node = self.find(label=label, timeout=0, exact=exact)
             if node is not None:
                 return root, node
         raise AssertionError(f"UI control/text not found: {label}")
@@ -105,8 +105,10 @@ class AndroidUi:
         self.shell("input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
 
     def tap(self, label=None, resource_suffix=None, description=None, exact=False):
-        if label is not None and not exact:
-            root, node = self.visible(label)
+        if label is not None and resource_suffix is None and description is None:
+            # Buttons use exact labels. A status sentence may repeat the action
+            # name; substring selection must not choose that sentence instead.
+            root, node = self.visible(label, exact=True)
         else:
             root, node = self.find(label=label, resource_suffix=resource_suffix, description=description, exact=exact)
             if node is None:

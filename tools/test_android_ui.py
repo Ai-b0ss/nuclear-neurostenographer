@@ -22,6 +22,12 @@ class UiSelectorTests(unittest.TestCase):
             ui.tree = lambda: root
             with self.assertRaises(AssertionError):
                 ui.find(label="Save", exact=True, timeout=0)
+            root = ET.fromstring('<hierarchy><node text="Recognize" bounds="[10,20][110,80]"/><node text="Click Recognize after import"/></hierarchy>')
+            ui.tree = lambda: root
+            commands = []
+            ui.shell = lambda *args: commands.append(args)
+            ui.tap(label="Recognize")
+            self.assertEqual(commands, [("input", "tap", "60", "50")])
 
     def test_saved_provider_bytes_require_consistent_real_document_structure(self):
         phrase = "у лукоморья дуб зеленый"
