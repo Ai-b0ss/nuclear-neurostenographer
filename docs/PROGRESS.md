@@ -2,6 +2,18 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+### Recovery call 10 — reconcile actual native/runtime evidence
+
+- Continued clean a16ec20; full instructions/handoff and current PR #6/issue #7
+  checked. Native 41061172511 and Android 41061172278 were still running at entry.
+  No models, clustering parameters, stored outputs or default runtime changed.
+- Found a candidate-workflow integration mismatch by reading the actual steps:
+  bootstrap provisions upstream runtime metadata, then replaces the AAR with the
+  built candidate. UI export checks must hash the actual AAR build input rather
+  than trust the earlier provisioning JSON. This preserves strict comparison
+  with exported BuildConfig identity and avoids a false runtime-mismatch failure.
+  Existing wrong-runtime/export negatives remain unchanged; actual CI follows.
+
 ### Recovery call 9 — collect pinned ASIO nested notices
 
 - Code **f9af8ad** [standard CI 41061172426](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172426)

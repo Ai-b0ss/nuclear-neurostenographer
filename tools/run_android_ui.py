@@ -300,7 +300,10 @@ def run(ui):
     ui.visible("JSON")
     checks.append("cancelled_system_export_keeps_transcript_available")
     exports = {format: ui.save_document(format, rotate=format == "json") for format in ["txt", "json", "srt"]}
-    runtime = json.loads(Path(".local/runtime-selection.json").read_text())["sha256"]
+    # Candidate validation can replace the AAR after initial provisioning. Compare
+    # exported BuildConfig identity with actual build-input bytes, not stale
+    # provisioning metadata from the upstream bootstrap runtime.
+    runtime = hashlib.sha256(Path("app/libs/sherpa-onnx-1.12.20.aar").read_bytes()).hexdigest()
     export_evidence = verify_saved_exports(exports, runtime, ui.directory)
     checks.append("real_txt_json_srt_saved_and_read_from_documents_provider")
     checks.append("pending_json_export_survives_picker_rotation")
