@@ -5,4 +5,5 @@ docs/evidence/round11-bound-*.json -text
 docs/evidence/round11-provider-export.* -text
 docs/licenses/dialogs-OpenRAIL.md -text
 docs/licenses/asio-* -text
-docs/evidence/round11-recovery10-runtime-notices.txt -text
+docs/evidence/round11-recovery10-* -text
+docs/evidence/late11-*.json -text

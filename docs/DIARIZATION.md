@@ -20,14 +20,14 @@ Models run sequentially and are released before the next engine loads.
 There is no declared or forced speaker count. IDs are numbered by first appearance
 within this recording; these are voice clusters, never identities or names.
 
-The threshold is **0.9**, selected from the upstream hint for the public Chinese
-example. **0.5 failed** recurrence and overclustered that file into seven voices.
-0.9 is not independently tuned on Russian dialogue and can merge different voices.
-The new [three-utterance acted Russian probe](RUSSIAN_EVALUATION.md) exposes this
-failure: all D/M/D clips merge into Speaker 1, cpWER 60.98%, A-B-A FAIL. This
-does not invalidate the separate Chinese recurrence execution check, nor does
-that check establish Russian speaker accuracy. No threshold was changed to fit
-this probe. Representative accuracy, DER and physical-phone speed remain open.
+The default threshold is **0.8**, selected in PR #8 and retained here without
+further tuning. It passes the three-utterance acted Russian D/M/D development
+probe (WER/cpWER 1/41 each), Chinese recurrence and clean one-voice Russian
+regressions. The legacy 0.9 comparator merges those Russian voices (cpWER 25/41).
+The original 0.5 Chinese check overclustered; no universal threshold is claimed.
+Because the Russian probe was used during selection, it is not an untouched
+holdout. Representative natural-dialogue accuracy, DER and phone acceptance
+remain open. See [actual runs and limits](PROGRESS.md).
 
 ## Timing and uncertainty
 

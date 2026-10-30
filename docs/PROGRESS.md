@@ -2,6 +2,26 @@
 
 ## Late continuation 11 — preserve peer integration and recovery evidence
 
+- Completed verification at **acb9539**: Android
+  [41116632139](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41116632139)
+  **19 instrumentation + 11 UI checks PASS, zero skips**, confirmed from JUnit
+  and saved-file reports. New delayed/unknown/cancelled exit checks execute;
+  import/native inference/provider exports, runtime identity and lifecycle pass.
+  Benchmark [41116632169](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41116632169)
+  PASS: 0.8 D/M/D, WER/cpWER 1/41 each, correct threshold-0.8 provenance and
+  invocation/hypothesis hashes. DER remains NOT_SCORED. Build/lint/core/packaging
+  [41116632309](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41116632309)
+  PASS. Local benchmark 7, optimized evidence 3 and notice 2 methods PASS.
+- Exact current reports: docs/evidence/late11-*.json. Retained native and old
+  candidate evidence is historical: native job PASS, old UI oracle FAIL, corrected
+  candidate run PASS. No old failures/snapshots overwritten or relabeled.
+  Backup ZIP and peer worktree preserved. This finishes checkpoint work at low
+  quota; no autonomous process, agent, new model or parameter search launched.
+- Verdict **NOT_READY**: untouched Russian holdout/natural dialogue and DER,
+  physical ARM64/airplane mode/spoken microphone acceptance, overlap quality,
+  phone performance and complete distribution review remain open. No new runtime
+  promoted and public APK publication stays disabled; PR #6 stays draft.
+
 - Fixed a separate provenance mismatch: DiarizationModelStore.REVISION still
   hardcoded threshold-0.9 after the approved default became 0.8. It now derives
   the label from the actual production constant; a regression assertion checks

@@ -4,7 +4,7 @@
 
 **Nuclear IT Hack (MEPhI, November 2026)**. Offline Android application for transcribing recorded conversations with speaker attribution and timestamps.
 
-Status: **experimental, NOT_READY**. Real offline Russian GigaAM v3 recognition and the import/export flow execute on Android x86_64/API 33. **Speaker attribution fails the independent three-utterance acted Russian probe:** D/M/D collapses into Speaker 1 (WER 2.44%, cpWER 60.98%, A-B-A FAIL; DER has no independent reference). The separate upstream Chinese-fixture recurrence check passes; it does not establish Russian dialogue quality. Worker recovery and the no-TTS bounds patch are tested, but overlap recognition/separation remains unproven. Physical ARM64, spoken microphone dialogue and representative accuracy remain open. See [probe scope](docs/RUSSIAN_EVALUATION.md), [diarization details](docs/DIARIZATION.md) and [exact runs](docs/PROGRESS.md).
+Status: **experimental, NOT_READY**. The default clustering threshold is 0.8. On the three-utterance acted Russian development probe, D/M/D recurrence passes with WER and cpWER each 1/41 (2.44%); legacy 0.9 merged the voices (cpWER 60.98%). This probe was used during threshold selection and is not an untouched holdout or corpus accuracy result. Android x86_64 recording/import/export flows execute; DER, physical ARM64/spoken microphone acceptance, overlap quality and distribution review remain open. See [scope and evidence](docs/PROGRESS.md).
 
 ### Architecture
 - User WAV imports are validated bounded local snapshots; failed replacement keeps the previous input/result. Export captures one inference document, so a returning document picker cannot export a later input by mistake. UI/TXT/SRT show exact chunk milliseconds; JSON also retains duration, provenance and warnings. Word alignment is not implemented.
@@ -34,8 +34,9 @@ tests. [Scoring format and conventions](docs/BENCHMARKS.md) document reference
 provenance, collars, overlap, unknown speakers and missing ground truth. The public
 Russian WAV has no full independent annotations: its metrics remain **NOT_SCORED**.
 The separate [three-utterance acted Russian probe](docs/RUSSIAN_EVALUATION.md)
-now has external scripted references: WER 2.44%, cpWER 60.98%, **A-B-A FAIL**
-(voices merged), DER NOT_SCORED. These small-probe results do not establish
+has external scripted references: default 0.8 gives WER/cpWER 2.44% and A-B-A PASS;
+legacy 0.9 gives cpWER 60.98%. DER remains NOT_SCORED. Used during threshold
+selection, this development probe does not establish
 natural-dialogue accuracy or contest readiness.
 Round 4 reduces WAV import allocation with exact PCM parity; host allocation
 evidence is not Android peak RAM or ASR speed. Cloud tests retain public-fixture

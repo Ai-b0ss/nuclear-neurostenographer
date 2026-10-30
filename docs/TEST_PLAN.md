@@ -1,5 +1,11 @@
 # Test plan — not benchmark results
 
+Late continuation 11 at acb9539: **19 instrumentation + 11 UI checks PASS** in
+41116632139. Includes bounded prior-worker-death waiting, unknown-exit refusal,
+caller cancellation and production-threshold provenance agreement. The accepted
+0.8 default remains unchanged. Its development probe repeats WER/cpWER 1/41;
+it was used in threshold selection and is not an untouched accuracy holdout.
+
 Archived public provider exports can be audited without Android or downloads:
 `python tools/test_android_evidence.py`, then
 `python tools/verify_android_evidence.py --ui-report docs/evidence/round11-ui-flow.json --apk-report docs/evidence/round11-apk-inspection.json --directory docs/evidence --prefix round11-provider-export`.

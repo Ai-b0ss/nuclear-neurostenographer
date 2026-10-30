@@ -21,8 +21,9 @@ project has not independently audited those consent records.
 `tools/fixtures/dialogs-ru-smoke-lock.json` pins the license, external test.csv,
 three WAV byte hashes and exact composite WAV hash. Selection was fixed before
 model inference: first neutral D, first neutral M, second neutral D in the pinned
-test.csv order. No examples are chosen by recognition results and no model or
-clustering parameter is tuned on this probe.
+test.csv order. No examples were chosen by recognition results. PR #8 later used
+this same probe to compare thresholds and select 0.8. It is therefore a development
+probe, not an untouched holdout; external scripted references remain unchanged.
 
 The source PCM16 mono 44.1-kHz samples are concatenated unchanged, adding two
 500-ms zero gaps. The app's normal PCM reader/resampler processes the resulting
@@ -75,7 +76,7 @@ test report and full dataset license, never audio/models. Read the report's scop
 and metric availability together with its numbers. Exact executed results are
 recorded in PROGRESS.md; provisioning or compilation alone is not model evidence.
 
-## Executed baseline — 30 October 2026
+## Initial 0.9 baseline — 30 October 2026
 
 [Android run 41048642815](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41048642815)
 at `ab46587` completed real CPU inference on API 33/x86_64 with the default
@@ -83,7 +84,9 @@ no-TTS runtime. **WER 1/41 = 2.44%; cpWER 25/41 = 60.98%; A-B-A FAIL**:
 all three source clips were assigned Speaker 1. DER remains NOT_SCORED.
 This exposes a speaker-merging failure, despite good text recognition on these
 three clips. The workflow succeeded in collecting measurements; quality did
-not pass the recurrence probe. No threshold was changed in response.
+not pass the recurrence probe. This initial run preceded the later PR #8 threshold
+selection. At default 0.8, run 41069898150 reports WER/cpWER 1/41 and recurrence
+PASS. That gain on a development probe is not independent corpus acceptance.
 
 Inference took 5,129 ms / RTF 0.261 on that cloud emulator, including worker
 bind/load/process/exit and ASR load/decode, excluding import/model verification.
