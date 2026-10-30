@@ -30,10 +30,10 @@ def main():
                 "tone.flac": ["-c:a", "flac"]}
     manifest = args.output / "manifest.json"
     rejected = {"two-tracks.m4a": ["-map", "0:a", "-map", "0:a", "-c:a", "aac"],
-                "float-output.flac": ["-c:a", "flac", "-sample_fmt", "s32"],
                 "too-long.m4a": ["-t", "121", "-c:a", "aac", "-b:a", "32k"]}
+    probes = {"float-output.flac": ["-c:a", "flac", "-sample_fmt", "s32"]}
     manifest.unlink(missing_ok=True)
-    for name in variants | rejected:
+    for name in variants | rejected | probes:
         (args.output / name).unlink(missing_ok=True)
     version = subprocess.check_output([args.ffmpeg, "-version"], text=True).splitlines()[0]
     with tempfile.TemporaryDirectory(dir=args.output) as temp:
@@ -56,20 +56,21 @@ def main():
                 records[name] = {"sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
                                  "bytes": output.stat().st_size}
             failures = {}
-            for name, options in rejected.items():
+            formats = {}
+            for name, options in (rejected | probes).items():
                 output = args.output / name
                 loop = ["-stream_loop", "-1"] if name == "too-long.m4a" else []
                 subprocess.run([args.ffmpeg, "-nostdin", "-hide_banner", "-loglevel", "error", "-y",
                                 *loop, "-i", str(source), "-map_metadata", "-1", *options, str(output)],
                                check=True, timeout=30)
-                failures[name] = {"sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
-                                  "bytes": output.stat().st_size}
+                (failures if name in rejected else formats)[name] = {
+                    "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "bytes": output.stat().st_size}
             manifest.write_text(json.dumps({"kind": "GENERATED_NUMERIC_TONES_NOT_SPEECH",
                 "ffmpeg": version, "rate": rate, "channels": 2, "source_duration_ms": 1250,
                 "source_pcm_sha256": hashlib.sha256(data).hexdigest(), "files": records,
-                "reject_files": failures}, indent=2) + "\n")
+                "reject_files": failures, "format_probe_files": formats}, indent=2) + "\n")
         except BaseException:
-            for name in variants | rejected:
+            for name in variants | rejected | probes:
                 (args.output / name).unlink(missing_ok=True)
             raise
     print(manifest)

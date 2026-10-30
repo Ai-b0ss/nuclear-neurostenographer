@@ -74,6 +74,12 @@
   Official Kotlin API bytes retained, all JNI replaced with only two intended
   ABI/library pairs. Added explicit --runtime-file selector with hardcoded digest;
   wrong binary negative preserves previous runtime. Candidate emulator run pending.
+- Raw-FLAC fix passes all five generated codec imports on Android. Run
+  41041113969 is **15 PASS / 1 FAIL** because the new high-bit FLAC test assumed
+  float output. Actual Android extractor safely returns PCM16 for that file.
+  Corrected this test assumption: separate format probe inspects the actual
+  extractor encoding, accepts valid PCM16 conversion and rejects raw non-PCM16.
+  Production format restrictions are unchanged; no failing inference gate hidden.
 
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.

@@ -18,7 +18,7 @@ class CodecFixtureTests(unittest.TestCase):
         manifest = json.loads((FIXTURES / "manifest.json").read_text())
         self.assertEqual(manifest["kind"], "GENERATED_NUMERIC_TONES_NOT_SPEECH")
         self.assertEqual(len(manifest["files"]), 5)
-        for name, record in (manifest["files"] | manifest["reject_files"]).items():
+        for name, record in (manifest["files"] | manifest["reject_files"] | manifest["format_probe_files"]).items():
             data = (FIXTURES / name).read_bytes()
             self.assertEqual(hashlib.sha256(data).hexdigest(), record["sha256"])
             self.assertEqual(len(data), record["bytes"])

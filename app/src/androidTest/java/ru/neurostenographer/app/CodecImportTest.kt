@@ -16,6 +16,33 @@ class CodecImportTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
+    @Test fun highBitFlacUsesActualExtractorEncodingRatherThanAssumedFloat() {
+        val source = File.createTempFile("high-bit-", ".flac", context.cacheDir)
+        val extractor = android.media.MediaExtractor()
+        try {
+            instrumentation.context.assets.open("codecs/float-output.flac").use { input ->
+                source.outputStream().use { input.copyTo(it) }
+            }
+            extractor.setDataSource(source.absolutePath)
+            val format = extractor.getTrackFormat(0)
+            val mime = format.getString(android.media.MediaFormat.KEY_MIME)
+            val encoding = if (format.containsKey(android.media.MediaFormat.KEY_PCM_ENCODING))
+                format.getInteger(android.media.MediaFormat.KEY_PCM_ENCODING) else null
+            if (mime == "audio/raw" && encoding != android.media.AudioFormat.ENCODING_PCM_16BIT) {
+                assertTrue(runCatching { AudioImport.import(context, Uri.fromFile(source)) }.isFailure)
+            } else {
+                // Some extractors safely downconvert high-bit FLAC to PCM16.
+                // Input bit depth is not a reason to reject valid decoded PCM16.
+                val snapshot = AudioImport.import(context, Uri.fromFile(source))
+                try {
+                    val audio = snapshot.file.inputStream().use { PcmWav.read(it) }
+                    assertTrue(audio.durationMs in 1200..1450)
+                    assertTrue(audio.samples.all { it.isFinite() && it in -1f..1f })
+                } finally { snapshot.file.delete() }
+            }
+        } finally { extractor.release(); source.delete() }
+    }
+
     @Test fun generatedCodecsBecomeValidatedPrivatePcm() {
         File(context.filesDir, "codec-import-evidence.json").delete()
         val assets = instrumentation.context.assets
@@ -81,7 +108,6 @@ class CodecImportTest {
                 assertNotNull("Accepted negative fixture $name", error)
                 val reason = when (name) {
                     "two-tracks.m4a" -> "ровно один"
-                    "float-output.flac" -> "PCM16"
                     else -> "120 секунд"
                 }
                 assertTrue("$name: $error", error!!.message.orEmpty().contains(reason))

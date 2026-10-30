@@ -23,7 +23,9 @@ Other containers are parsed by Android MediaExtractor and decoded by MediaCodec.
 On Android 13 the FLAC extractor may already emit `audio/raw` PCM16; this path
 uses the same bounded WAV writer/timeline checks without creating another codec.
 An explicit PCM16 encoding is required for raw extractor output; float PCM and
-unknown bit depth are rejected. Generated 24-bit FLAC is a rejection fixture.
+unknown bit depth are rejected. A generated high-bit FLAC probe checks actual
+extractor encoding: safe platform conversion to PCM16 is accepted, raw float is
+rejected. The source file's bit depth alone does not determine decoder output.
 The allowlist is MP3 (`audio/mpeg`), AAC/M4A (`audio/mp4a-latm`), Ogg Vorbis/Opus,
 FLAC, AMR-NB and AMR-WB. Availability depends on the Android version/device and
 container. AMR has no generated test fixture yet. Unsupported codecs/formats,
