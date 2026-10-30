@@ -4,6 +4,18 @@
 
 ### Recovery call 6 — validation under optimized Python
 
+- Code **6afd8d1**: [build 41058718972](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058718972)
+  PASS including optimized negatives, lint, 16 core groups and runtime packaging.
+  [Android 41058719146](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058719146)
+  **17 instrumentation + 11 UI checks PASS, zero skips**, confirmed from actual
+  JUnit XML and UI report. Fresh provider files also pass the optimized validator.
+  Prior repeat 41058035642 likewise PASS 17+11; earlier pending snapshots preserved.
+- Reports: round11-recovery6-status.json, Android/build CI JSON and exact UI flow.
+  Runtime remains 771fda6a...511c1c8; original hypothesis/license Git blob hashes
+  still match recorded pins. No audio/models published; backup and main preserved.
+  NOT_READY: Russian merging/cpWER 60.98%, DER/representative dialogue, physical
+  ARM64/spoken recording/phone performance and distribution gates remain open.
+
 - Verified clean HEAD 5d4b05b, current CI, full AGENTS/handoff, draft PR #6 and
   deferred issue #7. Prior files/backup/logs remain intact; no new models.
 - Reproduced an actual integrity-check defect: `python -O tools/test_android_evidence.py`

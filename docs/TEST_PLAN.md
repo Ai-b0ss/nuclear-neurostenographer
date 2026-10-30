@@ -6,6 +6,9 @@ Archived public provider exports can be audited without Android or downloads:
 This checks recorded hashes/byte counts, cross-format intervals and runtime
 agreement. It does not authenticate external reports or execute a model/device;
 its result is explicitly archived-file integrity, separate from accuracy.
+Also run `python -O tools/test_android_evidence.py`: validation must reject a
+changed timeline even when Python optimization is enabled and file hashes are
+recomputed. Explicit checks preserve the same failure API in both modes.
 
 Round 10 validates the standard no-TTS build and explicit upstream regression:
 each passes **17 instrumentation tests and 7 actual UI checks**, zero skips.
