@@ -1,6 +1,9 @@
 name: Host JNI inference and overlap regression (not Android)
 on:
   workflow_dispatch:
+  push:
+    branches: ['codex/**']
+    paths: ['.github/workflows/host-inference.yml', 'tools/*Jvm*.kt', 'app/src/main/java/ru/neurostenographer/app/Offline*.kt']
 permissions:
   contents: read
 jobs:

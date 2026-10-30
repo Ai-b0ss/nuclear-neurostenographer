@@ -1,5 +1,19 @@
 # Progress — 2026-10-30, round 1
 
+## Continuation 1 / round 9 — GitHub access restored
+- Supervisor preserved rounds 1–8 in WIP commit `8d9c1e7` on
+  `codex/overnight-20261030-wip`. Current authenticated fetch succeeds; main is
+  untouched. Earlier permission blockers below describe historical runs.
+- Cloud build/core/lint PASS for recovered source:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41038678251 .
+- First Android inference CI FAILED before emulator startup because FFmpeg was
+  absent: https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41038678364 .
+  Added explicit runner-only FFmpeg installation. No local machine installation.
+- New workflow files cannot dispatch while absent from default branch (HTTP 404).
+  Added narrowly filtered WIP-branch push triggers for no-TTS native build and
+  independent Linux host inference. No default-branch merge is needed.
+- Runtime and Android results remain pending; no device success inferred.
+
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.
 - Local main and live GitHub main: `2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58`; working tree initially clean. No open PRs found. Issues #2–#5 open, #1 closed.

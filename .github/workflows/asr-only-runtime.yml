@@ -1,6 +1,9 @@
 name: Build pinned ASR-only Android runtime candidate
 on:
   workflow_dispatch:
+  push:
+    branches: ['codex/**']
+    paths: ['.github/workflows/asr-only-runtime.yml', 'tools/runtime/**']
 permissions:
   contents: read
 jobs:

@@ -27,6 +27,8 @@ jobs:
           gradle-version: '8.9'
       - name: Provision checksum-verified public model and upstream fixture
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
           python3 tools/test_score_transcript.py
           python3 tools/test_android_workflow.py
           python3 tools/provision_asr.py --test-assets
