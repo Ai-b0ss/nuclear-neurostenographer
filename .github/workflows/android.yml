@@ -16,12 +16,13 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Show preinstalled SDK
+      - name: Locate preinstalled Android SDK manager
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          sdkmanager --version
-      - name: Install Android platform and build tools
-        run: sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          test -n "$SDKMGR" && test -x "$SDKMGR"
+          echo "$(dirname "$SDKMGR")" >> "$GITHUB_PATH"
+          "$SDKMGR" --version
+          "$SDKMGR" --install "platforms;android-35" "build-tools;35.0.0"
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
