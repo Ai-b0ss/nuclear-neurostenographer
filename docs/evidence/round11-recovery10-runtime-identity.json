@@ -1,0 +1,10 @@
+{
+  "run": 41061172511,
+  "artifact_id": 12979671900,
+  "aar_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "aar_saved_locally": false,
+  "asio_abis": [
+    "arm64-v8a"
+  ],
+  "notice_digest_verified": true
+}

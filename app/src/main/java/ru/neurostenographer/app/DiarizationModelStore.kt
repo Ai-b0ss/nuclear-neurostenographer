@@ -33,7 +33,8 @@ class DiarizationModelStore(context: Context) {
         dir.delete()
     }
     companion object {
-        const val REVISION = "pyannote-9403a690/eres2net-1a331345/threshold-0.9"
+        val REVISION: String
+            get() = "pyannote-9403a690/eres2net-1a331345/threshold-${OfflineDiarization.THRESHOLD}"
         val ARTIFACTS = linkedMapOf(
             "segmentation.onnx" to PinnedArtifact("220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079", 5_992_913),
             "embedding.onnx" to PinnedArtifact("1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b", 39_593_761),

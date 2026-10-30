@@ -45,6 +45,7 @@ class OfflineDiarizationTest {
         }
         assertTrue(OfflineDiarization.validThreshold(0.8f))
         assertTrue(OfflineDiarization.validThreshold(OfflineDiarization.THRESHOLD))
+        assertTrue(DiarizationModelStore.REVISION.endsWith("/threshold-${OfflineDiarization.THRESHOLD}"))
     }
     @Test fun finalUnbindStopsNativeWorkerAfterSuccessAndCancellation(): Unit = runBlocking {
         val context = instrumentation.targetContext

@@ -1,0 +1,277 @@
+{
+  "scope": "Actual source dependency inputs; root and explicitly mapped nested notices only, not full license clearance",
+  "sherpa_commit": "5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f",
+  "tts": "OFF",
+  "toolchain": "Android NDK 27.2.12479018; toolchain/stdlib notices require separate review",
+  "dependencies": [
+    {
+      "abi": "arm64-v8a",
+      "dependency": "asio-src",
+      "licenses": {
+        "asio/COPYING": {
+          "sha256": "2d312781ba7ca3f5b494aec3bcca5cfbb69b7302838b2a7595d1537fc494457f",
+          "bytes": 224
+        },
+        "asio/LICENSE_1_0.txt": {
+          "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+          "bytes": 1338
+        }
+      },
+      "top_cmake_sha256": null,
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "eigen-src",
+      "licenses": {
+        "COPYING.APACHE": {
+          "sha256": "03379001a7b12a2ec997a25554247d985270b353c10d5bafee9ac8d6519820b7",
+          "bytes": 11362
+        },
+        "COPYING.BSD": {
+          "sha256": "51928dce36213c5333ba3172e847d735d4c6e9b7ff2722a326c49067155b82eb",
+          "bytes": 1517
+        },
+        "COPYING.GPL": {
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+          "bytes": 35147
+        },
+        "COPYING.LGPL": {
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+          "bytes": 26530
+        },
+        "COPYING.MINPACK": {
+          "sha256": "c87b7f8ee88f6195e91743820c00354833583aef091b72e2d4a49c8e28e798a0",
+          "bytes": 2193
+        },
+        "COPYING.MPL2": {
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+          "bytes": 16726
+        },
+        "COPYING.README": {
+          "sha256": "c83230b770f17ef1386ea1fd3681271dd98aa93646bdbfb5bff3a1b7050fff9d",
+          "bytes": 779
+        }
+      },
+      "top_cmake_sha256": "0335175c34ba9883f0b8b729e484cb62f1a58eddc6d0a563b46b058198ea3c59",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "hclust_cpp-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "e361d842da1d290351860ad6dcce2673a1e42e4f873a3ae1ff4eb92c6adaa882",
+          "bytes": 1483
+        }
+      },
+      "top_cmake_sha256": null,
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "kaldi_decoder-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        }
+      },
+      "top_cmake_sha256": "cff5a265501936367e96c1ac4a9a54cdb53ff4c0b6ccc1e6d756929a64bab0c0",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "kaldi_native_fbank-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        }
+      },
+      "top_cmake_sha256": "a2cceec93dabe0397af384eb2628e2dfded651c97042cd49b16fa442c2624b0d",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "kaldifst-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "a682d6efd1ee5dee08a8e405c233c2c198ea70ae0718129daa83ab58cfe31c5d",
+          "bytes": 11728
+        }
+      },
+      "top_cmake_sha256": "b3ad634636a0781d2c0c3e654ea9b0fe4349e69b7d041946e4d962cdcabadc7d",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "kissfft-src",
+      "licenses": {
+        "COPYING": {
+          "sha256": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6",
+          "bytes": 246
+        }
+      },
+      "top_cmake_sha256": "21a43a190bbf03b225bd877639828e61e192f3149ab20b8863e1aae48c14f8df",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "openfst-src",
+      "licenses": {
+        "COPYING": {
+          "sha256": "9ba732713e5a28a183907aaba134490900bc258310a8fb37a391b47bc1c7f951",
+          "bytes": 560
+        }
+      },
+      "top_cmake_sha256": "5fee01e9695c4a435b919bdc61c5bd5432ff18836943b798816cab7501a35fb9",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "simple-sentencepiece-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357
+        }
+      },
+      "top_cmake_sha256": "926695f5eb4692023960083d811428bd1486c4e7609666ee07e2b40a9102ac39",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "arm64-v8a",
+      "dependency": "websocketpp-src",
+      "licenses": {
+        "COPYING": {
+          "sha256": "5ba81a1ed402517dce2581fa2d4042baf6a9c8ca0fe94fa6a7043ce6ab23064f",
+          "bytes": 7494
+        }
+      },
+      "top_cmake_sha256": "c0eccb2fd0364852cd28faa9d4af8881ea8de3e3f672b0d09307857a9a5ca49b",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "eigen-src",
+      "licenses": {
+        "COPYING.APACHE": {
+          "sha256": "03379001a7b12a2ec997a25554247d985270b353c10d5bafee9ac8d6519820b7",
+          "bytes": 11362
+        },
+        "COPYING.BSD": {
+          "sha256": "51928dce36213c5333ba3172e847d735d4c6e9b7ff2722a326c49067155b82eb",
+          "bytes": 1517
+        },
+        "COPYING.GPL": {
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+          "bytes": 35147
+        },
+        "COPYING.LGPL": {
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+          "bytes": 26530
+        },
+        "COPYING.MINPACK": {
+          "sha256": "c87b7f8ee88f6195e91743820c00354833583aef091b72e2d4a49c8e28e798a0",
+          "bytes": 2193
+        },
+        "COPYING.MPL2": {
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+          "bytes": 16726
+        },
+        "COPYING.README": {
+          "sha256": "c83230b770f17ef1386ea1fd3681271dd98aa93646bdbfb5bff3a1b7050fff9d",
+          "bytes": 779
+        }
+      },
+      "top_cmake_sha256": "0335175c34ba9883f0b8b729e484cb62f1a58eddc6d0a563b46b058198ea3c59",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "hclust_cpp-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "e361d842da1d290351860ad6dcce2673a1e42e4f873a3ae1ff4eb92c6adaa882",
+          "bytes": 1483
+        }
+      },
+      "top_cmake_sha256": null,
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "kaldi_decoder-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        }
+      },
+      "top_cmake_sha256": "cff5a265501936367e96c1ac4a9a54cdb53ff4c0b6ccc1e6d756929a64bab0c0",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "kaldi_native_fbank-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        }
+      },
+      "top_cmake_sha256": "a2cceec93dabe0397af384eb2628e2dfded651c97042cd49b16fa442c2624b0d",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "kaldifst-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "a682d6efd1ee5dee08a8e405c233c2c198ea70ae0718129daa83ab58cfe31c5d",
+          "bytes": 11728
+        }
+      },
+      "top_cmake_sha256": "b3ad634636a0781d2c0c3e654ea9b0fe4349e69b7d041946e4d962cdcabadc7d",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "kissfft-src",
+      "licenses": {
+        "COPYING": {
+          "sha256": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6",
+          "bytes": 246
+        }
+      },
+      "top_cmake_sha256": "21a43a190bbf03b225bd877639828e61e192f3149ab20b8863e1aae48c14f8df",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "openfst-src",
+      "licenses": {
+        "COPYING": {
+          "sha256": "9ba732713e5a28a183907aaba134490900bc258310a8fb37a391b47bc1c7f951",
+          "bytes": 560
+        }
+      },
+      "top_cmake_sha256": "5fee01e9695c4a435b919bdc61c5bd5432ff18836943b798816cab7501a35fb9",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    },
+    {
+      "abi": "x86_64",
+      "dependency": "simple-sentencepiece-src",
+      "licenses": {
+        "LICENSE": {
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357
+        }
+      },
+      "top_cmake_sha256": "926695f5eb4692023960083d811428bd1486c4e7609666ee07e2b40a9102ac39",
+      "license_collection_status": "KNOWN_NOTICE_FILES_CAPTURED"
+    }
+  ],
+  "notices_sha256": "2ccf4d7a58d0bf3de064f9b1d59f091294dcc98cbd5dc91725634cfb70e6e691"
+}

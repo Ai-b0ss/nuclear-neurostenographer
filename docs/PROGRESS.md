@@ -2,6 +2,14 @@
 
 ## Late continuation 11 — preserve peer integration and recovery evidence
 
+- Fixed a separate provenance mismatch: DiarizationModelStore.REVISION still
+  hardcoded threshold-0.9 after the approved default became 0.8. It now derives
+  the label from the actual production constant; a regression assertion checks
+  agreement. No weights, default threshold or historical outputs are changed.
+- All six interrupted files match the pre-late-recovery backup ZIP byte-for-byte.
+  Their native notices digest and AAR/package identities also validate. This
+  verification does not promote a new runtime or clear whole-APK redistribution.
+
 - Continued actual HEAD 92b99a2 after PR #8 merged into WIP. Threshold 0.8,
   debug-only diagnostics and peer worktree are preserved without new tuning.
   Verified successful 0.8 acted-probe run 41069898150: WER/cpWER 1/41 each,
