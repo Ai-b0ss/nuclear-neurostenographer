@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # One shell is required: emulator-runner executes each YAML script line separately.
 set -euo pipefail
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 mkdir -p device-evidence
 collect_evidence() {
   status=$?
@@ -25,6 +26,11 @@ collect_evidence() {
   if ! adb exec-out run-as ru.neurostenographer.app cat files/worker-lifecycle-evidence.json > device-evidence/worker-lifecycle.json; then
     rm -f device-evidence/worker-lifecycle.json
   fi
+  if [[ "$status" == 0 ]]; then
+    python3 "$SCRIPT_DIR/validate_android_collection.py" device-evidence --require-complete || status=1
+  else
+    python3 "$SCRIPT_DIR/validate_android_collection.py" device-evidence || true
+  fi
   exit "$status"
 }
 trap collect_evidence EXIT
@@ -33,4 +39,6 @@ adb shell svc data disable
 adb logcat -c
 # Do not let files from a previous test execution masquerade as this run.
 adb shell pm clear ru.neurostenographer.app >/dev/null || true
-gradle --no-daemon :core:runCoreTests :app:connectedDebugAndroidTest
+# AGP 8.7.3 BooleanOption: keep this disposable test installation for collection.
+# Otherwise connectedDebugAndroidTest uninstalls it before the EXIT trap can read.
+gradle --no-daemon -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true :core:runCoreTests :app:connectedDebugAndroidTest

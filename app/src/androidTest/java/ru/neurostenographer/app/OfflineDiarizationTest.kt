@@ -14,7 +14,7 @@ import java.io.File
 
 class OfflineDiarizationTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
-    @Test fun finalUnbindStopsNativeWorkerAfterSuccessAndCancellation() = runBlocking {
+    @Test fun finalUnbindStopsNativeWorkerAfterSuccessAndCancellation(): Unit = runBlocking {
         val context = instrumentation.targetContext
         File(context.filesDir, "worker-lifecycle-evidence.json").delete()
         val store = DiarizationModelStore(context)
@@ -51,7 +51,7 @@ class OfflineDiarizationTest {
             """{"scope":"Android worker lifecycle","success_exit":true,"cancel_exit":true,"retry_exit":true,"staged_cleanup":true}""")
         Log.i("DiarizationEvidence", "success_cancel_retry worker_exit_and_staged_cleanup PASS")
     }
-    @Test fun workerDeathLeavesCallerAliveAndCanRestart() = runBlocking {
+    @Test fun workerDeathLeavesCallerAliveAndCanRestart(): Unit = runBlocking {
         val context = instrumentation.targetContext
         val store = DiarizationModelStore(context)
         val model = instrumentation.context.assets.open("diarization.zip").use { store.install(it) }
@@ -67,7 +67,7 @@ class OfflineDiarizationTest {
         Log.i("DiarizationEvidence", "worker_death_and_restart PASS")
     }
 
-    @Test fun knownMixedVoicesCannotKillCaller() = runBlocking {
+    @Test fun knownMixedVoicesCannotKillCaller(): Unit = runBlocking {
         val context = instrumentation.targetContext
         val store = DiarizationModelStore(context)
         val model = instrumentation.context.assets.open("diarization.zip").use { store.install(it) }

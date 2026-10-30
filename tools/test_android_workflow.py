@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -13,7 +14,7 @@ BASH = "C:/Program Files/Git/bin/bash.exe" if os.name == "nt" else shutil.which(
 
 @unittest.skipUnless(BASH and Path(BASH).exists(), "Bash unavailable")
 class CollectorTests(unittest.TestCase):
-    def run_collector(self, gradle_code, adb_fail=False):
+    def run_collector(self, gradle_code, adb_fail=False, false_success=False):
         (ROOT / ".local").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)
@@ -24,6 +25,13 @@ adb() {
     printf '{"fixture":"FAKE_COLLECTOR_UNIT_TEST"}'
     return 0
   elif [[ "$*" == *"exec-out"* ]]; then
+    if [[ "$FAKE_ADB_FALSE_SUCCESS" == 1 ]]; then
+      echo 'run-as: unknown package: ru.neurostenographer.app'
+      return 0
+    elif [[ "$FAKE_GRADLE_EXIT" == 0 && "$FAKE_ADB_EXIT" == 0 ]]; then
+      printf '{"fixture":"FAKE_COLLECTOR_UNIT_TEST"}'
+      return 0
+    fi
     return 1
   elif [[ "$*" == *"logcat -d"* ]]; then
     echo FAKE_LOG
@@ -34,6 +42,7 @@ adb() {
   return 0
 }
 gradle() { echo FAKE_GRADLE; return "$FAKE_GRADLE_EXIT"; }
+python3() { "$TEST_PYTHON" "$@"; }
 ''', encoding="utf-8", newline="\n")
             # A stale collector-owned output must disappear when retrieval fails.
             (root / "device-evidence").mkdir()
@@ -42,15 +51,19 @@ gradle() { echo FAKE_GRADLE; return "$FAKE_GRADLE_EXIT"; }
             (root / "device-evidence/recording.json").write_text('{"old_recording":true}')
             (root / "device-evidence/worker-lifecycle.json").write_text('{"old_worker":true}')
             env = dict(os.environ, BASH_ENV=startup.as_posix(), FAKE_GRADLE_EXIT=str(gradle_code),
-                       FAKE_ADB_EXIT="9" if adb_fail else "0")
+                       FAKE_ADB_EXIT="9" if adb_fail else "0", FAKE_ADB_FALSE_SUCCESS="1" if false_success else "0",
+                       TEST_PYTHON=Path(sys.executable).as_posix())
             completed = subprocess.run([BASH, (ROOT / "tools/run_android_inference.sh").as_posix()],
                                        cwd=root, env=env, capture_output=True, text=True)
-            self.assertEqual(completed.returncode, 9 if adb_fail else gradle_code, completed.stderr)
+            self.assertEqual(completed.returncode, 9 if adb_fail else 1 if false_success else gradle_code, completed.stderr)
             self.assertEqual(json.loads((root / "device-evidence/asr-0.json").read_text())["fixture"], "FAKE_COLLECTOR_UNIT_TEST")
-            self.assertFalse((root / "device-evidence/asr-1.json").exists())
-            self.assertFalse((root / "device-evidence/codec-import.json").exists())
-            self.assertFalse((root / "device-evidence/recording.json").exists())
-            self.assertFalse((root / "device-evidence/worker-lifecycle.json").exists())
+            complete = not adb_fail and gradle_code == 0 and not false_success
+            for name in ["asr-1", "codec-import", "recording", "worker-lifecycle"]:
+                self.assertEqual(complete, (root / f"device-evidence/{name}.json").exists())
+            report = json.loads((root / "device-evidence/collection-summary.json").read_text())
+            self.assertEqual(complete, report["complete"])
+            if false_success:
+                self.assertIn("asr-1", report["invalid"])
             self.assertIn("FAKE_LOG", (root / "asr-evidence.txt").read_text())
             if adb_fail:
                 self.assertNotIn("FAKE_GRADLE", completed.stdout)
@@ -63,6 +76,9 @@ gradle() { echo FAKE_GRADLE; return "$FAKE_GRADLE_EXIT"; }
 
     def test_adb_failure_does_not_run_gradle_or_hide_failure(self):
         self.run_collector(0, adb_fail=True)
+
+    def test_zero_exit_adb_error_is_not_json_evidence_or_green_run(self):
+        self.run_collector(0, false_success=True)
 
 
 if __name__ == "__main__":

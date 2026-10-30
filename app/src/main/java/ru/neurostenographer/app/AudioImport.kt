@@ -104,13 +104,15 @@ object AudioImport {
                     if (index >= 0) {
                         val buffer = requireNotNull(codec.getInputBuffer(index))
                         buffer.clear()
-                        require(extractor.sampleFlags and (MediaExtractor.SAMPLE_FLAG_ENCRYPTED or
-                            MediaExtractor.SAMPLE_FLAG_PARTIAL_FRAME) == 0) { "Защищённый/неполный аудиокадр" }
                         val count = extractor.readSampleData(buffer, 0)
                         if (count < 0) {
                             codec.queueInputBuffer(index, 0, 0, 0, MediaCodec.BUFFER_FLAG_END_OF_STREAM)
                             inputDone = true
                         } else {
+                            // sampleFlags is -1 at EOF. Validate flags only for an
+                            // actual sample; otherwise every normal EOS looks encrypted.
+                            require(extractor.sampleFlags and (MediaExtractor.SAMPLE_FLAG_ENCRYPTED or
+                                MediaExtractor.SAMPLE_FLAG_PARTIAL_FRAME) == 0) { "Защищённый/неполный аудиокадр" }
                             require(count > 0 && count <= buffer.capacity()) { "Некорректный аудиокадр" }
                             codec.queueInputBuffer(index, 0, count, extractor.sampleTime, 0)
                             extractor.advance()

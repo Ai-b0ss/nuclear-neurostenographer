@@ -30,6 +30,24 @@
   numeric tests, deterministic API-preserving candidate AAR packaging and a
   dependent Android emulator job using that exact candidate. Python patch tests
   3 PASS locally; native compilation and candidate Android execution pending CI.
+- First real Android x86_64/API 33 execution (run 41039298448): **9 PASS / 2 FAIL**.
+  Russian public fixture repeats with identical text and expected phrase; silence,
+  ViewModel import/snapshot and TXT/JSON/SRT path pass. Fresh-recognizer load
+  1191/1179 ms, decode 1404/1371 ms for 11290-ms audio (emulator only). Two actual
+  AudioRecord capture sessions pass, not a spoken microphone-ASR accuracy test.
+  WAV replacement/cleanup/export and fake recording error-state tests pass.
+- Failures are concrete: codec sampleFlags=-1 at EOF was mistaken for encrypted
+  input; flags now checked only after a real sample. JUnit refused the diarization
+  test class because runBlocking inferred Int from Log.i; all such tests now have
+  explicit Unit signatures. Diarization execution in that run did NOT occur.
+- Evidence collector found another real defect: AGP uninstalled the app before
+  retrieval, and adb exec-out returned zero with run-as error text. Pinned AGP
+  BooleanOption confirms leaveApksInstalledAfterRun; now enabled for disposable
+  emulator testing. Collector rejects non-object/non-JSON output and requires all
+  expected metadata on green runs. Four collector tests PASS, including zero-exit
+  adb corruption. No missing JSON is treated as valid inference evidence.
+- Added explicit candidate-run input to Android workflow so fixed app/tests can
+  validate the same no-TTS artifact without rebuilding native code or merging main.
 
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.

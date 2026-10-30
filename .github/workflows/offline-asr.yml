@@ -1,6 +1,11 @@
 name: Real offline Russian ASR (x86_64)
 on:
   workflow_dispatch:
+    inputs:
+      runtime_run_id:
+        description: 'Optional successful native candidate build run in THIS repo; empty uses pinned upstream baseline'
+        required: false
+        default: ''
   push:
     branches: ['codex/**']
     paths: ['app/**', 'core/**', 'tools/**', '.github/workflows/offline-asr.yml']
@@ -40,6 +45,18 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
+      - uses: actions/download-artifact@v4
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_run_id != '' }}
+        with:
+          name: asr-only-runtime-candidate-NOT-DEVICE-VERIFIED
+          path: .local/candidate
+          run-id: ${{ inputs.runtime_run_id }}
+          github-token: ${{ github.token }}
+      - name: Select same-repository candidate for explicit validation
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_run_id != '' }}
+        run: |
+          (cd .local/candidate && sha256sum -c runtime-sha256.txt)
+          cp .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar app/libs/sherpa-onnx-1.12.20.aar
       - uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 33
@@ -62,3 +79,5 @@ jobs:
             device-evidence/
             .local/diarization-provenance.json
             .local/provenance.json
+            .local/candidate/*.json
+            .local/candidate/runtime-sha256.txt
