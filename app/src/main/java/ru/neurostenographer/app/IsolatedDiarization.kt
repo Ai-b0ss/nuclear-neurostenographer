@@ -17,6 +17,10 @@ class DiarizationUnavailable(message: String) : Exception(message)
 object IsolatedDiarization {
     private val lease = Mutex()
     private var pendingWorkerDeath: CompletableDeferred<Unit>? = null
+    internal suspend fun awaitPriorWorkerExit(death: Deferred<Unit>?, graceMs: Long = 5_000) {
+        if (death != null && withTimeoutOrNull(graceMs) { death.await(); true } != true)
+            throw DiarizationUnavailable("Предыдущий процесс диаризации ещё завершается")
+    }
     suspend fun process(context: Context, audio: PcmAudio, model: File,
                         clusteringThreshold: Float = OfflineDiarization.THRESHOLD,
                         onWorkerStarted: (Int) -> Unit = {}): DiarizationOutput = withContext(Dispatchers.IO) {
@@ -27,8 +31,10 @@ object IsolatedDiarization {
             // A previous timed-out cleanup must not permit another native task while
             // the old process may still own samples/models. A later observed death
             // permits recovery; no PID-based kill/retry guesses.
-            if (pendingWorkerDeath?.isCompleted == false)
-                throw DiarizationUnavailable("Предыдущий процесс диаризации ещё завершается")
+            // A burst of sequential calls can reach this guard just before the
+            // prior Binder death is delivered. Await that exact signal briefly;
+            // never start another worker on an unconfirmed exit.
+            awaitPriorWorkerExit(pendingWorkerDeath)
             pendingWorkerDeath = null
             require(audio.sampleRate == 16000 && audio.samples.size in 1600..(120 * 16000))
             val root = File(context.cacheDir, "diarization-input").apply { mkdirs() }

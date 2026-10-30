@@ -14,6 +14,24 @@ import java.io.File
 
 class OfflineDiarizationTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
+    @Test fun delayedWorkerExitWaitsButUnknownExitStillBlocks(): Unit = runBlocking {
+        IsolatedDiarization.awaitPriorWorkerExit(null)
+        val delayed = CompletableDeferred<Unit>()
+        val delivery = launch { delay(25); delayed.complete(Unit) }
+        IsolatedDiarization.awaitPriorWorkerExit(delayed, 1_000)
+        delivery.join()
+        val unknown = CompletableDeferred<Unit>()
+        try {
+            IsolatedDiarization.awaitPriorWorkerExit(unknown, 10)
+            fail("Unconfirmed exit accepted")
+        } catch (_: DiarizationUnavailable) { }
+        assertFalse(unknown.isCompleted)
+        try {
+            withTimeout(10) { IsolatedDiarization.awaitPriorWorkerExit(unknown, 1_000) }
+            fail("Caller cancellation ignored")
+        } catch (_: TimeoutCancellationException) { }
+        assertFalse(unknown.isCompleted)
+    }
     @Test fun experimentalThresholdRejectsInvalidValuesBeforeNativeWork(): Unit = runBlocking {
         val context = instrumentation.targetContext
         val samples = PcmAudio(FloatArray(1600), 16000)

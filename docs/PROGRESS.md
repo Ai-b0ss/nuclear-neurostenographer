@@ -1,5 +1,22 @@
 # Progress — 2026-10-30
 
+## Late continuation 11 — preserve peer integration and recovery evidence
+
+- Continued actual HEAD 92b99a2 after PR #8 merged into WIP. Threshold 0.8,
+  debug-only diagnostics and peer worktree are preserved without new tuning.
+  Verified successful 0.8 acted-probe run 41069898150: WER/cpWER 1/41 each,
+  D/M/D PASS, DER NOT_SCORED. This fixture was used during threshold development,
+  so it is not an untouched holdout or representative conversation benchmark.
+- Latest benchmark 41071541258 FAIL is retained: instrumentation stopped on
+  unconfirmed prior worker exit between sequential calls; no hypothesis/score.
+  Added bounded cancellable waiting for the existing Binder death signal before
+  rejecting the next request. Unknown exit still blocks; no blind retry, process
+  kill guess or guard removal. Added delayed/never-confirmed/cancelled wait tests.
+- Restored six interrupted recovery10 files remain intact. Verified notices hash,
+  ASIO notice identities and native package pin before checkpointing. Native job
+  41061172511 PASS but its old candidate UI job FAIL; corrected candidate run
+  41062449527 PASS. Neither is relabeled as new 0.8 Android evidence.
+
 ## Independent development — Android Russian speaker-clustering diagnostic
 
 - Isolated experiment branch based on production WIP commit 4aff651; original
