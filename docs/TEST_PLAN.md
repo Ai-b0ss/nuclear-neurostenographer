@@ -1,5 +1,17 @@
 # Test plan — not benchmark results
 
+Round 9 executes the Android x86_64/API 33 suite in GitHub Actions. Russian ASR,
+global recurrence, worker success/cancel/crash recovery, recorded-input pipeline,
+WAV state/cleanup and exports have executed successfully. Codec failures exposed
+EOF and raw-FLAC defects; exact final suite outcomes are in [PROGRESS.md](PROGRESS.md).
+Final suites at code commit `d37a030`: **17/17 PASS** on both original and pinned
+no-TTS runtime; **16 core groups PASS**. Native completion and overlap accuracy
+are separate: original known mixture still fails its worker, candidate completes
+with four unknown turns and no overlap detection. The test verifies containment.
+The round-specific notes below preserve earlier test-development history; their
+NOT_RUN descriptions refer to those earlier rounds. Physical ARM64, airplane mode,
+independent Russian dialogue accuracy and phone peak RAM/thermal remain open.
+
 Round 4: `python tools/test_score_transcript.py` checks original WER/cpWER/DER
 arithmetic and independent assignment/time oracles. Run
 `python tools/test_android_workflow.py` for shell success/failure/collection tests

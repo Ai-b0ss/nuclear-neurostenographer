@@ -1,7 +1,9 @@
 # Experimental full-recording diarization
 
-Implemented in round 2; Android **compilation only**, Android execution is NOT_RUN.
-Do not treat host tests as phone evidence. The native overlap regression is a real failure.
+Implemented in round 2; round 9 executes real Android x86_64/API 33 inference,
+A-B-A recurrence, repetition, silence/short input and worker lifecycle tests.
+Exact suites/failures: [PROGRESS.md](PROGRESS.md). Physical ARM64 and independent
+Russian dialogue accuracy remain unverified. Host results are separate evidence.
 
 ## Use
 
@@ -58,8 +60,12 @@ handler can catch that native fault.
 
 Source review finds `FinalizeLabels` calls `TopkIndex(count, num_cols, k)` without
 checking whether local simultaneous-speaker count `k` exceeds the global cluster
-count. This is a suspected cause, not a symbolicated diagnosis or a proven fix.
-Do not enable APK publication on the strength of clean A-B-A tests.
+count. Round 9 reproduces the invalid iterator with checked STL and builds a
+strictly pinned no-TTS candidate: clamp before iterator construction and return
+unknown identity for unsupported speaker counts/zero-vote candidates. On Android,
+the original worker fails this mixture; the candidate completes with four unknown
+turns and no detected overlap. This is not separation or overlap accuracy, nor a
+symbolicated Windows fix. See [candidate provenance](RUNTIME_LICENSES.md).
 
 Android now runs diarization in a private, non-exported `:diarization` service
 process with the same app UID. Bounded samples go through a temporary app-private
@@ -75,7 +81,8 @@ and refuses another request if the prior worker's exit is still unconfirmed.
 Late replies are ignored and the owned temporary file is deleted. This applies
 to completion, cancellation and the ten-minute processing timeout. OS lifecycle
 delivery is still required; this is not a hard real-time shutdown guarantee.
-Android execution of this behavior remains **NOT_RUN**.
+Android x86_64 success/cancel/retry process-exit and staged-cleanup tests PASS in
+round 9. Ten-minute timeout and physical-device scheduling remain separate risks.
 
 Before accepting a result, the caller validates bounded array counts, interval
 limits/order, nonnegative timings, canonical anonymous speaker labels, short or
@@ -90,8 +97,8 @@ Round 8 adds successful/cancelled worker exit, retry and staged-file cleanup;
 the collector retains metadata only and removes stale lifecycle evidence on
 failed retrieval. Pure Kotlin reply-corruption tests execute independently of
 Android, and do not prove Binder/process lifecycle behavior.
-These tests **compile but have not executed**. Android crash containment and
-fallback therefore remain unverified. Direct host inference is always run in a
+These tests execute on the cloud emulator; worker-death recovery and caller
+survival on the original native mixture failure PASS. Direct host inference runs in a
 child JVM; its exit status and lack of output are retained as failure evidence.
 
 ## Reproduce
@@ -111,9 +118,10 @@ The Android AssetManager placeholder is only for host class loading; file-based
 model APIs run through genuine JNI. This is not an Android simulation.
 
 Cloud workflows: `host-inference.yml` for supplemental Linux JNI evidence;
-`offline-asr.yml` for Android x86_64 instrumentation including diarization. Neither
-has run for this working tree. ARM64 phone, microphone, airplane mode, realistic
-Russian conversations, RTF/RAM/thermal benchmarks are NOT_RUN.
+`offline-asr.yml` for Android x86_64 instrumentation including diarization. Both
+have now executed on the WIP branch. Emulator capture/worker/document paths are
+checked; physical ARM64, airplane mode, realistic Russian conversations and phone
+RTF/peak RAM/thermal benchmarks remain NOT_RUN.
 
 ## Pinned sources and licenses
 

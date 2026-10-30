@@ -1,8 +1,9 @@
 # Local audio import and erasure
 
-Round 5 implements Android platform decoding. **Compilation and host core tests
-are separate from device execution. MediaCodec tests are NOT_RUN until actual
-Android evidence is recorded.** No compressed-codec/device success is claimed yet.
+Round 9 verifies all five generated codecs and import/cleanup negatives on cloud
+Android x86_64/API 33. Full final suites: 17/17 PASS for original runtime and
+17/17 PASS for the no-TTS candidate. See [PROGRESS.md](PROGRESS.md) for exact runs.
+Numeric audio is not speech/accuracy evidence; physical ARM64 remains untested.
 
 ## Accepted input
 
@@ -90,7 +91,7 @@ timestamp gaps, overflow and state preservation after rejected timeline buffers.
 `WavContainerTest` adds valid metadata/fragmented-read cases, eight malformed
 container negatives, cancellation after PCM decoding and snapshot cleanup/previous
 input preservation. Android replacement tests also cover duplicate data and bytes
-outside RIFF; their execution remains NOT_RUN.
+outside RIFF; these tests execute successfully in the round-9 emulator suites.
 `CodecImportTest` on Android checks generated fixture hashes, actual MediaCodec
 output bounds/energy, source mutation, malformed/ambiguous/long input, cancellation,
 local-URI restrictions and file cleanup. It writes `codec-import-evidence.json`

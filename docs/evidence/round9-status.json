@@ -1,0 +1,87 @@
+{
+  "round": 9,
+  "continuation": 1,
+  "verdict": "NOT_READY",
+  "branch": "codex/overnight-20261030-wip",
+  "validated_code_commit": "d37a030391514e79915e5607a3b86405fcb5d7c7",
+  "draft_pr": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/6",
+  "verification": {
+    "android_original_runtime": {
+      "run": 41041829357,
+      "tests_pass": 17,
+      "tests_fail": 0,
+      "skipped": 0,
+      "known_mixture_native": "WORKER_FAILED_CALLER_SURVIVED"
+    },
+    "android_no_tts_candidate": {
+      "run": 41041827147,
+      "tests_pass": 17,
+      "tests_fail": 0,
+      "skipped": 0,
+      "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+      "known_mixture_native": "COMPLETED_4_UNKNOWN_TURNS_OVERLAP_NOT_DETECTED"
+    },
+    "scope": "Android emulator x86_64/API 33 CPU; physical ARM64 NOT_RUN",
+    "build_core_lint_apk_static": {
+      "run": 41041827026,
+      "status": "PASS",
+      "core_groups": 16
+    },
+    "native_candidate_job": {
+      "run": 41039830327,
+      "status": "PASS_BOTH_ABIS",
+      "whole_workflow": "FAIL_OLD_DEPENDENT_ANDROID_TESTS_FIXED_AND_RERUN_SEPARATELY"
+    },
+    "linux_host_jni": {
+      "run": 41039298647,
+      "status": "PASS_4_PROCESSES",
+      "mixture_overlap_detected": false
+    },
+    "patched_cpp_checked_stl_asan_ubsan": "PASS",
+    "original_cpp_invalid_iterator_reproduction": "PASS_NEGATIVE",
+    "codec_fixture_methods": 2,
+    "collector_methods": 4,
+    "runtime_patch_methods": 3,
+    "scorer_methods": 12,
+    "checkpoint_methods": 4,
+    "checkpoint_skips": 0,
+    "pinned_download_negative_and_candidate_selection": "PASS",
+    "android_metadata_collected": "9_VALID_JSON_RECORDS_PER_FINAL_RUN",
+    "independent_russian_dialogue_wer_der_cpwer": "NOT_SCORED"
+  },
+  "implemented": [
+    "Runner codec prerequisites and executable WIP CI triggers",
+    "Strict-hash native bounds/unknown-identity patch with original C++ negative reproduction",
+    "No-TTS ARM64/x86_64 candidate build, API-preserving deterministic packaging and explicit SHA selection",
+    "Codec EOF and raw PCM16 FLAC handling; high-bit probe uses actual output encoding",
+    "JUnit-compatible coroutine signatures and real recorded-input worker/document test",
+    "Retained test APKs, JSON collection validation and explicit mixture/recording evidence"
+  ],
+  "blockers": [
+    "Physical ARM64/airplane mode and real spoken microphone dialogue not tested",
+    "Independent licensed Russian dialogue annotations, WER/DER/cpWER absent",
+    "Known mixture overlap not detected; patch preserves unknown identity rather than separating voices",
+    "Original default full AAR still contains GPL/TTS; no-TTS selection explicit and distribution/notices review open",
+    "Phone peak memory/thermal/power, visual/lifecycle/permission-revocation acceptance untested",
+    "Patched Windows full JNI runtime not replayed; historical original Windows fatal remains"
+  ],
+  "git": {
+    "commits_pushed": [
+      "733e2d2836e9bf47324f1be9d409f00d548f400d",
+      "af5c0310566d979afdb4ab93c509cc90969ecea3",
+      "b2234067f24f774e3dbfd28dc602746e62e50338",
+      "56c03d6f8cfa5e86bd1f4fce2382df6c61afafbb",
+      "2b119024782ed8af3d99840d82dba0d59a20dd64",
+      "d37a030391514e79915e5607a3b86405fcb5d7c7"
+    ],
+    "main_untouched": true,
+    "merged": false,
+    "force_push": false
+  },
+  "privacy": {
+    "private_audio_uploaded": false,
+    "models_or_binaries_committed": false,
+    "microphone_evidence": "Metadata only; WAV deleted by tests",
+    "paid_inference": false
+  }
+}

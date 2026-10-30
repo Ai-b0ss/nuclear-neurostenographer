@@ -98,7 +98,9 @@ workflow clears app data before tests to discard stale evidence. Final
 after in-process PSS snapshots are **not peak RAM**, and exclude the worker. Fresh
 recognizer load per run is not a cold-process startup measurement. Reported RTF
 includes model load + decode, excluding hash verification/import and diarization.
-Actual Android/ARM64 execution, peak PSS/RAM and thermal tests remain **NOT_RUN**.
+Round 9 includes real Android x86_64 execution and retains per-run metadata.
+Physical ARM64, peak PSS/RAM and thermal tests remain **NOT_RUN**. Emulator RTF
+is not smartphone performance. Independent dialogue WER/DER/cpWER remain unscored.
 
 The PCM parser buffers 64 KiB of source bytes and linearly resamples using two
 source mono frames. It allocates the output float buffer directly, avoiding the

@@ -42,8 +42,11 @@ of old input, blocked cleanup on timeout, successful replacement and two actual
 AudioRecord sessions. Actual-capture tests are for an isolated emulator, save only
 SDK/ABI/duration/byte-count metadata and delete captured WAVs. No microphone audio
 is collected. The collector removes stale recording JSON on retrieval failure.
-These tests compile but execution is NOT_RUN. Background stopping, rotation,
-permissions and physical ARM64/airplane-mode record-to-export still need execution.
+Round 9 cloud Android x86_64 execution passes these tests and a separate platform
+recording -> ViewModel -> real diarization worker -> transcript document/cleanup
+test. The emulator supplies non-speech samples; empty output is valid and does not
+establish microphone speech accuracy. Background stopping, rotation, permission
+denial/revocation and physical ARM64/airplane-mode record-to-export need execution.
 
 ## References
 

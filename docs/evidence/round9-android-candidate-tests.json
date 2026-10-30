@@ -1,0 +1,135 @@
+{
+  "run_id": 41041827147,
+  "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41041827147",
+  "source_commit": "d37a030391514e79915e5607a3b86405fcb5d7c7",
+  "scope": "Real Android x86_64 API 33 emulator instrumentation; not physical ARM64 or accuracy benchmark",
+  "total": 17,
+  "pass": 17,
+  "fail": 0,
+  "skip": 0,
+  "tests": [
+    {
+      "name": "exportsWriteUtf8AndTruncateExistingDestination",
+      "classname": "ru.neurostenographer.app.AudioInputTest",
+      "time": "0.01",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "validImportIsSnapshotAndBadReplacementKeepsPreviousInput",
+      "classname": "ru.neurostenographer.app.AudioInputTest",
+      "time": "0.112",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "explicitAudioCleanupRemovesOwnedFilesAndClearsSelection",
+      "classname": "ru.neurostenographer.app.AudioInputTest",
+      "time": "0.03",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "rejectedAndCancelledImportLeavesNoStagedFiles",
+      "classname": "ru.neurostenographer.app.CodecImportTest",
+      "time": "0.078",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "highBitFlacUsesActualExtractorEncodingRatherThanAssumedFloat",
+      "classname": "ru.neurostenographer.app.CodecImportTest",
+      "time": "0.028",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "generatedCodecsBecomeValidatedPrivatePcm",
+      "classname": "ru.neurostenographer.app.CodecImportTest",
+      "time": "0.33",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "importedUserAudioThroughViewModelAndDocumentExports",
+      "classname": "ru.neurostenographer.app.OfflineAsrTest",
+      "time": "5.956",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "maliciousOrIncompleteModelDoesNotReplaceInstalledModel",
+      "classname": "ru.neurostenographer.app.OfflineAsrTest",
+      "time": "0.004",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "actualRussianInferenceRepeatedAndSilent",
+      "classname": "ru.neurostenographer.app.OfflineAsrTest",
+      "time": "10.257",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "knownMixedVoicesCannotKillCaller",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "1.559",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "workerDeathLeavesCallerAliveAndCanRestart",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "1.528",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "realEmbeddingsGlobalRecurrenceSilenceAndShortInput",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "21.863",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "realRussianAsrUsesInferredBoundariesAndExports",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "6.451",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "finalUnbindStopsNativeWorkerAfterSuccessAndCancellation",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "2.594",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "failedRecordingAndStopTimeoutPreservePreviousInput",
+      "classname": "ru.neurostenographer.app.RecordingTest",
+      "time": "0.154",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "platformMicrophoneProducesBoundedWavAndReleasesForNextSession",
+      "classname": "ru.neurostenographer.app.RecordingTest",
+      "time": "1.084",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "recordedPlatformAudioThroughViewModelWorkerAndTranscript",
+      "classname": "ru.neurostenographer.app.RecordingTest",
+      "time": "6.687",
+      "status": "PASS",
+      "failures": []
+    }
+  ],
+  "xml_sha256": {
+    "TEST-emulator-5554 - 13-_app-.xml": "611529cf1af906fe52072e3daef68c113ab92f1720d031dc63a04dc07555207b"
+  },
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"
+}

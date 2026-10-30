@@ -81,6 +81,49 @@
   extractor encoding, accepts valid PCM16 conversion and rejects raw non-PCM16.
   Production format restrictions are unchanged; no failing inference gate hidden.
 
+## Round 9 / continuation 1 — final verified result
+
+- Validated code: `d37a030` on `codex/overnight-20261030-wip`. Main reconfirmed
+  unchanged at `2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58`. Six development
+  commits pushed after the supervisor recovery, no history rewrite or main merge.
+  [Draft PR #6](https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/6).
+- **Original runtime Android: 17/17 PASS, zero skips**:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41041829357 .
+  This includes caller-survival on the known native worker failure, NOT native
+  mixture success. Structured evidence preserves native_completed=false.
+- **Exact pinned no-TTS candidate Android: 17/17 PASS, zero skips**:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41041827147 .
+  Same public mixture completes without native crash, returns four unknown turns,
+  overlap_detected=false. Nine valid metadata JSON records retrieved in each run;
+  no private/microphone audio uploaded. Empty recorded-emulator transcript is not
+  a spoken microphone accuracy claim.
+- Both suites execute real CPU Russian ASR, repeat/silence, global A-B-A on the
+  public Chinese four-voice fixture, combined Russian single-voice inference,
+  model ZIP negatives, WAV snapshot/state/cleanup, actual TXT/SRT/JSON exports,
+  generated AAC/MP3/Vorbis/Opus/FLAC import, high-bit format probe, codec negatives,
+  real AudioRecord sessions and ViewModel -> worker -> document/cleanup.
+- **Build/core/lint/static packaging PASS**, 16 core groups, 77 tasks, 1m23s:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41041827026 .
+  Source-only tracked-file guard finds no model/audio/APK/AAR/signing artifact and
+  no file over 2 MiB. Native candidate reinspection confirms intended two ABIs,
+  absent espeak data marker and 16-KB ELF LOAD alignment. Not a 16-KB device test.
+- Local Python: collector 4, patch 3, scorer 12, checkpoint 4 methods PASS (no
+  symlink skip in restored permissions); codec-fixture 2 methods PASS; pinned
+  download corruption/cache and candidate rejection/selection/cache PASS.
+- Machine status: `docs/evidence/round9-status.json`; final Android reports,
+  metadata, earlier failing reports, Linux host output, exact native source/binary
+  pins and C++ bounds-negative provenance are retained alongside it. No model
+  accuracy inferred from synthetic/numeric or public single-voice fixtures.
+
+Verdict **NOT READY**: physical ARM64/airplane-mode/spoken recording, independent
+licensed Russian dialogue annotations and WER/DER/cpWER, phone peak RAM/thermal/
+power, visual/background/rotation/permission-revocation acceptance remain open.
+Overlap recognition/separation is unproven; the patch preserves uncertainty.
+Patched Windows JNI has not been replayed. Default provisioning still selects
+the full upstream GPL/TTS AAR; no-TTS selection is explicit, and distribution/
+notices review remains open. APK publication stays disabled. These limits do not
+erase the new verified Android execution or the original failure evidence.
+
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.
 - Local main and live GitHub main: `2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58`; working tree initially clean. No open PRs found. Issues #2–#5 open, #1 closed.

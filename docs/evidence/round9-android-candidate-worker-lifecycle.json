@@ -1,0 +1,7 @@
+{
+  "scope": "Android worker lifecycle",
+  "success_exit": true,
+  "cancel_exit": true,
+  "retry_exit": true,
+  "staged_cleanup": true
+}

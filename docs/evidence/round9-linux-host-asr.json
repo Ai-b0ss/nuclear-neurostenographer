@@ -1,0 +1,34 @@
+{
+  "platform": "Host JNI; OS/architecture in summary.json; Android NOT_RUN",
+  "runs": [
+    {
+      "audio_ms": 11290,
+      "load_ms": 1126,
+      "decode_ms": 759
+    },
+    {
+      "audio_ms": 11290,
+      "load_ms": 1003,
+      "decode_ms": 744
+    }
+  ],
+  "repetition_pass": true,
+  "silence_pass": true,
+  "short_tail_pass": true,
+  "cancellation_cleanup_pass": true,
+  "transcript": {
+    "version": 1,
+    "units": "milliseconds",
+    "warnings": [],
+    "segments": [
+      {
+        "start_ms": 0,
+        "end_ms": 11290,
+        "speaker_id": null,
+        "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый",
+        "overlapping_speech": false,
+        "attribution_reliable": false
+      }
+    ]
+  }
+}

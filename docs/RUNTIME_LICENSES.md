@@ -17,7 +17,59 @@ sherpa-onnx source is Apache-2.0; ONNX Runtime is MIT (notices are bundled in ap
 
 Therefore **do not describe the full AAR/APK as Apache/MIT-only or redistribute the resulting APK as cleared**. APK artifact upload is explicitly disabled in android.yml while this is unresolved. Local builds and ephemeral cloud testing remain useful engineering checks. No project-wide license was changed.
 
-Preferred resolution: build the same pinned source with `SHERPA_ONNX_ENABLE_TTS=OFF`, retain speaker diarization, verify no espeak dependency, test both ABIs, then pin the resulting AAR SHA-256 and update provisioning. A manual cloud workflow is supplied for that build, but is NOT_RUN until GitHub writes are available. Its output is a candidate, not automatically selected by the app. An alternative GPL distribution strategy would require corresponding-source and application-license review; it has not been chosen.
+The chosen resolution is a separately built pinned source with
+`SHERPA_ONNX_ENABLE_TTS=OFF`, retaining speaker diarization. It is built and tested
+as described below, with explicit selection. An alternative GPL distribution
+strategy would require corresponding-source and application-license review; it
+has not been chosen.
+
+## Round 9: built and pinned no-TTS candidate
+
+The earlier GitHub-access blocker is resolved. Native job in
+[run 41039830327](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41039830327)
+builds both ABIs from the same source commit above, NDK 27.2.12479018,
+TTS=OFF and speaker diarization=ON. It checks actual CMake caches, absence of
+espeak dependency source and the espeak data marker. The API JAR/manifest are
+retained byte-for-byte from the checksum-verified official AAR; every JNI entry is
+replaced, retaining only JNI and ORT for ARM64/x86_64. No TTS API should be invoked.
+
+Candidate: **41,464,159 bytes**, SHA-256
+`771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8`.
+The candidate contains an explicitly maintained Apache-2.0 patch in
+`tools/runtime/`: clamp TopkIndex before iterator construction; preserve unknown
+identity when segmentation requests more speakers than positive cluster votes.
+Its exact upstream input hashes and changed-file hashes are in the artifact JSON.
+Checked-STL negative replay reproduces the original invalid iterator; patched
+numeric tests run with ASan/UBSan. This is not a diarization accuracy benchmark.
+
+To reproduce explicit local selection with authenticated GitHub CLI:
+
+```powershell
+gh run download 41039830327 --repo Ai-b0ss/nuclear-neurostenographer --name asr-only-runtime-candidate-NOT-DEVICE-VERIFIED --dir .local/no-tts-candidate
+python tools/provision_asr.py --runtime-file .local/no-tts-candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar
+```
+
+Selection checks the digest pinned in source, not a checksum supplied with an
+arbitrary file. A failure preserves the previous runtime. Provisioning without
+`--runtime-file` selects the original full upstream AAR, so its distribution
+restriction still applies. GitHub Actions artifacts expire; this is a candidate
+retrieval route and build recipe, not a permanent public release URL.
+
+Android x86_64 run
+[41040637994](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41040637994)
+exercises this exact candidate: Russian ASR/diarization/worker tests pass and the
+known mixture completes with four unknown turns, no detected overlap. Overall
+run fails on the separate FLAC-import bug fixed subsequently. Full final-suite
+results are tracked in PROGRESS.md. ARM64 compile is not physical-device evidence.
+Default APK publication remains disabled pending runtime distribution/notices
+review; absence of one marker string alone is not blanket license clearance.
+
+Final candidate execution at code `d37a030`:
+[run 41041827147](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41041827147)
+**17/17 PASS, zero skips**, all nine JSON evidence records retrieved. This run
+uses the same pinned candidate bytes above after the codec-test fixes. It includes
+actual ASR, diarization, worker success/cancel/death recovery, imports, recording
+pipeline and exports. Detailed output is retained in `docs/evidence/round9-*.json`.
 
 Sources:
 - https://github.com/k2-fsa/sherpa-onnx/blob/5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f/LICENSE

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 11290,
+  "warnings": [
+    "Chunk intervals from diarization/input windows; not word alignment."
+  ],
+  "provenance": {
+    "engine": "Host JNI sherpa-onnx-1.12.20/gigaam-v3; OS/architecture in summary.json; Android NOT_RUN",
+    "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec",
+    "timestamp_source": "diarization_boundaries_and_input_windows",
+    "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.9"
+  },
+  "segments": [
+    {
+      "start_ms": 31,
+      "end_ms": 1567,
+      "speaker_id": "Speaker 1",
+      "text": "ничьих не требуя похвал",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 1769,
+      "end_ms": 5127,
+      "speaker_id": "Speaker 1",
+      "text": "счастлив уж я надеждой сладкой что дева с трепетом любви",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 5363,
+      "end_ms": 8485,
+      "speaker_id": "Speaker 1",
+      "text": "посмотрит может быть украдкой на песни грешные мои",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 9245,
+      "end_ms": 10966,
+      "speaker_id": "Speaker 1",
+      "text": "у лукоморья дуб зеленый",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    }
+  ]
+}
