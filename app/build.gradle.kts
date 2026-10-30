@@ -64,6 +64,10 @@ android {
     buildFeatures { compose = true; buildConfig = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
     sourceSets.getByName("androidTest").assets.srcDir(rootProject.file(".local/androidTestAssets"))
+    // Separate opt-in evaluation class, not an implicit benchmark during UI QA.
+    if (providers.gradleProperty("russianBenchmark").orNull == "true") {
+        sourceSets.getByName("androidTest").java.srcDir("src/benchmarkTest/java")
+    }
     // Explicit private cloud-test variant; ordinary builds never include model/audio assets.
     if (providers.gradleProperty("asrSmoke").orNull == "true") {
         sourceSets.getByName("debug").apply {

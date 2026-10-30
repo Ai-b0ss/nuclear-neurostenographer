@@ -24,6 +24,20 @@
   recognition button label. Changed action taps to exact labels while keeping
   substring searches for status messages. The repeated-label negative now checks
   the selected coordinate comes from the button, not the surrounding prose.
+- Added a separately opted-in Android evaluation using three public acted Russian
+  test utterances. Verified the full dataset OpenRAIL license at immutable revision
+  `a74ff44...`; no paid contract is required for this lawful evaluation. Full terms
+  are copied for dataset-derived artifacts; app/model licenses remain separate.
+  Publisher consent statements are not independently audited by this project.
+- Frozen selection before inference: first neutral D, first neutral M, second
+  neutral D in pinned test.csv order. Unchanged 44.1-kHz PCM with two 500-ms gaps;
+  exact composite SHA `61354eef...98b3861`, 19,655 ms. Only external scripted text
+  and source-speaker labels become references. No speech/word boundaries guessed;
+  DER deliberately has no reference. Scope: ACTED_COMPOSED, not natural meetings.
+- Provisioning/integrity/scoring methods 4 PASS, existing scorer 12 PASS; fixture
+  byte hashes regenerated identically. Android inference/actual metrics pending.
+  See RUSSIAN_EVALUATION.md for limitations and the separate workflow. No accuracy
+  threshold or favorable result is asserted before model execution.
 
 ## Round 10 / continuation 2 — default no-TTS runtime and identity
 
