@@ -61,7 +61,7 @@ fun main(args: Array<String>) {
     fun turnsJson(turns: List<SpeakerTurn>) = turns.joinToString(",", "[", "]") {
         "{\"start_ms\":${it.startMs},\"end_ms\":${it.endMs},\"speaker_id\":\"${it.speakerId}\"}"
     }
-    File(args[2]).writeText("{\"platform\":\"Host JNI; OS/architecture in summary.json; Android NOT_RUN\",\"threshold\":0.9," +
+    File(args[2]).writeText("{\"platform\":\"Host JNI; OS/architecture in summary.json; Android NOT_RUN\",\"threshold\":${OfflineDiarization.THRESHOLD}," +
         "\"fixture\":\"Public upstream Chinese four-speaker example; not Russian DER benchmark\"," +
         "\"aba_pass\":true,\"repeat_pass\":true,\"silence_pass\":true,\"short_pass\":true,\"cancellation_cleanup_pass\":true,\"worker_reply_validation_pass\":true," +
         "\"runs\":" + runs.joinToString(",", "[", "]") { "{\"load_ms\":${it.loadMs},\"process_ms\":${it.processMs},\"turns\":${turnsJson(it.turns)}}" } +

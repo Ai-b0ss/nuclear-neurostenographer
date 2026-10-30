@@ -1,5 +1,25 @@
 # Progress — 2026-10-30
 
+## Disjoint acted holdout preparation — result not yet measured
+
+- Pinned four new neutral Russian acted source clips, M-D-M-D, from the same
+  dataset, disjoint from the three clips used to tune threshold 0.8.
+  Metadata row indices [18,49,24,51], derived WAV SHA-256
+  52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070,
+  duration 42,237 ms. Verified original WAV hashes and local composition.
+- Historical development mode retains 0.5/0.65/0.8/0.9 sweep. New holdout
+  mode prohibits parameter sweeps and invokes only production default 0.8.
+  The external scorer assesses all same/different source speaker relations.
+  Audio is installed in the test APK without reference speaker/text labels.
+- Host JNI evidence strings now report the ACTUAL 0.8 threshold rather than
+  mislabeled historical 0.9. Historical archive reports remain untouched.
+  Code change itself is not a new accuracy measurement; independent Android
+  execution and scoring are pending.
+- Same acted dataset, no independent natural conversational corpus, no
+  annotated speech boundaries (DER remains NOT_SCORED). Phone ARM64, peak RAM,
+  overlap quality and redistribution reviews remain open. NOT_READY;
+  PR #6 remains draft and public APK publication disabled.
+
 ## Direct continuation after Codex quota — optimized APK integrity gate
 
 - Continued saved WIP at 3a02740 directly through Windows Bridge, without

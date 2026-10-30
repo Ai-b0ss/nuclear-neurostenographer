@@ -19,10 +19,11 @@ def validate_turns(raw, audio_ms):
 
 def recurrence(reference, raw):
     turns = validate_turns(raw, reference["audio_duration_ms"])
-    # Dominant eligible cluster per externally annotated source clip. This is
-    # NOT true speech-boundary scoring or diarization error rate.
+    # Dominant eligible cluster per externally annotated source clip. Clip
+    # extents are NOT manually annotated speech boundaries, so this is never DER.
+    clips = reference["text_segments"]
     assignments = []
-    for clip in reference["text_segments"]:
+    for clip in clips:
         weights = {}
         for turn in turns:
             if turn["attribution_eligible"] and turn["speaker_id"] is not None:
@@ -32,11 +33,18 @@ def recurrence(reference, raw):
         positive = sorted(((v, k) for k, v in weights.items() if v > 0), reverse=True)
         assignments.append(positive[0][1] if positive and
                            (len(positive) == 1 or positive[0][0] > positive[1][0]) else None)
-    determined = len(assignments) == 3 and all(s is not None for s in assignments)
-    return {"method": "dominant eligible cluster per source clip; not speech-boundary truth",
-            "hypothesis_clusters": assignments,
-            "status": "PASS" if determined and assignments[0] == assignments[2] != assignments[1]
-            else "FAIL" if determined else "UNDETERMINED"}
+    truth = [clip["speaker_id"] for clip in clips]
+    pairs = [(i, j) for i in range(len(truth)) for j in range(i + 1, len(truth))]
+    same = [(i, j) for i, j in pairs if truth[i] == truth[j]]
+    different = [(i, j) for i, j in pairs if truth[i] != truth[j]]
+    # With no recurrence or no contrasting speaker, the probe is undefined.
+    determined = bool(same and different) and all(x is not None for x in assignments)
+    consistent = determined and all((assignments[i] == assignments[j]) ==
+                                    (truth[i] == truth[j]) for i, j in pairs)
+    return {"method": "pairwise clip-level speaker recurrence using eligible raw diarization; not DER",
+            "hypothesis_clusters": assignments, "total_clips": len(clips),
+            "same_speaker_pairs": len(same), "different_speaker_pairs": len(different),
+            "status": "PASS" if consistent else "FAIL" if determined else "UNDETERMINED"}
 
 
 def assess(reference, hypothesis):
@@ -87,7 +95,22 @@ def assess(reference, hypothesis):
         report["production_clustering_threshold"] = expected[selected]
         report["clustering_sweep"] = outcomes
         report["clustering_experiment_status"] = "EXPERIMENT_ONLY_NO_AUTO_SELECTION"
-    report["evaluation_scope"] = "Three composed acted utterances from external test.csv; not natural conversation or a representative corpus benchmark"
+    suite = reference.get("evaluation_suite", "development")
+    if suite not in ("development", "holdout"):
+        raise ValueError("Unknown evaluation suite")
+    if hypothesis.get("benchmark_suite", "development") != suite:
+        raise ValueError("Reference and device-output benchmark suites disagree")
+    if suite == "holdout":
+        if sweep is not None:
+            raise ValueError("Holdout must not run an exploratory threshold sweep")
+        if abs(hypothesis.get("production_clustering_threshold", -1) - 0.8) > 1e-5:
+            raise ValueError("Holdout must use preregistered production threshold 0.8")
+        if len(reference["text_segments"]) != 4:
+            raise ValueError("Holdout must contain four pinned independent clips")
+        report["evaluation_scope"] = "Four unused acted Russian clips, M-D-M-D, disjoint from 3-clip development probe; same dataset, no clean natural-dialogue DER"
+        report["holdout_scope"] = "DISJOINT_AUDIO_SAME_DATASET_NONBLIND_TEST"
+    else:
+        report["evaluation_scope"] = "Three composed acted utterances from external test.csv; reused in threshold development, not held out"
     report["metric_availability"] = "PARTIAL_NO_DER_REFERENCE"
     report["quality_gate"] = "NO_COMPETITION_ACCURACY_THRESHOLD_DEFINED"
     return report

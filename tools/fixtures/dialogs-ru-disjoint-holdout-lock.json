@@ -1,0 +1,49 @@
+{
+  "repository": "langswap/dialogs-ru-emotional-conversations",
+  "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "license": {
+    "path": "LICENSE.md",
+    "sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143"
+  },
+  "metadata": {
+    "path": "test.csv",
+    "sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2"
+  },
+  "selection_policy": "Pre-registered M-D-M-D: original test.csv row indices [18,49,24,51], first two subsequent neutral M/D (different original audio files). No model outputs used for selection; held out from prior three-clip tuning only.",
+  "gap_frames": 22050,
+  "sample_rate": 44100,
+  "composite_sha256": "52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070",
+  "clips": [
+    {
+      "path": "wavs/masha_dima_part3_174.wav",
+      "speaker": "M",
+      "sha256": "d313b00f7533eb73c56f70052a5b514c4f2a15d2b505d0a010fb46bd0a91bce7",
+      "frames": 577900
+    },
+    {
+      "path": "wavs/masha_dima_part11_80.wav",
+      "speaker": "D",
+      "sha256": "75737e1e97e3bc4c65329c5b234a00cf1be27460545c3577aa9bf8a4b69e286e",
+      "frames": 420735
+    },
+    {
+      "path": "wavs/masha_dima_part5_119.wav",
+      "speaker": "M",
+      "sha256": "da725503dff25e003cd3212f0c0037bf32a3a8b6b138397ad2a5d66ae7fa77c0",
+      "frames": 288280
+    },
+    {
+      "path": "wavs/masha_dima_part11_106.wav",
+      "speaker": "D",
+      "sha256": "137dc98cfa99b485e42730872e07a77efd9b465b9fdc2ae242854c5663a4e723",
+      "frames": 509591
+    }
+  ],
+  "selection_indices": [
+    18,
+    49,
+    24,
+    51
+  ],
+  "suite": "DISJOINT_ACTED_HOLDOUT_NO_THRESHOLD_SWEEP"
+}

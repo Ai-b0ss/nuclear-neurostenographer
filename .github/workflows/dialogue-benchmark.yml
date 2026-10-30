@@ -1,15 +1,26 @@
 name: Tiny acted Russian dialogue evaluation (not corpus accuracy)
 on:
   workflow_dispatch:
+    inputs:
+      suite:
+        description: "development (threshold sweep) or disjoint holdout (production only)"
+        type: choice
+        required: true
+        default: development
+        options:
+          - development
+          - holdout
   push:
     branches: ['codex/**']
-    paths: ['.github/workflows/dialogue-benchmark.yml', 'tools/*dialogue_benchmark*', 'tools/run_android_benchmark.sh', 'tools/score_transcript.py', 'tools/fixtures/dialogs-ru-smoke-lock.json', 'tools/runtime/runtime.properties', 'app/src/benchmarkTest/**', 'app/src/main/**', 'app/build.gradle.kts', 'core/src/**']
+    paths: ['.github/workflows/dialogue-benchmark.yml', 'tools/*dialogue_benchmark*', 'tools/run_android_benchmark.sh', 'tools/score_transcript.py', 'tools/fixtures/dialogs-ru-smoke-lock.json', 'tools/fixtures/dialogs-ru-disjoint-holdout-lock.json', 'tools/runtime/runtime.properties', 'app/src/benchmarkTest/**', 'app/src/main/**', 'app/build.gradle.kts', 'core/src/**']
 permissions:
   contents: read
   actions: read
 jobs:
   benchmark:
     runs-on: ubuntu-latest
+    env:
+      BENCHMARK_SUITE: ${{ inputs.suite || 'development' }}
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +42,7 @@ jobs:
           python3 tools/test_dialogue_benchmark.py
           python3 tools/provision_asr.py --test-assets
           python3 tools/provision_diarization.py --test-assets
-          python3 tools/provision_dialogue_benchmark.py
+          python3 tools/provision_dialogue_benchmark.py --suite "$BENCHMARK_SUITE"
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -65,12 +76,12 @@ jobs:
           from pathlib import Path
           path = Path('.local/dialogue-benchmark/scores.json')
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
-              out.write('### Three acted utterances: execution is not accuracy acceptance\n\n')
+              out.write(f'### {os.environ.get("BENCHMARK_SUITE", "development")} acted Russian evaluation: execution is not accuracy acceptance\n\n')
               if not path.is_file():
                   out.write('No score file: evaluation did not complete.\n')
               else:
                   score = json.loads(path.read_text())
-                  out.write('Not a representative corpus. DER has no independent speech-boundary reference.\n\n')
+                  out.write('Not a representative corpus. Holdout is disjoint from development but still acted. DER has no independent speech-boundary reference.\n\n')
                   for name in ['wer', 'cpwer', 'der', 'recurrence_probe']:
                       out.write(f'- {name}: `{json.dumps(score.get(name), ensure_ascii=False)}`\n')
                   out.write('\nNo competition accuracy threshold is defined. Read the attached license and scope.\n')

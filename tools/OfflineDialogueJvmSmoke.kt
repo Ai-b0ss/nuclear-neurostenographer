@@ -21,7 +21,7 @@ fun main(args: Array<String>) {
     val document = TranscriptDocument(result.segments, audio.durationMs, TranscriptProvenance(
         "Host JNI sherpa-onnx-1.12.20/gigaam-v3; OS/architecture in summary.json; Android NOT_RUN",
         "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec",
-        "diarization_boundaries_and_input_windows", "pyannote-9403a690/eres2net-1a331345/threshold-0.9"),
+        "diarization_boundaries_and_input_windows", "pyannote-9403a690/eres2net-1a331345/threshold-${OfflineDiarization.THRESHOLD}"),
         listOf("Chunk intervals from diarization/input windows; not word alignment."))
     val output = File(args[3])
     output.writeText(document.export("json"))

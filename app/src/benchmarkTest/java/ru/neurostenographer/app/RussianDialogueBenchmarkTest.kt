@@ -22,6 +22,8 @@ class RussianDialogueBenchmarkTest {
         val context = instrumentation.targetContext
         val invocation = requireNotNull(InstrumentationRegistry.getArguments().getString("benchmarkInvocation"))
         require(Regex("[0-9a-f]{32}").matches(invocation))
+        val suite = InstrumentationRegistry.getArguments().getString("benchmarkSuite") ?: "development"
+        require(suite in setOf("development", "holdout"))
         assertEquals(setOf("aba.wav", "LICENSE.md"), instrumentation.context.assets.list("dialogs")!!.toSet())
         val evidence = File(context.filesDir, "dialogue-benchmark-hypothesis.json")
         evidence.delete()
@@ -47,7 +49,7 @@ class RussianDialogueBenchmarkTest {
         val outcomes = linkedMapOf<Float, JSONObject>()
         // Legacy 0.9 remains an explicit comparator after changing the default;
         // do not change the user-visible model based only on an authored fixture.
-        for (threshold in floatArrayOf(0.5f, 0.65f, 0.9f)) {
+        if (suite == "development") for (threshold in floatArrayOf(0.5f, 0.65f, 0.9f)) {
             val result = IsolatedDiarization.process(context, audio, speakerModel,
                 clusteringThreshold = threshold)
             outcomes[threshold] = JSONObject().put("threshold", threshold.toDouble())
@@ -60,24 +62,27 @@ class RussianDialogueBenchmarkTest {
             .put("threshold", OfflineDiarization.THRESHOLD.toDouble())
             .put("diarization", turnsJson(diarization))
             .put("process_ms", diarization.processMs)
-        val sweep = JSONArray().apply {
+        // Holdout runs only the pinned production model: no exploratory sweep.
+        val sweep = if (suite == "development") JSONArray().apply {
             for (threshold in floatArrayOf(0.5f, 0.65f, 0.8f, 0.9f))
                 put(requireNotNull(outcomes[threshold]))
-        }
+        } else null
         val asr = OfflineAsr.transcribe(audio, asrModel, turns = diarization.turns, speechWindows = diarization.windows)
         val elapsed = (System.nanoTime() - started) / 1_000_000
         val document = TranscriptDocument(asr.segments, audio.durationMs, TranscriptProvenance(
             "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", AsrModelStore.REVISION,
             "diarization_boundaries_and_input_windows", DiarizationModelStore.REVISION,
             BuildConfig.SHERPA_RUNTIME_SHA256), listOf(
-                "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
+                if (suite == "holdout") "ACTED_COMPOSED_FOUR_UTTERANCES_DISJOINT_FROM_DEVELOPMENT" else
+                    "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
                 "Chunk boundaries are not word alignment; no independent speech-boundary reference."))
         val hypothesis = JSONObject(document.export("json"))
         val turns = turnsJson(diarization)
         hypothesis.put("audio_sha256", MessageDigest.getInstance("SHA-256").digest(bytes)
             .joinToString("") { "%02x".format(it) })
             .put("benchmark_invocation", invocation)
-            .put("diarization", turns).put("clustering_sweep", sweep)
+            .put("benchmark_suite", suite)
+            .put("diarization", turns)
             .put("production_clustering_threshold", OfflineDiarization.THRESHOLD.toDouble())
             .put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256)
             .put("sdk_int", Build.VERSION.SDK_INT).put("abis", JSONArray(Build.SUPPORTED_ABIS.toList()))
@@ -86,6 +91,7 @@ class RussianDialogueBenchmarkTest {
             .put("timing_scope", "worker bind/load/process/exit plus ASR load/decode; excludes model verification/import; emulator only")
             .put("decoded_windows", asr.decodedWindows)
             .put("memory_before", before).put("memory_after", InferenceEvidence.memorySnapshot())
+        if (sweep != null) hypothesis.put("clustering_sweep", sweep)
         evidence.writeText(hypothesis.toString(2), Charsets.UTF_8)
         // These are integrity/execution assertions, never an accuracy threshold.
         assertEquals(audio.durationMs, hypothesis.getLong("audio_duration_ms"))

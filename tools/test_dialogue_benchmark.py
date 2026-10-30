@@ -144,6 +144,59 @@ class BenchmarkTests(unittest.TestCase):
             with self.subTest(change=change), self.assertRaises(ValueError):
                 assess(reference, bad)
 
+    def test_disjoint_holdout_lock_is_frozen_before_inference(self):
+        lock = fixtures.HOLDOUT_LOCK
+        base = fixtures.LOCK
+        self.assertEqual(lock["selection_indices"], [18, 49, 24, 51])
+        self.assertEqual([clip["speaker"] for clip in lock["clips"]], ["M", "D", "M", "D"])
+        self.assertEqual(lock["composite_sha256"],
+            "52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070")
+        self.assertFalse({c["path"] for c in base["clips"]} & {c["path"] for c in lock["clips"]})
+        self.assertEqual(len({c["sha256"] for c in lock["clips"]}), 4)
+        self.assertEqual(lock["revision"], base["revision"])
+        self.assertEqual(lock["license"], base["license"])
+
+    def test_holdout_four_turn_pairwise_recurrence_and_no_threshold_sweep(self):
+        reference = {"schema_version": 1, "recording_id": "authored-four", "annotation_source": "authored",
+            "license": "authored", "kind": "ACTED_COMPOSED_FOUR_UTTERANCES_DISJOINT_FROM_DEVELOPMENT",
+            "evaluation_suite": "holdout", "audio_sha256": "0" * 64, "audio_duration_ms": 4000,
+            "text_segments": [
+                {"start_ms": i * 1000, "end_ms": (i + 1) * 1000,
+                 "speaker_id": speaker, "text": word}
+                for i, (speaker, word) in enumerate(
+                    [("M", "один"), ("D", "два"), ("M", "три"), ("D", "четыре")])]}
+        predicted = [
+            {"start_ms": i * 1000, "end_ms": (i + 1) * 1000,
+             "speaker_id": label, "attribution_eligible": True}
+            for i, label in enumerate(["X", "Y", "X", "Y"])]
+        hypothesis = {"audio_sha256": reference["audio_sha256"],
+            "audio_duration_ms": 4000, "benchmark_suite": "holdout",
+            "production_clustering_threshold": 0.8, "diarization": predicted,
+            "segments": [{**ref, "speaker_id": p["speaker_id"], "attribution_reliable": True}
+                         for ref, p in zip(reference["text_segments"], predicted)]}
+        report = assess(reference, hypothesis)
+        self.assertEqual(report["recurrence_probe"]["status"], "PASS")
+        self.assertEqual((report["recurrence_probe"]["same_speaker_pairs"],
+                          report["recurrence_probe"]["different_speaker_pairs"]), (2, 4))
+        self.assertEqual(report["cpwer"]["rate"], 0)
+        self.assertEqual(report["der"]["status"], "NOT_SCORED")
+        self.assertIn("SAME_DATASET", report["holdout_scope"])
+        bad = copy.deepcopy(hypothesis)
+        bad["diarization"][-1]["speaker_id"] = "X"
+        self.assertEqual(assess(reference, bad)["recurrence_probe"]["status"], "FAIL")
+        bad = copy.deepcopy(hypothesis)
+        bad["diarization"][-1]["attribution_eligible"] = False
+        self.assertEqual(assess(reference, bad)["recurrence_probe"]["status"], "UNDETERMINED")
+        for mutation in ("wrong_suite", "wrong_threshold", "sweep", "wrong_reference_count"):
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                altered = copy.deepcopy(hypothesis)
+                ref = copy.deepcopy(reference)
+                if mutation == "wrong_suite": altered["benchmark_suite"] = "development"
+                if mutation == "wrong_threshold": altered["production_clustering_threshold"] = 0.9
+                if mutation == "sweep": altered["clustering_sweep"] = []
+                if mutation == "wrong_reference_count": ref["text_segments"].pop()
+                assess(ref, altered)
+
     def test_cli_corruption_replaces_previous_favorable_score(self):
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)

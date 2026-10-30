@@ -121,3 +121,41 @@ baseline parser hash, and downloads only checksum-pinned Kotlin compiler jars
 if missing. The report records both parser source hashes. Without that recovery
 archive, baseline comparison is unavailable; exact PCM/oracle tests still run
 from the public source alone. No model/audio/SDK download is needed by this probe.
+
+## Separate disjoint acted Russian speaker-recurrence check
+
+The original three-utterance D-M-D acted benchmark was used to adjust the
+speaker clustering threshold. Its 2.44% WER/cpWER is development evidence,
+not a previously untouched holdout. Baseline threshold 0.9 is retained
+as a historical comparator in that development suite; production is 0.8.
+
+The optional holdout suite freezes four DIFFERENT original WAV clips
+(positions 18, 49, 24, 51 in the same pinned external test.csv) and composes
+them into a M-D-M-D clip-level recurrence check. Lockfile:
+tools/fixtures/dialogs-ru-disjoint-holdout-lock.json. Exact composed WAV:
+SHA-256 52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070,
+duration 42,237 ms. The first three development clips and these four clips
+share no source filenames or hashes. The reference contains original
+scripted text and speaker IDs, not verified spoken word timestamps.
+Dataset OpenRAIL terms apply; audio is excluded from Git and CI artifacts.
+
+Run on an authorized pinned Android environment:
+
+    python3 tools/provision_dialogue_benchmark.py --suite holdout
+    BENCHMARK_SUITE=holdout bash tools/run_android_benchmark.sh
+
+Or dispatch the dialogue-benchmark.yml workflow with suite=holdout. The
+development mode retains the 0.5/0.65/0.8/0.9 historical sweep. On the
+holdout, Android executes only actual production 0.8: NO threshold sweep
+and no reference IDs/text supplied to the application. The scorer
+verifies per-clip dominant inferred raw clusters: same-source speaker
+pairs must share a cluster, different-source pairs must differ.
+Missing or tied speaker assignments are UNDETERMINED, never PASS.
+It reports WER and cpWER; DER remains NOT_SCORED because independent
+speech-boundary annotations are missing. Benchmark suites and invocation
+identities are checked on both sides; outcomes never become default tuning.
+
+Scope: previously unused acted same-dataset clips, NOT natural dialogue
+or a representative corpus, no proof of training disjointness or physical
+ARM64 performance. A failed holdout must remain recorded, not used for
+post-hoc production threshold selection.
