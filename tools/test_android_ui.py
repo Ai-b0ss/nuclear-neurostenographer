@@ -10,6 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class UiSelectorTests(unittest.TestCase):
+    def setUp(self):
+        (ROOT / ".local").mkdir(exist_ok=True)
+
     def test_empty_picker_bounds_require_verified_keyboard_focus(self):
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             ui = AndroidUi(Path(tmp))

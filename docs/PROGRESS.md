@@ -2,6 +2,17 @@
 
 ## Round 11 / continuation 3 — system documents and Russian evaluation
 
+- Added actual-shell collector regression using authored commands: fresh output,
+  prior Gradle failure preservation, stale invocation and zero-exit adb error text.
+  All four scenarios PASS; benchmark suite now 6 methods, UI 5, collector 5,
+  scorer 12 and runtime identity 1 PASS locally. Tracked source-only guard PASS
+  (248 files before the final evidence snapshot). No Android claim from fake commands.
+- Second independent Android measurement (41049412108, `a1898e2`) repeats
+  WER 1/41, cpWER 25/41 and merged D/M/D. The new invocation-bound benchmark and
+  keyboard-driven picker are running at `dd2e1f2`; standard build/core/lint/APK
+  identity PASS already (41049800892). Updated Russian APK instructions to match
+  actual disabled publication instead of pointing readers at a nonexistent new APK.
+
 - Picker run 41048853466 passes all 17 instrumentation tests but stops UI QA
   after seven checks: API33 DocumentsUI reports [0,0][0,0] for visible filename
   and SAVE controls. Screenshot and XML reviewed; no guessed coordinate used.

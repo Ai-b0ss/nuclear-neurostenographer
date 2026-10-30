@@ -4,7 +4,9 @@ import csv
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
+import shutil
 import struct
 import subprocess
 import sys
@@ -16,6 +18,7 @@ from evaluate_dialogue_benchmark import assess
 import provision_dialogue_benchmark as fixtures
 
 ROOT = Path(__file__).resolve().parents[1]
+BASH = "C:/Program Files/Git/bin/bash.exe" if os.name == "nt" else shutil.which("bash")
 
 
 class BenchmarkTests(unittest.TestCase):
@@ -131,6 +134,49 @@ class BenchmarkTests(unittest.TestCase):
                     self.assertEqual(score["status"], "ERROR")
                 else:
                     self.assertEqual(score["wer"]["rate"], 0)
+
+    @unittest.skipUnless(BASH and Path(BASH).exists(), "Bash unavailable")
+    def test_shell_preserves_failures_and_rejects_stale_or_adb_error_output(self):
+        # Authored shell commands only, no emulator or model execution evidence.
+        for gradle_exit, mode, expected in [(0, "fresh", 0), (7, "fresh", 7),
+                                             (0, "stale", 1), (0, "adb_error", 1)]:
+            with self.subTest(gradle_exit=gradle_exit, mode=mode), tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
+                root = Path(tmp)
+                output = root / ".local/dialogue-benchmark"
+                output.mkdir(parents=True)
+                reference = {"schema_version": 1, "recording_id": "authored", "annotation_source": "authored",
+                    "license": "authored", "kind": "authored", "audio_sha256": "0" * 64,
+                    "audio_duration_ms": 1000, "text_segments": [
+                        {"start_ms": 0, "end_ms": 1000, "speaker_id": "A", "text": "word"}]}
+                (output / "reference.json").write_text(json.dumps(reference))
+                (output / "scores.json").write_text('{"stale_favorable":true}')
+                startup = root / "commands.sh"
+                startup.write_text('''
+python3() { "$TEST_PYTHON" "$@"; }
+gradle() { return "$FAKE_GRADLE_EXIT"; }
+adb() {
+  if [[ "$*" != *"exec-out"* ]]; then return 0; fi
+  if [[ "$FAKE_MODE" == adb_error ]]; then echo 'run-as: unknown package'; return 0; fi
+  python3 - <<'PY'
+import json, os
+from pathlib import Path
+p=Path('.local/dialogue-benchmark')
+r=json.loads((p/'reference.json').read_text())
+nonce=json.loads((p/'invocation.json').read_text())['id']
+print(json.dumps({'audio_sha256': r['audio_sha256'], 'audio_duration_ms': 1000,
+ 'segments': r['text_segments'], 'diarization': [],
+ 'benchmark_invocation': nonce if os.environ['FAKE_MODE']=='fresh' else 'b'*32}))
+PY
+}
+''', encoding="utf-8", newline="\n")
+                env = dict(os.environ, BASH_ENV=startup.as_posix(), TEST_PYTHON=Path(sys.executable).as_posix(),
+                           FAKE_GRADLE_EXIT=str(gradle_exit), FAKE_MODE=mode)
+                result = subprocess.run([BASH, (ROOT / "tools/run_android_benchmark.sh").as_posix()],
+                    cwd=root, env=env, capture_output=True, text=True)
+                self.assertEqual(result.returncode, expected, result.stderr)
+                score = json.loads((output / "scores.json").read_text())
+                self.assertNotIn("stale_favorable", score)
+                self.assertEqual(score.get("status") == "ERROR", mode != "fresh")
 
 
 if __name__ == "__main__":

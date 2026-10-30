@@ -23,7 +23,11 @@ within this recording; these are voice clusters, never identities or names.
 The threshold is **0.9**, selected from the upstream hint for the public Chinese
 example. **0.5 failed** recurrence and overclustered that file into seven voices.
 0.9 is not independently tuned on Russian dialogue and can merge different voices.
-No accuracy, DER, cpWER or smartphone speed claim is made.
+The new [three-utterance acted Russian probe](RUSSIAN_EVALUATION.md) exposes this
+failure: all D/M/D clips merge into Speaker 1, cpWER 60.98%, A-B-A FAIL. This
+does not invalidate the separate Chinese recurrence execution check, nor does
+that check establish Russian speaker accuracy. No threshold was changed to fit
+this probe. Representative accuracy, DER and physical-phone speed remain open.
 
 ## Timing and uncertainty
 
