@@ -50,7 +50,9 @@ def inventory(source, output):
     if len(body.encode("utf-8")) > 4 * 1024 * 1024:
         raise ValueError("Notice inventory too large")
     output.mkdir(parents=True, exist_ok=True)
-    (output / "runtime-notices.txt").write_text(body, encoding="utf-8")
+    # Hash and persist identical bytes on Windows and Linux; text-mode newline
+    # translation would otherwise invalidate the recorded digest on Windows.
+    (output / "runtime-notices.txt").write_bytes(body.encode("utf-8"))
     report = {"scope": "Actual source dependency inputs; root and explicitly mapped nested notices only, not full license clearance",
         "sherpa_commit": "5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f", "tts": "OFF",
         "toolchain": "Android NDK 27.2.12479018; toolchain/stdlib notices require separate review",

@@ -4,6 +4,11 @@
 
 ### Recovery call 9 — collect pinned ASIO nested notices
 
+- Added actual output-byte hash regression and reproduced a Windows failure:
+  text-mode newline translation changed runtime-notices.txt after hashing. Write
+  exact UTF-8 bytes instead; recorded hash now matches the persisted file.
+  Both local methods PASS after the fix. Prior Linux CI notice hashes remain valid.
+
 - Continued clean e549ccb, read full instructions/handoff and checked PR #6,
   deferred issue #7 and current CI. Existing Android 41058719146 remains PASS
   17+11; runtime and Russian benchmark are unchanged. Prior files/logs preserved.

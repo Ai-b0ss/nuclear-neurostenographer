@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -42,6 +43,8 @@ class InventoryTests(unittest.TestCase):
                 (dep / "LICENSE").write_text("Authored test notice, not a dependency license")
                 (dep / "CMakeLists.txt").write_text("# numeric fixture")
             result = inventory(root / "source", root / "output")
+            self.assertEqual(hashlib.sha256((root / "output/runtime-notices.txt").read_bytes()).hexdigest(),
+                             result["notices_sha256"])
             self.assertEqual(len(result["dependencies"]), 2)
             self.assertTrue(all(d["licenses"] for d in result["dependencies"]))
             for bad in ["SHERPA_ONNX_ENABLE_TTS:BOOL=ON", "missing"]:
