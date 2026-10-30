@@ -13,6 +13,23 @@
   Added narrowly filtered WIP-branch push triggers for no-TTS native build and
   independent Linux host inference. No default-branch merge is needed.
 - Runtime and Android results remain pending; no device success inferred.
+- Independent Linux host JNI suite PASS (all four processes exit 0):
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41039298647 .
+  The known mixture completes with three turns but overlap_detected=false;
+  this is crash-probe completion, NOT successful overlap recognition. Historical
+  Windows native fatal remains valid. Cloud build for `733e2d2` also PASS:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41039298469 .
+- Source inspection found an independent bounds defect: upstream TopkIndex
+  forms begin()+topk before clamping to size. Diarization requests segmentation
+  speaker count even when clustering leaves fewer identities. A strict-hash
+  candidate patch clamps before iterator construction and emits unknown identity
+  when positive cluster votes cannot support the detected speaker count. It does
+  not synthesize identities or separate simultaneous voices. Exact Windows crash
+  root cause is not yet proven by a patched full-runtime replay.
+- Added original-C++ negative replay with checked STL, patched helper ASan/UBSan
+  numeric tests, deterministic API-preserving candidate AAR packaging and a
+  dependent Android emulator job using that exact candidate. Python patch tests
+  3 PASS locally; native compilation and candidate Android execution pending CI.
 
 ## Baseline inspected
 - Entire AGENTS.md and CODEX_HANDOFF_2026-10-30.md read; no direct chat access.
