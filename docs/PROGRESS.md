@@ -25,12 +25,23 @@
   plus invalid-threshold guards. Actual Android x86_64 run
   https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41068127258
   **PASS: 18/18 instrumentation, 0 failed, and full UI/export flow**.
-- Select 0.8 as this branch's runtime default; preserve 0.9 as explicit legacy
-  benchmark comparator. The benchmark now binds its primary output to the actual
-  selected default rather than picking a favorable trial afterward. Android CI
-  for the new default and its Russian cpWER is still pending. Four-speaker and
-  single-voice smoke tests are necessary, not independent DER evidence or an
-  ARM64-device performance claim.
+- Promoted 0.8 into WIP as the validated Android runtime default; preserved 0.9
+  as explicit legacy benchmark comparator and bound benchmark output to the actual
+  selected default rather than the most favorable trial afterward.
+  Real Android acted Russian benchmark
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41069898150
+  **PASS**: 0.8 gives D/M/D recurrence PASS, **WER 1/41 = 2.44%** and
+  **cpWER 1/41 = 2.44%**, versus 0.9 collapsing the voices with cpWER 25/41
+  = 60.98%. The same-source ASR WER is unchanged; attribution improved.
+- Post-default full Android x86_64 ASR/instrumentation/UI/export run
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41069897802
+  **PASS**; Android APK/core
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41069897597
+  **PASS**; pinned host JNI
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41069897728
+  **PASS**. Earlier candidate regression run 41068127258 passed 18/18.
+  This is a three-utterance acted fixture, NOT representative natural
+  conversational accuracy, independent DER, ARM64 performance or release approval.
 - This experiment specifically targets the known baseline speaker collapse
   (WER 2.44%, cpWER 60.98%, D/M/D => one cluster on three acted clips).
   These prior metrics are not changed by this source-only experiment.
