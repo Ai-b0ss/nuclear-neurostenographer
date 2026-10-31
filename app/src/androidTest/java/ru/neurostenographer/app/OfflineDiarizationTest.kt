@@ -26,6 +26,19 @@ class OfflineDiarizationTest {
             fail("Unconfirmed exit accepted")
         } catch (_: DiarizationUnavailable) { }
         assertFalse(unknown.isCompleted)
+        // A remote Binder can be observed dead before its death recipient runs.
+        // This must not be confused with an alive/unknown remote process.
+        var polls = 0
+        IsolatedDiarization.awaitPriorWorkerExit(unknown, 1_000) {
+            ++polls < 3
+        }
+        assertTrue("Read-only Binder probe was not used", polls >= 3)
+        assertFalse("No fake death callback may be synthesized", unknown.isCompleted)
+        try {
+            IsolatedDiarization.awaitPriorWorkerExit(unknown, 10) { true }
+            fail("An alive Binder was accepted")
+        } catch (_: DiarizationUnavailable) { }
+        assertFalse(unknown.isCompleted)
         try {
             withTimeout(10) { IsolatedDiarization.awaitPriorWorkerExit(unknown, 1_000) }
             fail("Caller cancellation ignored")

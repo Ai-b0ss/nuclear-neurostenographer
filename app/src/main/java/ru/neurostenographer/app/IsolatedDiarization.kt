@@ -17,8 +17,30 @@ class DiarizationUnavailable(message: String) : Exception(message)
 object IsolatedDiarization {
     private val lease = Mutex()
     private var pendingWorkerDeath: CompletableDeferred<Unit>? = null
-    internal suspend fun awaitPriorWorkerExit(death: Deferred<Unit>?, graceMs: Long = 5_000) {
-        if (death != null && withTimeoutOrNull(graceMs) { death.await(); true } != true)
+    private var pendingWorkerBinder: IBinder? = null
+
+    /** Accept only observed Binder death. Android can deliver linkToDeath later
+     * than the underlying binder turns dead; isBinderAlive() is a second read-only
+     * observation of that same remote endpoint. Neither a missing process in a
+     * process list nor elapsed time alone authorizes a new native worker.
+     */
+    internal suspend fun awaitPriorWorkerExit(
+        death: Deferred<Unit>?, graceMs: Long = 15_000,
+        binderAlive: (() -> Boolean)? = null
+    ) {
+        if (death == null) return
+        val confirmed = withTimeoutOrNull(graceMs) {
+            while (true) {
+                if (death.isCompleted) {
+                    death.await()
+                    break
+                }
+                if (binderAlive?.invoke() == false) break
+                delay(50)
+            }
+            true
+        }
+        if (confirmed != true)
             throw DiarizationUnavailable("Предыдущий процесс диаризации ещё завершается")
     }
     suspend fun process(context: Context, audio: PcmAudio, model: File,
@@ -34,8 +56,11 @@ object IsolatedDiarization {
             // A burst of sequential calls can reach this guard just before the
             // prior Binder death is delivered. Await that exact signal briefly;
             // never start another worker on an unconfirmed exit.
-            awaitPriorWorkerExit(pendingWorkerDeath)
+            awaitPriorWorkerExit(pendingWorkerDeath) {
+                pendingWorkerBinder?.isBinderAlive != false
+            }
             pendingWorkerDeath = null
+            pendingWorkerBinder = null
             require(audio.sampleRate == 16000 && audio.samples.size in 1600..(120 * 16000))
             val root = File(context.cacheDir, "diarization-input").apply { mkdirs() }
             val input = File.createTempFile("audio-", ".pcm", root)
@@ -60,6 +85,7 @@ object IsolatedDiarization {
                                     onWorkerStarted: (Int) -> Unit): DiarizationOutput = withContext(Dispatchers.Main.immediate) {
         val result = CompletableDeferred<DiarizationOutput>()
         var workerDeath: CompletableDeferred<Unit>? = null
+        var workerBinder: IBinder? = null
         val receiver = Messenger(Handler(Looper.getMainLooper()) { message ->
             if (!result.isActive) return@Handler true
             try {
@@ -89,6 +115,7 @@ object IsolatedDiarization {
                 if (!result.isActive) return
                 val death = CompletableDeferred<Unit>()
                 workerDeath = death
+                workerBinder = binder
                 try {
                     binder.linkToDeath({ death.complete(Unit); disconnected() }, 0)
                     Messenger(binder).send(Message.obtain(null, DiarizationService.RUN).apply {
@@ -121,7 +148,17 @@ object IsolatedDiarization {
                 finally {
                     workerDeath?.let { death ->
                         pendingWorkerDeath = death
-                        withTimeoutOrNull(5_000) { death.await() }
+                        pendingWorkerBinder = workerBinder
+                        // Do not replace a successful model result with a cleanup
+                        // timeout. A subsequent request must still check this worker
+                        // until death is confirmed by either Binder observation.
+                        try {
+                            awaitPriorWorkerExit(death, 5_000) {
+                                workerBinder?.isBinderAlive != false
+                            }
+                        } catch (_: DiarizationUnavailable) {
+                            // Keep the pending death and Binder for the next call.
+                        }
                     }
                 }
             }
