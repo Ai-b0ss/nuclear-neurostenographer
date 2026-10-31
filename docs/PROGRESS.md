@@ -1,5 +1,39 @@
 # Progress — 2026-10-30
 
+## 2026-10-31 — bounded Binder-death fallback for repeated diarization
+
+- Previously failed Android full threshold sweep 41128549290:
+  DiarizationUnavailable on previous private worker exit, preserved.
+- Code commit 5c2dae0: the previously linked remote Binder is now checked
+  with two independent death observations: callback via linkToDeath() or
+  isBinderAlive()==false. Both identify the exact bound remote endpoint.
+  Cleanup waits up to 5 seconds and subsequent processing up to 15 seconds;
+  a still-alive/unknown worker blocks. No guessed PID, kill, blind retry,
+  model weights or clustering threshold changed.
+- Two complete Android multi-worker development sweeps PASS:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41154762491
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41155171064
+  Independent artifact recheck: each Android JUnit 1/1 pass, 0 failures;
+  three-clip D-M-D voice recurrence PASS, WER/cpWER 1/41.
+  The old 0.9 comparator still collapses voices.
+- Independently checked production-only disjoint four-clip holdout PASS:
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41155174621
+  JUnit 1/1 pass; M-D-M-D recurrence PASS, WER/cpWER 2/92, no parameter
+  sweep; DER NOT_SCORED (no independent ground-truth speech boundaries).
+  Offline Russian ASR/instrumentation
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41154762511
+  PASS, both Android APK build jobs 41154762500 and 41154766825 PASS.
+  All six runs are exactly at code SHA 5c2dae0; 44 local Python methods PASS.
+- Exact original WAV hash, invocation per run, reference/hypothesis JSON
+  SHA-256, independently recalculated scores and actual Android JUnit reports
+  verified. Machine-readable report:
+  docs/evidence/lifecycle-binder-recovery-20261031.json.
+- These are three successful sessions and do not prove that an intermittent
+  worker lifecycle error cannot return. No physical ARM64, real noisy
+  conversations, overlap/DER acceptance, phone performance or complete
+  redistribution review. Public APK upload stays disabled, PR #6 draft,
+  contest verdict NOT_READY.
+
 ## Disjoint acted holdout — first measured production-only Android result
 
 - Pinned four new neutral Russian acted source clips, M-D-M-D, from the same
