@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "scope": "platform_capture_only_no_asr",
+  "sdk": 33,
+  "abi": "x86_64",
+  "runs": [
+    {
+      "duration_ms": 465,
+      "wav_bytes": 14924
+    },
+    {
+      "duration_ms": 480,
+      "wav_bytes": 15404
+    }
+  ],
+  "speech_accuracy": "NOT_SCORED"
+}

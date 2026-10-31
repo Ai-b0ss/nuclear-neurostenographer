@@ -9,8 +9,17 @@ local.properties
 *.mp3
 *.m4a
 *.ogg
+*.opus
+*.flac
+*.aac
+*.amr
 *.onnx
 *.pt
 *.gguf
 .env
 **/secrets.*
+/.local/
+/app/libs/*.aar
+__pycache__/
+hs_err_pid*.log
+replay_pid*.log

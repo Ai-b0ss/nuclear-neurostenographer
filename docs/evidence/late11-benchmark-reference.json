@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "recording_id": "dialogs-test-neutral-D-M-D-composed-v1",
+  "annotation_source": "https://huggingface.co/datasets/langswap/dialogs-ru-emotional-conversations/blob/a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+  "license": "Dialogs OpenRAIL; copy of full terms in LICENSE.md; recipients must comply with Section 2",
+  "kind": "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
+  "audio_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+  "audio_duration_ms": 19655,
+  "text_segments": [
+    {
+      "start_ms": 0,
+      "end_ms": 6094,
+      "speaker_id": "D",
+      "text": "Примерно так же. Мы всегда проводим полный цикл тестирования перед внедрением новых технологий."
+    },
+    {
+      "start_ms": 6594,
+      "end_ms": 11389,
+      "speaker_id": "M",
+      "text": "Да уж, не самое приятное приключение. А как вы решили эту проблему?"
+    },
+    {
+      "start_ms": 11889,
+      "end_ms": 19655,
+      "speaker_id": "D",
+      "text": "Знаешь, мне бы хотелось сходить в музей-заповедник \"Царицыно\". Там и архитектура потрясающая, и парки красивые."
+    }
+  ],
+  "reference_limits": "External scripted text not manually audited; clip extents are NOT speech/word boundaries. DER deliberately absent.",
+  "selection_policy": "In pinned test.csv order: first neutral D, first neutral M, second neutral D. Frozen before model evaluation; no accuracy-based selection.",
+  "training_contamination": "UNVERIFIED"
+}

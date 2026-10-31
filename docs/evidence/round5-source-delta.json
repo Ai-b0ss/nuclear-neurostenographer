@@ -1,0 +1,98 @@
+{
+  "baseline_archive_sha256": "f01afd01d488b4a7f7ac0da581a4ee265ed67ccec05676bb92f5aad65d4a59ff",
+  "scope": "source/docs/workflows; evidence JSON excluded",
+  "changes": {
+    ".github/workflows/offline-asr.yml": {
+      "before": "32f19aa02a0f8310f5415947d5b12f63e3db2822cc50ad3116033b27ddda3007",
+      "after": "df960f858e99002035b76d306f301fb22fc9fe70fde74cacb5ae9a8edee44ae5"
+    },
+    "app/src/androidTest/java/ru/neurostenographer/app/AudioInputTest.kt": {
+      "before": "42fb0a675c66c75c159051c64285ac10c84d37971a9def5eef75147d21dfd792",
+      "after": "8113557651f4c8236d8258fa8a4eca1c62396e41fc3acb397566f2fe79793197"
+    },
+    "app/src/androidTest/java/ru/neurostenographer/app/CodecImportTest.kt": {
+      "before": null,
+      "after": "e45eb5adcd0137caf4be4b9d70d36acf7e2c0ac753c01d4e7e710ebdb709ed49"
+    },
+    "app/src/main/java/ru/neurostenographer/app/AudioImport.kt": {
+      "before": null,
+      "after": "e414de0ca28f4fd35c339a20ea9962e0fb0e5952a09b1a19e0ce0d45d0b1f752"
+    },
+    "app/src/main/java/ru/neurostenographer/app/TranscriptionViewModel.kt": {
+      "before": "dd2abe58c86ff06f7401f247b794d8189a47c0ee281d2fba6292830ddcee5774",
+      "after": "73f3f51762adaf8a4745e967e92d43c0c590202a64a1211cf40c6bad24e001c6"
+    },
+    "core/src/main/kotlin/ru/neurostenographer/core/DecodedPcmTimeline.kt": {
+      "before": null,
+      "after": "fe43672d3ff6a57d8ff8d5e0f6afb1d6dc2a87539f3b47c9799b733735f52ef4"
+    },
+    "core/src/main/kotlin/ru/neurostenographer/core/Pcm16WavWriter.kt": {
+      "before": null,
+      "after": "b86b991d9646b00ff80a5c9398319e993a7986f8686efd17beaa5bbf48c375da"
+    },
+    "core/src/test/kotlin/ru/neurostenographer/core/Pcm16WavWriterTest.kt": {
+      "before": null,
+      "after": "0eb0b4003f16a2bc33b46add50a825f7aa0b95f6fd7ce4b95542eef55e4d9bbb"
+    },
+    "docs/AUDIO_IMPORT.md": {
+      "before": null,
+      "after": "9b973d417d7ee0492ceead8068db9a23dc72ed98b36347ef87b26baf9f54979b"
+    },
+    "docs/PROGRESS.md": {
+      "before": "b0404e1c0f66521998491f5faed10630d705acd0c722af8e99f3259940308387",
+      "after": "08c87230386e65beea5b08feb901b0ff4c83544b48f28602f20e1117f4c567a6"
+    },
+    "tools/check_apk.py": {
+      "before": "0e38ad78c183b5ee13af5d3dd3e825400b2fa141311e3511989c1150ecb65095",
+      "after": "10763042cb32ca46d3208ca0e958b3b627d31ee705aa64c55a738e723ddfea52"
+    },
+    "tools/create_checkpoint.py": {
+      "before": "097944bdcff8857e0daf9bc5e9ba0d9ffaefed6cc169acd9e3ee28d0acb60420",
+      "after": "7639aa07278e450817976e5bf6497f56b0210cf7f7067c2b1c9af7390a51754d"
+    },
+    "tools/provision_codec_fixtures.py": {
+      "before": null,
+      "after": "2aff229ef9c29ace533428bd5ef74edbb2f4bb483584ecf24fd2e9204e7cb228"
+    },
+    "tools/run_android_inference.sh": {
+      "before": "77d907d02d8d43290a6170f6c8819471d40850f4b7b66cfcd26cece9ede2fbbc",
+      "after": "62fc073bfd22876027c3de9a3c04d7096db4e5f24e27e0a5f42c20fe291c3014"
+    },
+    "tools/test_android_workflow.py": {
+      "before": "7020780356c7a682c0bc30852d15e251808290bf1c615f50bbbf3346324e8fe6",
+      "after": "79e993c762222eaadeb54696aff1a230722c4e9861c7093767ac5cf5dcc49617"
+    },
+    "tools/test_codec_fixtures.py": {
+      "before": null,
+      "after": "39d7d321fae9cfddd1745435554ca2dbaa81b5bc0b598f6f3d8c44e15caf5d90"
+    },
+    ".gitignore": {
+      "before": "0681425e08380f06e8594c6f7fe9ab83852bfc8c0adf9fcf998e9dd56d19ddad",
+      "after": "469a9f84f73c69897e532d089a871326d73a326f05e7689806cfe09b62a545ec"
+    },
+    "README.md": {
+      "before": "6cd2557f334d1c4471c32d50eb50a9ec0bb87de67663f2b99609d9d659754508",
+      "after": "8b440800cb48c347466712bf031b427daf9d45f88de066bb27915af8c1d1fddc"
+    },
+    "README.ru.md": {
+      "before": "ec35473ae19d65c58723f38d7abf87cdf276e8d2299705d509c921ef78934b3d",
+      "after": "ddc3b3cdc2fcd98e51a1ae1f6af5d1950708ea16ce7d30624ec613053a278e9d"
+    },
+    "app/src/main/java/ru/neurostenographer/app/MainActivity.kt": {
+      "before": "645d270afacf3d3dcf179c0c13808567033042899027ac63e4fa33f354326375",
+      "after": "e066b39ed11aaef49aa0bd072ef8b748254a7d930aa12aceee8d63da710571a7"
+    },
+    "core/src/test/kotlin/ru/neurostenographer/core/TranscriptCoreTest.kt": {
+      "before": "73a51b684313a4a467e1bd55af3b696211827b77b0519161ba8c19368fd428fd",
+      "after": "1285c1b34865a0597a30f10bdc7760c14324bb378b812b83b5209f816da63f93"
+    },
+    "docs/ARCHITECTURE.md": {
+      "before": "094ad1457932ba673b879f0fe085b8a001e4aaef4a71938eb882816023c8b161",
+      "after": "c5b9a51c0c07d8e248dc84c0ee2ba9f77e9be70a503e931ddd5b6bae7a020fbf"
+    },
+    "docs/TEST_PLAN.md": {
+      "before": "e00681dea8e84b05555de01dbc3246905b9d7b49ffe0b968fc98f6bd6fafff5b",
+      "after": "8c13debf72154d8b8e8c415e10c92b1d7311d68a1df260c28cb82477b188ffd5"
+    }
+  }
+}

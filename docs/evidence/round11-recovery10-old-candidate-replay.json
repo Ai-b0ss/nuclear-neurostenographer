@@ -1,0 +1,29 @@
+{
+  "source_run": 41061172511,
+  "native_job": "PASS",
+  "whole_workflow": "FAIL",
+  "old_android_instrumentation": {
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "actual_saved_exports_with_actual_AAR_hash": "PASS",
+  "same_files_with_upstream_bootstrap_hash": "FAIL_RUNTIME_IDENTITY_MISMATCH",
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "exports": {
+    "txt": {
+      "bytes": 695,
+      "sha256": "2b6b2b43b467e7a25e140a4ba0398da23924fcb5350f3ca386ca5e708d0d8ccb"
+    },
+    "json": {
+      "bytes": 1392,
+      "sha256": "b4607718f82401bd7325c4ceb7a4b88bc5853f36c24d05ce3d01af7e27ff3a7c"
+    },
+    "srt": {
+      "bytes": 460,
+      "sha256": "693b40d511a55d02fb11ea8e8fc0d2aa765d58d1fb9d5ccedc9ee1a65cd33847"
+    }
+  },
+  "scope": "Actual retained public-fixture files; no new model execution or new accuracy metric"
+}

@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 19655,
+  "warnings": [
+    "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
+    "Chunk boundaries are not word alignment; no independent speech-boundary reference."
+  ],
+  "provenance": {
+    "engine": "sherpa-onnx-1.12.20\/gigaam-v3-ctc-int8",
+    "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec",
+    "timestamp_source": "diarization_boundaries_and_input_windows",
+    "speaker_source": "pyannote-9403a690\/eres2net-1a331345\/threshold-0.9",
+    "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"
+  },
+  "segments": [
+    {
+      "start_ms": 200,
+      "end_ms": 5870,
+      "speaker_id": "Speaker 1",
+      "text": "примерно так же мы всегда проводим полный цикл тестирования перед внедрением новых технологий",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 6899,
+      "end_ms": 9228,
+      "speaker_id": "Speaker 1",
+      "text": "да уж не самое приятное приключение",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 9565,
+      "end_ms": 11033,
+      "speaker_id": "Speaker 1",
+      "text": "а как вы решили эту проблему",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 12080,
+      "end_ms": 15809,
+      "speaker_id": "Speaker 1",
+      "text": "знаешь мне бы хотелось сходить в музей заповедник царицына",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    },
+    {
+      "start_ms": 16248,
+      "end_ms": 19538,
+      "speaker_id": "Speaker 1",
+      "text": "там и архитектура потрясающая и парки красивые",
+      "overlapping_speech": false,
+      "attribution_reliable": true
+    }
+  ],
+  "audio_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+  "diarization": [
+    {
+      "start_ms": 200,
+      "end_ms": 5870,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 6899,
+      "end_ms": 9228,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 9565,
+      "end_ms": 11033,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 12080,
+      "end_ms": 15809,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 16248,
+      "end_ms": 19538,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    }
+  ],
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "sdk_int": 33,
+  "abis": [
+    "x86_64"
+  ],
+  "device_model": "Android SDK built for x86_64",
+  "total_inference_ms": 5129,
+  "rtf": 0.26095141185448995,
+  "timing_scope": "worker bind\/load\/process\/exit plus ASR load\/decode; excludes model verification\/import; emulator only",
+  "decoded_windows": 5,
+  "memory_before": {
+    "process_pss_kib": 77249,
+    "java_used_bytes": 11738160,
+    "scope": "current instrumentation\/app process snapshot; NOT peak, excludes diarization worker"
+  },
+  "memory_after": {
+    "process_pss_kib": 120363,
+    "java_used_bytes": 13194640,
+    "scope": "current instrumentation\/app process snapshot; NOT peak, excludes diarization worker"
+  }
+}

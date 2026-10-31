@@ -1,0 +1,31 @@
+{
+  "run_id": 41044710621,
+  "images": {
+    "final-clean.png": {
+      "sha256": "5f3f6ac9d45ccde3f7e13259d63a2131d533a70fe75f036dded5cfc2342a725a",
+      "bytes": 214032,
+      "width": 1080,
+      "height": 2340
+    },
+    "initial.png": {
+      "sha256": "02f0cf798780691cbe9d711686782b70135f3a69b3dd11f02c630b9c7fdaacfe",
+      "bytes": 227874,
+      "width": 1080,
+      "height": 2340
+    },
+    "recorded-transcript.png": {
+      "sha256": "54b7e1b86b70752ce4a9120e4122374513d23d105e7a43a0fd4fa05c58457922",
+      "bytes": 208727,
+      "width": 1080,
+      "height": 2340
+    },
+    "rotated-recording.png": {
+      "sha256": "5d381cd6899add16812fc1c45046f8d794cc4bfea51544d65b5126e6b3824622",
+      "bytes": 107471,
+      "width": 2340,
+      "height": 1080
+    }
+  },
+  "visual_review": "Default screenshots viewed: readable portrait/landscape, recording guard and empty transcript/cleanup state visible",
+  "storage": "PNG/XML retained in Actions artifact, no screenshots or audio committed"
+}

@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- No internet permission. Speech processing must be strictly on-device. -->
-    <application android:allowBackup="false" android:label="Нейро-стенографист"
+    <application android:allowBackup="false" android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@drawable/ic_launcher" android:label="Нейро-стенографист"
         android:supportsRtl="true" android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <service android:name=".DiarizationService" android:process=":diarization"
+            android:exported="false" android:stopWithTask="true" />
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,42 @@
+{
+  "app/src/androidTest/java/ru/neurostenographer/app/AudioInputTest.kt": {
+    "round6": "8113557651f4c8236d8258fa8a4eca1c62396e41fc3acb397566f2fe79793197",
+    "round7": "95544f32e21c9f6252d286928720735b6a34e77d18b89ef97f0776aea9514c1d"
+  },
+  "core/src/main/kotlin/ru/neurostenographer/core/PcmWav.kt": {
+    "round6": "49da5dd2e6c70323781a19f8e555c5f29a9d5c5868fb3271370584300aa41ab3",
+    "round7": "90f7a811aaf1e5e33db988446751d4d650af81f5d115270c4b81d6bd157ba2f9"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/TranscriptCoreTest.kt": {
+    "round6": "62636285043aaede776c5e8da12f163dff7a29b3e987d0975655c50943d5bd9d",
+    "round7": "08ed3b2cadc4563e31ebee3f326f5b5f51104c3b603cc8005ee108e83d3e5840"
+  },
+  "docs/AUDIO_IMPORT.md": {
+    "round6": "9b973d417d7ee0492ceead8068db9a23dc72ed98b36347ef87b26baf9f54979b",
+    "round7": "7d82a7fb629ad57885718f426bb8655d83d5513011cf253ed2645497b8f99dca"
+  },
+  "docs/BENCHMARKS.md": {
+    "round6": "d8554f03a07903a729d6bcc4205594e91eb0c9c5cbf56b6d95268021e339d610",
+    "round7": "117315cad80b3fed984368924bc92ed708374cbe1d655def5c9b48755313e748"
+  },
+  "docs/PROGRESS.md": {
+    "round6": "0c2d326f6417efcfb48c46f45867ff3d8a7d8b998edd90c407bb1a75c528b865",
+    "round7": "b5f05390e1938d213eccaaad759606578e20612a0104cbaf0223fe2272e2627b"
+  },
+  "docs/TEST_PLAN.md": {
+    "round6": "cddc05778021171987a00fcac05d19e733b97e92d2cf40015b44ea2c4a64459f",
+    "round7": "9d68bceb2d5dfa4c92ec4cdcdc0367854e212389e30a171188c358dbd4828ddc"
+  },
+  "tools/score_transcript.py": {
+    "round6": "c48cf9eb00165afcbbbafeb8a34d6109456987bf4d549c0fbc39df5112e80e80",
+    "round7": "a9ebb3007ab555c48fe042d3c0e973fe8f5087a325513a464a90b96af5fd2640"
+  },
+  "tools/test_score_transcript.py": {
+    "round6": "b58dd0b7c2fa52c1b95aa44bfd660075dd31cf97a1e631693a8351b39ccca1d9",
+    "round7": "41fe33b2d0a18e1418564a9c62658f831d073c6387582a4df522591013421c09"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/WavContainerTest.kt": {
+    "round6": null,
+    "round7": "d6a9688f49b42ff15ad96d88f803e2d939c1bf71b50b730ede24f15eca13e79e"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "continuation": 13,
+  "verdict": "NOT_READY",
+  "snapshot_utc": "2026-10-30T20:03:11.080677+00:00",
+  "validated_code_commit": "3a02740b9c91a3cb2b355f3d87601edc6fa6f094",
+  "fix": "APK gate verifies actual ELF CPU machine against each ABI directory",
+  "local_regression": {
+    "before_fix": "All six wrong-machine authored header corruptions accepted",
+    "after_fix": "2 packaging test methods PASS, including six corruptions and valid controls",
+    "inventory": "3 methods PASS",
+    "scope": "Minimal authored ELF header fixtures are static tests, not loadable libraries or Android execution"
+  },
+  "cloud_apk_report_sha256": "b09753c3df9f57c4991f5a8ff7c563ad0b77230a0c236ac6cbff1459338f8bd9",
+  "cloud_apk_machine_count": 6,
+  "cloud_runtime_identity": {
+    "aar_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "packaged_native_sha256": {
+      "lib/arm64-v8a/libonnxruntime.so": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+      "lib/arm64-v8a/libsherpa-onnx-jni.so": "fbbe59319b4e1f485017e8f21160349b11ede52a77db551a47a388eb9ce730bf",
+      "lib/x86_64/libonnxruntime.so": "1eda995a3d24e48492aa2e671f4b69624d32a7c227dc7e0904c433e83df1aa7e",
+      "lib/x86_64/libsherpa-onnx-jni.so": "528dae634ebfd4cecadfbcac790960fb9a634b19c940fd037d5ec77d0c17e64f"
+    },
+    "build_config_digest": "MATCH",
+    "native_bytes": "MATCH"
+  },
+  "ci": [
+    {
+      "conclusion": "success",
+      "databaseId": 41119745856,
+      "headSha": "3a02740b9c91a3cb2b355f3d87601edc6fa6f094",
+      "status": "completed",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119745856",
+      "workflowName": "Android debug APK and core tests"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41119751747,
+      "headSha": "3a02740b9c91a3cb2b355f3d87601edc6fa6f094",
+      "status": "completed",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119751747",
+      "workflowName": "Android debug APK and core tests"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 41119746029,
+      "headSha": "3a02740b9c91a3cb2b355f3d87601edc6fa6f094",
+      "status": "in_progress",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119746029",
+      "workflowName": "Real offline Russian ASR (x86_64)"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 41119047210,
+      "headSha": "e4aff33f967119f186972e11d00989345fcdaac3",
+      "status": "in_progress",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047210",
+      "workflowName": "Build pinned ASR-only Android runtime candidate"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41119047036,
+      "headSha": "e4aff33f967119f186972e11d00989345fcdaac3",
+      "status": "completed",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047036",
+      "workflowName": "Real offline Russian ASR (x86_64)"
+    }
+  ],
+  "preserved": {
+    "default_threshold": 0.8,
+    "recovered_git_blobs_match_backup": 5,
+    "runtime_or_models_changed": false,
+    "peer_worktree_modified": false,
+    "main_merged": false,
+    "pr_6": "OPEN_DRAFT"
+  },
+  "accuracy": "No new measurement; prior development-probe 2.44% WER/cpWER is not an untouched holdout. DER NOT_SCORED.",
+  "remaining": [
+    "Review pending native and emulator results; no success inferred",
+    "Physical ARM64/airplane mode/spoken recording acceptance",
+    "Untouched Russian dialogue holdout and independently annotated DER",
+    "Overlap quality and phone peak RAM/thermal/power",
+    "Full distribution/toolchain/linked-header license review; public APK disabled"
+  ]
+}

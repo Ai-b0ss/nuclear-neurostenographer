@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "platform": "Android instrumentation",
+  "runtime_sha256": "e3905b1258b577d8d374db798618602ceaaff5805cbf9b356ab25267cd98144d",
+  "sdk_int": 33,
+  "abis": [
+    "x86_64"
+  ],
+  "device_model": "Android SDK built for x86_64",
+  "audio_duration_ms": 11290,
+  "audio_sha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69",
+  "fixture": "example.wav",
+  "reference_status": "No independent full text or speech-boundary annotation; WER/DER/cpWER NOT_SCORED",
+  "segments": [
+    {
+      "start_ms": 0,
+      "end_ms": 11290,
+      "speaker_id": null,
+      "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый",
+      "overlapping_speech": false,
+      "attribution_reliable": false
+    }
+  ],
+  "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec",
+  "run": 1,
+  "load_ms": 1226,
+  "decode_ms": 1331,
+  "load_plus_decode_rtf": 0.22648361381753765,
+  "timing_scope": "fresh recognizer per run; excludes model hash verification, PCM import, diarization; not cold process startup",
+  "memory_before": {
+    "process_pss_kib": 116107,
+    "java_used_bytes": 4608856,
+    "scope": "current instrumentation/app process snapshot; NOT peak, excludes diarization worker"
+  },
+  "memory_after": {
+    "process_pss_kib": 116627,
+    "java_used_bytes": 5452632,
+    "scope": "current instrumentation/app process snapshot; NOT peak, excludes diarization worker"
+  }
+}

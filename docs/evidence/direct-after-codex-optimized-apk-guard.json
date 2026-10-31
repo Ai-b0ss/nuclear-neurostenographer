@@ -1,0 +1,36 @@
+{
+  "date_utc": "2026-10-30T20:25:39.474649+00:00",
+  "base_head": "3a02740b9c91a3cb2b355f3d87601edc6fa6f094",
+  "scope": "Direct Windows Bridge continuation after Codex quota, no paid models",
+  "finding": "Critical APK checks used assert, stripped by python -O; native swaps were accepted",
+  "before_fix": "python -O: one of two methods FAILED, changed native binary was accepted",
+  "changes": [
+    "Explicit fail-closed validation in tools/check_apk.py",
+    "Eight authored negative APK cases",
+    "Normal and optimized mode in Android CI"
+  ],
+  "local_pass": {
+    "runtime_identity_normal": "3/3",
+    "runtime_identity_optimized": "3/3",
+    "android_workflow": "5/5",
+    "optimized_android_evidence": "3/3",
+    "runtime_dependencies": "3/3"
+  },
+  "archived_late13": {
+    "source_run": 41119745856,
+    "artifact_sha256": "b09753c3df9f57c4991f5a8ff7c563ad0b77230a0c236ac6cbff1459338f8bd9",
+    "exact_local_json_match": true,
+    "native_libraries": 6
+  },
+  "existing_ci": {
+    "android_build": "PASS 41119745856 / 41119751747",
+    "android_asr": "PASS 41119746029",
+    "native_candidate": "PASS 41119047210"
+  },
+  "limitations": [
+    "No physical ARM64 acceptance",
+    "No untouched Russian dialogue holdout or independent DER",
+    "Distribution licenses not cleared; APK publication disabled"
+  ],
+  "verdict": "NOT_READY"
+}

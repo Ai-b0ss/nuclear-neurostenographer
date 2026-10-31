@@ -1,0 +1,75 @@
+{
+  "kind": "NO_TTS_CANDIDATE_NOT_DEVICE_VERIFIED",
+  "api_aar_sha256": "e3905b1258b577d8d374db798618602ceaaff5805cbf9b356ab25267cd98144d",
+  "sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "bytes": 41464159,
+  "entries": {
+    "AndroidManifest.xml": "4e4afc406f4551293d45ef95eb63516774d0fa48bb0db415f6761b672ac9445a",
+    "META-INF/com/android/build/gradle/aar-metadata.properties": "9cc8517bbdf06d879f57a2cfd6f8c6914e48800d443421cd850971945f98e7b2",
+    "R.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes.jar": "6d42d1032ce6cad7f2fc6ed52a7cc2723687f011b28cc9d7977cc6b88ffea936",
+    "jni/arm64-v8a/libonnxruntime.so": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+    "jni/arm64-v8a/libsherpa-onnx-jni.so": "fbbe59319b4e1f485017e8f21160349b11ede52a77db551a47a388eb9ce730bf",
+    "jni/x86_64/libonnxruntime.so": "1eda995a3d24e48492aa2e671f4b69624d32a7c227dc7e0904c433e83df1aa7e",
+    "jni/x86_64/libsherpa-onnx-jni.so": "528dae634ebfd4cecadfbcac790960fb9a634b19c940fd037d5ec77d0c17e64f",
+    "proguard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "patch": {
+    "base_commit": "5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f",
+    "patch": "topk-bounds-and-unknown-v1",
+    "files": {
+      "math.h": {
+        "before": "72875e5be91f78963d6f1d395c749359d8534966d799ae1623d79e94c6caab3a",
+        "after": "45e870510e69c3acf9bc7d668b32716a152002f15ba7e1b08a306e3fe0ceabcc"
+      },
+      "offline-speaker-diarization-pyannote-impl.h": {
+        "before": "acf576376d0e86a8a604138e3de71b02947a388df05f468f673701250b7b4d02",
+        "after": "f5be07cf10c7b21222a7df27d5e1439e73bb83b0a289b599f66033ee901eaba3"
+      },
+      "safe-diarization-labels.h": {
+        "before": null,
+        "after": "ae739a9687a86116ab416251b43020c1fa9f509bb5833a59fa1b6cefd9b667e2"
+      }
+    }
+  },
+  "local_static_reinspection": {
+    "jni/arm64-v8a/libonnxruntime.so": {
+      "sha256": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ],
+      "espeak_data_marker": false
+    },
+    "jni/arm64-v8a/libsherpa-onnx-jni.so": {
+      "sha256": "fbbe59319b4e1f485017e8f21160349b11ede52a77db551a47a388eb9ce730bf",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ],
+      "espeak_data_marker": false
+    },
+    "jni/x86_64/libonnxruntime.so": {
+      "sha256": "1eda995a3d24e48492aa2e671f4b69624d32a7c227dc7e0904c433e83df1aa7e",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ],
+      "espeak_data_marker": false
+    },
+    "jni/x86_64/libsherpa-onnx-jni.so": {
+      "sha256": "528dae634ebfd4cecadfbcac790960fb9a634b19c940fd037d5ec77d0c17e64f",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ],
+      "espeak_data_marker": false
+    }
+  },
+  "native_job_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41039830327",
+  "note": "Native job PASS; original dependent Android job failed on old test/codec bugs. New candidate execution is reported separately."
+}

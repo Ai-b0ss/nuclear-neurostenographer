@@ -1,0 +1,85 @@
+{
+  "round": 5,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "bounded local Android MediaExtractor/MediaCodec import",
+    "PCM16 WAV writer and overflow-safe timestamp continuity checks",
+    "explicit generated-audio cleanup and pending-result clearing",
+    "numeric codec fixtures, negative/device tests and evidence collector",
+    "audio ignore/recovery/APK bundling privacy protections"
+  ],
+  "verification": {
+    "core_test_groups": 13,
+    "pcm_writer_roundtrips": 8,
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "build_duration": "1m49s",
+    "build_tasks": 77,
+    "lint_errors": 0,
+    "lint_warnings": 7,
+    "codec_fixture_test_methods": 2,
+    "codec_fixture_positive_formats": 5,
+    "codec_negative_fixtures": [
+      "two_audio_tracks",
+      "121_seconds"
+    ],
+    "fixture_check_scope": "FFmpeg host only; generated numeric tones, no speech",
+    "metric_test_methods": 11,
+    "shell_collector_test_methods": 3,
+    "pinned_download_negative_regression": "PASS",
+    "python_compile": "PASS",
+    "git_diff_check": "PASS",
+    "apk_static_inspection": "PASS",
+    "apk_audio_corruption_negatives": "PASS_OGG_FLAC_UPPERCASE_OPUS",
+    "host_asr": "PASS",
+    "host_diarization_aba": "PASS",
+    "host_dialogue_exports": "PASS",
+    "host_export_negative_regression": "PASS",
+    "host_overlap": "FAIL_NATIVE_FATAL_NO_OUTPUT",
+    "host_suite_exit_code": 1,
+    "android_codecs": "NOT_RUN",
+    "android_inference_and_worker_containment": "NOT_RUN",
+    "physical_arm64_microphone_airplane_mode": "NOT_RUN",
+    "ui_visual_device_check": "NOT_RUN",
+    "peak_ram_thermal": "NOT_RUN",
+    "russian_dialogue_wer_der_cpwer": "NOT_SCORED_NO_INDEPENDENT_REFERENCE",
+    "workflow_yaml_parse": "PASS_5_FILES",
+    "apk_current_import_classes": "PASS"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "main_unchanged_verified": true,
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "branch_creation": "FAILED_READ_ONLY_GIT",
+    "cli_graphql": "HTTP_401"
+  },
+  "blockers": [
+    "Protected read-only .git; CLI authentication invalid; prior connected-write approval rejection unresolved",
+    "Known native overlap crash; Android worker containment not executed",
+    "Full AAR GPL/TTS distribution; no-TTS runtime not built/tested",
+    "Android codec/inference and physical ARM64 evidence absent",
+    "Independent licensed Russian dialogue annotations absent"
+  ],
+  "build_log_sha256": "c0a2b1e010a2644b95dfc3b05ccb35b85aa140b184c962dc8e7128847b6fd959",
+  "last_remote_ci_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/40987151101",
+  "last_remote_ci_scope": "Old UI baseline only, not rounds 1-5",
+  "recovery": [
+    ".local/round5-source.zip",
+    ".local/round5-recovery.patch",
+    ".local/round5-checkpoint.json"
+  ],
+  "next": [
+    "Permitted GitHub write/commit/cloud CI",
+    "Execute offline-asr.yml and Android codec/worker tests",
+    "Resolve overlap native crash and no-TTS runtime distribution",
+    "Physical ARM64 and independent annotated Russian dialogue evaluation"
+  ],
+  "recovery_validation": {
+    "source_files": 118,
+    "source_only_archive": "PASS",
+    "reverse_patch_check": "PASS_CHECK_ONLY_NO_FILES_REVERTED",
+    "prior_checkpoints": "PRESERVED"
+  }
+}

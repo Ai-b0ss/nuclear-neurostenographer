@@ -1,0 +1,67 @@
+{
+  "round": 3,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "validated bounded user-WAV snapshots with failed-replacement preservation",
+    "exact chunk milliseconds in UI/TXT/SRT",
+    "transcript documents with audio duration, provenance and warnings",
+    "captured UTF8 export payload and correct MIME/truncation",
+    "recording startup/stop/minimum-duration and operation guards",
+    "no-speech-window versus empty-ASR-result distinction",
+    "Android real-import ViewModel/export tests and independent host export validator"
+  ],
+  "verification": {
+    "core_test_groups": 11,
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "android_lint_errors": 0,
+    "android_lint_update_warnings": 7,
+    "apk_static_inspection": "PASS",
+    "host_russian_asr": "PASS",
+    "host_native_aba_repetition": "PASS",
+    "host_russian_diarization_asr_export": "PASS",
+    "actual_json_srt_txt_consistency": "PASS",
+    "export_corruption_negative_regression": "PASS",
+    "native_overlap": "FAIL_ACCESS_VIOLATION",
+    "host_suite_exit_code": 1,
+    "android_inference": "NOT_RUN",
+    "android_import_recording_export_execution": "NOT_RUN",
+    "android_worker_crash_containment": "NOT_RUN",
+    "physical_arm64": "NOT_RUN",
+    "independent_russian_dialogue_metrics": "NOT_RUN"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "main_unchanged_verified": true
+  },
+  "blockers": [
+    "Read-only .git; CLI GitHub HTTP 401",
+    "GitHub create_tree rejected before execution: MCP tool call requires approval, but approval policy is never",
+    "Native JNI overlap crash remains reproducible",
+    "Android/ARM64/recording/worker containment execution absent",
+    "Full AAR GPL TTS distribution unresolved; no-TTS runtime NOT_RUN"
+  ],
+  "next": [
+    "Permitted GitHub write/Actions environment for isolated branch and tested commits",
+    "Execute offline-asr.yml including actual import/ViewModel/export tests",
+    "Fix pinned native overlap handling and verify worker containment",
+    "Build and pin no-TTS runtime before distribution",
+    "Licensed held-out Russian dialogue and physical ARM64 metrics"
+  ],
+  "build_log_sha256": "94aa6d397a9629874701271dc9db1b50e85db83084f5832b72157ffdcad95443",
+  "evidence": [
+    "docs/PROGRESS.md",
+    "docs/evidence/round3-host-summary.json",
+    "docs/evidence/round3-host-dialogue.json",
+    "docs/evidence/round3-host-export-validation.json",
+    "docs/evidence/round3-apk-inspection.json"
+  ],
+  "checkpoint": [
+    ".local/round3-source.zip",
+    ".local/round3-recovery.patch",
+    ".local/round3-checkpoint.json"
+  ]
+}

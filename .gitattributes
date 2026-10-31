@@ -1,0 +1,9 @@
+# Preserve exact downloaded dataset-derived evidence and license bytes across
+# Windows/Linux checkouts; their recorded SHA-256 values describe those bytes.
+docs/evidence/round11-acted-*.json -text
+docs/evidence/round11-bound-*.json -text
+docs/evidence/round11-provider-export.* -text
+docs/licenses/dialogs-OpenRAIL.md -text
+docs/licenses/asio-* -text
+docs/evidence/round11-recovery10-* -text whitespace=cr-at-eol
+docs/evidence/late11-*.json -text

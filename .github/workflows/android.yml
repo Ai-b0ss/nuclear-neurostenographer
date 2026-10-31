@@ -1,11 +1,12 @@
 name: Android debug APK and core tests
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/**']
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
   android:
     runs-on: ubuntu-latest
@@ -26,9 +27,34 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Verify pinned sherpa-onnx runtime
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 tools/test_provision_asr.py
+          python3 tools/test_create_checkpoint.py
+          python3 tools/test_score_transcript.py
+          python3 tools/test_android_workflow.py
+          python3 tools/test_runtime_identity.py
+          python3 -O tools/test_runtime_identity.py
+          python3 tools/test_android_ui.py
+          python3 tools/test_android_evidence.py
+          python3 tools/runtime/test_dependencies.py
+          python3 -O tools/test_android_evidence.py
+          python3 tools/verify_android_evidence.py --ui-report docs/evidence/round11-ui-flow.json --apk-report docs/evidence/round11-apk-inspection.json --directory docs/evidence --prefix round11-provider-export
+          python3 tools/provision_asr.py
       - name: Test core and assemble debug APK
-        run: gradle --no-daemon :core:runCoreTests :app:assembleDebug
+        run: gradle --no-daemon :core:runCoreTests :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
+      - name: Inspect permissions, ABIs, ELF alignment and accidental bundled data
+        run: python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output apk-inspection.json
       - uses: actions/upload-artifact@v4
+        with:
+          name: apk-inspection-no-binary
+          path: apk-inspection.json
+      - uses: actions/upload-artifact@v4
+        # No-TTS is now the default. Publication still awaits distribution/notices
+        # review and device acceptance; see docs/RUNTIME_LICENSES.md.
+        if: ${{ false }}
         with:
           name: neurostenographer-debug-apk
           path: app/build/outputs/apk/debug/*.apk

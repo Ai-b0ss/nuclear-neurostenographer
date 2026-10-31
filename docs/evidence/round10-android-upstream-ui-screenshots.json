@@ -1,0 +1,31 @@
+{
+  "run_id": 41044824154,
+  "images": {
+    "final-clean.png": {
+      "sha256": "5aab57013c7397a285db96339d15d2cb960aec7f49c933076a03cfc28c7ef1a1",
+      "bytes": 214107,
+      "width": 1080,
+      "height": 2340
+    },
+    "initial.png": {
+      "sha256": "02f0cf798780691cbe9d711686782b70135f3a69b3dd11f02c630b9c7fdaacfe",
+      "bytes": 227874,
+      "width": 1080,
+      "height": 2340
+    },
+    "recorded-transcript.png": {
+      "sha256": "3b676bbdc89c25cbdc23d242c3e92b606c3d3c95320618a12c187c8359a1ea1e",
+      "bytes": 207624,
+      "width": 1080,
+      "height": 2340
+    },
+    "rotated-recording.png": {
+      "sha256": "fac3d50062189977625a7fd3c9278a266c46568b8fadfb01007412db25c0c326",
+      "bytes": 110936,
+      "width": 2340,
+      "height": 1080
+    }
+  },
+  "visual_review": "Not independently visually reviewed",
+  "storage": "PNG/XML retained in Actions artifact, no screenshots or audio committed"
+}

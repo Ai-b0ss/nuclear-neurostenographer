@@ -1,0 +1,74 @@
+{
+  "round": 4,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "buffered streaming PCM resampling with exact parity and bounded source memory",
+    "stdlib WER/cpWER/DER scoring with independent-reference requirements and explicit unavailable states",
+    "authored Russian metric arithmetic fixtures and independent exhaustive oracles",
+    "persistent Android public-fixture inference JSON, timing and PSS snapshots",
+    "cloud collector preserving failure codes and collecting evidence on exit",
+    "wrapping export buttons for narrow screens"
+  ],
+  "verification": {
+    "core_test_groups": 12,
+    "pcm_exact_parity_cases": 48,
+    "metric_test_methods": 11,
+    "shell_collector_test_methods": 3,
+    "pinned_download_negative_regression": "PASS",
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "android_lint_errors": 0,
+    "android_lint_warnings": 7,
+    "workflow_yaml_parse": "PASS",
+    "apk_static_inspection": "PASS",
+    "host_asr": "PASS",
+    "host_diarization_aba": "PASS",
+    "host_dialogue_exports": "PASS",
+    "host_export_negative_regression": "PASS",
+    "host_overlap": "FAIL_NATIVE_FATAL_NO_OUTPUT",
+    "host_suite_exit_code": 1,
+    "android_inference": "NOT_RUN",
+    "physical_arm64": "NOT_RUN",
+    "android_peak_ram_and_cold_start": "NOT_RUN",
+    "russian_audio_wer_der_cpwer": "NOT_SCORED_NO_INDEPENDENT_REFERENCE",
+    "metric_parity_with_external_official_scorers": "NOT_RUN",
+    "ui_visual_device_check": "NOT_RUN"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "main_unchanged_verified": true,
+    "local_branch_creation": "FAILED_READ_ONLY_GIT",
+    "cli_auth": "INVALID_TOKEN"
+  },
+  "blockers": [
+    "Read-only .git prevents branch/commit; CLI GitHub token invalid; connected write rejection from prior rounds remains unresolved",
+    "Native overlap crash remains; worker containment NOT_RUN on Android",
+    "Full AAR GPL TTS distribution blocker; no-TTS runtime NOT_RUN",
+    "Independent licensed Russian dialogue annotations and physical ARM64/device evidence absent"
+  ],
+  "performance_scope": "Host parser current-thread allocations and in-memory read calls, not peak process RAM, Android speed or ASR RTF; elapsed parser time did not improve",
+  "build_log_sha256": "f8db9e77822dd62feb6fb01f7fcad390cf38d53f735b9367e750e8a672a64f26",
+  "last_remote_ci_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/40987151101",
+  "last_remote_ci_scope": "Old UI baseline only, not round 1-4 integration",
+  "recovery": [
+    ".local/round4-source.zip",
+    ".local/round4-recovery.patch",
+    ".local/round4-checkpoint.json"
+  ],
+  "next": [
+    "Permitted GitHub writes and isolated tested commit/CI",
+    "Execute offline-asr.yml on cloud x86_64 and physical ARM64",
+    "Resolve JNI overlap and no-TTS runtime redistribution",
+    "Licensed independently annotated Russian dialogues for actual metrics"
+  ],
+  "recovery_validation": {
+    "source_archive": "PASS_SOURCE_ONLY",
+    "reverse_patch_check": "PASS_CHECK_ONLY_NO_FILES_REVERTED",
+    "git_diff_check": "PASS",
+    "bash_syntax": "PASS",
+    "python_compile": "PASS"
+  }
+}

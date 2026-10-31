@@ -1,0 +1,36 @@
+{
+  "platform": "Windows AMD64 host JNI; Android NOT_RUN",
+  "runs": [
+    {
+      "audio_ms": 11290,
+      "load_ms": 2437,
+      "decode_ms": 1194
+    },
+    {
+      "audio_ms": 11290,
+      "load_ms": 2431,
+      "decode_ms": 1174
+    }
+  ],
+  "repetition_pass": true,
+  "silence_pass": true,
+  "short_tail_pass": true,
+  "cancellation_cleanup_pass": true,
+  "transcript": {
+    "version": 1,
+    "units": "milliseconds",
+    "segments": [
+      {
+        "start_ms": 0,
+        "end_ms": 11290,
+        "speaker_id": null,
+        "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый",
+        "overlapping_speech": false,
+        "attribution_reliable": false
+      }
+    ]
+  },
+  "runtime": "sherpa-onnx 1.12.20 Windows JNI + Android AAR Kotlin classes",
+  "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec",
+  "fixture_sha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69"
+}

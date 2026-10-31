@@ -1,0 +1,122 @@
+{
+  ".github/workflows/offline-asr.yml": {
+    "round3": "c793e512737b0263d54861dabb1f39284f9c2defce09002d572e25a74650f44c",
+    "round4": "32f19aa02a0f8310f5415947d5b12f63e3db2822cc50ad3116033b27ddda3007"
+  },
+  "app/src/androidTest/java/ru/neurostenographer/app/InferenceEvidence.kt": {
+    "round3": null,
+    "round4": "958257ad95f10a23f331fbdbbee4d53cf58e955b6944c19abc46c0b42aa0aef2"
+  },
+  "app/src/androidTest/java/ru/neurostenographer/app/OfflineAsrTest.kt": {
+    "round3": "c724b18286c7e0fe77265ef0568d77d9390bc8534ffadbe8a6e18e1766d71fdb",
+    "round4": "44bbe3187cad9a6d63b43300e629a5daf4ae636db4032466fb9a67ef02210f06"
+  },
+  "app/src/androidTest/java/ru/neurostenographer/app/OfflineDiarizationTest.kt": {
+    "round3": "1d7fd4b4c145ca665669ef970f71e997f02f784ff5095b0772e0fb5b43bf6d68",
+    "round4": "fc2549814974eb874353df946bde7a7d2f918aa96076824aec325cecef971b0a"
+  },
+  "core/src/main/kotlin/ru/neurostenographer/core/PcmWav.kt": {
+    "round3": "50430a0a274eed6b360bf794bcb882130aabd5422af9a01486f77c05af6cc5ca",
+    "round4": "49da5dd2e6c70323781a19f8e555c5f29a9d5c5868fb3271370584300aa41ab3"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/PcmStreamingTest.kt": {
+    "round3": null,
+    "round4": "8afddb22b803e856c68a54f0d3ae22e8927a9e29b70ade76d96ae71c8eb8f626"
+  },
+  "docs/BENCHMARKS.md": {
+    "round3": null,
+    "round4": "d8554f03a07903a729d6bcc4205594e91eb0c9c5cbf56b6d95268021e339d610"
+  },
+  "docs/PROGRESS.md": {
+    "round3": "c49b35ea65d037a21ae53538becb975f0bcd0cc774d5a698612dcdd078687a2c",
+    "round4": "b0404e1c0f66521998491f5faed10630d705acd0c722af8e99f3259940308387"
+  },
+  "docs/evidence/round4-apk-inspection.json": {
+    "round3": null,
+    "round4": "f435c0175b5db9852ac296e7f719dc6a95ef00677e8bc2d0ea045a6fa9f2b988"
+  },
+  "docs/evidence/round4-host-asr.json": {
+    "round3": null,
+    "round4": "de7333d3aa46bb599979f3845e4b6a0552b6e927cb45f5850d5675d2ef5ede0b"
+  },
+  "docs/evidence/round4-host-dialogue.json": {
+    "round3": null,
+    "round4": "dc7bf085b6663acf59260c0db3516c32904e93de011339af74bfe3fbb00455ed"
+  },
+  "docs/evidence/round4-host-diarization.json": {
+    "round3": null,
+    "round4": "7dae23d74df66e44583b76521b57c1acd0f077f3343b9d931bd73c2100e8167f"
+  },
+  "docs/evidence/round4-host-export-validation.json": {
+    "round3": null,
+    "round4": "118eb317f319c7d0b18691045540a26d15653ef827f31baa1e5a677279d717b8"
+  },
+  "docs/evidence/round4-host-summary.json": {
+    "round3": null,
+    "round4": "6920ec5ddfa6cb9f94927b88a7a6b947becf88f01c4c894a66aff08498fdeab9"
+  },
+  "docs/evidence/round4-metrics-availability.json": {
+    "round3": null,
+    "round4": "5ae166d60e71f7a9cc614a76666298e06522104680bc52386485438435ccdae4"
+  },
+  "docs/evidence/round4-pcm-benchmark.json": {
+    "round3": null,
+    "round4": "6b9f27f04bb3c8a11f692ff8c89625cb77326cf5d0538d93f9302da18e0b7984"
+  },
+  "docs/evidence/round4-status.json": {
+    "round3": null,
+    "round4": "5942ef54ab498681c1b616c4a51c619653e573ccd04ef3c6aa8607a8e6a9bf47"
+  },
+  "tools/PcmImportBenchmark.kt": {
+    "round3": null,
+    "round4": "a7a101849bf8ba9f2e35176fa811de0a8428efc3cb5901ef611203811d39dad5"
+  },
+  "tools/fixtures/metrics-ru-authored.json": {
+    "round3": null,
+    "round4": "b63dd7840ca7683b60df4d1c60ff9c478bab143da307030e8fc544fb26d41a7a"
+  },
+  "tools/run_android_inference.sh": {
+    "round3": null,
+    "round4": "77d907d02d8d43290a6170f6c8819471d40850f4b7b66cfcd26cece9ede2fbbc"
+  },
+  "tools/run_pcm_benchmark.py": {
+    "round3": null,
+    "round4": "8b9dfdca6f6a4cc550c40d5af4f1405b70fbb8f30969cbcec190555598f87c7b"
+  },
+  "tools/score_transcript.py": {
+    "round3": null,
+    "round4": "c48cf9eb00165afcbbbafeb8a34d6109456987bf4d549c0fbc39df5112e80e80"
+  },
+  "tools/test_android_workflow.py": {
+    "round3": null,
+    "round4": "7020780356c7a682c0bc30852d15e251808290bf1c615f50bbbf3346324e8fe6"
+  },
+  "tools/test_score_transcript.py": {
+    "round3": null,
+    "round4": "b58dd0b7c2fa52c1b95aa44bfd660075dd31cf97a1e631693a8351b39ccca1d9"
+  },
+  ".github/workflows/android.yml": {
+    "round3": "250ccc81202ac92b801cf569c6a3fc32b6c1bcb1ee4fc5924d7def36228c7eab",
+    "round4": "2cfc76c613eb0a90364086ae334e35317ecc737d9d9b51aee3e796fd0d1d6516"
+  },
+  "README.md": {
+    "round3": "98d91aeddf96834a28c205448274eb0dab5f02c225a13fe78d19f050358a3523",
+    "round4": "6cd2557f334d1c4471c32d50eb50a9ec0bb87de67663f2b99609d9d659754508"
+  },
+  "README.ru.md": {
+    "round3": "9568a2447f3ad9c04591a2de622f24b1e45d08068a2d2d6aa497fd6aa2958119",
+    "round4": "ec35473ae19d65c58723f38d7abf87cdf276e8d2299705d509c921ef78934b3d"
+  },
+  "app/src/main/java/ru/neurostenographer/app/MainActivity.kt": {
+    "round3": "e4370516a0b731fcb33c2fcf2515ee9b2e89e44a005918cb39247b7a3c203348",
+    "round4": "645d270afacf3d3dcf179c0c13808567033042899027ac63e4fa33f354326375"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/TranscriptCoreTest.kt": {
+    "round3": "379ef6950a264285840c47f29e3ffb995214310c70f58e13cfd0ab984f968954",
+    "round4": "73a51b684313a4a467e1bd55af3b696211827b77b0519161ba8c19368fd428fd"
+  },
+  "docs/TEST_PLAN.md": {
+    "round3": "572f09a1dddc97efcebde0274192274a8e3eba08ca8b1c046f57ddd32b8a85aa",
+    "round4": "e00681dea8e84b05555de01dbc3246905b9d7b49ffe0b968fc98f6bd6fafff5b"
+  }
+}

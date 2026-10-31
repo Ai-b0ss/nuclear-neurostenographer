@@ -1,0 +1,142 @@
+name: Build pinned ASR-only Android runtime candidate
+on:
+  workflow_dispatch:
+  push:
+    branches: ['codex/**']
+    paths: ['.github/workflows/asr-only-runtime.yml', 'tools/runtime/**']
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: k2-fsa/sherpa-onnx
+          ref: 5ce3d6d93a5f4fe11657bf11a6bf3a022eeef22f
+          path: .local/sherpa-source
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Reproduce bounds defect and test patched C++ policy
+        run: |
+          mkdir -p .local/baseline/sherpa-onnx/csrc
+          cp .local/sherpa-source/sherpa-onnx/csrc/math.h .local/baseline/sherpa-onnx/csrc/
+          cat > .local/topk-baseline.cc <<'CPP'
+          #include <cstdint>
+          #include "sherpa-onnx/csrc/math.h"
+          int main() { const int32_t x[] = {4}; sherpa_onnx::TopkIndex(x, 1, 2); }
+          CPP
+          g++ -std=c++17 -D_GLIBCXX_DEBUG -I.local/baseline .local/topk-baseline.cc -o .local/topk-baseline
+          if .local/topk-baseline > .local/topk-baseline.log 2>&1; then
+            echo 'Expected original out-of-range iterator failure'; exit 1
+          fi
+          grep 'outside its valid range' .local/topk-baseline.log
+          python3 tools/runtime/patch_runtime.py .local/sherpa-source
+          g++ -std=c++17 -D_GLIBCXX_DEBUG -fsanitize=address,undefined -I.local/sherpa-source tools/runtime/test-safe-labels.cc -o .local/safe-labels
+          .local/safe-labels
+      - name: Pinned NDK
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          "$SDKMGR" --install 'ndk;27.2.12479018'
+      - name: Build JNI without TTS (ARM64 and x86_64)
+        env:
+          SHERPA_ONNX_ENABLE_TTS: 'OFF'
+          SHERPA_ONNX_ENABLE_SPEAKER_DIARIZATION: 'ON'
+          SHERPA_ONNX_ENABLE_BINARY: 'OFF'
+          SHERPA_ONNX_ENABLE_C_API: 'OFF'
+          SHERPA_ONNX_ENABLE_JNI: 'ON'
+          BUILD_SHARED_LIBS: 'ON'
+        run: |
+          export ANDROID_NDK="$ANDROID_HOME/ndk/27.2.12479018"
+          cd .local/sherpa-source
+          ./build-android-arm64-v8a.sh
+          ./build-android-x86-64.sh
+          for pair in arm64-v8a:build-android-arm64-v8a x86_64:build-android-x86-64; do
+            abi=${pair%%:*}; build=${pair#*:}
+            grep '^SHERPA_ONNX_ENABLE_TTS:BOOL=OFF$' "$build/CMakeCache.txt"
+            test ! -d "$build/_deps/espeak_ng-src"
+            for lib in "$build/install/lib"/*.so; do
+              if strings "$lib" | grep -q 'espeak-ng-data'; then exit 1; fi
+            done
+          done
+      - name: Package pinned API plus no-TTS JNI and checksums
+        run: |
+          python3 tools/runtime/test_dependencies.py
+          python3 tools/runtime/collect_dependencies.py .local/sherpa-source .local/dependency-evidence
+          python3 tools/provision_asr.py --upstream-runtime
+          python3 tools/runtime/package_runtime.py app/libs/sherpa-onnx-1.12.20.aar .local/sherpa-source .local/sherpa-onnx-1.12.20-no-tts-candidate.aar
+          cd .local
+          sha256sum sherpa-onnx-1.12.20-no-tts-candidate.aar > runtime-sha256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: asr-only-runtime-candidate-NOT-DEVICE-VERIFIED
+          path: |
+            .local/sherpa-onnx-1.12.20-no-tts-candidate.aar
+            .local/sherpa-onnx-1.12.20-no-tts-candidate.json
+            .local/runtime-sha256.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runtime-patch-and-bounds-evidence
+          path: |
+            .local/topk-baseline.log
+            .local/sherpa-source/runtime-patch.json
+            .local/dependency-evidence/
+  android-candidate:
+    needs: native
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - uses: actions/download-artifact@v4
+        with:
+          name: asr-only-runtime-candidate-NOT-DEVICE-VERIFIED
+          path: .local/candidate
+      - name: Prepare SDK and verified fixtures
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path '*/bin/sdkmanager' -type f | sort -V | tail -n 1)
+          "$SDKMGR" --install 'platforms;android-35' 'build-tools;35.0.0'
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          python3 tools/provision_asr.py --test-assets --upstream-runtime
+          python3 tools/provision_diarization.py --test-assets
+          python3 tools/provision_codec_fixtures.py
+          (cd .local/candidate && sha256sum -c runtime-sha256.txt)
+          cp .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar app/libs/sherpa-onnx-1.12.20.aar
+          echo "CANDIDATE_RUNTIME_SHA256=$(sha256sum app/libs/sherpa-onnx-1.12.20.aar | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: default
+          arch: x86_64
+          profile: pixel_5
+          ram-size: 4096M
+          heap-size: 1024M
+          disk-size: 4096M
+          script: bash tools/run_android_inference.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: no-tts-android-execution-evidence
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
+            asr-evidence.txt
+            diarization-evidence.txt
+            device-evidence/

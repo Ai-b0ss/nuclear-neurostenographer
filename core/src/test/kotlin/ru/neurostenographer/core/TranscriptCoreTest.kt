@@ -6,6 +6,14 @@ private fun test(label: String, action: () -> Unit) {
 }
 
 fun main() {
+    testPcmWav()
+    testPcmStreaming()
+    testPcm16WavWriter()
+    testBoundedWavRecorder()
+    testAudioSnapshots()
+    testTranscriptDocument()
+    testVerifiedModelBundle()
+    testDiarizationTimeline()
     test("A B A speaker returns") {
         val turns = listOf(SpeakerTurn(2000, 2900, "B"), SpeakerTurn(4000, 5000, "A"), SpeakerTurn(0, 1500, "A"))
         val words = listOf(RecognizedWord(4050, 4500, "согласен"), RecognizedWord(100, 600, "привет"), RecognizedWord(2100, 2500, "да"))
@@ -43,6 +51,10 @@ fun main() {
         check(TranscriptExport.json(items).contains("\"speaker_id\": \"A\""))
         check(TranscriptExport.srt(items).contains("-->"))
         check(TranscriptExport.txt(items).contains("Привет, мир"))
+        check(TranscriptExport.json(items, TranscriptProvenance("test", "revision", "input_windows", "not_run"))
+            .contains("\"timestamp_source\": \"input_windows\""))
     }
-    println("6 CORE TESTS PASSED")
+    testWavContainer()
+    testDiarizationReply()
+    println("16 CORE TEST GROUPS PASSED")
 }

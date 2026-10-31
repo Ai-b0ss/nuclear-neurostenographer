@@ -1,0 +1,36 @@
+{
+  "description": "Authored Russian text/timing arithmetic fixture. No waveform exists; NEVER report this as inference accuracy. All-zero audio hash is a test sentinel.",
+  "reference": {
+    "schema_version": 1,
+    "recording_id": "authored-metric-unit-test-no-audio",
+    "audio_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "audio_duration_ms": 4000,
+    "annotation_source": "Authored test expectations; no audio/model involved",
+    "license": "Original test text contributed to this repository; no third-party audio",
+    "kind": "AUTHORED_UNIT_TEST_NO_AUDIO",
+    "text_segments": [
+      {"start_ms": 0, "end_ms": 1000, "speaker_id": "A", "text": "Добрый день!"},
+      {"start_ms": 1000, "end_ms": 2000, "speaker_id": "B", "text": "Привет, ёж."},
+      {"start_ms": 2000, "end_ms": 3000, "speaker_id": "A", "text": "Да."}
+    ],
+    "diarization": [
+      {"start_ms": 0, "end_ms": 1000, "speaker_id": "A"},
+      {"start_ms": 1000, "end_ms": 2000, "speaker_id": "B"},
+      {"start_ms": 2000, "end_ms": 3000, "speaker_id": "A"}
+    ]
+  },
+  "hypothesis": {
+    "audio_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "audio_duration_ms": 4000,
+    "segments": [
+      {"start_ms": 0, "end_ms": 1000, "speaker_id": "2", "text": "добрый день"},
+      {"start_ms": 1000, "end_ms": 2000, "speaker_id": "1", "text": "привет еж"},
+      {"start_ms": 2000, "end_ms": 3000, "speaker_id": "2", "text": "да"}
+    ],
+    "diarization": [
+      {"start_ms": 0, "end_ms": 1000, "speaker_id": "2"},
+      {"start_ms": 1000, "end_ms": 2000, "speaker_id": "1"},
+      {"start_ms": 2000, "end_ms": 3000, "speaker_id": "2"}
+    ]
+  }
+}

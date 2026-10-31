@@ -1,0 +1,99 @@
+name: Real offline Russian ASR (x86_64)
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_runtime:
+        description: 'Explicit GPL/TTS upstream regression instead of default no-TTS runtime'
+        type: boolean
+        required: false
+        default: false
+      runtime_run_id:
+        description: 'Optional source run of the exact pinned no-TTS artifact; empty uses default lock'
+        required: false
+        default: ''
+  push:
+    branches: ['codex/**']
+    paths: ['app/**', 'core/**', 'tools/**', '.github/workflows/offline-asr.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      UPSTREAM_RUNTIME: ${{ inputs.upstream_runtime || false }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Prepare SDK
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          test -n "$SDKMGR" && test -x "$SDKMGR"
+          echo "$(dirname "$SDKMGR")" >> "$GITHUB_PATH"
+          "$SDKMGR" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Provision checksum-verified public model and upstream fixture
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          python3 tools/test_score_transcript.py
+          python3 tools/test_android_workflow.py
+          python3 tools/test_android_ui.py
+          runtime_args=()
+          if [[ "$UPSTREAM_RUNTIME" == true ]]; then runtime_args+=(--upstream-runtime); fi
+          python3 tools/provision_asr.py --test-assets "${runtime_args[@]}"
+          python3 tools/provision_diarization.py --test-assets
+          python3 tools/provision_codec_fixtures.py
+          python3 tools/test_codec_fixtures.py
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: actions/download-artifact@v4
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_run_id != '' }}
+        with:
+          name: asr-only-runtime-candidate-NOT-DEVICE-VERIFIED
+          path: .local/candidate
+          run-id: ${{ inputs.runtime_run_id }}
+          github-token: ${{ github.token }}
+      - name: Select same-repository candidate for explicit validation
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_run_id != '' }}
+        run: |
+          (cd .local/candidate && sha256sum -c runtime-sha256.txt)
+          python3 tools/provision_asr.py --runtime-file .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: default
+          arch: x86_64
+          profile: pixel_5
+          ram-size: 4096M
+          heap-size: 1024M
+          disk-size: 4096M
+          script: bash tools/run_android_inference.sh
+      - name: Verify packaged runtime identity
+        run: python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output device-evidence/apk-inspection.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-asr-evidence
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
+            asr-evidence.txt
+            diarization-evidence.txt
+            device-evidence/
+            .local/diarization-provenance.json
+            .local/provenance.json
+            .local/candidate/*.json
+            .local/candidate/runtime-sha256.txt
+            .local/runtime-selection.json

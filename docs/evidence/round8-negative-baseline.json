@@ -1,0 +1,28 @@
+{
+  "kind": "AUTHORED_IPC_ARRAYS_NOT_MODEL_OR_ANDROID_LIFECYCLE_EVIDENCE",
+  "archived_client_sha256": "db18b107a7d13d2b3acd84f3dbb63f467d40f072ea01cc13aa1592a104dd9da9",
+  "current_validator_sha256": "19fdbd0a6825c37af6d6b0bc0117385931030a4098505c13991f5a4102746085",
+  "archived_mapping_extracted_verbatim": true,
+  "cases": {
+    "valid": {
+      "round7": "ACCEPTED",
+      "round8": "ACCEPTED"
+    },
+    "omitted_speech_window": {
+      "round7": "ACCEPTED",
+      "round8": "REJECTED"
+    },
+    "decoded_silence_gap": {
+      "round7": "ACCEPTED",
+      "round8": "REJECTED"
+    },
+    "turn_outside_audio": {
+      "round7": "ACCEPTED",
+      "round8": "REJECTED"
+    },
+    "reliable_unknown": {
+      "round7": "ACCEPTED",
+      "round8": "REJECTED"
+    }
+  }
+}
