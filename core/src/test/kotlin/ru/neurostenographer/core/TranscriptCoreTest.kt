@@ -47,6 +47,23 @@ fun main() {
         check(TranscriptFusion.mergeReplies(listOf(s(0, 1000, "A", "x"), s(1000, 2000, "A", "y", false))).size == 2)
         check(TranscriptFusion.mergeReplies(listOf(s(0, 40_000, "A", "x"), s(40_000, 70_000, "A", "y"))).size == 2)
     }
+    test("forced cuts move to a nearby pause and keep the audio covered") {
+        val samples = FloatArray(16000 * 50) { 0.5f }
+        for (i in 16000 * 19 until 16000 * 19 + 1600) samples[i] = 0f // pause at 19.0–19.1 s
+        val windows = listOf(AudioWindow(0, 20_000), AudioWindow(20_000, 40_000), AudioWindow(40_000, 50_000))
+        val refined = QuietCuts.refine(windows, samples)
+        check(refined[0].endMs in 19_000..19_100) { refined }
+        check(refined.first().startMs == 0L && refined.last().endMs == 50_000L)
+        check(refined.zipWithNext().all { (a, b) -> a.endMs == b.startMs })
+        check(refined.all { it.endMs - it.startMs in 100..20_000 }) { refined }
+        // Uniform audio keeps the original cuts; turn boundaries and short pieces are untouched.
+        check(QuietCuts.refine(windows, FloatArray(16000 * 50) { 0.5f }) == windows)
+        val shortPieces = listOf(AudioWindow(0, 5_000), AudioWindow(5_000, 9_000))
+        check(QuietCuts.refine(shortPieces, samples) == shortPieces)
+        // A long final piece limits how far the cut may move.
+        val tail = listOf(AudioWindow(0, 20_000), AudioWindow(20_000, 39_500))
+        check(QuietCuts.refine(tail, samples).all { it.endMs - it.startMs <= 20_000 })
+    }
     test("long ASR chunk crossing turn ambiguous") {
         val result = TranscriptFusion.attributeChunks(
             listOf(RecognizedChunk(0, 2000, "да, хорошо")),
