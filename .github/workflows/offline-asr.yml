@@ -12,7 +12,7 @@ on:
         required: false
         default: ''
   push:
-    branches: ['codex/**']
+    branches: ['codex/**', 'feature/**']
     paths: ['app/**', 'core/**', 'tools/**', '.github/workflows/offline-asr.yml']
 permissions:
   contents: read
