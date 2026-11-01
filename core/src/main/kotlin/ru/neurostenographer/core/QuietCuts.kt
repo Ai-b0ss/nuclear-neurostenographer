@@ -10,21 +10,23 @@ object QuietCuts {
     private const val STEP_MS = 10L
 
     fun refine(windows: List<AudioWindow>, samples: FloatArray, sampleRate: Int = 16000): List<AudioWindow> {
-        val result = windows.toMutableList()
-        for (i in 0 until result.lastIndex) {
-            val current = result[i]
-            val next = result[i + 1]
-            if (windows[i].endMs - windows[i].startMs != MAX_WINDOW_MS || current.endMs != next.startMs) continue
-            // A following forced cut can still move back, a final piece cannot.
-            val nextIsForced = next.endMs - next.startMs == MAX_WINDOW_MS && i + 2 <= windows.lastIndex &&
-                windows[i + 2].startMs == next.endMs
-            var lowest = current.endMs - SEARCH_MS
-            if (!nextIsForced) lowest = maxOf(lowest, next.endMs - MAX_WINDOW_MS)
-            val cut = quietest(samples, sampleRate, lowest, current.endMs)
-            result[i] = AudioWindow(current.startMs, cut)
-            result[i + 1] = AudioWindow(cut, next.endMs)
+        val moved = windows.toMutableList()
+        for (i in 0 until windows.lastIndex) {
+            val window = windows[i]
+            if (window.endMs - window.startMs != MAX_WINDOW_MS || window.endMs != windows[i + 1].startMs) continue
+            val cut = quietest(samples, sampleRate, window.endMs - SEARCH_MS, window.endMs)
+            moved[i] = moved[i].copy(endMs = cut)
+            moved[i + 1] = moved[i + 1].copy(startMs = cut)
         }
-        return result
+        // A window that grew past the model limit is split once; it stays under 22 s + 2 s search.
+        return moved.flatMap { window ->
+            if (window.endMs - window.startMs <= MAX_WINDOW_MS) listOf(window)
+            else {
+                val middle = (window.startMs + window.endMs) / 2
+                val cut = quietest(samples, sampleRate, middle - SEARCH_MS, middle)
+                listOf(AudioWindow(window.startMs, cut), AudioWindow(cut, window.endMs))
+            }
+        }
     }
 
     private fun quietest(samples: FloatArray, sampleRate: Int, fromMs: Long, toMs: Long): Long {
