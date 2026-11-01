@@ -12,7 +12,7 @@ class DecodedPcmTimeline(private val rate: Int, private val channels: Int) {
     fun accept(bytes: Int, timestampUs: Long) {
         require(bytes > 0 && bytes % (channels * 2) == 0) { "Обрезанный PCM16 кадр" }
         val next = frames + bytes / (channels * 2)
-        require(next <= rate.toLong() * PcmWav.MAX_SECONDS) { "Максимум 120 секунд" }
+        require(next <= rate.toLong() * PcmWav.MAX_SECONDS) { "Максимум ${PcmWav.MAX_LABEL}" }
         val start = origin ?: timestampUs
         val elapsed = Math.subtractExact(timestampUs, start)
         val delta = Math.subtractExact(elapsed, frames * 1_000_000 / rate)

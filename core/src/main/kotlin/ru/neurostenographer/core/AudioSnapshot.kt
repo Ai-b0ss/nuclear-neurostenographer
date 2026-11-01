@@ -25,7 +25,7 @@ object AudioSnapshots {
                     if (count < 0) break
                     require(count > 0) { "Источник WAV не возвращает данные" }
                     total += count
-                    require(total <= MAX_BYTES) { "WAV слишком большой (максимум 120 секунд)" }
+                    require(total <= MAX_BYTES) { "WAV слишком большой (максимум ${PcmWav.MAX_LABEL})" }
                     output.write(buffer, 0, count)
                 }
             }

@@ -14,7 +14,7 @@ object OfflineAsr {
                    turns: List<SpeakerTurn> = emptyList(),
                    speechWindows: List<AudioWindow>? = null): AsrOutput {
         require(audio.sampleRate == 16000 && audio.samples.size >= 1600 &&
-            audio.samples.size <= PcmWav.MAX_SECONDS * 16000) { "Аудио должно длиться от 0,1 до 120 секунд" }
+            audio.samples.size <= PcmWav.MAX_SECONDS * 16000) { "Аудио должно длиться от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
         val windows = speechWindows ?: DiarizationTimeline.windows(turns, audio.durationMs)
         require(windows.all { it.startMs >= 0 && it.endMs <= audio.durationMs && it.endMs - it.startMs in 100..20_000 } &&
             windows.zipWithNext().all { (a, b) -> a.endMs <= b.startMs }) { "Invalid ASR input windows" }
@@ -52,7 +52,7 @@ object OfflineAsr {
                 } finally { stream.release() }
             }
         } finally { recognizer.release() }
-        return AsrOutput(TranscriptFusion.attributeChunks(chunks, turns), audio.durationMs,
+        return AsrOutput(TranscriptFusion.mergeReplies(TranscriptFusion.attributeChunks(chunks, turns)), audio.durationMs,
             (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000, windows.size)
     }
 }

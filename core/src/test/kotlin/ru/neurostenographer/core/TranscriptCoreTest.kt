@@ -35,6 +35,18 @@ fun main() {
         ).single()
         check(result.speakerId == "B" && !result.overlappingSpeech)
     }
+    test("adjacent fragments of one speaker merge into a reply") {
+        fun s(a: Long, b: Long, who: String?, text: String, reliable: Boolean = true, overlap: Boolean = false) =
+            TranscriptSegment(a, b, who, text, overlap, reliable)
+        val merged = TranscriptFusion.mergeReplies(listOf(s(0, 20_000, "A", "раз"), s(20_000, 25_000, "A", "два"),
+            s(25_000, 26_000, "B", "три"), s(26_000, 27_000, "A", "четыре")))
+        check(merged.map { it.text } == listOf("раз два", "три", "четыре"))
+        check(merged[0].startMs == 0L && merged[0].endMs == 25_000L)
+        check(TranscriptFusion.mergeReplies(listOf(s(0, 1000, "A", "x"), s(3000, 4000, "A", "y"))).size == 2)
+        check(TranscriptFusion.mergeReplies(listOf(s(0, 1000, null, "x", false), s(1000, 2000, null, "y", false))).size == 2)
+        check(TranscriptFusion.mergeReplies(listOf(s(0, 1000, "A", "x"), s(1000, 2000, "A", "y", false))).size == 2)
+        check(TranscriptFusion.mergeReplies(listOf(s(0, 40_000, "A", "x"), s(40_000, 70_000, "A", "y"))).size == 2)
+    }
     test("long ASR chunk crossing turn ambiguous") {
         val result = TranscriptFusion.attributeChunks(
             listOf(RecognizedChunk(0, 2000, "да, хорошо")),

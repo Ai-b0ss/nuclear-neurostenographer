@@ -21,7 +21,7 @@ object OfflineDiarization {
                 progress: (Int, Int) -> Unit = { _, _ -> },
                 clusteringThreshold: Float = THRESHOLD): DiarizationOutput {
         require(validThreshold(clusteringThreshold)) { "Invalid speaker clustering threshold" }
-        require(audio.sampleRate == 16000 && audio.samples.size in 1600..(120 * 16000))
+        require(audio.sampleRate == 16000 && audio.samples.size in 1600..(PcmWav.MAX_SECONDS * 16000))
         require(audio.samples.all { it.isFinite() && it in -1f..1f })
         checkCancelled()
         val started = System.nanoTime()

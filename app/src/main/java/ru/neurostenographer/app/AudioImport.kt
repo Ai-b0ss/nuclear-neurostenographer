@@ -68,7 +68,7 @@ object AudioImport {
             require(extractor.drmInitData == null) { "Защищённое аудио не поддерживается" }
             if (format.containsKey(MediaFormat.KEY_DURATION)) {
                 require(format.getLong(MediaFormat.KEY_DURATION) <= PcmWav.MAX_SECONDS * 1_000_000L) {
-                    "Максимум 120 секунд"
+                    "Максимум ${PcmWav.MAX_LABEL}"
                 }
             }
             fun properties(value: MediaFormat): Pair<Int, Int> {

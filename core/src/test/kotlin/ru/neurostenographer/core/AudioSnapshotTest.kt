@@ -38,7 +38,7 @@ fun testAudioSnapshots() {
         rejected(ByteArrayInputStream(byteArrayOf(1, 2, 3))) // MP3/unknown is not WAV
         rejected(pcmFixture().copyOf(100).inputStream()) // provider truncation
         rejected(pcmFixture(frames = 1599).inputStream()) // <100 ms
-        rejected(pcmFixture(frames = 16000 * 121).inputStream()) // >120 seconds
+        rejected(pcmFixture(frames = 16000 * (PcmWav.MAX_SECONDS + 1)).inputStream())
         rejected(object : InputStream() {
             override fun read(): Int = error("Provider disconnected")
         })

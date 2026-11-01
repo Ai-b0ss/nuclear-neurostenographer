@@ -61,7 +61,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         operation = viewModelScope.launch {
             try { block() }
             catch (_: CancellationException) { mutable.value = mutable.value.copy(message = "Операция отменена.") }
-            catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткий WAV.") }
+            catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = e.message ?: "Ошибка обработки") }
             finally { mutable.value = mutable.value.copy(busy = false, modelReady = store.current() != null,
@@ -168,7 +168,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             try { recorder = recorderFactory(file).also { it.start() } }
             catch (e: Throwable) { file.delete(); throw e }
             recording.value = true
-            mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — 120 секунд. Предыдущий результат сохранён до успешной остановки.")
+            mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmWav.MAX_LABEL}. Предыдущий результат сохранён до успешной остановки.")
             recordingTimer = viewModelScope.launch {
                 yield() // Let startRecording finish publishing the observer job.
                 val deadline = System.nanoTime() + PcmWav.MAX_SECONDS * 1_000_000_000L

@@ -25,7 +25,7 @@ class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: 
 
     fun append(pcm: ByteBuffer, checkCancelled: () -> Unit = {}) {
         check(!closed && !finished)
-        require(pcm.remaining().toLong() <= limit - bytes) { "Максимум 120 секунд декодированного аудио" }
+        require(pcm.remaining().toLong() <= limit - bytes) { "Максимум ${PcmWav.MAX_LABEL} декодированного аудио" }
         val buffer = ByteArray(minOf(pcm.remaining(), 64 * 1024))
         while (pcm.hasRemaining()) {
             checkCancelled()

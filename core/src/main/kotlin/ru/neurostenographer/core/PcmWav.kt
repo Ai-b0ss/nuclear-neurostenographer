@@ -11,7 +11,8 @@ data class PcmAudio(val samples: FloatArray, val sampleRate: Int) {
 
 /** Bounded PCM16 RIFF reader. Reject unsupported encodings rather than feeding noise to ASR. */
 object PcmWav {
-    const val MAX_SECONDS = 120
+    const val MAX_SECONDS = 1200
+    const val MAX_LABEL = "20 минут"
     fun read(input: InputStream, checkCancelled: () -> Unit = {}): PcmAudio {
         // Providers/files may otherwise perform one read syscall per PCM byte.
         // Caller retains ownership of the input; this wrapper is not closed here.
@@ -65,7 +66,7 @@ object PcmWav {
                     require(audio == null) { "Несколько WAV data: преобразуйте запись в один PCM16 поток" }
                     require(sawFormat && size > 0 && size % (channels * 2) == 0L) { "Неверный WAV data" }
                     val frames = size / (channels * 2)
-                    require(frames <= rate.toLong() * MAX_SECONDS) { "Максимум $MAX_SECONDS секунд" }
+                    require(frames <= rate.toLong() * MAX_SECONDS) { "Максимум $MAX_LABEL" }
                     var framesRead = 0
                     fun readFrame(): Float {
                         if (framesRead++ % 16000 == 0) checkCancelled()

@@ -4,7 +4,8 @@ package ru.neurostenographer.core
  * Empty output is valid silence, never an instruction to invent speech.
  */
 object DiarizationReply {
-    const val MAX_ITEMS = 2000
+    // Roughly 64 bytes per item in the reply Bundle, well under the 1 MB Binder buffer.
+    const val MAX_ITEMS = 6000
     data class Validated(val turns: List<SpeakerTurn>, val windows: List<AudioWindow>)
 
     fun validate(audioMs: Long, starts: LongArray, ends: LongArray,

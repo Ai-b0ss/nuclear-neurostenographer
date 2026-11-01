@@ -65,6 +65,26 @@ object TranscriptFusion {
             TranscriptSegment(c.startMs, c.endMs, a.speakerId, c.text, a.overlap, a.reliable)
         }
 
+    /** Joins adjacent fragments of one reliably attributed speaker into a reply.
+     * Uncertain and overlapping fragments stay separate so their flags survive.
+     */
+    fun mergeReplies(segments: List<TranscriptSegment>, maxGapMs: Long = 1500,
+                     maxDurationMs: Long = 60_000): List<TranscriptSegment> {
+        val result = mutableListOf<TranscriptSegment>()
+        for (current in segments) {
+            val previous = result.lastOrNull()
+            if (previous != null && previous.speakerId != null && previous.speakerId == current.speakerId &&
+                previous.attributionReliable && current.attributionReliable &&
+                !previous.overlappingSpeech && !current.overlappingSpeech &&
+                current.startMs - previous.endMs <= maxGapMs &&
+                current.endMs - previous.startMs <= maxDurationMs) {
+                result[result.lastIndex] = previous.copy(endMs = max(previous.endMs, current.endMs),
+                    text = previous.text + " " + current.text)
+            } else result.add(current)
+        }
+        return result
+    }
+
     private fun normalize(spans: List<Pair<Long, Long>>): List<Pair<Long, Long>> {
         val ordered = spans.sortedBy { it.first }
         val output = mutableListOf<Pair<Long, Long>>()

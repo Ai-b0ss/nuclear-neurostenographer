@@ -108,7 +108,7 @@ class CodecImportTest {
                 assertNotNull("Accepted negative fixture $name", error)
                 val reason = when (name) {
                     "two-tracks.m4a" -> "ровно один"
-                    else -> "120 секунд"
+                    else -> "20 минут"
                 }
                 assertTrue("$name: $error", error!!.message.orEmpty().contains(reason))
                 assertEquals(before, root.list()!!.toSet())

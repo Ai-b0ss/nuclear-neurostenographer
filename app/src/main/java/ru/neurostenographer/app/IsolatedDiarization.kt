@@ -61,7 +61,7 @@ object IsolatedDiarization {
             }
             pendingWorkerDeath = null
             pendingWorkerBinder = null
-            require(audio.sampleRate == 16000 && audio.samples.size in 1600..(120 * 16000))
+            require(audio.sampleRate == 16000 && audio.samples.size in 1600..(PcmWav.MAX_SECONDS * 16000))
             val root = File(context.cacheDir, "diarization-input").apply { mkdirs() }
             val input = File.createTempFile("audio-", ".pcm", root)
             try {
@@ -72,7 +72,8 @@ object IsolatedDiarization {
                     }
                 }
                 try {
-                    withTimeout(10 * 60 * 1000L) {
+                    // Cheap phones can run slower than realtime on long recordings.
+                    withTimeout(maxOf(10 * 60 * 1000L, audio.durationMs * 4)) {
                         awaitWorker(context, input, model, audio.durationMs, clusteringThreshold, onWorkerStarted)
                     }
                 } catch (_: TimeoutCancellationException) { throw DiarizationUnavailable("Превышено время диаризации") }

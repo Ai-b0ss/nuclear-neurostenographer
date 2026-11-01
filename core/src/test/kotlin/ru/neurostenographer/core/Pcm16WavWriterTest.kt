@@ -51,16 +51,16 @@ fun testPcm16WavWriter() {
         rejects("short.wav") { it.append(ByteBuffer.wrap(ByteArray(3198))); it.finish() }
         rejects("partial.wav") { it.append(ByteBuffer.wrap(ByteArray(3201))); it.finish() }
         rejects("cancel.wav") { it.append(ByteBuffer.wrap(ByteArray(64000))) { error("cancelled") } }
-        rejects("long.wav") { it.append(ByteBuffer.wrap(ByteArray(16000 * 2 * 120 + 2))) }
+        rejects("long.wav") { it.append(ByteBuffer.wrap(ByteArray(16000 * 2 * PcmWav.MAX_SECONDS + 2))) }
         val abandoned = File(root, "abandoned.wav")
         Pcm16WavWriter(abandoned, 16000, 1).use { it.append(ByteBuffer.wrap(ByteArray(3200))) }
         check(!abandoned.exists())
         val limit = File(root, "limit.wav")
         Pcm16WavWriter(limit, 8000, 2).use { sink ->
-            repeat(120) { sink.append(ByteBuffer.wrap(ByteArray(8000 * 4))) }
-            check(sink.finish() == 120000L)
+            repeat(PcmWav.MAX_SECONDS) { sink.append(ByteBuffer.wrap(ByteArray(8000 * 4))) }
+            check(sink.finish() == PcmWav.MAX_SECONDS * 1000L)
         }
-        check(limit.inputStream().use { PcmWav.read(it).durationMs } == 120000L)
+        check(limit.inputStream().use { PcmWav.read(it).durationMs } == PcmWav.MAX_SECONDS * 1000L)
         limit.delete()
         for ((rate, channels) in listOf(7999 to 1, 48001 to 1, 16000 to 0, 16000 to 3)) {
             val bad = File(root, "invalid.wav")
@@ -82,8 +82,8 @@ fun testPcm16WavWriter() {
         overflow.accept(3200, Long.MIN_VALUE)
         check(runCatching { overflow.accept(3200, Long.MAX_VALUE) }.isFailure)
         val maxClock = DecodedPcmTimeline(8000, 2)
-        maxClock.accept(8000 * 4 * 120, 0)
-        check(runCatching { maxClock.accept(4, 120_000_000) }.isFailure)
+        maxClock.accept(8000 * 4 * PcmWav.MAX_SECONDS, 0)
+        check(runCatching { maxClock.accept(4, PcmWav.MAX_SECONDS * 1_000_000L) }.isFailure)
         println("PASS PCM16 writer: $cases roundtrips, exact bounds, partial/cancel/error cleanup")
     } finally {
         root.listFiles()?.forEach { it.delete() }; root.delete()

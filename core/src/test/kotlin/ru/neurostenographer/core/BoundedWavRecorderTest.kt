@@ -131,8 +131,8 @@ fun testBoundedWavRecorder() {
             override fun close() { limitClosed.incrementAndGet() }
         })
         limit.start(); finished(limit)
-        check(limit.stop().length() == 44L + 120 * 32000)
-        check(limitOutput.inputStream().use { PcmWav.read(it) }.durationMs == 120_000L)
+        check(limit.stop().length() == 44L + PcmWav.MAX_SECONDS * 32000L)
+        check(limitOutput.inputStream().use { PcmWav.read(it) }.durationMs == PcmWav.MAX_SECONDS * 1000L)
         check(limitClosed.get() == 1)
         cases++
         check(cases == 9)

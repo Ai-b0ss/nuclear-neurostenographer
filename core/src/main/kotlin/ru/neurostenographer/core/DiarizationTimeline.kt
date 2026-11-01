@@ -51,7 +51,7 @@ object DiarizationTimeline {
         require(audioMs > 0 && audioMs <= PcmWav.MAX_SECONDS * 1000L)
         require(turns.all { it.endMs <= audioMs })
         val boundaries = (listOf(0L, audioMs) + turns.flatMap { listOf(it.startMs, it.endMs) }).distinct().sorted()
-        require(boundaries.size <= 2000) { "Too many diarization boundaries" }
+        require(boundaries.size <= DiarizationReply.MAX_ITEMS) { "Too many diarization boundaries" }
         return boundaries.zipWithNext().flatMap { (start, end) ->
             val out = mutableListOf<AudioWindow>()
             var at = start

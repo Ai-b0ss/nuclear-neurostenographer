@@ -9,6 +9,7 @@ import java.io.DataInputStream
 import java.io.File
 import java.util.concurrent.Executors
 import ru.neurostenographer.core.PcmAudio
+import ru.neurostenographer.core.PcmWav
 import ru.neurostenographer.core.DiarizationReply
 
 /** Private same-UID worker process. A JNI abort must not kill the UI/ASR process.
@@ -39,7 +40,7 @@ class DiarizationService : Service() {
             try {
                 val input = File(requireNotNull(data.getString("input"))).canonicalFile
                 require(input.parentFile == File(cacheDir, "diarization-input").canonicalFile)
-                require(input.length() in 6400..(120L * 16000 * 4) && input.length() % 4 == 0L)
+                require(input.length() in 6400..(PcmWav.MAX_SECONDS * 16000L * 4) && input.length() % 4 == 0L)
                 val model = File(requireNotNull(data.getString("model"))).canonicalFile
                 require(model.parentFile == File(filesDir, "diarization-models").canonicalFile)
                 DiarizationModelStore(this).verify(model)

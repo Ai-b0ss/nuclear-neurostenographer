@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -33,6 +34,12 @@ class MainActivity : ComponentActivity() {
     private fun ApplicationScreen() {
         val state by model.state.collectAsState()
         val recording by model.recording.collectAsState()
+        // A long recording must not stop because the screen timed out mid-processing.
+        val view = LocalView.current
+        DisposableEffect(view, state.busy, recording) {
+            view.keepScreenOn = state.busy || recording
+            onDispose { view.keepScreenOn = false }
+        }
         var notice by remember { mutableStateOf("") }
         val importAudio = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> uri?.let(model::select) }
         val importModel = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> uri?.let(model::install) }
@@ -49,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item { Text("Нейро-стенографист", style = MaterialTheme.typography.headlineMedium) }
                 item { Text("GigaAM v3 · экспериментальный офлайн ASR") }
-                item { Text("WAV и системные аудиокодеки (экспериментально): 1–2 канала, 8–48 кГц, до 120 секунд, файл до 24 МБ. Запись и распознавание остаются на устройстве.") }
+                item { Text("WAV и системные аудиокодеки (экспериментально): 1–2 канала, 8–48 кГц, до 20 минут. Запись и распознавание остаются на устройстве.") }
                 item {
                     OutlinedButton(enabled = !state.busy && !recording,
                         onClick = { importModel.launch(arrayOf("application/zip", "application/octet-stream")) }) {
