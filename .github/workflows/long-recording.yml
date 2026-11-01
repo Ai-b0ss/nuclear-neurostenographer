@@ -27,6 +27,8 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Provision checksum-verified public models and fixtures
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           python3 tools/provision_asr.py --test-assets
           python3 tools/provision_diarization.py --test-assets

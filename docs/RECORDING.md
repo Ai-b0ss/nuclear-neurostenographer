@@ -13,7 +13,7 @@ Short/failed partial files are deleted. Older successful microphone recordings c
 remain in filesDir until explicit cleanup; import snapshots are discarded after
 successful replacement.
 
-Capture has both a 120-second sample cap and elapsed polling limit. All-zero
+Capture has both a 20-minute sample cap and elapsed polling limit. All-zero
 samples are recorded audio, not proof of audible speech. Stalled hardware is not
 filled with invented samples. WAV time refers to captured sample count; hardware
 latency and lost frames are not calibrated. The observer notices completion/error

@@ -30,7 +30,7 @@ object AudioSnapshots {
                 }
             }
             val audio = stage.inputStream().use { PcmWav.read(it, checkCancelled) }
-            require(audio.durationMs in 100..PcmWav.MAX_SECONDS * 1000L) { "Нужен WAV длительностью 0,1–120 секунд" }
+            require(audio.durationMs in 100..PcmWav.MAX_SECONDS * 1000L) { "Нужен WAV длительностью от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
             checkCancelled()
             accepted = true
             return AudioSnapshot(stage, audio.durationMs)

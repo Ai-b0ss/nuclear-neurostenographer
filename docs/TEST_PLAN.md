@@ -25,8 +25,9 @@ Round 11 adds actual system import/save: **17 instrumentation + 11 UI checks PAS
 in run 41056348245 at 12b81bb. TXT/JSON/SRT provider files are read and compared,
 including cancellation and pending-picker rotation. Emulator microphone capture
 is silent; no spoken microphone recognition accuracy is established. The separate
-three-utterance Russian acted probe fails speaker recurrence (cpWER 60.98%),
-despite WER 2.44%; DER has no independent reference. See RUSSIAN_EVALUATION.md.
+three-utterance Russian acted probe failed speaker recurrence at the old 0.9
+threshold (cpWER 60.98%, WER 2.44%) and passes at the current 0.8 default;
+DER has no independent reference. See RUSSIAN_EVALUATION.md.
 Default runtime identity is checked in Gradle, packaged native bytes, DEX and
 actual Android inference metadata. These checks establish no accuracy metric.
 

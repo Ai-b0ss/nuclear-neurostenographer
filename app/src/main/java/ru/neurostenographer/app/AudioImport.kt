@@ -33,7 +33,7 @@ object AudioImport {
                         if (count < 0) break
                         require(count > 0) { "Источник не возвращает данные" }
                         total += count
-                        require(total <= AudioSnapshots.MAX_BYTES) { "Аудиофайл слишком большой (лимит около 24 МБ)" }
+                        require(total <= AudioSnapshots.MAX_BYTES) { "Аудиофайл слишком большой (лимит около 230 МБ)" }
                         output.write(buffer, 0, count)
                     }
                 }

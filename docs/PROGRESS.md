@@ -1,5 +1,21 @@
 # Progress — 2026-10-30
 
+## 2026-11-02 — documentation check against code
+
+- Docs and two user messages still described the old 120-second and 24 MB limits,
+  threshold 0.9 and the old integration branch. Corrected to match `PcmWav` and
+  `AudioSnapshots`: 20 minutes, about 230 MB, 0.8, `feature/long-recordings`.
+- All stress runs failed before the emulator started: `long-recording.yml` did not
+  pass `GH_TOKEN` to provisioning (gh exit 4). Fixed; the workflow has not run since,
+  so 20-minute memory and speed remain unmeasured.
+- Open, seen in code and not changed:
+  - recording stops when the app leaves the foreground (`MainActivity.onStop`);
+  - the 60-second decode deadline may reject long compressed files;
+  - the transcript screen text still says fragments up to 20 s, replies now reach 60 s.
+- Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
+  manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
+  then VoxLock on overlap regions only. Details in issues #7 and #10.
+
 ## 2026-10-31 — bounded Binder-death fallback for repeated diarization
 
 - Previously failed Android full threshold sweep 41128549290:

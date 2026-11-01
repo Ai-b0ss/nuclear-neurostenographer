@@ -83,7 +83,8 @@ this shutdown path from killing the UI process. The caller serializes requests,
 observes Binder death for up to five seconds during non-cancellable cleanup,
 and refuses another request if the prior worker's exit is still unconfirmed.
 Late replies are ignored and the owned temporary file is deleted. This applies
-to completion, cancellation and the ten-minute processing timeout. OS lifecycle
+to completion, cancellation and the processing timeout (the longer of ten minutes
+and four times the recording length). OS lifecycle
 delivery is still required; this is not a hard real-time shutdown guarantee.
 Android x86_64 success/cancel/retry process-exit and staged-cleanup tests PASS in
 round 9. Ten-minute timeout and physical-device scheduling remain separate risks.

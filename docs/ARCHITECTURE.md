@@ -12,6 +12,8 @@ Online streaming, personal name identification and word-level timestamps are opt
 
 Current pipeline is `local audio -> bounded PCM16 mono/resampling -> optional full-recording diarization -> GigaAM v3 CTC speech/input windows -> conservative fusion -> UI/export`. Pinned pyannote + ERes2Net supplies speech windows/global cluster IDs through a strictly validated private-worker reply. Failure falls back to unknown speakers. Round 9 Android x86_64 tests verify Russian ASR, A-B-A, actual worker lifecycle and import/export paths; physical ARM64 remains unverified. See DIARIZATION.md for original native overlap failure and the no-TTS candidate's unknown-identity guard. Native resources are released in `finally`; ViewModel retains operations across rotation. ASR cancellation is cooperative between blocking JNI steps. Diarization cancellation unbinds the service, which terminates its guarded dedicated process; the caller observes death and blocks another request while prior exit is unknown. Model installation selects a directory only after all hashes pass. Platform codec support varies by device; word alignment remains unimplemented. See [audio import and privacy](AUDIO_IMPORT.md).
 
+The diagram below is the original target. Silero VAD, RNN-T and word timestamps are not implemented; the paragraph above describes the code. Adjacent reliable fragments of one speaker are merged into replies of up to 60 seconds.
+
 ```
 Recorded/imported audio -> decoder -> PCM16 mono -> 16 kHz -> samples
                                             |

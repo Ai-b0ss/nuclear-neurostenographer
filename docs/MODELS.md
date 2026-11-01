@@ -17,4 +17,4 @@ Important licensing distinction: sherpa-onnx's Apache-2.0 license does not autom
 
 **No model files or user audio belong in the public Git repository.**
 
-Selected diarization: pinned pyannote segmentation FP32 + ERes2Net base (45.6 MB), threshold 0.9, unknown speaker count. Real Android recurrence, worker containment/cancellation and Russian combined inference pass. The original known-mixture worker failure is preserved; the default patched runtime completes with unknown identities, without established overlap recognition. Exact hashes, weight licenses and limitations: [DIARIZATION.md](DIARIZATION.md).
+Selected diarization: pinned pyannote segmentation FP32 + ERes2Net base (45.6 MB), threshold 0.8, unknown speaker count. Real Android recurrence, worker containment/cancellation and Russian combined inference pass. The original known-mixture worker failure is preserved; the default patched runtime completes with unknown identities, without established overlap recognition. Exact hashes, weight licenses and limitations: [DIARIZATION.md](DIARIZATION.md).
