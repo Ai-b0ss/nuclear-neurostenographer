@@ -41,8 +41,12 @@ def load_score(path):
         if value["status"] != "SCORED":
             continue
         denominator = value.get("reference_words" if metric != "der" else "reference_speaker_ms")
-        numerator = (value.get("errors") if metric != "der" else
-                     sum(value.get(k, -1) for k in ("miss_ms", "false_alarm_ms", "confusion_ms")))
+        if metric == "der":
+            components = [value.get(k) for k in ("miss_ms", "false_alarm_ms", "confusion_ms")]
+            require(all(type(x) is int and x >= 0 for x in components), "Invalid DER components")
+            numerator = sum(components)
+        else:
+            numerator = value.get("errors")
         require(type(denominator) is int and denominator > 0 and type(numerator) is int and numerator >= 0,
                 f"Invalid scored {metric} counts")
         rate = value.get("rate")
@@ -140,12 +144,21 @@ def main():
     try:
         manifest_path = args.manifest.resolve()
         out = args.output.resolve()
-        require(out != manifest_path, "Output must not overwrite manifest")
+        # Never write an error report over any of the inputs, even on failure.
+        if out == manifest_path:
+            print("Output must not overwrite manifest", file=sys.stderr)
+            return 1
         source = args.manifest.read_bytes()
-        report = compare(json.loads(source), args.manifest.resolve().parent)
-        require(all(out != (args.manifest.resolve().parent / c["score_file"]).resolve()
-                    for t in json.loads(source)["trials"] for c in t["cases"]),
-                "Output must not overwrite score inputs")
+        parsed = json.loads(source)
+        if isinstance(parsed, dict) and isinstance(parsed.get("trials"), list):
+            for trial in parsed["trials"]:
+                for case in trial.get("cases", []) if isinstance(trial, dict) else []:
+                    if isinstance(case, dict) and isinstance(case.get("score_file"), str):
+                        score_path = (manifest_path.parent / case["score_file"]).resolve()
+                        if out == score_path:
+                            print("Output must not overwrite score inputs", file=sys.stderr)
+                            return 1
+        report = compare(parsed, manifest_path.parent)
         report["manifest_sha256"] = hashlib.sha256(source).hexdigest()
         code = 0 if all(t["metrics"][m]["status"] == "SCORED"
                         for t in report["trials"] for m in METRICS) else 2
