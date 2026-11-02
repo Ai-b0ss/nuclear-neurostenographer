@@ -2,6 +2,7 @@ package ru.neurostenographer.app
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,7 +27,9 @@ class MainActivity : ComponentActivity() {
         setContent { MaterialTheme { ApplicationScreen() } }
     }
     override fun onStop() {
-        if (!isChangingConfigurations && model.recording.value) model.stopRecording()
+        // With the foreground service the recording survives; without it the system
+        // may cut the microphone, so stop and keep what was recorded.
+        if (!isChangingConfigurations && model.recording.value && !RecordingService.active) model.stopRecording()
         super.onStop()
     }
     @Composable
@@ -47,7 +50,13 @@ class MainActivity : ComponentActivity() {
         val exportTxt = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain"), model::finishExport)
         val exportJson = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json"), model::finishExport)
         val exportSrt = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-subrip"), model::finishExport)
+        val notifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
         val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
+            if (ok && Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(this@MainActivity,
+                    Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Optional: the service runs without it, only its notification stays hidden.
+                notifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
             if (ok && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) model.startRecording()
             else notice = if (ok) "Вернитесь в приложение и нажмите запись." else "Разрешение микрофона отклонено."
         }

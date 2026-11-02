@@ -165,8 +165,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
         try {
             val file = File.createTempFile("recording_", ".wav", getApplication<Application>().filesDir)
+            RecordingService.start(getApplication())
             try { recorder = recorderFactory(file).also { it.start() } }
-            catch (e: Throwable) { file.delete(); throw e }
+            catch (e: Throwable) { file.delete(); RecordingService.stop(getApplication()); throw e }
             recording.value = true
             mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmWav.MAX_LABEL}. Предыдущий результат сохранён до успешной остановки.")
             recordingTimer = viewModelScope.launch {
@@ -200,7 +201,10 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                     while (active.isRunning) delay(100)
                     if (recording.value && recorder === active) stopRecording()
                 }
-            } else { recorder = null; recording.value = false }
+            } else {
+                recorder = null; recording.value = false
+                RecordingService.stop(getApplication())
+            }
         }
     }
 
@@ -237,6 +241,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         recorder?.let { r ->
             r.requestStop()
             Thread { runCatching { r.stop() } }.start()
+            RecordingService.stop(getApplication())
         }
         super.onCleared()
     }

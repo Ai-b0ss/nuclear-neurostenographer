@@ -246,11 +246,20 @@ def run(ui):
     ui.visible("Остановить запись")
     checks.append("recording_survives_rotation")
     ui.shell("input", "keyevent", "KEYCODE_HOME")
-    time.sleep(2)
+    time.sleep(3)
+    services = ui.shell("dumpsys", "activity", "services", PACKAGE)
+    if "RecordingService" not in services or "isForeground=true" not in services:
+        raise AssertionError("Recording foreground service is not running in the background")
+    checks.append("background_recording_holds_foreground_service")
     ui.launch()
+    ui.visible("Остановить запись")
+    ui.tap(label="Остановить запись")
     ui.visible("Записать разговор")
     ui.visible("WAV сохранён")
-    checks.append("background_stops_and_finalizes_recording")
+    time.sleep(1)
+    if "RecordingService" in ui.shell("dumpsys", "activity", "services", PACKAGE):
+        raise AssertionError("Foreground service outlived the recording")
+    checks.append("background_recording_continues_and_finalizes")
     ui.shell("settings", "put", "system", "user_rotation", "0")
     ui.tap(label="Распознать офлайн")
     # Actual native work runs in the app, never via remote ASR.
