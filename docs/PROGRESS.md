@@ -177,7 +177,7 @@
   (code 1). sherpa-onnx no-TTS runtime AAR `771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8`
   (matches the packaged natives; ELF machine 183 = arm64 for the arm64-v8a libraries).
   GigaAM v3 CTC INT8 model SHA-256 `f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec`
-  (HF revision `32a4c7cc…fbd`); diarization: segmentation `220ad67c…1079` (revision `9403a690…`),
+  (HF revision `32a4c7cc…fbec`); diarization: segmentation `220ad67c…1079` (revision `9403a690…`),
   ERes2Net `1a331345…5e4b`. The ZIP files themselves are not byte-reproducible (timestamps);
   the kit records their SHA-256 at assembly time and the app checks every file inside.
   The APK differs per build (debug signing key), so its hash is per build.
