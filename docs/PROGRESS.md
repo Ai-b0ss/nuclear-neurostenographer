@@ -12,6 +12,21 @@
   - recording stops when the app leaves the foreground (`MainActivity.onStop`);
   - the 60-second decode deadline may reject long compressed files;
   - the transcript screen text still says fragments up to 20 s, replies now reach 60 s.
+- 2026-11-02 evening (code after 0dab286): the stress workflow, Real offline Russian ASR
+  and Android build all succeeded at 0dab286 (runs 41354324447, 41354324445, 41354327796,
+  as reported by the owner). The `long-recording-evidence` artifact has NOT been read:
+  the stored `gh` token became invalid (HTTP 401), and artifact download needs
+  authentication even on a public repo. Duration, PSS and RTF from that run are
+  therefore unrecorded here. A green run is emulator evidence only, not a phone result.
+- Added `DecodeBudget`: the decoding deadline is now half the declared duration, between
+  60 s and 10 min (5 min if unknown), instead of a fixed 60 s. Core test added; 16 core
+  groups PASS with a local Kotlin compiler. Android code changes (`AudioImport.kt`,
+  hint text in `MainActivity.kt`) are not yet compiled or run in CI. Real decode time of
+  a 20-minute MP3 on a phone is unmeasured.
+- Recording still stops when the app is backgrounded. Fixing it needs a foreground
+  service with the microphone type, `FOREGROUND_SERVICE_MICROPHONE` and notification
+  permission, and the existing UI test expects HOME to stop recording; both change
+  together and need a CI run, so it is not done yet.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

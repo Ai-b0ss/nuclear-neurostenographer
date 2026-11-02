@@ -71,6 +71,8 @@ object AudioImport {
                     "Максимум ${PcmWav.MAX_LABEL}"
                 }
             }
+            val budgetMs = DecodeBudget.millis(
+                if (format.containsKey(MediaFormat.KEY_DURATION)) format.getLong(MediaFormat.KEY_DURATION) / 1000 else null)
             fun properties(value: MediaFormat): Pair<Int, Int> {
                 val rate = value.getInteger(MediaFormat.KEY_SAMPLE_RATE)
                 val channels = value.getInteger(MediaFormat.KEY_CHANNEL_COUNT)
@@ -95,7 +97,7 @@ object AudioImport {
                     format.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE) else 1_048_576
                 require(capacity in 1..1_048_576) { "Слишком большой PCM пакет" }
                 val buffer = java.nio.ByteBuffer.allocate(capacity)
-                val deadline = SystemClock.elapsedRealtime() + 60_000
+                val deadline = SystemClock.elapsedRealtime() + budgetMs
                 while (true) {
                     checkCancelled()
                     require(SystemClock.elapsedRealtime() < deadline) { "Превышено время чтения PCM" }
@@ -126,7 +128,7 @@ object AudioImport {
             var outputDone = false
             var timeline: DecodedPcmTimeline? = null
             val info = MediaCodec.BufferInfo()
-            val deadline = SystemClock.elapsedRealtime() + 60_000
+            val deadline = SystemClock.elapsedRealtime() + budgetMs
             fun check() {
                 checkCancelled()
                 require(SystemClock.elapsedRealtime() < deadline) { "Превышено время декодирования аудио" }
