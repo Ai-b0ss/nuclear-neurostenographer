@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                         onClick = { importModel.launch(arrayOf("application/zip", "application/octet-stream")) }) {
                         Text(if (state.modelReady) "Заменить модель ZIP" else "Установить модель ZIP")
                     }
-                    Text("Подготовьте gigaam-v3.zip по инструкции README и перенесите на телефон (225 МБ).",
+                    Text("gigaam-v3.zip (225 МБ) — по инструкции README. Либо положите оба ZIP в папку комплекта через adb (docs/OFFLINE_KIT.md): установка пройдёт сама при запуске.",
                         style = MaterialTheme.typography.bodySmall)
                 }
                 item {

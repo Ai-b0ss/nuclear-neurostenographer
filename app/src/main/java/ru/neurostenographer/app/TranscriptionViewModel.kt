@@ -92,6 +92,43 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             message = "Pyannote + ERes2Net установлены; SHA-256 проверен. Кластеризация экспериментальная.")
     }
 
+    /** Models pushed with `adb push` into the app's own external folder (no document picker).
+     * They go through the same strict, SHA-256 checked importers as the manual ZIP buttons.
+     */
+    private fun kitFiles(): List<Pair<String, File>> {
+        val directory = getApplication<Application>().getExternalFilesDir(KIT_DIRECTORY) ?: return emptyList()
+        return listOf(KIT_ASR_ZIP, KIT_DIARIZATION_ZIP).map { it to File(directory, it) }.filter { it.second.isFile }
+    }
+
+    fun installKit() = work {
+        val files = kitFiles()
+        if (files.isEmpty()) return@work
+        val app = getApplication<Application>()
+        for ((name, file) in files) {
+            mutable.value = mutable.value.copy(message = "Установка из папки комплекта: $name…")
+            // Unpacking needs the staged copy and, until the swap, the previous model as well.
+            val needed = file.length() * 2 + 64L * 1024 * 1024
+            val free = app.filesDir.usableSpace
+            check(free >= needed) { "Мало места для $name: нужно около ${needed / (1024 * 1024)} МБ, свободно ${free / (1024 * 1024)} МБ." }
+            try {
+                withContext(Dispatchers.IO) {
+                    val context = currentCoroutineContext()
+                    file.inputStream().use {
+                        if (name == KIT_ASR_ZIP) store.install(it) { context.ensureActive() }
+                        else speakerStore.install(it) { context.ensureActive() }
+                    }
+                }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) { throw IllegalStateException("$name: ${e.message ?: "ошибка установки"}. Файл оставлен в папке комплекта.") }
+            file.delete()
+            mutable.value = mutable.value.copy(modelReady = store.current() != null,
+                diarizationReady = speakerStore.current() != null)
+        }
+        mutable.value = mutable.value.copy(message = "Комплект установлен, SHA-256 проверен. Сеть не нужна.")
+    }
+
+    init { if (kitFiles().isNotEmpty()) installKit() }
+
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, message = "Чтение WAV и проверка модели…")
@@ -252,5 +289,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             RecordingService.stop(getApplication())
         }
         super.onCleared()
+    }
+
+    companion object {
+        const val KIT_DIRECTORY = "kit"
+        const val KIT_ASR_ZIP = "gigaam-v3.zip"
+        const val KIT_DIARIZATION_ZIP = "diarization.zip"
     }
 }
