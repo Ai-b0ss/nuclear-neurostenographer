@@ -1,0 +1,52 @@
+{
+ "C0/long-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 324891,
+  "peak_working_set_mib": 770.3,
+  "inference": {
+   "read_ms": 573,
+   "load_ms": 790,
+   "infer_ms": 323200,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "f6f76e9f8ff905c5a429676148f0199faf1328ec3237dbfcd5195d775cb77ee2",
+  "turns_sha256": "a070434763f38b72ed5b37558387d2750e50394780bf6fcbf44f289349c91788"
+ },
+ "C1/long-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 61002,
+  "peak_working_set_mib": 775.9,
+  "inference": {
+   "read_ms": 41,
+   "load_ms": 999,
+   "infer_ms": 59429,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "78af98631691e436398c86f5463335eaafe5022759c2b7593c3576d46703e64e",
+  "turns_sha256": "126a8fe1876fbf223a908d65ed583d763fc5d17a5e9009a85b77c23c583f457b"
+ },
+ "C2/long-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 59369,
+  "peak_working_set_mib": 511.1,
+  "inference": {
+   "read_ms": 40,
+   "load_ms": 678,
+   "infer_ms": 58142,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "da50d04128977fff90b6acb1fe142e85a2772b44079b67048ffe0607ed87a0a3",
+  "turns_sha256": "5e7c3f8fd2e23844d72dc51d312c40c0f9dd5e4b2e25a8a78c361ca655e252ff"
+ }
+}
