@@ -37,6 +37,14 @@ class RecordingService : Service() {
             active = true
         } catch (e: Exception) {
             active = false
+        }
+        starting = false
+        // Stopping before startForeground() crashes the process, so a stop that raced
+        // with the start is carried out here, after the foreground state was entered.
+        if (!active || stopRequested) {
+            stopRequested = false
+            ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
+            active = false
             stopSelf()
         }
         return START_NOT_STICKY
@@ -53,12 +61,18 @@ class RecordingService : Service() {
         /** True only while the system accepted the foreground state. */
         @Volatile var active = false
             private set
+        @Volatile private var starting = false
+        @Volatile private var stopRequested = false
 
         fun start(context: Context) {
+            stopRequested = false
+            starting = true
             runCatching { ContextCompat.startForegroundService(context, Intent(context, RecordingService::class.java)) }
+                .onFailure { starting = false }
         }
 
         fun stop(context: Context) {
+            if (starting) { stopRequested = true; return }
             runCatching { context.stopService(Intent(context, RecordingService::class.java)) }
             active = false
         }
