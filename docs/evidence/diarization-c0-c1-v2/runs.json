@@ -1,0 +1,5024 @@
+{
+ "C0/rubook-rec_0062": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18373,
+  "peak_working_set_mib": 234.0,
+  "inference": {
+   "read_ms": 46,
+   "load_ms": 719,
+   "infer_ms": 17396,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "ca0aba76db648761543e0311c476ee9f058aaabf4082d75ffacbba15df74a3be",
+  "turns_sha256": "689fa8ec6af231a002ec64fb9f856a0a40dd75bf93678525185593164e233b81"
+ },
+ "C1/rubook-rec_0062": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4372,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1030,
+   "infer_ms": 2848,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "03ad65e14877c6b97b6e2511828075a8873e67a14fd10fb4a786aaded52f1988",
+  "turns_sha256": "dbd1e170a4ea4fc0ee7f9ec8c1d31bc5ac4c91ac644d18f2516f38369c96e120"
+ },
+ "C2/rubook-rec_0062": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4021,
+  "peak_working_set_mib": 291.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 728,
+   "infer_ms": 2808,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "01ca54e8efd186ecf6ea9ff555d5f32aede095b25a7f7a08a57d9053c464eeb1",
+  "turns_sha256": "69d6dace0ed8fb54b373f0c1c889420d598502ff912639f1a850e4c880e86efe"
+ },
+ "C0/rubook-rec_0062-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19464,
+  "peak_working_set_mib": 245.4,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 731,
+   "infer_ms": 18473,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "c5cff0213dc31e6760d9a0bbc7e0e963f24f5b3e4e7fa46817e0e758089676f7",
+  "turns_sha256": "4d7ea4fd0cc0d69a611d08e808ffd79f49304aba319b7d05f5256841388243ea"
+ },
+ "C1/rubook-rec_0062-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4494,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1091,
+   "infer_ms": 2900,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "820a68de9cac83aa49ae07b99e9f72909c59cdd07058591d0c39470a3ba7594a",
+  "turns_sha256": "86089e262847c6b9c595867c52144ede7a39fdf3c4d543f441fcf75d4b3fabbc"
+ },
+ "C2/rubook-rec_0062-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4156,
+  "peak_working_set_mib": 292.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 757,
+   "infer_ms": 2915,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "8853d596fd35742595faabc3f31eaa34dbc57febbdd6adca82760540bedc6b31",
+  "turns_sha256": "abb719590c7c03d49b2fc27c9219913197dab6bdcc6dd8ea59177dd184e676a1"
+ },
+ "C0/rubook-rec_0062-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19904,
+  "peak_working_set_mib": 251.4,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 739,
+   "infer_ms": 18849,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "f52f88fcb7d80b930db467910ef7f9cb7cfc5b1056282fd304c0859e8c837824",
+  "turns_sha256": "062f4d7f9f4ea98eefef558bce4bf166fd2aa4a49660258e6f9dde683d5c9977"
+ },
+ "C1/rubook-rec_0062-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4603,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1137,
+   "infer_ms": 2961,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "c8b6bc3a45d8a9438c1664ad4d92aa04e581cf50f48ad50cda6c785a01172cb5",
+  "turns_sha256": "d9ceef28f943cec31b6bd5acb41d8e5928d41eed2958f97e10cfa318c0eadacc"
+ },
+ "C2/rubook-rec_0062-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4159,
+  "peak_working_set_mib": 293.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 725,
+   "infer_ms": 2947,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "f17ce78976584179e03da44fc6771a8b200d99d76a73060770d5eafcc1f96b9e",
+  "turns_sha256": "9c0ff240aee82a6bf85183b9fdaeb7a91cb3a6064e2eb591eaa023d2e53cd823"
+ },
+ "C0/rubook-rec_0076": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17671,
+  "peak_working_set_mib": 239.3,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 714,
+   "infer_ms": 16669,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "c303cc67e13a72281bcd9b9bc604e5a9e03110ab1e496a414ea94ed5261d9a85",
+  "turns_sha256": "927de300f3c2ac7650957d792a5133fb24c18187b4549b7528d70f41215823cd"
+ },
+ "C1/rubook-rec_0076": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4416,
+  "peak_working_set_mib": 557.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1025,
+   "infer_ms": 2905,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "959d202624e81cd6b565e8e7844ea71211d5fdb259ca6c4cc6983b7586c3e1dd",
+  "turns_sha256": "15c07a42b1d10f770734850d94995a4cc9b66567b183732f75337dcd2ca886ab"
+ },
+ "C2/rubook-rec_0076": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4133,
+  "peak_working_set_mib": 292.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 740,
+   "infer_ms": 2907,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "95895ebf75f7b4cc02601829d437bd9a5023da44a1d0fee86b6db2f037f9b599",
+  "turns_sha256": "f9b3bf31b0ec24157b4eb76548c68774d04b1c9ae2088be9012bcf91303ff68d"
+ },
+ "C0/rubook-rec_0088": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17361,
+  "peak_working_set_mib": 221.5,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 737,
+   "infer_ms": 16333,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "79b36faf56e09cdc8a1b06125c43f00ca7069f57c0499fbce263abb236c40a59",
+  "turns_sha256": "0a1a487a88922a5ad7c5f3e671804b09a7181554d9252d9f587c353c85ec08c0"
+ },
+ "C1/rubook-rec_0088": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4374,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1033,
+   "infer_ms": 2864,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "5b1485e262e9c5d273d727f6624dc5dd01e6d8b9f0e593688570fb75201e0b81",
+  "turns_sha256": "ae6302d345a4cb7775913a2f1889f3c4d8fdd16881e7ebb814c1ec8cddde8f83"
+ },
+ "C2/rubook-rec_0088": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4168,
+  "peak_working_set_mib": 293.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 715,
+   "infer_ms": 2935,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "fe36eef9a410383e4d5984628bd28e3f534d58ea89589c1341811f88ae1cd49e",
+  "turns_sha256": "ac9a08c2d2644c9952b3232800a730a8a0fa20452cdfe084cdab36af16b4456e"
+ },
+ "C0/rubook-rec_0111": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19352,
+  "peak_working_set_mib": 252.2,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 730,
+   "infer_ms": 18330,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "6bab2b111eecc437a0fd9b5bf1282061f74e77ec3beaaae4a64ebad9e0193c98",
+  "turns_sha256": "343a14ef0e98f98e6c626fa0bc4475e473bbdce28d9286f4e5a415234db7239d"
+ },
+ "C1/rubook-rec_0111": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4621,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1101,
+   "infer_ms": 2990,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "9dc35cfac0c42bafc94377f78cf303346157a50fe38239403e21c609a89e5554",
+  "turns_sha256": "064b593271609f0eccf0c1291852c19c77049f75a8027f5dfc6a6052b581b4a4"
+ },
+ "C2/rubook-rec_0111": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4101,
+  "peak_working_set_mib": 293.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 723,
+   "infer_ms": 2912,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "c3330a38aa1d5f0b072d0748ebf743509d4972c5054f411f921969f1d7dfa1fb",
+  "turns_sha256": "c8af2286af5ed81cb870f9049a18a457be9710a1b9ff17192ea6434f573505e1"
+ },
+ "C0/rubook-rec_0140": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18297,
+  "peak_working_set_mib": 252.7,
+  "inference": {
+   "read_ms": 42,
+   "load_ms": 701,
+   "infer_ms": 17309,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "52455470b6f8497586009dd54422c38a467eea00325d3d1afe3e759f68dbfe36",
+  "turns_sha256": "3c7c2e58bed3b980e49909bb3ff4832d5ff5cef03940c2df68f3d45f9cb91e0f"
+ },
+ "C1/rubook-rec_0140": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4482,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1070,
+   "infer_ms": 2904,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "ecd6dec57cacaccc789f093bd1fd9bc6a90a9206365010fdb12d81d310144a40",
+  "turns_sha256": "e5850dbc826e11e26eaf0a242b07e4e75360aead5f76902c60bebce72ec95ef2"
+ },
+ "C2/rubook-rec_0140": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4173,
+  "peak_working_set_mib": 292.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 738,
+   "infer_ms": 2928,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "c9242eb3d68cb6d6131b55e967670c125f3fd82f7db1d4259cb44467ead5e41b",
+  "turns_sha256": "ca9362821c8d1e71747e481fd1814f5679f0b540a62bbd11f0a1f28022b43ee9"
+ },
+ "C0/rubook-rec_0140-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19216,
+  "peak_working_set_mib": 246.0,
+  "inference": {
+   "read_ms": 46,
+   "load_ms": 788,
+   "infer_ms": 18132,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "787a1c22bf8f47fe20d61fb4e3f20c0fec6f1ac8f974869b400901e06dc29eb7",
+  "turns_sha256": "6cecb8269949399c565e4f5baf8eea3a17646e2008c701ba89a259aa50a6443d"
+ },
+ "C1/rubook-rec_0140-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4442,
+  "peak_working_set_mib": 558.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1082,
+   "infer_ms": 2855,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "a3b24ed82b32736cd602cf45c88393fdd789655c5323f4bbf901671f92101665",
+  "turns_sha256": "6fbb2148c72cef541c8ad4abec7206c9bafd5947e27870d513232953a539e1dc"
+ },
+ "C2/rubook-rec_0140-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4095,
+  "peak_working_set_mib": 292.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 711,
+   "infer_ms": 2875,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "1a88fac4299d60abc486025fea63245271debfef8e400ee03e86d68d89fc1d28",
+  "turns_sha256": "6060c6b42151ad35e4ea841f05cb039922f0ae340d921ca106ea30e17277acb9"
+ },
+ "C0/rubook-rec_0140-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 20267,
+  "peak_working_set_mib": 250.3,
+  "inference": {
+   "read_ms": 51,
+   "load_ms": 716,
+   "infer_ms": 19274,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "5bb3e089cc2d13f40e5ca2303c20143052a06c3d1bd8a31aed973e5ded508f23",
+  "turns_sha256": "92f4eb387d47a33cc258abe73765f14b28186c97fa2996ac6884495f570e3a62"
+ },
+ "C1/rubook-rec_0140-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4380,
+  "peak_working_set_mib": 557.8,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1075,
+   "infer_ms": 2828,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "9191fba3a3f3db12c652ada509bbb142f175dee829a8187f3cbc59a7ca8ba4e9",
+  "turns_sha256": "d8b415b7c3ba91a333b7b626e5b59946f2cb086dc86318dace7b9b8c224ae69c"
+ },
+ "C2/rubook-rec_0140-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4016,
+  "peak_working_set_mib": 292.8,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 750,
+   "infer_ms": 2769,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "3ce1ac20f05140a65f1fc8af1b589a726e326219b5b04d5b63715c0801c6cac4",
+  "turns_sha256": "17926517f7dbde9c82f95e988a23820da5cdbb04559ad1a4e2faf68f86f96f91"
+ },
+ "C0/rubook-rec_0143": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17340,
+  "peak_working_set_mib": 248.8,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 698,
+   "infer_ms": 16347,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "3164bfd79269548c101e81f889ec9bf763baa93464834ee45e874745831d85cd",
+  "turns_sha256": "086085485b7d393c422c9f8c8fdc859a3c28bd9baa2d9e5d66efe1d2d55189d8"
+ },
+ "C1/rubook-rec_0143": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4382,
+  "peak_working_set_mib": 558.5,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1038,
+   "infer_ms": 2865,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "ed4bfb2bf46050c87d72d04df45f62e4eac04b0eb6177cd175bf3f0255412780",
+  "turns_sha256": "0a951e170d95b7a454be37ac6dd93438c961f993557c87498d28d0048b0f2f3f"
+ },
+ "C2/rubook-rec_0143": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4022,
+  "peak_working_set_mib": 292.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 747,
+   "infer_ms": 2803,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "1e999c8a43dd9f3d70d77922b5f84539134ba09745a6bd69799334b30d4fc8a0",
+  "turns_sha256": "468edea12a3b4fd78fc31dc6b97959df87736aafb0e091c3d2517bb744bde381"
+ },
+ "C0/rubook-rec_0178": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16358,
+  "peak_working_set_mib": 248.1,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 725,
+   "infer_ms": 15362,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "c2c9da085f41f6ed5411f49bb4fc6168871903aebdedd3e465d410e327368818",
+  "turns_sha256": "1f49892fdd3f326e16cc307eda434c6cc774fc27f00f8e4fbf6422ce2fb24dda"
+ },
+ "C1/rubook-rec_0178": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4593,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1088,
+   "infer_ms": 2945,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "c0db0350065ce949d15ae87d0bb3e31c0d4ff0e55dfc2206f1cc04922815e95c",
+  "turns_sha256": "a18ab0a477ce1f5285e647ae86a59993927b551c97aeb3ffbb8313ae914a08fb"
+ },
+ "C2/rubook-rec_0178": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4094,
+  "peak_working_set_mib": 293.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 730,
+   "infer_ms": 2843,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "57d4bd50aa168a24eacfaf9cc33d59a53d76f3772b3930167182287f6c2992ec",
+  "turns_sha256": "4517290c7b5289fdd0a2ff6b10f5c6e75e4033062ec9e110d966d9f90e34400a"
+ },
+ "C0/rubook-rec_0182": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18071,
+  "peak_working_set_mib": 309.7,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 723,
+   "infer_ms": 17077,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "559c84714d7cf6f280525bdc18ee5dd7adec1dfaa98ca5ed1c93c2e532f57ac2",
+  "turns_sha256": "e8304dd1ecbfd9d125e830024e12b9625d859032ae11cd379568e3614768c651"
+ },
+ "C1/rubook-rec_0182": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4506,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1083,
+   "infer_ms": 2911,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "d3f1e52388d38e5b2ebd061d477bc49dabacd8ff30fc77c5ba38a456d3a5570a",
+  "turns_sha256": "20012cf2381cc37b4737d65156b120d1c0c9cf850fcd7e21dc9fa5c63b229174"
+ },
+ "C2/rubook-rec_0182": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4040,
+  "peak_working_set_mib": 293.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 724,
+   "infer_ms": 2817,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "25ab0f36a06703ca6c0e5ab9ed3096a7b64ef7639d29d643963e4b474324c801",
+  "turns_sha256": "f96c2aa2a7f82cc022c3ac157fe31c1bb30d6cee9ceedee7655bf5a0c4eabd47"
+ },
+ "C0/rubook-rec_0182-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18640,
+  "peak_working_set_mib": 311.8,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 738,
+   "infer_ms": 17630,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "7240f039f9b1e537bcba11d10a844992c53f16fe0ca84efb50292da90c6bff9c",
+  "turns_sha256": "97f6b16b01b3c1bee84499ac3d51c6aed107cd73fbbd76deb48e2db202441336"
+ },
+ "C1/rubook-rec_0182-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4372,
+  "peak_working_set_mib": 558.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1045,
+   "infer_ms": 2836,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "6975ac84da4d3230d1d85b4573157f6f185b2281cdb864f01ec9a0fdb43dad2f",
+  "turns_sha256": "3c2b376c404f68267661e38f4985975c347aabd830cfd4893ca2a31be82c2c5d"
+ },
+ "C2/rubook-rec_0182-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3980,
+  "peak_working_set_mib": 292.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 727,
+   "infer_ms": 2747,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "3128e1cd3ecb1d15af42a32a80fee378368c64e1eba5401822f8cbb05646bcd2",
+  "turns_sha256": "5a1d16a2c1ea7cda01c1b58aa479f9fc921e20d73de872fa7f799fe1f3146a5c"
+ },
+ "C0/rubook-rec_0182-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18870,
+  "peak_working_set_mib": 254.4,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 724,
+   "infer_ms": 17837,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "3b75ce7ea8c2d20513f4a5a4bdb4fd34bab686a33d31a2ccb8fb9337798dbe67",
+  "turns_sha256": "ec13d9c391e57eb26cbe554feab0d9f026251b1620dd8b562748691e304d7c49"
+ },
+ "C1/rubook-rec_0182-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4249,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1007,
+   "infer_ms": 2751,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "1e577366b1c53092694cee3e9af43b56e5321fe573dbc2628f3dc699b8b70028",
+  "turns_sha256": "93275e3393c722b3d9e72658135d4dfd22ec406e0976d69afc3ea27ccb064e78"
+ },
+ "C2/rubook-rec_0182-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4018,
+  "peak_working_set_mib": 293.8,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 692,
+   "infer_ms": 2832,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "5bc28124c85fe9cd1aed3f5e5a0936187e4126d0e041a35369ab30c8631d3654",
+  "turns_sha256": "2f96159ee25fa61bafe81943db79de30c2e7d23fa95de4d5c0408a8a9a9999f9"
+ },
+ "C0/rubook-rec_0201": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17323,
+  "peak_working_set_mib": 247.8,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 746,
+   "infer_ms": 16277,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "bdd2014258254bc6cd6c9dc57430125c95b49ef1bd5d2c57bb9671677ea352cb",
+  "turns_sha256": "5e51f3ac9ecbbc5da790097ca29d8c828657f02c992e4ef1b1cc8bef228cc252"
+ },
+ "C1/rubook-rec_0201": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4442,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1044,
+   "infer_ms": 2866,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "5e0f6c114d2f6d11f458a4bdbd221edbb8913130398e7b3b54d52b154ffabac0",
+  "turns_sha256": "22f96970bde7633e14f903e7a7e05a1b31e8abd635fc628a10a5f34097df9450"
+ },
+ "C2/rubook-rec_0201": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3948,
+  "peak_working_set_mib": 292.6,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 702,
+   "infer_ms": 2771,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "38914ec307474cfa6ab6bde53cf617ea750f63a5a071ceb834f38cbc8bd18c65",
+  "turns_sha256": "e584ca0ee9015a3eafbda5aa05174deafc31c406d43c8b093c7cc27287bc17b5"
+ },
+ "C0/rubook-rec_0201-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18165,
+  "peak_working_set_mib": 245.6,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 733,
+   "infer_ms": 17189,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "4b92cb19b72757153ce8c2c72f418e3cf09e18f8c780fcce18f123547d8bc947",
+  "turns_sha256": "fcbcf4dcfab347cea2fd4cacd7b4b4d931dfbd9907fd8c3887ddbd13dcb32025"
+ },
+ "C1/rubook-rec_0201-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4168,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 999,
+   "infer_ms": 2686,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "7c094a646d201ee89fd8ecdff3052215a1d12fcd27d183b74f9e335fd8aeb870",
+  "turns_sha256": "c8e5bc3f2d51194c5afa7faef24053773d5efea8870a736767a7c5a8e05ba309"
+ },
+ "C2/rubook-rec_0201-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3827,
+  "peak_working_set_mib": 293.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 682,
+   "infer_ms": 2652,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "63da8962bd63136071bba96187f4e5e920c593f3395c3b0a183c0d926422d760",
+  "turns_sha256": "7323469b4c9c44aeb4e1dbfcf5968c65d8aafc2482f55dfb584e3cc6a9afbbb3"
+ },
+ "C0/rubook-rec_0201-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19503,
+  "peak_working_set_mib": 253.6,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 697,
+   "infer_ms": 18557,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "3cc579396d4cdde1644ad2fb3ef1f568e95f92f559f83a6712e8dd908c61f4a9",
+  "turns_sha256": "f8d269234f8bd382010e2ae801f259f50fbbf703f1c1aea8931579030ca2f795"
+ },
+ "C1/rubook-rec_0201-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4388,
+  "peak_working_set_mib": 557.8,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1072,
+   "infer_ms": 2812,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "85f7bcd8ebf6c8e18fffb1020c068d492f5790a448a9f79583444674aefd1f27",
+  "turns_sha256": "cc67ae4ddbc22865a3a079d0c33e10b553f385b9ba7298dbf67a49c495ea9b7f"
+ },
+ "C2/rubook-rec_0201-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3890,
+  "peak_working_set_mib": 292.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 675,
+   "infer_ms": 2756,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "8371a6da6d83b25e5be2028813b4ce382aec4dde95ef936fbfc7e29c5719caa3",
+  "turns_sha256": "312d278f3146469e80254cbdfe06c40f2807e4d459e28fdcd328e2d1bae49421"
+ },
+ "C0/rubook-rec_0235": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17118,
+  "peak_working_set_mib": 248.4,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 712,
+   "infer_ms": 16125,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "25ffe8e4882178f81bf0fd91178ad4909604ccd68b624bbb9025b198964afcd8",
+  "turns_sha256": "ca6530b28cc7ca22e9f6af62a7c79cea3cdccdc5d6baeb6da7db358b4b5b288a"
+ },
+ "C1/rubook-rec_0235": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4358,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1010,
+   "infer_ms": 2866,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "bab676b6225fa7ec0be61c81591fa52785d838ffd266d5187b57dc009dcf1f46",
+  "turns_sha256": "576d7cb98687994623d0d5696895352fa1400ee72e8ff212ab64e1ef6262ead4"
+ },
+ "C2/rubook-rec_0235": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4020,
+  "peak_working_set_mib": 292.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 705,
+   "infer_ms": 2802,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "49bc0c6d8c86d45da26813794b92f5097058fc29c5a65d1c85d4e4d98abcabc4",
+  "turns_sha256": "b4ac5cb0486b5cdab69531c442a02c71a8b73eda24b5a4c40f8f32042779430b"
+ },
+ "C0/rubook-rec_0255": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 15776,
+  "peak_working_set_mib": 219.7,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 736,
+   "infer_ms": 14795,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "6784100b50e5cde94825713048e9f57e516d4823b7c91c09aa3ed9724762ae69",
+  "turns_sha256": "1515182296481b17d70c2f36669ac6bf31ba3a650c87966d06c957b647e8791e"
+ },
+ "C1/rubook-rec_0255": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4633,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1190,
+   "infer_ms": 2927,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "49f2e477e156dfb639de487dde7ae56641f52cf2d5e946d80fd0986a3341917e",
+  "turns_sha256": "a03ebeba6fc8fc7c31c316369f326733e66a28a5f8b648961064c05fa4beee38"
+ },
+ "C2/rubook-rec_0255": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4117,
+  "peak_working_set_mib": 293.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 720,
+   "infer_ms": 2907,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "5b0257d87d6be10e9b7ef265935186528713d35df48deeb58ef18cdb354389f4",
+  "turns_sha256": "d42e660f1347c333c4c941c260536cd8003e42a6171e23cb09dc2068cbd9a2f2"
+ },
+ "C0/rubook-rec_0283": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18316,
+  "peak_working_set_mib": 243.8,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 711,
+   "infer_ms": 17265,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "af99f460f51d8900f90036acf98dfd8bb126f5b4b139398f81513d8d6a900f64",
+  "turns_sha256": "d17699faf9961368ab321660fe9293e9540bf8f842f2ad11167a32e5bfc30633"
+ },
+ "C1/rubook-rec_0283": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4871,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1241,
+   "infer_ms": 3052,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "840797bb9760ce7daecc7bfc3a333482e9d02d22146f9dedfd8c248d8e5b1538",
+  "turns_sha256": "0ff47d238b45281f3484f51b403eb5c392efa631688be933770fb11080636c33"
+ },
+ "C2/rubook-rec_0283": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4325,
+  "peak_working_set_mib": 292.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 920,
+   "infer_ms": 2888,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "906fddafac62713a87e6abc734542f163141719c42729fe3898b7a3ea298304d",
+  "turns_sha256": "9be9af77792ccc11d634643dec77985daecbc0b424ce4359e35bdb995fbed857"
+ },
+ "C0/rubook-rec_0283-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 20168,
+  "peak_working_set_mib": 252.0,
+  "inference": {
+   "read_ms": 42,
+   "load_ms": 734,
+   "infer_ms": 19144,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "9dcbf9d16141823c4779b9653a7e6440eb84f94d7401c07514a653bbbe141839",
+  "turns_sha256": "8ec7d1b9e6f0a4ef958dde28851f98027e7207f6a10f1101c8bea82ca2e9c182"
+ },
+ "C1/rubook-rec_0283-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4785,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1166,
+   "infer_ms": 3061,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "35282a4c62047cc0185614ce08ffb47cf911c2217d935f122d32c0f492f06ac3",
+  "turns_sha256": "b38361f38cd802b20e8af74b32b07f06780111c22672197376a0c641ae710e87"
+ },
+ "C2/rubook-rec_0283-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4264,
+  "peak_working_set_mib": 293.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 809,
+   "infer_ms": 2944,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "ac2e53179618232c9afc2752e73bb1ef48031035e700b2676157bc35fa09258e",
+  "turns_sha256": "324a98a069fe3a93c759d05ffb9cfd9d9fdf5a3ef732010553363bcd11cb0f99"
+ },
+ "C0/rubook-rec_0283-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 20052,
+  "peak_working_set_mib": 259.9,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 732,
+   "infer_ms": 19060,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "6b3fe0e1f5b5f00881e30df66161826213f0e79f9067cebd96db10f832164681",
+  "turns_sha256": "df3d190e6f2fc9b9662c88f69427b7419b02db57794ca74d7636b13419f11cce"
+ },
+ "C1/rubook-rec_0283-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4476,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1052,
+   "infer_ms": 2916,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "9ab47aea81e0290fdf6b741543112cd4bf17945c232892caa5e84ed6a91cc364",
+  "turns_sha256": "d71c5923590cc9e57c8af8b194abf8c3492741654d8944c1b54de7271be30993"
+ },
+ "C2/rubook-rec_0283-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4225,
+  "peak_working_set_mib": 292.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 704,
+   "infer_ms": 3036,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "dda09f71af93a52092c4d648ace2a231cdd5130d9f8649438b39df8ba0c12b79",
+  "turns_sha256": "47a6496503fde3dfff9f997e885ad8af4ab443add1abc91cd897a52871f5c558"
+ },
+ "C0/rubook-rec_0284": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18511,
+  "peak_working_set_mib": 245.0,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 736,
+   "infer_ms": 17502,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "2e75e1c68fd05f36eef825b435d77f8815f164140b06e13d1e7f7fb1e53c380b",
+  "turns_sha256": "967e2fc6f4c5e182b4c7222f72ca8045f1bf0d3bb0a650f2e0584889ee2cc393"
+ },
+ "C1/rubook-rec_0284": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4707,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1076,
+   "infer_ms": 3078,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "44b250a9c00d5caddb90348f184802910a419e1c8aaa604937c43c0009c5a54b",
+  "turns_sha256": "42dc300f334d444e58e02840b75d76968f947afc111df36c1f00788a65f4e620"
+ },
+ "C2/rubook-rec_0284": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4027,
+  "peak_working_set_mib": 292.8,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 725,
+   "infer_ms": 2825,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "38061cddac8041caafdead162c8564b0391af99d1eb5e3db7820994db23907c5",
+  "turns_sha256": "c91b6144f1d01a1978b37928ac41c8f551500c41df524aab5b80b47e646038ef"
+ },
+ "C0/rubook-rec_0331": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16906,
+  "peak_working_set_mib": 235.8,
+  "inference": {
+   "read_ms": 46,
+   "load_ms": 732,
+   "infer_ms": 15878,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "97b1bd7abe43d6064b92d10a62841cd561d6a3bf8db376b5e7c83835f6cde205",
+  "turns_sha256": "98ffca39ac15886a3d856bc2004cd489f67a16009a1f4745383c9db145142ecf"
+ },
+ "C1/rubook-rec_0331": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4564,
+  "peak_working_set_mib": 557.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1122,
+   "infer_ms": 2925,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "d39962e69b22649e6db55104cc5a0bfc58720242e5bf61ab2ddd3e2e8a8e52f4",
+  "turns_sha256": "cdb77cf724d3c8caaf0aa451ceb584886ebe69f43da9f9ed06f52282fcfca0da"
+ },
+ "C2/rubook-rec_0331": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4317,
+  "peak_working_set_mib": 292.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 767,
+   "infer_ms": 3070,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "51f1c59afe319a6aa487b0f59bab4770ecd114e5494ee1195b81f3783939b827",
+  "turns_sha256": "e7c75bc143927c87ba6af2c353fed41ac8d8badb5e2db85e7042b1b4dece33e3"
+ },
+ "C0/rubook-rec_0358": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19097,
+  "peak_working_set_mib": 245.8,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 773,
+   "infer_ms": 17840,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "d8d6eff9fc6ecd93a00e472639370e8af2ec17bbbb1c25e7138f7d45617b2310",
+  "turns_sha256": "b1019422b1e7d100c4518ac247a2c1fb2d358cd14198cce46675f18f6c7be63a"
+ },
+ "C1/rubook-rec_0358": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4446,
+  "peak_working_set_mib": 558.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1071,
+   "infer_ms": 2825,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "ee4747c66eec3f64f51da33f4a2f7e845474d6c98ffb9833a8a65243bf1ebe03",
+  "turns_sha256": "63caa8b3bef92b652daf8f98d092385fbb72caba03490f78cd248344f89f93fd"
+ },
+ "C2/rubook-rec_0358": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3844,
+  "peak_working_set_mib": 292.5,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 688,
+   "infer_ms": 2704,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "2409e11e38deb09eca24ef96668859e89c1d2e441fe9ecee17fd331cb436299d",
+  "turns_sha256": "e2d6724ebeb0ad137232263177c2a1f0c5b3a1cfa088e9f53edd7dd142336999"
+ },
+ "C0/rubook-rec_0366": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17246,
+  "peak_working_set_mib": 244.3,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 721,
+   "infer_ms": 16262,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "8b1d24bf20bb1f0db2e6415f23a3a7d8e0eb6aa130483f58e90596bb793628a1",
+  "turns_sha256": "fbab192fbb16df55e109910dd3e891c448d2818557fcedb9a44490e6c1323df3"
+ },
+ "C1/rubook-rec_0366": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4523,
+  "peak_working_set_mib": 558.4,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1052,
+   "infer_ms": 2943,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "2b8bc12ed0de5a453014c3211db8ca4d14fd2ba8e5faadb6e123cd3fb054c795",
+  "turns_sha256": "e87c8a2b08b6d570e19f6f12331d3547be91afbe06d029d7ed484d641d5d5f3d"
+ },
+ "C2/rubook-rec_0366": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4084,
+  "peak_working_set_mib": 293.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 727,
+   "infer_ms": 2843,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "d5f453998a3739804166d1e26ab21ed0dc46958c72a3a4a717938ca9cbbe0a50",
+  "turns_sha256": "41cfc19ba7e9988dbd49391b2a54f0c5c7a8d707591446c35345abc6f151b504"
+ },
+ "C0/rubook-rec_0378": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18652,
+  "peak_working_set_mib": 257.6,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 717,
+   "infer_ms": 17654,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "9a0eceba866590c51778f3f7ad9f43a4dd341fda740ea87089d26e934b4c26f4",
+  "turns_sha256": "7dfccddbf5f37928317bc1f5f93ae100f8735d66c8b3a807656cbcb7f2a9659c"
+ },
+ "C1/rubook-rec_0378": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4648,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1074,
+   "infer_ms": 3037,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "f85c19dfeba44b2364e58bab395bd4ea617c217d6d0cdc8de7c2f4089bc757de",
+  "turns_sha256": "c2310d8a806eb2c16f72f12da0b5317c594114865387689e887855ceebc98a2c"
+ },
+ "C2/rubook-rec_0378": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4115,
+  "peak_working_set_mib": 293.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 790,
+   "infer_ms": 2846,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "7786aa38c3b436ca2ef60e36402c83c1b0dfc57ea0aa0a60bae99d60464372e5",
+  "turns_sha256": "8bc07e66119f30a03fe28e7b908cdd929f7ebdfe12e25677c4ef28271b3d6ea7"
+ },
+ "C0/rubook-rec_0392": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18262,
+  "peak_working_set_mib": 246.9,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 719,
+   "infer_ms": 17250,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "e31ff0be955a9047eab787e9b12766c7619adba81f0ed291320fa01a1e173911",
+  "turns_sha256": "17eaebbda9d27c3690c1f6763768267630c761c52c7b68d2c0e7fc1170cf29da"
+ },
+ "C1/rubook-rec_0392": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4375,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1048,
+   "infer_ms": 2829,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "49f83c0ef5639a4329d6a5d154e48738b608f4151d640bd5ab041f108fe5c35d",
+  "turns_sha256": "5d36846458f7dc0547352a6216750a573d3a3273256edaa7daa6f9319483b426"
+ },
+ "C2/rubook-rec_0392": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4029,
+  "peak_working_set_mib": 292.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 715,
+   "infer_ms": 2854,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "aa6587f7f20b09c8af94681458c75e547b212c4d229f7fdfda668f3827033e93",
+  "turns_sha256": "9a9c72e0d201c587f050b0ba00f334a002abbf901fc3e296826f8c715c9082ef"
+ },
+ "C0/rubook-rec_0392-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17870,
+  "peak_working_set_mib": 253.5,
+  "inference": {
+   "read_ms": 46,
+   "load_ms": 767,
+   "infer_ms": 16843,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "a1090fa9a9f81cd330d8e0d7d9690a0aaf9fc126ffdedafce2eed76b2ed6041a",
+  "turns_sha256": "0b162e751cb245f12d662239a77be0d6d87a04801d2ca48c9ff6b17499708c29"
+ },
+ "C1/rubook-rec_0392-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4444,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1030,
+   "infer_ms": 2886,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "1ef76e3947cab29f48989717438133fb298ba72f9736818d624ebc758dfe4ba5",
+  "turns_sha256": "557e39143e94282f09b9fd6e7dd3ae720c6b64f015999fb8c48d0239c820b113"
+ },
+ "C2/rubook-rec_0392-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3894,
+  "peak_working_set_mib": 292.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 680,
+   "infer_ms": 2755,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "8310460137daa3596e370c04638bf59c28715f07ee6d21b223dc914332d2dece",
+  "turns_sha256": "b287829e611bbaaf15c05f3cf02cabeb2d74fb2d59e7a59786c3e8370b5acfb3"
+ },
+ "C0/rubook-rec_0392-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18237,
+  "peak_working_set_mib": 327.6,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 704,
+   "infer_ms": 17237,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "eed6aaa00f20ba7c6f17fbb907e8b17aa0102b58eb5103d483294373ec4202b7",
+  "turns_sha256": "c5264b5f8ecf3e8b069d47728ae33899cbdb7fb067aeb7610ac813c9716c02b2"
+ },
+ "C1/rubook-rec_0392-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4312,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1003,
+   "infer_ms": 2771,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "a77b49237fd609501af0290f74aeab799c7e8022117885efcdc3567ed500b64b",
+  "turns_sha256": "aab9ba08deda22dca7cda7f98d7538653b62c4abca3470899033d029b939bc38"
+ },
+ "C2/rubook-rec_0392-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3907,
+  "peak_working_set_mib": 293.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 707,
+   "infer_ms": 2735,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "0a965830fb8da67984143e8dcf3ce5f2740b854f42e50ccc5e64f64355fa6075",
+  "turns_sha256": "03f69db8af76246f91ec2e9e09a660784e0d854c0f52f241b5a2acf6817f3c7a"
+ },
+ "C0/rubook-rec_0407": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16891,
+  "peak_working_set_mib": 246.9,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 708,
+   "infer_ms": 15939,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "fba41676d1a1dfcda8012d3998e29dbef23ca5981962310451b4190059eb4344",
+  "turns_sha256": "d7df0dad9b5a81eae32108ca66a63240570a07472cf0821eb1341252ddcca664"
+ },
+ "C1/rubook-rec_0407": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4592,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1017,
+   "infer_ms": 3043,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "980464ce0a5cacb4abea07c977b547c65d28998199a457084cb1a82fc4bb4e7e",
+  "turns_sha256": "8f24a5b7ea3d1ab40506aaed7a796893ebd2a606947b89ba5cd3f17598b2245a"
+ },
+ "C2/rubook-rec_0407": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4152,
+  "peak_working_set_mib": 293.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 749,
+   "infer_ms": 2922,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "d73a102d93e2e362544e8dd3cbdc02d7cea5ff38e983bab2b7a20ed40ceee016",
+  "turns_sha256": "5f08b6e32d59b51ceb7a91e864a6c8d0d32ba6d74c7d395e8b0f6399fce47881"
+ },
+ "C0/rubook-rec_0409": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18466,
+  "peak_working_set_mib": 318.7,
+  "inference": {
+   "read_ms": 48,
+   "load_ms": 729,
+   "infer_ms": 17434,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "aaab96179505c3e7251453381a9fcaaf85c994ff6e4cee83482650abc5d24150",
+  "turns_sha256": "577cd9819b877b468956d099dd3619d62189b813129eabff674293ba44ae726d"
+ },
+ "C1/rubook-rec_0409": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4315,
+  "peak_working_set_mib": 557.8,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1004,
+   "infer_ms": 2802,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "670f868c71d0763202fa9ab6e34da058c9afa367e3f1e0272c240b1c7a5fa8f0",
+  "turns_sha256": "6a8cc551634d12eec813ac81d4b16725342155c556919fcb10daf97698e02993"
+ },
+ "C2/rubook-rec_0409": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3918,
+  "peak_working_set_mib": 292.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 689,
+   "infer_ms": 2758,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "400b6693e0122a083587073ea020ea6e76809003a635c52eaf77e797a3c839bf",
+  "turns_sha256": "be759277f3b335bdab8e7d48f3d9647bb2c8d648ad3ab496f86c303616c3a56d"
+ },
+ "C0/rubook-rec_0409-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18860,
+  "peak_working_set_mib": 328.7,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 739,
+   "infer_ms": 17842,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "1c84736417633223f0bbade8c9949ef86e7324ee83da3c897abe4d0a4dfdc7f1",
+  "turns_sha256": "20fd1d69b3fb5152592626eec6e4ca4f90f32a9c56babe9a625c907b0650b25f"
+ },
+ "C1/rubook-rec_0409-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4240,
+  "peak_working_set_mib": 558.3,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 991,
+   "infer_ms": 2731,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "e06a38602d37eb9a334f016648bb2646a352de8453319179e18f3a77e334e7e2",
+  "turns_sha256": "af0a69476374154eabac8efb546436703f20fcaf318d89b895dbef016179270e"
+ },
+ "C2/rubook-rec_0409-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4041,
+  "peak_working_set_mib": 292.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 696,
+   "infer_ms": 2871,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "59ef6103bd029bf362b08a23d3967a70070abe7e74e13ab9c8363133dfdc0fb2",
+  "turns_sha256": "3a0b8248838140b5cf9293409233296a51f9fae4eb372abd8fff72cd387a8598"
+ },
+ "C0/rubook-rec_0409-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 20539,
+  "peak_working_set_mib": 325.4,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 740,
+   "infer_ms": 19527,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "b625a910677d181cc5e69c191910ff0ae96add64b3eb0f783dc9610bbbd8961b",
+  "turns_sha256": "3fb48844d48719b73db9003d7dec47a8af110450328dbe5d70da482b1abd41e4"
+ },
+ "C1/rubook-rec_0409-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4325,
+  "peak_working_set_mib": 558.4,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1014,
+   "infer_ms": 2786,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "0482a3c1b9152b08a03f799d872cb50ed49e8db0698669d0913935ed22ee2f8a",
+  "turns_sha256": "3a0f54d1bc96950ddfcd51072bd4236438f09ffc2191ecf4db0f6bc68df5927e"
+ },
+ "C2/rubook-rec_0409-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3912,
+  "peak_working_set_mib": 293.6,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 704,
+   "infer_ms": 2712,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "f80b2a72c204520ffc26f65910c96fe3d40dd615397598bdb9bb43fcd5045211",
+  "turns_sha256": "97772e89e04be54123fc55630a77ed54a9ba2e951ba7350b0c5a1541b33c5827"
+ },
+ "C0/rubook-rec_0416": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17716,
+  "peak_working_set_mib": 229.9,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 680,
+   "infer_ms": 16757,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "39c4c6bc2de6399a13b5692046cd853f8db6b47c6287c96e2ed283d79a02a8e8",
+  "turns_sha256": "793dc3200988095a0b713706c869eb493e92533b37a16c9d86c22d625e7cb04a"
+ },
+ "C1/rubook-rec_0416": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4600,
+  "peak_working_set_mib": 558.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1106,
+   "infer_ms": 2980,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "22baecc879e3a5ee30054423e3b5535646b4ed47982eda1dcbac54e6f20b26a1",
+  "turns_sha256": "fd5397ba5fc9ad623d741fd886020596ef477e8cd5276b4671da23bab0759e36"
+ },
+ "C2/rubook-rec_0416": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4102,
+  "peak_working_set_mib": 291.5,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 784,
+   "infer_ms": 2795,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "7bcee7c8f3f3fcac7dc9f3f834dcdd86026f4cb2021bc7c3a09746700be02b98",
+  "turns_sha256": "dec072c04e85182e080c74b16293284d01091cccc7471a6721531676474b0969"
+ },
+ "C0/rubook-rec_0416-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17217,
+  "peak_working_set_mib": 248.1,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 675,
+   "infer_ms": 16309,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "fa1bdcfe3f3188eac5294f8ca6dcfe02096f4696e9e8e5a01de6eedd548c4d81",
+  "turns_sha256": "e90e7592d2e82ba09ebe039c5713878c5a7c423c1ab77f461f0466ba23ef89e5"
+ },
+ "C1/rubook-rec_0416-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4181,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 989,
+   "infer_ms": 2706,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "d0b272b393c1a2ae1ecf31b949cf60bda3d622d4e386e2aa971b3ca1a927f62c",
+  "turns_sha256": "4d665faeca233a4ebdf6f8dbaa71fb3722327c398cc788b788f0e8ee1989f76b"
+ },
+ "C2/rubook-rec_0416-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3839,
+  "peak_working_set_mib": 292.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 704,
+   "infer_ms": 2638,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "b26d2cd92d897c84bd7a26b7c6948cfb5ff63ecf2e306358c8c5cd32c3547abd",
+  "turns_sha256": "4dd20c0890975236b271977743df2c4300797599428dd9eee19b0da08b6aebb4"
+ },
+ "C0/rubook-rec_0416-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17580,
+  "peak_working_set_mib": 250.4,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 682,
+   "infer_ms": 16645,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "ab75a2909f03fe95b7c142480da957f89bc959203250a30560bd0e948206599b",
+  "turns_sha256": "57a77c576c99d9dd4d4c4b10f3fbbf47ae2495c745858c2af7155dae30f67d5a"
+ },
+ "C1/rubook-rec_0416-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4173,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 997,
+   "infer_ms": 2687,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "bf40a9adc42eb7595d1ada630a1f8be10d840e6cf7bf6054089980ea19cb2a5a",
+  "turns_sha256": "058c2d8d4034d805f777bc99df1179088c5ab7662e7badfb29f42e86e91901b9"
+ },
+ "C2/rubook-rec_0416-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3829,
+  "peak_working_set_mib": 294.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 675,
+   "infer_ms": 2708,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "61b3cf4ae5e7b920f56ea7f533724f977c65dbe90d5912893f4ac08a9e7f386b",
+  "turns_sha256": "466b57e11288cf0ec2886c7d1e64b4c1882d9b57413d47ff29134b70a9edebe3"
+ },
+ "C0/rubook-rec_0429": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16097,
+  "peak_working_set_mib": 237.3,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 690,
+   "infer_ms": 15169,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "0e0abbd9438b3558ccf196463a09e38f5fbf632d5df3c0ff8f677b27a76a4e3f",
+  "turns_sha256": "544f867ce16f8aebb2d5fa09842489179cc2eb7117f8bc0bf73250b6fb5a8c82"
+ },
+ "C1/rubook-rec_0429": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4305,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 997,
+   "infer_ms": 2801,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "c84a6192c6d7c61b33292b0c2e28682e709463c4fbab1a2d7b40fb20823b4bd5",
+  "turns_sha256": "ba007d477111e52fed4af7ed6d21b64da9df3082ee9fcc1df2b525dfc1a457d8"
+ },
+ "C2/rubook-rec_0429": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3838,
+  "peak_working_set_mib": 292.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 689,
+   "infer_ms": 2689,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "8eb28964c93ded8ed01a103655766bafd69e4ea9839f156c7500f76d699b4756",
+  "turns_sha256": "54bc774207b0a2630b4ea3282b66d4f8ef81369e4a7dd836a4064d8c7ab44e1a"
+ },
+ "C0/rubook-rec_0447": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17258,
+  "peak_working_set_mib": 248.8,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 689,
+   "infer_ms": 16323,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "fddb5f34d4a73b2464002d99b5851e7cecc1b8ee5c8b321f896652512bcb7fd8",
+  "turns_sha256": "f5ac16246fa16a6215b84a4154574b0fac87d39fa5691c0f1c35672247d4f60c"
+ },
+ "C1/rubook-rec_0447": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4386,
+  "peak_working_set_mib": 558.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1071,
+   "infer_ms": 2775,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "cdca8629f26f9cb848d7896f9ac5d46b46666a76a12758a0f1a8131524e4151d",
+  "turns_sha256": "ea4460c8e35962102455e8dfc1bf2972901fcf94b0a640d492c9d53f100aec02"
+ },
+ "C2/rubook-rec_0447": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3830,
+  "peak_working_set_mib": 293.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 689,
+   "infer_ms": 2678,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "b681f7885c1ddf4e930a797e9cd849d1827ac72d23456925fb32d684a52034e9",
+  "turns_sha256": "aa805ea97c996bd36212b70b6810d3c685dd9ae8a74e0c1326601055b828d4b2"
+ },
+ "C0/rubook-rec_0452": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16460,
+  "peak_working_set_mib": 251.4,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 698,
+   "infer_ms": 15479,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "fed698ee7d987677e58ce30bf95baadb49c108ff21867b1a4b62c99c43b09277",
+  "turns_sha256": "2e0c6b8d8838f8024dc3163e93a9d16c083b8d2519040d776794a50158ea8a22"
+ },
+ "C1/rubook-rec_0452": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4307,
+  "peak_working_set_mib": 558.3,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1027,
+   "infer_ms": 2782,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "b510262057bb7be4510b23bd0bcc10f455ba72aee01372bc77f1f68b0bcd7916",
+  "turns_sha256": "37de12fc66c19a5b73cc099cf98672eeb16804a56be53cb4d5dd9143a1ac3d81"
+ },
+ "C2/rubook-rec_0452": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3767,
+  "peak_working_set_mib": 292.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 668,
+   "infer_ms": 2651,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "57139f0b5e3ca33c7fe6922c5cf142e4da9831a51846e27110386642b58d1800",
+  "turns_sha256": "8010f7c19842d1fcb984487bfeb689f62d207404580b9d765c5b8732becaeddb"
+ },
+ "C0/rubook-rec_0455": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16960,
+  "peak_working_set_mib": 249.9,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 675,
+   "infer_ms": 16028,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "c7c6694841ec8b0b0b5df21e65adc2c43548382e4e610dd4006082a355586ee5",
+  "turns_sha256": "bdd5d1ea8aaa06cad2ab52af2c4cf4ce11bb85c45f4136da34c6e4d4bcc65540"
+ },
+ "C1/rubook-rec_0455": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4363,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1000,
+   "infer_ms": 2839,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "6ff2618f73e9a3477979da1653cc8fddcfc5ce1f1da3ae53ab92bcc8f2888618",
+  "turns_sha256": "b4e42080033080fe69a5b9a1f8cf0862411e3cb7eda48d6eaf83f74cfe427ecd"
+ },
+ "C2/rubook-rec_0455": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3895,
+  "peak_working_set_mib": 292.4,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 671,
+   "infer_ms": 2750,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "3c3ce65e5a4696db08db5f8fa540346ed1218f01c0346499c3e32758a489b3fb",
+  "turns_sha256": "0065c98c72bcf1607d1724ce98d7f427215e8aaf5efb16af5f210256bc9eaf0e"
+ },
+ "C0/rubook-rec_0460": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17843,
+  "peak_working_set_mib": 250.0,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 683,
+   "infer_ms": 16903,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "0ab4fe920ca397ddcd21e4432b8a74258b619b5ce86beb10ecd239b018510767",
+  "turns_sha256": "3771363627512824362823f197f67aba0e0ef58f8573867312e84ff4656f35cf"
+ },
+ "C1/rubook-rec_0460": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4206,
+  "peak_working_set_mib": 557.7,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1039,
+   "infer_ms": 2684,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "52bf99ed4fba30a16f9f9401625ce0776eab53b700dc620d1676451f4f2ee950",
+  "turns_sha256": "6ab110a4cf4ec9eb2897bca1876e47b559e42de885526cc385db64bd6f77e526"
+ },
+ "C2/rubook-rec_0460": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3915,
+  "peak_working_set_mib": 291.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 713,
+   "infer_ms": 2707,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "c20ece65128cd02190fce7723fca00df949f95392d90454b0ebe0e6426672ccf",
+  "turns_sha256": "c30967ad9662f3392fc6d05375e5e76469a39fd59c6ea1a78af9eebea4ef0a92"
+ },
+ "C0/rubook-rec_0471": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17857,
+  "peak_working_set_mib": 243.8,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 672,
+   "infer_ms": 16910,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "a49cf038f7196eb8c608b1d7d0fb92c70d00420bb92746e98bb3c8b6be372985",
+  "turns_sha256": "1e4f1498af9a1ed22e2d9e965ec6785b24d7eca69c1f9be1021108730b7f1efa"
+ },
+ "C1/rubook-rec_0471": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4367,
+  "peak_working_set_mib": 558.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1102,
+   "infer_ms": 2774,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "0c49757423a6960b8b2fa2ad96960e588cc6c7f840bccfeacb79fa9e0a336616",
+  "turns_sha256": "264d7c67f6bc18bb15383e38ae679accdc778f0a92d61d72545deca8da2d8ea8"
+ },
+ "C2/rubook-rec_0471": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3900,
+  "peak_working_set_mib": 292.0,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 698,
+   "infer_ms": 2745,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "356a7d0985f6315b32f65867332f1400c7f394a511ad70e6abb2376ef74764e3",
+  "turns_sha256": "6b507c0679636291ef6ad4a98d2663e09fddb4e88b3cf97249356bb668e8b70e"
+ },
+ "C0/rubook-rec_0492": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16528,
+  "peak_working_set_mib": 242.3,
+  "inference": {
+   "read_ms": 46,
+   "load_ms": 727,
+   "infer_ms": 15539,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "bd8eee82d8e489377afb1255dc3a64dc69b42bb4fd5edbab45351ecfb894beea",
+  "turns_sha256": "0218c5e194c56a57dee11b9185904d4b52e55daf883b5b74d7e77e3858ca571c"
+ },
+ "C1/rubook-rec_0492": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4376,
+  "peak_working_set_mib": 558.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1024,
+   "infer_ms": 2814,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "29974e423974b670366d466429b9243a9f587decd247702788d1941ffd6bab0a",
+  "turns_sha256": "43a22f2ce22d7cdb07d38c41121a479d449db1eb19b3e3269ba8bee6a17816c5"
+ },
+ "C2/rubook-rec_0492": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3906,
+  "peak_working_set_mib": 291.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 704,
+   "infer_ms": 2752,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "80b086f15ab114a07346965cadd649574242ce208288fde5f84226ae3f394769",
+  "turns_sha256": "b5cb1fe2571e269bec576e66349ab2e2a1a1c3afddfd6e8054068669f3aa59a8"
+ },
+ "C0/rubook-rec_0500": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18504,
+  "peak_working_set_mib": 253.3,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 731,
+   "infer_ms": 17469,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "ac992bf5529701211eb9a2bb4c28648efa4ebfbde5e6ebae2df07af1e8f643f6",
+  "turns_sha256": "30b6ebfad436e4830481dee5d490b2d0f6e0dee0f57b8e8c5293699b1324ee8f"
+ },
+ "C1/rubook-rec_0500": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4432,
+  "peak_working_set_mib": 557.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1040,
+   "infer_ms": 2851,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "033d33260847c5349da1b214e5a91d8f0bc673c6f2cc72a0c8d8095317111366",
+  "turns_sha256": "42b72d0a76db7aa3e8c5aa6274a11a77f71150f0ffe00172851fc5fa2a190716"
+ },
+ "C2/rubook-rec_0500": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3899,
+  "peak_working_set_mib": 292.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 686,
+   "infer_ms": 2709,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "515ab3091165782623f4dd424021ea16c4afe656915f237c391369a5b47e56d6",
+  "turns_sha256": "c425ab876c0d5e15692a03248125886b395cb547993b03b73765e10ed95c9359"
+ },
+ "C0/rubook-rec_0508": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17669,
+  "peak_working_set_mib": 254.2,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 695,
+   "infer_ms": 16713,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "59f2f719f7f6ac3d0f086a625f3d69fbe58c4329c8b1bbea18e91431eada53ab",
+  "turns_sha256": "f511ce8cfffd02eafb5cdeed37c7c91ecaabac18fe04a04f9580bb39d38a2d5d"
+ },
+ "C1/rubook-rec_0508": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4366,
+  "peak_working_set_mib": 558.4,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1011,
+   "infer_ms": 2814,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "f7ecb9faeebf0800aed4e7814dd8a0e7193a7b4b2b7297a6364b847dfbdd48b1",
+  "turns_sha256": "ca2fe73d2cbc0266636efab62733b8eaedd605e0563a30ba6ce0d1a88888ade4"
+ },
+ "C2/rubook-rec_0508": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4023,
+  "peak_working_set_mib": 293.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 728,
+   "infer_ms": 2787,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "43a5d169a2edbbc6dac8315a3e4cef3db9578f3a510da46ca50d3d2ddab8e67d",
+  "turns_sha256": "48e61887515ba303c99780f63d767c1ae8ca0c2f2b1f8862d6d135f83e35b469"
+ },
+ "C0/rubook-rec_0521": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17720,
+  "peak_working_set_mib": 321.6,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 725,
+   "infer_ms": 16697,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "ce634a7566579333d8227292956f16561816e1fc8e742f54ab17e355c1426626",
+  "turns_sha256": "350f3f30538a5e076dc578e6b0eb3d6ab9910b9a12e2ef1d13e8fa1ea28da2df"
+ },
+ "C1/rubook-rec_0521": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4423,
+  "peak_working_set_mib": 558.3,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1037,
+   "infer_ms": 2881,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "867afd962b1a1164134d0b2aa8ced2436df7af5805179d742d3a4071b85d639a",
+  "turns_sha256": "90f03eadf9f3a8c6dbad5444e36955d6688401466a143497ea1cf40be3107c56"
+ },
+ "C2/rubook-rec_0521": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4033,
+  "peak_working_set_mib": 293.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 719,
+   "infer_ms": 2817,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "bc83b243fd37c7c0c714a995cac68e39a4ad2ac514e4e3a9a51097d172a681a4",
+  "turns_sha256": "12ea1e1490dbb9d57510c146c7044d7db914be66ab858f41455518555234b7cd"
+ },
+ "C0/rubook-rec_0544": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18005,
+  "peak_working_set_mib": 239.1,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 718,
+   "infer_ms": 17024,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "1c1e649c68526fdc3bc6eb8dc467ac54203d37cc6ea10ba6d38a06b0a333f485",
+  "turns_sha256": "7032ddef33daff927bcbe45602d3069218b2316d4234c7818a82da529225a82f"
+ },
+ "C1/rubook-rec_0544": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4467,
+  "peak_working_set_mib": 558.2,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1066,
+   "infer_ms": 2908,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "3a8dc53e2dc67f863acbfbf570022abcf7ebcfbc2eb093963ad1910acf811c5b",
+  "turns_sha256": "6e0cc62cab69bfd8324d7af5176fca3f6abb934136e05b63b945c707e394676c"
+ },
+ "C2/rubook-rec_0544": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4009,
+  "peak_working_set_mib": 293.5,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 715,
+   "infer_ms": 2794,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "1c90ea9461f063847fb3ef43c285cdff194f4c6b4938a222d869518a612f58e5",
+  "turns_sha256": "81be7f32fb5fb85ec8711c655612d3693af2d94383ea2f8aa0ec4391bbdb4488"
+ },
+ "C0/rubook-rec_0545": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17767,
+  "peak_working_set_mib": 251.7,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 727,
+   "infer_ms": 16768,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "7a3b91a4475019b126a69399f055e15ed7ce038a0f89013a33550caf067959cb",
+  "turns_sha256": "7a02a81f161f82fdb2620c325b186371a82041411d462bb5a07daea05b7d117a"
+ },
+ "C1/rubook-rec_0545": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4233,
+  "peak_working_set_mib": 557.8,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1022,
+   "infer_ms": 2703,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "6aefd59a5d9c5b32f394ef45971095eaf5917fbb25385cfb36fb6cf146b0a1f9",
+  "turns_sha256": "59819b3a005abb553cfbf2a36f97d0c63ffeb84975c8a79d02bee0e231c251e1"
+ },
+ "C2/rubook-rec_0545": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3833,
+  "peak_working_set_mib": 293.1,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 676,
+   "infer_ms": 2693,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "33c71d9642db2cd4f950b6631b2df513145e43debd0583e72eb8e1a8386c723e",
+  "turns_sha256": "02a4553a197b5838d6218d1b96a46eef28b0a37609d2eaec7357b415b7e8c156"
+ },
+ "C0/ivkond-0011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 13922,
+  "peak_working_set_mib": 233.8,
+  "inference": {
+   "read_ms": 41,
+   "load_ms": 706,
+   "infer_ms": 12984,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "07329b620698e41a3adb77bf1b244403b8606ec5ff162d9722e1853daddfd6b7",
+  "turns_sha256": "72ecd8fb45fcd26516dd23c6e1a0d2530995c5d06a2e3d60c13d956da5bdd2a6"
+ },
+ "C0/ivkond-0011/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7038,
+  "peak_working_set_mib": 698.6,
+  "inference": {
+   "load_ms": 2201,
+   "decode_ms": 4550,
+   "windows": 25,
+   "threads": 2
+  },
+  "fingerprint": "b18cd7dd265e5eb04da820a7fcf1bec08cc2d86141bef7e6cd152e90bdcedb63",
+  "transcript_sha256": "46f10960fee4c0d0e09a82ea1b47c146ce932ba247aef1049c63df47fa1c5aac"
+ },
+ "C1/ivkond-0011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4250,
+  "peak_working_set_mib": 548.8,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1213,
+   "infer_ms": 2545,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "ceb09447edd8e1d9b7889dfa4322c1048c72034667bfc8f9b00d44bb4512483e",
+  "turns_sha256": "9e9f24aef722a87d88628a822638fd81fd9199a7b4d0ae6837522d582ad92a9c"
+ },
+ "C1/ivkond-0011/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 8609,
+  "peak_working_set_mib": 698.5,
+  "inference": {
+   "load_ms": 2311,
+   "decode_ms": 6001,
+   "windows": 41,
+   "threads": 2
+  },
+  "fingerprint": "e7a5eb0d77ef39cfe6b0b5efe0e706eeeeda02f237487ddf78c713458b587b4a",
+  "transcript_sha256": "b14f89a8ca96150191e4b261c6d27d1939b03a5955ba8d329270acecbd4cd1e9"
+ },
+ "C2/ivkond-0011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3597,
+  "peak_working_set_mib": 286.5,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 667,
+   "infer_ms": 2470,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "2f7a71a12c1f26130c965a22e32b232060c39d05af50d6a03f633f6623e062ea",
+  "turns_sha256": "cb4c598e37deea1eb30c26fe339c0e8a63fd790cbfcb906d44a6d53eab2d9aa4"
+ },
+ "C2/ivkond-0011/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 8897,
+  "peak_working_set_mib": 698.5,
+  "inference": {
+   "load_ms": 2227,
+   "decode_ms": 6359,
+   "windows": 42,
+   "threads": 2
+  },
+  "fingerprint": "f34672a3b3a509455bd210b3b331abd34401ba9a398dbf79b68edb2241104486",
+  "transcript_sha256": "40dec57dc3e36417d5aa2fdec8ed028776b6b1dd629cd1a9a5c555203dab1812"
+ },
+ "C0/ivkond-0041": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 9835,
+  "peak_working_set_mib": 186.8,
+  "inference": {
+   "read_ms": 41,
+   "load_ms": 712,
+   "infer_ms": 8885,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "1199bc0824da6d650e41921b9ac3a4c1566a38c0110cd04e1cc6a87e43ab8833",
+  "turns_sha256": "3cd060b5e7e9b29a666a29d634e7d577e01d282efd1db800e09acb37338ba966"
+ },
+ "C0/ivkond-0041/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4556,
+  "peak_working_set_mib": 698.7,
+  "inference": {
+   "load_ms": 2175,
+   "decode_ms": 2065,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "e6fbade1e33fde6b24530b9192f5864dc3e8cbafdcaf3d69d077025013f0de11",
+  "transcript_sha256": "0f39ec9a79ab18849e474b2514a5cb7e3209a8e52539770657b901c854e41793"
+ },
+ "C1/ivkond-0041": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4139,
+  "peak_working_set_mib": 548.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1055,
+   "infer_ms": 2563,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "106c7ebcb0e9cfa15053b87347dd66ed552ad98f7ccf6ea3f908046c31409adb",
+  "turns_sha256": "84438d21403ebd93a3b1c9e6f30be4ff76942c255ea61786b7a8c6daf79c7862"
+ },
+ "C1/ivkond-0041/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5426,
+  "peak_working_set_mib": 699.2,
+  "inference": {
+   "load_ms": 2291,
+   "decode_ms": 2885,
+   "windows": 11,
+   "threads": 2
+  },
+  "fingerprint": "d7f2305eab90a853911cb08c09ca8a926acb3bdfec73632c29fd48e4845831ab",
+  "transcript_sha256": "2c22e605d2a0a387cf67fb300442ad044a2732016ee4d287d49ac370daefbcde"
+ },
+ "C2/ivkond-0041": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3780,
+  "peak_working_set_mib": 287.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 713,
+   "infer_ms": 2571,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "a9759263edf970eaa26f61a822a874aad0bcf1c4f406bc007e01980ec188e920",
+  "turns_sha256": "82fba4b6ff35bc03169d0ae8f32cc1a8e3d97f5d24ba19c0c5965c53aac95609"
+ },
+ "C2/ivkond-0041/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5612,
+  "peak_working_set_mib": 698.5,
+  "inference": {
+   "load_ms": 2337,
+   "decode_ms": 3007,
+   "windows": 11,
+   "threads": 2
+  },
+  "fingerprint": "d38db82ed84e26d2804bdb576225a41f132767933eb080ebeb40f6e33a10a3ac",
+  "transcript_sha256": "fe4da40f2c74db45154918a6bd335b370c66bc7959c45db9b2f30b4ba2f3ca22"
+ },
+ "C0/ivkond-0039": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7945,
+  "peak_working_set_mib": 198.9,
+  "inference": {
+   "read_ms": 35,
+   "load_ms": 697,
+   "infer_ms": 7014,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "59307755454c5d0521b9873c0588f96eaa29e5c5a29c0b90fa06dd9b56e69b9f",
+  "turns_sha256": "7d346ae9910c757ef0b041aea9af929f68c0a8e85a8e9ba37569e02f13e3bc08"
+ },
+ "C0/ivkond-0039/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4752,
+  "peak_working_set_mib": 698.1,
+  "inference": {
+   "load_ms": 2237,
+   "decode_ms": 2251,
+   "windows": 8,
+   "threads": 2
+  },
+  "fingerprint": "d2d5d9d4e9a6a85a574ad431ccc1bdc1fd7e863ace0df8af3a5ff613ba4e12a5",
+  "transcript_sha256": "72f7b20494897e70b783e939666b1a83bc1b563d6a5f8500c294cc8da2bd124d"
+ },
+ "C1/ivkond-0039": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3220,
+  "peak_working_set_mib": 516.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1068,
+   "infer_ms": 1618,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "0a73e3a28ae5c3f46863c2349755c917b8607acc1630e4485dc71f007c280b58",
+  "turns_sha256": "0664d84902608a00b3ccc9f2ab5d6884ffd87a41c88d1866a3db6cb0ca549c3f"
+ },
+ "C1/ivkond-0039/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4872,
+  "peak_working_set_mib": 697.8,
+  "inference": {
+   "load_ms": 2228,
+   "decode_ms": 2364,
+   "windows": 8,
+   "threads": 2
+  },
+  "fingerprint": "47bbb2299b26e73f322c4698eac80e6248cf166b10d91ea359458607c602e071",
+  "transcript_sha256": "1be70d7f7822265b28041c071b7a4149aed6f3c4c70023a3525db5be7a6aa9c1"
+ },
+ "C2/ivkond-0039": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2867,
+  "peak_working_set_mib": 250.8,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 725,
+   "infer_ms": 1649,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "ecaaed3c006479f62f4f11f7a38fcafd493884e452c9796ff8c9c5410e09dcdb",
+  "turns_sha256": "802387e5ee58ea0cc6fe002174669ce875fc525051e7993403fc745d1d59572e"
+ },
+ "C2/ivkond-0039/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4915,
+  "peak_working_set_mib": 697.5,
+  "inference": {
+   "load_ms": 2324,
+   "decode_ms": 2335,
+   "windows": 8,
+   "threads": 2
+  },
+  "fingerprint": "66cbf4051b45ec333517c9defb86ec187ee6c24567e569ed88ac76f7c6abd1c8",
+  "transcript_sha256": "52e7cbf619fd4d8ed825e910bbef37b0cf24e9997441d323bc0376a778ef0b37"
+ },
+ "C0/ivkond-0060": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7393,
+  "peak_working_set_mib": 177.2,
+  "inference": {
+   "read_ms": 34,
+   "load_ms": 725,
+   "infer_ms": 6402,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "fd135fa550c45dbfd39874e02d8bc8b1a63602c3f3134a5db2629d9936825e26",
+  "turns_sha256": "2a0e1795f4ca6c54ae360b4a4155afcbe16d2e06495723eef4a20832250c04cf"
+ },
+ "C0/ivkond-0060/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4693,
+  "peak_working_set_mib": 697.8,
+  "inference": {
+   "load_ms": 2281,
+   "decode_ms": 2105,
+   "windows": 9,
+   "threads": 2
+  },
+  "fingerprint": "b8c2c80c3d703c58fbb254c55a26c69424ce41477160dc7397ca31b762073106",
+  "transcript_sha256": "9f37d12b2eb31235d58d67f722dc52fc6c79384b4fd74cb8125296350f05401f"
+ },
+ "C1/ivkond-0060": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3207,
+  "peak_working_set_mib": 513.5,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1102,
+   "infer_ms": 1614,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "496912c955921a9a4ca804fbc62240407c20ea7dcce5d054aedb8b4db69a7207",
+  "turns_sha256": "f3f103c64a86ab76f6ef4ad8b8696add860b6d3044a92840200992d89d052a8c"
+ },
+ "C1/ivkond-0060/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5217,
+  "peak_working_set_mib": 697.4,
+  "inference": {
+   "load_ms": 2520,
+   "decode_ms": 2399,
+   "windows": 9,
+   "threads": 2
+  },
+  "fingerprint": "d8fbb0ef5e3d76ce35cb28bc01904a49a0ab9d9e4f0e61ea232678b0fb7e4852",
+  "transcript_sha256": "d6ce84127fd8f45f5bf335221ac1fcdbc94b62c73efb5c1e5cd92ccb81161486"
+ },
+ "C2/ivkond-0060": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2918,
+  "peak_working_set_mib": 246.7,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 781,
+   "infer_ms": 1647,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "d3e0bef46c54abe5535b6774c9b41ad980c10c2984fe02c49f90f7a9cd1484be",
+  "turns_sha256": "d0c7ba965429a7a80706bb0087ecb62dbca5f15deaba7438fd06a94ce7fbc22f"
+ },
+ "C2/ivkond-0060/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4941,
+  "peak_working_set_mib": 698.0,
+  "inference": {
+   "load_ms": 2470,
+   "decode_ms": 2183,
+   "windows": 9,
+   "threads": 2
+  },
+  "fingerprint": "4eb5888593a832b6be31745bca8fafe60a55d8243e9843fcb12e50f0883dd3af",
+  "transcript_sha256": "7353eed9d7b8c8e089a688ae49592f553ce19e85a59a0aeabc35f7dc17e455b0"
+ },
+ "C0/ivkond-0014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 10806,
+  "peak_working_set_mib": 216.4,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 685,
+   "infer_ms": 9830,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "f6ee5a10cbda681d79ce4a149c75c4b521899ee43f05444b33f5de8d104e3471",
+  "turns_sha256": "35f5b169f7605766f636dde9426145c3d58f0c1d3a018fdd2eec9a417831d617"
+ },
+ "C0/ivkond-0014/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5242,
+  "peak_working_set_mib": 699.0,
+  "inference": {
+   "load_ms": 2205,
+   "decode_ms": 2777,
+   "windows": 10,
+   "threads": 2
+  },
+  "fingerprint": "de942a8d90ba4677400cac63131b64fc093c9b79590cf7e8dc53314e6209b2e3",
+  "transcript_sha256": "e09b276a16af1a53f78f9183c4ac8fe53683faa4abb79ed63eab4dba4e9d2df4"
+ },
+ "C1/ivkond-0014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4130,
+  "peak_working_set_mib": 553.5,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1017,
+   "infer_ms": 2636,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "510ceb69485f2c3e53f14569b2660495d4e0572e3e4ab4217200bc9ea400cd3d",
+  "turns_sha256": "34c4c8528e980cc9714224d44a743aa417923a26de85d3bc3bc070a204b52dde"
+ },
+ "C1/ivkond-0014/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5250,
+  "peak_working_set_mib": 699.7,
+  "inference": {
+   "load_ms": 2184,
+   "decode_ms": 2759,
+   "windows": 12,
+   "threads": 2
+  },
+  "fingerprint": "c763b648dfffc8c9a43c1102aa1a08763c7d5307eba008b262e225af7cbd3827",
+  "transcript_sha256": "86866e22b11d4a5873b7e6071521b7edcd7a9fa35b13113ea00bc406092201f3"
+ },
+ "C2/ivkond-0014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3727,
+  "peak_working_set_mib": 288.3,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 698,
+   "infer_ms": 2565,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "7a8c35cf1c14a3e03482709b5fcfa3013430aafe8098cdcc70eef5518271617e",
+  "turns_sha256": "2ce1ddc9aecbd07f83628f214f29655b059cf342c37baec1327a688504009daa"
+ },
+ "C2/ivkond-0014/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5324,
+  "peak_working_set_mib": 699.5,
+  "inference": {
+   "load_ms": 2182,
+   "decode_ms": 2855,
+   "windows": 12,
+   "threads": 2
+  },
+  "fingerprint": "a35e4737de40bdad541db2fda20b8c73029feaa4bcacf79aec3547250d6a17eb",
+  "transcript_sha256": "89626bec851198ff035475edea2d2b98241d0387178b4865041e569763090311"
+ },
+ "C0/ivkond-0007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7661,
+  "peak_working_set_mib": 217.3,
+  "inference": {
+   "read_ms": 33,
+   "load_ms": 696,
+   "infer_ms": 6695,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "9f539ed3fcbdafd3e05572c0cdcd23c4ca4184105603b192da3fe3935355c340",
+  "turns_sha256": "3257f59e723b91a7805010340632d9a95383438c009bfe838027da94b3be4c0d"
+ },
+ "C0/ivkond-0007/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4919,
+  "peak_working_set_mib": 698.0,
+  "inference": {
+   "load_ms": 2278,
+   "decode_ms": 2385,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "345385651506a456b606cdd45401328a6a90d63b4f9c359c1c940b77ff7efbfa",
+  "transcript_sha256": "baddabcd3e582a4820c088a44aa1e92fea64bb4fbbb0e3dbfa56ec5ee6d1ffca"
+ },
+ "C1/ivkond-0007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3079,
+  "peak_working_set_mib": 514.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1017,
+   "infer_ms": 1603,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "4529047d3a5dc6608991d5fd2db7deed5b79e83d74e2bbb2336d2e8c2a8c28d4",
+  "turns_sha256": "4da8c50dead3dca6af25269d7972eb250ff93f0ed3e60cbd18d4d4c2c68673b0"
+ },
+ "C1/ivkond-0007/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5050,
+  "peak_working_set_mib": 698.7,
+  "inference": {
+   "load_ms": 2265,
+   "decode_ms": 2489,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "606456fb843096bcedbbe1571319b1f16d8682882127593f858fddca97737e39",
+  "transcript_sha256": "8acec0de0e4dc9010fc9c715788d264d49980d2b93f98d543e6813e62e1000e7"
+ },
+ "C2/ivkond-0007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2803,
+  "peak_working_set_mib": 249.7,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 727,
+   "infer_ms": 1553,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "fc177743850b8e7e8aca942b6babdbc91376146e3925592f7d27f9797cc9aae2",
+  "turns_sha256": "eabdbb8c2849bf463588dbc0efd5d3a21a7465dabcaa1e70798df51e9e205a83"
+ },
+ "C2/ivkond-0007/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4984,
+  "peak_working_set_mib": 698.3,
+  "inference": {
+   "load_ms": 2318,
+   "decode_ms": 2351,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "a8ad337f64b06f81625489d065729128d326ddffb522b061b86d1d2eb9040df5",
+  "transcript_sha256": "b26dd04b5a72dd1de9a5af8968a1aeae18b60259e979f55d7cb606c6f1b58dac"
+ },
+ "C0/ivkond-0037": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 12300,
+  "peak_working_set_mib": 241.2,
+  "inference": {
+   "read_ms": 41,
+   "load_ms": 693,
+   "infer_ms": 11351,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "6a46d1935747c0b355e4e5f327a255d76143a831dcc933fa518b6d7b92cc578f",
+  "turns_sha256": "7a65a0a35cbf1184a405960172e020b9480701cdc09ced32760f8b222b82e0ce"
+ },
+ "C0/ivkond-0037/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5939,
+  "peak_working_set_mib": 700.1,
+  "inference": {
+   "load_ms": 2282,
+   "decode_ms": 3339,
+   "windows": 12,
+   "threads": 2
+  },
+  "fingerprint": "9b78369c3bfc3d28ede25971379477418c36f9ae42092b2741477a0d500ec8ef",
+  "transcript_sha256": "9cbb5d3c452baa1c4ebf8e71f845549f9f4db6abb58b6510e6d7f00456c650eb"
+ },
+ "C1/ivkond-0037": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4234,
+  "peak_working_set_mib": 556.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1004,
+   "infer_ms": 2727,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "83de32e1a6a8220a466dc58b152e50458efca2158bb504f647402ed79d9d7749",
+  "turns_sha256": "dfa4bbc59a1c90f3101eba2af0009ab5f5d852a06fb5f034f8be27e342922042"
+ },
+ "C1/ivkond-0037/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6144,
+  "peak_working_set_mib": 699.5,
+  "inference": {
+   "load_ms": 2322,
+   "decode_ms": 3528,
+   "windows": 13,
+   "threads": 2
+  },
+  "fingerprint": "f0ec06750b99332fe5229070f527722b9c48706fd1ce42a825ccb6c584305f37",
+  "transcript_sha256": "798b0955f632baefc12a6c7f6a3ba5369288e101df1d57d84b3d967152828521"
+ },
+ "C2/ivkond-0037": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3970,
+  "peak_working_set_mib": 290.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 706,
+   "infer_ms": 2760,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "77fbdb939aa02ba920f2efe0c2bb3f57af0a6f780a8045d429ef88cc132661fb",
+  "turns_sha256": "5f932096fbebe873be27eeaba797a6ae2cf299ceec294cfcd49dab80083f0f7d"
+ },
+ "C2/ivkond-0037/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6204,
+  "peak_working_set_mib": 700.7,
+  "inference": {
+   "load_ms": 2318,
+   "decode_ms": 3579,
+   "windows": 13,
+   "threads": 2
+  },
+  "fingerprint": "7af16ac6ba2a00a4fefa9c70df00a10a72e59f320c08206b63a71778f7427b7c",
+  "transcript_sha256": "fa1becc3ce19bee1af40adb0cd38146b9f20964cda2e2ad9d38f9955c527c5c5"
+ },
+ "C0/ivkond-0066": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6842,
+  "peak_working_set_mib": 224.4,
+  "inference": {
+   "read_ms": 34,
+   "load_ms": 720,
+   "infer_ms": 5903,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "fb7c58cf79db28b419552e21622f7c7bc6ce849c1cc0683fc7a8b984dab6bb77",
+  "turns_sha256": "5589ea3b2a907ddd559849b5354cd99f9e38753e8a1cbe8ec1a609654b5039a8"
+ },
+ "C0/ivkond-0066/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7117,
+  "peak_working_set_mib": 697.8,
+  "inference": {
+   "load_ms": 2263,
+   "decode_ms": 4607,
+   "windows": 30,
+   "threads": 2
+  },
+  "fingerprint": "17de62ab4d236554ac736e62ae2636a055c8819c858f1e3b08744ed454e1867a",
+  "transcript_sha256": "bd97b6140e4d7f826466da545cefd8d50428ad0f0541b009e235e766da3a8122"
+ },
+ "C1/ivkond-0066": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3135,
+  "peak_working_set_mib": 516.7,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1030,
+   "infer_ms": 1609,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "86677b6e797337aa7c9c1352babac7c50da0bf8356a0f2b818de5afb31c4a517",
+  "turns_sha256": "1fb0ab75c51066f1986b9922db5160a0df1ac61af83998c95fa6d271b0b2df28"
+ },
+ "C1/ivkond-0066/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6978,
+  "peak_working_set_mib": 698.2,
+  "inference": {
+   "load_ms": 2334,
+   "decode_ms": 4393,
+   "windows": 29,
+   "threads": 2
+  },
+  "fingerprint": "3adc7a7cd4d51895227261efeb22911435985491d0b830b87f29cd9c993774b3",
+  "transcript_sha256": "d9ff494dfb2ed04b3b257c3d838e4960f77854cce280fe6bade61417c7fa3968"
+ },
+ "C2/ivkond-0066": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2797,
+  "peak_working_set_mib": 252.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 714,
+   "infer_ms": 1608,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "830e37117ebe0b97c360b6c2f7a644004cde0be470168b7396d42eaa4f34ec49",
+  "turns_sha256": "f7886c4a18d76937c4c235baf9efb8d92db33204d0082437bc21f98acf66c8cc"
+ },
+ "C2/ivkond-0066/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6888,
+  "peak_working_set_mib": 697.9,
+  "inference": {
+   "load_ms": 2219,
+   "decode_ms": 4429,
+   "windows": 29,
+   "threads": 2
+  },
+  "fingerprint": "ed17755e7bd0ec71717312199a27e2ae258b8dd38286c9cc2553899dd14a84bb",
+  "transcript_sha256": "5d78273564af2606d1da474605367f091a4a74ad0b5380155bb4c1f3fd40c9ba"
+ },
+ "C0/ivkond-0035": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 12482,
+  "peak_working_set_mib": 240.2,
+  "inference": {
+   "read_ms": 42,
+   "load_ms": 729,
+   "infer_ms": 11487,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "6a46d1935747c0b355e4e5f327a255d76143a831dcc933fa518b6d7b92cc578f",
+  "turns_sha256": "7a65a0a35cbf1184a405960172e020b9480701cdc09ced32760f8b222b82e0ce"
+ },
+ "C0/ivkond-0035/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6126,
+  "peak_working_set_mib": 699.7,
+  "inference": {
+   "load_ms": 2319,
+   "decode_ms": 3525,
+   "windows": 12,
+   "threads": 2
+  },
+  "fingerprint": "9b78369c3bfc3d28ede25971379477418c36f9ae42092b2741477a0d500ec8ef",
+  "transcript_sha256": "9cbb5d3c452baa1c4ebf8e71f845549f9f4db6abb58b6510e6d7f00456c650eb"
+ },
+ "C1/ivkond-0035": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4425,
+  "peak_working_set_mib": 556.7,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1123,
+   "infer_ms": 2816,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "83de32e1a6a8220a466dc58b152e50458efca2158bb504f647402ed79d9d7749",
+  "turns_sha256": "dfa4bbc59a1c90f3101eba2af0009ab5f5d852a06fb5f034f8be27e342922042"
+ },
+ "C1/ivkond-0035/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6119,
+  "peak_working_set_mib": 698.7,
+  "inference": {
+   "load_ms": 2235,
+   "decode_ms": 3581,
+   "windows": 13,
+   "threads": 2
+  },
+  "fingerprint": "f0ec06750b99332fe5229070f527722b9c48706fd1ce42a825ccb6c584305f37",
+  "transcript_sha256": "798b0955f632baefc12a6c7f6a3ba5369288e101df1d57d84b3d967152828521"
+ },
+ "C2/ivkond-0035": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3904,
+  "peak_working_set_mib": 290.3,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 704,
+   "infer_ms": 2698,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "77fbdb939aa02ba920f2efe0c2bb3f57af0a6f780a8045d429ef88cc132661fb",
+  "turns_sha256": "5f932096fbebe873be27eeaba797a6ae2cf299ceec294cfcd49dab80083f0f7d"
+ },
+ "C2/ivkond-0035/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6004,
+  "peak_working_set_mib": 699.5,
+  "inference": {
+   "load_ms": 2194,
+   "decode_ms": 3517,
+   "windows": 13,
+   "threads": 2
+  },
+  "fingerprint": "7af16ac6ba2a00a4fefa9c70df00a10a72e59f320c08206b63a71778f7427b7c",
+  "transcript_sha256": "fa1becc3ce19bee1af40adb0cd38146b9f20964cda2e2ad9d38f9955c527c5c5"
+ },
+ "C0/ivkond-0055": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 11298,
+  "peak_working_set_mib": 245.4,
+  "inference": {
+   "read_ms": 38,
+   "load_ms": 695,
+   "infer_ms": 10352,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "a53e7af72aaf79f92508a64250c66a112a19900c4944bec74684a2d8557dda9c",
+  "turns_sha256": "740a7db9f1721d380d43e0d5ff57ff26a1a27769db084425b710c39761f5d572"
+ },
+ "C0/ivkond-0055/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7010,
+  "peak_working_set_mib": 699.4,
+  "inference": {
+   "load_ms": 2377,
+   "decode_ms": 4386,
+   "windows": 23,
+   "threads": 2
+  },
+  "fingerprint": "47130d24ed4a705082fee8e5633bb0aa1fa0dd44c4967b62751270a10c634342",
+  "transcript_sha256": "46c79405a9ddd9fd6d8f4e08d355a9fbe738f8c0dd29fc78b7d6e4e4ba3e1404"
+ },
+ "C1/ivkond-0055": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3391,
+  "peak_working_set_mib": 532.8,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1036,
+   "infer_ms": 1839,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "f3d77da08bc0705537b69ad01818ac402a6851b2256a7431c3c4255ba250e0cd",
+  "turns_sha256": "6f314c9a246182aecab160ba1e55583646050c9eaa7140202f20a9b2c7e068db"
+ },
+ "C1/ivkond-0055/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6932,
+  "peak_working_set_mib": 698.6,
+  "inference": {
+   "load_ms": 2290,
+   "decode_ms": 4375,
+   "windows": 24,
+   "threads": 2
+  },
+  "fingerprint": "7f0b04bb1af355a8e1326ded813d64f2b412cb138ecf748e900ce80034b21b5e",
+  "transcript_sha256": "cedca6cef567a834e73c690d2b344a209983b2081a306c4b71f1ed7751456102"
+ },
+ "C2/ivkond-0055": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2904,
+  "peak_working_set_mib": 268.5,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 680,
+   "infer_ms": 1777,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "2ddb6d305c1b107ece50649894dcf039d97ce1add605f24bbc6304f9c423e8a2",
+  "turns_sha256": "b38e211cd37cfd79a81678cdc61b2371f26aaf7a7b6162455b6c7410bfa4c02d"
+ },
+ "C2/ivkond-0055/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7110,
+  "peak_working_set_mib": 698.2,
+  "inference": {
+   "load_ms": 2367,
+   "decode_ms": 4491,
+   "windows": 24,
+   "threads": 2
+  },
+  "fingerprint": "dfec9547478a0ed7665d4a773f80134fc739bbbede8668fc3a629cd467df7ba3",
+  "transcript_sha256": "23e35f32ecf1610d650df430a7d579a43722a9cbbcb1017d34b6ef5bc43e836f"
+ },
+ "C0/ivkond-0030": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7803,
+  "peak_working_set_mib": 216.0,
+  "inference": {
+   "read_ms": 33,
+   "load_ms": 743,
+   "infer_ms": 6813,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "51ea19202a9b2c80e6a69746d2bc286088b460413c129d8f1a90b8900a4180ec",
+  "turns_sha256": "311a6c4dd935cbf4aac7554019627c15b46c3b632d682763bf8d50d121da4b9b"
+ },
+ "C0/ivkond-0030/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4756,
+  "peak_working_set_mib": 698.8,
+  "inference": {
+   "load_ms": 2094,
+   "decode_ms": 2420,
+   "windows": 11,
+   "threads": 2
+  },
+  "fingerprint": "7f9ecba060934bab4779cfbae47dc5d841abd4aecc5df85453d8e00dd090063a",
+  "transcript_sha256": "b067c8be0b121ed3d0eebd582dc41187a2867369f011b9fa54381dfe5d9b5a84"
+ },
+ "C1/ivkond-0030": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3017,
+  "peak_working_set_mib": 514.2,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1007,
+   "infer_ms": 1557,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "b6ac21a64fe8c688ca3ca23ffb6050717b5e8ee6b904107f971914a081d06773",
+  "turns_sha256": "1252107c399bb10ca86f07daa5f201c3d9bcd62f12d3e55691afde5bb51a899c"
+ },
+ "C1/ivkond-0030/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5087,
+  "peak_working_set_mib": 698.3,
+  "inference": {
+   "load_ms": 2142,
+   "decode_ms": 2644,
+   "windows": 11,
+   "threads": 2
+  },
+  "fingerprint": "2ef780f87b667246185a10621b7a959d32c9d87893da22c0356096587c533b6d",
+  "transcript_sha256": "d2e47082908e6f03d4081176e27fc298af9de5b03fedbb37c7401cfcef8b5cd6"
+ },
+ "C2/ivkond-0030": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2683,
+  "peak_working_set_mib": 248.1,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 689,
+   "infer_ms": 1551,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "7af2d273eac1cbf47183f9f948266a2e7e493d71104d4624439bd87725a7cbab",
+  "turns_sha256": "396298bc00da55478ab8e48683c85091902f21b9f8efa96322cdafe05c822d68"
+ },
+ "C2/ivkond-0030/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5161,
+  "peak_working_set_mib": 697.9,
+  "inference": {
+   "load_ms": 2280,
+   "decode_ms": 2587,
+   "windows": 11,
+   "threads": 2
+  },
+  "fingerprint": "8cd70ffbbfd9278168c7dd66dbfb4f1df8bb1e9041599ca5fe06bd6e8c520df6",
+  "transcript_sha256": "166770cab833d852094b51a4eb3e71f85c7c236034a79cd33be3c6ad01f77ab7"
+ },
+ "C0/ivkond-0031": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6564,
+  "peak_working_set_mib": 174.6,
+  "inference": {
+   "read_ms": 35,
+   "load_ms": 719,
+   "infer_ms": 5609,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "30993aaf49411e5126bafd989569a26831c349ca94c48e4fd807909b1f97b7d8",
+  "turns_sha256": "067df040ee563abd96506ba04b1aefa814fab11500cdde0697bceb804a5dd0bd"
+ },
+ "C0/ivkond-0031/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4213,
+  "peak_working_set_mib": 698.0,
+  "inference": {
+   "load_ms": 2157,
+   "decode_ms": 1763,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "af4f7dd4d3d7a1082655d504dc8168662184a60d831954c24568b44c30a0753e",
+  "transcript_sha256": "1b7b7724416ec1fe1fcf0a4accbf1dcea99ea6ac9aeb35f97bd9f1dd6b63ae76"
+ },
+ "C1/ivkond-0031": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2906,
+  "peak_working_set_mib": 509.2,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 991,
+   "infer_ms": 1457,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "409801ad8259cee4ba4d2f196d4f834557cf3b888f5f311999b0898813df22bc",
+  "turns_sha256": "15b7c8c4014583abadbc844b65f3c3748cb962d91764d131b33d9c16bf5c741c"
+ },
+ "C1/ivkond-0031/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4272,
+  "peak_working_set_mib": 698.6,
+  "inference": {
+   "load_ms": 2212,
+   "decode_ms": 1756,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "95ebdca6f4d5e99d5cffc2a5bf5977d4b9938f7ae25f2a448a0bf150945a77c5",
+  "transcript_sha256": "9b6b8ed6879c7be0453fb1b7f0e77e1c8e380f6897c83a59b90428d8b64eb88a"
+ },
+ "C2/ivkond-0031": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2561,
+  "peak_working_set_mib": 241.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 650,
+   "infer_ms": 1419,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "4b78c738290f902dbe592597fea0e57cd4a2603d448dfadd6529cbe464114093",
+  "turns_sha256": "f1d78858afdd95b6eaa2f92514bbae7ecf3253c45a44597e77fc5203f10312a0"
+ },
+ "C2/ivkond-0031/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4271,
+  "peak_working_set_mib": 697.7,
+  "inference": {
+   "load_ms": 2226,
+   "decode_ms": 1782,
+   "windows": 7,
+   "threads": 2
+  },
+  "fingerprint": "3505c1d52b4c4366555ffb74b45204dc975180eecff8d760b3be3e64a2a78afa",
+  "transcript_sha256": "013e199945722219ac8fecd81da72a1ae4885d4365ba6147c069ca4f5e26695e"
+ },
+ "C0/ivkond-0026": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 12854,
+  "peak_working_set_mib": 215.8,
+  "inference": {
+   "read_ms": 44,
+   "load_ms": 711,
+   "infer_ms": 11903,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "3546c27fc84edefd25eaa3f574e4b358a66a50188a419aff2325d6bd7cf0994d",
+  "turns_sha256": "946785af72ada97ad79c3b40896919692bed2f143b4fc5997a1c0004c9d1081d"
+ },
+ "C0/ivkond-0026/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7792,
+  "peak_working_set_mib": 700.5,
+  "inference": {
+   "load_ms": 2184,
+   "decode_ms": 5326,
+   "windows": 31,
+   "threads": 2
+  },
+  "fingerprint": "7ee3d2361576ab416a34a021518950e3049ecbfefb4d62dc59b12c0c87dac20a",
+  "transcript_sha256": "75499bf22a9057b1b412384add7b77657562d3dcc4baba64420aba34182fbd47"
+ },
+ "C1/ivkond-0026": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4895,
+  "peak_working_set_mib": 557.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1092,
+   "infer_ms": 3243,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "d3fe182645248689bc71839418cd1e4c7755bc2f48a18d8fa1d3d40ee6be3986",
+  "turns_sha256": "cffc2f38011cae7326e512f4af4af1c4886f770cc605e55922d8c3d359ba2687"
+ },
+ "C1/ivkond-0026/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 8620,
+  "peak_working_set_mib": 700.1,
+  "inference": {
+   "load_ms": 2641,
+   "decode_ms": 5702,
+   "windows": 33,
+   "threads": 2
+  },
+  "fingerprint": "e2e8a6641f27805cef95c83edc5a113f678ac071236e74084996310c4e6b6ed4",
+  "transcript_sha256": "57087ee70383d95505e38085d679e619405ba4487ce3d84e0b5059b0bce9a099"
+ },
+ "C2/ivkond-0026": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3905,
+  "peak_working_set_mib": 291.9,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 701,
+   "infer_ms": 2692,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "1bcfd21cdc31f240a9b4ab03974a480b37738e4a9da1a0a6d62205a8920fd0f9",
+  "turns_sha256": "d7de5d547e1e66ba923c909f0d2a77e33bb2780b982f570e22c7742d98eb2a63"
+ },
+ "C2/ivkond-0026/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7984,
+  "peak_working_set_mib": 699.6,
+  "inference": {
+   "load_ms": 2333,
+   "decode_ms": 5395,
+   "windows": 33,
+   "threads": 2
+  },
+  "fingerprint": "ed223367095b915d0615951f2d2380837a8a43b9f232db6cf109fb3699d00b5d",
+  "transcript_sha256": "fdec0c110ed55a94f2e8089812ba64c025f9621dd581ace0ae4b5d62d9dc7f7b"
+ },
+ "C0/ivkond-0025": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7647,
+  "peak_working_set_mib": 232.0,
+  "inference": {
+   "read_ms": 31,
+   "load_ms": 685,
+   "infer_ms": 6725,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "762b678dd280477c3916d6426727066769a4835141f0a49dd8198371cbd9953e",
+  "turns_sha256": "c8aa4e0fb8dc3fdc4f4d2ac07891d9d6f64a2cab6327a1d1f94c33de93bd6bc1"
+ },
+ "C0/ivkond-0025/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4904,
+  "peak_working_set_mib": 698.3,
+  "inference": {
+   "load_ms": 2250,
+   "decode_ms": 2427,
+   "windows": 10,
+   "threads": 2
+  },
+  "fingerprint": "3c64d97f9002422e3c1b1de56b14039938b5e3604e1bc284aeb6edbf846b4c61",
+  "transcript_sha256": "46fc4253cc7bcc83e28e5382e1475f3cf499706260f54d9bc04431e3d69213d6"
+ },
+ "C1/ivkond-0025": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2927,
+  "peak_working_set_mib": 504.3,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 1007,
+   "infer_ms": 1419,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "3adb53caf02b0fd9a254278d9622764ffeb634d557faa608dc10089f810074f6",
+  "turns_sha256": "bd4ec3070f558dba19b0a9d529990f841ea8d4117f126f5147c28a4524ef89a0"
+ },
+ "C1/ivkond-0025/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5038,
+  "peak_working_set_mib": 697.7,
+  "inference": {
+   "load_ms": 2242,
+   "decode_ms": 2499,
+   "windows": 12,
+   "threads": 2
+  },
+  "fingerprint": "601a02b2906f7a569c5595f4248b88e895d0e9b770a27e699e991d64931e3110",
+  "transcript_sha256": "43cd5a6d01b522cc8b2fefb573460c874e0000c9c6bd00181209cb411467427b"
+ },
+ "C2/ivkond-0025": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2504,
+  "peak_working_set_mib": 237.6,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 655,
+   "infer_ms": 1368,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "a25a582173784adc6c13f20313822c5fe5d2e9ed16e9909146d4fc288f6d6a5a",
+  "turns_sha256": "8dddb59ffddc69aa01495738fe46b594d4f81b903882e4d7b4e7bafcdb45bb67"
+ },
+ "C2/ivkond-0025/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4918,
+  "peak_working_set_mib": 698.3,
+  "inference": {
+   "load_ms": 2160,
+   "decode_ms": 2478,
+   "windows": 12,
+   "threads": 2
+  },
+  "fingerprint": "52e3063f51a418f30f909fcbe9d276769e9a0a45ecb55668d689c5a7997b1c45",
+  "transcript_sha256": "d5e24549d9905fb4f4b2e4595705601556566da5b9e7ae04372c781cff05b681"
+ },
+ "C0/ivkond-0032": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7122,
+  "peak_working_set_mib": 196.9,
+  "inference": {
+   "read_ms": 32,
+   "load_ms": 693,
+   "infer_ms": 6180,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "9e6d681c4ebe3585731749cdbd7a495c6c7b8215c8cdab678d89cac8211f0508",
+  "turns_sha256": "97bfaabda98918c82e4004abee755e6459da8ee8e4cf5d930d2d7b713778e53f"
+ },
+ "C0/ivkond-0032/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4662,
+  "peak_working_set_mib": 697.9,
+  "inference": {
+   "load_ms": 2281,
+   "decode_ms": 2082,
+   "windows": 10,
+   "threads": 2
+  },
+  "fingerprint": "4deefe02ab8f4e31cbb48e3244672bd9cc3a223b1bd9e5cccd10666514072eb6",
+  "transcript_sha256": "0d4ef0377dad67979013bcd02d99ab7a81236f047355356e1259151f3b70972f"
+ },
+ "C1/ivkond-0032": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2907,
+  "peak_working_set_mib": 513.2,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 992,
+   "infer_ms": 1457,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "2f7bbc5a104cec0c443e466c4b3fc6f19293c615df868e9dc58628a9758c3060",
+  "turns_sha256": "b899d040964ba8aed28fe16f425342e59f81870c4b29ad0861a00bb428307d28"
+ },
+ "C1/ivkond-0032/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4431,
+  "peak_working_set_mib": 697.8,
+  "inference": {
+   "load_ms": 2166,
+   "decode_ms": 2021,
+   "windows": 9,
+   "threads": 2
+  },
+  "fingerprint": "3911ab5295c65932bfad9b83e6909f49fd7d21ff0287c9413cd49ed321d4e871",
+  "transcript_sha256": "77cb1fc4353a930e21a161da413d4b06a71ee4cf6e4d27cf4af8c12b6df91e99"
+ },
+ "C2/ivkond-0032": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2565,
+  "peak_working_set_mib": 246.3,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 670,
+   "infer_ms": 1410,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "1cdcf8bc8a4c9dcc980ce7739aadd6545c3fc29d56b762dadb2cf2eb878bcb7d",
+  "turns_sha256": "f359b973635794f24012bd166e36136c2df7730720b06780d5120d1a7d58088e"
+ },
+ "C2/ivkond-0032/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4440,
+  "peak_working_set_mib": 699.1,
+  "inference": {
+   "load_ms": 2187,
+   "decode_ms": 2003,
+   "windows": 9,
+   "threads": 2
+  },
+  "fingerprint": "216a0d43c5670729181b568f4bb9cd03b370df5e65b0d876069876b43712d2cb",
+  "transcript_sha256": "b0ccb3806564832ae2555589787b1df341c5f4ba93aad571d6f3c84a6c00d827"
+ },
+ "C0/datahive-ru_000001": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19519,
+  "peak_working_set_mib": 245.4,
+  "inference": {
+   "read_ms": 69,
+   "load_ms": 711,
+   "infer_ms": 18522,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "2621293cb5f596566f204ce35f8397fbdb4bb6c953068b7769643c44d1ac5f20",
+  "turns_sha256": "babe357c337261ab123fd0d448375610af1c257aea56af27aaf7abc85a61ef52"
+ },
+ "C1/datahive-ru_000001": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7118,
+  "peak_working_set_mib": 641.9,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1016,
+   "infer_ms": 5588,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "ca9f6c0ef6862f965f5a6ed1edd3ecd59ea9db9825de4a26fc64dc10139af68c",
+  "turns_sha256": "2f4d6ddfb0fa6ae6f7ca46258bc143ba582ca7069f45100ebb3172647be0aba1"
+ },
+ "C2/datahive-ru_000001": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6576,
+  "peak_working_set_mib": 374.9,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 667,
+   "infer_ms": 5453,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "49fa985fb1e68aefa5303ee40d3e2ef4f47601e9e1397adf3fb909475b5820fc",
+  "turns_sha256": "1cc7aac683b1b03e8e0097e1ae74dfa5cafe763d3e2d6abcfb6a4a66686d47d9"
+ },
+ "C0/datahive-ru_000002": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 22780,
+  "peak_working_set_mib": 256.6,
+  "inference": {
+   "read_ms": 70,
+   "load_ms": 669,
+   "infer_ms": 21835,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "0aa9de2d55c2a01bdd01689b80cc1e24e8b730595a8c6f7c0e98f58955db3ee3",
+  "turns_sha256": "92e73366f58e24cd8bb177fa02c965ea851e7ff00af4983ab99edf869da605d1"
+ },
+ "C1/datahive-ru_000002": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7351,
+  "peak_working_set_mib": 641.9,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1028,
+   "infer_ms": 5761,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "5f018735abeea99acb6ea833facbe25c4d0b149c1310402cc3e3542a4b1b155c",
+  "turns_sha256": "4d0b673b660611fb39c851e45c7669779054d879e8ef32a32edcc0ea9d0f9841"
+ },
+ "C2/datahive-ru_000002": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6645,
+  "peak_working_set_mib": 375.2,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 707,
+   "infer_ms": 5460,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "ff752c70a87a5eb787788d4b3c0e577492412c5c58ea9c60f9ec4c232af8dbbd",
+  "turns_sha256": "9607ff54fe9a12256180ddaee47bd1ee7e46075c69e1dac48ad061d2994b358c"
+ },
+ "C0/datahive-ru_000003": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 34810,
+  "peak_working_set_mib": 332.6,
+  "inference": {
+   "read_ms": 68,
+   "load_ms": 682,
+   "infer_ms": 33849,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "822d826de6d0e1570e1248bf582175532a7eb805c4d7fafdf61df9e3a3bae5c1",
+  "turns_sha256": "1330149b38f786144347c915f5dae85beb93216f3dde1dd13753c43880aa9e4e"
+ },
+ "C1/datahive-ru_000003": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7607,
+  "peak_working_set_mib": 641.5,
+  "inference": {
+   "read_ms": 6,
+   "load_ms": 1092,
+   "infer_ms": 5983,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "f6f60d534871fe4ed51c9d8a95c853ccf52a45fc15e48c1ce3df4786a0554d1a",
+  "turns_sha256": "8a2ea1abb096b889e8e15409fea125a2ee0cb6cced5340d51a8c9a270c047974"
+ },
+ "C2/datahive-ru_000003": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6963,
+  "peak_working_set_mib": 376.1,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 798,
+   "infer_ms": 5628,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "ebc946a72d2de72a5893ebd683f66591dd8da42dfe828ecc92f6075f89c59233",
+  "turns_sha256": "dbd1ed06f8076be72c03441735da8f62a8711fd0e0de24819a5321bbf8215dd5"
+ },
+ "C0/datahive-ru_000004": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 37403,
+  "peak_working_set_mib": 346.2,
+  "inference": {
+   "read_ms": 71,
+   "load_ms": 698,
+   "infer_ms": 36380,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "d5864517136e60bbd4bce310430561636e0adebe7728fd0f1628a1351f0f7805",
+  "turns_sha256": "b2648e8881024d856c7dd063168a3d3b954a8c420b219188591ab04f3a76d268"
+ },
+ "C1/datahive-ru_000004": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7213,
+  "peak_working_set_mib": 641.9,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1038,
+   "infer_ms": 5678,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "5a4326fd8e2b81356a9adcc5af72ede0b1229d9a2709df42b8d1dcb45d5a2b83",
+  "turns_sha256": "7f3fccfedf5bf863c026938ac1f6998aa995a169e9189b4bf333a758f3c2c100"
+ },
+ "C2/datahive-ru_000004": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6937,
+  "peak_working_set_mib": 376.1,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 726,
+   "infer_ms": 5706,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "8125a15852f9d8e9ff610fe91f91fb4d38e0704038771340b424e535c30a00f2",
+  "turns_sha256": "c9ac0727bd6ef65025b951b3ee592e4ae32b561d227d994633f2fdda32c85f85"
+ },
+ "C0/datahive-ru_000005": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 30787,
+  "peak_working_set_mib": 259.1,
+  "inference": {
+   "read_ms": 69,
+   "load_ms": 696,
+   "infer_ms": 29825,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "cf1faabbc3c4dc2672674d34f9eee6721d66e9ac7f7676e281b84c542528c92b",
+  "turns_sha256": "93ff15380be42ec890f81b5ca1aa551d52bb3f1f751d47cd012f617ce0d8232a"
+ },
+ "C1/datahive-ru_000005": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7468,
+  "peak_working_set_mib": 642.0,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1067,
+   "infer_ms": 5884,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "7750af23f2837a323802ee8fba06bece6211d2b8ef547b26aa93d64030ff8bdc",
+  "turns_sha256": "bbe5332300465660600576c725848d40a44cff37a05ed3b5188e981d5c4e8512"
+ },
+ "C2/datahive-ru_000005": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7016,
+  "peak_working_set_mib": 375.3,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 725,
+   "infer_ms": 5769,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "6c58bab35aa650ee539366ca827b2a2b5f6fac06f110bfbc29160acd94a7d7e4",
+  "turns_sha256": "8e64bfce1eb65fbbc75a6f9b8996528c9c32e035911d52213192352b95fe28cc"
+ },
+ "C0/datahive-ru_000006": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 33574,
+  "peak_working_set_mib": 258.7,
+  "inference": {
+   "read_ms": 73,
+   "load_ms": 706,
+   "infer_ms": 32587,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "44982b6bdafac224238cb71b53fae462546050ac307312677170df2b344e5ed2",
+  "turns_sha256": "da6a65ae89c59efdb2694189aba21f295e276dd0e7219172fa45e13de0fef1c6"
+ },
+ "C1/datahive-ru_000006": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7056,
+  "peak_working_set_mib": 642.2,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1022,
+   "infer_ms": 5515,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "126d5d2ddd4128ade8ac18e17a5b2a0358c3368ddbcc3878da0d239ff10e0dcd",
+  "turns_sha256": "592670d46a673f868273019a589f454e1df8feb16f47f0ba7da4fe2e5e1b21d1"
+ },
+ "C2/datahive-ru_000006": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6815,
+  "peak_working_set_mib": 375.9,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 684,
+   "infer_ms": 5654,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "3f38f2943fb145a662b85bce13a1bd101066fd3d91d6812afdde454393adc19b",
+  "turns_sha256": "7e3fbb6fa403e48fb4affd505fe05bd9882bb6e5dbffe14b2220ed0097a08a4b"
+ },
+ "C0/datahive-ru_000007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 28488,
+  "peak_working_set_mib": 265.6,
+  "inference": {
+   "read_ms": 72,
+   "load_ms": 724,
+   "infer_ms": 27452,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "4cb312b847113528a2414abd1ef2ae3889d4e798c5fd9973e0d3237750cfaa1e",
+  "turns_sha256": "090a90c253db4e7690e4b204353a752922c35708ee044881da0cda40a7aa1a8b"
+ },
+ "C1/datahive-ru_000007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7427,
+  "peak_working_set_mib": 642.2,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1095,
+   "infer_ms": 5853,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "b1ffd45e7c8d9a0da18a2b7b7953aea4ccba9b4bbb04f138c32a2603a9da0828",
+  "turns_sha256": "f70b1aa6ace064fa393f2862e3d7923b33e9883d2753d538457c50f41f6740d4"
+ },
+ "C2/datahive-ru_000007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6834,
+  "peak_working_set_mib": 374.5,
+  "inference": {
+   "read_ms": 6,
+   "load_ms": 690,
+   "infer_ms": 5631,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "dc043d5e8e112f4c92db80dbc21958c720f0c3efaea0c1def7330af030572e72",
+  "turns_sha256": "a12742f52eed72878028b89679e0ddd8ad65cc118e65946ac8f18bf2b122893c"
+ },
+ "C0/datahive-ru_000008": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 26456,
+  "peak_working_set_mib": 259.2,
+  "inference": {
+   "read_ms": 70,
+   "load_ms": 745,
+   "infer_ms": 25405,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "d26e91972b6d524924f08237912dc3d7e020ada32f0f4056fec634bb32fae144",
+  "turns_sha256": "ce41c2ebe6971cb28b9be9857bafb1d0739bc0d35e7174d998457cfda893b66e"
+ },
+ "C1/datahive-ru_000008": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7505,
+  "peak_working_set_mib": 642.2,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1088,
+   "infer_ms": 5921,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "cbf28de2dc068a252ba7b4421429a25f06d1a7a2d821a22d608088747f25138a",
+  "turns_sha256": "5fb0352eb6187ede4dedecce1536f16752fb52acac5a0da4a5da2ee4945fe0bb"
+ },
+ "C2/datahive-ru_000008": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7092,
+  "peak_working_set_mib": 375.4,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 749,
+   "infer_ms": 5839,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "e34673c9afaeb1274c419a03d56ab33365133749088352b02a51f8020a8a68be",
+  "turns_sha256": "303fea3ab0727e5484e57b553050966c27cb71d571a3a7a64bcc88535cdd42cc"
+ },
+ "C0/datahive-ru_000009": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 32890,
+  "peak_working_set_mib": 330.3,
+  "inference": {
+   "read_ms": 71,
+   "load_ms": 734,
+   "infer_ms": 31825,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "1ccd31233b66197b519aa03bb7321f7a96292b7bbf97ac4bf2c8a615a93aa59f",
+  "turns_sha256": "4bbe923ea5a847d123faf87daa1515d111ee0bdba24238768ef746d8f0b515a4"
+ },
+ "C1/datahive-ru_000009": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7054,
+  "peak_working_set_mib": 641.7,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 1002,
+   "infer_ms": 5546,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "2daa68e03ccea10b035f52185ffabcb8f24940f323d1b6c60a0a20a37b7e2e71",
+  "turns_sha256": "d8d3d47b03761c0083d477ec75cf0c15f73507ea17082e59a967b9103f2e7137"
+ },
+ "C2/datahive-ru_000009": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6566,
+  "peak_working_set_mib": 374.7,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 673,
+   "infer_ms": 5434,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "840287c435f6b5ceb61866af381fa3ac87775952262606db932702b7db1feb83",
+  "turns_sha256": "de62db3d1c4455281aa6182019fe72b57286f0b9d2447377196639a3ea59b20b"
+ },
+ "C0/datahive-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 29530,
+  "peak_working_set_mib": 264.3,
+  "inference": {
+   "read_ms": 70,
+   "load_ms": 676,
+   "infer_ms": 28582,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "a975a8e0fd1d067381e01befd692c2b9e53bd297f22674c8d43d9c10cf885b13",
+  "turns_sha256": "ac5c15e03214e3987910ff1a21c000a95bf1bc130368e31c4fc898c271e26a03"
+ },
+ "C1/datahive-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7365,
+  "peak_working_set_mib": 641.6,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1059,
+   "infer_ms": 5763,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "7b1b02f9056fb68eea54b90103aef5558519a96c740189826a48118c6f860cc4",
+  "turns_sha256": "a00e05c925773b15ed2f1f4d15fdc51f0abbe25425fbbdfb1ca04179d47f3f6f"
+ },
+ "C2/datahive-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6876,
+  "peak_working_set_mib": 375.8,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 721,
+   "infer_ms": 5639,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "786274d8d614742637a03a4063b25605cecab41bf7b11e202a2c72c1796a863b",
+  "turns_sha256": "3cd35d7ec8896f3b1eb2809fe5149b4d2cad293b6a8cb2d0f8347a0ac593f6bc"
+ },
+ "C0/datahive-ru_000011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 36108,
+  "peak_working_set_mib": 334.5,
+  "inference": {
+   "read_ms": 72,
+   "load_ms": 697,
+   "infer_ms": 35088,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "3098012a84216a3ef246f5bf2f82374f1690800b5840bb48cf2b4316c63ed615",
+  "turns_sha256": "9dfb4b8d0d3842c23ec1ec07c7ac0a5e1d78293b8ebb16fc8bbe74e8cca2bf27"
+ },
+ "C1/datahive-ru_000011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7144,
+  "peak_working_set_mib": 642.0,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1024,
+   "infer_ms": 5634,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "912b4b8f60f8fa0720bef017dc80bac96113184d797f437f702b4a55227c4204",
+  "turns_sha256": "de2adb16989a4ba28cd7dd0b430fc0a9465db2636fc604766514cb3a89731cd1"
+ },
+ "C2/datahive-ru_000011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6690,
+  "peak_working_set_mib": 374.8,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 665,
+   "infer_ms": 5550,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "4fb33a7f07c68b17dd3b1d80d780f00e801e0866bbb661dcdf4ab9108856db92",
+  "turns_sha256": "1656807a004138f2dfd94dca65a08ef7f4584cc31f5876a3765b5ce91917f646"
+ },
+ "C0/datahive-ru_000012": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 27570,
+  "peak_working_set_mib": 264.2,
+  "inference": {
+   "read_ms": 70,
+   "load_ms": 684,
+   "infer_ms": 26580,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "ff099680fd690b1565e19dc1f583b6e042a904028daeff3dc7564e71374d1cb6",
+  "turns_sha256": "2357f8c9e787049861e4e1f4d38a22c0f16c44c59d9fe274237f1aac3fa62e5e"
+ },
+ "C1/datahive-ru_000012": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7558,
+  "peak_working_set_mib": 642.0,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1100,
+   "infer_ms": 5944,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "dc7f0bdc723bd9d737c06aa3068def060ac7036e003b64512f103bf8c569d5f9",
+  "turns_sha256": "229c2a8d5fd58ae74dde397c8cab79f7febdc1d523c2f6c7d7863005e9a5dec5"
+ },
+ "C2/datahive-ru_000012": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7511,
+  "peak_working_set_mib": 375.8,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 852,
+   "infer_ms": 6099,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "9157fa79bf29762e371c33319b01631965d66830f4b141c9c13cda0f11be9b10",
+  "turns_sha256": "ab0769df1423a3b864deec27a74595bcb9470232ce78f0a3cefe3082b0bb211c"
+ },
+ "C0/datahive-ru_000013": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 34905,
+  "peak_working_set_mib": 330.3,
+  "inference": {
+   "read_ms": 70,
+   "load_ms": 677,
+   "infer_ms": 33914,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "912a9eb5699d143aab36d6af9eb7ef92d228cea1991ede7b6813876e5474d365",
+  "turns_sha256": "0b2a8ff9788b5bd36dc0a7adc05972ce207abdf00a3afd679a25f62a983927bc"
+ },
+ "C1/datahive-ru_000013": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7362,
+  "peak_working_set_mib": 641.7,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1060,
+   "infer_ms": 5798,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "6fd0d779d499c06630dd11581272f09f505bc726175cfae6f9dc2eadba73c81b",
+  "turns_sha256": "c1076db8adb07421baea3ffe0d48957187e7db49e8c09fbfffaf16846711424b"
+ },
+ "C2/datahive-ru_000013": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6820,
+  "peak_working_set_mib": 375.3,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 706,
+   "infer_ms": 5646,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "b0137e3e8b782767bfd4963a04a88c07cf4003c21c97d991649f27d1a7f03964",
+  "turns_sha256": "c26c3d9c74313fbf0d0576d9fa1ef26910649095e552f7ba84efe352a00163db"
+ },
+ "C0/datahive-ru_000014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 32920,
+  "peak_working_set_mib": 336.3,
+  "inference": {
+   "read_ms": 73,
+   "load_ms": 732,
+   "infer_ms": 31907,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "23bd92118bddd9d0898b739fe72000ae15620909a1df0b4c85fb9f116a76ae0d",
+  "turns_sha256": "3bf19984bc20e87371c22e8ebe5abdbe470c02327f1823dabd3ab0aa0f740c36"
+ },
+ "C1/datahive-ru_000014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7061,
+  "peak_working_set_mib": 641.6,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1000,
+   "infer_ms": 5549,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "1f2716b02dc22957ae942de687bf1cecbd14224ad134f0618c680a58a75eff48",
+  "turns_sha256": "979abc23263ac52b5a4c9ca59634f6143e8ffae57b1fea65386a4e2651fe8991"
+ },
+ "C2/datahive-ru_000014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6755,
+  "peak_working_set_mib": 375.4,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 650,
+   "infer_ms": 5628,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "029c8ed125ed061270d87bc52e00d711994fb906f37a8892146030e999551d02",
+  "turns_sha256": "3f57c7476a0f434c3a51eb62984f749cee0eb6571ce078f45f666a179885ed43"
+ },
+ "C0/datahive-ru_000015": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 33763,
+  "peak_working_set_mib": 349.0,
+  "inference": {
+   "read_ms": 69,
+   "load_ms": 770,
+   "infer_ms": 32671,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "58cca2f4b7a089d4a311d1ff6b03356b8f14ff111944b4a86efba905980aec33",
+  "turns_sha256": "04b66c1ca0817ff9de94aee0559847c754209d88f85d41e56cfdfa90116aaa85"
+ },
+ "C1/datahive-ru_000015": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7337,
+  "peak_working_set_mib": 642.1,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1028,
+   "infer_ms": 5810,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "aec427f039d8f88b4a106e55beeeb128dd23037e7b94d3702506c717548ad747",
+  "turns_sha256": "d951e0ca365e4914d61dc26dc59e4c5501733f2c55e0110d794665482a09afd8"
+ },
+ "C2/datahive-ru_000015": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6885,
+  "peak_working_set_mib": 375.8,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 697,
+   "infer_ms": 5676,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "042c19c7145b02b9ba90608fba2713ee33b2c7e872983f338f793aa32d26d257",
+  "turns_sha256": "e02a25cc3c3a1e234e41ee6e3bc79c186e8c094022f5807a237b2bd5f7703fab"
+ },
+ "C0/datahive-ru_000016": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 34698,
+  "peak_working_set_mib": 342.5,
+  "inference": {
+   "read_ms": 71,
+   "load_ms": 691,
+   "infer_ms": 33707,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "1521d7fbb3a6857b9b1cad100f9b694cf682bdad3c04a777e7baae947a5a5a7b",
+  "turns_sha256": "eb22fed0386eb265bfa685c57fb82a10ec76236e3622798660ac99161bab1523"
+ },
+ "C1/datahive-ru_000016": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7054,
+  "peak_working_set_mib": 642.1,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 1076,
+   "infer_ms": 5483,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "b6f88b275ac7fe114defce2911c4d00b621c9de0c67fe554a704291654a93804",
+  "turns_sha256": "002454e6d3515c208a584564a5f769a27181742ad2a9a9e2e96c7d2a6b564465"
+ },
+ "C2/datahive-ru_000016": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6708,
+  "peak_working_set_mib": 376.5,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 649,
+   "infer_ms": 5569,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "38048ed0526a33a9af108b2c3d202e72a2e91a584fb2c49831538af34416deae",
+  "turns_sha256": "efa84ad4415f0ff67c3892c8a72998dbebce87dff61a3c478b8c928e0557aeda"
+ },
+ "C0/datahive-ru_000017": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 31249,
+  "peak_working_set_mib": 263.9,
+  "inference": {
+   "read_ms": 69,
+   "load_ms": 691,
+   "infer_ms": 30239,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "390a8a724dc5baf706b84ad141284a753c8d216bdcea48ad4dade3bd395010a9",
+  "turns_sha256": "d57a60fa0183df50afbd2cb545acda7b84008e245aa97b9470b1918f95556b5a"
+ },
+ "C1/datahive-ru_000017": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7317,
+  "peak_working_set_mib": 642.2,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1023,
+   "infer_ms": 5776,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "4a180d57538a3b33dcb231b2f7dda89cb573db4371d50ed2fe1bdefc052dbfc4",
+  "turns_sha256": "9d7eaadf83936913f7cd4c802891c7084bda15f84d98dabd7cb5d18949c026ae"
+ },
+ "C2/datahive-ru_000017": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6958,
+  "peak_working_set_mib": 375.2,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 714,
+   "infer_ms": 5729,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "020a6718e6009a166b0fb8708fb22c9b82da7f2e3f3f32f9b15f19498affac24",
+  "turns_sha256": "c5078d434e162eeb5db96474a7cf62ae1c8dd14772b2ae8cdec51e158aa65ebf"
+ },
+ "C0/datahive-ru_000018": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 21721,
+  "peak_working_set_mib": 220.1,
+  "inference": {
+   "read_ms": 71,
+   "load_ms": 718,
+   "infer_ms": 20716,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "a7e2dc9c7edb5140ebac9640ac55d4122940cc902bb3451e8dd7b923d9212c21",
+  "turns_sha256": "70e0ce9a317d1dfe9b30a621742de626f7915faaf511182a5dc6d94c217036bc"
+ },
+ "C1/datahive-ru_000018": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7335,
+  "peak_working_set_mib": 641.7,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1023,
+   "infer_ms": 5782,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "bfd73c12c8c8a9fb354d7b67bd69f9085bb34c1ee72f0f0712b717a99faedd6e",
+  "turns_sha256": "14236f45f1c26ff0092130de80f7561f97eed7020050513293e8ab897d2c7700"
+ },
+ "C2/datahive-ru_000018": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6905,
+  "peak_working_set_mib": 375.5,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 725,
+   "infer_ms": 5713,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "5be4f7f4e938e9553f7e5be4c1330a471101907e179a12b47d3df4a7bc5cddc8",
+  "turns_sha256": "0ab103f016718f35ce0539487ec4798bbcfaa19ca442c443ee18e4700d56d295"
+ },
+ "C0/datahive-ru_000019": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 27021,
+  "peak_working_set_mib": 263.1,
+  "inference": {
+   "read_ms": 72,
+   "load_ms": 697,
+   "infer_ms": 26018,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "12d8038e7feb32cf11f519a584178d552599801486ed294671411c99b83633d0",
+  "turns_sha256": "09a15c32f211708d97146225b7148ae0b54a8740312aafe6bf95362867fc93c5"
+ },
+ "C1/datahive-ru_000019": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7243,
+  "peak_working_set_mib": 642.0,
+  "inference": {
+   "read_ms": 6,
+   "load_ms": 1031,
+   "infer_ms": 5703,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "97208b9f5d8111fb820d58277368b1e18880628446ac15534b5ef6a9238788df",
+  "turns_sha256": "c5542caf0cc3d51ad65faab3ff411cb9a98be65bc8e0a8a87f141d598a3b39cd"
+ },
+ "C2/datahive-ru_000019": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6914,
+  "peak_working_set_mib": 375.7,
+  "inference": {
+   "read_ms": 4,
+   "load_ms": 706,
+   "infer_ms": 5701,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "f9f6c654a5320f79a92d4792d382b4381b7e10b0d4fa49867d391f860cb1a66c",
+  "turns_sha256": "56e0c1579c623d306570ab8c5f5601361ea7e2ca01b3c01d8cdb970aa8e94136"
+ },
+ "C0/datahive-ru_000020": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 24059,
+  "peak_working_set_mib": 239.5,
+  "inference": {
+   "read_ms": 72,
+   "load_ms": 714,
+   "infer_ms": 23011,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "805f36277d71001b5b118162c8f426a2b32f9b17de71deba4d465417a7e3af5e",
+  "turns_sha256": "43c3a1362a06a471dfafa1077825302392d93c74005b44b18da137a38ecfe41f"
+ },
+ "C1/datahive-ru_000020": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7193,
+  "peak_working_set_mib": 641.4,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 1024,
+   "infer_ms": 5657,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "f6c30fa21ef3e3854d9746e2c63423d9180026b9bc912ce26d7185accb2e131c",
+  "turns_sha256": "0b1797b257a20ac1278702fbaa405131c3c170b7478701fc186f53e0c09bccdf"
+ },
+ "C2/datahive-ru_000020": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6700,
+  "peak_working_set_mib": 375.1,
+  "inference": {
+   "read_ms": 5,
+   "load_ms": 636,
+   "infer_ms": 5619,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "94257971ca22670e270a3917d4fa2dd7af8f616689e1b51661be7d9e8f7dcfd6",
+  "turns_sha256": "fc68ebde3d636bddf480b7399bf1383e71ec9b127e745770a26cc91a70ce8bc9"
+ },
+ "C0/nonspeech-silence": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3628,
+  "peak_working_set_mib": 175.3,
+  "inference": {
+   "read_ms": 45,
+   "load_ms": 741,
+   "infer_ms": 2583,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "183213f9d2fa0ee620904b7cae3c450b77f316aa487ad88ce819d28a87707881",
+  "turns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "C1/nonspeech-silence": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4528,
+  "peak_working_set_mib": 557.6,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1033,
+   "infer_ms": 2962,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "3116d2d90acf1b6734f3a18e64422532da5f2a28c3fccac893a5b8df9403c9f1",
+  "turns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "C2/nonspeech-silence": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3993,
+  "peak_working_set_mib": 292.5,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 750,
+   "infer_ms": 2777,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "1ded309498750b1d9b3514962402dd54fd446b1d3c96115a69a5d437c22e663a",
+  "turns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "C0/nonspeech-whitenoise": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3437,
+  "peak_working_set_mib": 174.8,
+  "inference": {
+   "read_ms": 43,
+   "load_ms": 698,
+   "infer_ms": 2498,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "ffa17fe5790d31b29c238c107902aeea6508202567a5f5b110d1fbf51aa0c60f",
+  "turns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "C1/nonspeech-whitenoise": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4259,
+  "peak_working_set_mib": 557.7,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 1038,
+   "infer_ms": 2765,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "0af769ad23d1c0e71cfc5a6179d332a49134bf0d558de4676e7a47683ba28c0a",
+  "turns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "C2/nonspeech-whitenoise": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3920,
+  "peak_working_set_mib": 292.9,
+  "inference": {
+   "read_ms": 3,
+   "load_ms": 682,
+   "infer_ms": 2745,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "030d7a4c50a06423657d8c46aa49b4a82f89c7f3376e2e1e58fa238ec4b89818",
+  "turns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "C0/acted-dmd": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4444,
+  "peak_working_set_mib": 211.6,
+  "inference": {
+   "read_ms": 24,
+   "load_ms": 691,
+   "infer_ms": 3485,
+   "threshold": 0.8,
+   "threads": 2,
+   "onnxruntime": "1.17.1"
+  },
+  "fingerprint": "6a6a4dfa0114438a9b2a990fdb2256e610a73e7950584900ba7ac804d02f5813",
+  "turns_sha256": "1145efa8bff29f94eca4b54f9c15d578d9b3dbf4b2f455d1edb65c739296ddce"
+ },
+ "C0/acted-dmd/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4485,
+  "peak_working_set_mib": 698.3,
+  "inference": {
+   "load_ms": 2398,
+   "decode_ms": 1807,
+   "windows": 5,
+   "threads": 2
+  },
+  "fingerprint": "497926051b93456ebb0ed2037536c8a9ded6611ad836fa4a981e2653271d94e3",
+  "transcript_sha256": "5dd91dfc14f6d8f8f8d165e0d873aa8d95fb021db46a8e6a5e7cd6376b8d1a6b"
+ },
+ "C1/acted-dmd": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2046,
+  "peak_working_set_mib": 478.8,
+  "inference": {
+   "read_ms": 1,
+   "load_ms": 1042,
+   "infer_ms": 477,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  },
+  "fingerprint": "169695bf5a84f18836a14843c28aef75af7bebab5010daca21111a42d9c441d0",
+  "turns_sha256": "4fd4249c449c85d526ba4a5d5eb347bbbad47a45867b62bdf9ded7f64d59479a"
+ },
+ "C1/acted-dmd/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4365,
+  "peak_working_set_mib": 696.7,
+  "inference": {
+   "load_ms": 2386,
+   "decode_ms": 1757,
+   "windows": 6,
+   "threads": 2
+  },
+  "fingerprint": "9cf0185bac0e886a81a375e84d7d603d38abf976d56e31f14f93e89f3686dab3",
+  "transcript_sha256": "8e515e0d06dd133a8247fc5ce44708a2cd0e7b51794fcd7ed2cb4f8f1dd20da2"
+ },
+ "C2/acted-dmd": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 1698,
+  "peak_working_set_mib": 213.0,
+  "inference": {
+   "read_ms": 2,
+   "load_ms": 729,
+   "infer_ms": 471,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  },
+  "fingerprint": "3ea2e560ef3e521eca73a7e9e551c684c499e24068e8585eaee4cf058a52e1ab",
+  "turns_sha256": "09f29010aaf1172b0861478d8f3542cc8da3c389fd826b3c1005de55bcb56a3f"
+ },
+ "C2/acted-dmd/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4444,
+  "peak_working_set_mib": 697.8,
+  "inference": {
+   "load_ms": 2424,
+   "decode_ms": 1738,
+   "windows": 6,
+   "threads": 2
+  },
+  "fingerprint": "8d2c8fc2f9e8615a3aa2e0a47470b28f0dcda776c66ff10270355999cdf0717f",
+  "transcript_sha256": "1554fbbd56de4b5db344da06c5f116fe237f71a3e613fe19ce37b78fab582ab2"
+ }
+}

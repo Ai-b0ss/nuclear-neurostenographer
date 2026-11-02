@@ -1,0 +1,236 @@
+{
+ "scope": "Intervals only; automatic, not a human reference",
+ "cases": {
+  "datahive-ru_000001": {
+   "reference_speech_ms": {
+    "callee": 37432,
+    "caller": 21782
+   },
+   "C0": {
+    "0": {
+     "callee": 355,
+     "caller": 2978,
+     "total_ms": 3529,
+     "first_ms": 1330
+    },
+    "1": {
+     "callee": 694,
+     "caller": 3494,
+     "total_ms": 3932,
+     "first_ms": 5650
+    },
+    "2": {
+     "callee": 1619,
+     "caller": 570,
+     "total_ms": 1619,
+     "first_ms": 10291
+    },
+    "3": {
+     "callee": 1137,
+     "caller": 88,
+     "total_ms": 1249,
+     "first_ms": 27014
+    },
+    "4": {
+     "callee": 6404,
+     "caller": 1565,
+     "total_ms": 6462,
+     "first_ms": 30440
+    },
+    "5": {
+     "callee": 4423,
+     "caller": 0,
+     "total_ms": 6530,
+     "first_ms": 36802
+    },
+    "6": {
+     "callee": 4702,
+     "caller": 2288,
+     "total_ms": 4894,
+     "first_ms": 38202
+    },
+    "7": {
+     "callee": 10396,
+     "caller": 2260,
+     "total_ms": 10954,
+     "first_ms": 44969
+    },
+    "8": {
+     "callee": 1444,
+     "caller": 1375,
+     "total_ms": 1503,
+     "first_ms": 53018
+    },
+    "9": {
+     "callee": 880,
+     "caller": 572,
+     "total_ms": 928,
+     "first_ms": 69522
+    },
+    "10": {
+     "callee": 3200,
+     "caller": 0,
+     "total_ms": 3223,
+     "first_ms": 73201
+    }
+   },
+   "C2": {
+    "0": {
+     "callee": 12034,
+     "caller": 5292,
+     "total_ms": 13010,
+     "first_ms": 2640
+    },
+    "1": {
+     "callee": 22864,
+     "caller": 3498,
+     "total_ms": 26340,
+     "first_ms": 6840
+    },
+    "2": {
+     "callee": 2168,
+     "caller": 4330,
+     "total_ms": 4510,
+     "first_ms": 8720
+    }
+   }
+  },
+  "datahive-ru_000017": {
+   "reference_speech_ms": {
+    "callee": 34588,
+    "caller": 78004
+   },
+   "C0": {
+    "0": {
+     "callee": 25587,
+     "caller": 9079,
+     "total_ms": 27643,
+     "first_ms": 31
+    },
+    "1": {
+     "callee": 2300,
+     "caller": 6810,
+     "total_ms": 6834,
+     "first_ms": 959
+    },
+    "2": {
+     "callee": 4195,
+     "caller": 39278,
+     "total_ms": 39404,
+     "first_ms": 15978
+    },
+    "3": {
+     "callee": 4116,
+     "caller": 6380,
+     "total_ms": 6819,
+     "first_ms": 37240
+    },
+    "4": {
+     "callee": 1714,
+     "caller": 11484,
+     "total_ms": 12133,
+     "first_ms": 38253
+    },
+    "5": {
+     "callee": 1853,
+     "caller": 1233,
+     "total_ms": 1856,
+     "first_ms": 76053
+    },
+    "6": {
+     "callee": 3112,
+     "caller": 1629,
+     "total_ms": 3646,
+     "first_ms": 96320
+    },
+    "7": {
+     "callee": 337,
+     "caller": 0,
+     "total_ms": 337,
+     "first_ms": 106968
+    }
+   },
+   "C2": {
+    "0": {
+     "callee": 11262,
+     "caller": 64090,
+     "total_ms": 64530,
+     "first_ms": 0
+    },
+    "1": {
+     "callee": 31366,
+     "caller": 11544,
+     "total_ms": 32230,
+     "first_ms": 880
+    }
+   }
+  },
+  "rubook-rec_0416-white0db": {
+   "reference_speech_ms": {
+    "spk0": 12505,
+    "spk1": 18059,
+    "spk2": 29262
+   },
+   "C0": {
+    "0": {
+     "spk0": 12468,
+     "spk1": 0,
+     "spk2": 1491,
+     "total_ms": 12708,
+     "first_ms": 588
+    },
+    "1": {
+     "spk0": 0,
+     "spk1": 11716,
+     "spk2": 2025,
+     "total_ms": 11880,
+     "first_ms": 5212
+    },
+    "2": {
+     "spk0": 1126,
+     "spk1": 3648,
+     "spk2": 26864,
+     "total_ms": 28199,
+     "first_ms": 9430
+    },
+    "3": {
+     "spk0": 0,
+     "spk1": 4630,
+     "spk2": 0,
+     "total_ms": 4657,
+     "first_ms": 53508
+    },
+    "4": {
+     "spk0": 0,
+     "spk1": 0,
+     "spk2": 1485,
+     "total_ms": 1485,
+     "first_ms": 58486
+    }
+   },
+   "C2": {
+    "0": {
+     "spk0": 12321,
+     "spk1": 0,
+     "spk2": 1391,
+     "total_ms": 12410,
+     "first_ms": 570
+    },
+    "1": {
+     "spk0": 781,
+     "spk1": 16603,
+     "spk2": 15809,
+     "total_ms": 30730,
+     "first_ms": 5270
+    },
+    "2": {
+     "spk0": 0,
+     "spk1": 1834,
+     "spk2": 11260,
+     "total_ms": 11260,
+     "first_ms": 27200
+    }
+   }
+  }
+ }
+}

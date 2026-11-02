@@ -1,0 +1,33 @@
+{
+ "kind": "NOT_SCORED",
+ "reviewer": "none",
+ "reviewed_files": 0,
+ "sample": 6,
+ "note": "Kept apart from VAD pseudo-reference results. Audio, labels and transcripts are not in Git.",
+ "rows": [
+  {
+   "case": "datahive-ru_000001",
+   "status": "NOT_REVIEWED"
+  },
+  {
+   "case": "datahive-ru_000017",
+   "status": "NOT_REVIEWED"
+  },
+  {
+   "case": "datahive-ru_000006",
+   "status": "NOT_REVIEWED"
+  },
+  {
+   "case": "datahive-ru_000010",
+   "status": "NOT_REVIEWED"
+  },
+  {
+   "case": "datahive-ru_000013",
+   "status": "NOT_REVIEWED"
+  },
+  {
+   "case": "datahive-ru_000014",
+   "status": "NOT_REVIEWED"
+  }
+ ]
+}
