@@ -13,6 +13,7 @@ import struct
 import time
 import xml.etree.ElementTree as ET
 from verify_transcript_exports import verify as verify_transcript_files
+from app_failure_detector import scan as scan_app_failures
 
 PACKAGE = "ru.neurostenographer.app"
 
@@ -223,11 +224,22 @@ def verify_saved_exports(exports, expected_runtime, directory):
     return {format: {"bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()} for format, body in exports.items()}
 
 
+def recorded_wav_seconds(ui):
+    """Duration of the newest app-private recording (never copied off the device)."""
+    listing = ui.shell("run-as", PACKAGE, "ls", "-lt", "files")
+    sizes = [int(m.group(1)) for m in re.finditer(r"\s(\d+)\s+\S+\s+\S+\s+recording_\d+\.wav", listing)]
+    if not sizes:
+        raise AssertionError("No recording_*.wav in the app files directory")
+    return max(0, sizes[0] - 44) / 32000
+
+
 def run(ui):
     checks = ui.checks
     # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
     ui.shell("settings", "put", "global", "hide_error_dialogs", "1")
+    ui.shell("logcat", "-c")
+    ui.started_at = ui.shell("date", "+%Y-%m-%d %H:%M:%S").strip()
     ui.shell("am", "force-stop", PACKAGE)
     ui.shell("pm", "revoke", PACKAGE, "android.permission.RECORD_AUDIO")
     ui.shell("pm", "clear-permission-flags", PACKAGE, "android.permission.RECORD_AUDIO", "user-set", "user-fixed")
@@ -252,17 +264,35 @@ def run(ui):
     ui.screenshot("rotated-recording", landscape=True)
     ui.visible("Остановить запись")
     checks.append("recording_survives_rotation")
+    recording_started = time.monotonic()
     ui.shell("input", "keyevent", "KEYCODE_HOME")
     time.sleep(3)
     services = ui.shell("dumpsys", "activity", "services", PACKAGE)
     if "RecordingService" not in services or "isForeground=true" not in services:
         raise AssertionError("Recording foreground service is not running in the background")
     checks.append("background_recording_holds_foreground_service")
+    # Screen off: the service must keep the recording going while the device sleeps.
+    ui.shell("input", "keyevent", "KEYCODE_SLEEP")
+    time.sleep(8)
+    ui.shell("input", "keyevent", "KEYCODE_WAKEUP")
+    ui.shell("wm", "dismiss-keyguard")
+    time.sleep(2)
+    if "isForeground=true" not in ui.shell("dumpsys", "activity", "services", PACKAGE):
+        raise AssertionError("Foreground service lost after the screen was turned off")
+    checks.append("recording_service_survives_screen_off")
     ui.launch()
     ui.visible("Остановить запись")
     ui.tap(label="Остановить запись")
+    recording_wall_s = time.monotonic() - recording_started
     ui.visible("Записать разговор")
     ui.visible("WAV сохранён")
+    wav_seconds = recorded_wav_seconds(ui)
+    # 16 kHz mono PCM16 with no gaps: the file covers (almost) the whole wall time.
+    if wav_seconds < recording_wall_s * 0.8 or wav_seconds > recording_wall_s + 2:
+        raise AssertionError(f"Recorded WAV {wav_seconds:.1f} s does not match {recording_wall_s:.1f} s of recording")
+    checks.append("recording_wav_is_continuous_across_home_and_screen_off")
+    ui.recorded_wav_seconds = round(wav_seconds, 1)
+    ui.recording_wall_seconds = round(recording_wall_s, 1)
     time.sleep(1)
     if "RecordingService" in ui.shell("dumpsys", "activity", "services", PACKAGE):
         raise AssertionError("Foreground service outlived the recording")
@@ -344,7 +374,16 @@ def run(ui):
     ui.tap(label="Удалить локальное аудио и результат")
     ui.visible("Локальные аудиокопии и результат очищены")
     ui.screenshot("final-clean")
+    logcat = ui.shell("logcat", "-d", "-b", "all")
+    dropbox = ui.shell("dumpsys", "dropbox", "--print", "data_app_anr", "data_app_crash", "data_app_native_crash")
+    (ui.directory / "logcat-ui-flow.txt").write_text(logcat, encoding="utf-8", errors="replace")
+    failures = scan_app_failures(logcat, dropbox, ui.started_at)
+    if failures:
+        raise AssertionError("App or worker failure hidden behind a passing UI: " + "; ".join(failures[:5]))
+    checks.append("no_app_or_worker_anr_crash_or_kill_in_logcat_and_dropbox")
     return {"status": "PASS", "checks": checks,
+            "recording_wall_seconds": getattr(ui, "recording_wall_seconds", None),
+            "recorded_wav_seconds": getattr(ui, "recorded_wav_seconds", None),
             "scope": "Disposable emulator UI and lifecycle; not physical-phone or microphone speech accuracy",
             "private_audio_collected": False, "saved_public_exports": export_evidence}
 
