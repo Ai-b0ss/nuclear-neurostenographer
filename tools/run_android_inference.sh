@@ -37,6 +37,10 @@ collect_evidence() {
   else
     python3 "$SCRIPT_DIR/validate_android_collection.py" device-evidence || true
   fi
+  # Wipes the app data (clean-install scenario), so it must run after the evidence was read.
+  if [[ "$status" == 0 ]]; then
+    (cd "$SCRIPT_DIR/.." && python3 "$SCRIPT_DIR/run_kit_install_check.py") || status=1
+  fi
   exit "$status"
 }
 trap collect_evidence EXIT
