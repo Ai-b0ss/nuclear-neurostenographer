@@ -99,6 +99,58 @@
   cause not yet isolated (candidates: the service, keeping the screen on, measurement
   timing). Emulator only; locked screen, OEM battery limits and a physical phone remain
   NOT_RUN.
+- **2026-11-03 — memory/speed analysis, recording lifecycle, false-positive guard.**
+  *Memory.* The "growth from 440 to 612 MiB" was a measurement artefact, not a regression
+  and not a leak. Seven runs of the same 20-minute test on different commits (service
+  present or absent) gave 439/440 or 610–628 MiB. The time series shows the app's native
+  heap at 454–472 MiB in the first sample of the ASR phase and a steady ~260 MiB after it:
+  the peak is the model load (`OfflineRecognizer` construction). A 2-second sampler hit it
+  in some runs and missed it in others. With 0.5-second sampling (`47ee932`) all three
+  runs report 611–613 MiB with the peak 0–2 s after ASR start, fast or slow runner. So the
+  honest app peak is **about 612 MiB** (earlier 440 MiB figures understated it); steady ASR
+  state is 415–440 MiB with a bounded sawtooth, no upward trend. Diarization worker peak
+  447–455 MiB; app and worker peaks are in different phases (diarization ends before ASR
+  starts), their sum at one instant was not measured.
+  *Speed.* Same code, same API 33 emulator: diarization 151–270 s, ASR 61–97 s across runs
+  (runner variance of about 1.8x), so the earlier 1.4x "slowdown" is not attributable to
+  code. Host CPU flags are not visible inside the emulator (`Android virtual processor`).
+
+  | Run (API 33, x86_64) | commit | diarization | ASR | RTF total | app peak | worker peak |
+  | --- | --- | --- | --- | --- | --- | --- |
+  | [41354324447](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41354324447) | 0dab286 | 162.6 s | 65.9 s | 0.19 | 440 MiB (2 s sampling, missed load peak) | 435 MiB |
+  | [41427928254](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41427928254) | 7f3b601 | 144.0 s | 60.9 s | 0.17 | 439 MiB (same) | 446 MiB |
+  | [41517372792](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41517372792) | 5f10e5d | 265.7 s | 96.3 s | 0.30 | 612 MiB | 454 MiB |
+  | [41527295772](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41527295772) | 47ee932 | 238 s | 93 s | 0.28 | 613 MiB (0.5 s) | 455 MiB |
+  | [41527295883](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41527295883) | 47ee932 | 156 s | 61 s | 0.18 | 611 MiB (0.5 s) | 455 MiB |
+  | [41527302740](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41527302740) | 47ee932 | 244 s | 93 s | 0.28 | 613 MiB (0.5 s) | 447 MiB |
+
+  All: 20 minutes of looped public fixtures (`stress_looped_public_fixtures_not_accuracy`),
+  synthetic PCM through `IsolatedDiarization` and `OfflineAsr`, **no microphone**. Not
+  measured: any ARM64 device, thermal state. Reducing the 612 MiB load peak was not
+  attempted (it needs a different loading mode of the runtime; no evidence yet that it
+  matters on the target phone).
+
+  *Recording lifecycle (emulator, real `AudioRecord` through `RecordingService`, separate
+  from the PCM stress test).* The UI flow (`tools/run_android_ui.py`) now: grants the
+  microphone, rotates, presses HOME, checks `isForeground=true`, turns the screen off for 8 s,
+  wakes it, returns, stops, and compares the WAV length with wall time. Run
+  [41527368727](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41527368727)
+  at `1fada6c`: API 33, 34 and 35 all PASS; the WAV was 26.1/26.7/25.7 s for 28.7/29.6/28.6 s
+  of wall time (gap only dialogs and finalization, no multi-second hole from HOME or
+  screen-off). The emulator microphone delivers silence, so this proves continuity, not
+  speech capture. A secure lock screen with a PIN, OEM battery policies and a physical
+  microphone are NOT_RUN.
+  *False-positive guard.* `hide_error_dialogs` could hide an ANR of our own app, so the UI
+  flow now scans logcat and DropBox for ANR, Java/native crashes, memory kills and
+  foreground-service start failure of `ru.neurostenographer.app` and `:diarization`
+  (`tools/app_failure_detector.py`, 12 unit tests including foreign ANR, similar package
+  name, deliberate permission-revocation kill, DropBox entries before the run). Foreign
+  ANRs (launcher) are ignored. It has passed on API 33–35 in the run above; it has not yet
+  been shown to catch a real injected failure on a device (only on authored logs).
+  *Go / no-go.* Emulator pipeline: GO (import, record, background/screen-off, offline
+  Russian ASR, speakers, TXT/JSON/SRT, no network permission; API 33–35). Telling anyone the
+  app works on a phone: NO-GO until `PHONE_ACCEPTANCE.md` is executed on ARM64. Public
+  APK release: NO-GO (licence/notices review still open).
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
