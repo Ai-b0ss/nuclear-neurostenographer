@@ -67,6 +67,23 @@ class NemotronBenchmarkTest {
         return evidence to output
     }
 
+    /** A damaged C2 model must fail only that request; C0 still works afterwards. This is what a fallback relies on. */
+    @Test fun damagedModelFailsAndC0StillWorks(): Unit = runBlocking {
+        val assets = instrumentation.context.assets
+        val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
+        val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
+        val audio = assets.open("nemotron-bench/acted-dmd.wav").use { PcmWav.read(it) }
+        val model = File(c2, "model.int8.ir9.onnx")
+        val original = model.readBytes()
+        model.writeBytes(original.copyOf(1024))
+        val (failed, _) = runOnce(audio, c2, NemotronBackend.C2)
+        model.writeBytes(original)
+        assertEquals("FAIL", failed.getString("status"))
+        val (fallback, output) = runOnce(audio, c0, NemotronBackend.C0)
+        assertEquals("OK", fallback.getString("status"))
+        assertTrue(output!!.turns.isNotEmpty())
+    }
+
     @Test fun sameRecordingsThroughBothBackends(): Unit = runBlocking {
         val assets = instrumentation.context.assets
         val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }

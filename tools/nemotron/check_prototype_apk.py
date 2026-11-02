@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import struct
 import subprocess
 import sys
 import zipfile
@@ -9,6 +10,12 @@ import zipfile
 FORBIDDEN = (b"espeak-ng-data", b"espeak_ng", b"libespeak")
 EXPECTED_LIBS = {"libonnxruntime.so", "libsherpa-onnx-jni.so", "libonnxruntime4j_jni.so", "libandroidx.graphics.path.so"}
 NOTICES = ("assets/nemotron-OpenMDW-1.1-LICENSE.txt", "assets/nemotron-onnx-NOTICE.txt", "assets/licenses/onnxruntime-LICENSE.txt", "assets/licenses/sherpa-onnx-LICENSE.txt")
+
+
+def load_alignment(data):
+    offset = struct.unpack_from("<Q", data, 32)[0]
+    size, count = struct.unpack_from("<HH", data, 54)
+    return min(struct.unpack_from("<Q", data, offset + i * size + 48)[0] for i in range(count) if struct.unpack_from("<I", data, offset + i * size)[0] == 1)
 
 
 def inspect(apk, sherpa_aar, badging):
@@ -28,6 +35,9 @@ def inspect(apk, sherpa_aar, badging):
                 same = z.read(f"lib/{abi}/libonnxruntime.so") == source.read(f"jni/{abi}/libonnxruntime.so")
                 report["onnxruntime_source"][abi] = "sherpa_aar" if same else "other"
                 report[f"onnxruntime_sha256_{abi}"] = hashlib.sha256(z.read(f"lib/{abi}/libonnxruntime.so")).hexdigest()
+        report["load_alignment"] = {n: load_alignment(z.read(n)) for n in native}
+        # A warning, not a failure: it blocks 16 KB page devices, and the app's other libraries are 16 KB aligned.
+        report["below_16kb_alignment"] = sorted(n for n, a in report["load_alignment"].items() if a < 0x4000)
         for notice in NOTICES:
             if notice not in names:
                 problems.append(f"Missing notice {notice}")

@@ -89,10 +89,17 @@ android {
         // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
         packaging.jniLibs.pickFirsts += setOf("**/libonnxruntime.so")
     }
+    // Comparison probe only; never part of a product build.
+    if (providers.gradleProperty("litertProbe").orNull == "true") {
+        sourceSets.getByName("androidTest").java.srcDirs("src/litertProbe/java", "src/litertProbeTest/java")
+        kotlinOptions { freeCompilerArgs += "-Xskip-metadata-version-check" }
+        androidResources { noCompress += "tflite" }
+    }
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
     if (nemotronPrototype) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
+    if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.activity:activity-compose:1.9.3")
