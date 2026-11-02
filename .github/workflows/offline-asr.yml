@@ -21,6 +21,10 @@ jobs:
   inference:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [33, 34, 35]
     env:
       UPSTREAM_RUNTIME: ${{ inputs.upstream_runtime || false }}
     steps:
@@ -72,7 +76,7 @@ jobs:
           python3 tools/provision_asr.py --runtime-file .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar
       - uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 33
+          api-level: ${{ matrix.api }}
           target: default
           arch: x86_64
           profile: pixel_5
@@ -85,7 +89,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: offline-asr-evidence
+          name: offline-asr-evidence-api${{ matrix.api }}
           path: |
             app/build/reports/androidTests/
             app/build/outputs/androidTest-results/
