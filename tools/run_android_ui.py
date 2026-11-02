@@ -261,6 +261,8 @@ def run(ui):
         ui.tap_node(notification)
     ui.visible("Остановить запись")
     checks.append("foreground_permission_starts_recording")
+    ui.visible("● Запись:")
+    checks.append("recording_status_with_timer_is_visible")
     ui.shell("settings", "put", "system", "accelerometer_rotation", "0")
     ui.shell("settings", "put", "system", "user_rotation", "1")
     ui.screenshot("rotated-recording", landscape=True)

@@ -3,6 +3,7 @@ package ru.neurostenographer.app
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.SystemClock
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.delay
 import androidx.lifecycle.Lifecycle
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +45,12 @@ class MainActivity : ComponentActivity() {
             view.keepScreenOn = state.busy || recording
             onDispose { view.keepScreenOn = false }
         }
+        val elapsed by produceState(0L, recording) {
+            if (!recording) value = 0L else {
+                val started = SystemClock.elapsedRealtime()
+                while (true) { value = (SystemClock.elapsedRealtime() - started) / 1000; delay(1000) }
+            }
+        }
         var notice by remember { mutableStateOf("") }
         val importAudio = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> uri?.let(model::select) }
         val importModel = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> uri?.let(model::install) }
@@ -66,6 +74,32 @@ class MainActivity : ComponentActivity() {
                 item { Text("Нейро-стенографист", style = MaterialTheme.typography.headlineMedium) }
                 item { Text("GigaAM v3 · экспериментальный офлайн ASR") }
                 item { Text("WAV и системные аудиокодеки (экспериментально): 1–2 канала, 8–48 кГц, до 20 минут. Запись и распознавание остаются на устройстве.") }
+                // Status, errors and progress stay at the top: the screen is a long list and a
+                // message lost in the middle hides a failed operation or a running recording.
+                if (recording) item {
+                    Card(modifier = Modifier.fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text("● Запись: ${clock(elapsed)} из ${clock(ru.neurostenographer.core.PcmWav.MAX_SECONDS.toLong())}",
+                                style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.error)
+                            Text(if (RecordingService.active) "Приложение можно свернуть: запись продолжится, в шторке есть уведомление."
+                                else "Не сворачивайте приложение: фоновая запись недоступна, при сворачивании запись остановится и сохранится.",
+                                style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
+                item { Text(state.message, color = MaterialTheme.colorScheme.secondary) }
+                if (notice.isNotEmpty()) item { Text(notice) }
+                if (state.busy) item {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    TextButton(onClick = model::cancel) { Text("Отменить после текущего шага") }
+                }
+                if (!state.modelReady) item {
+                    Text("Модель распознавания не установлена: без неё распознавание недоступно.",
+                        color = MaterialTheme.colorScheme.error)
+                } else if (!state.diarizationReady) item {
+                    Text("Модели говорящих не установлены: стенограмма будет без разделения по говорящим.",
+                        color = MaterialTheme.colorScheme.secondary)
+                }
                 item {
                     OutlinedButton(enabled = !state.busy && !recording,
                         onClick = { importModel.launch(arrayOf("application/zip", "application/octet-stream")) }) {
@@ -107,12 +141,6 @@ class MainActivity : ComponentActivity() {
                     Button(enabled = state.source != null && state.modelReady && !state.busy && !recording,
                         onClick = model::transcribe) { Text("Распознать офлайн") }
                 }
-                item { Text(state.message, color = MaterialTheme.colorScheme.secondary) }
-                if (notice.isNotEmpty()) item { Text(notice) }
-                if (state.busy) item {
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-                    TextButton(onClick = model::cancel) { Text("Отменить после текущего шага") }
-                }
                 item { HorizontalDivider() }
                 item { Text("Стенограмма", style = MaterialTheme.typography.titleLarge) }
                 item { Text("Время — границы реплик (до 60 с) и входных фрагментов (до 20 с), не слов. Speaker — предположение модели, не личность: разные голоса могут объединиться, один голос — разделиться. Проверьте распределение реплик вручную. Перекрытия и короткие участки могут остаться неопределёнными.") }
@@ -145,3 +173,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+private fun clock(seconds: Long) = "%02d:%02d".format(seconds / 60, seconds % 60)
