@@ -8,7 +8,7 @@ import zipfile
 
 FORBIDDEN = (b"espeak-ng-data", b"espeak_ng", b"libespeak")
 EXPECTED_LIBS = {"libonnxruntime.so", "libsherpa-onnx-jni.so", "libonnxruntime4j_jni.so", "libandroidx.graphics.path.so"}
-NOTICES = ("assets/nemotron-OpenMDW-1.1-LICENSE.txt", "assets/nemotron-onnx-NOTICE.txt", "assets/onnxruntime-LICENSE.txt", "assets/sherpa-onnx-LICENSE.txt")
+NOTICES = ("assets/nemotron-OpenMDW-1.1-LICENSE.txt", "assets/nemotron-onnx-NOTICE.txt", "assets/licenses/onnxruntime-LICENSE.txt", "assets/licenses/sherpa-onnx-LICENSE.txt")
 
 
 def inspect(apk, sherpa_aar, badging):
