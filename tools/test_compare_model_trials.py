@@ -111,6 +111,16 @@ class Comparisons(unittest.TestCase):
                                  "--manifest", str(manifest), "--output", str(out)], capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(out.read_text())["status"], "COMPARABLE_INPUTS")
+        original = (self.p / "base-a.json").read_bytes()
+        result = subprocess.run([sys.executable, str(Path(__file__).with_name("compare_model_trials.py")),
+                                 "--manifest", str(manifest), "--output", str(self.p / "base-a.json")], capture_output=True)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual((self.p / "base-a.json").read_bytes(), original)
+        original = manifest.read_bytes()
+        result = subprocess.run([sys.executable, str(Path(__file__).with_name("compare_model_trials.py")),
+                                 "--manifest", str(manifest), "--output", str(manifest)], capture_output=True)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(manifest.read_bytes(), original)
         data["trials"][0]["cases"][0]["audio_duration_ms"] = -1
         manifest.write_text(json.dumps(data))
         result = subprocess.run([sys.executable, str(Path(__file__).with_name("compare_model_trials.py")),
