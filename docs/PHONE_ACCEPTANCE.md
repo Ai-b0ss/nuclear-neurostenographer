@@ -8,11 +8,7 @@
 - Согласие участников на запись собственных голосов. Записи в репозиторий не коммитить.
 
 ## Подготовка
-1. Получить `app-debug.apk`. CI APK **не публикует** (отключено до проверки лицензий runtime, см. [RUNTIME_LICENSES](RUNTIME_LICENSES.md)), поэтому сборка выполняется локально: `python tools/provision_asr.py`, затем Gradle 8.9 / JDK 17 / SDK 35 (`gradle :app:assembleDebug`). Без публикации APK и моделей вне команды.
-2. `python tools/provision_asr.py --model` и `python tools/provision_diarization.py` — получить `.local/gigaam-v3.zip` и `.local/diarization.zip` (проверка SHA-256 внутри скриптов).
-3. `adb install -r app-debug.apk`; `adb push .local/gigaam-v3.zip /sdcard/Download/`; то же для `diarization.zip`.
-4. В приложении: «Установить модель ZIP», затем «Установить модели говорящих ZIP».
-5. Включить **авиарежим** и выключить Wi-Fi/Bluetooth до всех замеров. Манифест не содержит INTERNET; проверка: `adb shell dumpsys package ru.neurostenographer.app | grep -i permission`.
+Сборка комплекта и установка описаны в [OFFLINE_KIT.md](OFFLINE_KIT.md): `phone_kit.py check` (ABI, Android, место, ОЗУ), затем `phone_kit.py install` (SHA-256, APK, модели без выбора ZIP). Включите **авиарежим** и выключите Wi-Fi/Bluetooth до всех замеров; в манифесте нет INTERNET (проверено `apk-inspection.json`).
 
 ## Сценарии (каждый — минимум 3 повтора, фиксировать PASS/FAIL)
 | № | Сценарий | Критерий |
@@ -28,6 +24,11 @@
 | 9 | Убить процесс диаризации: `adb shell pkill -f :diarization` во время обработки | Распознавание завершается без говорящих с предупреждением |
 | 10 | Мало места на диске | Понятная ошибка, прежний результат цел |
 | 11 | Экспорт TXT/JSON/SRT и проверка файлов на ПК | файлы открываются, время не пересекается, `speaker_id` в JSON согласован с TXT/SRT (инструмент: `tools/verify_transcript_exports.py`, формат вызова смотреть в файле) |
+
+## Автоматический сбор
+- Во время сценариев: `python phone_kit.py monitor --minutes 25` пишет `phone-monitor.json` (пик PSS приложения и процесса `:diarization`, температура и заряд батареи раз в секунду).
+- После каждого сценария: `python phone_kit.py scan` ищет ANR, падения Java/native и убийства приложения и процесса диаризации в logcat и DropBox (тот же детектор, что в CI).
+- После экспорта в Download: `python phone_kit.py exports --prefix transcript` забирает TXT/JSON/SRT и проверяет их согласованность.
 
 ## Измерения
 - Пиковая память: во время обработки `adb shell dumpsys meminfo ru.neurostenographer.app` и для процесса `:diarization`; фиксировать максимум PSS каждого.
