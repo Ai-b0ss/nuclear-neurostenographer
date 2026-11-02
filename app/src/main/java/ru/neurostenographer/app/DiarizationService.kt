@@ -42,15 +42,23 @@ class DiarizationService : Service() {
                 require(input.parentFile == File(cacheDir, "diarization-input").canonicalFile)
                 require(input.length() in 6400..(PcmWav.MAX_SECONDS * 16000L * 4) && input.length() % 4 == 0L)
                 val model = File(requireNotNull(data.getString("model"))).canonicalFile
-                require(model.parentFile == File(filesDir, "diarization-models").canonicalFile)
-                DiarizationModelStore(this).verify(model)
+                val backend = data.getString("backend") ?: NemotronBackend.C0
+                require(backend == NemotronBackend.C0 || (backend == NemotronBackend.C2 && BuildConfig.NEMOTRON_PROTOTYPE))
+                if (backend == NemotronBackend.C0) {
+                    require(model.parentFile == File(filesDir, "diarization-models").canonicalFile)
+                    DiarizationModelStore(this).verify(model)
+                } else {
+                    require(model.parentFile == File(filesDir, "nemotron-models").canonicalFile)
+                }
                 val threshold = data.getFloat("clusteringThreshold", OfflineDiarization.THRESHOLD)
                 require(OfflineDiarization.validThreshold(threshold))
                 require(BuildConfig.DEBUG || threshold == OfflineDiarization.THRESHOLD)
                 val samples = DataInputStream(input.inputStream().buffered()).use { stream ->
                     FloatArray((input.length() / 4).toInt()) { stream.readFloat() }
                 }
-                val result = OfflineDiarization.process(PcmAudio(samples, 16000), model, clusteringThreshold = threshold)
+                val result = if (backend == NemotronBackend.C0)
+                    OfflineDiarization.process(PcmAudio(samples, 16000), model, clusteringThreshold = threshold)
+                else NemotronBackend.process(PcmAudio(samples, 16000), model) {}
                 require(result.turns.size <= DiarizationReply.MAX_ITEMS && result.windows.size <= DiarizationReply.MAX_ITEMS)
                 val output = Bundle().apply {
                     putLongArray("starts", result.turns.map { it.startMs }.toLongArray())

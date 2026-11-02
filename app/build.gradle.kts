@@ -33,6 +33,8 @@ val verifySherpaRuntime by tasks.registering {
     }
 }
 tasks.named("preBuild").configure { dependsOn(verifySherpaRuntime) }
+// Research prototype of Nemotron 3 INT8. Ordinary builds contain none of it and keep C0.
+val nemotronPrototype = providers.gradleProperty("nemotronPrototype").orNull == "true"
 android {
     namespace = "ru.neurostenographer.app"
     compileSdk = 35
@@ -46,6 +48,7 @@ android {
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
+        buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronPrototype.toString())
     }
     // Optional workspace-owned debug key for restricted local build environments.
     providers.gradleProperty("localDebugStore").orNull?.let { debugKeyRelativePath ->
@@ -77,9 +80,19 @@ android {
         }
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
+    if (nemotronPrototype) {
+        sourceSets.getByName("main").apply {
+            java.srcDir("src/nemotron/java")
+            assets.srcDir("src/nemotron/assets")
+        }
+        sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
+        // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
+        packaging.jniLibs.pickFirsts += setOf("**/libonnxruntime.so")
+    }
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
+    if (nemotronPrototype) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.activity:activity-compose:1.9.3")
