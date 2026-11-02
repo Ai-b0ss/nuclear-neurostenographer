@@ -189,6 +189,34 @@
   (distribution/notices review); (4) the emulator microphone is silent, so no spoken
   recording was ever transcribed through `RecordingService` yet. *Go/no-go:* emulator
   pipeline GO; kit and tooling ready; phone demo NO-GO until PHONE_ACCEPTANCE is executed.
+- **2026-11-03 (later) — kit install proven end to end; local APK; decisions.** Owner
+  decisions recorded: licences no longer block work (notices stay), GitHub Actions is the
+  main build environment, no public APK with weights. The repository-local toolchain
+  (`.local/build-tools` JDK 17 and Gradle 8.9, `.local/android-sdk` 35) works, so the earlier
+  statement that no JDK/Gradle/SDK existed on this PC was wrong; adb is still absent.
+  *Local build* (`tools/build_local_apk.py`, 2 min): core tests PASS, APK 50 989 367 bytes
+  (same size as the CI build, different debug-key hash `4cc085cb…5be4`), `check_apk.py`
+  runtime digest and native bytes MATCH. *Kit assembled* at `.local/kit` (git-ignored; not
+  uploaded): `gigaam-v3.zip` 224 723 056 B sha256 `ec90b0cc…f350`, `diarization.zip`
+  45 599 554 B `5979f150…1a2f`, `SHA256SUMS.txt`, `KIT_MANIFEST.json`, `phone_kit.py`;
+  `offline_kit.py verify` OK.
+  *New regression found and fixed:* the collector shell-script test failed after the kit step
+  was added to `run_android_inference.sh` (CI 41539483669/41539489279 red, no emulator
+  reached); the step is now covered by the collector tests, including "never runs after an
+  earlier failure" because it wipes app data.
+  *End-to-end kit install on clean emulators* (`tools/run_kit_install_check.py`, run
+  [41539803654](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41539803654),
+  API 33/34/35 all PASS): clean app shows the missing-model hint; a corrupt `gigaam-v3.zip`
+  pushed with `adb push` is rejected by name and kept; the real ZIPs install both models,
+  are deleted, and the hint disappears. That also shows `adb push` into
+  `Android/data/<pkg>/files/kit` works on Android 13, 14 and 15 emulators. The same run keeps
+  the 16-check UI flow green (timer, HOME, screen off, WAV continuity, no app/worker
+  ANR/crash/kill). Build runs [41539715602](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41539715602)
+  and [41539808229](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41539808229) PASS.
+  Application code is unchanged since `516000f` (later commits are tests, tools, docs), so
+  its stress run [41536695421](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695421)
+  stays valid. Still NOT_RUN: every physical ARM64 item; a spoken recording through the
+  microphone (the emulator microphone is silent).
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
