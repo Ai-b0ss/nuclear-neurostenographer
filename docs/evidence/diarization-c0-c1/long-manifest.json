@@ -1,0 +1,1 @@
+{"schema_version":1,"cases":[{"id":"long-ru_000010","group":"long","scenario":"cost_only_first_20min","audio_sha256":"e9933e55693151a6f2c5d0f34188348d62053b66a70d9dad0dd25ffd3a408df5","duration_ms":1200000,"source":"datahiveai/russian-conversations-sample:ru_000010.mp3:0-1200s"}]}

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "status": "COMPARABLE_INPUTS",
+  "cases_per_trial": 1,
+  "accuracy_protocol": {
+    "same_audio_and_reference": true,
+    "der_collar_and_overlap": null
+  },
+  "timing_comparable": true,
+  "timing_warning": null,
+  "trials": [
+    {
+      "name": "C0",
+      "code_commit": "f3ff9703e2bbdb52b8732c04b27a1b859385849e",
+      "runtime_sha256": "24d9fe53301fe0b5026fb1cb3877b54d1a47ed079f75819e83a99a9a9e41e55a",
+      "environment": {
+        "platform": "windows-host",
+        "device": "Intel64 Family 6 Model 79 Stepping 1, GenuineIntel",
+        "abi": "x86_64"
+      },
+      "timing_scope": "diarization process_ms, 2 threads, model load excluded",
+      "cases": 1,
+      "metrics": {
+        "wer": {
+          "status": "SCORED",
+          "rate": 0.024390243902439025,
+          "errors": 1,
+          "reference_units": 41,
+          "unscored_cases": 0
+        },
+        "cpwer": {
+          "status": "SCORED",
+          "rate": 0.024390243902439025,
+          "errors": 1,
+          "reference_units": 41,
+          "unscored_cases": 0
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "rate": null,
+          "errors": null,
+          "reference_units": null,
+          "unscored_cases": 1
+        }
+      },
+      "measured_rtf": 0.1748066748066748
+    },
+    {
+      "name": "C1",
+      "code_commit": "f3ff9703e2bbdb52b8732c04b27a1b859385849e",
+      "runtime_sha256": "f4338e05a0d1913f387321d2b56bd1cb4985990e3288ce7149e755ea789929bf",
+      "environment": {
+        "platform": "windows-host",
+        "device": "Intel64 Family 6 Model 79 Stepping 1, GenuineIntel",
+        "abi": "x86_64"
+      },
+      "timing_scope": "diarization process_ms, 2 threads, model load excluded",
+      "cases": 1,
+      "metrics": {
+        "wer": {
+          "status": "SCORED",
+          "rate": 0.0,
+          "errors": 0,
+          "reference_units": 41,
+          "unscored_cases": 0
+        },
+        "cpwer": {
+          "status": "SCORED",
+          "rate": 0.0,
+          "errors": 0,
+          "reference_units": 41,
+          "unscored_cases": 0
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "rate": null,
+          "errors": null,
+          "reference_units": null,
+          "unscored_cases": 1
+        }
+      },
+      "measured_rtf": 0.024216524216524215
+    },
+    {
+      "name": "C2",
+      "code_commit": "f3ff9703e2bbdb52b8732c04b27a1b859385849e",
+      "runtime_sha256": "17fd04215d655d2feee413a44f96e57d4ebd96cdd9cdbdf8c26da266e08bc835",
+      "environment": {
+        "platform": "windows-host",
+        "device": "Intel64 Family 6 Model 79 Stepping 1, GenuineIntel",
+        "abi": "x86_64"
+      },
+      "timing_scope": "diarization process_ms, 2 threads, model load excluded",
+      "cases": 1,
+      "metrics": {
+        "wer": {
+          "status": "SCORED",
+          "rate": 0.0,
+          "errors": 0,
+          "reference_units": 41,
+          "unscored_cases": 0
+        },
+        "cpwer": {
+          "status": "SCORED",
+          "rate": 0.0,
+          "errors": 0,
+          "reference_units": 41,
+          "unscored_cases": 0
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "rate": null,
+          "errors": null,
+          "reference_units": null,
+          "unscored_cases": 1
+        }
+      },
+      "measured_rtf": 0.023504273504273504
+    }
+  ],
+  "limitations": "This checks reported evidence identity and arithmetic, not audio authenticity, ground-truth independence, Android runtime behavior or statistical significance.",
+  "manifest_sha256": "45b15eeea2ebd05555c0753558b08e396608142b97a18122ca79ab4ca34f534b"
+}
