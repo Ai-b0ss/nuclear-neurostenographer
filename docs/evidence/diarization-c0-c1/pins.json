@@ -1,0 +1,27 @@
+{
+ "schema_version": 1,
+ "note": "Model weights and audio are not in Git. Fetch these exact revisions and compare SHA-256.",
+ "models": {
+  "C0 segmentation": {"source": "csukuangfj/sherpa-onnx-pyannote-segmentation-3-0@9403a6902bb58e3d5ae8c7e77c3422de279db2e0/model.onnx", "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079", "license": "MIT file pinned in tools/provision_diarization.py"},
+  "C0 embedding": {"source": "k2-fsa/sherpa-onnx speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx", "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b", "license": "3D-Speaker LICENSE pinned in tools/provision_diarization.py"},
+  "C1 fp32": {"source": "joosthel/Nemotron-3-Diarization-ONNX@4a911fc3ca821b76a99fffd5ce5135bd1efca540/model.onnx", "sha256": "f4338e05a0d1913f387321d2b56bd1cb4985990e3288ce7149e755ea789929bf", "license": "OpenMDW-1.1", "upstream": "nvidia/Nemotron-3-Diarization@f667ed73aee57d40cc39428eb768b4fd87a0a29e"},
+  "C2 int8": {"source": "joosthel/Nemotron-3-Diarization-ONNX@4a911fc3ca821b76a99fffd5ce5135bd1efca540/model.int8.onnx", "sha256": "17fd04215d655d2feee413a44f96e57d4ebd96cdd9cdbdf8c26da266e08bc835", "license": "OpenMDW-1.1"},
+  "C1 preprocessor": {"source": "joosthel/Nemotron-3-Diarization-ONNX@4a911fc3ca821b76a99fffd5ce5135bd1efca540/preprocessor_core.onnx", "sha256": "28e815a770a8cbe47c351cd36908dd129a0b36ab31461aa8f370a369419703e1"},
+  "C1 constants": {"source": "same revision/constants.npz", "sha256": "fd49737a61e90e1990f4e90a3c0088f2f3ef649860ecdaa4abc76ad2428876df"},
+  "C1 loop code": {"source": "same revision/diarize.py", "sha256": "170cb823efe5e3953a635d031511dbd984c18639fa7a4edc3e5780fd055dea1e", "license": "OpenMDW-1.1"},
+  "Fixed ASR": {"source": "csukuangfj/sherpa-onnx-nemo-ctc-giga-am-v3-russian-2025-12-16@32a4c7cc81809bd132e2d935ab99e9e6ab47fbec/model.int8.onnx", "sha256": "f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec", "tokens_sha256": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2", "license": "MIT"},
+  "Reference VAD": {"source": "k2-fsa/sherpa-onnx release asr-models/silero_vad.onnx (mutable URL, trust the hash)", "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6", "license": "Not rechecked here; used only offline to build a reference"}
+ },
+ "runtimes": {
+  "C0 and ASR": "sherpa-onnx 1.12.20 upstream Windows JNI, native jar sha256 24d9fe53301fe0b5026fb1cb3877b54d1a47ed079f75819e83a99a9a9e41e55a; embeds ONNX Runtime 1.17.1. It lacks the repository's Android-only native patch.",
+  "C1 and C2": "onnxruntime 1.31.1, numpy 2.5.4, soundfile 0.14.0, Python 3.13.9",
+  "JVM": "Temurin JRE 17.0.17+10",
+  "ffmpeg": "7.1-essentials_build-www.gyan.dev"
+ },
+ "datasets": {
+  "ru-book-mix-10h": {"revision": "mexus/ru-book-mix-10h@18655c48833c5acfcd868a36eb38465712d15f1c", "license": "CC-BY-4.0", "sha256": {"manifest.jsonl": "2f1e26fe123afe43e76b96cd49fd62e75bdb94c2f056c1fc7fa43c981de46a6c", "shard-0000.tar": "116e65e98552b3d93807e09bbac77e3c982332487438b3e2d3f789ec5a183da3", "shard-0001.tar": "e9d4fffbf13f86bd3b542a21f2cfd996ada59e11a398cdca4a81572e1a04219c", "shard-0002.tar": "ce1595c269a6f83e32b00b00cb9c26e62f03bc8a102650178455bdb83e324afe", "shard-0003.tar": "0d7e191020006e31a0ee05f4ae2946abd009078100e7fcceebb1c7928934701b"}},
+  "synthetic-speech-diarization-ru": {"revision": "ivkond/synthetic-speech-diarization-ru@3fa8404cfde61d2e3a3369000ce771747821e844", "license": "MIT per card; voice origin undocumented", "sha256": {"train-00000-of-00030.parquet": "9b6bba30e9d02d875bf645f6cae997f7de6ebac32b326396066a676cc887abee"}},
+  "russian-conversations-sample": {"revision": "datahiveai/russian-conversations-sample@1d22534f5a9ef4a377bc42faeb456d456ce29850", "license": "CC-BY-4.0, attribution to DataHive", "per_recording_output_hashes": "corpus-manifest.json"},
+  "dialogs-ru-emotional-conversations": {"revision": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd", "license": "Dialogs OpenRAIL, Section 2 applies", "note": "Existing repository development clip via tools/provision_dialogue_benchmark.py; threshold 0.8 was tuned on it"}
+ }
+}
