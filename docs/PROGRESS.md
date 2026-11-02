@@ -217,6 +217,19 @@
   its stress run [41536695421](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695421)
   stays valid. Still NOT_RUN: every physical ARM64 item; a spoken recording through the
   microphone (the emulator microphone is silent).
+- **2026-11-03 (adb found).** adb 36.0.0 exists on this PC inside another program's Python
+  environment (`adbutils` package binary); no device is connected. `phone_kit.py` now finds
+  adb itself (`--adb`, `ADB_PATH`, PATH, Android SDK folders, the `adbutils` package, copies in
+  per-user Python environments) without changing PATH, works with plain Python 3.8+, and falls
+  back to `/sdcard/Download` plus on-screen instructions if a phone refuses writes to
+  `Android/data`. 22 tests (adb discovery with fakes, install flow, tampered kit never touches
+  the phone, wrong ABI refused, push fallback). The assembled kit was run from a clean folder
+  outside the repository: `check`, `install` and `scan` all end as NOT_RUN (exit 2) with no
+  device, after `install` verified SHA256SUMS. Earlier statements in this file that adb/JDK/
+  Gradle/SDK were absent are superseded: JDK/Gradle/SDK live in `.local`, adb in the extension
+  environment above. Documentation was brought up to date (README, README.ru, OFFLINE_KIT,
+  PHONE_ACCEPTANCE, AUDIO_IMPORT decode budget) and [DEMO_READINESS.md](DEMO_READINESS.md)
+  separates tested steps from NOT_RUN. A physical phone is still needed for every ARM64 item.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

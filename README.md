@@ -13,11 +13,13 @@ Status: **experimental, NOT_READY**. The default clustering threshold is 0.8. On
 - Inference: sherpa-onnx 1.12.20 / Russian GigaAM v3 INT8 CTC, CPU. Full-recording segmentation, ERes2Net embeddings and global clustering; worker failure falls back to unknown speakers. No remote ASR.
 
 ### Build
-GitHub Actions builds the debug APK on GitHub-hosted runners. Android SDK is **not** required on the developer PC for cloud builds. Core tests run on JDK 17.
+GitHub Actions builds the debug APK on GitHub-hosted runners. Android SDK is **not** required on the developer PC for cloud builds; a repository-local JDK 17 / Gradle 8.9 / SDK 35 toolchain under `.local` also works (`tools/build_local_apk.py`). Core tests run on JDK 17.
 
 Before Gradle, run `python tools/provision_asr.py` (Python 3.11+, standard library). This selects the Android-tested **no-TTS runtime** pinned in `tools/runtime/runtime.properties`, using a verified local cache or existing GitHub CLI authentication for the exact source-build artifact. An unavailable artifact fails explicitly; it never falls back to the full GPL/TTS AAR. An exact local file can be supplied with `--runtime-file`. Then `gradle :core:runCoreTests :app:assembleDebug` with JDK 17 / Gradle 8.9 / Android SDK 35. Gradle rejects unapproved runtime bytes. No model weights are bundled in the APK.
 
 ### Offline model installation and use
+**Fastest path (team kit, needs only Python and adb):** `python tools/build_local_apk.py` builds the debug APK with the repository-local toolchain (or use the owner-triggered `build-apk-kit.yml`), `python tools/offline_kit.py assemble --apk app/build/outputs/apk/debug/app-debug.apk` builds the kit (APK + both model ZIPs + SHA-256 sums), and `python phone_kit.py install` from the kit folder installs everything over USB without using the document picker. Details: [docs/OFFLINE_KIT.md](docs/OFFLINE_KIT.md); the physical-phone acceptance procedure is [docs/PHONE_ACCEPTANCE.md](docs/PHONE_ACCEPTANCE.md) (not yet run). The APK and weights are not published. Manual route:
+
 1. On a networked PC run `python tools/provision_asr.py --model`. It creates `.local/gigaam-v3.zip` (~225 MB), using an immutable Hugging Face revision and SHA-256 for every file.
 2. Transfer the ZIP to the phone using USB/local storage. In the app choose **Установить модель ZIP**. Only the pinned model/tokens/MIT license are accepted. Allow at least 500 MB free for import/replacement.
 3. Record audio or import **PCM16 WAV**, mono/stereo, 8–48 kHz, 0.1 s–20 min. Generated MP3/AAC/Vorbis/Opus/FLAC imports pass on Android x86_64/API 33; codec availability varies by device and AMR remains untested. See [codec limits](docs/AUDIO_IMPORT.md). Press **Распознать офлайн**. Airplane mode is supported by design; physical-device verification is pending.

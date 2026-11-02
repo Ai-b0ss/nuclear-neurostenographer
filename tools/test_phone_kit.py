@@ -1,8 +1,11 @@
 """Authored adb output only: parsing, phone suitability and kit rejection. Not a device run."""
+import argparse
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import offline_kit
 import phone_kit
@@ -105,6 +108,123 @@ class KitTests(unittest.TestCase):
         for digest in offline_kit.ASR_FILES.values():
             self.assertIn(digest, store)
         self.assertIn(offline_kit.RUNTIME_SHA256, (root / "tools/runtime/runtime.properties").read_text())
+
+
+EXE = "adb.exe" if os.name == "nt" else "adb"
+
+
+def finder(files=(), on_path=None, environ=None, globs=None, module_dir=None):
+    existing = set(files)
+    return phone_kit.find_adb(None, environ or {}, which=lambda name: on_path if name == "adb" else None,
+                              is_file=lambda path: path in existing,
+                              glob_files=lambda pattern: (globs or {}).get(pattern, []), module_dir=module_dir or "")
+
+
+class FindAdbTests(unittest.TestCase):
+    def test_explicit_path_wins_and_a_wrong_one_is_reported(self):
+        path, source = phone_kit.find_adb("C:/tools/adb.exe", {}, which=lambda n: None, is_file=lambda p: p == "C:/tools/adb.exe")
+        self.assertEqual((path, source), ("C:/tools/adb.exe", "--adb"))
+        path, source = phone_kit.find_adb("C:/nope/adb.exe", {}, which=lambda n: None, is_file=lambda p: False)
+        self.assertIsNone(path)
+        self.assertIn("does not exist", source)
+
+    def test_environment_variable_then_path_then_sdk_folder(self):
+        self.assertEqual(finder(files=["/x/adb"], environ={"ADB_PATH": "/x/adb"}, on_path="/usr/bin/adb"), ("/x/adb", "ADB_PATH"))
+        self.assertEqual(finder(on_path="/usr/bin/adb"), ("/usr/bin/adb", "PATH"))
+        sdk = os.path.join("/sdk", "platform-tools", EXE)
+        self.assertEqual(finder(files=[sdk], environ={"ANDROID_HOME": "/sdk"}), (sdk, "ANDROID_HOME"))
+
+    def test_adbutils_package_binary_is_used(self):
+        binary = os.path.join("/site/adbutils", "binaries", EXE)
+        self.assertEqual(finder(files=[binary], module_dir="/site/adbutils"), (binary, "adbutils package"))
+
+    def test_bundled_copy_in_a_per_user_python_environment_is_found_without_vendor_names(self):
+        local = "C:/Users/u/AppData/Local"
+        pattern = os.path.join(local, "Packages", "*", "LocalCache", "Roaming", "*", "*", "*", ".venv", "Lib",
+                               "site-packages", "adbutils", "binaries", EXE)
+        found = "C:/Users/u/AppData/Local/Packages/Any_1/LocalCache/Roaming/Vendor/Ext/ext.a/.venv/Lib/site-packages/adbutils/binaries/" + EXE
+        self.assertEqual(finder(environ={"LOCALAPPDATA": local}, globs={pattern: [found]}), (found, "bundled adbutils copy"))
+
+    def test_nothing_found_is_reported_not_guessed(self):
+        path, reason = finder(environ={"LOCALAPPDATA": "C:/none"})
+        self.assertIsNone(path)
+        self.assertEqual(reason, "adb not found")
+
+    def test_missing_adb_and_missing_device_end_as_not_run(self):
+        args = argparse.Namespace(adb=None, serial=None)
+        with mock.patch.object(phone_kit, "find_adb", return_value=(None, "adb not found")):
+            with self.assertRaises(SystemExit) as raised:
+                phone_kit.connect(args)
+        self.assertEqual(raised.exception.code, phone_kit.NOT_RUN)
+        completed = mock.Mock(stdout="List of devices attached\n\n")
+        with mock.patch.object(phone_kit, "find_adb", return_value=("adb", "PATH")), \
+                mock.patch.object(phone_kit.subprocess, "run", return_value=completed):
+            with self.assertRaises(SystemExit) as raised:
+                phone_kit.connect(args)
+        self.assertEqual(raised.exception.code, phone_kit.NOT_RUN)
+
+
+class RecordingAdb(FakeAdb):
+    def __init__(self, push_fails=False, leftover=False, **kwargs):
+        super().__init__(**kwargs)
+        self.calls, self.push_fails, self.leftover = [], push_fails, leftover
+
+    def run(self, *args, **kwargs):
+        self.calls.append(args)
+        if args[0] == "push" and self.push_fails and "/Android/data/" in args[-1]:
+            raise RuntimeError("adb push failed: Permission denied")
+        return ""
+
+    def shell(self, *args, **kwargs):
+        self.calls.append(("shell",) + args)
+        if args[0] == "ls":
+            return "gigaam-v3.zip\n" if self.leftover else ""
+        return self.answers.get(args, "")
+
+
+class InstallTests(unittest.TestCase):
+    def kit(self, tmp):
+        return KitTests().make(tmp)
+
+    def install(self, adb, kit, wait=0):
+        args = argparse.Namespace(kit=str(kit), wait_minutes=wait, force=False)
+        with mock.patch.object(phone_kit, "connect", return_value=adb), mock.patch.object(phone_kit.time, "sleep"):
+            return phone_kit.command_install(args)
+
+    def test_install_pushes_both_zips_to_the_app_folder_and_reports_success(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            adb = RecordingAdb()
+            self.assertEqual(self.install(adb, self.kit(tmp), wait=1), 0)
+            pushed = [c for c in adb.calls if c[0] == "push"]
+            self.assertEqual(len(pushed), 2)
+            self.assertTrue(all(c[-1].startswith(phone_kit.KIT_DIR_ON_PHONE) for c in pushed))
+            self.assertTrue(any(c[0] == "install" for c in adb.calls))
+
+    def test_tampered_kit_never_touches_the_phone(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            kit = self.kit(tmp)
+            with open(kit / "diarization.zip", "r+b") as f:
+                f.write(b"x")
+            adb = RecordingAdb()
+            self.assertEqual(self.install(adb, kit), 1)
+            self.assertEqual(adb.calls, [])
+
+    def test_wrong_phone_is_refused_before_installing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            adb = RecordingAdb(abi="x86_64")
+            self.assertEqual(self.install(adb, self.kit(tmp)), 1)
+            self.assertFalse(any(c[0] == "install" for c in adb.calls))
+
+    def test_forbidden_app_folder_falls_back_to_download_with_instructions(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            adb = RecordingAdb(push_fails=True)
+            self.assertEqual(self.install(adb, self.kit(tmp)), 1)
+            self.assertEqual([c[-1] for c in adb.calls if c[0] == "push" and "/Download/" in c[-1]],
+                             ["/sdcard/Download/gigaam-v3.zip", "/sdcard/Download/diarization.zip"])
+
+    def test_zips_left_in_the_folder_mean_the_install_did_not_finish(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(self.install(RecordingAdb(leftover=True), self.kit(tmp), wait=0), 1)
 
 
 if __name__ == "__main__":
