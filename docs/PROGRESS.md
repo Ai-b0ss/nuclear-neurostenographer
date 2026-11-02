@@ -27,6 +27,25 @@
   service with the microphone type, `FOREGROUND_SERVICE_MICROPHONE` and notification
   permission, and the existing UI test expects HOME to stop recording; both change
   together and need a CI run, so it is not done yet.
+- `gh` re-authorized; `7f3b601` pushed. Artifact `long-recording-evidence` of run
+  [41354324447](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41354324447)
+  (commit 0dab286, GitHub x86_64 emulator, looped public fixtures, scope
+  `stress_looped_public_fixtures_not_accuracy`) was read:
+
+  | Measure | Value |
+  | --- | --- |
+  | audio | 1 200 000 ms (20 min) |
+  | diarization | 162.6 s, real-time factor 0.135 |
+  | ASR | 65.9 s, RTF 0.055 |
+  | total | 228.4 s, RTF 0.19 |
+  | peak PSS, app process | 440 MiB |
+  | peak PSS, `:diarization` worker | 435 MiB |
+  | output | 304 turns, 304 windows, 110 replies, 8 speakers |
+
+  Limits: the speaker count of 8 comes from looped fixtures and says nothing about
+  accuracy; the two PSS peaks are per process, their sum was not measured at one instant;
+  a x86_64 emulator on a CI host is far faster than a mid-range ARM phone, so RTF on a
+  phone is unknown and must be measured.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
