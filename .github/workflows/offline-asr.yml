@@ -52,6 +52,7 @@ jobs:
           python3 tools/test_android_workflow.py
           python3 tools/test_android_ui.py
           python3 tools/test_app_failure_detector.py
+          python3 tools/test_phone_kit.py
           runtime_args=()
           if [[ "$UPSTREAM_RUNTIME" == true ]]; then runtime_args+=(--upstream-runtime); fi
           python3 tools/provision_asr.py --test-assets "${runtime_args[@]}"
