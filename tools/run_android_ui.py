@@ -238,6 +238,10 @@ def run(ui):
 
     ui.tap(label="Записать разговор")
     ui.tap(resource_suffix="permission_allow_foreground_only_button")
+    # Android 13+ asks for the notification of the recording service right after.
+    _, notification = ui.find(resource_suffix="permission_allow_button", timeout=5)
+    if notification is not None:
+        ui.tap_node(notification)
     ui.visible("Остановить запись")
     checks.append("foreground_permission_starts_recording")
     ui.shell("settings", "put", "system", "accelerometer_rotation", "0")
