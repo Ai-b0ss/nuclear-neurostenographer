@@ -225,6 +225,9 @@ def verify_saved_exports(exports, expected_runtime, directory):
 
 def run(ui):
     checks = ui.checks
+    # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
+    # covers our app. Disposable emulator only; this hides dialogs of other processes.
+    ui.shell("settings", "put", "global", "hide_error_dialogs", "1")
     ui.shell("am", "force-stop", PACKAGE)
     ui.shell("pm", "revoke", PACKAGE, "android.permission.RECORD_AUDIO")
     ui.shell("pm", "clear-permission-flags", PACKAGE, "android.permission.RECORD_AUDIO", "user-set", "user-fixed")
