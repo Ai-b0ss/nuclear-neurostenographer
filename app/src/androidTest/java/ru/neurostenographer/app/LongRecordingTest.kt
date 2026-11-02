@@ -62,23 +62,30 @@ class LongRecordingTest {
         val sampling = AtomicBoolean(true)
         // Time series for diagnosing memory: [elapsed_ms, phase, app_pss, worker_pss, app_native_heap, app_java_heap] in KiB.
         val series = JSONArray()
+        val peakAt = java.util.concurrent.atomic.AtomicReference<List<Any>>(emptyList())
+        var tick = 0
         val phase = java.util.concurrent.atomic.AtomicReference("diarization")
         val started = System.nanoTime()
         val sampler = thread {
             while (sampling.get()) {
                 val memory = Debug.MemoryInfo().also(Debug::getMemoryInfo)
-                peakAppKib = maxOf(peakAppKib, memory.totalPss)
+                if (memory.totalPss > peakAppKib) {
+                    peakAppKib = memory.totalPss
+                    peakAt.set(listOf((System.nanoTime() - started) / 1_000_000, phase.get()))
+                }
                 val pid = workerPid.get()
                 var worker = 0
                 if (pid != 0) activity.getProcessMemoryInfo(intArrayOf(pid)).firstOrNull()
                     ?.let { worker = it.totalPss; peakWorkerKib = maxOf(peakWorkerKib, worker) }
-                synchronized(series) {
+                // Peaks are sampled every 0.5 s (a 2 s interval can miss the short model-load
+                // peak); the stored series keeps every fourth sample.
+                if (tick++ % 4 == 0) synchronized(series) {
                     series.put(JSONArray().put((System.nanoTime() - started) / 1_000_000).put(phase.get())
                         .put(memory.totalPss).put(worker)
                         .put(memory.getMemoryStat("summary.native-heap")?.toIntOrNull() ?: -1)
                         .put(memory.getMemoryStat("summary.java-heap")?.toIntOrNull() ?: -1))
                 }
-                Thread.sleep(2000)
+                Thread.sleep(500)
             }
         }
         val speakers = IsolatedDiarization.process(context, audio, speakerModel, onWorkerStarted = workerPid::set)
@@ -95,7 +102,7 @@ class LongRecordingTest {
             .put("speakers", speakers.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size)
             .put("diarization_ms", (diarized - started) / 1_000_000).put("asr_ms", (finished - diarized) / 1_000_000)
             .put("peak_app_pss_kib", peakAppKib).put("peak_worker_pss_kib", peakWorkerKib)
-            .put("host", hostInfo()).put("series", synchronized(series) { series })
+            .put("peak_app_at", JSONArray(peakAt.get())).put("sample_interval_ms", 500).put("host", hostInfo()).put("series", synchronized(series) { series })
         File(context.filesDir, "long-recording-evidence.json").writeText(evidence.toString(2))
         Log.i("LongRecordingEvidence", JSONObject(evidence.toString()).apply { remove("series") }.toString())
         assertTrue(speakers.turns.isNotEmpty() && speakers.turns.size <= DiarizationReply.MAX_ITEMS)
