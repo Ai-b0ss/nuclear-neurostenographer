@@ -17,14 +17,19 @@ fun main(args: Array<String>) {
         "c0" -> {
             require(args.size in 5..6)
             val threshold = args.getOrNull(5)?.toFloat() ?: OfflineDiarization.THRESHOLD
+            val readStarted = System.nanoTime()
             val audio = File(args[2]).inputStream().use { PcmWav.read(it) }
+            val readMs = (System.nanoTime() - readStarted) / 1_000_000
             val result = OfflineDiarization.process(audio, File(args[1]), clusteringThreshold = threshold)
+            val writeStarted = System.nanoTime()
             File(args[3]).writeText(result.turns.joinToString("") {
                 val cluster = if (it.speakerId == "Unknown") -1 else it.speakerId.removePrefix("Speaker ").toInt() - 1
                 "${it.startMs}\t${it.endMs}\t$cluster\n"
             })
-            File(args[4]).writeText("{\"load_ms\":${result.loadMs},\"process_ms\":${result.processMs}," +
-                "\"threshold\":$threshold,\"threads\":2}\n")
+            // Same boundary as run_c1.py: diarization and post-processing up to the written turns file.
+            val inferMs = result.processMs + (System.nanoTime() - writeStarted) / 1_000_000
+            File(args[4]).writeText("{\"read_ms\":$readMs,\"load_ms\":${result.loadMs},\"infer_ms\":$inferMs," +
+                "\"threshold\":$threshold,\"threads\":2,\"onnxruntime\":\"1.17.1\"}\n")
         }
         "asr" -> {
             require(args.size == 6)

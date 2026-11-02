@@ -35,14 +35,33 @@ def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def der_reference_problem(turns, audio, rate=RATE):
+    """Why a turn list cannot serve as a DER reference, or None. Compares labels with frame energy."""
+    if not turns:
+        return "no turns"
+    frame = rate // 50
+    count = len(audio) // frame
+    rms = np.sqrt(np.mean(audio[:count * frame].reshape(count, frame) ** 2, axis=1) + 1e-12)
+    active = rms > max(1e-3, 0.1 * np.percentile(rms, 95))
+    labelled = np.zeros(count, dtype=bool)
+    for t in turns:
+        labelled[t["start_ms"] // 20:t["end_ms"] // 20] = True
+    coverage, excess = float(labelled.mean()), float((labelled & ~active).sum() / max(int(labelled.sum()), 1))
+    if coverage >= 0.96 and excess > 0.33:
+        return f"labels covers {coverage:.0%} of the file while {excess:.0%} of labelled frames have no energy"
+    return None
+
+
 def write_case(out, case_id, audio, group, scenario, kind, source, license_name, annotation, turns, text=None, extra=None):
+    problem = der_reference_problem(turns, audio) if turns else None
     wav = out / f"{case_id}.wav"
     sf.write(wav, np.clip(audio, -1, 1), RATE, subtype="PCM_16")
     digest = sha256(wav)
     duration = round(len(audio) * 1000 / RATE)
     reference = {"schema_version": 1, "recording_id": case_id, "annotation_source": annotation,
                  "license": license_name, "kind": kind, "audio_sha256": digest, "audio_duration_ms": duration}
-    if turns:
+    # A rejected turn list never reaches the scorer, so no report can call it SCORED.
+    if turns and not problem:
         reference["diarization"] = turns
     if text:
         reference["text_segments"] = text
@@ -50,7 +69,7 @@ def write_case(out, case_id, audio, group, scenario, kind, source, license_name,
     speakers = sorted({t["speaker_id"] for t in (turns or text or [])})
     entry = {"id": case_id, "group": group, "scenario": scenario, "kind": kind, "source": source, "license": license_name,
              "annotation": annotation, "audio_sha256": digest, "duration_ms": duration, "speakers": len(speakers),
-             "reference_sha256": sha256(out / f"{case_id}.ref.json")}
+             "reference_sha256": sha256(out / f"{case_id}.ref.json"), "der_reference_problem": problem}
     entry.update(extra or {})
     return entry
 
