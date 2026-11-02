@@ -69,6 +69,19 @@
   HOME before the service starts, locked screen. Added
   [PHONE_ACCEPTANCE.md](PHONE_ACCEPTANCE.md): the exact procedure and report for the
   physical ARM64 run (status NOT_RUN).
+- Commit `c947597` (all runs PASS, API 33 x86_64 emulator): Real offline Russian ASR
+  [41511089594](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41511089594),
+  stress [41511089611](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41511089611),
+  Android build [41511098421](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41511098421).
+  Stress artifact read: diarization 237.1 s (RTF 0.198), ASR 93.1 s (RTF 0.078), peak PSS
+  app 612 MiB, worker 435 MiB, same 304 turns / 110 replies / 8 speakers. Versus run
+  41354324447: both times about 1.4x slower, app PSS +172 MiB. Not explained: the
+  slowdown looks like runner variance, the memory rise coincides with the foreground
+  service and the new code and is not yet attributed. Single run each, no repeat.
+- Blocked: the re-issued `gh` OAuth token has scopes gist, read:org, repo, without
+  `workflow`, so GitHub refuses pushes that change `.github/workflows/`. Prepared
+  locally in branch `ci-api-matrix-pending`: an API 33/34/35 matrix for the ASR and UI
+  workflow. Needs `gh auth refresh -h github.com -s workflow` by the owner.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
