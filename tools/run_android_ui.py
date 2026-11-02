@@ -239,7 +239,7 @@ def run(ui):
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
     ui.shell("settings", "put", "global", "hide_error_dialogs", "1")
     ui.shell("logcat", "-c")
-    ui.started_at = ui.shell("date", "+%Y-%m-%d %H:%M:%S").strip()
+    ui.started_at = ui.shell("date", "+%Y-%m-%dT%H:%M:%S").strip().replace("T", " ")
     ui.shell("am", "force-stop", PACKAGE)
     ui.shell("pm", "revoke", PACKAGE, "android.permission.RECORD_AUDIO")
     ui.shell("pm", "clear-permission-flags", PACKAGE, "android.permission.RECORD_AUDIO", "user-set", "user-fixed")
@@ -252,6 +252,8 @@ def run(ui):
     checks.append("real_permission_dialog_denied")
 
     ui.tap(label="Записать разговор")
+    # Capture starts when the permission is granted; time from here bounds the WAV length.
+    recording_started = time.monotonic()
     ui.tap(resource_suffix="permission_allow_foreground_only_button")
     # Android 13+ asks for the notification of the recording service right after.
     _, notification = ui.find(resource_suffix="permission_allow_button", timeout=5)
@@ -264,7 +266,6 @@ def run(ui):
     ui.screenshot("rotated-recording", landscape=True)
     ui.visible("Остановить запись")
     checks.append("recording_survives_rotation")
-    recording_started = time.monotonic()
     ui.shell("input", "keyevent", "KEYCODE_HOME")
     time.sleep(3)
     services = ui.shell("dumpsys", "activity", "services", PACKAGE)
