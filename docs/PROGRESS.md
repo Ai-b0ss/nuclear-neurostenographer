@@ -46,6 +46,21 @@
   accuracy; the two PSS peaks are per process, their sum was not measured at one instant;
   a x86_64 emulator on a CI host is far faster than a mid-range ARM phone, so RTF on a
   phone is unknown and must be measured.
+- Recording in the background (commits 91c53cf, c94b750, 7ce4a00): new `RecordingService`
+  (foreground service, type `microphone`; permissions `FOREGROUND_SERVICE`,
+  `FOREGROUND_SERVICE_MICROPHONE`, optional `POST_NOTIFICATIONS`). The view model starts it
+  with the recording and stops it when the recording ends; `MainActivity.onStop` stops
+  the recording only if the service is not active. CI found a real bug on the way: a stop
+  racing with the service start crashed the process
+  (`ForegroundServiceDidNotStartInTimeException`); the service now finishes such a stop
+  itself after entering the foreground. The emulator UI flow now checks that after HOME
+  the service is `isForeground=true`, that recording continues, that "Остановить запись"
+  finalizes the WAV and that the service ends with it. Run
+  [41430825756](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41430825756)
+  (Real offline Russian ASR, API 33 x86_64 emulator) PASS; Android build
+  [41430834487](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41430834487)
+  PASS. Not verified: a physical phone, a locked screen, OEM battery killers, a recording
+  of tens of minutes in the background, API 34+ behaviour.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
