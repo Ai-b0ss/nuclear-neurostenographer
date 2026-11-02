@@ -117,7 +117,9 @@ class OfflineAsrTest {
                 zip.putNextEntry(ZipEntry(name)); zip.write(byteArrayOf(1, 2, 3)); zip.closeEntry()
             }
             try { store.install(ByteArrayInputStream(bytes.toByteArray())); fail("Unsafe ZIP accepted") }
+            // Android 14+ rejects "../" entries inside ZipInputStream itself; older releases reach our check.
             catch (_: IllegalArgumentException) { }
+            catch (_: java.util.zip.ZipException) { }
             assertEquals(original, store.current())
         }
     }
