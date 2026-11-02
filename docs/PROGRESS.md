@@ -82,6 +82,23 @@
   `workflow`, so GitHub refuses pushes that change `.github/workflows/`. Prepared
   locally in branch `ci-api-matrix-pending`: an API 33/34/35 matrix for the ASR and UI
   workflow. Needs `gh auth refresh -h github.com -s workflow` by the owner.
+- Android API matrix (workflow now pushed after the owner added the `workflow` scope):
+  Real offline Russian ASR on emulators API 33, 34 and 35 (x86_64, default image) all PASS at
+  `38c1b0d`, run
+  [41519033079](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41519033079),
+  including the UI flow with HOME during recording and the foreground service check; Android
+  build [41519036174](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41519036174)
+  PASS. Two test-side findings on the way, no product change: Android 14+ throws
+  `ZipException` itself for a `../` ZIP entry (the model import still rejects it; the test now
+  accepts both exceptions), and the API 35 emulator showed a system launcher ANR dialog over
+  the app (the UI script now sets `hide_error_dialogs`). Stress run
+  [41517372792](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41517372792)
+  (commit `5f10e5d`, API 33): diarization 265.7 s, ASR 96.3 s, total 361.9 s (RTF 0.30), peak
+  PSS app 612 MiB, worker 454 MiB. The app peak is now stable near 612 MiB in two runs,
+  versus 440 MiB before the background-recording change, so the +172 MiB is real, not noise;
+  cause not yet isolated (candidates: the service, keeping the screen on, measurement
+  timing). Emulator only; locked screen, OEM battery limits and a physical phone remain
+  NOT_RUN.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
