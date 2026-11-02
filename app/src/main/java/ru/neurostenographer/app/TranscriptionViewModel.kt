@@ -170,6 +170,14 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (e: Throwable) { file.delete(); RecordingService.stop(getApplication()); throw e }
             recording.value = true
             mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmWav.MAX_LABEL}. Предыдущий результат сохранён до успешной остановки.")
+            // Foreground entry is asynchronous and can be refused (Android 14+ background-start
+            // rules). Without it recording ends when the app leaves the screen: say so.
+            viewModelScope.launch {
+                delay(3_000)
+                if (recording.value && !RecordingService.active) {
+                    mutable.value = mutable.value.copy(message = "Фоновая запись недоступна: не сворачивайте приложение, иначе запись остановится и сохранится.")
+                }
+            }
             recordingTimer = viewModelScope.launch {
                 yield() // Let startRecording finish publishing the observer job.
                 val deadline = System.nanoTime() + PcmWav.MAX_SECONDS * 1_000_000_000L

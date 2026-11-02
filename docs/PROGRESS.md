@@ -61,6 +61,14 @@
   [41430834487](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41430834487)
   PASS. Not verified: a physical phone, a locked screen, OEM battery killers, a recording
   of tens of minutes in the background, API 34+ behaviour.
+- Synced to `ffdcabc` (fast-forward, PR #12 documents merged). Review comment on PR #9
+  raised two valid points on `RecordingService`, now addressed in code: the notification
+  said "stop" but only opens the app (copy corrected), and a refused foreground entry was
+  silent (the view model now warns after 3 s when the service is not active; `onStop`
+  already stops and saves the recording in that case). Still untested: API 34/35, immediate
+  HOME before the service starts, locked screen. Added
+  [PHONE_ACCEPTANCE.md](PHONE_ACCEPTANCE.md): the exact procedure and report for the
+  physical ARM64 run (status NOT_RUN).
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

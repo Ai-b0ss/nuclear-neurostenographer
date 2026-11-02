@@ -29,7 +29,7 @@ class RecordingService : Service() {
         val notification = Notification.Builder(this, CHANNEL)
             .setSmallIcon(android.R.drawable.ic_btn_speak_now)
             .setContentTitle("Идёт запись")
-            .setContentText("Звук остаётся на устройстве. Нажмите, чтобы остановить запись.")
+            .setContentText("Звук остаётся на устройстве. Нажмите, чтобы вернуться в приложение и остановить запись.")
             .setContentIntent(open).setOngoing(true).build()
         try {
             ServiceCompat.startForeground(this, ID, notification,
