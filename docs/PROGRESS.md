@@ -151,6 +151,44 @@
   Russian ASR, speakers, TXT/JSON/SRT, no network permission; API 33–35). Telling anyone the
   app works on a phone: NO-GO until `PHONE_ACCEPTANCE.md` is executed on ARM64. Public
   APK release: NO-GO (licence/notices review still open).
+- **2026-11-03 — offline kit, no-picker model install, UI status, final CI at `516000f`.**
+  Added: model install from the app's own external folder (`adb push`, strict SHA-256
+  importers, free-space check, named error, rejected ZIP kept and the previous model
+  untouched); `tools/offline_kit.py` (assemble and verify the kit: APK + `gigaam-v3.zip` +
+  `diarization.zip`, `SHA256SUMS.txt`, `KIT_MANIFEST.json`, rejects a different runtime or
+  tampered/truncated files); `tools/phone_kit.py` (`check`, `install`, `monitor`, `scan`,
+  `exports` over adb; exit 2 = NOT_RUN without a device); owner-triggered
+  `build-apk-kit.yml` (one-day artifact, deleted by `fetch-apk`; not run by me because the
+  artifact of a public repository is visible while it exists); UI: status, errors and
+  progress moved to the top, recording timer with an honest background hint, model
+  readiness hints. Docs: [OFFLINE_KIT.md](OFFLINE_KIT.md), [PHONE_ACCEPTANCE.md](PHONE_ACCEPTANCE.md).
+  *Final CI at `516000f` (code; `d3e63c6` is docs only, its build also PASS):*
+
+  | Check | Result | Link |
+  | --- | --- | --- |
+  | Android build, lint, core tests | PASS | [41536700135](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536700135) |
+  | Real offline Russian ASR, API 33 / 34 / 35 (x86_64) incl. `KitInstallTest` (2 tests) and UI flow | PASS x3 | [41536695619](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695619) |
+  | UI flow: timer visible, HOME, screen off, WAV continuity (30.1/33.9/30.0 s of 32.7/36.6/32.9 s), no app/worker ANR/crash/kill | PASS x3 | same run |
+  | 20-minute stress (API 33): diarization 141 s, ASR 58 s, RTF 0.17, app peak 607 MiB at ASR start, worker 447 MiB | PASS | [41536695421](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695421) |
+  | Python tool tests (`test_phone_kit`, `test_app_failure_detector`, ...) | PASS | in the build and ASR runs |
+
+  *Identities.* APK (debug, both ABIs, built in that run): 50 989 367 bytes, SHA-256
+  `8e8d9babfd306002dddec842be8c9bfceaa04522e0e97d38696710cbac76ba2f`; version `0.1.0-alpha`
+  (code 1). sherpa-onnx no-TTS runtime AAR `771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8`
+  (matches the packaged natives; ELF machine 183 = arm64 for the arm64-v8a libraries).
+  GigaAM v3 CTC INT8 model SHA-256 `f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec`
+  (HF revision `32a4c7cc…fbd`); diarization: segmentation `220ad67c…1079` (revision `9403a690…`),
+  ERes2Net `1a331345…5e4b`. The ZIP files themselves are not byte-reproducible (timestamps);
+  the kit records their SHA-256 at assembly time and the app checks every file inside.
+  The APK differs per build (debug signing key), so its hash is per build.
+  *Blockers before a demo on a phone:* (1) no APK in hand: the owner must run
+  `build-apk-kit.yml` (or install the SDK locally); (2) no adb and no phone on this PC:
+  every ARM64 item is NOT_RUN (real Russian speech from 2 and 3–4 speakers, A–B–A, noise,
+  background/lock-screen on a real device, 20-minute recording, MP3 import timing,
+  airplane mode, thermals, real memory/RTF); (3) public APK/weights remain NO-GO
+  (distribution/notices review); (4) the emulator microphone is silent, so no spoken
+  recording was ever transcribed through `RecordingService` yet. *Go/no-go:* emulator
+  pipeline GO; kit and tooling ready; phone demo NO-GO until PHONE_ACCEPTANCE is executed.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
