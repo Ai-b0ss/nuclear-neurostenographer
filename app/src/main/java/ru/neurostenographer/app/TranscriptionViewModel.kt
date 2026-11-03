@@ -29,8 +29,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         NemotronBackend.current(getApplication<Application>().filesDir) != null ||
         runCatching { getApplication<Application>().assets.list("")?.contains("nemotron.zip") == true }
             .getOrDefault(false))
-    private val mutable = MutableStateFlow(ScreenState(modelReady = store.current() != null,
-        diarizationReady = speakerStore.current() != null, c2Supported = c2Available()))
+    private val mutable = MutableStateFlow(store.current().let { installed ->
+        val base = ScreenState(modelReady = installed != null,
+            diarizationReady = speakerStore.current() != null, c2Supported = c2Available())
+        if (installed != null) base.copy(message = "Модели установлены. Выберите или запишите аудио и нажмите «Распознать офлайн».") else base
+    })
     val state = mutable.asStateFlow()
     private var operation: Job? = null
     private var recorder: WavRecording? = null
