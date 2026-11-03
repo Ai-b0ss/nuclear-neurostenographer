@@ -4,6 +4,7 @@ import android.app.Application
 import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.core.content.ContextCompat
@@ -96,8 +97,13 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
      * They go through the same strict, SHA-256 checked importers as the manual ZIP buttons.
      */
     private fun kitFiles(): List<Pair<String, File>> {
-        val directory = getApplication<Application>().getExternalFilesDir(KIT_DIRECTORY) ?: return emptyList()
-        return listOf(KIT_ASR_ZIP, KIT_DIARIZATION_ZIP).map { it to File(directory, it) }.filter { it.second.isFile }
+        // A phone may report an SD card as the primary external storage while `adb push` writes to the
+        // internal one (/sdcard). Look in every external files directory of the app.
+        val directories = getApplication<Application>().getExternalFilesDirs(KIT_DIRECTORY).filterNotNull()
+        Log.i("KitInstall", "dirs=$directories")
+        return listOf(KIT_ASR_ZIP, KIT_DIARIZATION_ZIP).mapNotNull { name ->
+            directories.map { File(it, name) }.firstOrNull { it.isFile }?.let { name to it }
+        }
     }
 
     fun installKit() = work {
