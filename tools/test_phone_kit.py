@@ -14,13 +14,14 @@ DF = "Filesystem 1K-blocks Used Available Use% Mounted on\n/dev/block/dm-48 1180
 
 
 class FakeAdb:
-    def __init__(self, abi="arm64-v8a", sdk="34", free=8_000_000, ram=8_000_000, airplane="1"):
+    def __init__(self, abi="arm64-v8a", sdk="34", free=8_000_000, ram=8_000_000, airplane="1", qemu="", hardware="kirin"):
         self.answers = {("getprop", "ro.product.cpu.abi"): abi, ("getprop", "ro.build.version.sdk"): sdk,
                         ("getprop", "ro.product.model"): "TestPhone", ("getprop", "ro.build.version.release"): "14",
                         ("cat", "/proc/meminfo"): f"MemTotal:       {ram} kB\n",
                         ("df", "-k", "/data"): DF.format(free=free),
                         ("settings", "get", "global", "airplane_mode_on"): airplane,
-                        ("settings", "get", "global", "wifi_on"): "0"}
+                        ("settings", "get", "global", "wifi_on"): "0",
+                        ("getprop", "ro.kernel.qemu"): qemu, ("getprop", "ro.hardware"): hardware}
 
     def shell(self, *args, **kwargs):
         return self.answers[args]
@@ -146,6 +147,69 @@ class DeviceStateTests(unittest.TestCase):
                 mock.patch.object(phone_kit, "command_check", return_value=0) as check:
             self.assertEqual(phone_kit.command_wait(args), 0)
             check.assert_called_once()
+
+
+class EmulatorIsNeverAPhoneTests(unittest.TestCase):
+    """Regression: an `emulator-5564 offline` entry was reported as a phone to reconnect."""
+    H = "List of devices attached" + chr(10)
+
+    def listing(self, *rows):
+        return self.H + "".join(serial + chr(9) + state + chr(10) for serial, state in rows)
+
+    def connect(self, text, serial=None):
+        args = argparse.Namespace(adb=None, serial=serial)
+        with mock.patch.object(phone_kit, "find_adb", return_value=("adb", "PATH")), \
+                mock.patch.object(phone_kit.subprocess, "run", return_value=mock.Mock(stdout=text)):
+            return phone_kit.connect(args)
+
+    def test_offline_emulator_is_not_described_as_a_phone(self):
+        reason = phone_kit.explain_no_device({"emulator-5564": "offline"})
+        self.assertIn("no physical phone", reason)
+        self.assertIn("emulator-5564 (offline)", reason)
+        self.assertNotIn("listed as offline", reason)
+
+    def test_connect_with_only_an_offline_or_ready_emulator_is_not_run(self):
+        for state in ("offline", "device"):
+            with self.assertRaises(SystemExit) as raised:
+                self.connect(self.listing(("emulator-5564", state)))
+            self.assertEqual(raised.exception.code, phone_kit.NOT_RUN)
+
+    def test_a_real_phone_next_to_an_emulator_is_chosen(self):
+        adb = self.connect(self.listing(("emulator-5564", "device"), ("ABC123", "device")))
+        self.assertEqual(adb.prefix[-2:], ["-s", "ABC123"])
+
+    def test_serial_of_an_emulator_is_refused(self):
+        with self.assertRaises(SystemExit) as raised:
+            self.connect(self.listing(("emulator-5554", "device")), serial="emulator-5554")
+        self.assertEqual(raised.exception.code, phone_kit.NOT_RUN)
+
+    def test_unauthorized_phone_is_still_reported_as_unauthorized_beside_an_emulator(self):
+        reason = phone_kit.explain_no_device({"emulator-5564": "offline", "ABC123": "unauthorized"})
+        self.assertIn("authorize", reason)
+        self.assertIn("Ignored emulator", reason)
+
+    def test_wait_ignores_a_ready_emulator(self):
+        ready = mock.Mock(stdout=self.listing(("emulator-5554", "device")))
+        args = argparse.Namespace(adb=None, serial=None, minutes=0)
+        with mock.patch.object(phone_kit, "find_adb", return_value=("adb", "PATH")), \
+                mock.patch.object(phone_kit.subprocess, "run", return_value=ready), \
+                mock.patch.object(phone_kit.time, "sleep"), \
+                mock.patch.object(phone_kit, "command_check") as check:
+            self.assertEqual(phone_kit.command_wait(args), phone_kit.NOT_RUN)
+            check.assert_not_called()
+
+    def test_emulator_properties_fail_the_preflight_even_with_a_phone_like_serial(self):
+        problems, report = phone_kit.preflight(FakeAdb(qemu="1", hardware="ranchu", abi="x86_64"))
+        self.assertTrue(report["emulator"])
+        self.assertTrue(any("emulator" in p for p in problems))
+        problems, report = phone_kit.preflight(FakeAdb(hardware="goldfish"))
+        self.assertTrue(report["emulator"])
+
+    def test_install_never_reaches_an_emulator(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            adb = RecordingAdb(qemu="1", hardware="ranchu")
+            self.assertEqual(InstallTests().install(adb, KitTests().make(tmp)), 1)
+            self.assertFalse(any(c[0] == "install" for c in adb.calls))
 
 
 class FindAdbTests(unittest.TestCase):

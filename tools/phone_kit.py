@@ -118,23 +118,46 @@ def parse_device_states(text):
     return states
 
 
+EMULATOR_SERIAL = re.compile(r"^emulator-\d+$")
+
+
+def is_emulator_serial(serial):
+    """Emulators (`emulator-5554`) are never the physical phone, whatever their state."""
+    return EMULATOR_SERIAL.match(serial) is not None
+
+
+WINDOWS_DRIVER_HINT = ("On Windows, if Device Manager shows an 'ADB'/'HDB' interface of the phone with a "
+                       "yellow warning (Code 28), its driver is missing: see 'Драйвер Windows' in docs/PHONE_ACCEPTANCE.md.")
+
+
 def explain_no_device(states, serial=None):
-    """Return a one-paragraph, concrete reason and next action for an unusable device list."""
+    """Return a concrete reason and next action when no physical phone is usable.
+
+    Emulators in the list are ignored and mentioned separately, so an offline emulator cannot be
+    mistaken for a phone that needs reconnecting.
+    """
+    emulators = {k: v for k, v in states.items() if is_emulator_serial(k)}
+    phones = {k: v for k, v in states.items() if not is_emulator_serial(k)}
     if serial:
-        states = {k: v for k, v in states.items() if k == serial}
-    if not states:
-        return ("no phone is visible to adb. Use a data USB cable (not charge-only), set USB mode to "
+        phones = {k: v for k, v in phones.items() if k == serial}
+    note = ""
+    if emulators:
+        note = (" Ignored emulator(s) " + ", ".join(f"{k} ({v})" for k, v in sorted(emulators.items()))
+                + ": an emulator is never accepted as the physical phone.")
+    if not phones:
+        return ("no physical phone is visible to adb. Use a data USB cable (not charge-only), set USB mode to "
                 "'File transfer', enable Developer options > USB debugging, unlock the screen, reconnect, "
-                "and accept 'Allow USB debugging' on the phone.")
-    if any(v == "unauthorized" for v in states.values()):
+                "and accept 'Allow USB debugging' on the phone. " + WINDOWS_DRIVER_HINT + note)
+    if any(v == "unauthorized" for v in phones.values()):
         return ("the phone is connected but has not authorized this PC: unlock it and tap 'Allow' in the "
-                "'Allow USB debugging?' dialog (tick 'Always allow'), then retry.")
-    if any(v == "offline" for v in states.values()):
-        return "the phone is listed as offline: reconnect the cable, toggle USB debugging off and on, then retry."
-    ready = [k for k, v in states.items() if v == "device"]
+                "'Allow USB debugging?' dialog (tick 'Always allow'), then retry." + note)
+    if any(v == "offline" for v in phones.values()):
+        return ("the phone is listed as offline: reconnect the cable, toggle USB debugging off and on, "
+                "then retry." + note)
+    ready = [k for k, v in phones.items() if v == "device"]
     if len(ready) > 1:
-        return f"several devices are ready ({', '.join(ready)}): pass --serial."
-    return f"unexpected adb states: {states}"
+        return f"several phones are ready ({', '.join(ready)}): pass --serial." + note
+    return f"unexpected adb states: {phones}" + note
 
 
 def parse_free_kib(df_output):
@@ -173,7 +196,12 @@ def preflight(adb):
         "ram_kib": ram_kib, "free_data_kib": free_kib,
         "airplane_mode": airplane == "1", "wifi_on": wifi == "1",
     }
+    qemu = adb.shell("getprop", "ro.kernel.qemu", check=False).strip()
+    hardware = adb.shell("getprop", "ro.hardware", check=False).strip()
+    report["emulator"] = qemu == "1" or hardware in ("goldfish", "ranchu")
     problems = []
+    if report["emulator"]:
+        problems.append("this device is an emulator (ro.kernel.qemu/ro.hardware); it cannot be a physical acceptance")
     if abi != "arm64-v8a":
         problems.append(f"ABI is {abi}; the acceptance target is arm64-v8a")
     if sdk < 26:
@@ -225,8 +253,11 @@ def connect(args):
     except (OSError, subprocess.TimeoutExpired) as error:
         print(f"NOT_RUN: adb could not run ({error}).")
         sys.exit(NOT_RUN)
-    devices = parse_devices(listing)
+    devices = [d for d in parse_devices(listing) if not is_emulator_serial(d)]
     if args.serial:
+        if is_emulator_serial(args.serial):
+            print(f"NOT_RUN: --serial {args.serial} is an emulator; physical acceptance needs a real phone.")
+            sys.exit(NOT_RUN)
         devices = [d for d in devices if d == args.serial]
     if len(devices) != 1:
         print(f"NOT_RUN: expected exactly one authorized device, found {len(devices)}: "
@@ -258,7 +289,8 @@ def command_wait(args):
     while True:
         listing = subprocess.run([path, "devices"], capture_output=True, text=True, timeout=60).stdout
         states = parse_device_states(listing)
-        ready = [k for k, v in states.items() if v == "device" and (not args.serial or k == args.serial)]
+        ready = [k for k, v in states.items()
+                 if v == "device" and not is_emulator_serial(k) and (not args.serial or k == args.serial)]
         if len(ready) == 1:
             print(f"Phone found: {ready[0]}")
             return command_check(args)
