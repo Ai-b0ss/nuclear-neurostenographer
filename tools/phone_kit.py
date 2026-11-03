@@ -348,27 +348,39 @@ def command_install(args):
     return 1
 
 
+def summarize_samples(samples, interval):
+    peak = lambda key: max((s[key] for s in samples if s[key] is not None), default=None)
+    return {"samples": len(samples), "peak_app_pss_kib": peak("app_pss_kib"),
+            "peak_worker_pss_kib": peak("worker_pss_kib"), "max_battery_c": peak("battery_c"),
+            "interval_s": interval, "series": samples}
+
+
 def command_monitor(args):
     adb = connect(args)
     samples = []
+    output = Path(args.output)
     end = time.monotonic() + args.minutes * 60
     started = time.monotonic()
-    print("Sampling; run your scenario on the phone. Ctrl+C stops early.")
+    print("Sampling; run your scenario on the phone. Ctrl+C stops early. The file is rewritten every 30 samples.")
     try:
         while time.monotonic() < end:
-            app = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", PACKAGE, check=False))
-            worker = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", f"{PACKAGE}:diarization", check=False))
-            temperature, level = parse_battery(adb.shell("dumpsys", "battery", check=False))
+            try:
+                app = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", PACKAGE, check=False, timeout=30))
+                worker = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", f"{PACKAGE}:diarization", check=False, timeout=30))
+                temperature, level = parse_battery(adb.shell("dumpsys", "battery", check=False, timeout=30))
+            except (subprocess.TimeoutExpired, OSError):
+                # The phone was unplugged or adb stalled: keep what was collected, keep trying.
+                app = worker = temperature = level = None
             samples.append({"t_s": round(time.monotonic() - started, 1), "app_pss_kib": app,
                             "worker_pss_kib": worker, "battery_c": temperature, "battery_percent": level})
+            if len(samples) % 30 == 0:
+                output.write_text(json.dumps(summarize_samples(samples, args.interval), indent=2), encoding="utf-8")
             time.sleep(args.interval)
     except KeyboardInterrupt:
         pass
-    peak = lambda key: max((s[key] for s in samples if s[key] is not None), default=None)
-    summary = {"samples": len(samples), "peak_app_pss_kib": peak("app_pss_kib"),
-               "peak_worker_pss_kib": peak("worker_pss_kib"), "max_battery_c": peak("battery_c"),
-               "interval_s": args.interval, "series": samples}
-    Path(args.output).write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    finally:
+        summary = summarize_samples(samples, args.interval)
+        output.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print({k: v for k, v in summary.items() if k != "series"})
     return 0
 

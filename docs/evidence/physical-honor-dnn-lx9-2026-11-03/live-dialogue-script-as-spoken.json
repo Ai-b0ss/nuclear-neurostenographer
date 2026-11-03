@@ -1,0 +1,34 @@
+{
+ "schema_version": 1,
+ "recording_id": "live-dialogue-ru-v1-as-spoken-run1",
+ "kind": "LIVE_READ_ALOUD_SCRIPT",
+ "annotation_source": "authored by the project for this test; read aloud by the participants",
+ "license": "CC0-1.0 (authored for this project)",
+ "note": "Run 1 as actually spoken: the reader added the word \"да\" at the start of turn 5 (reported by the reader, not inferred from the recognizer).",
+ "turns": [
+  {
+   "speaker_id": "A",
+   "text": "привет как прошли твои выходные мы с друзьями ездили за город и жарили шашлыки"
+  },
+  {
+   "speaker_id": "B",
+   "text": "здорово а у меня была очень спокойная суббота я читал книгу и немного гулял по парку"
+  },
+  {
+   "speaker_id": "A",
+   "text": "а какую книгу ты читал если не секрет я давно ищу что нибудь интересное"
+  },
+  {
+   "speaker_id": "B",
+   "text": "это роман про путешествие на север там много описаний природы и совсем нет спешки"
+  },
+  {
+   "speaker_id": "A",
+   "text": "да звучит неплохо дай потом название я обязательно прочитаю её в отпуске"
+  },
+  {
+   "speaker_id": "B",
+   "text": "конечно напишу тебе вечером а в понедельник давай встретимся и обсудим планы на неделю"
+  }
+ ]
+}

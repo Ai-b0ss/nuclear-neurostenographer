@@ -225,6 +225,17 @@ class EmulatorIsNeverAPhoneTests(unittest.TestCase):
             self.assertFalse(any(c[0] == "install" for c in adb.calls))
 
 
+class MonitorTests(unittest.TestCase):
+    def test_summary_ignores_missing_samples_and_unplugged_gaps(self):
+        samples = [{"t_s": 0, "app_pss_kib": 100, "worker_pss_kib": None, "battery_c": 40.0, "battery_percent": 80},
+                   {"t_s": 1, "app_pss_kib": None, "worker_pss_kib": None, "battery_c": None, "battery_percent": None},
+                   {"t_s": 2, "app_pss_kib": 300, "worker_pss_kib": 250, "battery_c": 43.5, "battery_percent": 80}]
+        summary = phone_kit.summarize_samples(samples, 1.0)
+        self.assertEqual((summary["peak_app_pss_kib"], summary["peak_worker_pss_kib"], summary["max_battery_c"]),
+                         (300, 250, 43.5))
+        self.assertEqual(phone_kit.summarize_samples([], 1.0)["peak_app_pss_kib"], None)
+
+
 class FindAdbTests(unittest.TestCase):
     def test_explicit_path_wins_and_a_wrong_one_is_reported(self):
         path, source = phone_kit.find_adb("C:/tools/adb.exe", {}, which=lambda n: None, is_file=lambda p: p == "C:/tools/adb.exe")

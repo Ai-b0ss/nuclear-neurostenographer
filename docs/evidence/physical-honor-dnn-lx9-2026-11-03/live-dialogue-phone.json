@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 43660,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.8", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 2967, "end_ms": 5380, "speaker_id": "Speaker 1", "text": "привет как прошли твои выходные", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 10072, "end_ms": 13312, "speaker_id": "Speaker 1", "text": "мы с друзьями ездили за город и жарити шашлыки", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 13784, "end_ms": 18813, "speaker_id": "Speaker 2", "text": "здорово а у меня была очень спокойная суббота я читал книгу и много гулял по парку", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 19842, "end_ms": 25327, "speaker_id": "Speaker 1", "text": "а какую книгу ты читал если не секрет я давно ищу что нибудь интересное", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 26440, "end_ms": 31807, "speaker_id": "Speaker 2", "text": "это роман про путешествие на север там много описаний природы и совсем нет спешки", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 32009, "end_ms": 37460, "speaker_id": "Speaker 1", "text": "да звучит неплохо дай потом название и обязательно прочитай ее в отпуске", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 38253, "end_ms": 43096, "speaker_id": "Speaker 2", "text": "конечно напишу тебе вечером а в понедельник давай встретимся и обсудим планы на неделю", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

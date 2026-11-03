@@ -314,6 +314,37 @@
   Downloads. Removed from the branch and git-ignored in the next commit; they remain in the
   history of `df1a439` on the public remote until the history is rewritten (a force-push, which
   I did not do): owner's decision. The helper now writes to `.local/phone-ui-private/`.
+- **2026-11-03 (night) — physical phone, real microphone, background and live dialogue.**
+  Same HONOR DNN-LX9 (Android 10, arm64-v8a), APK `1a8d6ac`+ (4 inference threads). Evidence in
+  [docs/evidence/physical-honor-dnn-lx9-2026-11-03/](evidence/physical-honor-dnn-lx9-2026-11-03/).
+  *Recording through the real microphone and `RecordingService`:* microphone permission granted
+  with `pm grant` (own debug app), recording started from the UI, timer and notification visible;
+  `dumpsys` showed `isForeground=true` with the same process id after HOME (25 s) and with the
+  screen off on the lock screen (about 6 minutes in total); the WAV grew at 31–32 kB/s
+  (real time) while locked. After the owner unlocked, the recording was stopped from the UI:
+  17 093 804 bytes = 534 s against about 535 s of wall time (timer 08:31 at 22:14:48), so no gap
+  through HOME and the locked screen; the service ended with the recording. Not tested: OEM
+  battery limits over a long time (about 9 minutes only), a recording of 20 minutes.
+  *Processing that 8 m 54 s recording on the phone* (content unknown: room microphone, nobody
+  scripted it; it stays on the phone): model load 8.9 s, diarization 494 s, ASR 104 s, total 607 s
+  (RTF 1.14), 62 fragments and **17 speaker clusters**: do not read this as quality, but it shows
+  that noise or unclear audio can produce many clusters (a risk to explain in a demo). Monitor
+  during it: app PSS peak 567 MiB, worker 398 MiB, battery 42→47 °C while charging over USB,
+  83→82 %. *Live read-aloud dialogue, two people, scripted*
+  ([script](../tools/fixtures/live-dialogue-script-ru.json), 83 words, 43.7 s of audio):
+  7 segments, speakers alternate A-B-A-B-A-B (A→Speaker 1, B→Speaker 2; the first A turn was
+  split in two segments of the same speaker). WER = cpWER **4/84 = 4.76%** against the script as
+  actually spoken (the reader reported adding the word "да" to turn 5, our mistake, not the
+  recognizer's; this correction came from the reader, not from the recognizer output), and 5/83 =
+  6.02% against the original script; all 4 remaining errors are word substitutions by the
+  recognizer ("жарили"→"жарити", "немного"→"много", "прочитаю её"→"прочитай ее", "я"→"и").
+  DER: `NOT_SCORED`. Airplane mode during this run: the owner was asked to enable it but did not
+  say so and I could not verify it afterwards, so the run counts as **not verified offline**
+  (the app has no INTERNET permission, checked on the device). Monitor tool now writes
+  incrementally and survives unplugging (34 tests PASS).
+  *Remaining NOT_RUN on the phone:* verified airplane-mode run, 3–4 speakers, noise and
+  interruptions, 20-minute recording and long MP3/WAV import, permission denial, worker kill,
+  low storage.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
