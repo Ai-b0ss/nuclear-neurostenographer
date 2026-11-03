@@ -56,7 +56,7 @@ def main():
     stub = host / "AssetManager.kt"
     stub.write_text("package android.content.res\nclass AssetManager\n", encoding="utf-8")
     sources = list((ROOT / "core/src/main/kotlin/ru/neurostenographer/core").glob("*.kt"))
-    sources += [ROOT / "app/src/main/java/ru/neurostenographer/app" / (n + ".kt") for n in ["OfflineAsr", "OfflineDiarization"]]
+    sources += [ROOT / "app/src/main/java/ru/neurostenographer/app" / (n + ".kt") for n in ["OfflineAsr", "OfflineDiarization", "InferenceThreads"]]
     sources += [ROOT / "tools" / (n + ".kt") for n in ["OfflineAsrJvmSmoke", "DiarizationJvmSmoke", "OfflineDialogueJvmSmoke", "OverlapJvmProbe"]]
     placeholder = host / "android-host-placeholder.jar"
     subprocess.run([args.java, "-cp", str(compiler / "*"), "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler",
