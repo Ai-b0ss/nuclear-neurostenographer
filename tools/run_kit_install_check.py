@@ -12,7 +12,7 @@ import sys
 import time
 from pathlib import Path
 
-from run_android_ui import AndroidUi, PACKAGE
+from run_android_ui import AndroidUi, PACKAGE, dismiss_foreign_anr_dialog
 
 ROOT = Path(__file__).resolve().parents[1]
 KIT = f"/sdcard/Android/data/{PACKAGE}/files/kit"
@@ -49,6 +49,7 @@ def run(ui):
     ui.started_at = ui.shell("date", "+%Y-%m-%dT%H:%M:%S").strip().replace("T", " ")
     ui.shell("am", "force-stop", PACKAGE)
     ui.shell("pm", "clear", PACKAGE)
+    dismiss_foreign_anr_dialog(ui)
     ui.launch()
     ui.visible(MISSING)
     ui.screenshot("kit-no-model")
