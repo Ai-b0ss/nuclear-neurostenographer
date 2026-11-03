@@ -21,7 +21,7 @@
   - ярлыки одинаковые;
   - есть разрешение `INTERNET`.
 
-  В CI её запускает `.github/workflows/nemotron-side-by-side.yml`: только сборка, без эмулятора.
+  В CI её запускает `.github/workflows/nemotron-side-by-side.yml`: только сборка, без эмулятора. Прогон [41716466662](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41716466662) на коммите `662aaf9` — **PASS**. Пакеты `ru.neurostenographer.app` / `.app.c2`, тестовые цели, authority `androidx-startup` и объявленные разрешения различаются, ярлыки разные. Отчёты: [ci-side-by-side-41716466662](evidence/c2-same-tracks/ci-side-by-side-41716466662/).
 - **Сам скрипт** `tools/phone_c2/run_c2_phone.sh`:
   - без `HANDOVER_CONFIRMED=1` не обращается к устройству вообще;
   - останавливается, если в `app/build.gradle.kts` нет суффикса `.c2`;
