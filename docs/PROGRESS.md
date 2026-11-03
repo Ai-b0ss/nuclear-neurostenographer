@@ -237,6 +237,19 @@
   plugged in), not merely unauthorized. `phone_kit.py` got `wait` (polls adb, distinguishes no
   device / unauthorized / offline / several, prints the concrete action, then runs `check`) and
   the same explanations in every command; 24 tests PASS. ARM64 acceptance remains NOT_RUN.
+- **2026-11-03 (phone seen by Windows; emulator bug).** An HONOR 10X Lite (DNN-LX9,
+  VID_12D1 PID_107E) is now visible to Windows (composite, MTP, mass storage). The "HDB
+  Interface" Code 28 reported by the owner's diagnostics is gone: official Huawei drivers
+  `hw_goadb.inf` (2016-07-11) and `hw_gohdb.inf` (2015-12-28), signed by "Microsoft Windows
+  Hardware Compatibility Publisher", are installed, the HDB node (subclass 0x48) is OK with
+  WinUSB. No driver was installed by me. `adb devices -l` is still empty for the phone: the
+  phone exposes MTP, mass storage and HDB but **no ADB interface (subclass 0x42)**, which
+  appears only with USB debugging on. Bug found by the owner's diagnostics and fixed
+  (`c01e54f`): `phone_kit.py` reported an `emulator-5564 offline` entry as a phone to
+  reconnect. Emulators are now never candidates (not by serial pattern, not via `--serial`,
+  not by `ro.kernel.qemu`/`ro.hardware` in `check`/`install`), they are named separately in
+  the diagnostics; 8 regression tests (32 total) PASS. Physical acceptance: still NOT_RUN,
+  waiting for USB debugging on the phone. Instructions: PHONE_ACCEPTANCE.md, "Драйвер Windows".
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

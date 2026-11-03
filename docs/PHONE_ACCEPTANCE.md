@@ -10,6 +10,17 @@
 ## Подготовка
 Сборка комплекта и установка описаны в [OFFLINE_KIT.md](OFFLINE_KIT.md): `phone_kit.py check` (ABI, Android, место, ОЗУ), затем `phone_kit.py install` (SHA-256, APK, модели без выбора ZIP). Включите **авиарежим** и выключите Wi-Fi/Bluetooth до всех замеров; в манифесте нет INTERNET (проверено `apk-inspection.json`).
 
+## Драйвер Windows (HONOR/HUAWEI)
+Если `phone_kit.py` пишет, что телефона нет, а в диспетчере устройств виден «HDB Interface» или «ADB Interface» с жёлтым знаком (Code 28), не хватает драйвера. Официальные драйверы Huawei (`hw_goadb.inf` и `hw_gohdb.inf`, класс «Android Phone», подпись «Microsoft Windows Hardware Compatibility Publisher») ставятся вместе с HiSuite (consumer.huawei.com) либо уже стоят; репаки и «универсальные» сборки не использовать. Проверка в PowerShell:
+
+```powershell
+pnputil /enum-drivers | Select-String -Context 0,6 "hw_goadb|hw_gohdb"
+Get-PnpDevice -PresentOnly | Where-Object InstanceId -match 'VID_12D1' | Format-Table Status,Class,FriendlyName
+```
+Нужно, чтобы у всех узлов `VID_12D1` статус был `OK`. Важно: драйвер для интерфейса **HDB** (подкласс 0x48) ещё не означает, что adb увидит телефон. adb работает только с интерфейсом **ADB** (подкласс 0x42), а он появляется на телефоне лишь при включённой «Отладке по USB». `adb devices` не показывает эмуляторы как телефон: `phone_kit.py` их игнорирует.
+
+**HONOR 10X Lite (Magic UI):** «Настройки → О телефоне» → 7 раз нажать «Номер сборки»; затем «Настройки → Система и обновления → Для разработчиков» → включить «Отладка по USB»; разблокировать экран, переподключить кабель и нажать «Разрешить» (отметить «Всегда разрешать с этого компьютера») в запросе RSA.
+
 ## Сценарии (каждый — минимум 3 повтора, фиксировать PASS/FAIL)
 | № | Сценарий | Критерий |
 | --- | --- | --- |
