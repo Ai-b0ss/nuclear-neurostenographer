@@ -18,6 +18,8 @@ def main():
     parser.add_argument("--thresholds", required=True)
     parser.add_argument("--wavs", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--per-file", action="store_true", help="one JVM per WAV; a native crash of the host library only skips that file")
+    parser.add_argument("--part", default="0/1", help="i/n: process every n-th file starting at i (parallel runs)")
     parser.add_argument("--model", type=Path, default=ROOT / ".local/diarization")
     parser.add_argument("--java", default=str(next((ROOT / ".local/java17").glob("*/bin/java.exe"), "java")))
     args = parser.parse_args()
@@ -32,9 +34,29 @@ def main():
     subprocess.run([args.java, "-cp", str(compiler / "*"), "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler", "-no-stdlib", "-no-reflect",
                     "-jvm-target", "17", "-classpath", cp, "-d", str(jar), *map(str, sources)], check=True)
     env = dict(os.environ, LD_LIBRARY_PATH=str(native) + os.pathsep + os.environ.get("LD_LIBRARY_PATH", ""))
-    subprocess.run([args.java, f"-Djava.library.path={native}", "-cp", os.pathsep.join([str(jar), cp]),
-                    "ru.neurostenographer.tools.ThresholdSweepJvmKt", str(args.model), args.thresholds, str(args.output), str(args.wavs)],
-                   check=True, env=env)
+    java_args = [args.java, f"-Djava.library.path={native}", "-cp", os.pathsep.join([str(jar), cp]),
+                 "ru.neurostenographer.tools.ThresholdSweepJvmKt"]
+    if not args.per_file:
+        subprocess.run([*java_args, str(args.model), args.thresholds, str(args.output), str(args.wavs)], check=True, env=env)
+        return
+    import json
+    import shutil
+    import tempfile
+    index, total = map(int, args.part.split("/"))
+    files = sorted(args.wavs.glob("*.wav"))[index::total]
+    args.output.write_text("", encoding="utf-8")
+    for wav in files:
+        with tempfile.TemporaryDirectory() as tmp:
+            shutil.copy(wav, Path(tmp) / wav.name)
+            part = Path(tmp) / "out.jsonl"
+            result = subprocess.run([*java_args, str(args.model), args.thresholds, str(part), tmp], env=env,
+                                    capture_output=True, text=True)
+            if result.returncode == 0:
+                text = part.read_text(encoding="utf-8")
+            else:
+                text = json.dumps({"file": wav.name, "crashed": True, "exit_code": result.returncode}) + "\n"
+        with args.output.open("a", encoding="utf-8") as out:
+            out.write(text)
 
 
 if __name__ == "__main__":
