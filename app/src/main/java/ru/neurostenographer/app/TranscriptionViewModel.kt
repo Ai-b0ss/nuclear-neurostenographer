@@ -18,14 +18,19 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val modelReady: Boolean = false, val message: String = "Установите локальный ZIP модели GigaAM v3 (225 МБ).",
     val segments: List<TranscriptSegment> = emptyList(), val diarizationReady: Boolean = false,
     val speakerSource: String = "not_run", val timestampSource: String = "input_windows",
-    val sourceDurationMs: Long? = null, val document: TranscriptDocument? = null)
+    val sourceDurationMs: Long? = null, val document: TranscriptDocument? = null,
+    val c2Supported: Boolean = false)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
     private val store = AsrModelStore(application)
     private val speakerStore = DiarizationModelStore(application)
+    private fun c2Available(): Boolean = BuildConfig.NEMOTRON_PROTOTYPE && (
+        NemotronBackend.current(getApplication<Application>().filesDir) != null ||
+        runCatching { getApplication<Application>().assets.list("")?.contains("nemotron.zip") == true }
+            .getOrDefault(false))
     private val mutable = MutableStateFlow(ScreenState(modelReady = store.current() != null,
-        diarizationReady = speakerStore.current() != null))
+        diarizationReady = speakerStore.current() != null, c2Supported = c2Available()))
     val state = mutable.asStateFlow()
     private var operation: Job? = null
     private var recorder: WavRecording? = null
@@ -66,7 +71,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = e.message ?: "Ошибка обработки") }
             finally { mutable.value = mutable.value.copy(busy = false, modelReady = store.current() != null,
-                diarizationReady = speakerStore.current() != null) }
+                diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
 
@@ -135,33 +140,69 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     init { if (kitFiles().isNotEmpty()) installKit() }
 
+    /** Prefer verified local Nemotron C2 when this product variant contains it.
+     * A C2 startup, model or worker failure falls back to the unchanged C0 implementation.
+     * Ordinary (non-C2) builds remain byte-for-byte compatible in their inference choices.
+     */
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
-        mutable.value = mutable.value.copy(segments = emptyList(), document = null, message = "Чтение WAV и проверка модели…")
-        val (output, diarization, warning) = withContext(Dispatchers.IO) {
+        mutable.value = mutable.value.copy(segments = emptyList(), document = null,
+            message = "Чтение WAV и проверка модели…")
+        val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
+            val app = getApplication<Application>()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
             store.verify(model) { context.ensureActive() }
-            val audio = getApplication<Application>().contentResolver.openInputStream(source)!!.use {
+            val audio = app.contentResolver.openInputStream(source)!!.use {
                 PcmWav.read(it) { context.ensureActive() }
             }
             context.ensureActive()
             var warning: String? = null
-            val speakers = speakerStore.current()?.let { speakerModel ->
+            var backendUsed: String? = null
+            var speakers: DiarizationOutput? = null
+
+            if (BuildConfig.NEMOTRON_PROTOTYPE) {
                 try {
-                    speakerStore.verify(speakerModel) { context.ensureActive() }
-                    mutable.value = mutable.value.copy(message = "Диаризация всей записи… Отмена завершит выделенный процесс.")
-                    IsolatedDiarization.process(getApplication(), audio, speakerModel)
+                    mutable.value = mutable.value.copy(message = "Проверка Nemotron C2 (полностью офлайн)…")
+                    // The product APK carries a pinned ZIP. The research prototype can
+                    // use C0 if the C2 ZIP is not bundled in its ordinary UI.
+                    val c2 = NemotronBackend.current(app.filesDir)
+                        ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
+                    context.ensureActive()
+                    mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…")
+                    speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2)
+                    backendUsed = NemotronBackend.C2
                 } catch (e: CancellationException) { throw e }
-                catch (e: Exception) { warning = e.message ?: "Диаризация недоступна"; null }
+                catch (e: Exception) {
+                    warning = "Nemotron C2 недоступен: ${e.message ?: e.javaClass.simpleName}; включён резервный C0."
+                }
+            }
+            if (speakers == null) {
+                speakerStore.current()?.let { c0Model ->
+                    try {
+                        speakerStore.verify(c0Model) { context.ensureActive() }
+                        mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.")
+                        speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
+                        backendUsed = NemotronBackend.C0
+                    } catch (e: CancellationException) { throw e }
+                    catch (e: Exception) {
+                        warning = listOfNotNull(warning, e.message ?: "Диаризация C0 недоступна")
+                            .joinToString(" ")
+                    }
+                }
             }
             val asr = OfflineAsr.transcribe(audio, model, { context.ensureActive() }, { index, count ->
                 mutable.value = mutable.value.copy(message = "Распознавание $index/$count. Отмена — после текущего фрагмента.")
             }, turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows)
-            Triple(asr, speakers, warning)
+            Triple(asr, speakers, backendUsed to warning)
         }
-        val speakerSource = if (warning != null) "failed_worker_unknown_speakers" else
-            if (diarization == null) "not_run" else DiarizationModelStore.REVISION
+        val (backendUsed, warning) = processing
+        val speakerSource = when {
+            diarization == null && warning != null -> "failed_worker_unknown_speakers"
+            diarization == null -> "not_run"
+            backendUsed == NemotronBackend.C2 -> NemotronBackend.REVISION
+            else -> DiarizationModelStore.REVISION
+        }
         val timestampSource = if (diarization == null) "input_windows" else "diarization_boundaries_and_input_windows"
         val warnings = listOfNotNull(warning, "Интервалы фрагментов, не пословное выравнивание.",
             if (output.decodedWindows == 0) "Сегментация не обнаружила речевых окон; ASR не запускался." else null,
@@ -175,9 +216,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             message = (if (output.decodedWindows == 0) "Речевые окна не обнаружены; ASR не запускался. " else
                 if (output.segments.isEmpty()) "ASR не вернул текста. " else "ASR вернул ${output.segments.size} фрагментов. ") +
                 "Аудио: ${output.audioMs} мс; загрузка ${output.loadMs} мс; обработка ${output.decodeMs} мс. " +
-                if (warning != null) "Диаризация не выполнена: $warning. ASR без говорящих." else
-                if (diarization == null) "Без диаризации: установите diarization.zip." else
-                    "Диаризация: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс; неопределённость и перекрытия сохраняются.")
+                (if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
+                    "Диаризация ${backendUsed?.uppercase()}: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс. ") +
+                (warning ?: ""))
     }
 
     fun prepareExport(format: String) {

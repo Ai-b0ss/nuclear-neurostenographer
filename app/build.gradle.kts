@@ -35,6 +35,11 @@ val verifySherpaRuntime by tasks.registering {
 tasks.named("preBuild").configure { dependsOn(verifySherpaRuntime) }
 // Research prototype of Nemotron 3 INT8. Ordinary builds contain none of it and keep C0.
 val nemotronPrototype = providers.gradleProperty("nemotronPrototype").orNull == "true"
+val nemotronProduct = providers.gradleProperty("nemotronProduct").orNull == "true"
+val c2Candidate = providers.gradleProperty("c2Candidate").orNull == "true"
+check(!(nemotronPrototype && nemotronProduct)) { "Prototype and product are separate variants" }
+check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduct=true" }
+val nemotronEnabled = nemotronPrototype || nemotronProduct
 android {
     namespace = "ru.neurostenographer.app"
     compileSdk = 35
@@ -48,7 +53,7 @@ android {
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
-        buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronPrototype.toString())
+        buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
         manifestPlaceholders["appLabel"] = "Нейро-стенографист"
     }
     // Optional workspace-owned debug key for restricted local build environments.
@@ -81,14 +86,21 @@ android {
         }
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
-    if (nemotronPrototype) {
-        // Own package next to the contest app: installing, testing or uninstalling the prototype never replaces
-        // the contest app or deletes its data and model kit. tools/phone_c2/check_side_by_side.py checks the APKs.
-        defaultConfig.applicationIdSuffix = ".c2"
-        defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист C2"
+    if (nemotronEnabled) {
+        // Research and candidate variants use distinct applicationIds.
+        // The main product variant retains the contest applicationId.
+        if (nemotronPrototype) {
+            defaultConfig.applicationIdSuffix = ".c2"
+            defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист C2"
+        }
+        if (c2Candidate) {
+            defaultConfig.applicationIdSuffix = ".c2candidate"
+            defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист C2 кандидат"
+        }
         sourceSets.getByName("main").apply {
             java.srcDir("src/nemotron/java")
             assets.srcDir("src/nemotron/assets")
+            if (nemotronProduct) assets.srcDir(rootProject.file(".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
         // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
@@ -105,7 +117,7 @@ android {
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
-    if (nemotronPrototype) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
+    if (nemotronEnabled) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")

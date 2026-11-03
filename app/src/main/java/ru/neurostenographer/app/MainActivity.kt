@@ -72,7 +72,8 @@ class MainActivity : ComponentActivity() {
             LazyColumn(modifier = Modifier.fillMaxSize().padding(padding).padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item { Text("Нейро-стенографист", style = MaterialTheme.typography.headlineMedium) }
-                item { Text("GigaAM v3 · экспериментальный офлайн ASR") }
+                item { Text(if (state.c2Supported) "GigaAM v3 + Nemotron C2 · полностью офлайн"
+                    else "GigaAM v3 · экспериментальный офлайн ASR") }
                 item { Text("WAV и системные аудиокодеки (экспериментально): 1–2 канала, 8–48 кГц, до 20 минут. Запись и распознавание остаются на устройстве.") }
                 // Status, errors and progress stay at the top: the screen is a long list and a
                 // message lost in the middle hides a failed operation or a running recording.
@@ -96,9 +97,13 @@ class MainActivity : ComponentActivity() {
                 if (!state.modelReady) item {
                     Text("Модель распознавания не установлена: без неё распознавание недоступно.",
                         color = MaterialTheme.colorScheme.error)
-                } else if (!state.diarizationReady) item {
+                } else if (!state.diarizationReady && !state.c2Supported) item {
                     Text("Модели говорящих не установлены: стенограмма будет без разделения по говорящим.",
                         color = MaterialTheme.colorScheme.secondary)
+                }
+                if (state.c2Supported) item {
+                    Text("Nemotron C2 доступен офлайн. При распознавании модель проверяется по SHA-256; при её ошибке используется резервный C0 (если установлен).",
+                        style = MaterialTheme.typography.bodySmall)
                 }
                 item {
                     OutlinedButton(enabled = !state.busy && !recording,
