@@ -4,6 +4,8 @@ import android.app.ActivityManager
 import android.os.Debug
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
@@ -92,10 +94,14 @@ class NemotronBenchmarkTest {
         val long = assets.open("nemotron-bench/long-ru_000010.wav").use { PcmWav.read(it) }
         val short = assets.open("nemotron-bench/acted-dmd.wav").use { PcmWav.read(it) }
         val worker = AtomicInteger(0)
-        val cancelled = kotlinx.coroutines.withTimeoutOrNull(15_000) {
+        // Job.cancel is how the app stops work. An outer withTimeout would be reported by IsolatedDiarization as its
+        // own timeout (it catches TimeoutCancellationException), which is a separate, pre-existing behaviour.
+        val job = launch(kotlinx.coroutines.Dispatchers.Default) {
             IsolatedDiarization.process(context, long, c2, backend = NemotronBackend.C2, onWorkerStarted = worker::set)
         }
-        assertEquals("A 20-minute C2 run cannot finish within 15 s here, so it must have been cancelled", null, cancelled)
+        kotlinx.coroutines.delay(15_000)
+        assertTrue("A 20-minute C2 run cannot finish within 15 s here", job.isActive)
+        job.cancelAndJoin()
         assertTrue("Worker never started", worker.get() != 0)
         val (afterC0, _) = runOnce(short, c0, NemotronBackend.C0)
         val (afterC2, _) = runOnce(short, c2, NemotronBackend.C2)
