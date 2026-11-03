@@ -49,6 +49,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronPrototype.toString())
+        manifestPlaceholders["appLabel"] = "Нейро-стенографист"
     }
     // Optional workspace-owned debug key for restricted local build environments.
     providers.gradleProperty("localDebugStore").orNull?.let { debugKeyRelativePath ->
@@ -81,6 +82,10 @@ android {
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
     if (nemotronPrototype) {
+        // Own package next to the contest app: installing, testing or uninstalling the prototype never replaces
+        // the contest app or deletes its data and model kit. tools/phone_c2/check_side_by_side.py checks the APKs.
+        defaultConfig.applicationIdSuffix = ".c2"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист C2"
         sourceSets.getByName("main").apply {
             java.srcDir("src/nemotron/java")
             assets.srcDir("src/nemotron/assets")
@@ -91,6 +96,8 @@ android {
     }
     // Comparison probe only; never part of a product build.
     if (providers.gradleProperty("litertProbe").orNull == "true") {
+        check(!nemotronPrototype) { "Build the LiteRT probe and the C2 prototype separately" }
+        defaultConfig.applicationIdSuffix = ".litert"
         sourceSets.getByName("androidTest").java.srcDirs("src/litertProbe/java", "src/litertProbeTest/java")
         kotlinOptions { freeCompilerArgs += "-Xskip-metadata-version-check" }
         androidResources { noCompress += "tflite" }

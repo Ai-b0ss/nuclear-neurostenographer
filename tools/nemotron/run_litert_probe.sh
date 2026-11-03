@@ -7,7 +7,7 @@ collect() {
   trap - EXIT
   adb logcat -d -s NemotronBench:I > device-evidence/litert-log.txt || true
   adb logcat -d | grep -E "FATAL|litert|LiteRt|UnsatisfiedLink" | tail -n 100 > device-evidence/litert-related-log.txt || true
-  adb exec-out run-as ru.neurostenographer.app cat files/litert-evidence.json > device-evidence/litert-evidence.json || true
+  adb exec-out run-as ru.neurostenographer.app.litert cat files/litert-evidence.json > device-evidence/litert-evidence.json || true
   exit "$status"
 }
 trap collect EXIT

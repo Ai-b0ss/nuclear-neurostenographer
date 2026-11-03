@@ -1,9 +1,10 @@
 name: Nemotron LiteRT comparison probe (x86_64 emulator)
+# An emulator run is heavy: it starts only when .github/run-litert-probe.txt changes, never on an ordinary push.
 on:
   workflow_dispatch:
   push:
     branches: ['research/nemotron-android-**']
-    paths: ['app/src/litertProbeTest/**', 'tools/nemotron/*litert*', '.github/workflows/nemotron-litert-probe.yml']
+    paths: ['.github/run-litert-probe.txt']
 permissions:
   contents: read
   actions: read

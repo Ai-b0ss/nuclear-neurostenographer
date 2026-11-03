@@ -5,7 +5,7 @@ mkdir -p device-evidence
 # adb exec-out exits 0 even when run-as fails, so keep a pulled file only if it is valid JSON.
 pull_json() {
   local name=$1 target=$2
-  adb exec-out run-as ru.neurostenographer.app cat "files/$name" > "$target.tmp" || true
+  adb exec-out run-as ru.neurostenographer.app.c2 cat "files/$name" > "$target.tmp" || true
   if python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$target.tmp" 2>/dev/null; then mv "$target.tmp" "$target"; else rm -f "$target.tmp"; fi
 }
 collect() {

@@ -1,9 +1,10 @@
 name: Nemotron C2 Android prototype (x86_64 emulator)
+# An emulator run is heavy: it starts only when .github/run-c2-emulator.txt changes, never on an ordinary push.
 on:
   workflow_dispatch:
   push:
     branches: ['research/nemotron-android-**']
-    paths: ['app/**', 'core/**', 'tools/nemotron/**', 'tools/provision_nemotron.py', 'tools/diar_bench/build_corpus.py', 'docs/evidence/diarization-c0-c1-v2/*manifest.json', '.github/workflows/nemotron-android.yml']
+    paths: ['.github/run-c2-emulator.txt']
 permissions:
   contents: read
   actions: read

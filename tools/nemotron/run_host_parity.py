@@ -41,7 +41,7 @@ def main():
     kotlin = harness / "kotlin"
     base = [str(kotlin / "kotlin-stdlib.jar"), str(harness / "classes.jar"), str(harness / "placeholder.jar"), str(jar)]
     sources = [str(p) for p in (REPO / "core/src/main/kotlin/ru/neurostenographer/core").glob("*.kt")]
-    sources += [str(REPO / "app/src/main/java/ru/neurostenographer/app/OfflineDiarization.kt"), str(REPO / "app/src/nemotron/java/ru/neurostenographer/app/NemotronDiarization.kt"), str(REPO / "app/src/nemotron/java/ru/neurostenographer/core/NemotronDiarizer.kt"),
+    sources += [str(REPO / "app/src/main/java/ru/neurostenographer/app/OfflineDiarization.kt"), str(REPO / "app/src/main/java/ru/neurostenographer/app/InferenceThreads.kt"), str(REPO / "app/src/nemotron/java/ru/neurostenographer/app/NemotronDiarization.kt"), str(REPO / "app/src/nemotron/java/ru/neurostenographer/core/NemotronDiarizer.kt"),
                 str(REPO / "tools/nemotron/NemotronHostBench.kt")]
     output = harness / "nemotron-host.jar"
     subprocess.run([args.java, "-cp", str(kotlin / "*"), "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler", "-no-stdlib", "-no-reflect", "-jvm-target", "17",

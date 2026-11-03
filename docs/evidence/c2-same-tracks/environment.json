@@ -1,0 +1,12 @@
+{
+ "c0_runtime": "sherpa-onnx 1.12.20 JNI, ONNX Runtime 1.17.1, 2 threads, threshold 0.8",
+ "c2_runtime": "ONNX Runtime Java 1.17.1, 2 threads, model.int8.onnx patched to IR 9",
+ "asr": "GigaAM v3 CTC int8 via sherpa-onnx 1.12.20, 2 threads",
+ "nemotron_changes_sha256": "8a58e4b3805b9ea837b38e559d728e64db74896725962847f2359b91bfb88357",
+ "jars": {
+  "bench.jar": "38c6e723dcfcff5ab9fb273c856a81f96ce1230feb4a775449ee7c75757b9ac5",
+  "classes.jar": "6d42d1032ce6cad7f2fc6ed52a7cc2723687f011b28cc9d7977cc6b88ffea936",
+  "nemotron-host.jar": "c95e50d9e8c6da76e619fe9005ab020c9fc29f548c630b4b670b90da6b577f1b"
+ },
+ "memory": "peak working set of the JVM process tree, Windows host; not phone PSS"
+}

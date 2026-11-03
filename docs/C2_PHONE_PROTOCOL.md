@@ -1,20 +1,53 @@
-# Протокол проверки C2 на физическом ARM64
+# Протокол проверки C2 на физическом ARM64 (HONOR после Sonnet)
 
-**Статус: NOT_RUN.** Тест на телефоне не проводился. Протокол рассчитан на отдельное ARM64-устройство, использование которого согласовано с его владельцем. Такое устройство пока не определено. Телефон, на котором идёт приёмка основной сборки, для этого протокола не используется.
+**Статус: NOT_RUN.** На телефоне ничего не запускалось. Протокол рассчитан на тот же HONOR (`DNN-LX9`), на котором Sonnet проводит приёмку основной сборки. Запускать его можно только после того, как Sonnet закончит и передаст телефон. Отдельный телефон не нужен.
+
+## Почему основное приложение не пострадает
+
+Раньше прототип собирался с тем же пакетом `ru.neurostenographer.app`, что и конкурсное приложение. Установка заменила бы приложение Sonnet. Хуже того, `connectedDebugAndroidTest` после тестов удаляет установленное. Вместе с приложением ушли бы его данные и комплект моделей в `Android/data/ru.neurostenographer.app`.
+
+Что сделано:
+
+- **Отдельный пакет.** С флагом `-PnemotronPrototype=true` сборка получает `applicationIdSuffix ".c2"`:
+  - приложение `ru.neurostenographer.app.c2`, ярлык «Нейро-стенографист C2»;
+  - тестовый APK `ru.neurostenographer.app.c2.test`.
+
+  Обычная сборка не меняется. LiteRT-проба получает `.litert`.
+- **Статическая проверка.** `tools/phone_c2/check_side_by_side.py` читает объединённые манифесты четырёх APK и падает, если:
+  - пакеты совпадают;
+  - тестовый APK нацелен не на своё приложение;
+  - есть общие authority, общие объявленные разрешения или `sharedUserId`;
+  - есть абсолютное имя процесса;
+  - ярлыки одинаковые;
+  - есть разрешение `INTERNET`.
+
+  В CI её запускает `.github/workflows/nemotron-side-by-side.yml`: только сборка, без эмулятора.
+- **Сам скрипт** `tools/phone_c2/run_c2_phone.sh`:
+  - без `HANDOVER_CONFIRMED=1` не обращается к устройству вообще;
+  - останавливается, если в `app/build.gradle.kts` нет суффикса `.c2`;
+  - останавливается, если `.c2` остался с прошлого раза;
+  - ставит и удаляет только `ru.neurostenographer.app.c2` и `ru.neurostenographer.app.c2.test`; удаление конкурсного пакета запрещено в коде;
+  - до и после прогона снимает конкурсное приложение только на чтение: версию, время установки и обновления, имена, размеры и время изменения файлов (содержимое не читается). Затем сравнивает снимки.
+- **Тесты скрипта на поддельных `adb` и `gradle`** (`tools/phone_c2/test_run_c2_phone.py`, 5 тестов) подтверждают каждое из этих свойств.
+
+**Резервная копия и восстановление вместо отдельного пакета отклонены.** У приложения `allowBackup=false`, поэтому `adb backup` его данные не сохранит. Без root закрытые данные приложения не скопировать и не вернуть. Копирование `Android/data` спасает только комплект моделей. Доказать восстановление без потерь нельзя, поэтому путь только один: отдельный пакет, а основное приложение никто не трогает.
 
 ## До начала
 
-1. Владелец телефона согласен. Он знает, что прототип ставится под тем же именем пакета `ru.neurostenographer.app`. Если основное приложение уже установлено, прототип заменит его вместе с данными. Скрипт останавливается в этом случае, если не задано `ALLOW_REPLACE=1`.
-2. Телефон заряжен не меньше чем на 50%, лежит без чехла при комнатной температуре.
-3. На телефоне включён **авиарежим**. Скрипт его проверяет, но сам не включает.
-4. Подключён ровно этот телефон. Скрипт работает только с устройством из `ANDROID_SERIAL` и сверяет модель.
-5. На компьютере установлены JDK 17, Gradle 8.9, Android SDK 35, Python 3.11+, ffmpeg и около 3 ГБ свободного места.
+1. Sonnet закончила приёмку на HONOR и явно передала телефон. Только после этого задаётся `HANDOVER_CONFIRMED=1`.
+2. Заряд не меньше 50%, телефон без чехла, комнатная температура.
+3. Включён **авиарежим**. Скрипт его проверяет, но не включает.
+4. Подключён ровно этот телефон: `ANDROID_SERIAL` из `adb devices`, `EXPECTED_MODEL=DNN-LX9`.
+5. На компьютере есть:
+   - JDK 17, Gradle 8.9, Android SDK 35;
+   - Python 3.11+ с `numpy scipy pyarrow soundfile`;
+   - ffmpeg и около 3 ГБ свободного места.
 
 ## Шаги
 
-Все команды запускаются из корня ветки `research/nemotron-android-20261103`.
+Все команды запускаются из корня ветки `research/nemotron-android-20261103`. `ROOT` — папка корпуса. На этом компьютере это `K:/nn-bench`, где корпус уже собран и проверен по хешам. На другом компьютере склейки DataHive могут разойтись по хешу из-за другой сборки ffmpeg. Тогда их нужно пересобрать и прогнать хост заново.
 
-Подготовка моделей и записей; это те же файлы, что в CI, хеши проверяются:
+Модели, по хешам:
 
 ```bash
 python3 tools/provision_asr.py --test-assets
@@ -28,49 +61,39 @@ python3 tools/provision_diarization.py --test-assets
 python3 tools/provision_nemotron.py --test-assets
 ```
 
+Записи — те же файлы, что в хостовом сравнении, с проверкой хешей. План зафиксирован заранее в `tools/c2_same_tracks/prepare_phone_assets.py`:
+- три дорожки, которые Sonnet прогнала на этом телефоне, по два повтора каждая;
+- первые две записи каждого шарда отложенного набора;
+- две склейки реальных звонков;
+- `acted-dmd`;
+- первые 20 минут `ru_000010`.
+
 ```bash
-python3 tools/nemotron/fetch_corpus_sources.py --data .local/bench
+python3 tools/c2_same_tracks/prepare_phone_assets.py --root ROOT --manifest docs/evidence/c2-same-tracks/manifest.json --assets .local/androidTestAssets --report device-evidence/phone-assets.json
+```
+
+Прогон, только после передачи телефона:
+
+```bash
+HANDOVER_CONFIRMED=1 ANDROID_SERIAL=SERIAL EXPECTED_MODEL=DNN-LX9 bash tools/phone_c2/run_c2_phone.sh
+```
+
+Скрипт запускает три теста прототипа:
+- одни и те же файлы через C0 и C2 в одном приложении `.c2`, с одинаковыми 4 потоками ONNX Runtime;
+- повреждённая модель C2 с откатом на C0;
+- отмена C2.
+
+Затем он забирает отчёт, удаляет `.c2` и `.c2.test` и сверяет снимки конкурсного приложения. Сохраняются только модель, ABI, SoC, версия Android, размер страницы и объём памяти. Серийный номер, IMEI и аккаунты не сохраняются.
+
+Оценка — те же меры, что на хосте, плюс сверка с хостовыми выходами по каждому файлу:
+
+```bash
+python3 tools/c2_same_tracks/score_phone_run.py --evidence-json EVIDENCE_DIR/nemotron-evidence.json --corpus ROOT/data/same --manifest docs/evidence/c2-same-tracks/manifest.json --host-results ROOT/results-same --out EVIDENCE_DIR/score.json
 ```
 
 ```bash
-python3 tools/provision_dialogue_benchmark.py --suite development
+python3 tools/phone_c2/check_phone_gate.py --evidence EVIDENCE_DIR --scored EVIDENCE_DIR/score.json
 ```
-
-```bash
-python3 tools/diar_bench/build_corpus.py --data .local/bench --evidence .local/bench/evidence --acted .local/dialogue-benchmark
-```
-
-```bash
-ffmpeg -v error -y -t 1200 -i .local/bench/raw/datahive/ru_000010.mp3 -ar 16000 -ac 1 -bitexact -c:a pcm_s16le .local/bench/long-ru_000010.wav
-```
-
-```bash
-python3 tools/nemotron/prepare_android_corpus.py --corpus .local/bench/corpus --manifest docs/evidence/diarization-c0-c1-v2/corpus-manifest.json --long-wav .local/bench/long-ru_000010.wav --long-manifest docs/evidence/diarization-c0-c1-v2/long-manifest.json --assets .local/androidTestAssets --report device-evidence/corpus
-```
-
-Прогон: серийный номер взять из `adb devices`, модель из `adb shell getprop ro.product.model`.
-
-```bash
-ANDROID_SERIAL=SERIAL EXPECTED_MODEL="MODEL" bash tools/phone_c2/run_c2_phone.sh
-```
-
-Скрипт выполняет:
-- тесты прототипа (`-PnemotronPrototype=true`): 13 записей через C0 и C2, повреждённую модель с откатом на C0, отмену C2;
-- регрессию C0 в обычной сборке (`OfflineDiarizationTest`).
-
-Он сохраняет только модель, ABI, SoC, версию Android, размер страницы и объём памяти. Батарея и температура записываются до и после. Серийный номер и IMEI не сохраняются.
-
-Оценка и решение:
-
-```bash
-python3 tools/nemotron/score_android.py --evidence-json EVIDENCE_DIR/nemotron-evidence.json --corpus .local/bench/corpus --manifest docs/evidence/diarization-c0-c1-v2/corpus-manifest.json --host-results NONE --out EVIDENCE_DIR/score.json
-```
-
-```bash
-python3 tools/phone_c2/check_phone_gate.py --evidence EVIDENCE_DIR --scored EVIDENCE_DIR/score.json --reference docs/evidence/nemotron-android/android-emulator-41678965845.json
-```
-
-`--host-results NONE`: на телефоне сравнение идёт с эмулятором через `--reference`, а не с ПК.
 
 ## Критерии GO
 
@@ -79,22 +102,27 @@ python3 tools/phone_c2/check_phone_gate.py --evidence EVIDENCE_DIR --scored EVID
 | Критерий | Порог |
 |---|---|
 | Физическое устройство | ABI `arm64-v8a` |
-| Тесты прототипа | 3/3: одинаковые записи, повреждённая модель с откатом на C0, отмена |
-| Обычная сборка | `OfflineDiarizationTest` 7/7 |
+| Отдельный пакет | Прототип установлен как `ru.neurostenographer.app.c2` |
+| Конкурсное приложение не тронуто | Снимки до и после совпадают (или приложение не было установлено) |
+| Прототип удалён | После прогона `.c2` и `.c2.test` не установлены |
+| Тесты прототипа | 3/3 |
 | Сбои | 0 |
-| Качество C2 | Объединённый DER не хуже эмулятора (12,23%) больше чем на 1 п.п.; по каждому файлу не дальше 3% DER от эмулятора |
-| Скорость C2 | 20 минут: полное время не больше 0,5 от длительности (RTF ≤0,5) |
+| C2 как на хосте | По каждому файлу то же число говорящих и DER телефон-против-хоста ≤3% |
+| C0 как на хосте | То же для C0 |
+| Повторяемость | Повторы трёх дорожек Sonnet побайтно одинаковы |
+| Скорость C2 | 20 минут: полное время ≤0,5 от длительности |
 | Память C2 | 20 минут: пик суммарного PSS приложения и воркера не выше C0 больше чем на 100 МиБ |
-| Повторяемость | Повторы `acted-dmd` и `rubook-rec_0416-white0db` побайтно одинаковы |
 
 Проверка логики решения: `tools/phone_c2/test_check_phone_gate.py`, 5 тестов.
 
-Отдельно записать `page_size` из `device.json`. При 16384 загрузка `libonnxruntime4j_jni.so`, выровненной на 4 КБ, — главный риск. Сбой загрузки будет виден в `related-log.txt` как `dlopen` или `UnsatisfiedLink` и даст FAIL.
+Отдельно записать `page_size` из `device.json`. При 16384 главный риск — загрузка `libonnxruntime4j_jni.so`, выровненной на 4 КБ. Сбой будет виден в `related-log.txt` как `dlopen` или `UnsatisfiedLink` и даст FAIL.
+
+**Гейт проверяет, что C2 работает на телефоне так же, как на хосте.** Какая система точнее, гейт не решает: это таблица качества в `score.json` с WER, cpWER, DER, числом говорящих, A-B-A, разделениями и слияниями. Сравнение C0 на телефоне внутри `.c2` и в приложении Sonnet возможно только по трём её дорожкам: у неё 4, 3 и 5 говорящих. Хост повторяет эти числа.
 
 ## Чего этот протокол не покрывает
 
-- DER по ручной разметке: инструмент `tools/diar_bench/manual_review.py`, PR #13.
-- Естественную речь 3–4 человек.
+- DER по ручной разметке.
+- Естественную речь 3–4 человек в одной комнате: в склейках люди из разных звонков, у каждого звонка свой канал.
 - Реальную 20-минутную запись с микрофона.
 - Нагрев за несколько прогонов подряд.
 

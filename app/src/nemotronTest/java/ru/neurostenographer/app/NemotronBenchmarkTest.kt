@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 
 /** Real C0 and C2 inference on identical recordings through the isolated :diarization process.
- * Evidence holds intervals and measurements. Audio and transcript text stay on the disposable emulator.
+ * Evidence holds intervals and measurements. Audio stays on the device; transcript text only for public-text plan rows.
  */
 class NemotronBenchmarkTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -120,7 +120,10 @@ class NemotronBenchmarkTest {
         val out = File(context.filesDir, "nemotron-evidence.json")
         fun save() = out.writeText(JSONObject().put("device", hostInfo()).put("runs", runs).toString())
         for (line in plan) {
-            val (id, repeats, fullPath) = line.split('\t')
+            val columns = line.split('\t')
+            val (id, repeats, fullPath) = columns
+            // Text leaves the device only for plan rows marked public (the synthetic MIT tracks), never for real calls.
+            val publicText = columns.getOrNull(3) == "1"
             val audio = assets.open("nemotron-bench/$id.wav").use { PcmWav.read(it) }
             for (backend in listOf(NemotronBackend.C0, NemotronBackend.C2)) {
                 repeat(repeats.toInt()) { attempt ->
@@ -131,10 +134,15 @@ class NemotronBenchmarkTest {
                         val document = TranscriptDocument(transcript.segments, transcript.audioMs,
                             TranscriptProvenance("emulator", "gigaam", "diarization_boundaries_and_input_windows", backend))
                         val exports = listOf("txt", "srt", "json").map { document.export(it) }
-                        evidence.put("transcript", JSONObject().put("segments", transcript.segments.size)
+                        val summary = JSONObject().put("segments", transcript.segments.size)
                             .put("attributed_segments", transcript.segments.count { it.speakerId != null })
                             .put("exports_nonblank", exports.all { it.isNotBlank() })
-                            .put("json_sha256", MessageDigest.getInstance("SHA-256").digest(exports[2].toByteArray()).joinToString("") { "%02x".format(it) }))
+                            .put("json_sha256", MessageDigest.getInstance("SHA-256").digest(exports[2].toByteArray()).joinToString("") { "%02x".format(it) })
+                        if (publicText) summary.put("segments_text", JSONArray(transcript.segments.map {
+                            JSONObject().put("start_ms", it.startMs).put("end_ms", it.endMs)
+                                .put("speaker_id", it.speakerId ?: JSONObject.NULL).put("text", it.text)
+                        }))
+                        evidence.put("transcript", summary)
                     }
                     runs.put(evidence)
                     save()

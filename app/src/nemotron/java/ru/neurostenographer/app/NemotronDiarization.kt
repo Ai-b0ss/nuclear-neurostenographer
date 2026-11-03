@@ -51,7 +51,8 @@ object NemotronDiarization {
         val silence = floats(File(model, "silence_embeds.bin"), NemotronConfig.HIDDEN)
         val started = System.nanoTime()
         val environment = OrtEnvironment.getEnvironment()
-        val options = OrtSession.SessionOptions().apply { setIntraOpNumThreads(2) }
+        // Same thread count as C0 and ASR, so a phone comparison measures the models, not the settings.
+        val options = OrtSession.SessionOptions().apply { setIntraOpNumThreads(InferenceThreads.count()) }
         val session = environment.createSession(File(model, "model.int8.ir9.onnx").absolutePath, options)
         val loaded = System.nanoTime()
         try {
