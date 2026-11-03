@@ -23,3 +23,6 @@ local.properties
 __pycache__/
 hs_err_pid*.log
 replay_pid*.log
+
+# Screenshots/UI dumps of a physical phone can show the owner personal file names.
+/tools/device-evidence/

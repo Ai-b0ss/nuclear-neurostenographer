@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 5,
+    "substitutions": 4,
+    "deletions": 0,
+    "insertions": 1,
+    "reference_words": 83,
+    "rate": 0.060240963855421686,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "SCORED",
+    "errors": 5,
+    "reference_words": 83,
+    "rate": 0.060240963855421686,
+    "substitutions": 4,
+    "deletions": 0,
+    "insertions": 1,
+    "mapping": [
+      {
+        "reference": "A",
+        "hypothesis": "Speaker 1"
+      },
+      {
+        "reference": "B",
+        "hypothesis": "Speaker 2"
+      }
+    ]
+  },
+  "der": {
+    "status": "NOT_SCORED",
+    "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+  },
+  "reference": {
+    "recording_id": "live-dialogue-ru-v1",
+    "annotation_source": "authored by the project for this test; read aloud by the participants",
+    "license": "CC0-1.0 (authored for this project)",
+    "kind": "ACTED_READ_ALOUD_LIVE",
+    "audio_sha256": "742849346da98f83ffa833f78c5786a13279cd30a9f2a76818da2cc9a8b3deaf"
+  },
+  "hypothesis_sha256": "c03bfa44029479eb7cc0913afe978899be86f64fd7ae7bc40bacee83125fb686",
+  "reference_sha256": "56e2c4655ebf6c0151a42e17990f6fea29f2e8f864df76cff6593f4a82fddf86"
+}

@@ -1,5 +1,6 @@
 """Install and check the offline kit on a USB-connected Android phone (adb), and collect evidence.
 
+  python phone_kit.py wait                  # wait for the phone to appear, explain what is missing, then check
   python phone_kit.py check                 # is the phone suitable? (ABI, Android, free space, network state)
   python phone_kit.py install               # verify SHA256SUMS, install the APK, push models, wait for install
   python phone_kit.py monitor --minutes 25  # sample app and worker memory, battery, temperature while you test
@@ -8,12 +9,18 @@
 
 Only metadata is collected: no audio and no transcript text leave the phone through this tool
 (`exports` copies the files you saved yourself, to validate their structure).
+adb is found automatically (see find_adb) or given with --adb PATH or the ADB_PATH variable;
+nothing is installed and PATH is not changed. Needs Python 3.8+ and adb, nothing else.
 Without a phone every subcommand ends with a clear message and exit code 2 (NOT_RUN).
 """
 import argparse
+import glob
 import hashlib
+import importlib.util
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -42,6 +49,55 @@ class Adb:
         return self.run("shell", *args, timeout=timeout, check=check)
 
 
+def find_adb(explicit=None, environ=None, which=shutil.which, is_file=os.path.isfile, glob_files=glob.glob,
+             module_dir=None):
+    """Return (path, source) of an adb executable, or (None, reason). Order:
+    --adb, ADB_PATH/ADB, PATH, ANDROID_HOME/ANDROID_SDK_ROOT, default SDK folders, the `adbutils`
+    Python package, and bundled copies in per-user Python environments (such as the extension
+    folders of desktop apps). Nothing is installed and PATH is not modified.
+    """
+    environ = os.environ if environ is None else environ
+    exe = "adb.exe" if os.name == "nt" else "adb"
+    if explicit:
+        found = explicit if is_file(explicit) else which(explicit)
+        return (found, "--adb") if found else (None, f"--adb {explicit} does not exist")
+    for name in ("ADB_PATH", "ADB"):
+        value = environ.get(name)
+        if value and is_file(value):
+            return value, name
+    found = which("adb")
+    if found:
+        return found, "PATH"
+    for name in ("ANDROID_HOME", "ANDROID_SDK_ROOT"):
+        root = environ.get(name)
+        if root and is_file(os.path.join(root, "platform-tools", exe)):
+            return os.path.join(root, "platform-tools", exe), name
+    local, home = environ.get("LOCALAPPDATA"), os.path.expanduser("~")
+    for folder in filter(None, [local and os.path.join(local, "Android", "Sdk", "platform-tools"),
+                                os.path.join(home, "Android", "Sdk", "platform-tools"),
+                                os.path.join(home, "Library", "Android", "sdk", "platform-tools")]):
+        if is_file(os.path.join(folder, exe)):
+            return os.path.join(folder, exe), "default SDK folder"
+    package = module_dir
+    if package is None:
+        spec = importlib.util.find_spec("adbutils")
+        package = os.path.dirname(spec.origin) if spec and spec.origin else None
+    if package and is_file(os.path.join(package, "binaries", exe)):
+        return os.path.join(package, "binaries", exe), "adbutils package"
+    patterns = []
+    for variable in ("LOCALAPPDATA", "APPDATA"):
+        base = environ.get(variable)
+        if base:
+            tail = os.path.join("*", "*", "*", ".venv", "Lib", "site-packages", "adbutils", "binaries", exe)
+            patterns += [os.path.join(base, "Packages", "*", "LocalCache", "Roaming", tail),
+                         os.path.join(base, tail)]
+    for pattern in patterns:
+        matches = sorted(glob_files(pattern))
+        if matches:
+            return matches[0], "bundled adbutils copy"
+    return None, "adb not found"
+
+
 def parse_devices(text):
     """Serials in state `device` from `adb devices` output."""
     devices = []
@@ -50,6 +106,58 @@ def parse_devices(text):
         if len(parts) >= 2 and parts[1] == "device":
             devices.append(parts[0])
     return devices
+
+
+def parse_device_states(text):
+    """{serial: state} for every line of `adb devices` (device, unauthorized, offline, ...)."""
+    states = {}
+    for line in text.splitlines()[1:]:
+        parts = line.split()
+        if len(parts) >= 2:
+            states[parts[0]] = parts[1]
+    return states
+
+
+EMULATOR_SERIAL = re.compile(r"^emulator-\d+$")
+
+
+def is_emulator_serial(serial):
+    """Emulators (`emulator-5554`) are never the physical phone, whatever their state."""
+    return EMULATOR_SERIAL.match(serial) is not None
+
+
+WINDOWS_DRIVER_HINT = ("On Windows, if Device Manager shows an 'ADB'/'HDB' interface of the phone with a "
+                       "yellow warning (Code 28), its driver is missing: see 'Драйвер Windows' in docs/PHONE_ACCEPTANCE.md.")
+
+
+def explain_no_device(states, serial=None):
+    """Return a concrete reason and next action when no physical phone is usable.
+
+    Emulators in the list are ignored and mentioned separately, so an offline emulator cannot be
+    mistaken for a phone that needs reconnecting.
+    """
+    emulators = {k: v for k, v in states.items() if is_emulator_serial(k)}
+    phones = {k: v for k, v in states.items() if not is_emulator_serial(k)}
+    if serial:
+        phones = {k: v for k, v in phones.items() if k == serial}
+    note = ""
+    if emulators:
+        note = (" Ignored emulator(s) " + ", ".join(f"{k} ({v})" for k, v in sorted(emulators.items()))
+                + ": an emulator is never accepted as the physical phone.")
+    if not phones:
+        return ("no physical phone is visible to adb. Use a data USB cable (not charge-only), set USB mode to "
+                "'File transfer', enable Developer options > USB debugging, unlock the screen, reconnect, "
+                "and accept 'Allow USB debugging' on the phone. " + WINDOWS_DRIVER_HINT + note)
+    if any(v == "unauthorized" for v in phones.values()):
+        return ("the phone is connected but has not authorized this PC: unlock it and tap 'Allow' in the "
+                "'Allow USB debugging?' dialog (tick 'Always allow'), then retry." + note)
+    if any(v == "offline" for v in phones.values()):
+        return ("the phone is listed as offline: reconnect the cable, toggle USB debugging off and on, "
+                "then retry." + note)
+    ready = [k for k, v in phones.items() if v == "device"]
+    if len(ready) > 1:
+        return f"several phones are ready ({', '.join(ready)}): pass --serial." + note
+    return f"unexpected adb states: {phones}" + note
 
 
 def parse_free_kib(df_output):
@@ -88,7 +196,12 @@ def preflight(adb):
         "ram_kib": ram_kib, "free_data_kib": free_kib,
         "airplane_mode": airplane == "1", "wifi_on": wifi == "1",
     }
+    qemu = adb.shell("getprop", "ro.kernel.qemu", check=False).strip()
+    hardware = adb.shell("getprop", "ro.hardware", check=False).strip()
+    report["emulator"] = qemu == "1" or hardware in ("goldfish", "ranchu")
     problems = []
+    if report["emulator"]:
+        problems.append("this device is an emulator (ro.kernel.qemu/ro.hardware); it cannot be a physical acceptance")
     if abi != "arm64-v8a":
         problems.append(f"ABI is {abi}; the acceptance target is arm64-v8a")
     if sdk < 26:
@@ -101,8 +214,11 @@ def preflight(adb):
 
 
 def file_sha256(path):
+    digest = hashlib.sha256()
     with open(path, "rb") as f:
-        return hashlib.file_digest(f, "sha256").hexdigest()
+        for block in iter(lambda: f.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def verify_kit_files(kit):
@@ -126,19 +242,28 @@ def verify_kit_files(kit):
 
 
 def connect(args):
-    try:
-        listing = subprocess.run([args.adb, "devices"], capture_output=True, text=True, timeout=30).stdout
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        print("NOT_RUN: adb not found. Install Android platform-tools and enable USB debugging.")
+    path, source = find_adb(args.adb)
+    if path is None:
+        print(f"NOT_RUN: {source}. Pass --adb PATH, set ADB_PATH, or install Android platform-tools "
+              "(only adb and Python are needed).")
         sys.exit(NOT_RUN)
-    devices = parse_devices(listing)
+    print(f"Using adb: {path} ({source})")
+    try:
+        listing = subprocess.run([path, "devices"], capture_output=True, text=True, timeout=60).stdout
+    except (OSError, subprocess.TimeoutExpired) as error:
+        print(f"NOT_RUN: adb could not run ({error}).")
+        sys.exit(NOT_RUN)
+    devices = [d for d in parse_devices(listing) if not is_emulator_serial(d)]
     if args.serial:
+        if is_emulator_serial(args.serial):
+            print(f"NOT_RUN: --serial {args.serial} is an emulator; physical acceptance needs a real phone.")
+            sys.exit(NOT_RUN)
         devices = [d for d in devices if d == args.serial]
     if len(devices) != 1:
-        print(f"NOT_RUN: expected exactly one authorized device, found {len(devices)}. "
-              "Connect the phone, enable USB debugging and accept the prompt on it.")
+        print(f"NOT_RUN: expected exactly one authorized device, found {len(devices)}: "
+              + explain_no_device(parse_device_states(listing), args.serial))
         sys.exit(NOT_RUN)
-    return Adb(devices[0], args.adb)
+    return Adb(devices[0], path)
 
 
 def command_check(args):
@@ -150,6 +275,35 @@ def command_check(args):
     if not report["airplane_mode"]:
         print("NOTE: airplane mode is off; turn it on (and Wi-Fi off) before the offline test.")
     return 1 if problems else 0
+
+
+def command_wait(args):
+    """Poll until exactly one authorized phone appears, then run `check`. Exit 2 (NOT_RUN) on timeout."""
+    path, source = find_adb(args.adb)
+    if path is None:
+        print(f"NOT_RUN: {source}. Pass --adb PATH or set ADB_PATH.")
+        return NOT_RUN
+    print(f"Using adb: {path} ({source}). Waiting up to {args.minutes} min for a phone; Ctrl+C stops.")
+    deadline = time.monotonic() + args.minutes * 60
+    last = None
+    while True:
+        listing = subprocess.run([path, "devices"], capture_output=True, text=True, timeout=60).stdout
+        states = parse_device_states(listing)
+        ready = [k for k, v in states.items()
+                 if v == "device" and not is_emulator_serial(k) and (not args.serial or k == args.serial)]
+        if len(ready) == 1:
+            print(f"Phone found: {ready[0]}")
+            return command_check(args)
+        reason = explain_no_device(states, args.serial)
+        # An emulator appearing or disappearing must not repeat the same advice.
+        key = reason.split(" Ignored emulator")[0]
+        if key != last:
+            print("Waiting:", reason)
+            last = key
+        if time.monotonic() >= deadline:
+            print("NOT_RUN: no usable phone appeared.")
+            return NOT_RUN
+        time.sleep(3)
 
 
 def command_install(args):
@@ -167,9 +321,18 @@ def command_install(args):
     # The app-specific folder only exists after the first launch on some Android versions.
     adb.shell("am", "start", "-n", f"{PACKAGE}/.MainActivity")
     time.sleep(3)
-    adb.shell("mkdir", "-p", KIT_DIR_ON_PHONE)
-    for name in ("gigaam-v3.zip", "diarization.zip"):
-        adb.run("push", str(kit / name), f"{KIT_DIR_ON_PHONE}/{name}", timeout=900)
+    try:
+        adb.shell("mkdir", "-p", KIT_DIR_ON_PHONE)
+        for name in ("gigaam-v3.zip", "diarization.zip"):
+            adb.run("push", str(kit / name), f"{KIT_DIR_ON_PHONE}/{name}", timeout=900)
+    except RuntimeError as error:
+        # Some phones forbid writing to Android/data over adb. Fall back to the visible folder.
+        print(f"Could not write to the app folder ({error}).")
+        for name in ("gigaam-v3.zip", "diarization.zip"):
+            adb.run("push", str(kit / name), f"/sdcard/Download/{name}", timeout=900)
+        print("The ZIPs are in the phone's Download folder. In the app press 'Установить модель ZIP' and choose "
+              "gigaam-v3.zip, then 'Установить модели говорящих ZIP' and choose diarization.zip.")
+        return 1
     # Restart so the app scans the folder; it installs both models and deletes the ZIPs.
     adb.shell("am", "force-stop", PACKAGE)
     adb.shell("am", "start", "-n", f"{PACKAGE}/.MainActivity")
@@ -185,27 +348,39 @@ def command_install(args):
     return 1
 
 
+def summarize_samples(samples, interval):
+    peak = lambda key: max((s[key] for s in samples if s[key] is not None), default=None)
+    return {"samples": len(samples), "peak_app_pss_kib": peak("app_pss_kib"),
+            "peak_worker_pss_kib": peak("worker_pss_kib"), "max_battery_c": peak("battery_c"),
+            "interval_s": interval, "series": samples}
+
+
 def command_monitor(args):
     adb = connect(args)
     samples = []
+    output = Path(args.output)
     end = time.monotonic() + args.minutes * 60
     started = time.monotonic()
-    print("Sampling; run your scenario on the phone. Ctrl+C stops early.")
+    print("Sampling; run your scenario on the phone. Ctrl+C stops early. The file is rewritten every 30 samples.")
     try:
         while time.monotonic() < end:
-            app = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", PACKAGE, check=False))
-            worker = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", f"{PACKAGE}:diarization", check=False))
-            temperature, level = parse_battery(adb.shell("dumpsys", "battery", check=False))
+            try:
+                app = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", PACKAGE, check=False, timeout=30))
+                worker = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", f"{PACKAGE}:diarization", check=False, timeout=30))
+                temperature, level = parse_battery(adb.shell("dumpsys", "battery", check=False, timeout=30))
+            except (subprocess.TimeoutExpired, OSError):
+                # The phone was unplugged or adb stalled: keep what was collected, keep trying.
+                app = worker = temperature = level = None
             samples.append({"t_s": round(time.monotonic() - started, 1), "app_pss_kib": app,
                             "worker_pss_kib": worker, "battery_c": temperature, "battery_percent": level})
+            if len(samples) % 30 == 0:
+                output.write_text(json.dumps(summarize_samples(samples, args.interval), indent=2), encoding="utf-8")
             time.sleep(args.interval)
     except KeyboardInterrupt:
         pass
-    peak = lambda key: max((s[key] for s in samples if s[key] is not None), default=None)
-    summary = {"samples": len(samples), "peak_app_pss_kib": peak("app_pss_kib"),
-               "peak_worker_pss_kib": peak("worker_pss_kib"), "max_battery_c": peak("battery_c"),
-               "interval_s": args.interval, "series": samples}
-    Path(args.output).write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    finally:
+        summary = summarize_samples(samples, args.interval)
+        output.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print({k: v for k, v in summary.items() if k != "series"})
     return 0
 
@@ -234,11 +409,17 @@ def command_exports(args):
 
 
 def main():
+    # A console or pipe that cannot show Cyrillic must not crash the tool.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--adb", default="adb")
+    parser.add_argument("--adb", default=None, help="path to adb (otherwise found automatically)")
     parser.add_argument("--serial")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("check")
+    wait = sub.add_parser("wait")
+    wait.add_argument("--minutes", type=float, default=10)
     install = sub.add_parser("install")
     install.add_argument("--kit", default=str(HERE))
     install.add_argument("--wait-minutes", type=int, default=10)
@@ -252,7 +433,7 @@ def main():
     exports.add_argument("--prefix", default="transcript")
     exports.add_argument("--output", default="phone-exports")
     args = parser.parse_args()
-    return {"check": command_check, "install": command_install, "monitor": command_monitor,
+    return {"check": command_check, "wait": command_wait, "install": command_install, "monitor": command_monitor,
             "scan": command_scan, "exports": command_exports}[args.command](args)
 
 

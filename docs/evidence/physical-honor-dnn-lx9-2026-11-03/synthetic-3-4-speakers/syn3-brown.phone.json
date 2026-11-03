@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 37780,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.8", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 554, "end_ms": 2596, "speaker_id": "Speaker 1", "text": "сколько будет четыре плюс пять", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 4267, "end_ms": 5667, "speaker_id": "Speaker 2", "text": "проверь почту", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 7540, "end_ms": 8350, "speaker_id": "Speaker 1", "text": "включи туман", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 9177, "end_ms": 9413, "speaker_id": null, "text": "про", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 9751, "end_ms": 18661, "speaker_id": "Speaker 2", "text": "продолжай читать героя нашего времени того места где я остановился в прошлый раз", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 23470, "end_ms": 24871, "speaker_id": "Speaker 3", "text": "сотри события в календаре", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 26305, "end_ms": 26558, "speaker_id": null, "text": "кли", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 27470, "end_ms": 28465, "speaker_id": "Speaker 3", "text": "включи пылесос", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30220, "end_ms": 37325, "speaker_id": "Speaker 2", "text": "какая любимая поездка элвиса можешь ли ты включить свет", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

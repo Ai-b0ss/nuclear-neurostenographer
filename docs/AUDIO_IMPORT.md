@@ -38,9 +38,10 @@ developer/CI host to generate test tones; it is not packaged or invoked by the a
 Imports accept document/file URIs only. Provider bytes are copied to an owned
 private file, capped at 231,448,584 bytes (about 230 MB), before MediaExtractor opens
 that local path. The app never passes a network URL to a media API. Decoded PCM is
-also capped at 20 minutes independently of metadata. A cooperative 60-second
-deadline bounds the codec polling loop, so a long compressed file on a slow phone
-can fail import even under the 20-minute cap (not yet measured); provider reads and native setup calls
+also capped at 20 minutes independently of metadata. A cooperative
+deadline (half of the declared duration, between 1 and 10 minutes; 5 minutes if the
+duration is unknown; `DecodeBudget`) bounds the codec polling loop, so a very long compressed
+file on a slow phone can still fail import even under the 20-minute cap (not yet measured on a phone); provider reads and native setup calls
 can block and are not hard-preempted by it. Cancellation is checked during copy,
 polling, PCM writing and validation. Partial/staged files are deleted on failure;
 the previous selection/result survives an unsuccessful replacement.

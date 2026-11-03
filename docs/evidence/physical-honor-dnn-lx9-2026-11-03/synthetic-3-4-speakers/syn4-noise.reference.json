@@ -1,0 +1,154 @@
+{
+ "schema_version": 1,
+ "recording_id": "syn4-noise",
+ "audio_sha256": "939648072d210ef99b1d6b1866110997852a53239d63989b78cbb2b267a70d49",
+ "audio_duration_ms": 57324,
+ "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 35 (audio rewritten as 16-bit PCM WAV)",
+ "license": "MIT (dataset card)",
+ "kind": "SYNTHETIC_TTS_DIALOGUE",
+ "text_segments": [
+  {
+   "start_ms": 0,
+   "end_ms": 3600,
+   "speaker_id": "1",
+   "text": "можешь ли ты прекратить разговаривать пожалуйста"
+  },
+  {
+   "start_ms": 3600,
+   "end_ms": 9340,
+   "speaker_id": "2",
+   "text": "установи новый будильник на это время"
+  },
+  {
+   "start_ms": 9340,
+   "end_ms": 12460,
+   "speaker_id": "3",
+   "text": "запусти радиоканал сто три точка четыре"
+  },
+  {
+   "start_ms": 12460,
+   "end_ms": 16210,
+   "speaker_id": "4",
+   "text": "выключи мою розетку"
+  },
+  {
+   "start_ms": 16210,
+   "end_ms": 20850,
+   "speaker_id": "4",
+   "text": "какой был первый фильм александра домогарова"
+  },
+  {
+   "start_ms": 20850,
+   "end_ms": 29810,
+   "speaker_id": "2",
+   "text": "olly сегодня вечером в девять в джаз клубе играет хорошая группа я хочу пойти"
+  },
+  {
+   "start_ms": 29810,
+   "end_ms": 33500,
+   "speaker_id": "3",
+   "text": "открой игру тетрис сыграем вместе"
+  },
+  {
+   "start_ms": 33500,
+   "end_ms": 38480,
+   "speaker_id": "1",
+   "text": "пожалуйста прочитай мою новостную ленту фейсбука"
+  },
+  {
+   "start_ms": 38480,
+   "end_ms": 43140,
+   "speaker_id": "2",
+   "text": "удали из моего календаря встречу в девять утра"
+  },
+  {
+   "start_ms": 43140,
+   "end_ms": 47210,
+   "speaker_id": "2",
+   "text": "что происходит в мире в эти дни"
+  },
+  {
+   "start_ms": 47210,
+   "end_ms": 51500,
+   "speaker_id": "4",
+   "text": "дай определение слову спикер"
+  },
+  {
+   "start_ms": 51500,
+   "end_ms": 57320,
+   "speaker_id": "2",
+   "text": "дай мне урок по кулинарии"
+  }
+ ],
+ "diarization": [
+  {
+   "start_ms": 0,
+   "end_ms": 3600,
+   "speaker_id": "1"
+  },
+  {
+   "start_ms": 3600,
+   "end_ms": 9340,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 9340,
+   "end_ms": 12460,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 12460,
+   "end_ms": 16210,
+   "speaker_id": "4"
+  },
+  {
+   "start_ms": 16210,
+   "end_ms": 20850,
+   "speaker_id": "4"
+  },
+  {
+   "start_ms": 20850,
+   "end_ms": 29810,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 29810,
+   "end_ms": 33500,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 33500,
+   "end_ms": 38480,
+   "speaker_id": "1"
+  },
+  {
+   "start_ms": 38480,
+   "end_ms": 43140,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 43140,
+   "end_ms": 47210,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 47210,
+   "end_ms": 51500,
+   "speaker_id": "4"
+  },
+  {
+   "start_ms": 51500,
+   "end_ms": 57320,
+   "speaker_id": "2"
+  }
+ ],
+ "meta": {
+  "num_speakers": 4,
+  "difficulty": "hard",
+  "has_overlaps": true,
+  "has_simultaneous": false,
+  "has_noise": true,
+  "noise_type": "crowd",
+  "snr": 23.719999313354492
+ }
+}

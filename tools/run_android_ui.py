@@ -224,6 +224,23 @@ def verify_saved_exports(exports, expected_runtime, directory):
     return {format: {"bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()} for format, body in exports.items()}
 
 
+def dismiss_foreign_anr_dialog(ui):
+    """A launcher ANR dialog shown during the earlier tests would cover the app. Tap its 'Wait' button.
+    Only system dialogs of other packages are touched; an ANR of this app is still caught by the
+    failure scan at the end.
+    """
+    for _ in range(4):
+        _, dialog = ui.find(label="isn't responding", timeout=2)
+        if dialog is None:
+            return
+        _, wait = ui.find(label="Wait", timeout=1, exact=True)
+        if wait is not None:
+            ui.tap_node(wait)
+        else:
+            ui.shell("input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+
+
 def recorded_wav_seconds(ui):
     """Duration of the newest app-private recording (never copied off the device)."""
     listing = ui.shell("run-as", PACKAGE, "ls", "-lt", "files")
@@ -238,6 +255,7 @@ def run(ui):
     # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
     ui.shell("settings", "put", "global", "hide_error_dialogs", "1")
+    dismiss_foreign_anr_dialog(ui)
     ui.shell("logcat", "-c")
     ui.started_at = ui.shell("date", "+%Y-%m-%dT%H:%M:%S").strip().replace("T", " ")
     ui.shell("am", "force-stop", PACKAGE)

@@ -151,6 +151,226 @@
   Russian ASR, speakers, TXT/JSON/SRT, no network permission; API 33–35). Telling anyone the
   app works on a phone: NO-GO until `PHONE_ACCEPTANCE.md` is executed on ARM64. Public
   APK release: NO-GO (licence/notices review still open).
+- **2026-11-03 — offline kit, no-picker model install, UI status, final CI at `516000f`.**
+  Added: model install from the app's own external folder (`adb push`, strict SHA-256
+  importers, free-space check, named error, rejected ZIP kept and the previous model
+  untouched); `tools/offline_kit.py` (assemble and verify the kit: APK + `gigaam-v3.zip` +
+  `diarization.zip`, `SHA256SUMS.txt`, `KIT_MANIFEST.json`, rejects a different runtime or
+  tampered/truncated files); `tools/phone_kit.py` (`check`, `install`, `monitor`, `scan`,
+  `exports` over adb; exit 2 = NOT_RUN without a device); owner-triggered
+  `build-apk-kit.yml` (one-day artifact, deleted by `fetch-apk`; not run by me because the
+  artifact of a public repository is visible while it exists); UI: status, errors and
+  progress moved to the top, recording timer with an honest background hint, model
+  readiness hints. Docs: [OFFLINE_KIT.md](OFFLINE_KIT.md), [PHONE_ACCEPTANCE.md](PHONE_ACCEPTANCE.md).
+  *Final CI at `516000f` (code; `d3e63c6` is docs only, its build also PASS):*
+
+  | Check | Result | Link |
+  | --- | --- | --- |
+  | Android build, lint, core tests | PASS | [41536700135](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536700135) |
+  | Real offline Russian ASR, API 33 / 34 / 35 (x86_64) incl. `KitInstallTest` (2 tests) and UI flow | PASS x3 | [41536695619](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695619) |
+  | UI flow: timer visible, HOME, screen off, WAV continuity (30.1/33.9/30.0 s of 32.7/36.6/32.9 s), no app/worker ANR/crash/kill | PASS x3 | same run |
+  | 20-minute stress (API 33): diarization 141 s, ASR 58 s, RTF 0.17, app peak 607 MiB at ASR start, worker 447 MiB | PASS | [41536695421](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695421) |
+  | Python tool tests (`test_phone_kit`, `test_app_failure_detector`, ...) | PASS | in the build and ASR runs |
+
+  *Identities.* APK (debug, both ABIs, built in that run): 50 989 367 bytes, SHA-256
+  `8e8d9babfd306002dddec842be8c9bfceaa04522e0e97d38696710cbac76ba2f`; version `0.1.0-alpha`
+  (code 1). sherpa-onnx no-TTS runtime AAR `771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8`
+  (matches the packaged natives; ELF machine 183 = arm64 for the arm64-v8a libraries).
+  GigaAM v3 CTC INT8 model SHA-256 `f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec`
+  (HF revision `32a4c7cc…fbec`); diarization: segmentation `220ad67c…1079` (revision `9403a690…`),
+  ERes2Net `1a331345…5e4b`. The ZIP files themselves are not byte-reproducible (timestamps);
+  the kit records their SHA-256 at assembly time and the app checks every file inside.
+  The APK differs per build (debug signing key), so its hash is per build.
+  *Blockers before a demo on a phone:* (1) no APK in hand: the owner must run
+  `build-apk-kit.yml` (or install the SDK locally); (2) no adb and no phone on this PC:
+  every ARM64 item is NOT_RUN (real Russian speech from 2 and 3–4 speakers, A–B–A, noise,
+  background/lock-screen on a real device, 20-minute recording, MP3 import timing,
+  airplane mode, thermals, real memory/RTF); (3) public APK/weights remain NO-GO
+  (distribution/notices review); (4) the emulator microphone is silent, so no spoken
+  recording was ever transcribed through `RecordingService` yet. *Go/no-go:* emulator
+  pipeline GO; kit and tooling ready; phone demo NO-GO until PHONE_ACCEPTANCE is executed.
+- **2026-11-03 (later) — kit install proven end to end; local APK; decisions.** Owner
+  decisions recorded: licences no longer block work (notices stay), GitHub Actions is the
+  main build environment, no public APK with weights. The repository-local toolchain
+  (`.local/build-tools` JDK 17 and Gradle 8.9, `.local/android-sdk` 35) works, so the earlier
+  statement that no JDK/Gradle/SDK existed on this PC was wrong; adb is still absent.
+  *Local build* (`tools/build_local_apk.py`, 2 min): core tests PASS, APK 50 989 367 bytes
+  (same size as the CI build, different debug-key hash `4cc085cb…5be4`), `check_apk.py`
+  runtime digest and native bytes MATCH. *Kit assembled* at `.local/kit` (git-ignored; not
+  uploaded): `gigaam-v3.zip` 224 723 056 B sha256 `ec90b0cc…f350`, `diarization.zip`
+  45 599 554 B `5979f150…1a2f`, `SHA256SUMS.txt`, `KIT_MANIFEST.json`, `phone_kit.py`;
+  `offline_kit.py verify` OK.
+  *New regression found and fixed:* the collector shell-script test failed after the kit step
+  was added to `run_android_inference.sh` (CI 41539483669/41539489279 red, no emulator
+  reached); the step is now covered by the collector tests, including "never runs after an
+  earlier failure" because it wipes app data.
+  *End-to-end kit install on clean emulators* (`tools/run_kit_install_check.py`, run
+  [41539803654](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41539803654),
+  API 33/34/35 all PASS): clean app shows the missing-model hint; a corrupt `gigaam-v3.zip`
+  pushed with `adb push` is rejected by name and kept; the real ZIPs install both models,
+  are deleted, and the hint disappears. That also shows `adb push` into
+  `Android/data/<pkg>/files/kit` works on Android 13, 14 and 15 emulators. The same run keeps
+  the 16-check UI flow green (timer, HOME, screen off, WAV continuity, no app/worker
+  ANR/crash/kill). Build runs [41539715602](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41539715602)
+  and [41539808229](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41539808229) PASS.
+  Application code is unchanged since `516000f` (later commits are tests, tools, docs), so
+  its stress run [41536695421](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41536695421)
+  stays valid. Still NOT_RUN: every physical ARM64 item; a spoken recording through the
+  microphone (the emulator microphone is silent).
+- **2026-11-03 (adb found).** adb 36.0.0 exists on this PC inside another program's Python
+  environment (`adbutils` package binary); no device is connected. `phone_kit.py` now finds
+  adb itself (`--adb`, `ADB_PATH`, PATH, Android SDK folders, the `adbutils` package, copies in
+  per-user Python environments) without changing PATH, works with plain Python 3.8+, and falls
+  back to `/sdcard/Download` plus on-screen instructions if a phone refuses writes to
+  `Android/data`. 22 tests (adb discovery with fakes, install flow, tampered kit never touches
+  the phone, wrong ABI refused, push fallback). The assembled kit was run from a clean folder
+  outside the repository: `check`, `install` and `scan` all end as NOT_RUN (exit 2) with no
+  device, after `install` verified SHA256SUMS. Earlier statements in this file that adb/JDK/
+  Gradle/SDK were absent are superseded: JDK/Gradle/SDK live in `.local`, adb in the extension
+  environment above. Documentation was brought up to date (README, README.ru, OFFLINE_KIT,
+  PHONE_ACCEPTANCE, AUDIO_IMPORT decode budget) and [DEMO_READINESS.md](DEMO_READINESS.md)
+  separates tested steps from NOT_RUN. A physical phone is still needed for every ARM64 item.
+- **2026-11-03 (device re-check, no phone).** `adb kill-server`/`start-server`, `adb devices -l`
+  (empty), `adb mdns services` (empty) and a Windows PnP listing: the only USB devices are a
+  webcam with microphone (VID 1BCF) and a keyboard/mouse (VID 09DA); no Android, ADB, MTP or
+  WPD device, so the phone is not reaching the PC at all (charge-only cable, USB mode, or not
+  plugged in), not merely unauthorized. `phone_kit.py` got `wait` (polls adb, distinguishes no
+  device / unauthorized / offline / several, prints the concrete action, then runs `check`) and
+  the same explanations in every command; 24 tests PASS. ARM64 acceptance remains NOT_RUN.
+- **2026-11-03 (phone seen by Windows; emulator bug).** An HONOR 10X Lite (DNN-LX9,
+  VID_12D1 PID_107E) is now visible to Windows (composite, MTP, mass storage). The "HDB
+  Interface" Code 28 reported by the owner's diagnostics is gone: official Huawei drivers
+  `hw_goadb.inf` (2016-07-11) and `hw_gohdb.inf` (2015-12-28), signed by "Microsoft Windows
+  Hardware Compatibility Publisher", are installed, the HDB node (subclass 0x48) is OK with
+  WinUSB. No driver was installed by me. `adb devices -l` is still empty for the phone: the
+  phone exposes MTP, mass storage and HDB but **no ADB interface (subclass 0x42)**, which
+  appears only with USB debugging on. Bug found by the owner's diagnostics and fixed
+  (`c01e54f`): `phone_kit.py` reported an `emulator-5564 offline` entry as a phone to
+  reconnect. Emulators are now never candidates (not by serial pattern, not via `--serial`,
+  not by `ro.kernel.qemu`/`ro.hardware` in `check`/`install`), they are named separately in
+  the diagnostics; 8 regression tests (32 total) PASS. Physical acceptance: still NOT_RUN,
+  waiting for USB debugging on the phone. Instructions: PHONE_ACCEPTANCE.md, "Драйвер Windows".
+- **2026-11-03 — FIRST PHYSICAL RESULTS: HONOR 10X Lite (DNN-LX9), Android 10 (API 29,
+  Magic UI 3.1.1), arm64-v8a, 3.6 GB RAM, USB cable, charging, Wi-Fi ON.** Evidence:
+  [docs/evidence/physical-honor-dnn-lx9-2026-11-03/](evidence/physical-honor-dnn-lx9-2026-11-03/)
+  (exports, scores, memory/battery series; no private audio: public acted clips only).
+  *Setup.* Official Huawei drivers (`hw_goadb`/`hw_gohdb`, Microsoft WHCP-signed) were already
+  installed; the owner enabled USB debugging, accepted the RSA prompt, the HONOR install
+  confirmation and the Files-app biometric lock. `phone_kit.py check` PASS (not an emulator,
+  arm64-v8a, SDK 29, 31.9 GB free). *Bug found only on this phone and fixed (`1a8d6ac`):* the
+  adb-pushed model kit was not seen because on this phone `getExternalFilesDir` is the SD card
+  while `adb push` writes internal storage; the app now scans all external files dirs
+  (`getExternalFilesDirs`). After the fix the app installed both models itself ("Комплект
+  установлен, SHA-256 проверен"); SHA-256 of the installed files read on the phone match the
+  pinned values (`model.int8.onnx` 224 721 476 B `f86ebfa0…37ec`, `segmentation.onnx`
+  `220ad67c…1079`, `embedding.onnx` `1a331345…5e4b`). Requested permissions on the device:
+  RECORD_AUDIO, FOREGROUND_SERVICE(+MICROPHONE), POST_NOTIFICATIONS, **no INTERNET**.
+  *Import → process → speakers → timecodes → export, through the real UI and the system
+  document picker, on the phone:*
+
+  | Clip (public, acted, Russian) | Audio | Speakers found | WER | cpWER | Turn order |
+  | --- | --- | --- | --- | --- | --- |
+  | D/M/D `aba.wav` (development probe) | 19.7 s | 2 | 1/41 (2.44%) | 1/41 (2.44%) | A-B-A correct, D→Speaker 1, M→Speaker 2 |
+  | M-D-M-D holdout `aba.wav` | 42.2 s | 2 | 2/92 (2.17%) | 2/92 (2.17%) | M-D-M-D correct |
+
+  TXT, JSON and SRT were saved through the system save dialog and pulled; the exports pass
+  `verify_transcript_exports` (consistent, SRT/JSON/TXT agree); the JSON records the no-TTS
+  runtime SHA-256 `771fda6a…c1c8`. Identical WER to the x86_64 emulator, as expected for the
+  same model. DER: `NOT_SCORED`.
+  *Speed and memory on the phone (monitor `dumpsys meminfo` every second ran during both, which
+  itself loads the CPU; phone charging):*
+
+  | Clip | model load | diarization | ASR | total | RTF | app PSS peak | worker PSS peak | battery |
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+  | 19.7 s | 5.5 s | 26.4 s | 8.6 s | 40.6 s | 2.07 | 588 MiB | 235 MiB | 41→42 °C |
+  | 42.2 s | 8.5 s | 95.9 s | 27.9 s | 132.2 s | 3.13 | 750 MiB | 308 MiB | 41→45 °C |
+
+  **Finding:** the phone is 2–3x slower than real time end to end (emulator runners: 0.17–0.30),
+  diarization dominates. A 20-minute recording would take on the order of 40–60 minutes here;
+  for a demo keep recordings to a few minutes. Not yet separated from the monitor's overhead.
+  *Still NOT_RUN on the phone:* airplane mode, speech through the microphone from 2–4 live
+  speakers (needs the owner's voices), noise and interruptions, HOME/lock-screen recording,
+  20-minute recording and long MP3/WAV import, permission denial, worker kill, low storage.
+- **2026-11-03 (later) — inference threads and a privacy slip.** The phone has 8 cores
+  (4 fast Cortex-A73 + 4 slow A53); the app used a fixed 2 ONNX Runtime threads. Measured on
+  the phone, no monitor running, same APK otherwise (`InferenceThreads`, cap 4):
+
+  | Clip | threads | diarization | ASR | model load | total | RTF |
+  | --- | --- | --- | --- | --- | --- | --- |
+  | 19.7 s | 2 (with monitor) | 26.4 s | 8.6 s | 5.5 s | 40.6 s | 2.07 |
+  | 19.7 s | 4 | 17.8 s / 17.5 s (two runs) | 5.3 s | 5.4 s / 5.1 s | 28.5 s / 27.9 s | 1.45 / 1.42 |
+  | 42.2 s | 2 (with monitor) | 95.9 s | 27.9 s | 8.5 s | 132.2 s | 3.13 |
+  | 42.2 s | 4 | 63.5 s | 16.2 s | 6.3 s | 86.0 s | 2.04 |
+  | 42.2 s | 8 | 101.4 s | 24.7 s | 8.3 s | 134.4 s | 3.18 |
+
+  Four threads is the best of the three; eight is slower than two (the slow cores hold the
+  work back). The first rows include the monitor's overhead, so part of the gain is not due to
+  threads; the 4-thread rows were repeated without it. Output unchanged (same fragment and
+  speaker counts; WER not re-scored for these runs). Emulators have 2 cores and keep 2.
+  Still slower than real time: a 20-minute recording would take roughly 25–40 minutes on this
+  phone. *Privacy slip, mine:* commit `df1a439` accidentally added `tools/device-evidence/phone-ui/`
+  (screenshots and UI dumps of the phone). The XML dumps contain only public clip text and my
+  test folder, but four screenshots show names of folders/files in the owner's personal
+  Downloads. Removed from the branch and git-ignored in the next commit; they remain in the
+  history of `df1a439` on the public remote until the history is rewritten (a force-push, which
+  I did not do): owner's decision. The helper now writes to `.local/phone-ui-private/`.
+- **2026-11-03 (night) — physical phone, real microphone, background and live dialogue.**
+  Same HONOR DNN-LX9 (Android 10, arm64-v8a), APK `1a8d6ac`+ (4 inference threads). Evidence in
+  [docs/evidence/physical-honor-dnn-lx9-2026-11-03/](evidence/physical-honor-dnn-lx9-2026-11-03/).
+  *Recording through the real microphone and `RecordingService`:* microphone permission granted
+  with `pm grant` (own debug app), recording started from the UI, timer and notification visible;
+  `dumpsys` showed `isForeground=true` with the same process id after HOME (25 s) and with the
+  screen off on the lock screen (about 6 minutes in total); the WAV grew at 31–32 kB/s
+  (real time) while locked. After the owner unlocked, the recording was stopped from the UI:
+  17 093 804 bytes = 534 s against about 535 s of wall time (timer 08:31 at 22:14:48), so no gap
+  through HOME and the locked screen; the service ended with the recording. Not tested: OEM
+  battery limits over a long time (about 9 minutes only), a recording of 20 minutes.
+  *Processing that 8 m 54 s recording on the phone* (content unknown: room microphone, nobody
+  scripted it; it stays on the phone): model load 8.9 s, diarization 494 s, ASR 104 s, total 607 s
+  (RTF 1.14), 62 fragments and **17 speaker clusters**: do not read this as quality, but it shows
+  that noise or unclear audio can produce many clusters (a risk to explain in a demo). Monitor
+  during it: app PSS peak 567 MiB, worker 398 MiB, battery 42→47 °C while charging over USB,
+  83→82 %. *Live read-aloud dialogue, two people, scripted*
+  ([script](../tools/fixtures/live-dialogue-script-ru.json), 83 words, 43.7 s of audio):
+  7 segments, speakers alternate A-B-A-B-A-B (A→Speaker 1, B→Speaker 2; the first A turn was
+  split in two segments of the same speaker). WER = cpWER **4/84 = 4.76%** against the script as
+  actually spoken (the reader reported adding the word "да" to turn 5, our mistake, not the
+  recognizer's; this correction came from the reader, not from the recognizer output), and 5/83 =
+  6.02% against the original script; all 4 remaining errors are word substitutions by the
+  recognizer ("жарили"→"жарити", "немного"→"много", "прочитаю её"→"прочитай ее", "я"→"и").
+  DER: `NOT_SCORED`. Airplane mode during this run: the owner was asked to enable it but did not
+  say so and I could not verify it afterwards, so the run counts as **not verified offline**
+  (the app has no INTERNET permission, checked on the device). Monitor tool now writes
+  incrementally and survives unplugging (34 tests PASS).
+  *Remaining NOT_RUN on the phone:* verified airplane-mode run, 3–4 speakers, noise and
+  interruptions, 20-minute recording and long MP3/WAV import, permission denial, worker kill,
+  low storage.
+- **2026-11-03 (late) — airplane mode confirmed; 3–4 speakers and noise without recruiting
+  people.** The owner stated that airplane mode **was on** during the live dialogue (reported by
+  the owner; not independently verifiable afterwards), so that run counts as offline by the
+  owner's report. The four recognizer errors of that run, in full: жарили→жарити, я→и,
+  прочитаю→прочитай, немного→много (two of them, "я→и" and "прочитаю→прочитай", are easy to miss
+  on screen). For 3–4 speakers the project's own handoff pointed to the open, MIT-licensed
+  Russian dataset `ivkond/synthetic-speech-diarization-ru` (revision `3fa8404c…`, 2000 synthetic
+  TTS dialogues with per-speaker text and times). Three tracks of shard 0 were rewritten as
+  16-bit WAV (hashes: `syn3-clean` `7b5d5f9c…`, `syn3-brown` `942bfdf4…`, `syn4-noise`
+  `93964807…`; audio not committed) and pushed to the phone, then processed through the same
+  UI path (import → recognize → JSON export) by `tools/phone_run_clip.py` and scored by
+  `tools/score_clip_run.py`. Synthetic voices and file import, **not** natural speech and not the
+  acoustic path (no loudspeaker, no room): evidence in
+  [synthetic-3-4-speakers/](evidence/physical-honor-dnn-lx9-2026-11-03/synthetic-3-4-speakers/).
+
+  | Track (ref speakers, condition) | Audio | App speakers | Segments | WER | cpWER | Total time (RTF) |
+  | --- | --- | --- | --- | --- | --- | --- | 
+  | `syn3-clean` (3, clean) | 33.5 s | **4** | 7 | 4/52 (7.7%) | 18/52 (34.6%) | 51.2 s (1.53) |
+  | `syn3-brown` (3, brown noise 16.8 dB) | 37.8 s | 3 (+2 segments left unknown) | 9 | 5/37 (13.5%) | `NOT_SCORED` (unattributed words) | 52.7 s (1.39) |
+  | `syn4-noise` (4, crowd noise 23.7 dB) | 57.3 s | **5** | 12 | 11/76 (14.5%) | 33/76 (43.4%) | 95.4 s (1.66) |
+
+  Reading: ASR errors stay moderate (8–15% on synthetic TTS with noise), but the speaker count
+  is one too high in two of three tracks, which is what drives the cpWER; the noisy 3-speaker
+  track got the right count and honestly marked two uncertain segments as unknown. DER
+  `NOT_SCORED` (the export has no raw speech turns). With only three tracks this is a warning
+  about over-splitting at threshold 0.8, not a measurement of accuracy.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

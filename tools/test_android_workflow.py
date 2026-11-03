@@ -14,7 +14,7 @@ BASH = "C:/Program Files/Git/bin/bash.exe" if os.name == "nt" else shutil.which(
 
 @unittest.skipUnless(BASH and Path(BASH).exists(), "Bash unavailable")
 class CollectorTests(unittest.TestCase):
-    def run_collector(self, gradle_code, adb_fail=False, false_success=False, ui_code=0):
+    def run_collector(self, gradle_code, adb_fail=False, false_success=False, ui_code=0, kit_code=0):
         (ROOT / ".local").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)
@@ -47,6 +47,10 @@ python3() {
     echo FAKE_UI_FLOW_NOT_ANDROID
     return "$FAKE_UI_EXIT"
   fi
+  if [[ "$*" == *"run_kit_install_check.py"* ]]; then
+    echo FAKE_KIT_INSTALL_NOT_ANDROID
+    return "$FAKE_KIT_EXIT"
+  fi
   "$TEST_PYTHON" "$@"
 }
 ''', encoding="utf-8", newline="\n")
@@ -60,10 +64,10 @@ python3() {
             (root / "device-evidence/recording-pipeline.json").write_text('{"old_pipeline":true}')
             env = dict(os.environ, BASH_ENV=startup.as_posix(), FAKE_GRADLE_EXIT=str(gradle_code),
                        FAKE_ADB_EXIT="9" if adb_fail else "0", FAKE_ADB_FALSE_SUCCESS="1" if false_success else "0",
-                       TEST_PYTHON=Path(sys.executable).as_posix(), FAKE_UI_EXIT=str(ui_code))
+                       TEST_PYTHON=Path(sys.executable).as_posix(), FAKE_UI_EXIT=str(ui_code), FAKE_KIT_EXIT=str(kit_code))
             completed = subprocess.run([BASH, (ROOT / "tools/run_android_inference.sh").as_posix()],
                                        cwd=root, env=env, capture_output=True, text=True)
-            expected = 9 if adb_fail else gradle_code or ui_code or (1 if false_success else 0)
+            expected = 9 if adb_fail else gradle_code or ui_code or (1 if false_success else kit_code)
             self.assertEqual(completed.returncode, expected, completed.stderr)
             self.assertEqual(json.loads((root / "device-evidence/asr-0.json").read_text())["fixture"], "FAKE_COLLECTOR_UNIT_TEST")
             complete = not adb_fail and gradle_code == 0 and not false_success
@@ -91,6 +95,13 @@ python3() {
 
     def test_ui_failure_preserved_with_completed_instrumentation_collection(self):
         self.run_collector(0, ui_code=5)
+
+    def test_kit_install_failure_fails_the_run_after_evidence_was_collected(self):
+        self.run_collector(0, kit_code=1)
+
+    def test_kit_install_check_does_not_run_after_an_earlier_failure(self):
+        # The check wipes app data; it must never run when evidence collection already failed.
+        self.run_collector(7, kit_code=3)
 
 
 if __name__ == "__main__":

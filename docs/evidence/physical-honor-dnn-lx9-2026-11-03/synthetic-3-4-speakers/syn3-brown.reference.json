@@ -1,0 +1,110 @@
+{
+ "schema_version": 1,
+ "recording_id": "syn3-brown",
+ "audio_sha256": "942bfdf41cb3df235768273a739a24b821f008ce5377f67362a783763bb05ca9",
+ "audio_duration_ms": 37780,
+ "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 30 (audio rewritten as 16-bit PCM WAV)",
+ "license": "MIT (dataset card)",
+ "kind": "SYNTHETIC_TTS_DIALOGUE",
+ "text_segments": [
+  {
+   "start_ms": 0,
+   "end_ms": 3120,
+   "speaker_id": "1",
+   "text": "сколько будет четыре плюс пять"
+  },
+  {
+   "start_ms": 3120,
+   "end_ms": 5820,
+   "speaker_id": "2",
+   "text": "проверь почту"
+  },
+  {
+   "start_ms": 5820,
+   "end_ms": 9400,
+   "speaker_id": "3",
+   "text": "включи туман"
+  },
+  {
+   "start_ms": 9400,
+   "end_ms": 20020,
+   "speaker_id": "2",
+   "text": "продолжай читать героя нашего времени с того места где я остановился прошлый раз"
+  },
+  {
+   "start_ms": 20020,
+   "end_ms": 26530,
+   "speaker_id": "3",
+   "text": "сотри событие в календаре"
+  },
+  {
+   "start_ms": 26530,
+   "end_ms": 29470,
+   "speaker_id": "3",
+   "text": "включи пылесос"
+  },
+  {
+   "start_ms": 29470,
+   "end_ms": 34730,
+   "speaker_id": "2",
+   "text": "какая любимая поездка элвиса"
+  },
+  {
+   "start_ms": 34730,
+   "end_ms": 37780,
+   "speaker_id": "2",
+   "text": "можешь ли ты включить свет"
+  }
+ ],
+ "diarization": [
+  {
+   "start_ms": 0,
+   "end_ms": 3120,
+   "speaker_id": "1"
+  },
+  {
+   "start_ms": 3120,
+   "end_ms": 5820,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 5820,
+   "end_ms": 9400,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 9400,
+   "end_ms": 20020,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 20020,
+   "end_ms": 26530,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 26530,
+   "end_ms": 29470,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 29470,
+   "end_ms": 34730,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 34730,
+   "end_ms": 37780,
+   "speaker_id": "2"
+  }
+ ],
+ "meta": {
+  "num_speakers": 3,
+  "difficulty": "hard",
+  "has_overlaps": true,
+  "has_simultaneous": false,
+  "has_noise": true,
+  "noise_type": "brown",
+  "snr": 16.790000915527344
+ }
+}
