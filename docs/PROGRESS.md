@@ -230,6 +230,13 @@
   environment above. Documentation was brought up to date (README, README.ru, OFFLINE_KIT,
   PHONE_ACCEPTANCE, AUDIO_IMPORT decode budget) and [DEMO_READINESS.md](DEMO_READINESS.md)
   separates tested steps from NOT_RUN. A physical phone is still needed for every ARM64 item.
+- **2026-11-03 (device re-check, no phone).** `adb kill-server`/`start-server`, `adb devices -l`
+  (empty), `adb mdns services` (empty) and a Windows PnP listing: the only USB devices are a
+  webcam with microphone (VID 1BCF) and a keyboard/mouse (VID 09DA); no Android, ADB, MTP or
+  WPD device, so the phone is not reaching the PC at all (charge-only cable, USB mode, or not
+  plugged in), not merely unauthorized. `phone_kit.py` got `wait` (polls adb, distinguishes no
+  device / unauthorized / offline / several, prints the concrete action, then runs `check`) and
+  the same explanations in every command; 24 tests PASS. ARM64 acceptance remains NOT_RUN.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

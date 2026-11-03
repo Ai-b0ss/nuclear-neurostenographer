@@ -1,5 +1,6 @@
 """Install and check the offline kit on a USB-connected Android phone (adb), and collect evidence.
 
+  python phone_kit.py wait                  # wait for the phone to appear, explain what is missing, then check
   python phone_kit.py check                 # is the phone suitable? (ABI, Android, free space, network state)
   python phone_kit.py install               # verify SHA256SUMS, install the APK, push models, wait for install
   python phone_kit.py monitor --minutes 25  # sample app and worker memory, battery, temperature while you test
@@ -107,6 +108,35 @@ def parse_devices(text):
     return devices
 
 
+def parse_device_states(text):
+    """{serial: state} for every line of `adb devices` (device, unauthorized, offline, ...)."""
+    states = {}
+    for line in text.splitlines()[1:]:
+        parts = line.split()
+        if len(parts) >= 2:
+            states[parts[0]] = parts[1]
+    return states
+
+
+def explain_no_device(states, serial=None):
+    """Return a one-paragraph, concrete reason and next action for an unusable device list."""
+    if serial:
+        states = {k: v for k, v in states.items() if k == serial}
+    if not states:
+        return ("no phone is visible to adb. Use a data USB cable (not charge-only), set USB mode to "
+                "'File transfer', enable Developer options > USB debugging, unlock the screen, reconnect, "
+                "and accept 'Allow USB debugging' on the phone.")
+    if any(v == "unauthorized" for v in states.values()):
+        return ("the phone is connected but has not authorized this PC: unlock it and tap 'Allow' in the "
+                "'Allow USB debugging?' dialog (tick 'Always allow'), then retry.")
+    if any(v == "offline" for v in states.values()):
+        return "the phone is listed as offline: reconnect the cable, toggle USB debugging off and on, then retry."
+    ready = [k for k, v in states.items() if v == "device"]
+    if len(ready) > 1:
+        return f"several devices are ready ({', '.join(ready)}): pass --serial."
+    return f"unexpected adb states: {states}"
+
+
 def parse_free_kib(df_output):
     """Available KiB from `df -k /data` (toybox): last data line, 4th numeric column."""
     for line in reversed([l for l in df_output.splitlines() if l.strip()]):
@@ -199,8 +229,8 @@ def connect(args):
     if args.serial:
         devices = [d for d in devices if d == args.serial]
     if len(devices) != 1:
-        print(f"NOT_RUN: expected exactly one authorized device, found {len(devices)}. "
-              "Connect the phone, enable USB debugging and accept the prompt on it.")
+        print(f"NOT_RUN: expected exactly one authorized device, found {len(devices)}: "
+              + explain_no_device(parse_device_states(listing), args.serial))
         sys.exit(NOT_RUN)
     return Adb(devices[0], path)
 
@@ -214,6 +244,32 @@ def command_check(args):
     if not report["airplane_mode"]:
         print("NOTE: airplane mode is off; turn it on (and Wi-Fi off) before the offline test.")
     return 1 if problems else 0
+
+
+def command_wait(args):
+    """Poll until exactly one authorized phone appears, then run `check`. Exit 2 (NOT_RUN) on timeout."""
+    path, source = find_adb(args.adb)
+    if path is None:
+        print(f"NOT_RUN: {source}. Pass --adb PATH or set ADB_PATH.")
+        return NOT_RUN
+    print(f"Using adb: {path} ({source}). Waiting up to {args.minutes} min for a phone; Ctrl+C stops.")
+    deadline = time.monotonic() + args.minutes * 60
+    last = None
+    while True:
+        listing = subprocess.run([path, "devices"], capture_output=True, text=True, timeout=60).stdout
+        states = parse_device_states(listing)
+        ready = [k for k, v in states.items() if v == "device" and (not args.serial or k == args.serial)]
+        if len(ready) == 1:
+            print(f"Phone found: {ready[0]}")
+            return command_check(args)
+        reason = explain_no_device(states, args.serial)
+        if reason != last:
+            print("Waiting:", reason)
+            last = reason
+        if time.monotonic() >= deadline:
+            print("NOT_RUN: no usable phone appeared.")
+            return NOT_RUN
+        time.sleep(3)
 
 
 def command_install(args):
@@ -316,6 +372,8 @@ def main():
     parser.add_argument("--serial")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("check")
+    wait = sub.add_parser("wait")
+    wait.add_argument("--minutes", type=float, default=10)
     install = sub.add_parser("install")
     install.add_argument("--kit", default=str(HERE))
     install.add_argument("--wait-minutes", type=int, default=10)
@@ -329,7 +387,7 @@ def main():
     exports.add_argument("--prefix", default="transcript")
     exports.add_argument("--output", default="phone-exports")
     args = parser.parse_args()
-    return {"check": command_check, "install": command_install, "monitor": command_monitor,
+    return {"check": command_check, "wait": command_wait, "install": command_install, "monitor": command_monitor,
             "scan": command_scan, "exports": command_exports}[args.command](args)
 
 

@@ -120,6 +120,34 @@ def finder(files=(), on_path=None, environ=None, globs=None, module_dir=None):
                               glob_files=lambda pattern: (globs or {}).get(pattern, []), module_dir=module_dir or "")
 
 
+class DeviceStateTests(unittest.TestCase):
+    HEADER = "List of devices attached" + chr(10)
+
+    def test_states_and_reasons_are_concrete(self):
+        text = self.HEADER + "AAA" + chr(9) + "unauthorized" + chr(10) + "BBB" + chr(9) + "offline" + chr(10)
+        self.assertEqual(phone_kit.parse_device_states(text), {"AAA": "unauthorized", "BBB": "offline"})
+        self.assertIn("data USB cable", phone_kit.explain_no_device({}))
+        self.assertIn("Allow", phone_kit.explain_no_device({"AAA": "unauthorized"}))
+        self.assertIn("offline", phone_kit.explain_no_device({"AAA": "offline"}))
+        self.assertIn("--serial", phone_kit.explain_no_device({"A": "device", "B": "device"}))
+
+    def test_wait_times_out_as_not_run_and_finds_a_late_phone(self):
+        empty = mock.Mock(stdout=self.HEADER + chr(10))
+        ready = mock.Mock(stdout=self.HEADER + "AAA" + chr(9) + "device" + chr(10))
+        args = argparse.Namespace(adb=None, serial=None, minutes=0)
+        with mock.patch.object(phone_kit, "find_adb", return_value=("adb", "PATH")), \
+                mock.patch.object(phone_kit.subprocess, "run", return_value=empty), \
+                mock.patch.object(phone_kit.time, "sleep"):
+            self.assertEqual(phone_kit.command_wait(args), phone_kit.NOT_RUN)
+        args.minutes = 5
+        with mock.patch.object(phone_kit, "find_adb", return_value=("adb", "PATH")), \
+                mock.patch.object(phone_kit.subprocess, "run", side_effect=[empty, empty, ready]), \
+                mock.patch.object(phone_kit.time, "sleep"), \
+                mock.patch.object(phone_kit, "command_check", return_value=0) as check:
+            self.assertEqual(phone_kit.command_wait(args), 0)
+            check.assert_called_once()
+
+
 class FindAdbTests(unittest.TestCase):
     def test_explicit_path_wins_and_a_wrong_one_is_reported(self):
         path, source = phone_kit.find_adb("C:/tools/adb.exe", {}, which=lambda n: None, is_file=lambda p: p == "C:/tools/adb.exe")
