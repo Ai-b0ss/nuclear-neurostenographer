@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 19655,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.8", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 200, "end_ms": 5870, "speaker_id": "Speaker 1", "text": "примерно так же мы всегда проводим полный цикл тестирования перед внедрением новых технологий", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 6899, "end_ms": 11033, "speaker_id": "Speaker 2", "text": "да уж не самое приятное приключение а как вы решили эту проблему", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 12080, "end_ms": 19538, "speaker_id": "Speaker 1", "text": "знаешь мне бы хотелось сходить в музей заповедник царицына там и архитектура потрясающая и парки красивые", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

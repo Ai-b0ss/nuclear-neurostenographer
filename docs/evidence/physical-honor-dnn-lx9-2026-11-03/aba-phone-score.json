@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 1,
+    "substitutions": 1,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_words": 41,
+    "rate": 0.024390243902439025,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "SCORED",
+    "errors": 1,
+    "reference_words": 41,
+    "rate": 0.024390243902439025,
+    "substitutions": 1,
+    "deletions": 0,
+    "insertions": 0,
+    "mapping": [
+      {
+        "reference": "D",
+        "hypothesis": "Speaker 1"
+      },
+      {
+        "reference": "M",
+        "hypothesis": "Speaker 2"
+      }
+    ]
+  },
+  "der": {
+    "status": "NOT_SCORED",
+    "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+  },
+  "reference": {
+    "recording_id": "dialogs-test-neutral-D-M-D-composed-v1",
+    "annotation_source": "https://huggingface.co/datasets/langswap/dialogs-ru-emotional-conversations/blob/a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+    "license": "Dialogs OpenRAIL; copy of full terms in LICENSE.md; recipients must comply with Section 2",
+    "kind": "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
+    "audio_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861"
+  },
+  "hypothesis_sha256": "075a646fbc3ad216589711a108ec66d911be0184ef947237fc033eeae70e33bd",
+  "reference_sha256": "eadff64abca9a5faff23061a770935d1f8562a1d1fa22333b3d37dc27ae216cc"
+}

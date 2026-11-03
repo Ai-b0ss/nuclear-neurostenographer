@@ -250,6 +250,47 @@
   not by `ro.kernel.qemu`/`ro.hardware` in `check`/`install`), they are named separately in
   the diagnostics; 8 regression tests (32 total) PASS. Physical acceptance: still NOT_RUN,
   waiting for USB debugging on the phone. Instructions: PHONE_ACCEPTANCE.md, "Драйвер Windows".
+- **2026-11-03 — FIRST PHYSICAL RESULTS: HONOR 10X Lite (DNN-LX9), Android 10 (API 29,
+  Magic UI 3.1.1), arm64-v8a, 3.6 GB RAM, USB cable, charging, Wi-Fi ON.** Evidence:
+  [docs/evidence/physical-honor-dnn-lx9-2026-11-03/](evidence/physical-honor-dnn-lx9-2026-11-03/)
+  (exports, scores, memory/battery series; no private audio: public acted clips only).
+  *Setup.* Official Huawei drivers (`hw_goadb`/`hw_gohdb`, Microsoft WHCP-signed) were already
+  installed; the owner enabled USB debugging, accepted the RSA prompt, the HONOR install
+  confirmation and the Files-app biometric lock. `phone_kit.py check` PASS (not an emulator,
+  arm64-v8a, SDK 29, 31.9 GB free). *Bug found only on this phone and fixed (`1a8d6ac`):* the
+  adb-pushed model kit was not seen because on this phone `getExternalFilesDir` is the SD card
+  while `adb push` writes internal storage; the app now scans all external files dirs
+  (`getExternalFilesDirs`). After the fix the app installed both models itself ("Комплект
+  установлен, SHA-256 проверен"); SHA-256 of the installed files read on the phone match the
+  pinned values (`model.int8.onnx` 224 721 476 B `f86ebfa0…37ec`, `segmentation.onnx`
+  `220ad67c…1079`, `embedding.onnx` `1a331345…5e4b`). Requested permissions on the device:
+  RECORD_AUDIO, FOREGROUND_SERVICE(+MICROPHONE), POST_NOTIFICATIONS, **no INTERNET**.
+  *Import → process → speakers → timecodes → export, through the real UI and the system
+  document picker, on the phone:*
+
+  | Clip (public, acted, Russian) | Audio | Speakers found | WER | cpWER | Turn order |
+  | --- | --- | --- | --- | --- | --- |
+  | D/M/D `aba.wav` (development probe) | 19.7 s | 2 | 1/41 (2.44%) | 1/41 (2.44%) | A-B-A correct, D→Speaker 1, M→Speaker 2 |
+  | M-D-M-D holdout `aba.wav` | 42.2 s | 2 | 2/92 (2.17%) | 2/92 (2.17%) | M-D-M-D correct |
+
+  TXT, JSON and SRT were saved through the system save dialog and pulled; the exports pass
+  `verify_transcript_exports` (consistent, SRT/JSON/TXT agree); the JSON records the no-TTS
+  runtime SHA-256 `771fda6a…c1c8`. Identical WER to the x86_64 emulator, as expected for the
+  same model. DER: `NOT_SCORED`.
+  *Speed and memory on the phone (monitor `dumpsys meminfo` every second ran during both, which
+  itself loads the CPU; phone charging):*
+
+  | Clip | model load | diarization | ASR | total | RTF | app PSS peak | worker PSS peak | battery |
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+  | 19.7 s | 5.5 s | 26.4 s | 8.6 s | 40.6 s | 2.07 | 588 MiB | 235 MiB | 41→42 °C |
+  | 42.2 s | 8.5 s | 95.9 s | 27.9 s | 132.2 s | 3.13 | 750 MiB | 308 MiB | 41→45 °C |
+
+  **Finding:** the phone is 2–3x slower than real time end to end (emulator runners: 0.17–0.30),
+  diarization dominates. A 20-minute recording would take on the order of 40–60 minutes here;
+  for a demo keep recordings to a few minutes. Not yet separated from the monitor's overhead.
+  *Still NOT_RUN on the phone:* airplane mode, speech through the microphone from 2–4 live
+  speakers (needs the owner's voices), noise and interruptions, HOME/lock-screen recording,
+  20-minute recording and long MP3/WAV import, permission denial, worker kill, low storage.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
