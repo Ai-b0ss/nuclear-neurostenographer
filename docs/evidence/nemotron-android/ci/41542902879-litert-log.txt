@@ -1,0 +1,14 @@
+--------- beginning of main
+11-02 23:12:44.208  2350  2365 I NemotronBench: acted-dmd litert OK 2746 ms peak 1103879 KiB
+11-02 23:12:58.111  2350  2365 I NemotronBench: datahive-ru_000001 litert OK 13564 ms peak 1140396 KiB
+11-02 23:13:06.521  2350  2365 I NemotronBench: rubook-rec_0416-white0db litert OK 8158 ms peak 1142994 KiB
+11-02 23:13:14.597  2350  2365 I NemotronBench: rubook-rec_0062 litert OK 8010 ms peak 1139710 KiB
+11-02 23:13:22.963  2350  2365 I NemotronBench: rubook-rec_0284 litert OK 8068 ms peak 1144114 KiB
+11-02 23:13:31.077  2350  2365 I NemotronBench: rubook-rec_0455 litert OK 8065 ms peak 1132191 KiB
+11-02 23:13:39.444  2350  2365 I NemotronBench: rubook-rec_0178 litert OK 8075 ms peak 1115167 KiB
+11-02 23:13:47.509  2350  2365 I NemotronBench: rubook-rec_0062-white10db litert OK 7968 ms peak 1133415 KiB
+11-02 23:14:01.283  2350  2365 I NemotronBench: datahive-ru_000010 litert OK 13477 ms peak 1132251 KiB
+11-02 23:14:14.833  2350  2365 I NemotronBench: datahive-ru_000013 litert OK 13421 ms peak 1147075 KiB
+11-02 23:14:22.942  2350  2365 I NemotronBench: nonspeech-silence litert OK 8008 ms peak 1137131 KiB
+11-02 23:14:31.048  2350  2365 I NemotronBench: nonspeech-whitenoise litert OK 8007 ms peak 1138583 KiB
+11-02 23:16:31.742  2350  2365 I NemotronBench: long-ru_000010 litert OK 119903 ms peak 1363886 KiB
