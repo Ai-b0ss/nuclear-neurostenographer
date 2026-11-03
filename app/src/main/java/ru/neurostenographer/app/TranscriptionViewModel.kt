@@ -25,6 +25,12 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
     private val store = AsrModelStore(application)
     private val speakerStore = DiarizationModelStore(application)
+    /** Platform errors are English and mean nothing to a user: keep the text only as a detail. */
+    private fun userMessage(e: Exception): String {
+        val text = e.message ?: return "Ошибка обработки."
+        return if (text.any { it in 'А'..'я' || it == 'ё' || it == 'Ё' }) text
+        else "Не удалось прочитать аудиофайл: он повреждён или имеет неподдерживаемый формат. Выберите другой файл. (Деталь: $text)"
+    }
     private fun c2Available(): Boolean = BuildConfig.NEMOTRON_PROTOTYPE && (
         NemotronBackend.current(getApplication<Application>().filesDir) != null ||
         runCatching { getApplication<Application>().assets.list("")?.contains("nemotron.zip") == true }
@@ -72,7 +78,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: CancellationException) { mutable.value = mutable.value.copy(message = "Операция отменена.") }
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
-            catch (e: Exception) { mutable.value = mutable.value.copy(message = e.message ?: "Ошибка обработки") }
+            catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
             finally { mutable.value = mutable.value.copy(busy = false, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }

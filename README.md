@@ -4,6 +4,8 @@
 
 **Nuclear IT Hack (MEPhI, November 2026)**. Offline Android application for transcribing recorded conversations with speaker attribution and timestamps.
 
+**Status 4 Nov 2026 (integration/c2-honor-20261104):** signed release 0.2.0-contest with Nemotron C2 diarization (C0 fallback) was installed and run offline on a physical HONOR 10X Lite (ARM64): 3-speaker synthetic track WER/cpWER 9.62%, 20-minute file completes (wall RTF ~0.57, ~650 MiB PSS). Full gate not passed; prerelease only. Details: [acceptance](docs/ACCEPTANCE_2026-11-04.md), [C2 phone results](docs/C2_PHYSICAL_HONOR_2026-11-04.md). Statements below that say ARM64 was never verified are historical.
+
 Status: **experimental, NOT_READY**. The default clustering threshold is 0.8. On the three-utterance acted Russian development probe, D/M/D recurrence passes with WER and cpWER each 1/41 (2.44%); legacy 0.9 merged the voices (cpWER 60.98%). This probe was used during threshold selection and is not an untouched holdout or corpus accuracy result. A separate four-clip acted holdout from the same dataset, run only at 0.8, gives WER and cpWER 2/92 (2.17%) with M-D-M-D recurrence passing. Android x86_64 recording/import/export flows execute; DER, physical ARM64/spoken microphone acceptance, overlap quality and distribution review remain open. See [scope and evidence](docs/PROGRESS.md).
 
 ### Architecture
