@@ -26,7 +26,7 @@ object OfflineAsr {
             modelConfig = OfflineModelConfig(
                 nemo = OfflineNemoEncDecCtcModelConfig(model = File(model, "model.int8.onnx").absolutePath),
                 tokens = File(model, "tokens.txt").absolutePath,
-                numThreads = 2, provider = "cpu", debug = false
+                numThreads = InferenceThreads.count(), provider = "cpu", debug = false
             ), decodingMethod = "greedy_search"
         ))
         val loaded = System.nanoTime()

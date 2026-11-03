@@ -28,9 +28,9 @@ object OfflineDiarization {
         val engine = OfflineSpeakerDiarization(config = OfflineSpeakerDiarizationConfig(
             segmentation = OfflineSpeakerSegmentationModelConfig(
                 pyannote = OfflineSpeakerSegmentationPyannoteModelConfig(File(model, "segmentation.onnx").absolutePath),
-                numThreads = 2, provider = "cpu", debug = false),
+                numThreads = InferenceThreads.count(), provider = "cpu", debug = false),
             embedding = SpeakerEmbeddingExtractorConfig(
-                model = File(model, "embedding.onnx").absolutePath, numThreads = 2, provider = "cpu", debug = false),
+                model = File(model, "embedding.onnx").absolutePath, numThreads = InferenceThreads.count(), provider = "cpu", debug = false),
             clustering = FastClusteringConfig(numClusters = -1, threshold = clusteringThreshold),
             minDurationOn = 0.2f, minDurationOff = 0.0f
         ))

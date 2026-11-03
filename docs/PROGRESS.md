@@ -291,6 +291,29 @@
   *Still NOT_RUN on the phone:* airplane mode, speech through the microphone from 2–4 live
   speakers (needs the owner's voices), noise and interruptions, HOME/lock-screen recording,
   20-minute recording and long MP3/WAV import, permission denial, worker kill, low storage.
+- **2026-11-03 (later) — inference threads and a privacy slip.** The phone has 8 cores
+  (4 fast Cortex-A73 + 4 slow A53); the app used a fixed 2 ONNX Runtime threads. Measured on
+  the phone, no monitor running, same APK otherwise (`InferenceThreads`, cap 4):
+
+  | Clip | threads | diarization | ASR | model load | total | RTF |
+  | --- | --- | --- | --- | --- | --- | --- |
+  | 19.7 s | 2 (with monitor) | 26.4 s | 8.6 s | 5.5 s | 40.6 s | 2.07 |
+  | 19.7 s | 4 | 17.8 s / 17.5 s (two runs) | 5.3 s | 5.4 s / 5.1 s | 28.5 s / 27.9 s | 1.45 / 1.42 |
+  | 42.2 s | 2 (with monitor) | 95.9 s | 27.9 s | 8.5 s | 132.2 s | 3.13 |
+  | 42.2 s | 4 | 63.5 s | 16.2 s | 6.3 s | 86.0 s | 2.04 |
+  | 42.2 s | 8 | 101.4 s | 24.7 s | 8.3 s | 134.4 s | 3.18 |
+
+  Four threads is the best of the three; eight is slower than two (the slow cores hold the
+  work back). The first rows include the monitor's overhead, so part of the gain is not due to
+  threads; the 4-thread rows were repeated without it. Output unchanged (same fragment and
+  speaker counts; WER not re-scored for these runs). Emulators have 2 cores and keep 2.
+  Still slower than real time: a 20-minute recording would take roughly 25–40 minutes on this
+  phone. *Privacy slip, mine:* commit `df1a439` accidentally added `tools/device-evidence/phone-ui/`
+  (screenshots and UI dumps of the phone). The XML dumps contain only public clip text and my
+  test folder, but four screenshots show names of folders/files in the owner's personal
+  Downloads. Removed from the branch and git-ignored in the next commit; they remain in the
+  history of `df1a439` on the public remote until the history is rewritten (a force-push, which
+  I did not do): owner's decision. The helper now writes to `.local/phone-ui-private/`.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.

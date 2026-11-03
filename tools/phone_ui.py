@@ -1,6 +1,6 @@
 """Drive the app UI on ONE physical phone by serial (never an emulator), for acceptance runs.
 
-  python phone_ui.py SERIAL shot NAME            # screenshot -> device-evidence/phone-ui/NAME.png
+  python phone_ui.py SERIAL shot NAME            # screenshot -> .local/phone-ui-private/NAME.png (git-ignored: it can show personal file names)
   python phone_ui.py SERIAL texts                # visible texts on the current screen
   python phone_ui.py SERIAL tap "Импортировать аудио"   # tap the control whose text contains this
   python phone_ui.py SERIAL tapdesc "Поиск"        # tap by content description (icons)
@@ -46,7 +46,7 @@ def main():
     serial, action, rest = sys.argv[1], sys.argv[2], sys.argv[3:]
     from phone_kit import find_adb
     adb, _ = find_adb(None)
-    ui = PhoneUi(serial, Path("device-evidence/phone-ui"), adb)
+    ui = PhoneUi(serial, Path(".local/phone-ui-private"), adb)
     if action == "shot":
         print(ui.png(rest[0]))
     elif action == "texts":
