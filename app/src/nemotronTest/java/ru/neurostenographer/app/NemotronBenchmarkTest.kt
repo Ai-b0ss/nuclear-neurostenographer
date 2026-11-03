@@ -84,6 +84,26 @@ class NemotronBenchmarkTest {
         assertTrue(output!!.turns.isNotEmpty())
     }
 
+    /** Cancelling a long C2 run must end its worker; C0 and C2 both run again afterwards. */
+    @Test fun cancelledC2RunReleasesWorker(): Unit = runBlocking {
+        val assets = instrumentation.context.assets
+        val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
+        val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
+        val long = assets.open("nemotron-bench/long-ru_000010.wav").use { PcmWav.read(it) }
+        val short = assets.open("nemotron-bench/acted-dmd.wav").use { PcmWav.read(it) }
+        val worker = AtomicInteger(0)
+        val cancelled = kotlinx.coroutines.withTimeoutOrNull(15_000) {
+            IsolatedDiarization.process(context, long, c2, backend = NemotronBackend.C2, onWorkerStarted = worker::set)
+        }
+        assertEquals("A 20-minute C2 run cannot finish within 15 s here, so it must have been cancelled", null, cancelled)
+        assertTrue("Worker never started", worker.get() != 0)
+        val (afterC0, _) = runOnce(short, c0, NemotronBackend.C0)
+        val (afterC2, _) = runOnce(short, c2, NemotronBackend.C2)
+        Log.i("NemotronBench", "cancel worker=${worker.get()} next c0=${afterC0.getString("status")} next c2=${afterC2.getString("status")}")
+        assertEquals("OK", afterC0.getString("status"))
+        assertEquals("OK", afterC2.getString("status"))
+    }
+
     @Test fun sameRecordingsThroughBothBackends(): Unit = runBlocking {
         val assets = instrumentation.context.assets
         val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }

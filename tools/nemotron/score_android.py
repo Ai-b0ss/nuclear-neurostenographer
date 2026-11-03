@@ -39,6 +39,11 @@ def main():
     for run in data["runs"]:
         case, backend = run["case"], run["backend"]
         repeat.setdefault((case, backend), []).append(run.get("turns"))
+        run.setdefault("attempt", 0)
+        run.setdefault("wall_ms", run.get("infer_ms"))
+        # The LiteRT probe runs in one process, so its process PSS is the total.
+        run.setdefault("peak_total_pss_kib", run.get("peak_process_pss_kib"))
+        run.setdefault("peak_worker_pss_kib", run.get("peak_process_pss_kib"))
         row = {k: run.get(k) for k in ("case", "backend", "attempt", "status", "audio_ms", "load_ms", "infer_ms", "wall_ms", "peak_app_pss_kib", "peak_worker_pss_kib", "peak_total_pss_kib", "transcript")}
         row["speakers"] = len({t[2] for t in run.get("turns", []) if t[2] >= 0})
         if case in cases and run["status"] == "OK":
@@ -48,7 +53,7 @@ def main():
             if reference:
                 d = der(reference, turns, duration, 250, False)
                 row.update(der=d["rate"], errors=errors(d), reference_ms=d["reference_speaker_ms"])
-            host = args.host_results / {"c0": "C0", "c2": "C2"}[backend] / f"{case}.tsv"
+            host = args.host_results / {"c0": "C0", "c2": "C2", "litert_cpu_fp16": "C2"}[backend] / f"{case}.tsv"
             if host.exists():
                 between = der(read_tsv(host), turns, duration, 0, False)
                 row["der_against_host"] = between["rate"]
@@ -56,7 +61,7 @@ def main():
                     row["host_der"] = der(reference, read_tsv(host), duration, 250, False)["rate"]
         rows.append(row)
     summary = {}
-    for backend in ("c0", "c2"):
+    for backend in sorted({r["backend"] for r in rows}):
         first = [r for r in rows if r["backend"] == backend and r["attempt"] == 0]
         scored = [r for r in first if "der" in r]
         short = [r for r in first if r["case"] != "long-ru_000010"]
