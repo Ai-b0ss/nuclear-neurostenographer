@@ -198,6 +198,19 @@ class EmulatorIsNeverAPhoneTests(unittest.TestCase):
             self.assertEqual(phone_kit.command_wait(args), phone_kit.NOT_RUN)
             check.assert_not_called()
 
+    def test_wait_does_not_repeat_advice_when_an_emulator_flaps(self):
+        H = "List of devices attached" + chr(10)
+        none, flap = mock.Mock(stdout=H + chr(10)), mock.Mock(stdout=H + "emulator-5564" + chr(9) + "offline" + chr(10))
+        ready = mock.Mock(stdout=H + "AAA" + chr(9) + "device" + chr(10))
+        args = argparse.Namespace(adb=None, serial=None, minutes=5)
+        with mock.patch.object(phone_kit, "find_adb", return_value=("adb", "PATH")), \
+                mock.patch.object(phone_kit.subprocess, "run", side_effect=[none, flap, none, flap, ready]), \
+                mock.patch.object(phone_kit.time, "sleep"), mock.patch.object(phone_kit, "command_check", return_value=0), \
+                mock.patch("builtins.print") as shown:
+            phone_kit.command_wait(args)
+        waiting = [c for c in shown.call_args_list if c.args and c.args[0] == "Waiting:"]
+        self.assertEqual(len(waiting), 1)
+
     def test_emulator_properties_fail_the_preflight_even_with_a_phone_like_serial(self):
         problems, report = phone_kit.preflight(FakeAdb(qemu="1", hardware="ranchu", abi="x86_64"))
         self.assertTrue(report["emulator"])

@@ -295,9 +295,11 @@ def command_wait(args):
             print(f"Phone found: {ready[0]}")
             return command_check(args)
         reason = explain_no_device(states, args.serial)
-        if reason != last:
+        # An emulator appearing or disappearing must not repeat the same advice.
+        key = reason.split(" Ignored emulator")[0]
+        if key != last:
             print("Waiting:", reason)
-            last = reason
+            last = key
         if time.monotonic() >= deadline:
             print("NOT_RUN: no usable phone appeared.")
             return NOT_RUN
