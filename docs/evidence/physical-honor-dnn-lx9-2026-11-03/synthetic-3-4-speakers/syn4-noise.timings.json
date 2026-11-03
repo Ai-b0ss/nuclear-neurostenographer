@@ -1,0 +1,14 @@
+{
+  "status": "OK",
+  "clip": "syn4-noise.wav",
+  "export": "..\\.local\\synthetic-ru\\phone\\syn4-noise.phone.json",
+  "wall_s": 139.4,
+  "fragments": 12,
+  "audio_ms": 57324,
+  "model_load_ms": 7961,
+  "asr_ms": 16160,
+  "clusters": 5,
+  "diarization_ms": 71275,
+  "total_ms": 95396,
+  "rtf": 1.66
+}

@@ -1,0 +1,14 @@
+{
+  "status": "OK",
+  "clip": "syn3-brown.wav",
+  "export": "..\\.local\\synthetic-ru\\phone\\syn3-brown.phone.json",
+  "wall_s": 91.2,
+  "fragments": 9,
+  "audio_ms": 37780,
+  "model_load_ms": 6554,
+  "asr_ms": 11100,
+  "clusters": 3,
+  "diarization_ms": 35037,
+  "total_ms": 52691,
+  "rtf": 1.39
+}

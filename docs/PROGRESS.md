@@ -345,6 +345,32 @@
   *Remaining NOT_RUN on the phone:* verified airplane-mode run, 3–4 speakers, noise and
   interruptions, 20-minute recording and long MP3/WAV import, permission denial, worker kill,
   low storage.
+- **2026-11-03 (late) — airplane mode confirmed; 3–4 speakers and noise without recruiting
+  people.** The owner stated that airplane mode **was on** during the live dialogue (reported by
+  the owner; not independently verifiable afterwards), so that run counts as offline by the
+  owner's report. The four recognizer errors of that run, in full: жарили→жарити, я→и,
+  прочитаю→прочитай, немного→много (two of them, "я→и" and "прочитаю→прочитай", are easy to miss
+  on screen). For 3–4 speakers the project's own handoff pointed to the open, MIT-licensed
+  Russian dataset `ivkond/synthetic-speech-diarization-ru` (revision `3fa8404c…`, 2000 synthetic
+  TTS dialogues with per-speaker text and times). Three tracks of shard 0 were rewritten as
+  16-bit WAV (hashes: `syn3-clean` `7b5d5f9c…`, `syn3-brown` `942bfdf4…`, `syn4-noise`
+  `93964807…`; audio not committed) and pushed to the phone, then processed through the same
+  UI path (import → recognize → JSON export) by `tools/phone_run_clip.py` and scored by
+  `tools/score_clip_run.py`. Synthetic voices and file import, **not** natural speech and not the
+  acoustic path (no loudspeaker, no room): evidence in
+  [synthetic-3-4-speakers/](evidence/physical-honor-dnn-lx9-2026-11-03/synthetic-3-4-speakers/).
+
+  | Track (ref speakers, condition) | Audio | App speakers | Segments | WER | cpWER | Total time (RTF) |
+  | --- | --- | --- | --- | --- | --- | --- | 
+  | `syn3-clean` (3, clean) | 33.5 s | **4** | 7 | 4/52 (7.7%) | 18/52 (34.6%) | 51.2 s (1.53) |
+  | `syn3-brown` (3, brown noise 16.8 dB) | 37.8 s | 3 (+2 segments left unknown) | 9 | 5/37 (13.5%) | `NOT_SCORED` (unattributed words) | 52.7 s (1.39) |
+  | `syn4-noise` (4, crowd noise 23.7 dB) | 57.3 s | **5** | 12 | 11/76 (14.5%) | 33/76 (43.4%) | 95.4 s (1.66) |
+
+  Reading: ASR errors stay moderate (8–15% on synthetic TTS with noise), but the speaker count
+  is one too high in two of three tracks, which is what drives the cpWER; the noisy 3-speaker
+  track got the right count and honestly marked two uncertain segments as unknown. DER
+  `NOT_SCORED` (the export has no raw speech turns). With only three tracks this is a warning
+  about over-splitting at threshold 0.8, not a measurement of accuracy.
 - Next: physical ARM64 run (pick a phone from the team), a demo APK that needs no
   manual model ZIPs, GigaAM v3 e2e RNN-T for punctuation, Nemotron 3 versus pyannote,
   then VoxLock on overlap regions only. Details in issues #7 and #10.
