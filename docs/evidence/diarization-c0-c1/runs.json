@@ -1,0 +1,4058 @@
+{
+ "C0/rubook-rec_0062": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 21153,
+  "peak_working_set_mib": 243.7,
+  "inference": {
+   "load_ms": 2789,
+   "process_ms": 17739,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0062": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 14625,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 10905,
+   "process_ms": 2851,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0062": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5268,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1898,
+   "process_ms": 2896,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0062-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18588,
+  "peak_working_set_mib": 244.5,
+  "inference": {
+   "load_ms": 684,
+   "process_ms": 17640,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0062-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4260,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 994,
+   "process_ms": 2762,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0062-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3858,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 663,
+   "process_ms": 2720,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0062-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 20293,
+  "peak_working_set_mib": 254.4,
+  "inference": {
+   "load_ms": 695,
+   "process_ms": 19349,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0062-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4508,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1033,
+   "process_ms": 2977,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0062-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4056,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 751,
+   "process_ms": 2802,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0076": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 15700,
+  "peak_working_set_mib": 247.6,
+  "inference": {
+   "load_ms": 701,
+   "process_ms": 14747,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0076": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4362,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1013,
+   "process_ms": 2842,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0076": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3956,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 676,
+   "process_ms": 2791,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0088": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17035,
+  "peak_working_set_mib": 233.6,
+  "inference": {
+   "load_ms": 680,
+   "process_ms": 16099,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0088": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4410,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1030,
+   "process_ms": 2884,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0088": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4054,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 709,
+   "process_ms": 2879,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0111": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18567,
+  "peak_working_set_mib": 247.3,
+  "inference": {
+   "load_ms": 711,
+   "process_ms": 17564,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0111": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4307,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1000,
+   "process_ms": 2846,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0111": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3908,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 695,
+   "process_ms": 2747,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0140": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17816,
+  "peak_working_set_mib": 230.2,
+  "inference": {
+   "load_ms": 711,
+   "process_ms": 16827,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0140": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4361,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1016,
+   "process_ms": 2865,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0140": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4005,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 682,
+   "process_ms": 2829,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0140-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18432,
+  "peak_working_set_mib": 241.2,
+  "inference": {
+   "load_ms": 729,
+   "process_ms": 17372,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0140-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4313,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1001,
+   "process_ms": 2847,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0140-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4057,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 718,
+   "process_ms": 2844,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0140-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18438,
+  "peak_working_set_mib": 240.4,
+  "inference": {
+   "load_ms": 687,
+   "process_ms": 17501,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0140-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4463,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1038,
+   "process_ms": 2913,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0140-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3955,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 720,
+   "process_ms": 2749,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0143": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17280,
+  "peak_working_set_mib": 233.4,
+  "inference": {
+   "load_ms": 716,
+   "process_ms": 16292,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0143": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4710,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1048,
+   "process_ms": 3193,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0143": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4204,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 768,
+   "process_ms": 2905,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0178": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16359,
+  "peak_working_set_mib": 238.1,
+  "inference": {
+   "load_ms": 727,
+   "process_ms": 15313,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0178": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4364,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 984,
+   "process_ms": 2878,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0178": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4115,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 702,
+   "process_ms": 2869,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0182": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18684,
+  "peak_working_set_mib": 317.9,
+  "inference": {
+   "load_ms": 758,
+   "process_ms": 17643,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0182": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4409,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1022,
+   "process_ms": 2900,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0182": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4310,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 726,
+   "process_ms": 3094,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0182-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18331,
+  "peak_working_set_mib": 313.3,
+  "inference": {
+   "load_ms": 710,
+   "process_ms": 17327,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0182-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4317,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1003,
+   "process_ms": 2825,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0182-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4007,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 695,
+   "process_ms": 2781,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0182-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18139,
+  "peak_working_set_mib": 251.2,
+  "inference": {
+   "load_ms": 696,
+   "process_ms": 17189,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0182-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4714,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1095,
+   "process_ms": 3121,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0182-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4101,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 700,
+   "process_ms": 2915,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0201": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17034,
+  "peak_working_set_mib": 246.6,
+  "inference": {
+   "load_ms": 698,
+   "process_ms": 16037,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0201": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4214,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 977,
+   "process_ms": 2760,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0201": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3806,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 657,
+   "process_ms": 2690,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0201-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17689,
+  "peak_working_set_mib": 253.3,
+  "inference": {
+   "load_ms": 670,
+   "process_ms": 16761,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0201-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4173,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 993,
+   "process_ms": 2683,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0201-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3813,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 669,
+   "process_ms": 2692,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0201-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18448,
+  "peak_working_set_mib": 249.2,
+  "inference": {
+   "load_ms": 688,
+   "process_ms": 17491,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0201-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4213,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 998,
+   "process_ms": 2746,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0201-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3909,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 685,
+   "process_ms": 2735,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0235": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16430,
+  "peak_working_set_mib": 252.9,
+  "inference": {
+   "load_ms": 687,
+   "process_ms": 15451,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0235": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4166,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 966,
+   "process_ms": 2723,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0235": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3857,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 695,
+   "process_ms": 2693,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0255": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 14451,
+  "peak_working_set_mib": 236.9,
+  "inference": {
+   "load_ms": 663,
+   "process_ms": 13496,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0255": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4214,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 972,
+   "process_ms": 2774,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0255": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3908,
+  "peak_working_set_mib": 3.5,
+  "inference": {
+   "load_ms": 672,
+   "process_ms": 2746,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0283": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16571,
+  "peak_working_set_mib": 252.3,
+  "inference": {
+   "load_ms": 693,
+   "process_ms": 15607,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0283": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4209,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 989,
+   "process_ms": 2746,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0283": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3857,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 687,
+   "process_ms": 2701,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0283-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17248,
+  "peak_working_set_mib": 252.3,
+  "inference": {
+   "load_ms": 669,
+   "process_ms": 16290,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0283-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4316,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 999,
+   "process_ms": 2824,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0283-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3809,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 672,
+   "process_ms": 2676,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0283-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17498,
+  "peak_working_set_mib": 252.2,
+  "inference": {
+   "load_ms": 660,
+   "process_ms": 16556,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0283-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4213,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 963,
+   "process_ms": 2770,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0283-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3907,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 684,
+   "process_ms": 2731,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0284": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16875,
+  "peak_working_set_mib": 248.3,
+  "inference": {
+   "load_ms": 690,
+   "process_ms": 15929,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0284": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4158,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 984,
+   "process_ms": 2732,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0284": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3812,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 668,
+   "process_ms": 2663,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0331": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16577,
+  "peak_working_set_mib": 246.2,
+  "inference": {
+   "load_ms": 697,
+   "process_ms": 15620,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0331": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4159,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 973,
+   "process_ms": 2733,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0331": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3903,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 691,
+   "process_ms": 2742,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0358": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17790,
+  "peak_working_set_mib": 252.3,
+  "inference": {
+   "load_ms": 695,
+   "process_ms": 16824,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0358": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4220,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 987,
+   "process_ms": 2760,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0358": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3965,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 663,
+   "process_ms": 2869,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0366": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19915,
+  "peak_working_set_mib": 230.9,
+  "inference": {
+   "load_ms": 719,
+   "process_ms": 16634,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0366": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7137,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 974,
+   "process_ms": 2707,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0366": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6257,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 669,
+   "process_ms": 2669,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0378": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17740,
+  "peak_working_set_mib": 264.2,
+  "inference": {
+   "load_ms": 678,
+   "process_ms": 16797,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0378": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4212,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 989,
+   "process_ms": 2768,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0378": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3908,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 666,
+   "process_ms": 2795,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0392": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17039,
+  "peak_working_set_mib": 245.7,
+  "inference": {
+   "load_ms": 661,
+   "process_ms": 16109,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0392": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4257,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 998,
+   "process_ms": 2769,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0392": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3802,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 657,
+   "process_ms": 2702,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0392-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17280,
+  "peak_working_set_mib": 252.0,
+  "inference": {
+   "load_ms": 670,
+   "process_ms": 16375,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0392-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4118,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 969,
+   "process_ms": 2655,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0392-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4061,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 638,
+   "process_ms": 2640,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0392-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17893,
+  "peak_working_set_mib": 331.8,
+  "inference": {
+   "load_ms": 696,
+   "process_ms": 16881,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0392-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4218,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 975,
+   "process_ms": 2744,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0392-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3710,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 647,
+   "process_ms": 2607,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0407": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16798,
+  "peak_working_set_mib": 250.3,
+  "inference": {
+   "load_ms": 678,
+   "process_ms": 15334,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0407": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6569,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 964,
+   "process_ms": 2712,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0407": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4365,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 681,
+   "process_ms": 2736,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0409": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17731,
+  "peak_working_set_mib": 308.2,
+  "inference": {
+   "load_ms": 780,
+   "process_ms": 16690,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0409": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4213,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 999,
+   "process_ms": 2752,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0409": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4065,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 666,
+   "process_ms": 2633,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0409-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18297,
+  "peak_working_set_mib": 327.5,
+  "inference": {
+   "load_ms": 689,
+   "process_ms": 17319,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0409-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4162,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 987,
+   "process_ms": 2684,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0409-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3753,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 666,
+   "process_ms": 2660,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0409-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19013,
+  "peak_working_set_mib": 328.3,
+  "inference": {
+   "load_ms": 668,
+   "process_ms": 18096,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0409-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4156,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 976,
+   "process_ms": 2697,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0409-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3807,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 686,
+   "process_ms": 2676,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0416": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17242,
+  "peak_working_set_mib": 229.3,
+  "inference": {
+   "load_ms": 929,
+   "process_ms": 15600,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0416": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4268,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 971,
+   "process_ms": 2820,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0416": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3811,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 657,
+   "process_ms": 2712,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0416-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17540,
+  "peak_working_set_mib": 261.1,
+  "inference": {
+   "load_ms": 721,
+   "process_ms": 16526,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0416-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4163,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 981,
+   "process_ms": 2740,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0416-white10db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3856,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 678,
+   "process_ms": 2730,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0416-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 18996,
+  "peak_working_set_mib": 246.4,
+  "inference": {
+   "load_ms": 721,
+   "process_ms": 17997,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0416-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4262,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1041,
+   "process_ms": 2720,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0416-white0db": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3807,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 663,
+   "process_ms": 2686,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0429": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 15969,
+  "peak_working_set_mib": 242.4,
+  "inference": {
+   "load_ms": 685,
+   "process_ms": 14987,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0429": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4168,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 973,
+   "process_ms": 2716,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0429": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3908,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 658,
+   "process_ms": 2780,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0447": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17042,
+  "peak_working_set_mib": 238.2,
+  "inference": {
+   "load_ms": 708,
+   "process_ms": 16061,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0447": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4263,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 991,
+   "process_ms": 2779,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0447": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3810,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 668,
+   "process_ms": 2683,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0452": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16233,
+  "peak_working_set_mib": 243.1,
+  "inference": {
+   "load_ms": 686,
+   "process_ms": 15239,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0452": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4221,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 982,
+   "process_ms": 2750,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0452": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3758,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 648,
+   "process_ms": 2639,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0455": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16885,
+  "peak_working_set_mib": 240.2,
+  "inference": {
+   "load_ms": 686,
+   "process_ms": 15949,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0455": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4164,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 967,
+   "process_ms": 2749,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0455": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3767,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 644,
+   "process_ms": 2650,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0460": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17739,
+  "peak_working_set_mib": 247.6,
+  "inference": {
+   "load_ms": 677,
+   "process_ms": 16822,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0460": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4212,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 980,
+   "process_ms": 2746,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0460": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3853,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 656,
+   "process_ms": 2753,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0471": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16782,
+  "peak_working_set_mib": 247.6,
+  "inference": {
+   "load_ms": 710,
+   "process_ms": 15785,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0471": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4213,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 976,
+   "process_ms": 2781,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0471": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3811,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 682,
+   "process_ms": 2659,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0492": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 15757,
+  "peak_working_set_mib": 247.4,
+  "inference": {
+   "load_ms": 677,
+   "process_ms": 14819,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0492": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4214,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1000,
+   "process_ms": 2755,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0492": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3862,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 699,
+   "process_ms": 2720,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0500": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17748,
+  "peak_working_set_mib": 246.9,
+  "inference": {
+   "load_ms": 682,
+   "process_ms": 16766,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0500": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5327,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1005,
+   "process_ms": 2724,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0500": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3863,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 665,
+   "process_ms": 2744,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0508": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17636,
+  "peak_working_set_mib": 249.4,
+  "inference": {
+   "load_ms": 695,
+   "process_ms": 16651,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0508": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4220,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 987,
+   "process_ms": 2726,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0508": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3903,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 708,
+   "process_ms": 2718,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0521": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17289,
+  "peak_working_set_mib": 327.3,
+  "inference": {
+   "load_ms": 672,
+   "process_ms": 16341,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0521": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4265,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1014,
+   "process_ms": 2761,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0521": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3857,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 720,
+   "process_ms": 2686,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0544": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 16984,
+  "peak_working_set_mib": 246.9,
+  "inference": {
+   "load_ms": 685,
+   "process_ms": 15985,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0544": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4517,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1016,
+   "process_ms": 2779,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0544": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4162,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 670,
+   "process_ms": 2646,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/rubook-rec_0545": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 17923,
+  "peak_working_set_mib": 235.2,
+  "inference": {
+   "load_ms": 690,
+   "process_ms": 16937,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/rubook-rec_0545": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4108,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 971,
+   "process_ms": 2666,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/rubook-rec_0545": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3807,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 665,
+   "process_ms": 2673,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/ivkond-0011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 13327,
+  "peak_working_set_mib": 250.2,
+  "inference": {
+   "load_ms": 681,
+   "process_ms": 12381,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0011/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 363523,
+  "peak_working_set_mib": 649.2,
+  "inference": {
+   "load_ms": 346554,
+   "decode_ms": 4542,
+   "windows": 25,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3910,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 974,
+   "process_ms": 2484,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0011/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 8320,
+  "peak_working_set_mib": 699.5,
+  "inference": {
+   "load_ms": 2079,
+   "decode_ms": 5981,
+   "windows": 41,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3559,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 648,
+   "process_ms": 2436,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0011/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 8317,
+  "peak_working_set_mib": 699.2,
+  "inference": {
+   "load_ms": 2155,
+   "decode_ms": 5873,
+   "windows": 42,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0041": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 9391,
+  "peak_working_set_mib": 200.3,
+  "inference": {
+   "load_ms": 669,
+   "process_ms": 8470,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0041/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4423,
+  "peak_working_set_mib": 699.4,
+  "inference": {
+   "load_ms": 2141,
+   "decode_ms": 1980,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0041": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3909,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 970,
+   "process_ms": 2474,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0041/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5124,
+  "peak_working_set_mib": 698.8,
+  "inference": {
+   "load_ms": 2120,
+   "decode_ms": 2764,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0041": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3553,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 641,
+   "process_ms": 2437,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0041/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5272,
+  "peak_working_set_mib": 699.0,
+  "inference": {
+   "load_ms": 2159,
+   "decode_ms": 2858,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0039": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7453,
+  "peak_working_set_mib": 198.7,
+  "inference": {
+   "load_ms": 655,
+   "process_ms": 6562,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0039/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4464,
+  "peak_working_set_mib": 698.0,
+  "inference": {
+   "load_ms": 2118,
+   "decode_ms": 2115,
+   "windows": 8,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0039": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3002,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 986,
+   "process_ms": 1533,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0039/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4621,
+  "peak_working_set_mib": 698.5,
+  "inference": {
+   "load_ms": 2134,
+   "decode_ms": 2208,
+   "windows": 8,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0039": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2643,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 641,
+   "process_ms": 1556,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0039/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4625,
+  "peak_working_set_mib": 697.9,
+  "inference": {
+   "load_ms": 2150,
+   "decode_ms": 2207,
+   "windows": 8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0060": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6951,
+  "peak_working_set_mib": 186.7,
+  "inference": {
+   "load_ms": 686,
+   "process_ms": 6033,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0060/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4364,
+  "peak_working_set_mib": 697.6,
+  "inference": {
+   "load_ms": 2106,
+   "decode_ms": 2004,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0060": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2899,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 949,
+   "process_ms": 1491,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0060/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4522,
+  "peak_working_set_mib": 698.0,
+  "inference": {
+   "load_ms": 2126,
+   "decode_ms": 2079,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0060": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2541,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 638,
+   "process_ms": 1433,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0060/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4368,
+  "peak_working_set_mib": 697.7,
+  "inference": {
+   "load_ms": 2085,
+   "decode_ms": 2049,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 10349,
+  "peak_working_set_mib": 232.2,
+  "inference": {
+   "load_ms": 689,
+   "process_ms": 9368,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0014/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5223,
+  "peak_working_set_mib": 700.0,
+  "inference": {
+   "load_ms": 2143,
+   "decode_ms": 2773,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4061,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 973,
+   "process_ms": 2642,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0014/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5172,
+  "peak_working_set_mib": 699.8,
+  "inference": {
+   "load_ms": 2145,
+   "decode_ms": 2748,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3552,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 686,
+   "process_ms": 2430,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0014/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5225,
+  "peak_working_set_mib": 698.9,
+  "inference": {
+   "load_ms": 2104,
+   "decode_ms": 2836,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7447,
+  "peak_working_set_mib": 226.6,
+  "inference": {
+   "load_ms": 655,
+   "process_ms": 6570,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0007/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4610,
+  "peak_working_set_mib": 698.2,
+  "inference": {
+   "load_ms": 2106,
+   "decode_ms": 2242,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2895,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 954,
+   "process_ms": 1502,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0007/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4615,
+  "peak_working_set_mib": 698.6,
+  "inference": {
+   "load_ms": 2105,
+   "decode_ms": 2269,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2587,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 641,
+   "process_ms": 1507,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0007/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4870,
+  "peak_working_set_mib": 697.5,
+  "inference": {
+   "load_ms": 2211,
+   "decode_ms": 2366,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0037": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 12210,
+  "peak_working_set_mib": 241.9,
+  "inference": {
+   "load_ms": 680,
+   "process_ms": 11258,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0037/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5883,
+  "peak_working_set_mib": 699.0,
+  "inference": {
+   "load_ms": 2186,
+   "decode_ms": 3438,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0037": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4361,
+  "peak_working_set_mib": 3.5,
+  "inference": {
+   "load_ms": 1036,
+   "process_ms": 2820,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0037/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6098,
+  "peak_working_set_mib": 699.2,
+  "inference": {
+   "load_ms": 2266,
+   "decode_ms": 3530,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0037": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4105,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 640,
+   "process_ms": 2983,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0037/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6877,
+  "peak_working_set_mib": 699.6,
+  "inference": {
+   "load_ms": 2481,
+   "decode_ms": 4111,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0066": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6692,
+  "peak_working_set_mib": 241.4,
+  "inference": {
+   "load_ms": 720,
+   "process_ms": 5670,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0066/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6692,
+  "peak_working_set_mib": 697.5,
+  "inference": {
+   "load_ms": 2135,
+   "decode_ms": 4308,
+   "windows": 30,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0066": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3001,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1007,
+   "process_ms": 1525,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0066/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6701,
+  "peak_working_set_mib": 698.0,
+  "inference": {
+   "load_ms": 2145,
+   "decode_ms": 4267,
+   "windows": 29,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0066": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2641,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 650,
+   "process_ms": 1526,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0066/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6543,
+  "peak_working_set_mib": 697.7,
+  "inference": {
+   "load_ms": 2149,
+   "decode_ms": 4126,
+   "windows": 29,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0035": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 12070,
+  "peak_working_set_mib": 239.2,
+  "inference": {
+   "load_ms": 658,
+   "process_ms": 11145,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0035/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5786,
+  "peak_working_set_mib": 699.0,
+  "inference": {
+   "load_ms": 2182,
+   "decode_ms": 3296,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0035": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4068,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 991,
+   "process_ms": 2604,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0035/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5881,
+  "peak_working_set_mib": 698.9,
+  "inference": {
+   "load_ms": 2176,
+   "decode_ms": 3437,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0035": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3858,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 683,
+   "process_ms": 2677,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0035/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5987,
+  "peak_working_set_mib": 698.8,
+  "inference": {
+   "load_ms": 2220,
+   "decode_ms": 3490,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0055": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 11207,
+  "peak_working_set_mib": 230.0,
+  "inference": {
+   "load_ms": 707,
+   "process_ms": 10264,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0055/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6697,
+  "peak_working_set_mib": 699.0,
+  "inference": {
+   "load_ms": 2266,
+   "decode_ms": 4143,
+   "windows": 23,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0055": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3291,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 999,
+   "process_ms": 1833,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0055/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6991,
+  "peak_working_set_mib": 698.2,
+  "inference": {
+   "load_ms": 2316,
+   "decode_ms": 4419,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0055": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2894,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 677,
+   "process_ms": 1735,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0055/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6992,
+  "peak_working_set_mib": 699.4,
+  "inference": {
+   "load_ms": 2307,
+   "decode_ms": 4414,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0030": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7459,
+  "peak_working_set_mib": 214.8,
+  "inference": {
+   "load_ms": 685,
+   "process_ms": 6539,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0030/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4871,
+  "peak_working_set_mib": 697.4,
+  "inference": {
+   "load_ms": 2173,
+   "decode_ms": 2447,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0030": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3047,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1015,
+   "process_ms": 1534,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0030/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5373,
+  "peak_working_set_mib": 698.2,
+  "inference": {
+   "load_ms": 2427,
+   "decode_ms": 2668,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0030": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2641,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 665,
+   "process_ms": 1517,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0030/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4968,
+  "peak_working_set_mib": 698.9,
+  "inference": {
+   "load_ms": 2168,
+   "decode_ms": 2536,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0031": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6243,
+  "peak_working_set_mib": 193.2,
+  "inference": {
+   "load_ms": 659,
+   "process_ms": 5317,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0031/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4323,
+  "peak_working_set_mib": 697.0,
+  "inference": {
+   "load_ms": 2226,
+   "decode_ms": 1796,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0031": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2898,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 993,
+   "process_ms": 1436,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0031/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4164,
+  "peak_working_set_mib": 698.2,
+  "inference": {
+   "load_ms": 2163,
+   "decode_ms": 1728,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0031": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2539,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 662,
+   "process_ms": 1423,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0031/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4216,
+  "peak_working_set_mib": 698.5,
+  "inference": {
+   "load_ms": 2182,
+   "decode_ms": 1771,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0026": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 12891,
+  "peak_working_set_mib": 213.8,
+  "inference": {
+   "load_ms": 689,
+   "process_ms": 11908,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0026/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7663,
+  "peak_working_set_mib": 700.1,
+  "inference": {
+   "load_ms": 2149,
+   "decode_ms": 5235,
+   "windows": 31,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0026": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4311,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1013,
+   "process_ms": 2810,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0026/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7766,
+  "peak_working_set_mib": 699.3,
+  "inference": {
+   "load_ms": 2149,
+   "decode_ms": 5327,
+   "windows": 33,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0026": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3755,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 654,
+   "process_ms": 2637,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0026/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7863,
+  "peak_working_set_mib": 699.3,
+  "inference": {
+   "load_ms": 2178,
+   "decode_ms": 5390,
+   "windows": 33,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0025": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7514,
+  "peak_working_set_mib": 229.3,
+  "inference": {
+   "load_ms": 700,
+   "process_ms": 6586,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0025/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4723,
+  "peak_working_set_mib": 697.8,
+  "inference": {
+   "load_ms": 2158,
+   "decode_ms": 2329,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0025": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2846,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1020,
+   "process_ms": 1377,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0025/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 5020,
+  "peak_working_set_mib": 697.9,
+  "inference": {
+   "load_ms": 2202,
+   "decode_ms": 2545,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0025": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2488,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 688,
+   "process_ms": 1343,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0025/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4871,
+  "peak_working_set_mib": 697.7,
+  "inference": {
+   "load_ms": 2182,
+   "decode_ms": 2453,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0032": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6857,
+  "peak_working_set_mib": 178.9,
+  "inference": {
+   "load_ms": 677,
+   "process_ms": 5918,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/ivkond-0032/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4523,
+  "peak_working_set_mib": 697.6,
+  "inference": {
+   "load_ms": 2196,
+   "decode_ms": 2044,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "C1/ivkond-0032": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2999,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1018,
+   "process_ms": 1489,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/ivkond-0032/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4466,
+  "peak_working_set_mib": 698.3,
+  "inference": {
+   "load_ms": 2193,
+   "decode_ms": 2028,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "C2/ivkond-0032": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 2540,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 683,
+   "process_ms": 1414,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/ivkond-0032/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4573,
+  "peak_working_set_mib": 697.9,
+  "inference": {
+   "load_ms": 2184,
+   "decode_ms": 2114,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "C0/datahive-ru_000001": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 19615,
+  "peak_working_set_mib": 244.8,
+  "inference": {
+   "load_ms": 716,
+   "process_ms": 18571,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000001": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7109,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1005,
+   "process_ms": 5615,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000001": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6902,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 725,
+   "process_ms": 5683,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000002": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 23805,
+  "peak_working_set_mib": 251.9,
+  "inference": {
+   "load_ms": 723,
+   "process_ms": 22779,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000002": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7100,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1016,
+   "process_ms": 5600,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000002": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6649,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 649,
+   "process_ms": 5540,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000003": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 32870,
+  "peak_working_set_mib": 342.3,
+  "inference": {
+   "load_ms": 690,
+   "process_ms": 31861,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000003": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7099,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 980,
+   "process_ms": 5656,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000003": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6591,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 668,
+   "process_ms": 5457,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000004": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 35922,
+  "peak_working_set_mib": 339.6,
+  "inference": {
+   "load_ms": 662,
+   "process_ms": 34929,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000004": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6905,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 977,
+   "process_ms": 5452,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000004": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6595,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 658,
+   "process_ms": 5461,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000005": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 29205,
+  "peak_working_set_mib": 259.3,
+  "inference": {
+   "load_ms": 688,
+   "process_ms": 28204,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000005": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7011,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1013,
+   "process_ms": 5523,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000005": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6757,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 675,
+   "process_ms": 5575,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000006": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 31189,
+  "peak_working_set_mib": 266.1,
+  "inference": {
+   "load_ms": 679,
+   "process_ms": 30235,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000006": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7059,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1020,
+   "process_ms": 5536,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000006": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6647,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 700,
+   "process_ms": 5467,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 26775,
+  "peak_working_set_mib": 252.9,
+  "inference": {
+   "load_ms": 688,
+   "process_ms": 25806,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7056,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1013,
+   "process_ms": 5529,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000007": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6604,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 693,
+   "process_ms": 5458,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000008": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 25360,
+  "peak_working_set_mib": 256.3,
+  "inference": {
+   "load_ms": 658,
+   "process_ms": 24385,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000008": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7059,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1020,
+   "process_ms": 5569,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000008": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7043,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 669,
+   "process_ms": 5896,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000009": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 32950,
+  "peak_working_set_mib": 343.7,
+  "inference": {
+   "load_ms": 725,
+   "process_ms": 31938,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000009": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7106,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 994,
+   "process_ms": 5624,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000009": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6500,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 649,
+   "process_ms": 5384,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 28043,
+  "peak_working_set_mib": 258.1,
+  "inference": {
+   "load_ms": 667,
+   "process_ms": 27118,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7053,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1024,
+   "process_ms": 5510,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6847,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 679,
+   "process_ms": 5703,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 34282,
+  "peak_working_set_mib": 340.7,
+  "inference": {
+   "load_ms": 689,
+   "process_ms": 33291,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7004,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1008,
+   "process_ms": 5513,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000011": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6543,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 674,
+   "process_ms": 5398,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000012": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 26974,
+  "peak_working_set_mib": 258.3,
+  "inference": {
+   "load_ms": 671,
+   "process_ms": 26025,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000012": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7157,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1017,
+   "process_ms": 5632,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000012": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6553,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 651,
+   "process_ms": 5425,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000013": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 33586,
+  "peak_working_set_mib": 343.6,
+  "inference": {
+   "load_ms": 687,
+   "process_ms": 32587,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000013": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7107,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1014,
+   "process_ms": 5580,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000013": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6546,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 654,
+   "process_ms": 5405,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 32204,
+  "peak_working_set_mib": 337.6,
+  "inference": {
+   "load_ms": 696,
+   "process_ms": 31226,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7010,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1027,
+   "process_ms": 5497,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000014": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6496,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 639,
+   "process_ms": 5395,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000015": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 33649,
+  "peak_working_set_mib": 344.3,
+  "inference": {
+   "load_ms": 668,
+   "process_ms": 32628,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000015": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7303,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1086,
+   "process_ms": 5704,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000015": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6599,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 653,
+   "process_ms": 5505,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000016": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 33028,
+  "peak_working_set_mib": 333.6,
+  "inference": {
+   "load_ms": 699,
+   "process_ms": 32020,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000016": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7053,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 986,
+   "process_ms": 5577,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000016": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6604,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 723,
+   "process_ms": 5401,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000017": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 31331,
+  "peak_working_set_mib": 272.4,
+  "inference": {
+   "load_ms": 732,
+   "process_ms": 30327,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000017": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7413,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1053,
+   "process_ms": 5826,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000017": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6709,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 679,
+   "process_ms": 5547,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000018": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 20793,
+  "peak_working_set_mib": 206.4,
+  "inference": {
+   "load_ms": 674,
+   "process_ms": 19824,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000018": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7052,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 993,
+   "process_ms": 5539,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000018": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6748,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 721,
+   "process_ms": 5522,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000019": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 25211,
+  "peak_working_set_mib": 262.9,
+  "inference": {
+   "load_ms": 677,
+   "process_ms": 24211,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000019": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7211,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 994,
+   "process_ms": 5727,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000019": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6692,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 675,
+   "process_ms": 5559,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/datahive-ru_000020": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 23033,
+  "peak_working_set_mib": 253.7,
+  "inference": {
+   "load_ms": 667,
+   "process_ms": 22041,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/datahive-ru_000020": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 7352,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 996,
+   "process_ms": 5881,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/datahive-ru_000020": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 6749,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 684,
+   "process_ms": 5575,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/nonspeech-silence": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3409,
+  "peak_working_set_mib": 174.8,
+  "inference": {
+   "load_ms": 674,
+   "process_ms": 2449,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/nonspeech-silence": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4119,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 999,
+   "process_ms": 2648,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/nonspeech-silence": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3755,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 662,
+   "process_ms": 2634,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/nonspeech-whitenoise": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3357,
+  "peak_working_set_mib": 174.6,
+  "inference": {
+   "load_ms": 670,
+   "process_ms": 2417,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/nonspeech-whitenoise": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4212,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 1004,
+   "process_ms": 2743,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/nonspeech-whitenoise": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 3866,
+  "peak_working_set_mib": 3.3,
+  "inference": {
+   "load_ms": 686,
+   "process_ms": 2669,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C0/acted-dmd": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4422,
+  "peak_working_set_mib": 211.8,
+  "inference": {
+   "load_ms": 728,
+   "process_ms": 3436,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C0/acted-dmd/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4350,
+  "peak_working_set_mib": 697.3,
+  "inference": {
+   "load_ms": 2320,
+   "decode_ms": 1792,
+   "windows": 5,
+   "threads": 2
+  }
+ },
+ "C1/acted-dmd": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 1955,
+  "peak_working_set_mib": 479.0,
+  "inference": {
+   "load_ms": 1009,
+   "process_ms": 476,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C1/acted-dmd/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4229,
+  "peak_working_set_mib": 696.6,
+  "inference": {
+   "load_ms": 2232,
+   "decode_ms": 1748,
+   "windows": 6,
+   "threads": 2
+  }
+ },
+ "C2/acted-dmd": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 1589,
+  "peak_working_set_mib": 211.5,
+  "inference": {
+   "load_ms": 665,
+   "process_ms": 462,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ },
+ "C2/acted-dmd/asr": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 4486,
+  "peak_working_set_mib": 696.2,
+  "inference": {
+   "load_ms": 2396,
+   "decode_ms": 1843,
+   "windows": 6,
+   "threads": 2
+  }
+ }
+}

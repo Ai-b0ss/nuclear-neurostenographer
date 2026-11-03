@@ -1,0 +1,80 @@
+name: Nemotron C2 Android prototype (x86_64 emulator)
+# An emulator run is heavy: it starts only when .github/run-c2-emulator.txt changes, never on an ordinary push.
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/nemotron-android-**']
+    paths: ['.github/run-c2-emulator.txt']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 170
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Prepare SDK
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          test -n "$SDKMGR" && test -x "$SDKMGR"
+          echo "$(dirname "$SDKMGR")" >> "$GITHUB_PATH"
+          "$SDKMGR" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Provision checksum-verified public models
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 tools/provision_asr.py --test-assets
+          python3 tools/provision_diarization.py --test-assets
+          python3 tools/provision_nemotron.py --test-assets
+      - name: Ordinary build stays free of the prototype
+        run: |
+          gradle --no-daemon :app:assembleDebug
+          mkdir -p device-evidence
+          python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output device-evidence/ordinary-apk.json
+          unzip -l app/build/outputs/apk/debug/app-debug.apk | grep -E "\.so$" > device-evidence/ordinary-apk-native.txt
+          ! unzip -l app/build/outputs/apk/debug/app-debug.apk | grep -q onnxruntime4j
+      - name: Prototype build and APK inspection
+        run: |
+          gradle --no-daemon -PnemotronPrototype=true :app:assembleDebug
+          python3 tools/nemotron/check_prototype_apk.py app/build/outputs/apk/debug/app-debug.apk app/libs/sherpa-onnx-1.12.20.aar "$ANDROID_HOME/build-tools/35.0.0/aapt" device-evidence/prototype-apk.json
+      - name: Rebuild the frozen corpus and verify its hashes
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q numpy soundfile onnxruntime pyarrow
+          python3 tools/nemotron/fetch_corpus_sources.py --data .local/bench
+          python3 tools/provision_dialogue_benchmark.py --suite development
+          python3 tools/diar_bench/build_corpus.py --data .local/bench --evidence .local/bench/evidence --acted .local/dialogue-benchmark
+          ffmpeg -v error -y -t 1200 -i .local/bench/raw/datahive/ru_000010.mp3 -ar 16000 -ac 1 -bitexact -c:a pcm_s16le .local/bench/long-ru_000010.wav
+          python3 tools/nemotron/prepare_android_corpus.py --corpus .local/bench/corpus --manifest docs/evidence/diarization-c0-c1-v2/corpus-manifest.json --long-wav .local/bench/long-ru_000010.wav --long-manifest docs/evidence/diarization-c0-c1-v2/long-manifest.json --assets .local/androidTestAssets --report device-evidence/corpus
+          du -sh .local/androidTestAssets
+          rm -rf .local/bench/raw
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: default
+          arch: x86_64
+          profile: pixel_5
+          ram-size: 4096M
+          heap-size: 1024M
+          disk-size: 6144M
+          script: bash tools/nemotron/run_android_benchmark.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nemotron-android-evidence
+          path: |
+            device-evidence/
+            app/build/reports/androidTests/

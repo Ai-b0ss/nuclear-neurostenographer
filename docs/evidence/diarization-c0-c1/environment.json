@@ -1,0 +1,7 @@
+{
+ "platform": "Windows-10-10.0.19045-SP0",
+ "machine": "AMD64",
+ "processor": "Intel64 Family 6 Model 79 Stepping 1, GenuineIntel",
+ "physical_arm64": "NOT_RUN",
+ "threads": 2
+}

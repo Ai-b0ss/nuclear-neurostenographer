@@ -1,0 +1,67 @@
+{
+ "acted-dmd": {
+  "expected": "9294f7fc91b96c73b02148922030bbf2a3a740a1bb920ccbf2a5b243d0316c87",
+  "actual": "9294f7fc91b96c73b02148922030bbf2a3a740a1bb920ccbf2a5b243d0316c87",
+  "match": true
+ },
+ "datahive-ru_000001": {
+  "expected": "7737121c0145a3a04889c1a3b8df3c325bfbdd95e80ce217c72811a94262fd1e",
+  "actual": "7737121c0145a3a04889c1a3b8df3c325bfbdd95e80ce217c72811a94262fd1e",
+  "match": true
+ },
+ "rubook-rec_0416-white0db": {
+  "expected": "f99875c1fe94dfbcafa6e19143e3aebd9d636a013524c8efd497d2046e230ccb",
+  "actual": "f99875c1fe94dfbcafa6e19143e3aebd9d636a013524c8efd497d2046e230ccb",
+  "match": true
+ },
+ "rubook-rec_0062": {
+  "expected": "6fb9d81a666d4a19c704394d49a5088f37b15f3104f8e08f181e378a0b116555",
+  "actual": "6fb9d81a666d4a19c704394d49a5088f37b15f3104f8e08f181e378a0b116555",
+  "match": true
+ },
+ "rubook-rec_0284": {
+  "expected": "73f6c7d5ace9bd4fb56969f1b37f4d67e6d73f3030bfce90b5539b25ea381cbd",
+  "actual": "73f6c7d5ace9bd4fb56969f1b37f4d67e6d73f3030bfce90b5539b25ea381cbd",
+  "match": true
+ },
+ "rubook-rec_0455": {
+  "expected": "3cae956853201eadb27a1e1b6f9092cd66aa48ab689ab8ea45701bdd9f36c51f",
+  "actual": "3cae956853201eadb27a1e1b6f9092cd66aa48ab689ab8ea45701bdd9f36c51f",
+  "match": true
+ },
+ "rubook-rec_0178": {
+  "expected": "e5b2669c76278be5e1a42c6a196685583ae76cab4a3b7c78821d3d5897f64043",
+  "actual": "e5b2669c76278be5e1a42c6a196685583ae76cab4a3b7c78821d3d5897f64043",
+  "match": true
+ },
+ "rubook-rec_0062-white10db": {
+  "expected": "42606ebbe6974536e0b3471c919dcdb75ff80be14971a1061611694448ca23ec",
+  "actual": "42606ebbe6974536e0b3471c919dcdb75ff80be14971a1061611694448ca23ec",
+  "match": true
+ },
+ "datahive-ru_000010": {
+  "expected": "326894012c5c19ab0374275eb6323bf9ea17df7ae5c970a3c4527ea590c79d28",
+  "actual": "326894012c5c19ab0374275eb6323bf9ea17df7ae5c970a3c4527ea590c79d28",
+  "match": true
+ },
+ "datahive-ru_000013": {
+  "expected": "d86de81d4f56885ceaf71063f1c357fb5ea511a2861a79073efec0f9b4cb8dab",
+  "actual": "d86de81d4f56885ceaf71063f1c357fb5ea511a2861a79073efec0f9b4cb8dab",
+  "match": true
+ },
+ "nonspeech-silence": {
+  "expected": "4c59ed976769ba50aba4a23ef2823cf795f0b555d48f4c80d41576ce9f3378b7",
+  "actual": "4c59ed976769ba50aba4a23ef2823cf795f0b555d48f4c80d41576ce9f3378b7",
+  "match": true
+ },
+ "nonspeech-whitenoise": {
+  "expected": "b994dc8025e70d6a4989f840bccf1b1d80b3e06ae0ffc10839fc3aeac9428254",
+  "actual": "b994dc8025e70d6a4989f840bccf1b1d80b3e06ae0ffc10839fc3aeac9428254",
+  "match": true
+ },
+ "long-ru_000010": {
+  "expected": "e9933e55693151a6f2c5d0f34188348d62053b66a70d9dad0dd25ffd3a408df5",
+  "actual": "e9933e55693151a6f2c5d0f34188348d62053b66a70d9dad0dd25ffd3a408df5",
+  "match": true
+ }
+}

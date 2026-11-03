@@ -1,0 +1,65 @@
+name: Nemotron LiteRT comparison probe (x86_64 emulator)
+# An emulator run is heavy: it starts only when .github/run-litert-probe.txt changes, never on an ordinary push.
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/nemotron-android-**']
+    paths: ['.github/run-litert-probe.txt']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Prepare SDK
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          "$SDKMGR" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Provision
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 tools/provision_asr.py
+          python3 tools/nemotron/provision_litert_probe.py
+      - name: Rebuild the frozen corpus
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q numpy soundfile onnxruntime pyarrow
+          python3 tools/nemotron/fetch_corpus_sources.py --data .local/bench
+          python3 tools/provision_dialogue_benchmark.py --suite development
+          python3 tools/diar_bench/build_corpus.py --data .local/bench --evidence .local/bench/evidence --acted .local/dialogue-benchmark
+          ffmpeg -v error -y -t 1200 -i .local/bench/raw/datahive/ru_000010.mp3 -ar 16000 -ac 1 -bitexact -c:a pcm_s16le .local/bench/long-ru_000010.wav
+          python3 tools/nemotron/prepare_android_corpus.py --corpus .local/bench/corpus --manifest docs/evidence/diarization-c0-c1-v2/corpus-manifest.json --long-wav .local/bench/long-ru_000010.wav --long-manifest docs/evidence/diarization-c0-c1-v2/long-manifest.json --assets .local/androidTestAssets --report device-evidence/corpus
+          rm -rf .local/bench/raw
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: default
+          arch: x86_64
+          profile: pixel_5
+          ram-size: 4096M
+          heap-size: 1024M
+          disk-size: 4096M
+          script: bash tools/nemotron/run_litert_probe.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nemotron-litert-evidence
+          path: |
+            device-evidence/
+            app/build/reports/androidTests/

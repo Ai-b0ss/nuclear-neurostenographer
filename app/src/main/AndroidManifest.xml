@@ -7,7 +7,7 @@
     <!-- No internet permission. Speech processing must be strictly on-device. -->
     <application android:largeHeap="true" android:allowBackup="false" android:fullBackupContent="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:icon="@drawable/ic_launcher" android:label="Нейро-стенографист"
+        android:icon="@drawable/ic_launcher" android:label="${appLabel}"
         android:supportsRtl="true" android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <service android:name=".DiarizationService" android:process=":diarization"
             android:exported="false" android:stopWithTask="true" />

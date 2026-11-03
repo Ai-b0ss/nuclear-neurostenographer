@@ -1,0 +1,24 @@
+{
+ "scope": "Host, Kotlin C2 after the merge with InferenceThreads.count() (4 on this host) against the 2-thread run of the comparison",
+ "jar_sha256": "f6df7b821ed4f6a4038c742034a4a2120b5da4e0a6863a2eac238436717efa23",
+ "rows": [
+  {
+   "case": "syn3-clean",
+   "identical_turns": true,
+   "infer_ms_2_threads": 1639,
+   "infer_ms_4_threads": 1002
+  },
+  {
+   "case": "syn4-noise",
+   "identical_turns": true,
+   "infer_ms_2_threads": 3129,
+   "infer_ms_4_threads": 1796
+  },
+  {
+   "case": "realmix-05-13",
+   "identical_turns": true,
+   "infer_ms_2_threads": 14935,
+   "infer_ms_4_threads": 7282
+  }
+ ]
+}

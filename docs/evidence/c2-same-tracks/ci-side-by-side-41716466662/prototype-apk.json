@@ -1,0 +1,34 @@
+{
+ "apk_bytes": 52582286,
+ "native_files": [
+  "lib/arm64-v8a/libandroidx.graphics.path.so",
+  "lib/arm64-v8a/libonnxruntime.so",
+  "lib/arm64-v8a/libonnxruntime4j_jni.so",
+  "lib/arm64-v8a/libsherpa-onnx-jni.so",
+  "lib/x86_64/libandroidx.graphics.path.so",
+  "lib/x86_64/libonnxruntime.so",
+  "lib/x86_64/libonnxruntime4j_jni.so",
+  "lib/x86_64/libsherpa-onnx-jni.so"
+ ],
+ "onnxruntime_source": {
+  "arm64-v8a": "sherpa_aar",
+  "x86_64": "sherpa_aar"
+ },
+ "onnxruntime_sha256_arm64-v8a": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+ "onnxruntime_sha256_x86_64": "1eda995a3d24e48492aa2e671f4b69624d32a7c227dc7e0904c433e83df1aa7e",
+ "load_alignment": {
+  "lib/arm64-v8a/libandroidx.graphics.path.so": 16384,
+  "lib/arm64-v8a/libonnxruntime.so": 16384,
+  "lib/arm64-v8a/libonnxruntime4j_jni.so": 4096,
+  "lib/arm64-v8a/libsherpa-onnx-jni.so": 16384,
+  "lib/x86_64/libandroidx.graphics.path.so": 16384,
+  "lib/x86_64/libonnxruntime.so": 16384,
+  "lib/x86_64/libonnxruntime4j_jni.so": 4096,
+  "lib/x86_64/libsherpa-onnx-jni.so": 16384
+ },
+ "below_16kb_alignment": [
+  "lib/arm64-v8a/libonnxruntime4j_jni.so",
+  "lib/x86_64/libonnxruntime4j_jni.so"
+ ],
+ "problems": []
+}

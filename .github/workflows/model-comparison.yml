@@ -1,0 +1,26 @@
+name: Model comparison evidence gate (synthetic tests only)
+on:
+  pull_request:
+    paths:
+      - 'tools/compare_model_trials.py'
+      - 'tools/test_compare_model_trials.py'
+      - 'docs/MODEL_COMPARISON.md'
+      - '.github/workflows/model-comparison.yml'
+  push:
+    branches: ['research/model-comparison-gate-20261102']
+permissions:
+  contents: read
+jobs:
+  scorer-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify scripted score consistency and failure semantics
+        run: |
+          python -m py_compile tools/compare_model_trials.py tools/test_compare_model_trials.py
+          python tools/test_compare_model_trials.py -v
+          python -O tools/test_compare_model_trials.py -v

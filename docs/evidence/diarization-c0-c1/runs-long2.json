@@ -1,0 +1,42 @@
+{
+ "C0/long-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 305105,
+  "peak_working_set_mib": 606.2,
+  "inference": {
+   "load_ms": 639,
+   "process_ms": 303612,
+   "threshold": 0.8,
+   "threads": 2
+  }
+ },
+ "C1/long-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 58194,
+  "peak_working_set_mib": 775.9,
+  "inference": {
+   "load_ms": 963,
+   "process_ms": 56667,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.onnx"
+  }
+ },
+ "C2/long-ru_000010": {
+  "status": "OK",
+  "exit_code": 0,
+  "wall_ms": 57186,
+  "peak_working_set_mib": 509.9,
+  "inference": {
+   "load_ms": 632,
+   "process_ms": 56052,
+   "threshold": 0.5,
+   "threads": 2,
+   "onnxruntime": "1.31.1",
+   "model": "model.int8.onnx"
+  }
+ }
+}
