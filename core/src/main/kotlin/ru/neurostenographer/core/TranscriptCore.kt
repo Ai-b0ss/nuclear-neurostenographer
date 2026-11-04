@@ -153,11 +153,12 @@ data class TranscriptDocument(val segments: List<TranscriptSegment>, val audioMs
         require(audioMs > 0 && segments.all { it.endMs <= audioMs })
         require(segments.zipWithNext().all { (a, b) -> a.startMs <= b.startMs })
     }
-    fun export(format: String): String = when (format) {
-        "json" -> TranscriptExport.json(segments, provenance, audioMs, warnings)
-        "srt" -> TranscriptExport.srt(segments)
-        "txt" -> "Время: ${provenance.timestampSource}; говорящие: ${provenance.speakerSource}.\n" +
-            warnings.joinToString("") { "Предупреждение: $it\n" } + TranscriptExport.txt(segments)
+    /** [speakerNames] maps a stable id ("Speaker N") to a name the user typed; TXT/SRT show it, JSON adds `speaker_name`. */
+    fun export(format: String, speakerNames: Map<String, String> = emptyMap()): String = when (format) {
+        "json" -> TranscriptExport.json(segments, provenance, audioMs, warnings, speakerNames)
+        "srt" -> TranscriptExport.srt(segments, speakerNames)
+        "txt" -> TranscriptExport.header(segments, audioMs) + "\n" +
+            warnings.joinToString("") { "Примечание: $it\n" } + "\n" + TranscriptExport.txt(segments, speakerNames)
         else -> error("Неизвестный формат экспорта")
     }
 }
@@ -182,25 +183,34 @@ object TranscriptExport {
         }
         append('"')
     }
-    fun txt(items: List<TranscriptSegment>): String = items.joinToString("\n") {
+    /** Human-readable first line of the TXT export; technical provenance stays in JSON. */
+    fun header(items: List<TranscriptSegment>, audioMs: Long): String {
+        val s = audioMs / 1000
+        val duration = if (s >= 3600) String.format(Locale.ROOT, "%d:%02d:%02d", s / 3600, s / 60 % 60, s % 60)
+            else String.format(Locale.ROOT, "%02d:%02d", s / 60, s % 60)
+        return "Стенограмма · $duration · говорящих: " + items.mapNotNull { it.speakerId }.distinct().size
+    }
+    fun txt(items: List<TranscriptSegment>, names: Map<String, String> = emptyMap()): String = items.joinToString("\n") {
         "[" + time(it.startMs) + "–" + time(it.endMs) + "] " +
-            displaySpeaker(it.speakerId) + ": " + it.text +
+            displaySpeaker(it.speakerId, names) + ": " + it.text +
             (if (it.overlappingSpeech) " [перекрытие речи]" else "")
     }
-    /** Human-readable label for TXT/SRT; JSON keeps the stable id ("Speaker N"). */
-    fun displaySpeaker(id: String?): String = when {
+    /** Human-readable label for TXT/SRT; JSON keeps the stable id ("Speaker N"). A user-given name wins. */
+    fun displaySpeaker(id: String?, names: Map<String, String> = emptyMap()): String = when {
         id == null -> "Не определён"
+        !names[id].isNullOrBlank() -> names.getValue(id).trim()
         id.startsWith("Speaker ") -> "Говорящий " + id.removePrefix("Speaker ")
         else -> id
     }
-    fun srt(items: List<TranscriptSegment>): String =
+    fun srt(items: List<TranscriptSegment>, names: Map<String, String> = emptyMap()): String =
         items.sortedBy { it.startMs }.mapIndexed { i, s ->
             (i + 1).toString() + "\n" + srtTime(s.startMs) + " --> " +
-                srtTime(s.endMs) + "\n" + displaySpeaker(s.speakerId) + ": " + s.text +
+                srtTime(s.endMs) + "\n" + displaySpeaker(s.speakerId, names) + ": " + s.text +
                 (if (s.overlappingSpeech) " [перекрытие речи]" else "")
         }.joinToString("\n\n")
     fun json(items: List<TranscriptSegment>, provenance: TranscriptProvenance? = null,
-             audioMs: Long? = null, warnings: List<String> = emptyList()): String =
+             audioMs: Long? = null, warnings: List<String> = emptyList(),
+             names: Map<String, String> = emptyMap()): String =
         "{\n  \"version\": 1,\n  \"units\": \"milliseconds\",\n" +
             (audioMs?.let { "  \"audio_duration_ms\": $it,\n" } ?: "") +
             "  \"warnings\": [" + warnings.joinToString(", ", transform = ::jsonString) + "],\n" +
@@ -213,6 +223,8 @@ object TranscriptExport {
             items.joinToString(",\n") {
                 "    {\"start_ms\": " + it.startMs + ", \"end_ms\": " + it.endMs +
                     ", \"speaker_id\": " + (it.speakerId?.let(::jsonString) ?: "null") +
+                    (it.speakerId?.let { id -> names[id]?.trim()?.takeIf(String::isNotEmpty) }
+                        ?.let { name -> ", \"speaker_name\": " + jsonString(name) } ?: "") +
                     ", \"text\": " + jsonString(it.text) + ", \"overlapping_speech\": " +
                     it.overlappingSpeech + ", \"attribution_reliable\": " + it.attributionReliable + "}"
             } + "\n  ]\n}\n"

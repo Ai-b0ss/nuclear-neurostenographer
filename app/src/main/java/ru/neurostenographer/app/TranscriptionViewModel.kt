@@ -199,6 +199,18 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         mutable.value = mutable.value.copy(history = left, current = left.firstOrNull { it.id == id })
     }
 
+    fun renameSpeaker(id: String, speakerId: String, name: String) = work {
+        val clean = name.replace(Regex("[\r\n\t]+"), " ").trim().take(40)
+        withContext(Dispatchers.IO) { history.setSpeakerName(id, speakerId, clean) }
+        val left = withContext(Dispatchers.IO) { history.list() }
+        mutable.value = mutable.value.copy(history = left, current = left.firstOrNull { it.id == id })
+    }
+
+    private fun currentNames() = mutable.value.current?.speakerNames.orEmpty()
+
+    /** TXT of the open transcript for the system share sheet (the app itself has no network access). */
+    fun shareText(): String? = mutable.value.document?.export("txt", currentNames())
+
     /** Prefer verified local Nemotron C2 when this product variant contains it.
      * A C2 startup, model or worker failure falls back to the unchanged C0 implementation.
      * Ordinary (non-C2) builds remain byte-for-byte compatible in their inference choices.
@@ -288,7 +300,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     fun prepareExport(format: String) {
         val document = requireNotNull(mutable.value.document) { "Нет распознанной стенограммы" }
-        pendingExport = format to document.export(format)
+        pendingExport = format to document.export(format, currentNames())
     }
 
     fun finishExport(uri: Uri?) {

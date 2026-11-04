@@ -6,12 +6,14 @@ import ru.neurostenographer.core.TranscriptProvenance
 import ru.neurostenographer.core.TranscriptSegment
 import java.io.File
 
-data class SavedTranscript(val id: String, val title: String, val createdMs: Long, val document: TranscriptDocument) {
+data class SavedTranscript(val id: String, val title: String, val createdMs: Long, val document: TranscriptDocument,
+                           val speakerNames: Map<String, String> = emptyMap()) {
     val speakers: List<String> get() = document.segments.mapNotNull { it.speakerId }.distinct()
 }
 
 /** Finished transcripts kept in the app's private storage, so a restart does not lose them.
- * Each one is the same JSON as the export (`<id>.json`) plus a small `<id>.meta.json` (title, time).
+ * Each one is the same JSON as the export (`<id>.json`) plus a small `<id>.meta.json` (title, time and
+ * `speaker_names`: stable id "Speaker N" → name the user typed; the inference JSON itself never changes).
  * Writes go through a temporary file and a rename: a crash leaves either the old state or the new one.
  */
 class TranscriptHistory(filesDir: File) {
@@ -33,6 +35,14 @@ class TranscriptHistory(filesDir: File) {
         atomicWrite(File(dir, "$id.meta.json"), meta.put("title", title).toString())
     }
 
+    /** A blank [name] removes the name, so the label falls back to "Говорящий N". */
+    fun setSpeakerName(id: String, speakerId: String, name: String) {
+        val meta = JSONObject(File(dir, "$id.meta.json").readText())
+        val names = meta.optJSONObject("speaker_names") ?: JSONObject()
+        if (name.isBlank()) names.remove(speakerId) else names.put(speakerId, name)
+        atomicWrite(File(dir, "$id.meta.json"), meta.put("speaker_names", names).toString())
+    }
+
     fun delete(id: String) {
         require(id.matches(Regex("t\\d+")))
         File(dir, "$id.json").delete(); File(dir, "$id.meta.json").delete()
@@ -42,7 +52,8 @@ class TranscriptHistory(filesDir: File) {
 
     private fun load(id: String): SavedTranscript {
         val meta = JSONObject(File(dir, "$id.meta.json").readText())
-        return SavedTranscript(id, meta.getString("title"), meta.getLong("created_ms"), parse(File(dir, "$id.json").readText()))
+        val names = meta.optJSONObject("speaker_names")?.let { o -> o.keys().asSequence().associateWith { o.getString(it) } }.orEmpty()
+        return SavedTranscript(id, meta.getString("title"), meta.getLong("created_ms"), parse(File(dir, "$id.json").readText()), names)
     }
 
     private fun atomicWrite(target: File, text: String) {

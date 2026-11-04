@@ -48,6 +48,13 @@ def verify(directory, prefix="dialogue"):
         # builds wrote the id itself. Accept the label this SRT cue uses, then require exactly the same body in TXT.
         labels = ["Не определён"] if sid is None else (
             [sid, "Говорящий " + sid[len("Speaker "):]] if sid.startswith("Speaker ") else [sid])
+        # 0.3.1+: a name the user gave this speaker is exported as "speaker_name" next to the stable id,
+        # and TXT/SRT must then show exactly that name.
+        name = segment.get("speaker_name")
+        if name is not None:
+            require(sid is not None and isinstance(name, str) and name.strip() == name and name and "\n" not in name,
+                    'Export consistency check failed')
+            labels = [name]
         suffix = ": " + segment["text"] + (" [перекрытие речи]" if segment["overlapping_speech"] else "")
         if segment["overlapping_speech"]:
             require(segment["speaker_id"] is None and not segment["attribution_reliable"], 'Export consistency check failed')

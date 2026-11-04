@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the signed product APK (A3 + C2 inside, 0.3.0-contest and later) on the owner's Windows PC (Git Bash).
+# Build the signed product APK (A3 + C2 inside, 0.3.0-contest and later; 0.3.1-contest = versionCode 4) on the owner's Windows PC (Git Bash).
 #
 #   bash tools/build_product_apk.sh            # core tests + signed release APK
 #
