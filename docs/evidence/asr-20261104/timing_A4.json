@@ -1,0 +1,413 @@
+{
+ "candidate": "A4",
+ "sherpa_onnx": "2.0.1",
+ "threads": 4,
+ "python": "3.13.9",
+ "cpu": "Intel64 Family 6 Model 79 Stepping 1, GenuineIntel",
+ "load_s": 1.55,
+ "rss_after_load_mb": 295,
+ "items": [
+  {
+   "id": "podlodka-train-00",
+   "group": "DEV",
+   "dur_s": 12.305,
+   "dec_s": 0.823,
+   "rtf": 0.0669,
+   "n_tokens": 167
+  },
+  {
+   "id": "podlodka-train-01",
+   "group": "DEV",
+   "dur_s": 11.999,
+   "dec_s": 0.77,
+   "rtf": 0.0642,
+   "n_tokens": 119
+  },
+  {
+   "id": "podlodka-train-02",
+   "group": "DEV",
+   "dur_s": 26.835,
+   "dec_s": 2.038,
+   "rtf": 0.076,
+   "n_tokens": 469
+  },
+  {
+   "id": "podlodka-train-03",
+   "group": "DEV",
+   "dur_s": 16.107,
+   "dec_s": 1.105,
+   "rtf": 0.0686,
+   "n_tokens": 270
+  },
+  {
+   "id": "podlodka-train-04",
+   "group": "DEV",
+   "dur_s": 12.605,
+   "dec_s": 0.839,
+   "rtf": 0.0666,
+   "n_tokens": 113
+  },
+  {
+   "id": "podlodka-train-05",
+   "group": "DEV",
+   "dur_s": 29.306,
+   "dec_s": 2.321,
+   "rtf": 0.0792,
+   "n_tokens": 333
+  },
+  {
+   "id": "podlodka-train-06",
+   "group": "DEV",
+   "dur_s": 12.041,
+   "dec_s": 0.79,
+   "rtf": 0.0656,
+   "n_tokens": 163
+  },
+  {
+   "id": "podlodka-train-07",
+   "group": "DEV",
+   "dur_s": 26.313,
+   "dec_s": 1.996,
+   "rtf": 0.0758,
+   "n_tokens": 274
+  },
+  {
+   "id": "podlodka-train-08",
+   "group": "DEV",
+   "dur_s": 42.247,
+   "dec_s": 3.735,
+   "rtf": 0.0884,
+   "n_tokens": 349
+  },
+  {
+   "id": "podlodka-train-09",
+   "group": "DEV",
+   "dur_s": 27.256,
+   "dec_s": 2.122,
+   "rtf": 0.0779,
+   "n_tokens": 249
+  },
+  {
+   "id": "podlodka-train-10",
+   "group": "DEV",
+   "dur_s": 28.834,
+   "dec_s": 2.251,
+   "rtf": 0.0781,
+   "n_tokens": 358
+  },
+  {
+   "id": "podlodka-train-11",
+   "group": "DEV",
+   "dur_s": 47.029,
+   "dec_s": 4.349,
+   "rtf": 0.0925,
+   "n_tokens": 620
+  },
+  {
+   "id": "podlodka-train-12",
+   "group": "DEV",
+   "dur_s": 41.745,
+   "dec_s": 3.689,
+   "rtf": 0.0884,
+   "n_tokens": 479
+  },
+  {
+   "id": "podlodka-train-13",
+   "group": "DEV",
+   "dur_s": 30.866,
+   "dec_s": 2.436,
+   "rtf": 0.0789,
+   "n_tokens": 321
+  },
+  {
+   "id": "podlodka-train-14",
+   "group": "DEV",
+   "dur_s": 19.653,
+   "dec_s": 1.393,
+   "rtf": 0.0709,
+   "n_tokens": 205
+  },
+  {
+   "id": "podlodka-train-15",
+   "group": "DEV",
+   "dur_s": 38.376,
+   "dec_s": 3.204,
+   "rtf": 0.0835,
+   "n_tokens": 628
+  },
+  {
+   "id": "podlodka-train-16",
+   "group": "DEV",
+   "dur_s": 15.529,
+   "dec_s": 1.071,
+   "rtf": 0.069,
+   "n_tokens": 277
+  },
+  {
+   "id": "podlodka-train-17",
+   "group": "DEV",
+   "dur_s": 37.836,
+   "dec_s": 3.177,
+   "rtf": 0.084,
+   "n_tokens": 491
+  },
+  {
+   "id": "podlodka-train-18",
+   "group": "DEV",
+   "dur_s": 20.408,
+   "dec_s": 1.497,
+   "rtf": 0.0734,
+   "n_tokens": 323
+  },
+  {
+   "id": "podlodka-train-19",
+   "group": "DEV",
+   "dur_s": 11.478,
+   "dec_s": 0.747,
+   "rtf": 0.065,
+   "n_tokens": 179
+  },
+  {
+   "id": "podlodka-train-20",
+   "group": "DEV",
+   "dur_s": 11.779,
+   "dec_s": 0.782,
+   "rtf": 0.0664,
+   "n_tokens": 179
+  },
+  {
+   "id": "podlodka-train-21",
+   "group": "DEV",
+   "dur_s": 7.855,
+   "dec_s": 0.511,
+   "rtf": 0.0651,
+   "n_tokens": 150
+  },
+  {
+   "id": "podlodka-train-22",
+   "group": "DEV",
+   "dur_s": 34.378,
+   "dec_s": 2.89,
+   "rtf": 0.0841,
+   "n_tokens": 582
+  },
+  {
+   "id": "podlodka-train-23",
+   "group": "DEV",
+   "dur_s": 23.75,
+   "dec_s": 1.773,
+   "rtf": 0.0747,
+   "n_tokens": 463
+  },
+  {
+   "id": "podlodka-train-24",
+   "group": "DEV",
+   "dur_s": 13.149,
+   "dec_s": 0.876,
+   "rtf": 0.0666,
+   "n_tokens": 246
+  },
+  {
+   "id": "podlodka-train-25",
+   "group": "DEV",
+   "dur_s": 11.5,
+   "dec_s": 0.752,
+   "rtf": 0.0654,
+   "n_tokens": 188
+  },
+  {
+   "id": "podlodka-train-26",
+   "group": "DEV",
+   "dur_s": 30.907,
+   "dec_s": 2.474,
+   "rtf": 0.08,
+   "n_tokens": 362
+  },
+  {
+   "id": "podlodka-train-27",
+   "group": "DEV",
+   "dur_s": 28.633,
+   "dec_s": 2.245,
+   "rtf": 0.0784,
+   "n_tokens": 430
+  },
+  {
+   "id": "podlodka-train-28",
+   "group": "DEV",
+   "dur_s": 6.525,
+   "dec_s": 0.418,
+   "rtf": 0.0641,
+   "n_tokens": 129
+  },
+  {
+   "id": "podlodka-train-29",
+   "group": "DEV",
+   "dur_s": 43.109,
+   "dec_s": 3.844,
+   "rtf": 0.0892,
+   "n_tokens": 563
+  },
+  {
+   "id": "podlodka-test-00",
+   "group": "HOLDOUT",
+   "dur_s": 8.121,
+   "dec_s": 0.513,
+   "rtf": 0.0632,
+   "n_tokens": 99
+  },
+  {
+   "id": "podlodka-test-01",
+   "group": "HOLDOUT",
+   "dur_s": 11.872,
+   "dec_s": 0.77,
+   "rtf": 0.0649,
+   "n_tokens": 178
+  },
+  {
+   "id": "podlodka-test-02",
+   "group": "HOLDOUT",
+   "dur_s": 17.244,
+   "dec_s": 1.204,
+   "rtf": 0.0698,
+   "n_tokens": 318
+  },
+  {
+   "id": "podlodka-test-03",
+   "group": "HOLDOUT",
+   "dur_s": 16.534,
+   "dec_s": 1.116,
+   "rtf": 0.0675,
+   "n_tokens": 262
+  },
+  {
+   "id": "podlodka-test-04",
+   "group": "HOLDOUT",
+   "dur_s": 27.496,
+   "dec_s": 2.307,
+   "rtf": 0.0839,
+   "n_tokens": 352
+  },
+  {
+   "id": "podlodka-test-05",
+   "group": "HOLDOUT",
+   "dur_s": 16.159,
+   "dec_s": 1.241,
+   "rtf": 0.0768,
+   "n_tokens": 266
+  },
+  {
+   "id": "podlodka-test-06",
+   "group": "HOLDOUT",
+   "dur_s": 9.404,
+   "dec_s": 0.633,
+   "rtf": 0.0673,
+   "n_tokens": 200
+  },
+  {
+   "id": "podlodka-test-07",
+   "group": "HOLDOUT",
+   "dur_s": 39.509,
+   "dec_s": 3.658,
+   "rtf": 0.0926,
+   "n_tokens": 500
+  },
+  {
+   "id": "podlodka-test-08",
+   "group": "HOLDOUT",
+   "dur_s": 21.398,
+   "dec_s": 1.684,
+   "rtf": 0.0787,
+   "n_tokens": 300
+  },
+  {
+   "id": "podlodka-test-09",
+   "group": "HOLDOUT",
+   "dur_s": 27.79,
+   "dec_s": 2.299,
+   "rtf": 0.0827,
+   "n_tokens": 349
+  },
+  {
+   "id": "podlodka-test-10",
+   "group": "HOLDOUT",
+   "dur_s": 24.602,
+   "dec_s": 1.887,
+   "rtf": 0.0767,
+   "n_tokens": 367
+  },
+  {
+   "id": "podlodka-test-11",
+   "group": "HOLDOUT",
+   "dur_s": 21.948,
+   "dec_s": 1.612,
+   "rtf": 0.0735,
+   "n_tokens": 379
+  },
+  {
+   "id": "podlodka-test-12",
+   "group": "HOLDOUT",
+   "dur_s": 16.402,
+   "dec_s": 1.103,
+   "rtf": 0.0672,
+   "n_tokens": 307
+  },
+  {
+   "id": "podlodka-test-13",
+   "group": "HOLDOUT",
+   "dur_s": 27.495,
+   "dec_s": 2.153,
+   "rtf": 0.0783,
+   "n_tokens": 455
+  },
+  {
+   "id": "podlodka-test-14",
+   "group": "HOLDOUT",
+   "dur_s": 13.748,
+   "dec_s": 0.941,
+   "rtf": 0.0685,
+   "n_tokens": 218
+  },
+  {
+   "id": "podlodka-test-15",
+   "group": "HOLDOUT",
+   "dur_s": 27.423,
+   "dec_s": 2.129,
+   "rtf": 0.0776,
+   "n_tokens": 413
+  },
+  {
+   "id": "podlodka-test-16",
+   "group": "HOLDOUT",
+   "dur_s": 26.906,
+   "dec_s": 2.087,
+   "rtf": 0.0775,
+   "n_tokens": 409
+  },
+  {
+   "id": "podlodka-test-17",
+   "group": "HOLDOUT",
+   "dur_s": 59.362,
+   "dec_s": 6.097,
+   "rtf": 0.1027,
+   "n_tokens": 902
+  },
+  {
+   "id": "podlodka-test-18",
+   "group": "HOLDOUT",
+   "dur_s": 52.965,
+   "dec_s": 5.096,
+   "rtf": 0.0962,
+   "n_tokens": 740
+  },
+  {
+   "id": "podlodka-test-19",
+   "group": "HOLDOUT",
+   "dur_s": 20.132,
+   "dec_s": 1.427,
+   "rtf": 0.0709,
+   "n_tokens": 265
+  }
+ ],
+ "peak_rss_mb": 1065,
+ "rtf_total": 0.0803
+}

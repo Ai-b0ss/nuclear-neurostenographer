@@ -1,0 +1,16 @@
+{
+ "candidate": "A4",
+ "repo": "btolfa/sherpa-onnx-nemo-ctc-gigaam-multilingual-int8",
+ "revision": "7b1cbe4aa76483b67b1a82c8d5ce67e90a3bb3ac",
+ "license_tag": [
+  "license:mit"
+ ],
+ "files": {
+  "sherpa-onnx-nemo-ctc-gigaam-multilingual-int8.tar.bz2": {
+   "bytes": 167555854,
+   "sha256": "cb2a1cf558d5123f05dca5029795b76dd33013c4f248738a8108ef96173311d9",
+   "hub_sha256": "cb2a1cf558d5123f05dca5029795b76dd33013c4f248738a8108ef96173311d9",
+   "verified": true
+  }
+ }
+}

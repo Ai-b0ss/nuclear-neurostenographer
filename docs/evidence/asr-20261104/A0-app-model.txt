@@ -1,0 +1,1 @@
+A0 app model sha256 f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec (k2-fsa official int8, K:/nn-bench/data/models/asr/model.int8.onnx); provenance_A0.json is the A0s control (Smirnov75 conversion)
