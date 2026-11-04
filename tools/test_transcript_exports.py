@@ -37,9 +37,24 @@ def main():
         data["segments"][-1]["end_ms"] = data["audio_duration_ms"] + 1
         path.write_text(json.dumps(data), encoding="utf-8")
         rejected()
+        named = [s for s in json.loads((args.directory / "dialogue.json").read_text(encoding="utf-8"))["segments"]
+                 if s.get("speaker_name")]
+        if named:
+            reset()
+            data = json.loads(path.read_text(encoding="utf-8"))
+            next(s for s in data["segments"] if s.get("speaker_name"))["speaker_name"] = "Другое имя"
+            path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            rejected()
+            reset()
+            data = json.loads(path.read_text(encoding="utf-8"))
+            for s in data["segments"]:
+                s.pop("speaker_name", None)
+            path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            rejected()  # TXT/SRT show names the JSON no longer has
         reset()
         verify(root)
-    print("PASS export validator: corrupted SRT, missing TXT, beyond-audio JSON rejected; original regression PASS")
+    print("PASS export validator: corrupted SRT, missing TXT, beyond-audio JSON" +
+          (", wrong/missing speaker_name" if named else "") + " rejected; original regression PASS")
 
 
 if __name__ == "__main__":
