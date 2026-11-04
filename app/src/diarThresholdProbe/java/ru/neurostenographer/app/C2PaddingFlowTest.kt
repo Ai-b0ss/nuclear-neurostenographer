@@ -28,7 +28,7 @@ class C2PaddingFlowTest {
             withTimeout(30_000) { model.state.first { !it.busy && it.source != null } }
             model.transcribe()
             val result = withTimeout(120_000) { model.state.first { !it.busy && it.document != null } }
-            assertTrue(result.document!!.provenance.speakerSource.endsWith("/boundary-pad150"))
+            assertTrue(result.document!!.provenance.speakerSource.endsWith("/boundary-pad150/window-merge400"))
             assertTrue(result.document!!.segments.isNotEmpty())
         } finally {
             source.delete()

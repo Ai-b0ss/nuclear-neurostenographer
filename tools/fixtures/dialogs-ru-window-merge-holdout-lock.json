@@ -1,0 +1,137 @@
+{
+  "repository": "langswap/dialogs-ru-emotional-conversations",
+  "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "metadata_sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2",
+  "license_sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143",
+  "selection_seed": "c2-window-merge-holdout-v1",
+  "selection_ranks": {
+    "D": [
+      0,
+      1,
+      2,
+      5
+    ],
+    "M": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "S": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "sample_rate": 44100,
+  "gap_frames": 22050,
+  "clips": [
+    {
+      "path": "wavs/masha_dima_part9_391.wav",
+      "speaker": "D",
+      "emotion": "angry",
+      "frames": 216170,
+      "sha256": "71d9917296cba29fe5d530f594ec2c79ae0a16fe90bed010feb35dd6df7ac346"
+    },
+    {
+      "path": "wavs/masha_dima_part9_276.wav",
+      "speaker": "M",
+      "emotion": "angry",
+      "frames": 369636,
+      "sha256": "21380b8c78c8ee4b3006dea8f1b1f9295dafd2dbb890d248df22669acdc6788e"
+    },
+    {
+      "path": "wavs/masha_sveta_part6_184.wav",
+      "speaker": "S",
+      "emotion": "neutral",
+      "frames": 288409,
+      "sha256": "61bd5be4d83a62de436173c1fae79db499539f1251d07f72487e63dece6232f6"
+    },
+    {
+      "path": "wavs/masha_dima_part9_6.wav",
+      "speaker": "D",
+      "emotion": "fear",
+      "frames": 272535,
+      "sha256": "16871ba1c7da5226481398ac6c17fafa5bd5714c0235eccbdcae263048109170"
+    },
+    {
+      "path": "wavs/masha_dima_part11_247.wav",
+      "speaker": "M",
+      "emotion": "arrogance",
+      "frames": 502286,
+      "sha256": "30e5e3a38fed28c0247f3bcd4fe872c0a83ae91c2286d25c1b1ccc7b50f1ce3a"
+    },
+    {
+      "path": "wavs/masha_sveta_part8_426.wav",
+      "speaker": "S",
+      "emotion": "sad",
+      "frames": 135507,
+      "sha256": "287175630bcebaefbcca46569303e76b347f6e4878473c13ee8af77056b1bd87"
+    },
+    {
+      "path": "wavs/masha_dima_part9_158.wav",
+      "speaker": "D",
+      "emotion": "whisper",
+      "frames": 304362,
+      "sha256": "3d19286bf09066817c27898dd272a28a723658abea440d848231109e4728991d"
+    },
+    {
+      "path": "wavs/masha_sveta_part5_176.wav",
+      "speaker": "M",
+      "emotion": "laughing",
+      "frames": 164270,
+      "sha256": "f57c7937242d1929e6c3680bda4a044c47bd93e1a4a763fbb6ba5571d7f74585"
+    },
+    {
+      "path": "wavs/masha_sveta_part1_43.wav",
+      "speaker": "S",
+      "emotion": "sad",
+      "frames": 160390,
+      "sha256": "1bf9afd203e814bd07e453d8bc09d3e17fb70744f3a87a2ed0245084a85dc37f"
+    },
+    {
+      "path": "wavs/masha_dima_part9_397.wav",
+      "speaker": "D",
+      "emotion": "whisper",
+      "frames": 285591,
+      "sha256": "f4b8a5afbc352d66eab8b26485169732de18691aa3bd4444c6ea90c2b313bb78"
+    },
+    {
+      "path": "wavs/masha_sveta_part8_460.wav",
+      "speaker": "M",
+      "emotion": "laughing",
+      "frames": 492744,
+      "sha256": "8b19e136456f528c8b998c84df0a2d116090790fec1513bb946d453c700c3611"
+    },
+    {
+      "path": "wavs/masha_sveta_part9_234.wav",
+      "speaker": "S",
+      "emotion": "fear",
+      "frames": 153303,
+      "sha256": "da83ecbec9e0c848fa7763fd91c711630fc33a447e40c3405ce8f7648f1132d1"
+    }
+  ],
+  "cases": [
+    {
+      "id": "window-holdout-0",
+      "audio_sha256": "7ae41ccd1071821b37b68eadb5b2a43bb04af894e9bd28bcf4068880cc892c0c",
+      "reference_sha256": "3b054518c390238522873201749dcb9635273f96da77b782be1c835703a505ba"
+    },
+    {
+      "id": "window-holdout-1",
+      "audio_sha256": "079e4cc97c8bcaa6d12ae309423849fa7e428da1e7d62477b19a4e83da7fe855",
+      "reference_sha256": "9a2c0c84b840e4837e2d281bbdaa71834545f21522d04119735df16ec3c494ef"
+    },
+    {
+      "id": "window-holdout-2",
+      "audio_sha256": "344f14deadb9bb4ff4c3145b6fabc7279bb6851ab82691fa31644b067df845f8",
+      "reference_sha256": "6a16b96a2aae07c77d083cf9c974a315fc68686626c806ede0c282352b9e77bd"
+    },
+    {
+      "id": "window-holdout-3",
+      "audio_sha256": "75192253a484b7a0b6ccaa3496a0567b87942499f96a0af9b177e31f32dbcaf5",
+      "reference_sha256": "e5d4868ef908f37e23c8d3224705dbdbff1e61b1b533b44af0c41e41e9bd0e7a"
+    }
+  ]
+}

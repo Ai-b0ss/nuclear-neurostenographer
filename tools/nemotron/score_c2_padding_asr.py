@@ -24,9 +24,14 @@ def reference_path(suite, case):
 
 def main():
     runs = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8-sig"))["runs"]
-    modes = ("base", "pad100", "pad150", "pad200", "padTurns200", "padWindows200")
+    modes = tuple(dict.fromkeys(r["mode"] for r in runs))
+    baseline = "base" if "base" in modes else "pad150"
+    assert baseline in modes
     assert len(runs) == 10 * len(modes)
     assert len({(r["suite"], r["case"], r["mode"]) for r in runs}) == len(runs)
+    assert {r["case"] for r in runs} == {"aba", "holdout", "ivkond-2clean", "ivkond-2overlap",
+                                         "ivkond-3overlap", "ivkond-4overlap",
+                                         *(f"acted-holdout-{i}" for i in range(4))}
     totals = {mode: {"wer_errors": 0, "wer_words": 0, "cpwer_errors": 0,
                      "cpwer_words": 0, "asr_ms": 0} for mode in modes}
     scores = {}
@@ -51,14 +56,14 @@ def main():
               "cpWER", score["cpwer"].get("errors"), "/", score["cpwer"].get("reference_words"))
     for mode, t in totals.items():
         comparable = [case for case in {r["case"] for r in runs}
-                      if scores[(case, "base")]["cpwer"].get("status") == "SCORED"
+                      if scores[(case, baseline)]["cpwer"].get("status") == "SCORED"
                       and scores[(case, mode)]["cpwer"].get("status") == "SCORED"]
-        common_base = sum(scores[(case, "base")]["cpwer"]["errors"] for case in comparable)
+        common_base = sum(scores[(case, baseline)]["cpwer"]["errors"] for case in comparable)
         common_mode = sum(scores[(case, mode)]["cpwer"]["errors"] for case in comparable)
         common_words = sum(scores[(case, mode)]["cpwer"]["reference_words"] for case in comparable)
         print("TOTAL", mode, "WER", t["wer_errors"], "/", t["wer_words"],
               "scored_cpWER", t["cpwer_errors"], "/", t["cpwer_words"],
-              "common_cpWER_base_to_mode", f"{common_base}/{common_words}", "to", f"{common_mode}/{common_words}",
+              f"common_cpWER_{baseline}_to_mode", f"{common_base}/{common_words}", "to", f"{common_mode}/{common_words}",
               "ASR_ms", t["asr_ms"])
 
 

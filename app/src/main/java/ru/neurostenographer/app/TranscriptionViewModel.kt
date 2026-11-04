@@ -189,8 +189,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                         ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
                     context.ensureActive()
                     mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…")
-                    speakers = C2BoundaryPadding.apply(
+                    val padded = C2BoundaryPadding.apply(
                         IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2), audio.durationMs)
+                    speakers = padded.copy(windows = C2WindowMerge.apply(padded.windows, padded.turns))
                     backendUsed = NemotronBackend.C2
                 } catch (e: CancellationException) { throw e }
                 catch (e: Exception) {
@@ -221,7 +222,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val speakerSource = when {
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
             diarization == null -> "not_run"
-            backendUsed == NemotronBackend.C2 -> NemotronBackend.REVISION + "/boundary-pad150"
+            backendUsed == NemotronBackend.C2 -> NemotronBackend.REVISION + "/boundary-pad150/window-merge400"
             else -> DiarizationModelStore.REVISION +
                 (if (expectedSpeakers > 0) "/user-speaker-count-$expectedSpeakers" else "")
         }
