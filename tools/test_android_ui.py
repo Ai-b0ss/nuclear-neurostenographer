@@ -80,8 +80,8 @@ class UiSelectorTests(unittest.TestCase):
             "segments": [{"start_ms": 100, "end_ms": 900, "speaker_id": "Speaker 1", "text": phrase,
                           "overlapping_speech": False, "attribution_reliable": True}]}
         exports = {"json": json.dumps(document).encode(),
-            "txt": ("[00:00:00.100–00:00:00.900] Speaker 1: " + phrase).encode(),
-            "srt": ("1\n00:00:00,100 --> 00:00:00,900\nSpeaker 1: " + phrase).encode()}
+            "txt": ("[00:00:00.100–00:00:00.900] Говорящий 1: " + phrase).encode(),
+            "srt": ("1\n00:00:00,100 --> 00:00:00,900\nГоворящий 1: " + phrase).encode()}
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)
             for format, body in exports.items():

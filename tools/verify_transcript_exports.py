@@ -43,13 +43,16 @@ def verify(directory, prefix="dialogue"):
         require(lines[0] == str(index), 'Export consistency check failed')
         times = lines[1].split(" --> ")
         require(len(times) == 2 and list(map(milliseconds, times)) == [start, end], 'Export consistency check failed')
-        sid = segment["speaker_id"]  # TXT/SRT show "Говорящий N" for the JSON id "Speaker N" (TranscriptExport.displaySpeaker)
-        speaker = "Не определён" if sid is None else ("Говорящий " + sid[len("Speaker "):] if sid.startswith("Speaker ") else sid)
-        body = speaker + ": " + segment["text"]
+        sid = segment["speaker_id"]
+        # 0.3.0+ TXT/SRT show "Говорящий N" for the JSON id "Speaker N" (TranscriptExport.displaySpeaker); earlier
+        # builds wrote the id itself. Accept the label this SRT cue uses, then require exactly the same body in TXT.
+        labels = ["Не определён"] if sid is None else (
+            [sid, "Говорящий " + sid[len("Speaker "):]] if sid.startswith("Speaker ") else [sid])
+        suffix = ": " + segment["text"] + (" [перекрытие речи]" if segment["overlapping_speech"] else "")
         if segment["overlapping_speech"]:
             require(segment["speaker_id"] is None and not segment["attribution_reliable"], 'Export consistency check failed')
-            body += " [перекрытие речи]"
-        require("\n".join(lines[2:]) == body, 'Export consistency check failed')
+        body = "\n".join(lines[2:])
+        require(any(body == label + suffix for label in labels), 'Export consistency check failed')
         require(body in txt, 'Export consistency check failed')
         interval = re.escape(body)
         match = re.search(r"\[([^\]\n]+)–([^\]\n]+)\] " + interval, txt)
