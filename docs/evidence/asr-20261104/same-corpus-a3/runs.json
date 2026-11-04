@@ -1,0 +1,640 @@
+{
+ "A0/syn3-clean": {
+  "status": "OK",
+  "wall_s": 6.5,
+  "turns_sha256": "b0c885f349bd04c5373c1731bdf5427a1556f2a89d76b4af7569c32e5219de67",
+  "meta": {
+   "load_ms": 4219,
+   "decode_ms": 1829,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "A0/syn3-brown": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "27ee25c72bfe2ae88990bb9e04d1b6c7071509e9871a417baaa0ba538f4bc250",
+  "meta": {
+   "load_ms": 2343,
+   "decode_ms": 1848,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A0/syn4-noise": {
+  "status": "OK",
+  "wall_s": 5.1,
+  "turns_sha256": "a3198ab4ff5aa62af984ec6f74c231c0bfddb615809b86ffa1f11e43fcb898ba",
+  "meta": {
+   "load_ms": 2391,
+   "decode_ms": 2458,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r00": {
+  "status": "OK",
+  "wall_s": 4.9,
+  "turns_sha256": "73e5eb719b41dce9ebe503163ead1b8a2b6339d959bd7c780db4dfa2992cbd12",
+  "meta": {
+   "load_ms": 2414,
+   "decode_ms": 2254,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r01": {
+  "status": "OK",
+  "wall_s": 6.9,
+  "turns_sha256": "a9e8d39378ef7efeaa745263bb94227986a69363dd115d2bbb82191baf70fb76",
+  "meta": {
+   "load_ms": 2706,
+   "decode_ms": 3861,
+   "windows": 31,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r30": {
+  "status": "OK",
+  "wall_s": 6.1,
+  "turns_sha256": "427a3d9b9e78081084e28f49e1d8e48ae7b063725066934f45ffde1de519bd29",
+  "meta": {
+   "load_ms": 2634,
+   "decode_ms": 3144,
+   "windows": 28,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r39": {
+  "status": "OK",
+  "wall_s": 5.0,
+  "turns_sha256": "62eb6081e577a1ce0629d964cbcfd9c650c35b0b2594206007dc9094e0b59fb1",
+  "meta": {
+   "load_ms": 2444,
+   "decode_ms": 2299,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r41": {
+  "status": "OK",
+  "wall_s": 6.1,
+  "turns_sha256": "5b10577cb6bfc3954ce07a31d561f0761e2695160902bda16b280b7c5ac75a4f",
+  "meta": {
+   "load_ms": 2813,
+   "decode_ms": 2999,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r54": {
+  "status": "OK",
+  "wall_s": 5.3,
+  "turns_sha256": "422a6e9ad8764c36d600e5e84c199bd5e3bf5ce220436026e1cfd8da79326715",
+  "meta": {
+   "load_ms": 2894,
+   "decode_ms": 2122,
+   "windows": 14,
+   "threads": 2
+  }
+ },
+ "A0/hold-s4-r59": {
+  "status": "OK",
+  "wall_s": 8.0,
+  "turns_sha256": "6f1166bdfef9b1b70c87bc981176906c63f4e7d85afc1bb7023cc802f6056ea5",
+  "meta": {
+   "load_ms": 2490,
+   "decode_ms": 5205,
+   "windows": 45,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r19": {
+  "status": "OK",
+  "wall_s": 5.3,
+  "turns_sha256": "4e957a585911496a0ebc771363f532d42f3eb6cf0b3c8dd30eaf93de706170ab",
+  "meta": {
+   "load_ms": 2467,
+   "decode_ms": 2587,
+   "windows": 15,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r21": {
+  "status": "OK",
+  "wall_s": 4.1,
+  "turns_sha256": "b2938dec2b2034e33a97f9bb75af1f18ba72c0bf89b74f8a7e9f93abce81978c",
+  "meta": {
+   "load_ms": 2404,
+   "decode_ms": 1375,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r24": {
+  "status": "OK",
+  "wall_s": 5.6,
+  "turns_sha256": "0aad96f501dcc77a85def04515564bf1e463a93cfdf5fd0bb39e6f7d693a3425",
+  "meta": {
+   "load_ms": 2561,
+   "decode_ms": 2751,
+   "windows": 21,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r31": {
+  "status": "OK",
+  "wall_s": 4.5,
+  "turns_sha256": "3829a5110a6c3de156fd3d0bc1b072ebee32349ea9e54ffc67d076828beeacd5",
+  "meta": {
+   "load_ms": 2414,
+   "decode_ms": 1826,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r48": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "7ff5a3549b97ca594723a3a11ccd43dd3bc8ac27ff58ebf4b03beeb98a6056b4",
+  "meta": {
+   "load_ms": 2464,
+   "decode_ms": 1680,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r58": {
+  "status": "OK",
+  "wall_s": 5.7,
+  "turns_sha256": "24a1b06a567eeb82585b279ab32bc3845461341e4a1641352d9862ebdc2cb54d",
+  "meta": {
+   "load_ms": 2508,
+   "decode_ms": 2925,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r61": {
+  "status": "OK",
+  "wall_s": 5.3,
+  "turns_sha256": "09c2590bfb526a8a2a5b7a5ed58979d3184cf8305c9feda250a3b69d551fc280",
+  "meta": {
+   "load_ms": 2467,
+   "decode_ms": 2551,
+   "windows": 15,
+   "threads": 2
+  }
+ },
+ "A0/hold-s5-r68": {
+  "status": "OK",
+  "wall_s": 4.6,
+  "turns_sha256": "243985169e81a1e7d2a84adb08bb61309c93797b0a37490a2afe988651b57cc1",
+  "meta": {
+   "load_ms": 2591,
+   "decode_ms": 1706,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r01": {
+  "status": "OK",
+  "wall_s": 4.6,
+  "turns_sha256": "c23ddad854a96796dcc1e1257a50cabb118ac2eb916416c933cd47eb240537c0",
+  "meta": {
+   "load_ms": 2673,
+   "decode_ms": 1640,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r09": {
+  "status": "OK",
+  "wall_s": 8.3,
+  "turns_sha256": "621d83e4111d844878015c12f8369950c16b6f366ba9c79e596e5d950699cd8f",
+  "meta": {
+   "load_ms": 2255,
+   "decode_ms": 5778,
+   "windows": 55,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r18": {
+  "status": "OK",
+  "wall_s": 4.0,
+  "turns_sha256": "43911eafb9975b0091165d6302957f3e450fd368133d7e0afbafdc9527e0109e",
+  "meta": {
+   "load_ms": 2216,
+   "decode_ms": 1525,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r23": {
+  "status": "OK",
+  "wall_s": 7.1,
+  "turns_sha256": "5c4ba6eb45537983a01fe4194325258aa433d27fee9997c8634b14247c58569a",
+  "meta": {
+   "load_ms": 2609,
+   "decode_ms": 4290,
+   "windows": 33,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r29": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "be1e956d027abec60ed2b0f5e3ddd169b959eeeae50e897c90fe469399c1029a",
+  "meta": {
+   "load_ms": 2361,
+   "decode_ms": 1819,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r38": {
+  "status": "OK",
+  "wall_s": 4.2,
+  "turns_sha256": "605ebf9e0a717a8b8d5edbd9ea0bb1b985472cfc0e729b8264c9be7e38f13e65",
+  "meta": {
+   "load_ms": 2345,
+   "decode_ms": 1643,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r40": {
+  "status": "OK",
+  "wall_s": 5.1,
+  "turns_sha256": "fad974096060e8996dd37d5e0e7c9d3dd21164993184569f5044b57e7abffb1b",
+  "meta": {
+   "load_ms": 2309,
+   "decode_ms": 2511,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r47": {
+  "status": "OK",
+  "wall_s": 5.7,
+  "turns_sha256": "278f3c561c03e38dd513d8611198b5eb6fcb8e50d26c557bc551389798e23728",
+  "meta": {
+   "load_ms": 2372,
+   "decode_ms": 3046,
+   "windows": 17,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r54": {
+  "status": "OK",
+  "wall_s": 4.8,
+  "turns_sha256": "6f2867e3e8df3714452022a25903bda9fdf8a03c70f4784aa74eb0890bfc9426",
+  "meta": {
+   "load_ms": 2600,
+   "decode_ms": 1946,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r55": {
+  "status": "OK",
+  "wall_s": 6.2,
+  "turns_sha256": "2cdcccbd04b74b04471ee38d80c147f00129238083320e7c20bbd2c2881e0dd1",
+  "meta": {
+   "load_ms": 2354,
+   "decode_ms": 3538,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "A0/hold-s6-r59": {
+  "status": "OK",
+  "wall_s": 4.2,
+  "turns_sha256": "b16171f52753d745643209585cadb09c350d9c1eb1bd94939075027eec83380e",
+  "meta": {
+   "load_ms": 2344,
+   "decode_ms": 1595,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A3/syn3-clean": {
+  "status": "OK",
+  "wall_s": 4.0,
+  "turns_sha256": "b0c885f349bd04c5373c1731bdf5427a1556f2a89d76b4af7569c32e5219de67",
+  "meta": {
+   "load_ms": 2197,
+   "decode_ms": 1594,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "A3/syn3-brown": {
+  "status": "OK",
+  "wall_s": 3.9,
+  "turns_sha256": "27ee25c72bfe2ae88990bb9e04d1b6c7071509e9871a417baaa0ba538f4bc250",
+  "meta": {
+   "load_ms": 2104,
+   "decode_ms": 1533,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A3/syn4-noise": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "turns_sha256": "a3198ab4ff5aa62af984ec6f74c231c0bfddb615809b86ffa1f11e43fcb898ba",
+  "meta": {
+   "load_ms": 1979,
+   "decode_ms": 2049,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r00": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "73e5eb719b41dce9ebe503163ead1b8a2b6339d959bd7c780db4dfa2992cbd12",
+  "meta": {
+   "load_ms": 2369,
+   "decode_ms": 1825,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r01": {
+  "status": "OK",
+  "wall_s": 5.4,
+  "turns_sha256": "a9e8d39378ef7efeaa745263bb94227986a69363dd115d2bbb82191baf70fb76",
+  "meta": {
+   "load_ms": 2055,
+   "decode_ms": 3023,
+   "windows": 31,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r30": {
+  "status": "OK",
+  "wall_s": 4.9,
+  "turns_sha256": "427a3d9b9e78081084e28f49e1d8e48ae7b063725066934f45ffde1de519bd29",
+  "meta": {
+   "load_ms": 2037,
+   "decode_ms": 2611,
+   "windows": 28,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r39": {
+  "status": "OK",
+  "wall_s": 4.1,
+  "turns_sha256": "62eb6081e577a1ce0629d964cbcfd9c650c35b0b2594206007dc9094e0b59fb1",
+  "meta": {
+   "load_ms": 2023,
+   "decode_ms": 1844,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r41": {
+  "status": "OK",
+  "wall_s": 4.6,
+  "turns_sha256": "5b10577cb6bfc3954ce07a31d561f0761e2695160902bda16b280b7c5ac75a4f",
+  "meta": {
+   "load_ms": 2251,
+   "decode_ms": 2056,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r54": {
+  "status": "OK",
+  "wall_s": 4.0,
+  "turns_sha256": "422a6e9ad8764c36d600e5e84c199bd5e3bf5ce220436026e1cfd8da79326715",
+  "meta": {
+   "load_ms": 2038,
+   "decode_ms": 1690,
+   "windows": 14,
+   "threads": 2
+  }
+ },
+ "A3/hold-s4-r59": {
+  "status": "OK",
+  "wall_s": 6.7,
+  "turns_sha256": "6f1166bdfef9b1b70c87bc981176906c63f4e7d85afc1bb7023cc802f6056ea5",
+  "meta": {
+   "load_ms": 2112,
+   "decode_ms": 4355,
+   "windows": 45,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r19": {
+  "status": "OK",
+  "wall_s": 4.5,
+  "turns_sha256": "4e957a585911496a0ebc771363f532d42f3eb6cf0b3c8dd30eaf93de706170ab",
+  "meta": {
+   "load_ms": 2108,
+   "decode_ms": 2145,
+   "windows": 15,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r21": {
+  "status": "OK",
+  "wall_s": 3.3,
+  "turns_sha256": "b2938dec2b2034e33a97f9bb75af1f18ba72c0bf89b74f8a7e9f93abce81978c",
+  "meta": {
+   "load_ms": 2012,
+   "decode_ms": 1076,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r24": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "0aad96f501dcc77a85def04515564bf1e463a93cfdf5fd0bb39e6f7d693a3425",
+  "meta": {
+   "load_ms": 2030,
+   "decode_ms": 2161,
+   "windows": 21,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r31": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "turns_sha256": "3829a5110a6c3de156fd3d0bc1b072ebee32349ea9e54ffc67d076828beeacd5",
+  "meta": {
+   "load_ms": 2000,
+   "decode_ms": 1454,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r48": {
+  "status": "OK",
+  "wall_s": 3.6,
+  "turns_sha256": "7ff5a3549b97ca594723a3a11ccd43dd3bc8ac27ff58ebf4b03beeb98a6056b4",
+  "meta": {
+   "load_ms": 2033,
+   "decode_ms": 1284,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r58": {
+  "status": "OK",
+  "wall_s": 4.5,
+  "turns_sha256": "24a1b06a567eeb82585b279ab32bc3845461341e4a1641352d9862ebdc2cb54d",
+  "meta": {
+   "load_ms": 1904,
+   "decode_ms": 2336,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r61": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "09c2590bfb526a8a2a5b7a5ed58979d3184cf8305c9feda250a3b69d551fc280",
+  "meta": {
+   "load_ms": 2063,
+   "decode_ms": 2037,
+   "windows": 15,
+   "threads": 2
+  }
+ },
+ "A3/hold-s5-r68": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "turns_sha256": "243985169e81a1e7d2a84adb08bb61309c93797b0a37490a2afe988651b57cc1",
+  "meta": {
+   "load_ms": 1973,
+   "decode_ms": 1236,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r01": {
+  "status": "OK",
+  "wall_s": 3.6,
+  "turns_sha256": "c23ddad854a96796dcc1e1257a50cabb118ac2eb916416c933cd47eb240537c0",
+  "meta": {
+   "load_ms": 1928,
+   "decode_ms": 1382,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r09": {
+  "status": "OK",
+  "wall_s": 6.7,
+  "turns_sha256": "621d83e4111d844878015c12f8369950c16b6f366ba9c79e596e5d950699cd8f",
+  "meta": {
+   "load_ms": 1905,
+   "decode_ms": 4549,
+   "windows": 55,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r18": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "turns_sha256": "43911eafb9975b0091165d6302957f3e450fd368133d7e0afbafdc9527e0109e",
+  "meta": {
+   "load_ms": 2032,
+   "decode_ms": 1266,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r23": {
+  "status": "OK",
+  "wall_s": 5.4,
+  "turns_sha256": "5c4ba6eb45537983a01fe4194325258aa433d27fee9997c8634b14247c58569a",
+  "meta": {
+   "load_ms": 2021,
+   "decode_ms": 3109,
+   "windows": 33,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r29": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "turns_sha256": "be1e956d027abec60ed2b0f5e3ddd169b959eeeae50e897c90fe469399c1029a",
+  "meta": {
+   "load_ms": 2071,
+   "decode_ms": 1476,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r38": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "turns_sha256": "605ebf9e0a717a8b8d5edbd9ea0bb1b985472cfc0e729b8264c9be7e38f13e65",
+  "meta": {
+   "load_ms": 2074,
+   "decode_ms": 1458,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r40": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "turns_sha256": "fad974096060e8996dd37d5e0e7c9d3dd21164993184569f5044b57e7abffb1b",
+  "meta": {
+   "load_ms": 2058,
+   "decode_ms": 2051,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r47": {
+  "status": "OK",
+  "wall_s": 5.0,
+  "turns_sha256": "278f3c561c03e38dd513d8611198b5eb6fcb8e50d26c557bc551389798e23728",
+  "meta": {
+   "load_ms": 2124,
+   "decode_ms": 2584,
+   "windows": 17,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r54": {
+  "status": "OK",
+  "wall_s": 4.0,
+  "turns_sha256": "6f2867e3e8df3714452022a25903bda9fdf8a03c70f4784aa74eb0890bfc9426",
+  "meta": {
+   "load_ms": 2114,
+   "decode_ms": 1600,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r55": {
+  "status": "OK",
+  "wall_s": 5.1,
+  "turns_sha256": "2cdcccbd04b74b04471ee38d80c147f00129238083320e7c20bbd2c2881e0dd1",
+  "meta": {
+   "load_ms": 2038,
+   "decode_ms": 2776,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "A3/hold-s6-r59": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "turns_sha256": "b16171f52753d745643209585cadb09c350d9c1eb1bd94939075027eec83380e",
+  "meta": {
+   "load_ms": 2013,
+   "decode_ms": 1276,
+   "windows": 11,
+   "threads": 2
+  }
+ }
+}

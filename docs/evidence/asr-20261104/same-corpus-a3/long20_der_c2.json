@@ -1,0 +1,68 @@
+{
+ "recording": "long-ru_000010",
+ "wav_sha256": "e9933e55693151a6f2c5d0f34188348d62053b66a70d9dad0dd25ffd3a408df5",
+ "duration_ms": 1200000,
+ "reference": "Silero VAD per channel {'threshold': 0.5, 'negative_threshold': 0.35, 'min_speech_ms': 250, 'min_silence_ms': 200, 'pad_ms': 30}; AUTOMATIC, NOT HUMAN",
+ "wav_vs_mp3_mono_corr": 1.0,
+ "channel_corr": -0.0005,
+ "reference_speech_ms": {
+  "caller": 476510,
+  "callee": 445356
+ },
+ "runs": {
+  "K:\\nn-bench\\results-v2-long1\\C2\\long-ru_000010.tsv": {
+   "collar_0": {
+    "rate": 0.1189,
+    "miss_ms": 89056,
+    "false_alarm_ms": 19800,
+    "confusion_ms": 708,
+    "reference_speaker_ms": 921866
+   },
+   "collar_250": {
+    "rate": 0.0422,
+    "miss_ms": 23844,
+    "false_alarm_ms": 3020,
+    "confusion_ms": 296,
+    "reference_speaker_ms": 643982
+   },
+   "clusters": 2,
+   "unknown_turns": 0
+  },
+  "K:\\nn-bench\\results-v2-long2\\C2\\long-ru_000010.tsv": {
+   "collar_0": {
+    "rate": 0.1189,
+    "miss_ms": 89056,
+    "false_alarm_ms": 19800,
+    "confusion_ms": 708,
+    "reference_speaker_ms": 921866
+   },
+   "collar_250": {
+    "rate": 0.0422,
+    "miss_ms": 23844,
+    "false_alarm_ms": 3020,
+    "confusion_ms": 296,
+    "reference_speaker_ms": 643982
+   },
+   "clusters": 2,
+   "unknown_turns": 0
+  },
+  "K:\\nn-bench\\results-v2-long1\\C0\\long-ru_000010.tsv": {
+   "collar_0": {
+    "rate": 0.7607,
+    "miss_ms": 89426,
+    "false_alarm_ms": 20060,
+    "confusion_ms": 591743,
+    "reference_speaker_ms": 921866
+   },
+   "collar_250": {
+    "rate": 0.7119,
+    "miss_ms": 20443,
+    "false_alarm_ms": 3536,
+    "confusion_ms": 434471,
+    "reference_speaker_ms": 643982
+   },
+   "clusters": 47,
+   "unknown_turns": 0
+  }
+ }
+}
