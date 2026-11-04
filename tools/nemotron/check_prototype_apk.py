@@ -1,4 +1,4 @@
-"""Inspect a prototype APK: no internet, no TTS or espeak code, the sherpa copy of ONNX Runtime, notices present."""
+"""Inspect a prototype APK: no internet/TTS, native C2 engine, pinned ONNX Runtime, notices present."""
 import hashlib
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ import sys
 import zipfile
 
 FORBIDDEN = (b"espeak-ng-data", b"espeak_ng", b"libespeak")
-EXPECTED_LIBS = {"libonnxruntime.so", "libsherpa-onnx-jni.so", "libonnxruntime4j_jni.so", "libandroidx.graphics.path.so"}
+EXPECTED_LIBS = {"libonnxruntime.so", "libsherpa-onnx-jni.so", "libnemotron_native.so", "libandroidx.graphics.path.so"}
 NOTICES = ("assets/nemotron-OpenMDW-1.1-LICENSE.txt", "assets/nemotron-onnx-NOTICE.txt", "assets/licenses/onnxruntime-LICENSE.txt", "assets/licenses/sherpa-onnx-LICENSE.txt")
 
 
@@ -36,7 +36,7 @@ def inspect(apk, sherpa_aar, badging):
                 report["onnxruntime_source"][abi] = "sherpa_aar" if same else "other"
                 report[f"onnxruntime_sha256_{abi}"] = hashlib.sha256(z.read(f"lib/{abi}/libonnxruntime.so")).hexdigest()
         report["load_alignment"] = {n: load_alignment(z.read(n)) for n in native}
-        # A warning, not a failure: it blocks 16 KB page devices, and the app's other libraries are 16 KB aligned.
+        # A warning rather than a failure here; check_android_native_pages.py is the 16 KB gate.
         report["below_16kb_alignment"] = sorted(n for n, a in report["load_alignment"].items() if a < 0x4000)
         for notice in NOTICES:
             if notice not in names:

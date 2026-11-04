@@ -1,14 +1,9 @@
 package ru.neurostenographer.app
 
-import ai.onnxruntime.OnnxTensor
-import ai.onnxruntime.OrtEnvironment
-import ai.onnxruntime.OrtSession
 import ru.neurostenographer.core.*
-import java.io.DataInputStream
 import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.nio.FloatBuffer
 
 /** Prototype C2: Nemotron 3 INT8 through ONNX Runtime 1.17.1, the version already in the APK.
  * Compiled only with -PnemotronPrototype=true; C0 stays the default everywhere.
@@ -50,27 +45,13 @@ object NemotronDiarization {
         val hann = floats(File(model, "hann400.bin"), NemotronConfig.WIN)
         val silence = floats(File(model, "silence_embeds.bin"), NemotronConfig.HIDDEN)
         val started = System.nanoTime()
-        val environment = OrtEnvironment.getEnvironment()
-        // Same thread count as C0 and ASR, so a phone comparison measures the models, not the settings.
-        val options = OrtSession.SessionOptions().apply { setIntraOpNumThreads(InferenceThreads.count()) }
-        val session = environment.createSession(File(model, "model.int8.ir9.onnx").absolutePath, options)
+        // Same four-thread cap as C0 and ASR, with the model call now owned by C++.
+        val session = CppNemotronSession(File(model, "model.int8.ir9.onnx").absolutePath,
+            InferenceThreads.count())
         val loaded = System.nanoTime()
         try {
             val runner = NemotronChunkRunner { chunk, melFrames, melLength, context, contextFrames ->
-                val inputs = linkedMapOf<String, OnnxTensor>()
-                try {
-                    inputs["chunk_mel"] = OnnxTensor.createTensor(environment, FloatBuffer.wrap(chunk), longArrayOf(1, melFrames.toLong(), NemotronConfig.MELS.toLong()))
-                    inputs["chunk_mel_length"] = OnnxTensor.createTensor(environment, melLength.toLong())
-                    inputs["context_embeds"] = OnnxTensor.createTensor(environment, FloatBuffer.wrap(context), longArrayOf(1, contextFrames.toLong(), NemotronConfig.HIDDEN.toLong()))
-                    inputs["context_length"] = OnnxTensor.createTensor(environment, contextFrames.toLong())
-                    session.run(inputs).use { result ->
-                        val logits = result[0] as OnnxTensor
-                        val embeds = result[1] as OnnxTensor
-                        val logitArray = FloatArray(logits.floatBuffer.remaining()).also { logits.floatBuffer.get(it) }
-                        val embedArray = FloatArray(embeds.floatBuffer.remaining()).also { embeds.floatBuffer.get(it) }
-                        NemotronStep(logitArray, logits.info.shape[1].toInt(), embedArray, embeds.info.shape[1].toInt())
-                    }
-                } finally { inputs.values.forEach { it.close() } }
+                session.run(chunk, melFrames, melLength, context, contextFrames)
             }
             val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled)
             val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
@@ -78,7 +59,6 @@ object NemotronDiarization {
                 DiarizationTimeline.speechWindows(raw, audio.durationMs))
         } finally {
             session.close()
-            options.close()
         }
     }
 }

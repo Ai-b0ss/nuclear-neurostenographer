@@ -5,7 +5,7 @@ import java.io.Closeable
 
 /** Per-recording C++ speaker cache; Java owns only the lifetime and ONNX call boundary. */
 internal object NativeNemotronCache {
-    init { System.loadLibrary("nemotron_mel") }
+    init { System.loadLibrary("nemotron_native") }
     external fun create(silence: FloatArray): Long
     external fun destroy(handle: Long)
     external fun frames(handle: Long): Int

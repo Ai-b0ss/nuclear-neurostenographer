@@ -115,8 +115,7 @@ android {
             if (nemotronProduct) assets.srcDir(rootProject.file(".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
-        // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
-        packaging.jniLibs.pickFirsts += setOf("**/libonnxruntime.so")
+        // The sherpa AAR already provides ONNX Runtime 1.17.1. C2 uses its native C API.
     }
     // Comparison probe only; never part of a product build.
     if (providers.gradleProperty("litertProbe").orNull == "true") {
@@ -129,7 +128,6 @@ android {
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
-    if (nemotronEnabled) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
