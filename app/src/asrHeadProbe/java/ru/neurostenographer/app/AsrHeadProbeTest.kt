@@ -38,6 +38,8 @@ class AsrHeadProbeTest {
         require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3") })
         val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "nemotron-bench"
         require(suite == "nemotron-bench" || suite == "asr-holdout")
+        val rnntThreads = (InstrumentationRegistry.getArguments().getString("rnntThreads") ?: "4").toInt()
+        require(rnntThreads in 1..4)
         val candidate = File(context.filesDir, "asr-e2e")
         val candidateModel = File(candidate, "model.int8.onnx")
         val candidateTokens = File(candidate, "tokens.txt")
@@ -94,9 +96,10 @@ class AsrHeadProbeTest {
                         }
                     }.apply { start() }
                     val started = System.nanoTime()
+                    val threads = if (head == "a2" || head == "a3") rnntThreads else InferenceThreads.count()
                     val result = try {
                         OfflineAsr.transcribe(audio, model, turns = diarization.turns,
-                            speechWindows = diarization.windows)
+                            speechWindows = diarization.windows, threads = threads)
                     } finally {
                         sampling.set(false)
                         sampler.join()
@@ -107,6 +110,7 @@ class AsrHeadProbeTest {
                             .put("text", segment.text)
                     })
                     rows.put(JSONObject().put("suite", suite).put("case", id).put("backend", backend).put("head", head)
+                        .put("asr_threads", threads)
                         .put("audio_sha256", audioSha).put("audio_ms", audio.durationMs)
                         .put("decoded_windows", result.decodedWindows)
                         .put("asr_load_ms", result.loadMs).put("asr_decode_ms", result.decodeMs)

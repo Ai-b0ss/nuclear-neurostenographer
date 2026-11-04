@@ -12,7 +12,9 @@ object OfflineAsr {
     fun transcribe(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
                    progress: (Int, Int) -> Unit = { _, _ -> },
                    turns: List<SpeakerTurn> = emptyList(),
-                   speechWindows: List<AudioWindow>? = null): AsrOutput {
+                   speechWindows: List<AudioWindow>? = null,
+                   threads: Int = InferenceThreads.count()): AsrOutput {
+        require(threads in 1..InferenceThreads.MAX)
         require(audio.sampleRate == 16000 && audio.samples.size >= 1600 &&
             audio.samples.size <= PcmWav.MAX_SECONDS * 16000) { "Аудио должно длиться от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
         val windows = QuietCuts.refine(speechWindows ?: DiarizationTimeline.windows(turns, audio.durationMs), audio.samples)
@@ -26,7 +28,7 @@ object OfflineAsr {
                 if (index % 2 == 0) window.startMs else window.endMs
             }
             val timing = LongArray(2)
-            val texts = NativeAsrBridge.run(audio.samples, model.absolutePath, InferenceThreads.count(),
+            val texts = NativeAsrBridge.run(audio.samples, model.absolutePath, threads,
                 bounds, checkCancelled, progress, timing)
             check(texts.size == windows.size)
             val chunks = texts.mapIndexedNotNull { index, raw ->
@@ -47,7 +49,7 @@ object OfflineAsr {
             modelConfig = OfflineModelConfig(
                 nemo = OfflineNemoEncDecCtcModelConfig(model = File(model, "model.int8.onnx").absolutePath),
                 tokens = File(model, "tokens.txt").absolutePath,
-                numThreads = InferenceThreads.count(), provider = "cpu", debug = false
+                numThreads = threads, provider = "cpu", debug = false
             ), decodingMethod = "greedy_search"
         ))
         val loaded = System.nanoTime()

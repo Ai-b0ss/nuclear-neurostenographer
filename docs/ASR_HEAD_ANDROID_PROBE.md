@@ -39,3 +39,17 @@ The C++ ASR candidate can now load an explicitly selected Sherpa NeMo transducer
 A2 and A0 timings came from one run; A3 and A0 timings came from a second run. The A3 C2 improvement is one word on a tiny mixed set, with roughly 38% longer ASR time in its paired run (11.16 → 15.43 s). A3 is worse on the four-speaker overlap case (3/76 → 5/76) and worse on C0 overall. The extra model is **not promoted**. The app process PSS sampled during the paired A0/A3 test peaked around 762 MiB for both, but sequential model loading and allocator retention make that an exploratory number, not a clean memory comparison. The model card's published phone speed uses a much faster device; these x86_64 emulator timings cannot establish HONOR throughput.
 
 The [GigaAM authors' evaluation](https://github.com/salute-developers/GigaAM/blob/main/evaluation.md) reports v3 RNN-T ahead of v3 CTC on many Russian datasets, while both E2E heads have higher normalized WER. Our narrow results are consistent with treating the plain RNN-T as the better research candidate than E2E, but do not establish a deployable gain. A larger independent acted or real Russian holdout should be frozen before tuning any selection rule.
+
+## Frozen acted holdout and thread tuning
+
+`tools/fixtures/dialogs-ru-asr-holdout-lock.json` freezes twelve previously unused clips from the pinned [Dialogs test split](https://huggingface.co/datasets/langswap/dialogs-ru-emotional-conversations), selected by a deterministic file-name hash before model inference. Four D-M-S three-voice composites total 147 reference words. `tools/nemotron/provision_asr_holdout.py` validates the source metadata, license, clip hashes and PCM shape, then creates ignored WAV assets and reference JSON. The snippets are acted and composited, not natural meetings; script text is not manually re-audited, and clip extents are not DER ground truth.
+
+| Suite | C2 A0 (CTC, 4 threads) | C2 A3 (RNN-T, 2 threads) | Paired ASR wall sum |
+| --- | ---: | ---: | ---: |
+| Original six, 378 words | 43 errors | 42 errors | 10.56 → 12.65 s |
+| New four, 147 words | 5 errors | 3 errors | 6.04 → 6.79 s |
+| Combined, 525 words | 48 errors (9.14%) | 45 errors (8.57%) | 16.60 → 19.44 s |
+
+On the new four-recording set, A3 at four threads kept 3/147 errors but took 7.75 s. Two threads reduced that paired sum to 6.79 s. The speed comparison is emulator-only and can vary with thermal/allocator state. The error reduction is small and source diversity remains weak, so A3 is an **unpromoted research candidate**; the product continues using the smaller/faster A0 CTC path.
+
+On three of four acted composites, C2 merges two of the three true speakers; C0 also merges them on three. For example, in `acted-holdout-0`, M and S are emitted as a single speaker in both backends. This explains cpWER such as 17/33 despite WER 1/33. Tuning ASR alone cannot fix that speaker error. Speaker separation and diarization need their own independent validation, particularly on genuinely recorded multi-speaker audio.
