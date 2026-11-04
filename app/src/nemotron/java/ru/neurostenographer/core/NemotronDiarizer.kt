@@ -143,8 +143,8 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
     }
 }
 
-/** Arrival-order speaker cache and FIFO, one recording at a time. */
-class NemotronSpeakerCache(private val silence: FloatArray) {
+/** Kotlin reference cache retained for numerical checks of the C++ port. */
+class NemotronSpeakerCacheReference(private val silence: FloatArray) {
     private val hidden = NemotronConfig.HIDDEN
     private val speakers = NemotronConfig.SPEAKERS
     private val length = NemotronConfig.CACHE
@@ -292,13 +292,14 @@ object NemotronDiarizer {
         val melFrames = mel.frames
         val embeddings = (melFrames + factor - 1) / factor
         val valid = max(melFrames - 1, 0)
-        val cache = NemotronSpeakerCache(silence)
+        val cache = NativeNemotronSpeakerCache(silence)
         val speakers = NemotronConfig.SPEAKERS
         val opened = IntArray(speakers) { -1 }
         val turns = mutableListOf<ClusterTurn>()
         var written = 0
         var start = 0
-        while (start < embeddings) {
+        try {
+            while (start < embeddings) {
             checkCancelled()
             val end = min(start + NemotronConfig.CHUNK, embeddings)
             val chunkFrames = end - start
@@ -323,7 +324,8 @@ object NemotronDiarizer {
                 written++
             }
             start = end
-        }
+            }
+        } finally { cache.close() }
         for (s in 0 until speakers) if (opened[s] >= 0) turns += ClusterTurn(opened[s] * 0.01f, written * 0.01f, s)
         return turns.sortedWith(compareBy<ClusterTurn> { it.startSeconds }.thenBy { it.cluster })
     }
