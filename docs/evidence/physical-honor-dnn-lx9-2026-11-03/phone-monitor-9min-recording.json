@@ -1,0 +1,6015 @@
+{
+  "samples": 858,
+  "peak_app_pss_kib": 580589,
+  "peak_worker_pss_kib": 407589,
+  "max_battery_c": 47.0,
+  "interval_s": 2.0,
+  "series": [
+    {
+      "t_s": 0.5,
+      "app_pss_kib": 77301,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 2.9,
+      "app_pss_kib": 75578,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 5.2,
+      "app_pss_kib": 75550,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 7.7,
+      "app_pss_kib": 74941,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 10.0,
+      "app_pss_kib": 76779,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 12.4,
+      "app_pss_kib": 75124,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 14.9,
+      "app_pss_kib": 76763,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 17.3,
+      "app_pss_kib": 109496,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 19.8,
+      "app_pss_kib": 108860,
+      "worker_pss_kib": 61350,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 22.6,
+      "app_pss_kib": 107761,
+      "worker_pss_kib": 240399,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 25.2,
+      "app_pss_kib": 107657,
+      "worker_pss_kib": 239836,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 28.0,
+      "app_pss_kib": 108305,
+      "worker_pss_kib": 240199,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 30.7,
+      "app_pss_kib": 107933,
+      "worker_pss_kib": 240525,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 33.5,
+      "app_pss_kib": 107870,
+      "worker_pss_kib": 240801,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 36.2,
+      "app_pss_kib": 107989,
+      "worker_pss_kib": 241175,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 38.9,
+      "app_pss_kib": 107937,
+      "worker_pss_kib": 241777,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 41.6,
+      "app_pss_kib": 107862,
+      "worker_pss_kib": 242110,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 44.3,
+      "app_pss_kib": 107902,
+      "worker_pss_kib": 242416,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 47.0,
+      "app_pss_kib": 107894,
+      "worker_pss_kib": 242723,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 49.8,
+      "app_pss_kib": 108385,
+      "worker_pss_kib": 243836,
+      "battery_c": 42.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 52.5,
+      "app_pss_kib": 108339,
+      "worker_pss_kib": 244176,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 55.1,
+      "app_pss_kib": 108327,
+      "worker_pss_kib": 243709,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 57.8,
+      "app_pss_kib": 108387,
+      "worker_pss_kib": 244043,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 60.5,
+      "app_pss_kib": 108335,
+      "worker_pss_kib": 244367,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 63.2,
+      "app_pss_kib": 108320,
+      "worker_pss_kib": 244656,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 65.9,
+      "app_pss_kib": 108391,
+      "worker_pss_kib": 244990,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 68.5,
+      "app_pss_kib": 108279,
+      "worker_pss_kib": 245314,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 71.2,
+      "app_pss_kib": 108224,
+      "worker_pss_kib": 245505,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 74.0,
+      "app_pss_kib": 108179,
+      "worker_pss_kib": 245884,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 76.9,
+      "app_pss_kib": 108131,
+      "worker_pss_kib": 246140,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 79.7,
+      "app_pss_kib": 108053,
+      "worker_pss_kib": 246365,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 82.5,
+      "app_pss_kib": 108171,
+      "worker_pss_kib": 246687,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 85.4,
+      "app_pss_kib": 107855,
+      "worker_pss_kib": 246921,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 88.2,
+      "app_pss_kib": 107782,
+      "worker_pss_kib": 247111,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 91.0,
+      "app_pss_kib": 107907,
+      "worker_pss_kib": 247409,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 93.7,
+      "app_pss_kib": 107855,
+      "worker_pss_kib": 247629,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 96.6,
+      "app_pss_kib": 107795,
+      "worker_pss_kib": 247879,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 99.4,
+      "app_pss_kib": 107854,
+      "worker_pss_kib": 248132,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 102.2,
+      "app_pss_kib": 107842,
+      "worker_pss_kib": 248379,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 105.1,
+      "app_pss_kib": 107900,
+      "worker_pss_kib": 248641,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 107.9,
+      "app_pss_kib": 107856,
+      "worker_pss_kib": 248878,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 110.7,
+      "app_pss_kib": 107840,
+      "worker_pss_kib": 249100,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 113.5,
+      "app_pss_kib": 107904,
+      "worker_pss_kib": 249346,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 116.3,
+      "app_pss_kib": 107852,
+      "worker_pss_kib": 250361,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 119.0,
+      "app_pss_kib": 107803,
+      "worker_pss_kib": 250549,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 121.9,
+      "app_pss_kib": 107823,
+      "worker_pss_kib": 250852,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 124.7,
+      "app_pss_kib": 107779,
+      "worker_pss_kib": 251086,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 127.5,
+      "app_pss_kib": 107707,
+      "worker_pss_kib": 289417,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 130.3,
+      "app_pss_kib": 107823,
+      "worker_pss_kib": 363991,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 133.1,
+      "app_pss_kib": 107771,
+      "worker_pss_kib": 362701,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 135.9,
+      "app_pss_kib": 107715,
+      "worker_pss_kib": 362897,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 138.7,
+      "app_pss_kib": 107822,
+      "worker_pss_kib": 363097,
+      "battery_c": 46.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 141.5,
+      "app_pss_kib": 107778,
+      "worker_pss_kib": 363167,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 144.3,
+      "app_pss_kib": 107748,
+      "worker_pss_kib": 363099,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 147.0,
+      "app_pss_kib": 107777,
+      "worker_pss_kib": 363415,
+      "battery_c": 45.0,
+      "battery_percent": 83
+    },
+    {
+      "t_s": 149.7,
+      "app_pss_kib": 107762,
+      "worker_pss_kib": 363233,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 152.5,
+      "app_pss_kib": 107824,
+      "worker_pss_kib": 363370,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 155.3,
+      "app_pss_kib": 107788,
+      "worker_pss_kib": 363356,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 158.1,
+      "app_pss_kib": 107776,
+      "worker_pss_kib": 363445,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 160.8,
+      "app_pss_kib": 107836,
+      "worker_pss_kib": 363630,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 163.6,
+      "app_pss_kib": 107792,
+      "worker_pss_kib": 363864,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 166.3,
+      "app_pss_kib": 107743,
+      "worker_pss_kib": 363448,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 169.1,
+      "app_pss_kib": 108556,
+      "worker_pss_kib": 363744,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 171.8,
+      "app_pss_kib": 108504,
+      "worker_pss_kib": 364035,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 174.6,
+      "app_pss_kib": 108429,
+      "worker_pss_kib": 364098,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 177.4,
+      "app_pss_kib": 108552,
+      "worker_pss_kib": 364435,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 180.1,
+      "app_pss_kib": 108504,
+      "worker_pss_kib": 364151,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 182.9,
+      "app_pss_kib": 108436,
+      "worker_pss_kib": 363735,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 185.7,
+      "app_pss_kib": 108554,
+      "worker_pss_kib": 364190,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 188.4,
+      "app_pss_kib": 108518,
+      "worker_pss_kib": 364149,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 191.2,
+      "app_pss_kib": 108448,
+      "worker_pss_kib": 363639,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 194.0,
+      "app_pss_kib": 108566,
+      "worker_pss_kib": 363716,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 196.7,
+      "app_pss_kib": 108518,
+      "worker_pss_kib": 379371,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 199.5,
+      "app_pss_kib": 108570,
+      "worker_pss_kib": 379148,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 202.3,
+      "app_pss_kib": 108522,
+      "worker_pss_kib": 379034,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 205.0,
+      "app_pss_kib": 108506,
+      "worker_pss_kib": 379589,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 207.7,
+      "app_pss_kib": 108570,
+      "worker_pss_kib": 379428,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 210.4,
+      "app_pss_kib": 108518,
+      "worker_pss_kib": 379317,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 213.2,
+      "app_pss_kib": 107833,
+      "worker_pss_kib": 379389,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 216.0,
+      "app_pss_kib": 107930,
+      "worker_pss_kib": 379665,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 218.7,
+      "app_pss_kib": 107886,
+      "worker_pss_kib": 382898,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 221.5,
+      "app_pss_kib": 107816,
+      "worker_pss_kib": 382612,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 224.3,
+      "app_pss_kib": 107934,
+      "worker_pss_kib": 382768,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 227.0,
+      "app_pss_kib": 107882,
+      "worker_pss_kib": 382715,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 229.9,
+      "app_pss_kib": 107819,
+      "worker_pss_kib": 382942,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 232.7,
+      "app_pss_kib": 107926,
+      "worker_pss_kib": 383320,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 235.5,
+      "app_pss_kib": 107898,
+      "worker_pss_kib": 383576,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 238.3,
+      "app_pss_kib": 107871,
+      "worker_pss_kib": 383784,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 241.1,
+      "app_pss_kib": 107898,
+      "worker_pss_kib": 383753,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 243.8,
+      "app_pss_kib": 107878,
+      "worker_pss_kib": 383743,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 246.5,
+      "app_pss_kib": 107942,
+      "worker_pss_kib": 383797,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 249.2,
+      "app_pss_kib": 111378,
+      "worker_pss_kib": 383172,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 252.1,
+      "app_pss_kib": 110102,
+      "worker_pss_kib": 383338,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 254.9,
+      "app_pss_kib": 110206,
+      "worker_pss_kib": 383424,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 257.7,
+      "app_pss_kib": 110019,
+      "worker_pss_kib": 384090,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 260.5,
+      "app_pss_kib": 109981,
+      "worker_pss_kib": 383292,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 263.3,
+      "app_pss_kib": 110054,
+      "worker_pss_kib": 383347,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 266.1,
+      "app_pss_kib": 110018,
+      "worker_pss_kib": 383344,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 268.9,
+      "app_pss_kib": 109947,
+      "worker_pss_kib": 399711,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 271.8,
+      "app_pss_kib": 110037,
+      "worker_pss_kib": 405725,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 274.5,
+      "app_pss_kib": 110021,
+      "worker_pss_kib": 405224,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 277.3,
+      "app_pss_kib": 109946,
+      "worker_pss_kib": 405329,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 280.2,
+      "app_pss_kib": 110013,
+      "worker_pss_kib": 405032,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 283.1,
+      "app_pss_kib": 110770,
+      "worker_pss_kib": 405166,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 285.9,
+      "app_pss_kib": 110825,
+      "worker_pss_kib": 404995,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 288.7,
+      "app_pss_kib": 110333,
+      "worker_pss_kib": 405147,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 291.6,
+      "app_pss_kib": 110317,
+      "worker_pss_kib": 405023,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 294.4,
+      "app_pss_kib": 110373,
+      "worker_pss_kib": 405201,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 297.4,
+      "app_pss_kib": 110345,
+      "worker_pss_kib": 405185,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 300.2,
+      "app_pss_kib": 110278,
+      "worker_pss_kib": 405117,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 303.0,
+      "app_pss_kib": 110378,
+      "worker_pss_kib": 405157,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 305.9,
+      "app_pss_kib": 110342,
+      "worker_pss_kib": 405296,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 308.8,
+      "app_pss_kib": 110308,
+      "worker_pss_kib": 405078,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 311.6,
+      "app_pss_kib": 110338,
+      "worker_pss_kib": 405273,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 314.5,
+      "app_pss_kib": 110338,
+      "worker_pss_kib": 405352,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 317.4,
+      "app_pss_kib": 110374,
+      "worker_pss_kib": 405365,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 320.2,
+      "app_pss_kib": 110346,
+      "worker_pss_kib": 405222,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 323.1,
+      "app_pss_kib": 110277,
+      "worker_pss_kib": 405742,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 326.0,
+      "app_pss_kib": 110360,
+      "worker_pss_kib": 405709,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 328.8,
+      "app_pss_kib": 110564,
+      "worker_pss_kib": 405663,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 331.8,
+      "app_pss_kib": 110496,
+      "worker_pss_kib": 405621,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 334.6,
+      "app_pss_kib": 110600,
+      "worker_pss_kib": 405544,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 337.5,
+      "app_pss_kib": 110564,
+      "worker_pss_kib": 405783,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 340.3,
+      "app_pss_kib": 110511,
+      "worker_pss_kib": 405313,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 343.2,
+      "app_pss_kib": 110564,
+      "worker_pss_kib": 405660,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 346.1,
+      "app_pss_kib": 110540,
+      "worker_pss_kib": 405715,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 349.0,
+      "app_pss_kib": 110612,
+      "worker_pss_kib": 405822,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 351.9,
+      "app_pss_kib": 110568,
+      "worker_pss_kib": 405892,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 354.7,
+      "app_pss_kib": 110497,
+      "worker_pss_kib": 405807,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 357.6,
+      "app_pss_kib": 110596,
+      "worker_pss_kib": 405535,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 360.5,
+      "app_pss_kib": 110564,
+      "worker_pss_kib": 406300,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 363.4,
+      "app_pss_kib": 110483,
+      "worker_pss_kib": 405779,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 366.3,
+      "app_pss_kib": 110610,
+      "worker_pss_kib": 406455,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 369.3,
+      "app_pss_kib": 110566,
+      "worker_pss_kib": 405744,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 372.2,
+      "app_pss_kib": 110246,
+      "worker_pss_kib": 405731,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 375.0,
+      "app_pss_kib": 110190,
+      "worker_pss_kib": 405932,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 377.9,
+      "app_pss_kib": 110141,
+      "worker_pss_kib": 406067,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 380.8,
+      "app_pss_kib": 110246,
+      "worker_pss_kib": 405645,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 383.6,
+      "app_pss_kib": 110259,
+      "worker_pss_kib": 406120,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 386.4,
+      "app_pss_kib": 110177,
+      "worker_pss_kib": 405927,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 389.3,
+      "app_pss_kib": 110288,
+      "worker_pss_kib": 406409,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 392.2,
+      "app_pss_kib": 110256,
+      "worker_pss_kib": 406187,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 395.1,
+      "app_pss_kib": 110226,
+      "worker_pss_kib": 406104,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 398.0,
+      "app_pss_kib": 110256,
+      "worker_pss_kib": 406496,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 400.8,
+      "app_pss_kib": 110244,
+      "worker_pss_kib": 406447,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 403.7,
+      "app_pss_kib": 110292,
+      "worker_pss_kib": 406103,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 406.6,
+      "app_pss_kib": 110260,
+      "worker_pss_kib": 406130,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 409.6,
+      "app_pss_kib": 110190,
+      "worker_pss_kib": 406371,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 412.5,
+      "app_pss_kib": 110300,
+      "worker_pss_kib": 406307,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 415.4,
+      "app_pss_kib": 110262,
+      "worker_pss_kib": 406274,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 418.3,
+      "app_pss_kib": 110193,
+      "worker_pss_kib": 406355,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 421.1,
+      "app_pss_kib": 110254,
+      "worker_pss_kib": 406329,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 424.1,
+      "app_pss_kib": 110461,
+      "worker_pss_kib": 406477,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 427.1,
+      "app_pss_kib": 110530,
+      "worker_pss_kib": 406553,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 430.0,
+      "app_pss_kib": 110481,
+      "worker_pss_kib": 406687,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 432.9,
+      "app_pss_kib": 110423,
+      "worker_pss_kib": 406607,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 435.8,
+      "app_pss_kib": 110517,
+      "worker_pss_kib": 407034,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 438.6,
+      "app_pss_kib": 110477,
+      "worker_pss_kib": 406363,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 441.5,
+      "app_pss_kib": 110400,
+      "worker_pss_kib": 406873,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 444.4,
+      "app_pss_kib": 111029,
+      "worker_pss_kib": 406551,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 447.3,
+      "app_pss_kib": 110993,
+      "worker_pss_kib": 406758,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 450.2,
+      "app_pss_kib": 110873,
+      "worker_pss_kib": 406707,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 453.0,
+      "app_pss_kib": 110833,
+      "worker_pss_kib": 406582,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 455.9,
+      "app_pss_kib": 110813,
+      "worker_pss_kib": 406651,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 458.7,
+      "app_pss_kib": 109981,
+      "worker_pss_kib": 406621,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 461.6,
+      "app_pss_kib": 109937,
+      "worker_pss_kib": 406506,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 464.4,
+      "app_pss_kib": 109880,
+      "worker_pss_kib": 406337,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 467.4,
+      "app_pss_kib": 109972,
+      "worker_pss_kib": 406604,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 470.3,
+      "app_pss_kib": 109951,
+      "worker_pss_kib": 406673,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 473.2,
+      "app_pss_kib": 110292,
+      "worker_pss_kib": 406772,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 476.1,
+      "app_pss_kib": 110379,
+      "worker_pss_kib": 406952,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 479.0,
+      "app_pss_kib": 110351,
+      "worker_pss_kib": 406975,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 481.9,
+      "app_pss_kib": 110411,
+      "worker_pss_kib": 407316,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 484.7,
+      "app_pss_kib": 110359,
+      "worker_pss_kib": 407589,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 487.6,
+      "app_pss_kib": 110306,
+      "worker_pss_kib": 407019,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 490.5,
+      "app_pss_kib": 110407,
+      "worker_pss_kib": 407021,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 493.3,
+      "app_pss_kib": 110363,
+      "worker_pss_kib": 407105,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 496.1,
+      "app_pss_kib": 110295,
+      "worker_pss_kib": 407023,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 499.0,
+      "app_pss_kib": 110395,
+      "worker_pss_kib": 406827,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 501.9,
+      "app_pss_kib": 110367,
+      "worker_pss_kib": 406893,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 504.8,
+      "app_pss_kib": 110403,
+      "worker_pss_kib": 407316,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 507.6,
+      "app_pss_kib": 110363,
+      "worker_pss_kib": 407132,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 510.7,
+      "app_pss_kib": 110316,
+      "worker_pss_kib": 406813,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 513.5,
+      "app_pss_kib": 110407,
+      "worker_pss_kib": 407041,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 516.1,
+      "app_pss_kib": 110358,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 518.7,
+      "app_pss_kib": 360724,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 521.2,
+      "app_pss_kib": 580207,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 523.7,
+      "app_pss_kib": 580589,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 526.4,
+      "app_pss_kib": 558048,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 529.3,
+      "app_pss_kib": 558897,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 532.0,
+      "app_pss_kib": 558999,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 534.8,
+      "app_pss_kib": 558955,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 537.5,
+      "app_pss_kib": 559482,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 540.1,
+      "app_pss_kib": 559359,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 542.8,
+      "app_pss_kib": 559462,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 545.6,
+      "app_pss_kib": 559504,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 548.3,
+      "app_pss_kib": 560252,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 551.1,
+      "app_pss_kib": 559588,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 553.8,
+      "app_pss_kib": 564289,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 556.5,
+      "app_pss_kib": 562842,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 559.2,
+      "app_pss_kib": 562822,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 562.0,
+      "app_pss_kib": 563558,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 564.8,
+      "app_pss_kib": 562855,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 567.6,
+      "app_pss_kib": 563298,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 570.3,
+      "app_pss_kib": 563044,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 573.2,
+      "app_pss_kib": 563512,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 575.9,
+      "app_pss_kib": 563520,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 578.7,
+      "app_pss_kib": 563408,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 581.4,
+      "app_pss_kib": 563010,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 584.2,
+      "app_pss_kib": 564078,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 586.8,
+      "app_pss_kib": 563741,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 589.7,
+      "app_pss_kib": 563597,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 592.4,
+      "app_pss_kib": 563655,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 595.1,
+      "app_pss_kib": 563846,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 597.9,
+      "app_pss_kib": 563533,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 600.7,
+      "app_pss_kib": 563795,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 603.3,
+      "app_pss_kib": 563481,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 606.1,
+      "app_pss_kib": 563561,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 608.8,
+      "app_pss_kib": 563832,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 611.7,
+      "app_pss_kib": 564154,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 614.5,
+      "app_pss_kib": 563916,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 617.2,
+      "app_pss_kib": 564278,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 620.0,
+      "app_pss_kib": 565120,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 622.8,
+      "app_pss_kib": 563988,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 625.5,
+      "app_pss_kib": 564918,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 628.4,
+      "app_pss_kib": 564857,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 630.8,
+      "app_pss_kib": 128298,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 633.3,
+      "app_pss_kib": 94337,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 635.8,
+      "app_pss_kib": 94337,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 638.3,
+      "app_pss_kib": 94342,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 640.7,
+      "app_pss_kib": 94338,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 643.2,
+      "app_pss_kib": 94342,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 645.7,
+      "app_pss_kib": 94341,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 648.2,
+      "app_pss_kib": 94338,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 650.7,
+      "app_pss_kib": 94332,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 653.1,
+      "app_pss_kib": 94336,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 655.6,
+      "app_pss_kib": 94333,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 658.1,
+      "app_pss_kib": 94337,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 660.5,
+      "app_pss_kib": 94335,
+      "worker_pss_kib": null,
+      "battery_c": 47.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 663.1,
+      "app_pss_kib": 94337,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 665.5,
+      "app_pss_kib": 94333,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 668.0,
+      "app_pss_kib": 94338,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 670.5,
+      "app_pss_kib": 94854,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 672.9,
+      "app_pss_kib": 94860,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 675.4,
+      "app_pss_kib": 94855,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 677.9,
+      "app_pss_kib": 94857,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 680.4,
+      "app_pss_kib": 94854,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 682.8,
+      "app_pss_kib": 94857,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 685.4,
+      "app_pss_kib": 94850,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 687.8,
+      "app_pss_kib": 94856,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 690.3,
+      "app_pss_kib": 94852,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 692.8,
+      "app_pss_kib": 94854,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 695.3,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 697.7,
+      "app_pss_kib": 94741,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 700.2,
+      "app_pss_kib": 94736,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 702.7,
+      "app_pss_kib": 94739,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 705.2,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 707.7,
+      "app_pss_kib": 94738,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 710.2,
+      "app_pss_kib": 94734,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 712.7,
+      "app_pss_kib": 94738,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 715.2,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 717.6,
+      "app_pss_kib": 94739,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 720.1,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 722.6,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 725.1,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 727.6,
+      "app_pss_kib": 94738,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 730.0,
+      "app_pss_kib": 94731,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 732.5,
+      "app_pss_kib": 94738,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 735.0,
+      "app_pss_kib": 94734,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 737.5,
+      "app_pss_kib": 94737,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 739.9,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 742.4,
+      "app_pss_kib": 94741,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 744.9,
+      "app_pss_kib": 94733,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 747.4,
+      "app_pss_kib": 94739,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 749.9,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 752.4,
+      "app_pss_kib": 94739,
+      "worker_pss_kib": null,
+      "battery_c": 46.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 754.9,
+      "app_pss_kib": 94736,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 757.4,
+      "app_pss_kib": 94741,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 759.8,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 762.3,
+      "app_pss_kib": 94741,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 764.8,
+      "app_pss_kib": 94735,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 767.2,
+      "app_pss_kib": 94739,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 769.7,
+      "app_pss_kib": 94734,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 772.1,
+      "app_pss_kib": 95482,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 774.6,
+      "app_pss_kib": 94609,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 777.0,
+      "app_pss_kib": 94611,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 779.5,
+      "app_pss_kib": 94614,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 781.9,
+      "app_pss_kib": 94606,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 784.4,
+      "app_pss_kib": 94614,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 786.8,
+      "app_pss_kib": 94610,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 789.3,
+      "app_pss_kib": 94609,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 791.7,
+      "app_pss_kib": 94613,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 794.2,
+      "app_pss_kib": 94611,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 796.6,
+      "app_pss_kib": 94608,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 799.0,
+      "app_pss_kib": 94611,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 801.5,
+      "app_pss_kib": 94613,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 803.9,
+      "app_pss_kib": 94608,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 806.4,
+      "app_pss_kib": 94612,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 808.9,
+      "app_pss_kib": 94614,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 811.3,
+      "app_pss_kib": 94609,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 813.8,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 816.2,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 818.7,
+      "app_pss_kib": 94368,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 821.2,
+      "app_pss_kib": 94373,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 823.6,
+      "app_pss_kib": 94372,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 826.0,
+      "app_pss_kib": 94366,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 828.5,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 831.0,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 833.4,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 835.9,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 838.3,
+      "app_pss_kib": 94372,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 840.8,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 843.2,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 845.7,
+      "app_pss_kib": 94372,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 848.1,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 850.6,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 853.0,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 855.4,
+      "app_pss_kib": 94366,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 857.9,
+      "app_pss_kib": 94372,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 860.3,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 862.8,
+      "app_pss_kib": 94365,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 865.3,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 867.7,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 870.1,
+      "app_pss_kib": 94365,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 872.6,
+      "app_pss_kib": 94368,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 875.1,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 877.5,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 45.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 880.0,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 882.4,
+      "app_pss_kib": 94368,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 884.8,
+      "app_pss_kib": 94363,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 887.3,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 889.8,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 892.2,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 894.7,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 897.1,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 899.5,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 902.0,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 904.5,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 906.9,
+      "app_pss_kib": 94365,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 909.4,
+      "app_pss_kib": 94368,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 911.8,
+      "app_pss_kib": 94368,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 914.3,
+      "app_pss_kib": 94363,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 916.7,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 919.2,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 921.6,
+      "app_pss_kib": 94363,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 924.0,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 926.5,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 928.9,
+      "app_pss_kib": 94364,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 931.4,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 933.9,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 936.3,
+      "app_pss_kib": 94371,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 938.8,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 941.2,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 943.7,
+      "app_pss_kib": 94364,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 946.2,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 948.6,
+      "app_pss_kib": 94368,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 951.0,
+      "app_pss_kib": 94364,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 953.5,
+      "app_pss_kib": 94370,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 955.9,
+      "app_pss_kib": 94367,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 958.3,
+      "app_pss_kib": 94364,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 960.8,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 963.3,
+      "app_pss_kib": 94369,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 965.7,
+      "app_pss_kib": 94364,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 968.2,
+      "app_pss_kib": 94589,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 970.6,
+      "app_pss_kib": 94589,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 973.1,
+      "app_pss_kib": 94587,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 975.6,
+      "app_pss_kib": 94590,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 978.0,
+      "app_pss_kib": 94588,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 980.5,
+      "app_pss_kib": 94585,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 982.9,
+      "app_pss_kib": 94590,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 985.3,
+      "app_pss_kib": 94588,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 987.8,
+      "app_pss_kib": 94585,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 990.2,
+      "app_pss_kib": 94588,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 992.7,
+      "app_pss_kib": 94587,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 995.1,
+      "app_pss_kib": 94585,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 997.6,
+      "app_pss_kib": 94589,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1000.1,
+      "app_pss_kib": 94590,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1002.4,
+      "app_pss_kib": 94578,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1004.8,
+      "app_pss_kib": 94562,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1007.4,
+      "app_pss_kib": 94571,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1009.7,
+      "app_pss_kib": 97035,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1012.2,
+      "app_pss_kib": 94926,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1014.6,
+      "app_pss_kib": 94792,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1017.0,
+      "app_pss_kib": 94756,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1019.5,
+      "app_pss_kib": 94755,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1022.0,
+      "app_pss_kib": 94759,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1024.4,
+      "app_pss_kib": 94751,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1026.9,
+      "app_pss_kib": 94758,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1029.3,
+      "app_pss_kib": 94754,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1031.8,
+      "app_pss_kib": 94759,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1034.3,
+      "app_pss_kib": 94750,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1036.7,
+      "app_pss_kib": 94755,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1039.2,
+      "app_pss_kib": 94760,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1041.7,
+      "app_pss_kib": 94765,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1044.2,
+      "app_pss_kib": 94862,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1046.6,
+      "app_pss_kib": 97065,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1049.1,
+      "app_pss_kib": 94547,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1051.5,
+      "app_pss_kib": 94509,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1054.0,
+      "app_pss_kib": 94455,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1056.4,
+      "app_pss_kib": 94403,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1058.9,
+      "app_pss_kib": 95062,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1061.3,
+      "app_pss_kib": 94611,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1063.8,
+      "app_pss_kib": 94561,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1066.2,
+      "app_pss_kib": 94556,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1068.7,
+      "app_pss_kib": 94557,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1071.1,
+      "app_pss_kib": 94553,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1073.6,
+      "app_pss_kib": 94552,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1076.0,
+      "app_pss_kib": 94552,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1078.5,
+      "app_pss_kib": 94552,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1081.0,
+      "app_pss_kib": 94554,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1086.7,
+      "app_pss_kib": 95028,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1089.1,
+      "app_pss_kib": 95029,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1091.5,
+      "app_pss_kib": 95027,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1094.0,
+      "app_pss_kib": 95005,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1096.4,
+      "app_pss_kib": 95009,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1098.9,
+      "app_pss_kib": 95010,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1101.3,
+      "app_pss_kib": 95006,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1103.8,
+      "app_pss_kib": 95009,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1106.2,
+      "app_pss_kib": 95009,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1108.7,
+      "app_pss_kib": 95005,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1111.1,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1113.5,
+      "app_pss_kib": 94975,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1115.9,
+      "app_pss_kib": 94969,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1118.3,
+      "app_pss_kib": 94974,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1120.8,
+      "app_pss_kib": 94975,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1123.2,
+      "app_pss_kib": 94969,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1125.6,
+      "app_pss_kib": 94974,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1128.0,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1130.5,
+      "app_pss_kib": 94969,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1132.8,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1135.3,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1137.7,
+      "app_pss_kib": 94971,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1140.2,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1142.6,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1145.0,
+      "app_pss_kib": 94969,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1147.4,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1149.8,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1152.2,
+      "app_pss_kib": 94971,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1154.6,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1157.1,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1159.5,
+      "app_pss_kib": 94971,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1161.9,
+      "app_pss_kib": 94973,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1164.3,
+      "app_pss_kib": 94972,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1166.7,
+      "app_pss_kib": 94968,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1169.1,
+      "app_pss_kib": 94972,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1171.5,
+      "app_pss_kib": 95015,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1173.9,
+      "app_pss_kib": 95206,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1176.4,
+      "app_pss_kib": 95212,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1178.8,
+      "app_pss_kib": 95210,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1181.3,
+      "app_pss_kib": 95308,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1183.6,
+      "app_pss_kib": 95314,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1186.1,
+      "app_pss_kib": 95311,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1188.5,
+      "app_pss_kib": 95306,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1190.9,
+      "app_pss_kib": 95314,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1193.4,
+      "app_pss_kib": 95313,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 82
+    },
+    {
+      "t_s": 1195.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1197.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1199.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1201.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1203.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1205.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1207.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1209.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1211.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1214.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1216.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1218.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1220.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1222.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1224.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1226.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1228.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1230.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1232.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1234.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1236.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1238.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1240.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1242.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1244.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1246.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1249.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1251.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1253.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1255.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1257.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1259.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1261.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1263.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1265.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1267.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1269.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1271.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1273.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1275.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1277.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1279.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1281.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1284.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1286.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1288.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1290.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1292.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1294.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1296.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1298.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1300.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1302.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1304.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1306.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1308.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1310.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1312.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1314.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1316.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1319.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1321.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1323.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1325.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1327.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1329.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1331.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1333.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1335.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1337.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1339.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1341.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1343.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1345.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1347.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1349.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1352.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1354.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1356.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1358.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1360.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1362.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1364.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1366.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1368.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1370.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1372.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1374.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1376.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1378.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1380.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1382.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1384.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1387.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1389.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1391.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1393.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1395.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1397.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1399.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1401.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1403.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1405.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1407.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1409.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1411.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1413.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1415.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1417.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1419.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1422.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1424.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1426.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1428.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1430.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1432.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1434.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1436.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1438.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1440.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1442.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1444.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1446.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1448.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1450.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1452.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1454.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1457.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1459.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1461.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1463.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1465.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1467.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1469.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1471.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1473.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1475.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1477.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1479.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1481.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1483.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1485.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1487.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1489.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1492.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1494.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1496.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1498.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1500.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1502.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1504.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1506.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1508.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1510.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1512.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1514.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1516.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1518.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1520.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1522.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1525.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1527.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1529.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1531.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1533.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1535.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1537.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1539.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1541.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1543.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1545.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1547.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1549.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1551.7,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1553.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1555.8,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1557.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1559.9,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1562.0,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1564.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1566.1,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1568.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1570.2,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1572.3,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1574.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1576.4,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1578.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1580.5,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1582.6,
+      "app_pss_kib": null,
+      "worker_pss_kib": null,
+      "battery_c": null,
+      "battery_percent": null
+    },
+    {
+      "t_s": 1585.2,
+      "app_pss_kib": 87402,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1587.6,
+      "app_pss_kib": 84365,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1590.0,
+      "app_pss_kib": 84344,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1592.5,
+      "app_pss_kib": 84326,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1594.9,
+      "app_pss_kib": 84326,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1597.3,
+      "app_pss_kib": 84326,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1599.8,
+      "app_pss_kib": 84322,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1602.2,
+      "app_pss_kib": 84325,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1604.6,
+      "app_pss_kib": 84325,
+      "worker_pss_kib": null,
+      "battery_c": 44.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1607.1,
+      "app_pss_kib": 84321,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1609.5,
+      "app_pss_kib": 84325,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1611.9,
+      "app_pss_kib": 84336,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1614.3,
+      "app_pss_kib": 84000,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1616.6,
+      "app_pss_kib": 83660,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1618.9,
+      "app_pss_kib": 83464,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1621.3,
+      "app_pss_kib": 83336,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1623.7,
+      "app_pss_kib": 83228,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1626.1,
+      "app_pss_kib": 83177,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1628.5,
+      "app_pss_kib": 83241,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1630.9,
+      "app_pss_kib": 83052,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1633.3,
+      "app_pss_kib": 82275,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1635.8,
+      "app_pss_kib": 82182,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1638.3,
+      "app_pss_kib": 82131,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1640.7,
+      "app_pss_kib": 82112,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1643.2,
+      "app_pss_kib": 82115,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1645.6,
+      "app_pss_kib": 82100,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1648.0,
+      "app_pss_kib": 82068,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1650.5,
+      "app_pss_kib": 82062,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1652.9,
+      "app_pss_kib": 82066,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1655.3,
+      "app_pss_kib": 82049,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1657.8,
+      "app_pss_kib": 82035,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1660.2,
+      "app_pss_kib": 82036,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1662.6,
+      "app_pss_kib": 82028,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1665.0,
+      "app_pss_kib": 82023,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1667.4,
+      "app_pss_kib": 82062,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1669.8,
+      "app_pss_kib": 82057,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1672.3,
+      "app_pss_kib": 82044,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1674.8,
+      "app_pss_kib": 81497,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1677.2,
+      "app_pss_kib": 81462,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1679.6,
+      "app_pss_kib": 80549,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1682.1,
+      "app_pss_kib": 80555,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1684.4,
+      "app_pss_kib": 78349,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1686.8,
+      "app_pss_kib": 78328,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1689.2,
+      "app_pss_kib": 78303,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1691.6,
+      "app_pss_kib": 78305,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1694.1,
+      "app_pss_kib": 78292,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1696.5,
+      "app_pss_kib": 78348,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1698.9,
+      "app_pss_kib": 78340,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1701.4,
+      "app_pss_kib": 78334,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1703.7,
+      "app_pss_kib": 78335,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1706.1,
+      "app_pss_kib": 78329,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1708.6,
+      "app_pss_kib": 78325,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1711.0,
+      "app_pss_kib": 78329,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1713.4,
+      "app_pss_kib": 78329,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1715.8,
+      "app_pss_kib": 78303,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1718.1,
+      "app_pss_kib": 78254,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1720.5,
+      "app_pss_kib": 78253,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1723.0,
+      "app_pss_kib": 78247,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1725.4,
+      "app_pss_kib": 78249,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1727.7,
+      "app_pss_kib": 78193,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1730.2,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1732.5,
+      "app_pss_kib": 78186,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1734.9,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1737.4,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1739.8,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1742.2,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1744.6,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1747.0,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1749.4,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1751.8,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1754.1,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1756.6,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1759.0,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1761.4,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1763.8,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1766.2,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1768.7,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1771.1,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1773.5,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1775.9,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1778.4,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1780.7,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1783.1,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1785.6,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1787.9,
+      "app_pss_kib": 78181,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1790.3,
+      "app_pss_kib": 78185,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1792.8,
+      "app_pss_kib": 78183,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1795.2,
+      "app_pss_kib": 78179,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1797.6,
+      "app_pss_kib": 78183,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1800.0,
+      "app_pss_kib": 78183,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1802.4,
+      "app_pss_kib": 78179,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1804.8,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1807.3,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1809.7,
+      "app_pss_kib": 78180,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1812.0,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1814.5,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1816.9,
+      "app_pss_kib": 78180,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1819.3,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1821.7,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1824.1,
+      "app_pss_kib": 78180,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1826.5,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1828.9,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1831.3,
+      "app_pss_kib": 78180,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1833.8,
+      "app_pss_kib": 78184,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1836.2,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1838.6,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1841.0,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1843.5,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1845.9,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1848.3,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1850.7,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1853.1,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1855.5,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1857.9,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1860.3,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1862.7,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1865.1,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1867.5,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1869.9,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1872.3,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1874.7,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1877.1,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1879.6,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1882.0,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1884.4,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1886.8,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1889.2,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1891.6,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1894.0,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1896.4,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1898.8,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1901.2,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1903.6,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1906.0,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1908.5,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1910.9,
+      "app_pss_kib": 77920,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1913.3,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1915.7,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1918.1,
+      "app_pss_kib": 77921,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1920.5,
+      "app_pss_kib": 77925,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1922.9,
+      "app_pss_kib": 77925,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1925.3,
+      "app_pss_kib": 77921,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1927.7,
+      "app_pss_kib": 77925,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1930.1,
+      "app_pss_kib": 77924,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1932.5,
+      "app_pss_kib": 77919,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1934.9,
+      "app_pss_kib": 77923,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1937.4,
+      "app_pss_kib": 77923,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1939.8,
+      "app_pss_kib": 77916,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1942.2,
+      "app_pss_kib": 77918,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1944.7,
+      "app_pss_kib": 76461,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1947.1,
+      "app_pss_kib": 75715,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1949.5,
+      "app_pss_kib": 75657,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1951.9,
+      "app_pss_kib": 75515,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1954.3,
+      "app_pss_kib": 75509,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1956.7,
+      "app_pss_kib": 75513,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1959.2,
+      "app_pss_kib": 75492,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1961.6,
+      "app_pss_kib": 75464,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1964.0,
+      "app_pss_kib": 75464,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1966.5,
+      "app_pss_kib": 75457,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1968.9,
+      "app_pss_kib": 75411,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1971.3,
+      "app_pss_kib": 75409,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1973.7,
+      "app_pss_kib": 75407,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1976.1,
+      "app_pss_kib": 75398,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1978.5,
+      "app_pss_kib": 74831,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1981.0,
+      "app_pss_kib": 74612,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1983.4,
+      "app_pss_kib": 74604,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1985.8,
+      "app_pss_kib": 74584,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1988.2,
+      "app_pss_kib": 74585,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1990.7,
+      "app_pss_kib": 74579,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1993.1,
+      "app_pss_kib": 74482,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1995.5,
+      "app_pss_kib": 74308,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 1998.0,
+      "app_pss_kib": 74290,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2000.4,
+      "app_pss_kib": 74277,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2002.9,
+      "app_pss_kib": 74277,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2005.3,
+      "app_pss_kib": 74272,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2007.7,
+      "app_pss_kib": 74273,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2010.1,
+      "app_pss_kib": 74235,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2012.5,
+      "app_pss_kib": 74231,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2015.0,
+      "app_pss_kib": 74233,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2017.4,
+      "app_pss_kib": 74231,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2019.8,
+      "app_pss_kib": 74222,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2022.1,
+      "app_pss_kib": 74226,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2024.6,
+      "app_pss_kib": 74223,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2026.9,
+      "app_pss_kib": 75711,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2029.3,
+      "app_pss_kib": 74486,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2031.8,
+      "app_pss_kib": 74069,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2034.2,
+      "app_pss_kib": 74064,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2036.7,
+      "app_pss_kib": 74054,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2039.2,
+      "app_pss_kib": 74054,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2041.6,
+      "app_pss_kib": 74050,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2043.9,
+      "app_pss_kib": 74054,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2046.4,
+      "app_pss_kib": 74038,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2048.7,
+      "app_pss_kib": 74037,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2051.1,
+      "app_pss_kib": 74035,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2053.5,
+      "app_pss_kib": 74035,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2055.9,
+      "app_pss_kib": 74018,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2058.3,
+      "app_pss_kib": 74022,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2060.7,
+      "app_pss_kib": 74012,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2063.1,
+      "app_pss_kib": 74008,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2065.6,
+      "app_pss_kib": 74012,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2068.0,
+      "app_pss_kib": 74011,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2070.4,
+      "app_pss_kib": 74007,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2072.8,
+      "app_pss_kib": 74004,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2075.3,
+      "app_pss_kib": 74004,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2077.7,
+      "app_pss_kib": 74265,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2080.0,
+      "app_pss_kib": 74269,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2082.5,
+      "app_pss_kib": 74269,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2084.9,
+      "app_pss_kib": 74265,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2087.3,
+      "app_pss_kib": 74269,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2089.7,
+      "app_pss_kib": 74269,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2092.1,
+      "app_pss_kib": 74265,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2094.5,
+      "app_pss_kib": 74269,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2097.0,
+      "app_pss_kib": 74269,
+      "worker_pss_kib": null,
+      "battery_c": 43.0,
+      "battery_percent": 80
+    },
+    {
+      "t_s": 2099.4,
+      "app_pss_kib": 74260,
+      "worker_pss_kib": null,
+      "battery_c": 42.0,
+      "battery_percent": 80
+    }
+  ]
+}

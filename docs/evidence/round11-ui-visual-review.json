@@ -1,0 +1,34 @@
+{
+  "viewed": [
+    {
+      "name": "picker-rotated.png",
+      "sha256": "7ba0b2cca31868da7262196906a2f1ad407b68638e00090cb7f1eef34162d0fa",
+      "dimensions": [
+        2340,
+        1080
+      ]
+    },
+    {
+      "name": "final-clean.png",
+      "sha256": "68b8aa67bb55f009da33126315437c11dbdc45e11570b21b7bff99f2faa0ff93",
+      "dimensions": [
+        1080,
+        2340
+      ]
+    },
+    {
+      "name": "recorded-transcript.png",
+      "sha256": "b5a62fbdea797df4686076c3bf988d3bf763cde18f3b6976f0d7bfceba68f38e",
+      "dimensions": [
+        1080,
+        2340
+      ]
+    }
+  ],
+  "observations": [
+    "Landscape picker renders correctly after settled rotation",
+    "Cleanup and uncertainty text readable",
+    "Emulator microphone capture had no detected speech; ASR correctly skipped, not spoken accuracy evidence"
+  ],
+  "audio_collected": false
+}

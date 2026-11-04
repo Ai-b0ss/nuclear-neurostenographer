@@ -1,0 +1,15 @@
+{
+  "repository": "langswap/dialogs-ru-emotional-conversations",
+  "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "license": {"path": "LICENSE.md", "sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143"},
+  "metadata": {"path": "test.csv", "sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2"},
+  "selection_policy": "In pinned test.csv order: first neutral D, first neutral M, second neutral D. Frozen before model evaluation; no accuracy-based selection.",
+  "gap_frames": 22050,
+  "sample_rate": 44100,
+  "composite_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+  "clips": [
+    {"path": "wavs/masha_dima_part1_368.wav", "speaker": "D", "sha256": "34f7bf10840524d0ce92f43cc2da3cd8fd40f1178d4087391bcdd07de2c16006", "frames": 268777},
+    {"path": "wavs/masha_dima_part4_118.wav", "speaker": "M", "sha256": "ad55d7166a36ff4e61369c186a78b14dcb3af27dad4492c8950347077b4a06d9", "frames": 211438},
+    {"path": "wavs/masha_dima_part4_45.wav", "speaker": "D", "sha256": "c19fae87e9e5b12d8c310eda0dca1586645b777b0537719d3f11ccc7e22eb43a", "frames": 342495}
+  ]
+}

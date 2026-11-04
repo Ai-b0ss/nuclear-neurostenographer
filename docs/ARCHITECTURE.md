@@ -1,5 +1,7 @@
 # Architecture and non-functional constraints
 
+> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [RELEASE_READINESS_2026-11-04.md](RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+
 ## Mandatory functionality
 1. Android application.
 2. Audio transcription **on device**, without cloud ASR.
@@ -9,6 +11,10 @@
 Online streaming, personal name identification and word-level timestamps are optional extensions, not contest requirements.
 
 ## Target on-device pipeline
+
+Current pipeline is `local audio -> bounded PCM16 mono/resampling -> optional full-recording diarization -> GigaAM v3 CTC speech/input windows -> conservative fusion -> UI/export`. Pinned pyannote + ERes2Net supplies speech windows/global cluster IDs through a strictly validated private-worker reply. Failure falls back to unknown speakers. Round 9 Android x86_64 tests verify Russian ASR, A-B-A, actual worker lifecycle and import/export paths; physical ARM64 remains unverified. See DIARIZATION.md for original native overlap failure and the no-TTS candidate's unknown-identity guard. Native resources are released in `finally`; ViewModel retains operations across rotation. ASR cancellation is cooperative between blocking JNI steps. Diarization cancellation unbinds the service, which terminates its guarded dedicated process; the caller observes death and blocks another request while prior exit is unknown. Model installation selects a directory only after all hashes pass. Platform codec support varies by device; word alignment remains unimplemented. See [audio import and privacy](AUDIO_IMPORT.md).
+
+The diagram below is the original target. Silero VAD, RNN-T and word timestamps are not implemented; the paragraph above describes the code. Adjacent reliable fragments of one speaker are merged into replies of up to 60 seconds.
 
 ```
 Recorded/imported audio -> decoder -> PCM16 mono -> 16 kHz -> samples
@@ -27,7 +33,16 @@ Recorded/imported audio -> decoder -> PCM16 mono -> 16 kHz -> samples
 
 Important: run diarization on the **entire conversation or globally reconciled windows**, not independently isolated VAD chunks; otherwise speaker labels may change with each chunk.
 
+Imported WAVs are copied into bounded app-private cache snapshots and validated before replacing the selected source. A bad/short/oversized/cancelled import removes its staged copy and keeps the previous result. This avoids relying on document-provider access or mutable source bytes during subsequent inference. A successful `TranscriptDocument` owns the output intervals, audio duration, model/timestamp/speaker provenance and warnings. Export captures its UTF-8 body before opening the document chooser; selecting a new source cannot silently change that pending export. JSON retains metadata even when no text was recognized; TXT/UI retain milliseconds and SRT uses the same chunk boundaries. No provider URI or private path is exported. Cache eviction and process death can require reimport; transcript history persistence is not implemented.
+
 `TranscriptFusion.attributeWords` requires genuine timestamps for each recognized word. When ASR only gives timestamps for entire chunks, use `attributeChunks`, which refuses to invent speaker identity if a chunk crosses two speakers. Do not interpolate word times and present them as model evidence.
+
+Round 10 pins the default no-TTS runtime in a shared provisioning/Gradle lock.
+PreBuild verifies actual AAR bytes; generated BuildConfig identifies that AAR in
+JSON document provenance and instrumented inference metadata. APK checks compare
+packaged native bytes against the selected input, so a filename or stale sidecar
+cannot establish runtime identity. Upstream and new native candidates are explicit
+regression/validation modes. This metadata does not establish model accuracy.
 
 ## Engineering constraints
 - Audio samples and diarization must share a time origin. Resampling changes the sample index, not the timeline in seconds.

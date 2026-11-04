@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 1,
+    "substitutions": 1,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_words": 41,
+    "rate": 0.024390243902439025,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "SCORED",
+    "errors": 25,
+    "reference_words": 41,
+    "rate": 0.6097560975609756,
+    "substitutions": 1,
+    "deletions": 12,
+    "insertions": 12,
+    "mapping": [
+      {
+        "reference": "D",
+        "hypothesis": "Speaker 1"
+      },
+      {
+        "reference": "M",
+        "hypothesis": null
+      }
+    ]
+  },
+  "der": {
+    "status": "NOT_SCORED",
+    "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+  },
+  "reference": {
+    "recording_id": "dialogs-test-neutral-D-M-D-composed-v1",
+    "annotation_source": "https://huggingface.co/datasets/langswap/dialogs-ru-emotional-conversations/blob/a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+    "license": "Dialogs OpenRAIL; copy of full terms in LICENSE.md; recipients must comply with Section 2",
+    "kind": "ACTED_COMPOSED_THREE_UTTERANCES_NOT_NATURAL_DIALOGUE",
+    "audio_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861"
+  },
+  "recurrence_probe": {
+    "method": "dominant eligible cluster per source clip; not speech-boundary truth",
+    "hypothesis_clusters": [
+      "Speaker 1",
+      "Speaker 1",
+      "Speaker 1"
+    ],
+    "status": "FAIL"
+  },
+  "evaluation_scope": "Three composed acted utterances from external test.csv; not natural conversation or a representative corpus benchmark",
+  "metric_availability": "PARTIAL_NO_DER_REFERENCE",
+  "quality_gate": "NO_COMPETITION_ACCURACY_THRESHOLD_DEFINED",
+  "reference_sha256": "d45326df59c8ff63aede7b0dde71e7532a0a5961762a7dc21cc03b1e0fb4d120",
+  "hypothesis_sha256": "7c78a43698c26378ef352073ba2f4987af8a1f6208fb67b28f8a33e1d63c52fc"
+}

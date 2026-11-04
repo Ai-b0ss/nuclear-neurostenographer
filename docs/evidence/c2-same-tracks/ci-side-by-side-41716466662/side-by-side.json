@@ -1,0 +1,75 @@
+{
+ "scope": "Merged manifests of the four APKs; nothing installed",
+ "facts": {
+  "main": {
+   "package": "ru.neurostenographer.app",
+   "label": "Нейро-стенографист",
+   "shared_user_id": null,
+   "uses_permissions": [
+    "android.permission.FOREGROUND_SERVICE",
+    "android.permission.FOREGROUND_SERVICE_MICROPHONE",
+    "android.permission.POST_NOTIFICATIONS",
+    "android.permission.RECORD_AUDIO",
+    "ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+   ],
+   "declared_permissions": [
+    "ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+   ],
+   "authorities": [
+    "ru.neurostenographer.app.androidx-startup"
+   ],
+   "processes": [
+    ":diarization"
+   ],
+   "instrumentation_target": null
+  },
+  "main_test": {
+   "package": "ru.neurostenographer.app.test",
+   "label": null,
+   "shared_user_id": null,
+   "uses_permissions": [
+    "android.permission.REORDER_TASKS"
+   ],
+   "declared_permissions": [],
+   "authorities": [],
+   "processes": [],
+   "instrumentation_target": "ru.neurostenographer.app"
+  },
+  "prototype": {
+   "package": "ru.neurostenographer.app.c2",
+   "label": "Нейро-стенографист C2",
+   "shared_user_id": null,
+   "uses_permissions": [
+    "android.permission.FOREGROUND_SERVICE",
+    "android.permission.FOREGROUND_SERVICE_MICROPHONE",
+    "android.permission.POST_NOTIFICATIONS",
+    "android.permission.RECORD_AUDIO",
+    "ru.neurostenographer.app.c2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+   ],
+   "declared_permissions": [
+    "ru.neurostenographer.app.c2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+   ],
+   "authorities": [
+    "ru.neurostenographer.app.c2.androidx-startup"
+   ],
+   "processes": [
+    ":diarization"
+   ],
+   "instrumentation_target": null
+  },
+  "prototype_test": {
+   "package": "ru.neurostenographer.app.c2.test",
+   "label": null,
+   "shared_user_id": null,
+   "uses_permissions": [
+    "android.permission.REORDER_TASKS"
+   ],
+   "declared_permissions": [],
+   "authorities": [],
+   "processes": [],
+   "instrumentation_target": "ru.neurostenographer.app.c2"
+  }
+ },
+ "problems": [],
+ "status": "PASS"
+}

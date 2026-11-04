@@ -1,0 +1,80 @@
+{
+  "round": 6,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "nonblocking PCM16 capture with single-thread ownership",
+    "failed recording preserves previous input/result",
+    "completion/error observer and ownership/retry on stop timeout",
+    "background permission-start guard",
+    "recorder negative/regression and Android state/capture tests",
+    "source checkpoint privacy guards"
+  ],
+  "verification": {
+    "core_test_groups": 14,
+    "recorder_fake_capture_scenarios": 9,
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "build_duration": "1m50s",
+    "build_tasks": 77,
+    "lint": {
+      "Error": 0,
+      "Warning": 7,
+      "Fatal": 0
+    },
+    "metric_test_methods": 11,
+    "collector_test_methods": 3,
+    "recovery_guard_passed_methods": 3,
+    "recovery_guard_skipped_methods": 1,
+    "skip_reason": "Windows denies test symlink creation",
+    "pinned_download_negative_regression": "PASS",
+    "host_asr": "PASS",
+    "host_diarization_aba": "PASS",
+    "host_dialogue_exports": "PASS",
+    "host_export_negative_regression": "PASS",
+    "host_overlap": "FAIL_NATIVE_FATAL_NO_OUTPUT",
+    "host_suite_exit_code": 1,
+    "apk_static_inspection": "PASS",
+    "apk_current_production_and_test_classes": "PASS",
+    "android_microphone_codec_inference_worker": "NOT_RUN",
+    "physical_arm64_airplane_mode_ui_peak_ram_thermal": "NOT_RUN",
+    "russian_dialogue_wer_der_cpwer": "NOT_SCORED_NO_INDEPENDENT_REFERENCE",
+    "python_compile": "PASS",
+    "git_diff_check": "PASS",
+    "workflow_yaml_parse": "PASS_5_FILES"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "branch_creation": "FAILED_READ_ONLY_GIT",
+    "remote_main_verified_unchanged": true
+  },
+  "blockers": [
+    "Protected read-only .git; prior connected-write automatic approval rejection unresolved",
+    "Known native overlap crash; Android containment unexecuted",
+    "Full AAR GPL/TTS distribution; no-TTS runtime unbuilt",
+    "Android microphone/codecs/inference and physical ARM64 evidence absent",
+    "Independent licensed Russian dialogue annotations absent"
+  ],
+  "build_log_sha256": "14b870846f31a1b1009eb67e53204b164ecdb5e347fd51ce6f83fb235d023c04",
+  "last_remote_ci_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/40987151101",
+  "last_remote_ci_scope": "Old UI baseline only, not rounds 1-6",
+  "recovery": [
+    ".local/round6-source.zip",
+    ".local/round6-recovery.patch",
+    ".local/round6-checkpoint.json"
+  ],
+  "next": [
+    "Permitted GitHub commit/push/cloud CI",
+    "Execute Android recording/codec/inference/worker tests",
+    "Fix native overlap and verify no-TTS runtime",
+    "Physical ARM64 and independently annotated Russian dialogue evaluation"
+  ],
+  "recovery_validation": {
+    "source_files": 131,
+    "source_only_archive": "PASS",
+    "reverse_patch_check": "PASS_CHECK_ONLY_NO_FILES_REVERTED",
+    "prior_checkpoints": "PRESERVED"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "recovery_call": 6,
+  "verdict": "NOT_READY",
+  "validated_code_commit": "6afd8d126c60c2ae1211de2c20de570faf0d525a",
+  "fix": "Export validation remains active with Python optimization",
+  "reproduction_before_fix": "Optimized altered-SRT/recomputed-hash negative failed (accepted corrupt timeline)",
+  "verification": {
+    "archive_test_methods_normal": 3,
+    "archive_test_methods_optimized": 3,
+    "ui_methods_optimized": 6,
+    "retained_host_export_negatives": "PASS",
+    "instrumentation": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "ui_checks_pass": 11,
+    "actual_provider_exports_optimized_audit": "PASS",
+    "earlier_repeat_run": 41058035642,
+    "earlier_repeat_status": "PASS",
+    "core_groups": 16,
+    "ci": {
+      "android": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058719146",
+      "build": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058718972"
+    }
+  },
+  "benchmark_unchanged": {
+    "scope": "THREE_ACTED_COMPOSED_UTTERANCES",
+    "wer": "1/41 = 2.44%",
+    "cpwer": "25/41 = 60.98%",
+    "recurrence": "FAIL_MERGED_VOICES",
+    "der": "NOT_SCORED"
+  },
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "preservation": {
+    "prior_artifacts_and_logs_kept": true,
+    "source_backup_kept": true,
+    "main_unchanged": true
+  },
+  "blockers": [
+    "Russian speaker merging",
+    "Independent DER and representative dialogue accuracy",
+    "Physical ARM64/airplane mode/spoken microphone dialogue and phone performance",
+    "Overlap quality",
+    "Dependency/header/toolchain distribution review; APK publication disabled",
+    "Pinned runtime artifact may expire"
+  ]
+}

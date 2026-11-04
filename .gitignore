@@ -9,8 +9,23 @@ local.properties
 *.mp3
 *.m4a
 *.ogg
+*.opus
+*.flac
+*.aac
+*.amr
 *.onnx
 *.pt
 *.gguf
 .env
 **/secrets.*
+/.local/
+/app/libs/*.aar
+__pycache__/
+hs_err_pid*.log
+replay_pid*.log
+
+# Screenshots/UI dumps of a physical phone can show the owner personal file names.
+/tools/device-evidence/
+
+# UI dumps of the phone (can show personal file names)
+**/.local/

@@ -1,0 +1,152 @@
+{
+ "all": {
+  "A0": {
+   "wer": {
+    "errors": 391,
+    "words": 1812,
+    "rate": 0.2158,
+    "cases": 29
+   },
+   "cpwer": {
+    "errors": 132,
+    "words": 693,
+    "rate": 0.1905,
+    "cases": 13
+   },
+   "cpwer_u": {
+    "errors": 446,
+    "words": 1812,
+    "rate": 0.2461,
+    "cases": 29
+   }
+  },
+  "A3": {
+   "wer": {
+    "errors": 407,
+    "words": 1812,
+    "rate": 0.2246,
+    "cases": 29
+   },
+   "cpwer": {
+    "errors": 148,
+    "words": 693,
+    "rate": 0.2136,
+    "cases": 13
+   },
+   "cpwer_u": {
+    "errors": 476,
+    "words": 1812,
+    "rate": 0.2627,
+    "cases": 29
+   }
+  },
+  "bootstrap_wer_A3_minus_A0": [
+   -0.0103,
+   0.0277
+  ],
+  "bootstrap_cpwer_u_A3_minus_A0": [
+   0.0028,
+   0.0312
+  ]
+ },
+ "holdout": {
+  "A0": {
+   "wer": {
+    "errors": 378,
+    "words": 1647,
+    "rate": 0.2295,
+    "cases": 26
+   },
+   "cpwer": {
+    "errors": 127,
+    "words": 641,
+    "rate": 0.1981,
+    "cases": 12
+   },
+   "cpwer_u": {
+    "errors": 435,
+    "words": 1647,
+    "rate": 0.2641,
+    "cases": 26
+   }
+  },
+  "A3": {
+   "wer": {
+    "errors": 387,
+    "words": 1647,
+    "rate": 0.235,
+    "cases": 26
+   },
+   "cpwer": {
+    "errors": 143,
+    "words": 641,
+    "rate": 0.2231,
+    "cases": 12
+   },
+   "cpwer_u": {
+    "errors": 458,
+    "words": 1647,
+    "rate": 0.2781,
+    "cases": 26
+   }
+  },
+  "bootstrap_wer_A3_minus_A0": [
+   -0.0158,
+   0.0256
+  ],
+  "bootstrap_cpwer_u_A3_minus_A0": [
+   0.0,
+   0.0288
+  ]
+ },
+ "phone3": {
+  "A0": {
+   "wer": {
+    "errors": 13,
+    "words": 165,
+    "rate": 0.0788,
+    "cases": 3
+   },
+   "cpwer": {
+    "errors": 5,
+    "words": 52,
+    "rate": 0.0962,
+    "cases": 1
+   },
+   "cpwer_u": {
+    "errors": 11,
+    "words": 165,
+    "rate": 0.0667,
+    "cases": 3
+   }
+  },
+  "A3": {
+   "wer": {
+    "errors": 20,
+    "words": 165,
+    "rate": 0.1212,
+    "cases": 3
+   },
+   "cpwer": {
+    "errors": 5,
+    "words": 52,
+    "rate": 0.0962,
+    "cases": 1
+   },
+   "cpwer_u": {
+    "errors": 18,
+    "words": 165,
+    "rate": 0.1091,
+    "cases": 3
+   }
+  },
+  "bootstrap_wer_A3_minus_A0": [
+   0.0,
+   0.0921
+  ],
+  "bootstrap_cpwer_u_A3_minus_A0": [
+   0.0,
+   0.0921
+  ]
+ }
+}

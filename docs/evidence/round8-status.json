@@ -1,0 +1,79 @@
+{
+  "round": 8,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "Bound-worker own-process termination on final unbind, guarded by process identity",
+    "One request per service lifetime, serialized callers and unknown-exit retry guard",
+    "Strict diarization IPC validation before ASR/attribution",
+    "Android success/cancel/retry worker-exit tests and stale lifecycle evidence removal",
+    "Cross-platform host probe labels no longer hardcode Windows"
+  ],
+  "verification": {
+    "core_test_groups": 16,
+    "new_reply_corruptions": 20,
+    "archived_client_negative_reproduction": "PASS_4_CORRUPTIONS_AND_VALID_CONTROL",
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "build_result": "BUILD SUCCESSFUL in 1m 34s",
+    "build_tasks": "77 actionable tasks: 15 executed, 62 up-to-date",
+    "lint": {
+      "Error": 0,
+      "Warning": 7,
+      "Fatal": 0
+    },
+    "scorer_methods_pass": 12,
+    "collector_methods_pass": 3,
+    "checkpoint_methods_pass": 3,
+    "checkpoint_methods_skip": 1,
+    "checkpoint_skip_reason": "Windows denies creating test symlink",
+    "codec_fixture_methods_pass": 2,
+    "codec_scope": "Host FFmpeg fixture checks only",
+    "pinned_download_negative_regression": "PASS",
+    "host_asr": "PASS",
+    "host_diarization_aba": "PASS",
+    "real_model_output_reply_validation": "PASS_HOST_CORE_ONLY",
+    "host_dialogue_exports": "PASS",
+    "export_corruption_negative_regression": "PASS",
+    "host_overlap": "FAIL_NATIVE_FATAL_NO_OUTPUT",
+    "host_suite_exit_code": 1,
+    "apk_static_inspection": "PASS",
+    "new_guard_and_reply_in_apk_dex": "PASS_STATIC_ONLY",
+    "new_lifecycle_test_in_instrumentation_dex": "PASS_COMPILE_ONLY",
+    "python_compile": "PASS",
+    "yaml": "PASS_5_FILES",
+    "git_diff_check": "PASS",
+    "android_worker_lifetime_cancellation_and_containment": "NOT_RUN",
+    "android_asr_diarization_codec_microphone": "NOT_RUN",
+    "physical_arm64_airplane_mode_ui_peak_ram_thermal": "NOT_RUN",
+    "independent_russian_dialogue_metrics": "NOT_SCORED_NO_INDEPENDENT_REFERENCE"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "branch_creation": "FAILED_READ_ONLY_GIT",
+    "remote_main_verified_unchanged": true
+  },
+  "blockers": [
+    "Read-only .git, CLI GraphQL 401 and unresolved prior connected-write approval rejection",
+    "Known native overlap crash; Android worker containment/lifetime unexecuted",
+    "Full AAR GPL/TTS distribution; no-TTS candidate unbuilt",
+    "Android execution and physical ARM64/microphone/airplane-mode evidence absent",
+    "Independent licensed Russian dialogue annotations absent"
+  ],
+  "build_log_sha256": "64f02b47e8a68618a479d64a48e40d104636be8cf9129a78b128e670305ceaab",
+  "last_remote_ci_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/40987151101",
+  "last_remote_ci_scope": "Old UI baseline only, not this working tree",
+  "recovery": [
+    ".local/round8-source.zip",
+    ".local/round8-recovery.patch",
+    ".local/round8-checkpoint.json"
+  ],
+  "recovery_validation": {
+    "source_files": 152,
+    "source_only_archive": "PASS",
+    "reverse_patch_check": "PASS_CHECK_ONLY_NO_FILES_REVERTED",
+    "prior_checkpoints": "PRESERVED"
+  }
+}

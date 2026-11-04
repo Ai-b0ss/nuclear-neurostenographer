@@ -1,0 +1,16 @@
+{
+  "upstream-rejected": {
+    "exit_code": 1,
+    "log_sha256": "79c14badbb13e224f9b3e8f0a782449ebf42f773cc20e2fc19fa2ea5899e261e"
+  },
+  "upstream-explicit": {
+    "exit_code": 0,
+    "log_sha256": "a2cec74dd208012c07a1cf0b98fb34e1f998d832316542fa0a47e5bf02a62d87"
+  },
+  "default-restored": {
+    "exit_code": 0,
+    "log_sha256": "a2cec74dd208012c07a1cf0b98fb34e1f998d832316542fa0a47e5bf02a62d87"
+  },
+  "scope": "Local offline Gradle gate on actual pinned AAR bytes, not Android inference",
+  "default_restored_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"
+}

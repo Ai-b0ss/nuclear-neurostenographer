@@ -1,0 +1,64 @@
+{
+  "round": 2,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "real segmentation, speaker embeddings and global clustering",
+    "stable session-local speaker IDs",
+    "pinned offline model installer",
+    "inferred speech windows to Russian ASR and actual exports",
+    "short/unknown interruption protection",
+    "Android private worker and explicit unknown-speaker fallback"
+  ],
+  "verification": {
+    "core_test_groups": 9,
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "android_lint_errors": 0,
+    "android_lint_update_warnings": 7,
+    "apk_static_inspection": "PASS",
+    "host_russian_asr": "PASS",
+    "host_native_aba_repetition": "PASS",
+    "host_silence_short_cancellation": "PASS",
+    "host_russian_diarization_asr_export": "PASS",
+    "native_overlap": "FAIL_ACCESS_VIOLATION",
+    "host_suite_exit_code": 1,
+    "android_inference": "NOT_RUN",
+    "android_worker_crash_containment": "NOT_RUN",
+    "physical_arm64": "NOT_RUN",
+    "independent_russian_dialogue_metrics": "NOT_RUN"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "main_unchanged_verified": true
+  },
+  "blockers": [
+    "Pinned native overlap input crashes JNI 1.12.20; no native fix",
+    "Android inference, worker containment and phone evidence unexecuted",
+    "Local .git read-only; GitHub CLI HTTP 401",
+    "GitHub create_tree rejected before execution: approval policy is never",
+    "Full AAR contains GPL TTS; distribution-cleared no-TTS runtime not built"
+  ],
+  "next": [
+    "Permitted GitHub writes, isolated WIP branch and actual cloud workflows",
+    "Run Android worker-death/restart and known-mixture tests",
+    "Build, pin and test no-TTS runtime with actual native overlap fix",
+    "Independent licensed Russian dialogue and physical ARM64 benchmarks"
+  ],
+  "evidence": [
+    "docs/PROGRESS.md",
+    "docs/DIARIZATION.md",
+    "docs/evidence/round2-host-summary.json",
+    "docs/evidence/round2-host-diarization.json",
+    "docs/evidence/round2-host-dialogue.json",
+    "docs/evidence/round2-apk-inspection.json"
+  ],
+  "build_log_sha256": "d5e22e466927eff5884d161044036f1935e5c09a7aa90dfe69ee078f7e2c8429",
+  "checkpoint": [
+    ".local/round2-source.zip",
+    ".local/round2-recovery.patch",
+    ".local/round2-checkpoint.json"
+  ]
+}

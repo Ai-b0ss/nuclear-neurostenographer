@@ -1,0 +1,896 @@
+{
+ "scope": "Host JVM, ONNX Runtime 1.17.1, Kotlin mel and speaker cache. Not an Android result.",
+ "cases": 87,
+ "identical_turn_files": 6,
+ "max_der_against_python_c2": 0.05813953488372093,
+ "pooled_der_python_c2": 0.07374754512794769,
+ "pooled_der_kotlin": 0.07446731388622257,
+ "infer_rtf": 0.04598612494039289,
+ "rows": [
+  {
+   "case": "rubook-rec_0062",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0012982195845697329,
+   "infer_ms": 2899,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3925,
+   "kotlin_errors": 3995,
+   "reference_ms": 51920
+  },
+  {
+   "case": "rubook-rec_0062-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00017599436818021823,
+   "infer_ms": 2822,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 1390,
+   "kotlin_errors": 1390,
+   "reference_ms": 51920
+  },
+  {
+   "case": "rubook-rec_0062-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00036036036036036037,
+   "infer_ms": 2815,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2260,
+   "kotlin_errors": 2270,
+   "reference_ms": 51920
+  },
+  {
+   "case": "rubook-rec_0076",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0030759268253197345,
+   "infer_ms": 2767,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 5737,
+   "kotlin_errors": 5847,
+   "reference_ms": 57597
+  },
+  {
+   "case": "rubook-rec_0088",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0022484541877459247,
+   "infer_ms": 2727,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 9992,
+   "kotlin_errors": 10052,
+   "reference_ms": 50756
+  },
+  {
+   "case": "rubook-rec_0111",
+   "identical_turns": true,
+   "der_against_python_c2": 0.0,
+   "infer_ms": 2690,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2830,
+   "kotlin_errors": 2830,
+   "reference_ms": 51013
+  },
+  {
+   "case": "rubook-rec_0140",
+   "identical_turns": false,
+   "der_against_python_c2": 0.000198294665873488,
+   "infer_ms": 2719,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 5321,
+   "kotlin_errors": 5331,
+   "reference_ms": 51080
+  },
+  {
+   "case": "rubook-rec_0140-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0010844026748599313,
+   "infer_ms": 2810,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 784,
+   "kotlin_errors": 784,
+   "reference_ms": 51080
+  },
+  {
+   "case": "rubook-rec_0140-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007367839381101492,
+   "infer_ms": 2879,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 781,
+   "kotlin_errors": 794,
+   "reference_ms": 51080
+  },
+  {
+   "case": "rubook-rec_0143",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0008698677800974252,
+   "infer_ms": 2811,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2220,
+   "kotlin_errors": 2210,
+   "reference_ms": 51490
+  },
+  {
+   "case": "rubook-rec_0178",
+   "identical_turns": false,
+   "der_against_python_c2": 0.000507013689369613,
+   "infer_ms": 2794,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 6288,
+   "kotlin_errors": 6288,
+   "reference_ms": 57421
+  },
+  {
+   "case": "rubook-rec_0182",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00018018018018018018,
+   "infer_ms": 2753,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2793,
+   "kotlin_errors": 2783,
+   "reference_ms": 51925
+  },
+  {
+   "case": "rubook-rec_0182-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0023465703971119133,
+   "infer_ms": 2766,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2477,
+   "kotlin_errors": 2417,
+   "reference_ms": 51925
+  },
+  {
+   "case": "rubook-rec_0182-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.005770964833183048,
+   "infer_ms": 2716,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2692,
+   "kotlin_errors": 2722,
+   "reference_ms": 51925
+  },
+  {
+   "case": "rubook-rec_0201",
+   "identical_turns": false,
+   "der_against_python_c2": 0.004065827686350436,
+   "infer_ms": 2710,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3490,
+   "kotlin_errors": 3310,
+   "reference_ms": 49978
+  },
+  {
+   "case": "rubook-rec_0201-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0003748125937031484,
+   "infer_ms": 2801,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2103,
+   "kotlin_errors": 2103,
+   "reference_ms": 49978
+  },
+  {
+   "case": "rubook-rec_0201-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0009359790340696368,
+   "infer_ms": 2808,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2083,
+   "kotlin_errors": 2073,
+   "reference_ms": 49978
+  },
+  {
+   "case": "rubook-rec_0235",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0005332385353714896,
+   "infer_ms": 3011,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3373,
+   "kotlin_errors": 3363,
+   "reference_ms": 51678
+  },
+  {
+   "case": "rubook-rec_0255",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0013908205841446453,
+   "infer_ms": 2920,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 7535,
+   "kotlin_errors": 7545,
+   "reference_ms": 56267
+  },
+  {
+   "case": "rubook-rec_0283",
+   "identical_turns": true,
+   "der_against_python_c2": 0.0,
+   "infer_ms": 2640,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2030,
+   "kotlin_errors": 2030,
+   "reference_ms": 52902
+  },
+  {
+   "case": "rubook-rec_0283-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0480241006556796,
+   "infer_ms": 2800,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3223,
+   "kotlin_errors": 5733,
+   "reference_ms": 52902
+  },
+  {
+   "case": "rubook-rec_0283-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0010893246187363835,
+   "infer_ms": 2790,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 16908,
+   "kotlin_errors": 16908,
+   "reference_ms": 52902
+  },
+  {
+   "case": "rubook-rec_0284",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007894217485691731,
+   "infer_ms": 2827,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 4700,
+   "kotlin_errors": 4720,
+   "reference_ms": 51124
+  },
+  {
+   "case": "rubook-rec_0331",
+   "identical_turns": false,
+   "der_against_python_c2": 0.001343408900083963,
+   "infer_ms": 2671,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 5339,
+   "kotlin_errors": 5309,
+   "reference_ms": 55467
+  },
+  {
+   "case": "rubook-rec_0358",
+   "identical_turns": true,
+   "der_against_python_c2": 0.0,
+   "infer_ms": 2647,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2540,
+   "kotlin_errors": 2540,
+   "reference_ms": 50699
+  },
+  {
+   "case": "rubook-rec_0366",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0012640227524095434,
+   "infer_ms": 2770,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2434,
+   "kotlin_errors": 2454,
+   "reference_ms": 55525
+  },
+  {
+   "case": "rubook-rec_0378",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0009635767970707265,
+   "infer_ms": 2720,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 4622,
+   "kotlin_errors": 4572,
+   "reference_ms": 51135
+  },
+  {
+   "case": "rubook-rec_0392",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0003784295175023652,
+   "infer_ms": 2753,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2080,
+   "kotlin_errors": 2090,
+   "reference_ms": 48853
+  },
+  {
+   "case": "rubook-rec_0392-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007620499142693847,
+   "infer_ms": 2694,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 1706,
+   "kotlin_errors": 1706,
+   "reference_ms": 48853
+  },
+  {
+   "case": "rubook-rec_0392-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.001372279945108802,
+   "infer_ms": 2745,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2513,
+   "kotlin_errors": 2523,
+   "reference_ms": 48853
+  },
+  {
+   "case": "rubook-rec_0407",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0011243173787343398,
+   "infer_ms": 2691,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2180,
+   "kotlin_errors": 2200,
+   "reference_ms": 55282
+  },
+  {
+   "case": "rubook-rec_0409",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0005470459518599562,
+   "infer_ms": 2692,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 0,
+   "kotlin_errors": 0,
+   "reference_ms": 50579
+  },
+  {
+   "case": "rubook-rec_0409-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0014453477868112015,
+   "infer_ms": 2821,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 110,
+   "kotlin_errors": 150,
+   "reference_ms": 50579
+  },
+  {
+   "case": "rubook-rec_0409-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007238508867173362,
+   "infer_ms": 2668,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 15088,
+   "kotlin_errors": 15088,
+   "reference_ms": 50579
+  },
+  {
+   "case": "rubook-rec_0416",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00017784101013693757,
+   "infer_ms": 2661,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3060,
+   "kotlin_errors": 3060,
+   "reference_ms": 51326
+  },
+  {
+   "case": "rubook-rec_0416-white10db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0013740982480247338,
+   "infer_ms": 2746,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 1100,
+   "kotlin_errors": 1040,
+   "reference_ms": 51326
+  },
+  {
+   "case": "rubook-rec_0416-white0db",
+   "identical_turns": false,
+   "der_against_python_c2": 0.004044117647058824,
+   "infer_ms": 2832,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 16079,
+   "kotlin_errors": 16049,
+   "reference_ms": 51326
+  },
+  {
+   "case": "rubook-rec_0429",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00016980811682798438,
+   "infer_ms": 2704,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 1296,
+   "kotlin_errors": 1306,
+   "reference_ms": 53716
+  },
+  {
+   "case": "rubook-rec_0447",
+   "identical_turns": false,
+   "der_against_python_c2": 0.001280175566934894,
+   "infer_ms": 2697,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 2500,
+   "kotlin_errors": 2560,
+   "reference_ms": 49951
+  },
+  {
+   "case": "rubook-rec_0452",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0008400537634408602,
+   "infer_ms": 2769,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 4150,
+   "kotlin_errors": 4170,
+   "reference_ms": 56051
+  },
+  {
+   "case": "rubook-rec_0455",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0038938053097345134,
+   "infer_ms": 2788,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 7082,
+   "kotlin_errors": 6962,
+   "reference_ms": 51612
+  },
+  {
+   "case": "rubook-rec_0460",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0014479638009049773,
+   "infer_ms": 2789,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 1460,
+   "kotlin_errors": 1400,
+   "reference_ms": 49830
+  },
+  {
+   "case": "rubook-rec_0471",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0018601190476190475,
+   "infer_ms": 2694,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 5073,
+   "kotlin_errors": 5093,
+   "reference_ms": 50288
+  },
+  {
+   "case": "rubook-rec_0492",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0014240506329113924,
+   "infer_ms": 2782,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 1483,
+   "kotlin_errors": 1523,
+   "reference_ms": 55190
+  },
+  {
+   "case": "rubook-rec_0500",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00036383481899217757,
+   "infer_ms": 2791,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3469,
+   "kotlin_errors": 3459,
+   "reference_ms": 52694
+  },
+  {
+   "case": "rubook-rec_0508",
+   "identical_turns": false,
+   "der_against_python_c2": 0.003980891719745223,
+   "infer_ms": 2784,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 8050,
+   "kotlin_errors": 8080,
+   "reference_ms": 49541
+  },
+  {
+   "case": "rubook-rec_0521",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007423904974016332,
+   "infer_ms": 2733,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 4480,
+   "kotlin_errors": 4450,
+   "reference_ms": 52783
+  },
+  {
+   "case": "rubook-rec_0544",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007496251874062968,
+   "infer_ms": 2775,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3800,
+   "kotlin_errors": 3820,
+   "reference_ms": 50953
+  },
+  {
+   "case": "rubook-rec_0545",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0022105084169358954,
+   "infer_ms": 2786,
+   "duration_ms": 60000,
+   "group": "rubook",
+   "python_errors": 3012,
+   "kotlin_errors": 3062,
+   "reference_ms": 54254
+  },
+  {
+   "case": "ivkond-0011",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0022766078542970974,
+   "infer_ms": 2591,
+   "duration_ms": 55080
+  },
+  {
+   "case": "ivkond-0041",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0007552870090634441,
+   "infer_ms": 2491,
+   "duration_ms": 55074
+  },
+  {
+   "case": "ivkond-0039",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0037088548910523874,
+   "infer_ms": 1575,
+   "duration_ms": 40674
+  },
+  {
+   "case": "ivkond-0060",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0010422094841063053,
+   "infer_ms": 1458,
+   "duration_ms": 37160
+  },
+  {
+   "case": "ivkond-0014",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00039231071008238524,
+   "infer_ms": 2584,
+   "duration_ms": 55538
+  },
+  {
+   "case": "ivkond-0007",
+   "identical_turns": true,
+   "der_against_python_c2": 0.0,
+   "infer_ms": 1553,
+   "duration_ms": 38960
+  },
+  {
+   "case": "ivkond-0037",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0006151196407701298,
+   "infer_ms": 2556,
+   "duration_ms": 57324
+  },
+  {
+   "case": "ivkond-0066",
+   "identical_turns": false,
+   "der_against_python_c2": 0.001678254615200192,
+   "infer_ms": 1481,
+   "duration_ms": 40560
+  },
+  {
+   "case": "ivkond-0035",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0006151196407701298,
+   "infer_ms": 2637,
+   "duration_ms": 57324
+  },
+  {
+   "case": "ivkond-0055",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0009643201542912247,
+   "infer_ms": 1811,
+   "duration_ms": 47460
+  },
+  {
+   "case": "ivkond-0030",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0004506534474988734,
+   "infer_ms": 1519,
+   "duration_ms": 37780
+  },
+  {
+   "case": "ivkond-0031",
+   "identical_turns": false,
+   "der_against_python_c2": 0.001226241569589209,
+   "infer_ms": 1462,
+   "duration_ms": 35411
+  },
+  {
+   "case": "ivkond-0026",
+   "identical_turns": false,
+   "der_against_python_c2": 0.001288659793814433,
+   "infer_ms": 2701,
+   "duration_ms": 59520
+  },
+  {
+   "case": "ivkond-0025",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0023719165085388993,
+   "infer_ms": 1426,
+   "duration_ms": 33507
+  },
+  {
+   "case": "ivkond-0032",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0021598272138228943,
+   "infer_ms": 1517,
+   "duration_ms": 36441
+  },
+  {
+   "case": "datahive-ru_000001",
+   "identical_turns": false,
+   "der_against_python_c2": 0.05813953488372093,
+   "infer_ms": 5554,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 12274,
+   "kotlin_errors": 12144,
+   "reference_ms": 25020
+  },
+  {
+   "case": "datahive-ru_000002",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00294756438101148,
+   "infer_ms": 5453,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 2038,
+   "kotlin_errors": 2088,
+   "reference_ms": 34812
+  },
+  {
+   "case": "datahive-ru_000003",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0020749040356883492,
+   "infer_ms": 5577,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 616,
+   "kotlin_errors": 706,
+   "reference_ms": 69242
+  },
+  {
+   "case": "datahive-ru_000004",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0042502718197094,
+   "infer_ms": 5484,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 2506,
+   "kotlin_errors": 2516,
+   "reference_ms": 70664
+  },
+  {
+   "case": "datahive-ru_000005",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0032675289312457455,
+   "infer_ms": 5530,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 1950,
+   "kotlin_errors": 1942,
+   "reference_ms": 46208
+  },
+  {
+   "case": "datahive-ru_000006",
+   "identical_turns": false,
+   "der_against_python_c2": 0.005825011887779363,
+   "infer_ms": 5722,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 6824,
+   "kotlin_errors": 6874,
+   "reference_ms": 60010
+  },
+  {
+   "case": "datahive-ru_000007",
+   "identical_turns": false,
+   "der_against_python_c2": 0.002431002431002431,
+   "infer_ms": 5514,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 3282,
+   "kotlin_errors": 3282,
+   "reference_ms": 41352
+  },
+  {
+   "case": "datahive-ru_000008",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0026283240568954853,
+   "infer_ms": 5739,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 3374,
+   "kotlin_errors": 3364,
+   "reference_ms": 48458
+  },
+  {
+   "case": "datahive-ru_000009",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0028235825615541,
+   "infer_ms": 5762,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 3626,
+   "kotlin_errors": 3636,
+   "reference_ms": 62732
+  },
+  {
+   "case": "datahive-ru_000010",
+   "identical_turns": false,
+   "der_against_python_c2": 0.004853695742615449,
+   "infer_ms": 5611,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 3242,
+   "kotlin_errors": 3332,
+   "reference_ms": 56362
+  },
+  {
+   "case": "datahive-ru_000011",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0029135642602784073,
+   "infer_ms": 5764,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 4704,
+   "kotlin_errors": 4634,
+   "reference_ms": 77292
+  },
+  {
+   "case": "datahive-ru_000012",
+   "identical_turns": false,
+   "der_against_python_c2": 0.003675469643343316,
+   "infer_ms": 5725,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 5180,
+   "kotlin_errors": 5220,
+   "reference_ms": 56396
+  },
+  {
+   "case": "datahive-ru_000013",
+   "identical_turns": false,
+   "der_against_python_c2": 0.004194723479412739,
+   "infer_ms": 5349,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 1034,
+   "kotlin_errors": 928,
+   "reference_ms": 58196
+  },
+  {
+   "case": "datahive-ru_000014",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0011242270938729624,
+   "infer_ms": 5817,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 552,
+   "kotlin_errors": 552,
+   "reference_ms": 71472
+  },
+  {
+   "case": "datahive-ru_000015",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0018238929982774344,
+   "infer_ms": 5647,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 1548,
+   "kotlin_errors": 1578,
+   "reference_ms": 64322
+  },
+  {
+   "case": "datahive-ru_000016",
+   "identical_turns": false,
+   "der_against_python_c2": 0.00098405825624877,
+   "infer_ms": 5526,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 610,
+   "kotlin_errors": 610,
+   "reference_ms": 77008
+  },
+  {
+   "case": "datahive-ru_000017",
+   "identical_turns": false,
+   "der_against_python_c2": 0.002687060768912774,
+   "infer_ms": 6232,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 8522,
+   "kotlin_errors": 8582,
+   "reference_ms": 73724
+  },
+  {
+   "case": "datahive-ru_000018",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0024199553239017124,
+   "infer_ms": 5459,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 1826,
+   "kotlin_errors": 1828,
+   "reference_ms": 30280
+  },
+  {
+   "case": "datahive-ru_000019",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0009953078344945257,
+   "infer_ms": 5753,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 5848,
+   "kotlin_errors": 5838,
+   "reference_ms": 55610
+  },
+  {
+   "case": "datahive-ru_000020",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0024752475247524753,
+   "infer_ms": 5659,
+   "duration_ms": 120000,
+   "group": "datahive",
+   "python_errors": 1400,
+   "kotlin_errors": 1420,
+   "reference_ms": 42068
+  },
+  {
+   "case": "nonspeech-silence",
+   "identical_turns": true,
+   "der_against_python_c2": null,
+   "infer_ms": 2665,
+   "duration_ms": 60000
+  },
+  {
+   "case": "nonspeech-whitenoise",
+   "identical_turns": true,
+   "der_against_python_c2": null,
+   "infer_ms": 2788,
+   "duration_ms": 60000
+  },
+  {
+   "case": "acted-dmd",
+   "identical_turns": false,
+   "der_against_python_c2": 0.0012674271229404308,
+   "infer_ms": 448,
+   "duration_ms": 19656
+  }
+ ]
+}

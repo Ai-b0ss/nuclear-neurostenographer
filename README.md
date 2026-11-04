@@ -1,20 +1,58 @@
 # Nuclear Neurostenographer
 
-[![Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml)
+**Project status 2026-11-04:** [repository/PR audit](docs/REPOSITORY_AUDIT_2026-11-04.md) · [ASR model experiment handoff](docs/ASR_MODEL_HANDOFF_2026-11-04.md). The integration PR remains draft; no automatic merge to main.
+
+
+> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [docs/RELEASE_READINESS_2026-11-04.md](docs/RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+
+[![Integration branch Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg?branch=feature%2Flong-recordings)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml?query=branch%3Afeature%2Flong-recordings)
 
 **Nuclear IT Hack (MEPhI, November 2026)**. Offline Android application for transcribing recorded conversations with speaker attribution and timestamps.
 
-Status: **early Android shell**. The fusion core and sample transcript exports are implemented, but no speech recognition or diarization model is connected yet. Do not present demo transcript text as real ASR results.
+**Status 4 Nov 2026 (integration/c2-honor-20261104):** signed release 0.2.0-contest with Nemotron C2 diarization (C0 fallback) was installed and run offline on a physical HONOR 10X Lite (ARM64): 3-speaker synthetic track WER/cpWER 9.62%, 20-minute file completes (wall RTF ~0.57, ~650 MiB PSS). Full gate not passed; prerelease only. Details: [acceptance](docs/ACCEPTANCE_2026-11-04.md), [C2 phone results](docs/C2_PHYSICAL_HONOR_2026-11-04.md). Statements below that say ARM64 was never verified are historical.
+
+Status: **experimental, NOT_READY**. The default clustering threshold is 0.8. On the three-utterance acted Russian development probe, D/M/D recurrence passes with WER and cpWER each 1/41 (2.44%); legacy 0.9 merged the voices (cpWER 60.98%). This probe was used during threshold selection and is not an untouched holdout or corpus accuracy result. A separate four-clip acted holdout from the same dataset, run only at 0.8, gives WER and cpWER 2/92 (2.17%) with M-D-M-D recurrence passing. Android x86_64 recording/import/export flows execute; DER, physical ARM64/spoken microphone acceptance, overlap quality and distribution review remain open. See [scope and evidence](docs/PROGRESS.md).
 
 ### Architecture
+- User WAV imports are validated bounded local snapshots; failed replacement keeps the previous input/result. Export captures one inference document, so a returning document picker cannot export a later input by mistake. UI/TXT/SRT show exact chunk milliseconds; JSON also retains duration, provenance and warnings. Word alignment is not implemented.
 - Android / Kotlin / Jetpack Compose: local WAV recorder, file import and transcript UI.
 - Core: backend-independent alignment of time-stamped words/chunks to speaker turns; uncertainty and overlap flags; JSON/SRT/TXT.
-- Future inference: sherpa-onnx, Russian GigaAM v3, pyannote segmentation and 3D-Speaker embeddings. No remote ASR.
+- Inference: sherpa-onnx 1.12.20 / Russian GigaAM v3 INT8 CTC, CPU. Full-recording segmentation, ERes2Net embeddings and global clustering; worker failure falls back to unknown speakers. No remote ASR.
 
 ### Build
-GitHub Actions builds the debug APK on GitHub-hosted runners. Android SDK is **not** required on the developer PC for cloud builds. Core tests run on JDK 17.
+GitHub Actions builds the debug APK on GitHub-hosted runners. Android SDK is **not** required on the developer PC for cloud builds; a repository-local JDK 17 / Gradle 8.9 / SDK 35 toolchain under `.local` also works (`tools/build_local_apk.py`). Core tests run on JDK 17.
+
+Before Gradle, run `python tools/provision_asr.py` (Python 3.11+, standard library). This selects the Android-tested **no-TTS runtime** pinned in `tools/runtime/runtime.properties`, using a verified local cache or existing GitHub CLI authentication for the exact source-build artifact. An unavailable artifact fails explicitly; it never falls back to the full GPL/TTS AAR. An exact local file can be supplied with `--runtime-file`. Then `gradle :core:runCoreTests :app:assembleDebug` with JDK 17 / Gradle 8.9 / Android SDK 35. Gradle rejects unapproved runtime bytes. No model weights are bundled in the APK.
+
+### Offline model installation and use
+**Fastest path (team kit, needs only Python and adb):** `python tools/build_local_apk.py` builds the debug APK with the repository-local toolchain (or use the owner-triggered `build-apk-kit.yml`), `python tools/offline_kit.py assemble --apk app/build/outputs/apk/debug/app-debug.apk` builds the kit (APK + both model ZIPs + SHA-256 sums), and `python phone_kit.py install` from the kit folder installs everything over USB without using the document picker. Details: [docs/OFFLINE_KIT.md](docs/OFFLINE_KIT.md); the physical-phone acceptance procedure is [docs/PHONE_ACCEPTANCE.md](docs/PHONE_ACCEPTANCE.md) (not yet run). The signed APK is available in a private prerelease; GigaAM/C0 weights are distributed separately. Manual route:
+
+1. On a networked PC run `python tools/provision_asr.py --model`. It creates `.local/gigaam-v3.zip` (~225 MB), using an immutable Hugging Face revision and SHA-256 for every file.
+2. Transfer the ZIP to the phone using USB/local storage. In the app choose **Установить модель ZIP**. Only the pinned model/tokens/MIT license are accepted. Allow at least 500 MB free for import/replacement.
+3. Record audio or import **PCM16 WAV**, mono/stereo, 8–48 kHz, 0.1 s–20 min. Generated MP3/AAC/Vorbis/Opus/FLAC imports pass on Android x86_64/API 33; codec availability varies by device and AMR remains untested. See [codec limits](docs/AUDIO_IMPORT.md). Press **Распознать офлайн**. Airplane mode is supported by design; physical-device verification is pending.
+4. Export TXT/JSON/SRT from actual output. **Intervals are input windows up to 20 seconds, merged into same-speaker replies of up to 60 seconds, not word times**; forced cuts move to the nearest quiet moment but may still cut words. Without the optional diarization bundle, speakers remain `null`. Run `python tools/provision_diarization.py`, transfer `.local/diarization.zip` (~46 MB) and install it with the speaker-model ZIP button to enable experimental inferred turns. With it, timing uses detected speech boundaries and 20-second limits. Voice cluster IDs are session-local; unknown/overlap and failure states are retained. Do not use this as an independent diarization benchmark.
+
+The manual **Real offline Russian ASR (x86_64)** workflow provisions a checksum-verified public upstream WAV and model outside Git, disables emulator Wi-Fi/data and runs genuine JNI inference, repetition/silence/invalid-ZIP tests. Current run status is in PROGRESS.md. No physical ARM64 claim **for this historical workflow**; current signed RC1 has ARM64 results above.
+
+**Private prerelease exists; full distribution/licence review remains open** pending distribution/notices review and device acceptance. The standard build now uses the pinned no-TTS runtime for ARM64/x86_64, verified on the emulator. The full upstream GPL/TTS AAR is an explicit regression option. JSON exports identify the actual runtime hash; CI compares packaged JNI bytes with the selected AAR. See [runtime provenance and instructions](docs/RUNTIME_LICENSES.md). Main-branch APKs still contain only the UI/demo baseline. Integration continues on `feature/long-recordings` (draft PR #9), without merging main.
+
+### Reproducible metrics and performance
+
+Run `python tools/test_score_transcript.py` for checked WER/cpWER/DER arithmetic
+tests. [Scoring format and conventions](docs/BENCHMARKS.md) document reference
+provenance, collars, overlap, unknown speakers and missing ground truth. The public
+Russian WAV has no full independent annotations: its metrics remain **NOT_SCORED**.
+The separate [three-utterance acted Russian probe](docs/RUSSIAN_EVALUATION.md)
+has external scripted references: default 0.8 gives WER/cpWER 2.44% and A-B-A PASS;
+legacy 0.9 gives cpWER 60.98%. DER remains NOT_SCORED. Used during threshold
+selection, this development probe does not establish
+natural-dialogue accuracy or contest readiness.
+Round 4 reduces WAV import allocation with exact PCM parity; host allocation
+evidence is not Android peak RAM or ASR speed. Cloud tests retain public-fixture
+JSON and memory snapshots on failure. Emulator snapshots and timing are not
+physical-phone peak RAM, thermal or power measurements.
 
 ### Security
-No INTERNET permission. Do not upload user audio, weights, secrets or private meeting recordings to this public repository.
+No INTERNET permission. The local-audio cleanup button deletes app recordings and cached inputs; exported documents need separate deletion. This is ordinary deletion, not forensic erasure. A document provider may independently use cloud storage. See [privacy and codec limits](docs/AUDIO_IMPORT.md). Do not upload user audio, weights, secrets or private meeting recordings to this public repository.
 
 See [issues](https://github.com/Ai-b0ss/nuclear-neurostenographer/issues) for integration work.

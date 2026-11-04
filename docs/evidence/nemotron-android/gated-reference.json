@@ -1,0 +1,705 @@
+{
+ "scope": "Automatic reference repair; no human listening. Collar 250 ms, overlap scored.",
+ "gate": {
+  "absolute_dbfs": -60.0,
+  "above_channel_floor_db": 15.0,
+  "min_turn_ms": 250,
+  "merge_gap_ms": 200
+ },
+ "pooled_der": {
+  "C0": {
+   "vad": 0.2882,
+   "gated": 0.2833
+  },
+  "C1": {
+   "vad": 0.0638,
+   "gated": 0.0593
+  },
+  "C2": {
+   "vad": 0.0633,
+   "gated": 0.0587
+  }
+ },
+ "recordings": [
+  {
+   "case": "datahive-ru_000001",
+   "vad_label_ms": 59214,
+   "gated_label_ms": 49920,
+   "removed_share": 0.157,
+   "gated_reference_sha256": "ee0ca5d2376254995d18ba47b40c4d85ec7929beea6d3bbe5685b86cc3e6417f",
+   "C0": {
+    "der_vad": 0.7312,
+    "der_gated": 0.7172,
+    "gated_components_ms": {
+     "miss_ms": 1096,
+     "false_alarm_ms": 1913,
+     "confusion_ms": 12396
+    }
+   },
+   "C1": {
+    "der_vad": 0.487,
+    "der_gated": 0.4432,
+    "gated_components_ms": {
+     "miss_ms": 2640,
+     "false_alarm_ms": 1910,
+     "confusion_ms": 4970
+    }
+   },
+   "C2": {
+    "der_vad": 0.4906,
+    "der_gated": 0.4474,
+    "gated_components_ms": {
+     "miss_ms": 2370,
+     "false_alarm_ms": 2060,
+     "confusion_ms": 5180
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000002",
+   "vad_label_ms": 67624,
+   "gated_label_ms": 67260,
+   "removed_share": 0.005,
+   "gated_reference_sha256": "60f7badb25cfb80e0af78ec2a8c983c3c854f74efcba6033fa744a3de382980d",
+   "C0": {
+    "der_vad": 0.4849,
+    "der_gated": 0.4853,
+    "gated_components_ms": {
+     "miss_ms": 1706,
+     "false_alarm_ms": 372,
+     "confusion_ms": 14714
+    }
+   },
+   "C1": {
+    "der_vad": 0.0597,
+    "der_gated": 0.0592,
+    "gated_components_ms": {
+     "miss_ms": 1580,
+     "false_alarm_ms": 470,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0585,
+    "der_gated": 0.0581,
+    "gated_components_ms": {
+     "miss_ms": 1570,
+     "false_alarm_ms": 440,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000003",
+   "vad_label_ms": 99174,
+   "gated_label_ms": 97880,
+   "removed_share": 0.013,
+   "gated_reference_sha256": "bf35ed94edf32a6c355a43fe00ca8b33a5781779f5f4054d289e68d1ee7a89e9",
+   "C0": {
+    "der_vad": 0.2406,
+    "der_gated": 0.2403,
+    "gated_components_ms": {
+     "miss_ms": 490,
+     "false_alarm_ms": 310,
+     "confusion_ms": 15651
+    }
+   },
+   "C1": {
+    "der_vad": 0.0129,
+    "der_gated": 0.0131,
+    "gated_components_ms": {
+     "miss_ms": 580,
+     "false_alarm_ms": 320,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0089,
+    "der_gated": 0.0091,
+    "gated_components_ms": {
+     "miss_ms": 580,
+     "false_alarm_ms": 40,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000004",
+   "vad_label_ms": 109886,
+   "gated_label_ms": 107660,
+   "removed_share": 0.02,
+   "gated_reference_sha256": "84a46b331f28841654e37d8fba78f2ebcc9d55776a9afd24170afc4f97cc7f21",
+   "C0": {
+    "der_vad": 0.1603,
+    "der_gated": 0.1579,
+    "gated_components_ms": {
+     "miss_ms": 640,
+     "false_alarm_ms": 60,
+     "confusion_ms": 10280
+    }
+   },
+   "C1": {
+    "der_vad": 0.0372,
+    "der_gated": 0.0341,
+    "gated_components_ms": {
+     "miss_ms": 2050,
+     "false_alarm_ms": 320,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0355,
+    "der_gated": 0.0324,
+    "gated_components_ms": {
+     "miss_ms": 2040,
+     "false_alarm_ms": 210,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000005",
+   "vad_label_ms": 84008,
+   "gated_label_ms": 83420,
+   "removed_share": 0.007,
+   "gated_reference_sha256": "606dbad0c74be9f894ae2f017908af17389e615116583a41147fed7e1588cb7e",
+   "C0": {
+    "der_vad": 0.1797,
+    "der_gated": 0.1828,
+    "gated_components_ms": {
+     "miss_ms": 1669,
+     "false_alarm_ms": 581,
+     "confusion_ms": 6223
+    }
+   },
+   "C1": {
+    "der_vad": 0.0423,
+    "der_gated": 0.0481,
+    "gated_components_ms": {
+     "miss_ms": 2170,
+     "false_alarm_ms": 60,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0422,
+    "der_gated": 0.0479,
+    "gated_components_ms": {
+     "miss_ms": 2190,
+     "false_alarm_ms": 30,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000006",
+   "vad_label_ms": 101258,
+   "gated_label_ms": 100160,
+   "removed_share": 0.011,
+   "gated_reference_sha256": "bd67472ae944962c6a535e14173da688929792d27c2b8df69edddd53b4e194ff",
+   "C0": {
+    "der_vad": 0.4828,
+    "der_gated": 0.4857,
+    "gated_components_ms": {
+     "miss_ms": 6021,
+     "false_alarm_ms": 259,
+     "confusion_ms": 22762
+    }
+   },
+   "C1": {
+    "der_vad": 0.1141,
+    "der_gated": 0.1229,
+    "gated_components_ms": {
+     "miss_ms": 6880,
+     "false_alarm_ms": 470,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.1137,
+    "der_gated": 0.1226,
+    "gated_components_ms": {
+     "miss_ms": 6860,
+     "false_alarm_ms": 470,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000007",
+   "vad_label_ms": 75472,
+   "gated_label_ms": 74600,
+   "removed_share": 0.012,
+   "gated_reference_sha256": "81f6d900509a1d8b14f41588a35777028979a5fb2c7575317615f13b894da815",
+   "C0": {
+    "der_vad": 0.3029,
+    "der_gated": 0.3023,
+    "gated_components_ms": {
+     "miss_ms": 717,
+     "false_alarm_ms": 1737,
+     "confusion_ms": 9833
+    }
+   },
+   "C1": {
+    "der_vad": 0.0796,
+    "der_gated": 0.0807,
+    "gated_components_ms": {
+     "miss_ms": 1280,
+     "false_alarm_ms": 1380,
+     "confusion_ms": 620
+    }
+   },
+   "C2": {
+    "der_vad": 0.0794,
+    "der_gated": 0.0805,
+    "gated_components_ms": {
+     "miss_ms": 1270,
+     "false_alarm_ms": 1380,
+     "confusion_ms": 620
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000008",
+   "vad_label_ms": 71934,
+   "gated_label_ms": 71740,
+   "removed_share": 0.003,
+   "gated_reference_sha256": "8620df649b499d0e0ace9a304c774e91f156436de6b901622a2de89ee2370402",
+   "C0": {
+    "der_vad": 0.357,
+    "der_gated": 0.3589,
+    "gated_components_ms": {
+     "miss_ms": 1678,
+     "false_alarm_ms": 1569,
+     "confusion_ms": 14095
+    }
+   },
+   "C1": {
+    "der_vad": 0.0669,
+    "der_gated": 0.0664,
+    "gated_components_ms": {
+     "miss_ms": 2610,
+     "false_alarm_ms": 600,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0696,
+    "der_gated": 0.0691,
+    "gated_components_ms": {
+     "miss_ms": 2750,
+     "false_alarm_ms": 590,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000009",
+   "vad_label_ms": 94312,
+   "gated_label_ms": 93580,
+   "removed_share": 0.008,
+   "gated_reference_sha256": "74e20f07c9129ffe45cfb484dbb2e2f40f2e694b6bd6d4ec37f7be89ebd9eaab",
+   "C0": {
+    "der_vad": 0.4021,
+    "der_gated": 0.3945,
+    "gated_components_ms": {
+     "miss_ms": 1773,
+     "false_alarm_ms": 1223,
+     "confusion_ms": 21968
+    }
+   },
+   "C1": {
+    "der_vad": 0.0578,
+    "der_gated": 0.0632,
+    "gated_components_ms": {
+     "miss_ms": 3240,
+     "false_alarm_ms": 760,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0578,
+    "der_gated": 0.0624,
+    "gated_components_ms": {
+     "miss_ms": 3200,
+     "false_alarm_ms": 750,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000010",
+   "vad_label_ms": 83110,
+   "gated_label_ms": 83080,
+   "removed_share": 0.0,
+   "gated_reference_sha256": "977ee5ceb342e31d8745ddd45c2e0809908d5aa9e867f55d89c9c44c9ebcb881",
+   "C0": {
+    "der_vad": 0.214,
+    "der_gated": 0.2141,
+    "gated_components_ms": {
+     "miss_ms": 1224,
+     "false_alarm_ms": 767,
+     "confusion_ms": 10095
+    }
+   },
+   "C1": {
+    "der_vad": 0.057,
+    "der_gated": 0.0576,
+    "gated_components_ms": {
+     "miss_ms": 2690,
+     "false_alarm_ms": 560,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0575,
+    "der_gated": 0.0581,
+    "gated_components_ms": {
+     "miss_ms": 2760,
+     "false_alarm_ms": 520,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000011",
+   "vad_label_ms": 103020,
+   "gated_label_ms": 102340,
+   "removed_share": 0.007,
+   "gated_reference_sha256": "84b4c699043bae55b2b56834de9c11d33b33d488d164f4f9e43f594fa2f601f5",
+   "C0": {
+    "der_vad": 0.292,
+    "der_gated": 0.2893,
+    "gated_components_ms": {
+     "miss_ms": 910,
+     "false_alarm_ms": 116,
+     "confusion_ms": 21198
+    }
+   },
+   "C1": {
+    "der_vad": 0.061,
+    "der_gated": 0.0616,
+    "gated_components_ms": {
+     "miss_ms": 4450,
+     "false_alarm_ms": 280,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0609,
+    "der_gated": 0.0614,
+    "gated_components_ms": {
+     "miss_ms": 4450,
+     "false_alarm_ms": 270,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000012",
+   "vad_label_ms": 83120,
+   "gated_label_ms": 82800,
+   "removed_share": 0.004,
+   "gated_reference_sha256": "ee786988b93e341e8998a0e27c9d056f26bc9765629c089dc00eef56c24c22ee",
+   "C0": {
+    "der_vad": 0.3734,
+    "der_gated": 0.3727,
+    "gated_components_ms": {
+     "miss_ms": 3599,
+     "false_alarm_ms": 878,
+     "confusion_ms": 16448
+    }
+   },
+   "C1": {
+    "der_vad": 0.095,
+    "der_gated": 0.0941,
+    "gated_components_ms": {
+     "miss_ms": 4350,
+     "false_alarm_ms": 930,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0919,
+    "der_gated": 0.0908,
+    "gated_components_ms": {
+     "miss_ms": 4160,
+     "false_alarm_ms": 940,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000013",
+   "vad_label_ms": 94812,
+   "gated_label_ms": 92960,
+   "removed_share": 0.02,
+   "gated_reference_sha256": "b0589402e2983cc6be1c28fbe33f623560330baaf150c89922eee04023e844ce",
+   "C0": {
+    "der_vad": 0.0113,
+    "der_gated": 0.0117,
+    "gated_components_ms": {
+     "miss_ms": 0,
+     "false_alarm_ms": 100,
+     "confusion_ms": 560
+    }
+   },
+   "C1": {
+    "der_vad": 0.0147,
+    "der_gated": 0.0087,
+    "gated_components_ms": {
+     "miss_ms": 490,
+     "false_alarm_ms": 0,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0178,
+    "der_gated": 0.011,
+    "gated_components_ms": {
+     "miss_ms": 620,
+     "false_alarm_ms": 0,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000014",
+   "vad_label_ms": 87000,
+   "gated_label_ms": 86780,
+   "removed_share": 0.003,
+   "gated_reference_sha256": "463a1abd48bdb8d474cb993d8b7c4720547a1128444c2d308dc56b2730d2d2be",
+   "C0": {
+    "der_vad": 0.0082,
+    "der_gated": 0.0078,
+    "gated_components_ms": {
+     "miss_ms": 30,
+     "false_alarm_ms": 0,
+     "confusion_ms": 523
+    }
+   },
+   "C1": {
+    "der_vad": 0.0077,
+    "der_gated": 0.0074,
+    "gated_components_ms": {
+     "miss_ms": 0,
+     "false_alarm_ms": 530,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0077,
+    "der_gated": 0.0074,
+    "gated_components_ms": {
+     "miss_ms": 0,
+     "false_alarm_ms": 530,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000015",
+   "vad_label_ms": 104022,
+   "gated_label_ms": 102980,
+   "removed_share": 0.01,
+   "gated_reference_sha256": "f5fa75f6570ea74f9fc5b372bd5a7b544028e3777dcff942473548374760e7ce",
+   "C0": {
+    "der_vad": 0.2251,
+    "der_gated": 0.2227,
+    "gated_components_ms": {
+     "miss_ms": 537,
+     "false_alarm_ms": 56,
+     "confusion_ms": 13720
+    }
+   },
+   "C1": {
+    "der_vad": 0.0242,
+    "der_gated": 0.0288,
+    "gated_components_ms": {
+     "miss_ms": 1140,
+     "false_alarm_ms": 710,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0241,
+    "der_gated": 0.0286,
+    "gated_components_ms": {
+     "miss_ms": 1130,
+     "false_alarm_ms": 710,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000016",
+   "vad_label_ms": 105804,
+   "gated_label_ms": 104760,
+   "removed_share": 0.01,
+   "gated_reference_sha256": "da787a818ac9a6a60641981088f921a45c895e8ffc25e64d1a598d95d0b77461",
+   "C0": {
+    "der_vad": 0.3555,
+    "der_gated": 0.3549,
+    "gated_components_ms": {
+     "miss_ms": 782,
+     "false_alarm_ms": 119,
+     "confusion_ms": 26252
+    }
+   },
+   "C1": {
+    "der_vad": 0.0079,
+    "der_gated": 0.008,
+    "gated_components_ms": {
+     "miss_ms": 610,
+     "false_alarm_ms": 0,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0079,
+    "der_gated": 0.008,
+    "gated_components_ms": {
+     "miss_ms": 610,
+     "false_alarm_ms": 0,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000017",
+   "vad_label_ms": 112592,
+   "gated_label_ms": 111420,
+   "removed_share": 0.01,
+   "gated_reference_sha256": "18ae614d7c0c9e35f08dabe0adf70180f4e7afdf157dc79dbc7dbc1539d7fb24",
+   "C0": {
+    "der_vad": 0.3508,
+    "der_gated": 0.3588,
+    "gated_components_ms": {
+     "miss_ms": 7375,
+     "false_alarm_ms": 0,
+     "confusion_ms": 18976
+    }
+   },
+   "C1": {
+    "der_vad": 0.118,
+    "der_gated": 0.1185,
+    "gated_components_ms": {
+     "miss_ms": 8620,
+     "false_alarm_ms": 80,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.1156,
+    "der_gated": 0.1159,
+    "gated_components_ms": {
+     "miss_ms": 8480,
+     "false_alarm_ms": 30,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000018",
+   "vad_label_ms": 59120,
+   "gated_label_ms": 58480,
+   "removed_share": 0.011,
+   "gated_reference_sha256": "68375544d53fff2c2f6354d43912aac3a1f037e7b4a5e442dcee6f26811c743a",
+   "C0": {
+    "der_vad": 0.4492,
+    "der_gated": 0.4453,
+    "gated_components_ms": {
+     "miss_ms": 1808,
+     "false_alarm_ms": 253,
+     "confusion_ms": 11235
+    }
+   },
+   "C1": {
+    "der_vad": 0.0607,
+    "der_gated": 0.0576,
+    "gated_components_ms": {
+     "miss_ms": 1450,
+     "false_alarm_ms": 270,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0603,
+    "der_gated": 0.0569,
+    "gated_components_ms": {
+     "miss_ms": 1430,
+     "false_alarm_ms": 270,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000019",
+   "vad_label_ms": 79674,
+   "gated_label_ms": 74000,
+   "removed_share": 0.071,
+   "gated_reference_sha256": "8c3cac2dc7f17dc9f1d4880b413b57720604fc3cf83de84710023ffdaed41c88",
+   "C0": {
+    "der_vad": 0.4317,
+    "der_gated": 0.3714,
+    "gated_components_ms": {
+     "miss_ms": 1009,
+     "false_alarm_ms": 422,
+     "confusion_ms": 17724
+    }
+   },
+   "C1": {
+    "der_vad": 0.1055,
+    "der_gated": 0.0417,
+    "gated_components_ms": {
+     "miss_ms": 1710,
+     "false_alarm_ms": 440,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.1052,
+    "der_gated": 0.0413,
+    "gated_components_ms": {
+     "miss_ms": 1690,
+     "false_alarm_ms": 440,
+     "confusion_ms": 0
+    }
+   }
+  },
+  {
+   "case": "datahive-ru_000020",
+   "vad_label_ms": 64940,
+   "gated_label_ms": 64240,
+   "removed_share": 0.011,
+   "gated_reference_sha256": "f4dcacc89f2e2fe0fb4bdb8fcb3405ed1d3fc01680815e694d007bab74a61337",
+   "C0": {
+    "der_vad": 0.1287,
+    "der_gated": 0.1257,
+    "gated_components_ms": {
+     "miss_ms": 780,
+     "false_alarm_ms": 873,
+     "confusion_ms": 3692
+    }
+   },
+   "C1": {
+    "der_vad": 0.0373,
+    "der_gated": 0.0355,
+    "gated_components_ms": {
+     "miss_ms": 810,
+     "false_alarm_ms": 700,
+     "confusion_ms": 0
+    }
+   },
+   "C2": {
+    "der_vad": 0.0333,
+    "der_gated": 0.0313,
+    "gated_components_ms": {
+     "miss_ms": 800,
+     "false_alarm_ms": 530,
+     "confusion_ms": 0
+    }
+   }
+  }
+ ]
+}

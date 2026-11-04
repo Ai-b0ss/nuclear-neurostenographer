@@ -1,0 +1,66 @@
+{
+  "app/src/androidTest/java/ru/neurostenographer/app/OfflineDiarizationTest.kt": {
+    "round7": "fc2549814974eb874353df946bde7a7d2f918aa96076824aec325cecef971b0a",
+    "round8": "bfbfa74a1d32b61e389b9e6887b98414902abf7924d368d9a077e28188102bca"
+  },
+  "app/src/main/java/ru/neurostenographer/app/DiarizationService.kt": {
+    "round7": "60f96e6cb5e6160d1c52fbde2ea82852a90e477523123026f91817beb2b44879",
+    "round8": "6235e9562f4cf0b21a175cc7b5dae64941616b9092ad9cb0c25014620df4eecd"
+  },
+  "app/src/main/java/ru/neurostenographer/app/IsolatedDiarization.kt": {
+    "round7": "db18b107a7d13d2b3acd84f3dbb63f467d40f072ea01cc13aa1592a104dd9da9",
+    "round8": "cadf64718939fdfba3e60bc14de0a964b4309e9e5f8c589ff7f22a0c95956e83"
+  },
+  "app/src/main/java/ru/neurostenographer/app/TranscriptionViewModel.kt": {
+    "round7": "ff0c82848fcf348336270bf14999e3d79dd2289a1389c896bfa6bbefe402087a",
+    "round8": "0de0f279034c2ffa13007aafb6b71e86cffbfff3c4ffe5758421ac14b50f731f"
+  },
+  "core/src/main/kotlin/ru/neurostenographer/core/DiarizationReply.kt": {
+    "round7": null,
+    "round8": "19fdbd0a6825c37af6d6b0bc0117385931030a4098505c13991f5a4102746085"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/DiarizationReplyTest.kt": {
+    "round7": null,
+    "round8": "bfec1df17f2a4b7abf224743263b6fe6114690a6b0ff44dda24894dca23ad52b"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/TranscriptCoreTest.kt": {
+    "round7": "08ed3b2cadc4563e31ebee3f326f5b5f51104c3b603cc8005ee108e83d3e5840",
+    "round8": "5b6de36266c7afef35ef51f9ce4d9dd46ac5dad3b51fd524fc6e8958a86d8917"
+  },
+  "docs/ARCHITECTURE.md": {
+    "round7": "c5b9a51c0c07d8e248dc84c0ee2ba9f77e9be70a503e931ddd5b6bae7a020fbf",
+    "round8": "e9327d9ed946980cfef625cb2d393451387c319f53ba4120f4ee361c10cf8069"
+  },
+  "docs/DIARIZATION.md": {
+    "round7": "65c7363e94e42e0d64964e51864a35bb2fb7ea694e0fc5cef25a674c48b53bf8",
+    "round8": "fb70a7292d7e2a0ec83fff56cb6e0b3ad09d6d6b305aa54b6e659e4a9bc1265a"
+  },
+  "docs/PROGRESS.md": {
+    "round7": "b5f05390e1938d213eccaaad759606578e20612a0104cbaf0223fe2272e2627b",
+    "round8": "a4613accb7bf6a3a16673b0f103f1857e2d1870d3a692cc774e6e364a8c0abbc"
+  },
+  "docs/TEST_PLAN.md": {
+    "round7": "9d68bceb2d5dfa4c92ec4cdcdc0367854e212389e30a171188c358dbd4828ddc",
+    "round8": "61e1b4e02aa8af73ca52f0a8cd771d8d656010f76e83d7926956a670c974d2a0"
+  },
+  "tools/DiarizationJvmSmoke.kt": {
+    "round7": "2cb0f948bb952ce335363f566424c4fb13152325c4615e22aff5a1d22e2e745b",
+    "round8": "1af3d2b8f5b49de5eb3aaeaed503d79ad0c07b188d638c0110d6bbc83298f209"
+  },
+  "tools/OfflineAsrJvmSmoke.kt": {
+    "round7": "f44177ba1bd13ca480b1bb45977d0301b5384b78699d58d93e1a2184fd5f2e58",
+    "round8": "793ba3aa004bd06cb1ba9478ee42bf3ce1bcbaba021fd784fd3677607c176b04"
+  },
+  "tools/OfflineDialogueJvmSmoke.kt": {
+    "round7": "158226f02f67114c0c2f15537ef4922c607df88d50eb959d481a1c49f7b5e500",
+    "round8": "4f4d36fb158ff2855a812e2998d00d576ae5fe762027c573971cc6bb964e3f78"
+  },
+  "tools/run_android_inference.sh": {
+    "round7": "b806972a38656a4252f096787fa57e0a1197b8fd0b790af375fb56e147d014b8",
+    "round8": "e0e1387b1e8d56853979f2b399ecea9a4bc62cff8cd0e0d80d6f2e73aeb59f2f"
+  },
+  "tools/test_android_workflow.py": {
+    "round7": "6a1b96654faccc4f908f33d1dc5150782424840268e5e0a323024eae6b9cacdd",
+    "round8": "1bc1d8cd85c831ae7b10e4536d321985227c02dfca0bc3410e9b3806ce6d194e"
+  }
+}

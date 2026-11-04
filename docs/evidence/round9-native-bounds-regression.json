@@ -1,0 +1,7 @@
+{
+  "original_checked_stl": "FAIL_EXPECTED_OUT_OF_RANGE_ITERATOR",
+  "log_sha256": "00c3ec4f988ac3a7e373c0cdee68aca5368bb71be53ae68ef40668c81cc1441a",
+  "patched_helper_checked_stl_asan_ubsan": "PASS_IN_NATIVE_CI_JOB",
+  "scope": "Original numeric C++ reproduction and patched helpers, not accuracy or a symbolicated Windows diagnosis",
+  "run_id": 41039830327
+}

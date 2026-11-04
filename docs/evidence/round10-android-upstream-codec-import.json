@@ -1,0 +1,45 @@
+{
+  "kind": "GENERATED_NUMERIC_TONES_NOT_SPEECH",
+  "sdk": 33,
+  "abis": [
+    "x86_64"
+  ],
+  "generator": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers",
+  "results": [
+    {
+      "fixture": "tone.m4a",
+      "sha256": "34143febe1a4e125f1c4b6556698312b23e395de321b57c1ae4b647e9d65217e",
+      "duration_ms": 1253,
+      "rms": 0.12190059294172087,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone.mp3",
+      "sha256": "dea3663a7adfeb15669751ddc64972b53d84b7f44cb421a5758a20245ede866c",
+      "duration_ms": 1250,
+      "rms": 0.11588020878383752,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone-vorbis.ogg",
+      "sha256": "80d8b378cd1d725657b2c9f0ac24908a1ed53c0df7b822893287af7205a2458d",
+      "duration_ms": 1250,
+      "rms": 0.12259377031943927,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone-opus.ogg",
+      "sha256": "51051e2e45fc8d2b39dfba843bfb0ed71c804c26267eb9c143acdfb0ad2310c1",
+      "duration_ms": 1253,
+      "rms": 0.12190827980319054,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone.flac",
+      "sha256": "b1d4d0df8c845ef05d57412fb52c492d4f06751f9503a2e08c1ae63a12745803",
+      "duration_ms": 1250,
+      "rms": 0.12197055899935846,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "GENERATED_NUMERIC_TONES_NOT_SPEECH",
+  "ffmpeg": "ffmpeg version 7.1-essentials_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+  "rate": 44100,
+  "channels": 2,
+  "source_duration_ms": 1250,
+  "source_pcm_sha256": "0e6b5a1db0ba8fb241cdb5430ceffab803d67d0a2de6ba464521eb241b4d0079",
+  "files": {
+    "tone.m4a": {
+      "sha256": "0cf777410cf6ca9f6268221ce757bc818d1dc2951c1843b055b144e94e5a1ec3",
+      "bytes": 16257
+    },
+    "tone.mp3": {
+      "sha256": "b48051fe7d0b1689baff4606789bd79552a7e695fa75c97b862aef42f6d1728a",
+      "bytes": 15717
+    },
+    "tone-vorbis.ogg": {
+      "sha256": "ed2527107a7bf331c085175f5266d63743f16e3eee8b8e2f65fd3ab1929f5768",
+      "bytes": 8859
+    },
+    "tone-opus.ogg": {
+      "sha256": "a33fbaa0b324f97f298b0214813b7fd5ce94c8cc07dde080152ca6cb9d101fa6",
+      "bytes": 21563
+    },
+    "tone.flac": {
+      "sha256": "7e1d79f00ab0c53fd5891a78ed29def3e94b53f904113409956de23533d56b63",
+      "bytes": 43849
+    }
+  },
+  "reject_files": {
+    "two-tracks.m4a": {
+      "sha256": "2cb95548468511c1769b83c76fa13318b541d6349ee7ce560952388015fc1548",
+      "bytes": 42435
+    },
+    "too-long.m4a": {
+      "sha256": "25f911241adb453ea057bbc773d470218d6ed8632742c713269016d50eb90d10",
+      "bytes": 510701
+    }
+  },
+  "android_execution": "NOT_RUN",
+  "host_fixture_validation": "PASS_FFMPEG_ONLY"
+}

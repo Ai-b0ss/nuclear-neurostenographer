@@ -1,0 +1,9 @@
+c580884972a883ae5b5f7e0c2b78454f9331b422428e63fc79bdb463b51c1a42  contest-test.apk
+796e98f3e1261bad5357175d3c56b441f735b3b1d453675c08dda916159d8427  contest.apk
+19053db4acedbad83c1388109b52b5214b14a85695bf9c0f1d63ce0d6ac45539  prototype-test.apk
+eb609c4994cb91c8efd96bf7feb2be4b512bf659cf961337ed8df2699699d12d  prototype.apk
+total 101980
+-rw-r--r-- 1 runner runner   416099 Nov  3 20:54 contest-test.apk
+-rw-r--r-- 1 runner runner 50989367 Nov  3 20:54 contest.apk
+-rw-r--r-- 1 runner runner   427815 Nov  3 20:55 prototype-test.apk
+-rw-r--r-- 1 runner runner 52582286 Nov  3 20:55 prototype.apk

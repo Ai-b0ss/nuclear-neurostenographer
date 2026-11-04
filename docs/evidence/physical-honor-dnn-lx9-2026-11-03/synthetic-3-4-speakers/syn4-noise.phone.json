@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 57324,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.8", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 31, "end_ms": 3440, "speaker_id": "Speaker 1", "text": "можешь ли ты прекратить разговаривать пожалуйста", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 6359, "end_ms": 12029, "speaker_id": "Speaker 2", "text": "запусти анал сто три точка четыре", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 13615, "end_ms": 15185, "speaker_id": "Speaker 3", "text": "выключи мою розетку", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 17311, "end_ms": 20146, "speaker_id": "Speaker 4", "text": "какой был первый фильм александра домогорова", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 23285, "end_ms": 28128, "speaker_id": "Speaker 5", "text": "олли сегодня вечером в девять в джаз клубе играет хорошая группа я хочу пойти", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30997, "end_ms": 33038, "speaker_id": "Speaker 2", "text": "открой игру тетрис сыграем вместе", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 34743, "end_ms": 38303, "speaker_id": "Speaker 1", "text": "пожалуйста прочитай мою новостную ленту фейсбука", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 39417, "end_ms": 41915, "speaker_id": "Speaker 5", "text": "удали из моего календаря встречу в девять утра", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 44328, "end_ms": 46218, "speaker_id": "Speaker 3", "text": "что происходит в мире в эти дни", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 49036, "end_ms": 51044, "speaker_id": "Speaker 3", "text": "дай определение слову спикер", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 54031, "end_ms": 54655, "speaker_id": "Speaker 3", "text": "ани урок", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 54655, "end_ms": 55651, "speaker_id": "Speaker 5", "text": "по кулинарии", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

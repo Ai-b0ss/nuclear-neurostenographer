@@ -1,0 +1,59 @@
+{
+  "recovery_call": 9,
+  "verdict": "NOT_READY",
+  "validated_code_commit": "f9af8adf0f08e7dd6104742424dc04663b10aa6c",
+  "fixes": [
+    "Collect explicit nested ASIO notices with original relative paths",
+    "Persist exact UTF-8 notice bytes so file SHA matches JSON on Windows"
+  ],
+  "verification": {
+    "windows_methods_pass": 2,
+    "actual_pinned_archive_inspection": "PASS_SHA256_AND_TWO_NOTICE_MEMBERS",
+    "notice_git_blob_hashes": "MATCH",
+    "source_only_files_checked": 274,
+    "build_ci": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172426"
+  },
+  "native_and_android_at_snapshot": {
+    "native": {
+      "conclusion": "",
+      "databaseId": 41061172511,
+      "headSha": "f9af8adf0f08e7dd6104742424dc04663b10aa6c",
+      "status": "in_progress",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172511"
+    },
+    "android_repeat": {
+      "conclusion": "",
+      "databaseId": 41061172278,
+      "headSha": "f9af8adf0f08e7dd6104742424dc04663b10aa6c",
+      "status": "in_progress",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172278"
+    }
+  },
+  "runtime": {
+    "default_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "new_candidate_promoted": false,
+    "distribution_cleared": false
+  },
+  "last_completed_android": {
+    "run": 41058719146,
+    "instrumentation_pass": 17,
+    "ui_checks_pass": 11,
+    "skips": 0
+  },
+  "independent_russian_probe": {
+    "scope": "THREE_COMPOSED_ACTED_UTTERANCES",
+    "wer": "1/41 = 2.44%",
+    "cpwer": "25/41 = 60.98%",
+    "recurrence": "FAIL_MERGED_VOICES",
+    "der": "NOT_SCORED"
+  },
+  "remaining": [
+    "Updated actual native inventory pending build result",
+    "Linked-header/toolchain and whole-distribution review",
+    "Russian speaker merging and independent DER/representative dialogue",
+    "Physical ARM64/airplane mode/spoken microphone dialogue",
+    "Overlap quality and phone performance"
+  ],
+  "prior_work_preserved": true,
+  "main_unchanged": true
+}

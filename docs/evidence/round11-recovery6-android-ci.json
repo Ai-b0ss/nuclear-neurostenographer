@@ -1,0 +1,148 @@
+{
+  "conclusion": "success",
+  "databaseId": 41058719146,
+  "headSha": "6afd8d126c60c2ae1211de2c20de570faf0d525a",
+  "jobs": [
+    {
+      "completedAt": "2026-10-30T13:00:41Z",
+      "conclusion": "success",
+      "databaseId": 124072717108,
+      "name": "inference",
+      "startedAt": "2026-10-30T12:53:00Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-30T12:53:04Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-30T12:53:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:05Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-30T12:53:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:05Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-java@v4",
+          "number": 3,
+          "startedAt": "2026-10-30T12:53:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:07Z",
+          "conclusion": "success",
+          "name": "Prepare SDK",
+          "number": 4,
+          "startedAt": "2026-10-30T12:53:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:13Z",
+          "conclusion": "success",
+          "name": "Run gradle/actions/setup-gradle@v4",
+          "number": 5,
+          "startedAt": "2026-10-30T12:53:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:42Z",
+          "conclusion": "success",
+          "name": "Provision checksum-verified public model and upstream fixture",
+          "number": 6,
+          "startedAt": "2026-10-30T12:53:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:42Z",
+          "conclusion": "success",
+          "name": "Enable KVM",
+          "number": 7,
+          "startedAt": "2026-10-30T12:53:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:42Z",
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 8,
+          "startedAt": "2026-10-30T12:53:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T12:53:42Z",
+          "conclusion": "skipped",
+          "name": "Select same-repository candidate for explicit validation",
+          "number": 9,
+          "startedAt": "2026-10-30T12:53:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:37Z",
+          "conclusion": "success",
+          "name": "Run reactivecircus/android-emulator-runner@v2",
+          "number": 10,
+          "startedAt": "2026-10-30T12:53:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:37Z",
+          "conclusion": "success",
+          "name": "Verify packaged runtime identity",
+          "number": 11,
+          "startedAt": "2026-10-30T13:00:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:39Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 12,
+          "startedAt": "2026-10-30T13:00:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:39Z",
+          "conclusion": "success",
+          "name": "Post Run gradle/actions/setup-gradle@v4",
+          "number": 22,
+          "startedAt": "2026-10-30T13:00:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:39Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-java@v4",
+          "number": 23,
+          "startedAt": "2026-10-30T13:00:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:39Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 24,
+          "startedAt": "2026-10-30T13:00:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:00:39Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-30T13:00:39Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058719146/job/124072717108"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058719146"
+}

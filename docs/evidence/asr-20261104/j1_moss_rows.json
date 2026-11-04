@@ -1,0 +1,1843 @@
+[
+ {
+  "case": "syn3-clean",
+  "set": "phone3",
+  "system": "J1",
+  "duration_ms": 33507,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 52000,
+  "rtf": 1.5519,
+  "peak_mib": 4174,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2387,
+   "attributed_correctly": 2338,
+   "attribution": 0.9795,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 11,
+   "different_correct": 11,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 52,
+   "rate": 0.19230769230769232
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 52,
+   "rate": 0.19230769230769232,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 52,
+   "rate": 0.19230769230769232
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "syn3-brown",
+  "set": "phone3",
+  "system": "J1",
+  "duration_ms": 37780,
+  "ref_speakers": 3,
+  "noise": "brown",
+  "status": "OK",
+  "wall_ms": 42200,
+  "rtf": 1.117,
+  "peak_mib": 4173,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2238,
+   "attributed_correctly": 2213,
+   "attribution": 0.9888,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 11,
+   "different_correct": 11,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 37,
+   "rate": 0.08108108108108109
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 37,
+   "rate": 0.08108108108108109,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 37,
+   "rate": 0.08108108108108109
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "syn4-noise",
+  "set": "phone3",
+  "system": "J1",
+  "duration_ms": 57324,
+  "ref_speakers": 4,
+  "noise": "crowd",
+  "status": "OK",
+  "wall_ms": 75200,
+  "rtf": 1.3118,
+  "peak_mib": 4269,
+  "device": "cpu",
+  "hyp_speakers": 7,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3234,
+   "attributed_correctly": 2300,
+   "attribution": 0.7112,
+   "split_speakers": [
+    "2",
+    "4"
+   ],
+   "merged_clusters": [
+    "h2"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 9,
+   "same_correct": 4,
+   "different_pairs": 36,
+   "different_correct": 36,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 76,
+   "rate": 0.11842105263157894
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 52,
+   "reference_words": 76,
+   "rate": 0.6842105263157895,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 52,
+   "reference_words": 76,
+   "rate": 0.6842105263157895
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 7,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r00",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 49718,
+  "ref_speakers": 4,
+  "noise": "cafe",
+  "status": "OK",
+  "wall_ms": 75200,
+  "rtf": 1.5125,
+  "peak_mib": 4201,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2924,
+   "attributed_correctly": 2844,
+   "attribution": 0.9726,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 5,
+   "same_correct": 5,
+   "different_pairs": 23,
+   "different_correct": 23,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 8,
+   "reference_words": 62,
+   "rate": 0.12903225806451613
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 8,
+   "reference_words": 62,
+   "rate": 0.12903225806451613,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 8,
+   "reference_words": 62,
+   "rate": 0.12903225806451613
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r01",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 75840,
+  "ref_speakers": 4,
+  "noise": "crowd",
+  "status": "OK",
+  "wall_ms": 156500,
+  "rtf": 2.0636,
+  "peak_mib": 4369,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3738,
+   "attributed_correctly": 2127,
+   "attribution": 0.569,
+   "split_speakers": [
+    "1",
+    "2",
+    "3"
+   ],
+   "merged_clusters": [
+    "h1",
+    "h2"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 5,
+   "different_pairs": 37,
+   "different_correct": 28,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 30,
+   "reference_words": 62,
+   "rate": 0.4838709677419355
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 53,
+   "reference_words": 62,
+   "rate": 0.8548387096774194,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 53,
+   "reference_words": 62,
+   "rate": 0.8548387096774194
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r30",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 49403,
+  "ref_speakers": 4,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 113400,
+  "rtf": 2.2954,
+  "peak_mib": 4231,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3106,
+   "attributed_correctly": 2415,
+   "attribution": 0.7775,
+   "split_speakers": [
+    "3"
+   ],
+   "merged_clusters": [
+    "h0"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 6,
+   "different_pairs": 37,
+   "different_correct": 29,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 12,
+   "reference_words": 61,
+   "rate": 0.19672131147540983
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 22,
+   "reference_words": 61,
+   "rate": 0.36065573770491804,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 22,
+   "reference_words": 61,
+   "rate": 0.36065573770491804
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r39",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 59401,
+  "ref_speakers": 4,
+  "noise": "static",
+  "status": "OK",
+  "wall_ms": 101900,
+  "rtf": 1.7155,
+  "peak_mib": 4266,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2851,
+   "attributed_correctly": 2813,
+   "attribution": 0.9867,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 9,
+   "same_correct": 9,
+   "different_pairs": 36,
+   "different_correct": 36,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 8,
+   "reference_words": 60,
+   "rate": 0.13333333333333333
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 8,
+   "reference_words": 60,
+   "rate": 0.13333333333333333,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 8,
+   "reference_words": 60,
+   "rate": 0.13333333333333333
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r41",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 59348,
+  "ref_speakers": 4,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 109400,
+  "rtf": 1.8434,
+  "peak_mib": 4259,
+  "device": "cpu",
+  "hyp_speakers": 2,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3850,
+   "attributed_correctly": 2044,
+   "attribution": 0.5309,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h0",
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 7,
+   "same_correct": 7,
+   "different_pairs": 29,
+   "different_correct": 18,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 70,
+   "rate": 0.14285714285714285
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 66,
+   "reference_words": 70,
+   "rate": 0.9428571428571428,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 66,
+   "reference_words": 70,
+   "rate": 0.9428571428571428
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 2,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r54",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 43552,
+  "ref_speakers": 4,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 90500,
+  "rtf": 2.078,
+  "peak_mib": 4199,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2591,
+   "attributed_correctly": 2064,
+   "attribution": 0.7966,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 6,
+   "same_correct": 6,
+   "different_pairs": 30,
+   "different_correct": 26,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 13,
+   "reference_words": 59,
+   "rate": 0.22033898305084745
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 59,
+   "rate": 0.3898305084745763,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 59,
+   "rate": 0.3898305084745763
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r59",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 60360,
+  "ref_speakers": 4,
+  "noise": "white",
+  "status": "OK",
+  "wall_ms": 213000,
+  "rtf": 3.5288,
+  "peak_mib": 4372,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 4420,
+   "attributed_correctly": 3426,
+   "attribution": 0.7751,
+   "split_speakers": [
+    "2",
+    "3"
+   ],
+   "merged_clusters": [
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 14,
+   "same_correct": 9,
+   "different_pairs": 52,
+   "different_correct": 45,
+   "turns": 12
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 54,
+   "reference_words": 107,
+   "rate": 0.5046728971962616
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 59,
+   "reference_words": 107,
+   "rate": 0.5514018691588785,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 59,
+   "reference_words": 107,
+   "rate": 0.5514018691588785
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r19",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 53701,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 103600,
+  "rtf": 1.9292,
+  "peak_mib": 4228,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3256,
+   "attributed_correctly": 3188,
+   "attribution": 0.9791,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 15,
+   "same_correct": 15,
+   "different_pairs": 40,
+   "different_correct": 40,
+   "turns": 11
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 76,
+   "rate": 0.05263157894736842
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 76,
+   "rate": 0.05263157894736842,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 76,
+   "rate": 0.05263157894736842
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r21",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 36660,
+  "ref_speakers": 4,
+  "noise": "static",
+  "status": "OK",
+  "wall_ms": 54600,
+  "rtf": 1.4894,
+  "peak_mib": 4139,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1609,
+   "attributed_correctly": 1609,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 1,
+   "same_correct": 1,
+   "different_pairs": 9,
+   "different_correct": 9,
+   "turns": 5
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 38,
+   "rate": 0.02631578947368421
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 38,
+   "rate": 0.02631578947368421,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 38,
+   "rate": 0.02631578947368421
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r24",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 42568,
+  "ref_speakers": 3,
+  "noise": "cafe",
+  "status": "OK",
+  "wall_ms": 74900,
+  "rtf": 1.7595,
+  "peak_mib": 4189,
+  "device": "cpu",
+  "hyp_speakers": 2,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2148,
+   "attributed_correctly": 1956,
+   "attribution": 0.9106,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 7,
+   "different_pairs": 20,
+   "different_correct": 8,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 21,
+   "reference_words": 59,
+   "rate": 0.3559322033898305
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 25,
+   "reference_words": 59,
+   "rate": 0.423728813559322,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 25,
+   "reference_words": 59,
+   "rate": 0.423728813559322
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 2,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r31",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 46757,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 75900,
+  "rtf": 1.6233,
+  "peak_mib": 4196,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2354,
+   "attributed_correctly": 2294,
+   "attribution": 0.9745,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 12,
+   "same_correct": 12,
+   "different_pairs": 24,
+   "different_correct": 24,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 52,
+   "rate": 0.07692307692307693
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 52,
+   "rate": 0.07692307692307693,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 52,
+   "rate": 0.07692307692307693
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r48",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 37978,
+  "ref_speakers": 4,
+  "noise": "hum",
+  "status": "OK",
+  "wall_ms": 60900,
+  "rtf": 1.6036,
+  "peak_mib": 4166,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2197,
+   "attributed_correctly": 2197,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 2,
+   "same_correct": 2,
+   "different_pairs": 13,
+   "different_correct": 13,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 46,
+   "rate": 0.021739130434782608
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 46,
+   "rate": 0.021739130434782608,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 46,
+   "rate": 0.021739130434782608
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r58",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 38520,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 90900,
+  "rtf": 2.3598,
+  "peak_mib": 4197,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2817,
+   "attributed_correctly": 2184,
+   "attribution": 0.7753,
+   "split_speakers": [
+    "3"
+   ],
+   "merged_clusters": [
+    "h0"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 5,
+   "same_correct": 2,
+   "different_pairs": 16,
+   "different_correct": 11,
+   "turns": 7
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 19,
+   "reference_words": 49,
+   "rate": 0.3877551020408163
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 49,
+   "rate": 0.46938775510204084,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 49,
+   "rate": 0.46938775510204084
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r61",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 55738,
+  "ref_speakers": 4,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 97300,
+  "rtf": 1.7457,
+  "peak_mib": 4226,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2792,
+   "attributed_correctly": 2594,
+   "attribution": 0.9291,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 9,
+   "same_correct": 6,
+   "different_pairs": 36,
+   "different_correct": 19,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 12,
+   "reference_words": 81,
+   "rate": 0.14814814814814814
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 24,
+   "reference_words": 81,
+   "rate": 0.2962962962962963,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 24,
+   "reference_words": 81,
+   "rate": 0.2962962962962963
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r68",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 47374,
+  "ref_speakers": 4,
+  "noise": "pink",
+  "status": "OK",
+  "wall_ms": 73400,
+  "rtf": 1.5494,
+  "peak_mib": 4201,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2003,
+   "attributed_correctly": 2003,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 6,
+   "same_correct": 6,
+   "different_pairs": 30,
+   "different_correct": 30,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 44,
+   "rate": 0.06818181818181818
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 44,
+   "rate": 0.06818181818181818,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 44,
+   "rate": 0.06818181818181818
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r01",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 49680,
+  "ref_speakers": 4,
+  "noise": "pink",
+  "status": "OK",
+  "wall_ms": 76300,
+  "rtf": 1.5358,
+  "peak_mib": 4193,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2149,
+   "attributed_correctly": 2121,
+   "attribution": 0.987,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 24,
+   "different_correct": 24,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 44,
+   "rate": 0.022727272727272728
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 44,
+   "rate": 0.022727272727272728,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 44,
+   "rate": 0.022727272727272728
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r09",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 62880,
+  "ref_speakers": 4,
+  "noise": "cafe",
+  "status": "OK",
+  "wall_ms": 171400,
+  "rtf": 2.7258,
+  "peak_mib": 4316,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 4121,
+   "attributed_correctly": 2584,
+   "attribution": 0.627,
+   "split_speakers": [
+    "2",
+    "3"
+   ],
+   "merged_clusters": [
+    "h1",
+    "h2"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 25,
+   "same_correct": 7,
+   "different_pairs": 80,
+   "different_correct": 51,
+   "turns": 15
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 56,
+   "reference_words": 102,
+   "rate": 0.5490196078431373
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 85,
+   "reference_words": 102,
+   "rate": 0.8333333333333334,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 85,
+   "reference_words": 102,
+   "rate": 0.8333333333333334
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r18",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 39007,
+  "ref_speakers": 4,
+  "noise": "brown",
+  "status": "OK",
+  "wall_ms": 82900,
+  "rtf": 2.1253,
+  "peak_mib": 4168,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1886,
+   "attributed_correctly": 1886,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 10,
+   "same_correct": 10,
+   "different_pairs": 35,
+   "different_correct": 35,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 51,
+   "rate": 0.058823529411764705
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 51,
+   "rate": 0.058823529411764705,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 51,
+   "rate": 0.058823529411764705
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r23",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 56873,
+  "ref_speakers": 3,
+  "noise": "pink",
+  "status": "OK",
+  "wall_ms": 164100,
+  "rtf": 2.8854,
+  "peak_mib": 4304,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3541,
+   "attributed_correctly": 3444,
+   "attribution": 0.9726,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 19,
+   "same_correct": 19,
+   "different_pairs": 47,
+   "different_correct": 47,
+   "turns": 12
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 82,
+   "rate": 0.2804878048780488
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 82,
+   "rate": 0.2804878048780488,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 82,
+   "rate": 0.2804878048780488
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r29",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 43133,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 79100,
+  "rtf": 1.8339,
+  "peak_mib": 4199,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2435,
+   "attributed_correctly": 2435,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 10,
+   "same_correct": 10,
+   "different_pairs": 26,
+   "different_correct": 26,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 51,
+   "rate": 0.09803921568627451
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 51,
+   "rate": 0.09803921568627451,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 51,
+   "rate": 0.09803921568627451
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r38",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 34311,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 65099,
+  "rtf": 1.8974,
+  "peak_mib": 4139,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2263,
+   "attributed_correctly": 2142,
+   "attribution": 0.9465,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 3,
+   "same_correct": 3,
+   "different_pairs": 12,
+   "different_correct": 12,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 44,
+   "rate": 0.13636363636363635
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 44,
+   "rate": 0.1590909090909091,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 44,
+   "rate": 0.1590909090909091
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r40",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 51702,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 115300,
+  "rtf": 2.2301,
+  "peak_mib": 4229,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3466,
+   "attributed_correctly": 3380,
+   "attribution": 0.9752,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 17,
+   "same_correct": 17,
+   "different_pairs": 38,
+   "different_correct": 38,
+   "turns": 11
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 82,
+   "rate": 0.07317073170731707
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 82,
+   "rate": 0.07317073170731707,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 82,
+   "rate": 0.07317073170731707
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r47",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 59905,
+  "ref_speakers": 4,
+  "noise": "hum",
+  "status": "OK",
+  "wall_ms": 108100,
+  "rtf": 1.8045,
+  "peak_mib": 4262,
+  "device": "cpu",
+  "hyp_speakers": 5,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3954,
+   "attributed_correctly": 3305,
+   "attribution": 0.8359,
+   "split_speakers": [
+    "4"
+   ],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 16,
+   "same_correct": 13,
+   "different_pairs": 62,
+   "different_correct": 62,
+   "turns": 13
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 72,
+   "rate": 0.08333333333333333
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 26,
+   "reference_words": 72,
+   "rate": 0.3611111111111111,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 26,
+   "reference_words": 72,
+   "rate": 0.3611111111111111
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 5,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r54",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 56515,
+  "ref_speakers": 3,
+  "noise": null,
+  "status": "OK",
+  "wall_ms": 62400,
+  "rtf": 1.1041,
+  "peak_mib": 4274,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2526,
+   "attributed_correctly": 2449,
+   "attribution": 0.9695,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 12,
+   "same_correct": 12,
+   "different_pairs": 33,
+   "different_correct": 33,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 57,
+   "rate": 0.15789473684210525
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 57,
+   "rate": 0.15789473684210525,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 57,
+   "rate": 0.15789473684210525
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r55",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 59460,
+  "ref_speakers": 4,
+  "noise": "brown",
+  "status": "OK",
+  "wall_ms": 94700,
+  "rtf": 1.5927,
+  "peak_mib": 4297,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 4122,
+   "attributed_correctly": 3015,
+   "attribution": 0.7314,
+   "split_speakers": [
+    "1",
+    "3"
+   ],
+   "merged_clusters": [
+    "h1",
+    "h3"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 7,
+   "different_pairs": 37,
+   "different_correct": 34,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 29,
+   "reference_words": 90,
+   "rate": 0.32222222222222224
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 51,
+   "reference_words": 90,
+   "rate": 0.5666666666666667,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 51,
+   "reference_words": 90,
+   "rate": 0.5666666666666667
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r59",
+  "set": "holdout",
+  "system": "J1",
+  "duration_ms": 39381,
+  "ref_speakers": 4,
+  "noise": "cafe",
+  "status": "OK",
+  "wall_ms": 42700,
+  "rtf": 1.0843,
+  "peak_mib": 4168,
+  "device": "cpu",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1886,
+   "attributed_correctly": 1651,
+   "attribution": 0.8754,
+   "split_speakers": [
+    "1"
+   ],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 24,
+   "different_correct": 24,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 13,
+   "reference_words": 46,
+   "rate": 0.2826086956521739
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 18,
+   "reference_words": 46,
+   "rate": 0.391304347826087,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 18,
+   "reference_words": 46,
+   "rate": 0.391304347826087
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "realmix-02-07",
+  "set": "realmix",
+  "system": "J1",
+  "duration_ms": 240000,
+  "ref_speakers": 4,
+  "noise": "real phone calls",
+  "status": "OK",
+  "wall_ms": 580000,
+  "rtf": 2.4167,
+  "peak_mib": 5209,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 10471,
+   "attributed_correctly": 8664,
+   "attribution": 0.8274,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h0"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 325,
+   "same_correct": 254,
+   "different_pairs": 1001,
+   "different_correct": 641,
+   "turns": 52
+  },
+  "der": {
+   "status": "SCORED",
+   "rate": 0.281,
+   "miss_ms": 8560,
+   "false_alarm_ms": 1090,
+   "confusion_ms": 11480,
+   "reference_speaker_ms": 75200
+  },
+  "wer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  }
+ },
+ {
+  "case": "realmix-05-13",
+  "set": "realmix",
+  "system": "J1",
+  "duration_ms": 240000,
+  "ref_speakers": 4,
+  "noise": "real phone calls",
+  "status": "OK",
+  "wall_ms": 527100,
+  "rtf": 2.1963,
+  "peak_mib": 5222,
+  "device": "cpu",
+  "hyp_speakers": 2,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 13854,
+   "attributed_correctly": 11907,
+   "attribution": 0.8595,
+   "split_speakers": [
+    "ru_000013-callee"
+   ],
+   "merged_clusters": [
+    "h0"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 435,
+   "same_correct": 395,
+   "different_pairs": 891,
+   "different_correct": 593,
+   "turns": 52
+  },
+  "der": {
+   "status": "SCORED",
+   "rate": 0.1772,
+   "miss_ms": 6020,
+   "false_alarm_ms": 2100,
+   "confusion_ms": 9890,
+   "reference_speaker_ms": 101620
+  },
+  "wer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  }
+ },
+ {
+  "case": "realmix-15-03",
+  "set": "realmix",
+  "system": "J1",
+  "duration_ms": 240000,
+  "ref_speakers": 4,
+  "noise": "real phone calls",
+  "status": "OK",
+  "wall_ms": 446700,
+  "rtf": 1.8613,
+  "peak_mib": 5208,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 16314,
+   "attributed_correctly": 9534,
+   "attribution": 0.5844,
+   "split_speakers": [
+    "ru_000003-caller",
+    "ru_000015-callee",
+    "ru_000015-caller"
+   ],
+   "merged_clusters": [
+    "h0",
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 513,
+   "same_correct": 258,
+   "different_pairs": 1317,
+   "different_correct": 655,
+   "turns": 61
+  },
+  "der": {
+   "status": "SCORED",
+   "rate": 0.5154,
+   "miss_ms": 7350,
+   "false_alarm_ms": 11960,
+   "confusion_ms": 48170,
+   "reference_speaker_ms": 130940
+  },
+  "wer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  }
+ },
+ {
+  "case": "realmix-06-17",
+  "set": "realmix",
+  "system": "J1",
+  "duration_ms": 240000,
+  "ref_speakers": 4,
+  "noise": "real phone calls",
+  "status": "OK",
+  "wall_ms": 594100,
+  "rtf": 2.4754,
+  "peak_mib": 5238,
+  "device": "cpu",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 14203,
+   "attributed_correctly": 10706,
+   "attribution": 0.7538,
+   "split_speakers": [
+    "ru_000006-callee"
+   ],
+   "merged_clusters": [
+    "h0",
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 377,
+   "same_correct": 256,
+   "different_pairs": 1163,
+   "different_correct": 897,
+   "turns": 56
+  },
+  "der": {
+   "status": "SCORED",
+   "rate": 0.3719,
+   "miss_ms": 20200,
+   "false_alarm_ms": 3050,
+   "confusion_ms": 25930,
+   "reference_speaker_ms": 132240
+  },
+  "wer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "reason": "no reference text"
+  }
+ }
+]

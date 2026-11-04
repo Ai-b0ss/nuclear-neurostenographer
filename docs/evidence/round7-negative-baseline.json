@@ -1,0 +1,38 @@
+{
+  "kind": "GENERATED_NUMERIC_PCM_AND_INVALID_JSON_NOT_MODEL_BENCHMARK",
+  "wav": {
+    "round6": {
+      "parser_sha256": "49da5dd2e6c70323781a19f8e555c5f29a9d5c5868fb3271370584300aa41ab3",
+      "duplicate_data": "ACCEPTED",
+      "bytes_outside_riff": "ACCEPTED"
+    },
+    "round7": {
+      "parser_sha256": "90f7a811aaf1e5e33db988446751d4d650af81f5d115270c4b81d6bd157ba2f9",
+      "duplicate_data": "REJECTED",
+      "bytes_outside_riff": "REJECTED"
+    }
+  },
+  "scorer": {
+    "round6": {
+      "exit_code": 1,
+      "output": {
+        "wer": {
+          "rate": 0,
+          "status": "SCORED"
+        }
+      },
+      "attribute_error": true,
+      "source_sha256": "c48cf9eb00165afcbbbafeb8a34d6109456987bf4d549c0fbc39df5112e80e80"
+    },
+    "round7": {
+      "exit_code": 1,
+      "output": {
+        "status": "ERROR",
+        "reason": "Reference file must contain a JSON object"
+      },
+      "attribute_error": false,
+      "source_sha256": "a9ebb3007ab555c48fe042d3c0e973fe8f5087a325513a464a90b96af5fd2640"
+    }
+  },
+  "status": "PASS_BUG_REPRODUCED_ON_OLD_SOURCE_REJECTED_ON_CURRENT"
+}

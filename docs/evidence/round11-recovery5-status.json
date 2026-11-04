@@ -1,0 +1,42 @@
+{
+  "recovery_call": 5,
+  "verdict": "NOT_READY",
+  "validated_code_commit": "952f713195f30db5c27d028cc9ac0ec99b310219",
+  "archived_integrity": {
+    "status": "PASS",
+    "scope": "ARCHIVED_ONLY_NOT_NEW_ANDROID_OR_ACCURACY",
+    "negative_test_methods": 3,
+    "ci": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058035458"
+  },
+  "last_completed_android": {
+    "run": 41056348245,
+    "instrumentation_pass": 17,
+    "ui_checks_pass": 11,
+    "skips": 0
+  },
+  "automatic_android_repeat_at_snapshot": {
+    "conclusion": "",
+    "databaseId": 41058035642,
+    "headSha": "952f713195f30db5c27d028cc9ac0ec99b310219",
+    "status": "in_progress",
+    "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41058035642"
+  },
+  "tiny_acted_probe": {
+    "wer": "1/41",
+    "cpwer": "25/41",
+    "recurrence": "FAIL_MERGED_VOICES",
+    "der": "NOT_SCORED"
+  },
+  "preservation": {
+    "prior_evidence_overwritten": false,
+    "interrupted_backup_kept": true,
+    "main_unchanged": true
+  },
+  "remaining": [
+    "Russian speaker merging",
+    "Independent DER and representative dialogue accuracy",
+    "Physical ARM64/airplane mode/spoken microphone dialogue",
+    "Overlap quality",
+    "License/notices distribution review and expiring runtime artifact"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "platform_capture_viewmodel_worker_document_not_speech_accuracy",
+  "sdk": 33,
+  "abi": "x86_64",
+  "duration_ms": 795,
+  "segments": 0,
+  "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.9",
+  "speech_accuracy": "NOT_SCORED"
+}

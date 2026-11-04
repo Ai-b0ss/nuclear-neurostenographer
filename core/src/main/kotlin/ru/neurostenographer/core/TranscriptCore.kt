@@ -2,9 +2,11 @@ package ru.neurostenographer.core
 
 import kotlin.math.max
 import kotlin.math.min
+import java.util.Locale
 
 /** All intervals are milliseconds from the beginning of the same recording. */
-data class SpeakerTurn(val startMs: Long, val endMs: Long, val speakerId: String) {
+data class SpeakerTurn(val startMs: Long, val endMs: Long, val speakerId: String,
+    val attributionEligible: Boolean = true) {
     init { require(startMs >= 0 && endMs > startMs && speakerId.isNotBlank()) }
 }
 data class RecognizedWord(val startMs: Long, val endMs: Long, val text: String) {
@@ -63,6 +65,26 @@ object TranscriptFusion {
             TranscriptSegment(c.startMs, c.endMs, a.speakerId, c.text, a.overlap, a.reliable)
         }
 
+    /** Joins adjacent fragments of one reliably attributed speaker into a reply.
+     * Uncertain and overlapping fragments stay separate so their flags survive.
+     */
+    fun mergeReplies(segments: List<TranscriptSegment>, maxGapMs: Long = 1500,
+                     maxDurationMs: Long = 60_000): List<TranscriptSegment> {
+        val result = mutableListOf<TranscriptSegment>()
+        for (current in segments) {
+            val previous = result.lastOrNull()
+            if (previous != null && previous.speakerId != null && previous.speakerId == current.speakerId &&
+                previous.attributionReliable && current.attributionReliable &&
+                !previous.overlappingSpeech && !current.overlappingSpeech &&
+                current.startMs - previous.endMs <= maxGapMs &&
+                current.endMs - previous.startMs <= maxDurationMs) {
+                result[result.lastIndex] = previous.copy(endMs = max(previous.endMs, current.endMs),
+                    text = previous.text + " " + current.text)
+            } else result.add(current)
+        }
+        return result
+    }
+
     private fun normalize(spans: List<Pair<Long, Long>>): List<Pair<Long, Long>> {
         val ordered = spans.sortedBy { it.first }
         val output = mutableListOf<Pair<Long, Long>>()
@@ -112,17 +134,42 @@ object TranscriptFusion {
         }
         val duration = (end - start).toDouble()
         val second = ranked.getOrNull(1)?.second ?: 0L
-        val reliable = !overlap && ranked[0].second / duration >= minDominance &&
+        val uncertain = turns.any { !it.attributionEligible && it.startMs < end && it.endMs > start }
+        val reliable = !overlap && !uncertain && ranked[0].second / duration >= minDominance &&
             (ranked[0].second - second) / duration >= minMargin
         return Attribution(if (reliable) ranked[0].first else null, overlap, reliable)
     }
 }
 
+data class TranscriptProvenance(val engine: String, val modelRevision: String,
+    val timestampSource: String, val speakerSource: String, val runtimeSha256: String? = null) {
+    init { require(runtimeSha256 == null || runtimeSha256.matches(Regex("[0-9a-f]{64}"))) }
+}
+
+/** One immutable inference result. No source URI/name or private path in exports. */
+data class TranscriptDocument(val segments: List<TranscriptSegment>, val audioMs: Long,
+    val provenance: TranscriptProvenance, val warnings: List<String> = emptyList()) {
+    init {
+        require(audioMs > 0 && segments.all { it.endMs <= audioMs })
+        require(segments.zipWithNext().all { (a, b) -> a.startMs <= b.startMs })
+    }
+    fun export(format: String): String = when (format) {
+        "json" -> TranscriptExport.json(segments, provenance, audioMs, warnings)
+        "srt" -> TranscriptExport.srt(segments)
+        "txt" -> "Время: ${provenance.timestampSource}; говорящие: ${provenance.speakerSource}.\n" +
+            warnings.joinToString("") { "Предупреждение: $it\n" } + TranscriptExport.txt(segments)
+        else -> error("Неизвестный формат экспорта")
+    }
+}
+
 object TranscriptExport {
-    private fun human(ms: Long): String =
-        "%02d:%02d".format(ms / 60000, (ms / 1000) % 60)
+    fun time(ms: Long): String {
+        require(ms >= 0)
+        return String.format(Locale.ROOT, "%02d:%02d:%02d.%03d", ms / 3600000,
+            (ms / 60000) % 60, (ms / 1000) % 60, ms % 1000)
+    }
     private fun srtTime(ms: Long): String =
-        "%02d:%02d:%02d,%03d".format(ms / 3600000, (ms / 60000) % 60, (ms / 1000) % 60, ms % 1000)
+        time(ms).replace('.', ',')
     private fun jsonString(s: String): String = buildString {
         append('"')
         for (c in s) when (c) {
@@ -136,17 +183,33 @@ object TranscriptExport {
         append('"')
     }
     fun txt(items: List<TranscriptSegment>): String = items.joinToString("\n") {
-        "[" + human(it.startMs) + "–" + human(it.endMs) + "] " +
-            (it.speakerId ?: "Не определён") + ": " + it.text +
+        "[" + time(it.startMs) + "–" + time(it.endMs) + "] " +
+            displaySpeaker(it.speakerId) + ": " + it.text +
             (if (it.overlappingSpeech) " [перекрытие речи]" else "")
+    }
+    /** Human-readable label for TXT/SRT; JSON keeps the stable id ("Speaker N"). */
+    fun displaySpeaker(id: String?): String = when {
+        id == null -> "Не определён"
+        id.startsWith("Speaker ") -> "Говорящий " + id.removePrefix("Speaker ")
+        else -> id
     }
     fun srt(items: List<TranscriptSegment>): String =
         items.sortedBy { it.startMs }.mapIndexed { i, s ->
             (i + 1).toString() + "\n" + srtTime(s.startMs) + " --> " +
-                srtTime(s.endMs) + "\n" + (s.speakerId ?: "Не определён") + ": " + s.text
+                srtTime(s.endMs) + "\n" + displaySpeaker(s.speakerId) + ": " + s.text +
+                (if (s.overlappingSpeech) " [перекрытие речи]" else "")
         }.joinToString("\n\n")
-    fun json(items: List<TranscriptSegment>): String =
-        "{\n  \"version\": 1,\n  \"units\": \"milliseconds\",\n  \"segments\": [\n" +
+    fun json(items: List<TranscriptSegment>, provenance: TranscriptProvenance? = null,
+             audioMs: Long? = null, warnings: List<String> = emptyList()): String =
+        "{\n  \"version\": 1,\n  \"units\": \"milliseconds\",\n" +
+            (audioMs?.let { "  \"audio_duration_ms\": $it,\n" } ?: "") +
+            "  \"warnings\": [" + warnings.joinToString(", ", transform = ::jsonString) + "],\n" +
+            (provenance?.let { "  \"provenance\": {\"engine\": " + jsonString(it.engine) +
+                ", \"model_revision\": " + jsonString(it.modelRevision) +
+                ", \"timestamp_source\": " + jsonString(it.timestampSource) +
+                ", \"speaker_source\": " + jsonString(it.speakerSource) +
+                (it.runtimeSha256?.let { sha -> ", \"runtime_sha256\": " + jsonString(sha) } ?: "") + "},\n" } ?: "") +
+            "  \"segments\": [\n" +
             items.joinToString(",\n") {
                 "    {\"start_ms\": " + it.startMs + ", \"end_ms\": " + it.endMs +
                     ", \"speaker_id\": " + (it.speakerId?.let(::jsonString) ?: "null") +

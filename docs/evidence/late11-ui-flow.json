@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "checks": [
+    "real_permission_dialog_denied",
+    "foreground_permission_starts_recording",
+    "recording_survives_rotation",
+    "background_stops_and_finalizes_recording",
+    "recorded_input_reaches_real_transcript_export_controls",
+    "public_wav_import_through_system_document_picker",
+    "cancelled_system_export_keeps_transcript_available",
+    "real_txt_json_srt_saved_and_read_from_documents_provider",
+    "pending_json_export_survives_picker_rotation",
+    "ui_audio_cleanup_clears_source",
+    "permission_revocation_restarts_without_phantom_recording"
+  ],
+  "scope": "Disposable emulator UI and lifecycle; not physical-phone or microphone speech accuracy",
+  "private_audio_collected": false,
+  "saved_public_exports": {
+    "txt": {
+      "bytes": 695,
+      "sha256": "42b3ebe304381abf6dafdd19961742203eaadda87d03fd93968c78c0ca455203"
+    },
+    "json": {
+      "bytes": 1392,
+      "sha256": "29ef2948a4be28b430f45c1dc5f64b19542de325619645ba87611f73c66c3920"
+    },
+    "srt": {
+      "bytes": 460,
+      "sha256": "693b40d511a55d02fb11ea8e8fc0d2aa765d58d1fb9d5ccedc9ee1a65cd33847"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+ "threshold_sweep": {
+  "datahive": {
+   "C0 t=0.80 (production)": {
+    "files": 20,
+    "der_percent": 28.82,
+    "confusion_percent": 24.13,
+    "exact_speaker_count": 0,
+    "mean_abs_count_error": 5.35
+   },
+   "C0 t=0.85": {
+    "files": 20,
+    "der_percent": 24.9,
+    "confusion_percent": 20.27,
+    "exact_speaker_count": 0,
+    "mean_abs_count_error": 4.3
+   },
+   "C0 t=0.90": {
+    "files": 20,
+    "der_percent": 23.38,
+    "confusion_percent": 18.79,
+    "exact_speaker_count": 2,
+    "mean_abs_count_error": 3.2
+   },
+   "C0 t=0.95": {
+    "files": 20,
+    "der_percent": 18.52,
+    "confusion_percent": 14.02,
+    "exact_speaker_count": 2,
+    "mean_abs_count_error": 2.25
+   },
+   "C1 fp32": {
+    "files": 20,
+    "der_percent": 6.38,
+    "confusion_percent": 0.45,
+    "exact_speaker_count": 18,
+    "mean_abs_count_error": 0.1
+   },
+   "C2 int8": {
+    "files": 20,
+    "der_percent": 6.33,
+    "confusion_percent": 0.47,
+    "exact_speaker_count": 18,
+    "mean_abs_count_error": 0.1
+   }
+  },
+  "rubook": {
+   "C0 t=0.80 (production)": {
+    "files": 49,
+    "der_percent": 19.56,
+    "confusion_percent": 11.92,
+    "exact_speaker_count": 27,
+    "mean_abs_count_error": 0.65
+   },
+   "C0 t=0.85": {
+    "files": 49,
+    "der_percent": 17.92,
+    "confusion_percent": 10.29,
+    "exact_speaker_count": 33,
+    "mean_abs_count_error": 0.37
+   },
+   "C0 t=0.90": {
+    "files": 49,
+    "der_percent": 18.16,
+    "confusion_percent": 10.54,
+    "exact_speaker_count": 40,
+    "mean_abs_count_error": 0.22
+   },
+   "C0 t=0.95": {
+    "files": 48,
+    "der_percent": 19.57,
+    "confusion_percent": 11.92,
+    "exact_speaker_count": 36,
+    "mean_abs_count_error": 0.27
+   },
+   "C1 fp32": {
+    "files": 49,
+    "der_percent": 8.02,
+    "confusion_percent": 2.51,
+    "exact_speaker_count": 45,
+    "mean_abs_count_error": 0.08
+   },
+   "C2 int8": {
+    "files": 49,
+    "der_percent": 7.84,
+    "confusion_percent": 2.26,
+    "exact_speaker_count": 45,
+    "mean_abs_count_error": 0.08
+   }
+  }
+ },
+ "note": "Sweep uses the test recordings, so it can only flatter C0",
+ "datahive_energy_reference": {
+  "C0": {
+   "files": 20,
+   "der_percent": 34.3,
+   "confusion_percent": 22.12,
+   "exact_speaker_count": 0,
+   "mean_abs_count_error": 5.35
+  },
+  "C1": {
+   "files": 20,
+   "der_percent": 15.2,
+   "confusion_percent": 0.54,
+   "exact_speaker_count": 18,
+   "mean_abs_count_error": 0.1
+  },
+  "C2": {
+   "files": 20,
+   "der_percent": 15.21,
+   "confusion_percent": 0.56,
+   "exact_speaker_count": 18,
+   "mean_abs_count_error": 0.1
+  }
+ },
+ "der_parity_collar0": {
+  "max_abs_difference": 0.0,
+  "cases": [
+   {
+    "case": "datahive-ru_000001",
+    "score_transcript": 0.59793,
+    "pyannote_metrics": 0.59793
+   },
+   {
+    "case": "datahive-ru_000002",
+    "score_transcript": 0.14524,
+    "pyannote_metrics": 0.14524
+   },
+   {
+    "case": "datahive-ru_000003",
+    "score_transcript": 0.0531,
+    "pyannote_metrics": 0.0531
+   },
+   {
+    "case": "datahive-ru_000004",
+    "score_transcript": 0.1092,
+    "pyannote_metrics": 0.1092
+   },
+   {
+    "case": "datahive-ru_000005",
+    "score_transcript": 0.1666,
+    "pyannote_metrics": 0.1666
+   },
+   {
+    "case": "rubook-rec_0062",
+    "score_transcript": 0.07836,
+    "pyannote_metrics": 0.07836
+   },
+   {
+    "case": "rubook-rec_0062-white10db",
+    "score_transcript": 0.0316,
+    "pyannote_metrics": 0.0316
+   },
+   {
+    "case": "rubook-rec_0062-white0db",
+    "score_transcript": 0.05306,
+    "pyannote_metrics": 0.05306
+   },
+   {
+    "case": "rubook-rec_0076",
+    "score_transcript": 0.10131,
+    "pyannote_metrics": 0.10131
+   },
+   {
+    "case": "rubook-rec_0088",
+    "score_transcript": 0.20826,
+    "pyannote_metrics": 0.20826
+   }
+  ]
+ }
+}

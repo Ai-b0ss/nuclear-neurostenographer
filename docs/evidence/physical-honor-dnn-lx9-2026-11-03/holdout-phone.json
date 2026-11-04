@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 42237,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "pyannote-9403a690/eres2net-1a331345/threshold-0.8", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 31, "end_ms": 13058, "speaker_id": "Speaker 1", "text": "на пляжах камчатки можно увидеть много интересного от вулканических образований до разнообразия морской фауны и флоры часто можно встретить тюленей и морских котиков которые любят отдыхать на скалах у берега", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 14054, "end_ms": 22576, "speaker_id": "Speaker 2", "text": "ну мне кажется что в каждой легенде есть зерно правды говорят что в том доме жил какой то странный старик который", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 23909, "end_ms": 29933, "speaker_id": "Speaker 1", "text": "согласна скелетон это просто адреналин на максимуме а ты когда нибудь пробовал что то из этих видов спорта", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30980, "end_ms": 41965, "speaker_id": "Speaker 2", "text": "это здорово что ты находишь позитивные стороны в любой ситуации иногда время для тебя действительно важно а какие качества ты ценишь в партнере", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "scope": "Remote Binder process-death recovery after delayed callback",
+  "code_commit": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+  "change": "Wait for linkToDeath callback OR direct isBinderAlive false, no force-kill, no new worker if alive or unconfirmed. Cleanup 5 sec, next request at most 15 sec.",
+  "historical_failure": {
+    "run_id": 41128549290,
+    "failure": "previous :diarization process death unconfirmed",
+    "preserved": true
+  },
+  "test_matrix": {
+    "local_python_methods": 44,
+    "android_ci_runs": [
+      {
+        "run_id": 41154762491,
+        "conclusion": "success",
+        "head_sha": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+        "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41154762491",
+        "name": "Tiny acted Russian dialogue evaluation (not corpus accuracy)"
+      },
+      {
+        "run_id": 41155171064,
+        "conclusion": "success",
+        "head_sha": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+        "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41155171064",
+        "name": "Tiny acted Russian dialogue evaluation (not corpus accuracy)"
+      },
+      {
+        "run_id": 41155174621,
+        "conclusion": "success",
+        "head_sha": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+        "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41155174621",
+        "name": "Tiny acted Russian dialogue evaluation (not corpus accuracy)"
+      },
+      {
+        "run_id": 41154762511,
+        "conclusion": "success",
+        "head_sha": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+        "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41154762511",
+        "name": "Real offline Russian ASR (x86_64)"
+      },
+      {
+        "run_id": 41154762500,
+        "conclusion": "success",
+        "head_sha": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+        "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41154762500",
+        "name": "Android debug APK and core tests"
+      },
+      {
+        "run_id": 41154766825,
+        "conclusion": "success",
+        "head_sha": "5c2dae07304e39a7153971b0d2073a1662f8e78a",
+        "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41154766825",
+        "name": "Android debug APK and core tests"
+      }
+    ],
+    "independent_evidence_recomputation": [
+      {
+        "run_id": 41154762491,
+        "suite": "development",
+        "invocation": "eed6f41c13084e498d9b1e16dc0c5fbb",
+        "reference_sha256": "c9c49dfc7100409f0341296a2265de4cf50f2683b39e1d226ed67a7a257b1c47",
+        "hypothesis_sha256": "e55738a98ddd75deaf69c1b6811958531ce24a1e592757b1a5239d63fe623727",
+        "audio_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+        "android_tests": 1,
+        "failures": 0,
+        "threshold": 0.800000011920929,
+        "recurrence": "PASS",
+        "wer_rate": 0.024390243902439025,
+        "cpwer_rate": 0.024390243902439025,
+        "der_status": "NOT_SCORED",
+        "has_threshold_sweep": true
+      },
+      {
+        "run_id": 41155171064,
+        "suite": "development",
+        "invocation": "950ff0e9a15141c8864dc759ecc13f12",
+        "reference_sha256": "c9c49dfc7100409f0341296a2265de4cf50f2683b39e1d226ed67a7a257b1c47",
+        "hypothesis_sha256": "978f610acc51612a17493de583f35e272850e318be5c0a63c31eeade9f87a7af",
+        "audio_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+        "android_tests": 1,
+        "failures": 0,
+        "threshold": 0.800000011920929,
+        "recurrence": "PASS",
+        "wer_rate": 0.024390243902439025,
+        "cpwer_rate": 0.024390243902439025,
+        "der_status": "NOT_SCORED",
+        "has_threshold_sweep": true
+      },
+      {
+        "run_id": 41155174621,
+        "suite": "holdout",
+        "invocation": "a5b11b3bad104073b2150f978d7dddb1",
+        "reference_sha256": "2c512f6387536e51f6b22ab01408b3fe432f7bf15b5cefe2e83d63c8222ed682",
+        "hypothesis_sha256": "20ee8be45de8ad2fd6c311ae53c415fd74ddbcca8bb5ae41a79e8fea6a93a51d",
+        "audio_sha256": "52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070",
+        "android_tests": 1,
+        "failures": 0,
+        "threshold": 0.800000011920929,
+        "recurrence": "PASS",
+        "wer_rate": 0.021739130434782608,
+        "cpwer_rate": 0.021739130434782608,
+        "der_status": "NOT_SCORED",
+        "has_threshold_sweep": false
+      }
+    ]
+  },
+  "unchanged": {
+    "clustering_threshold": 0.8,
+    "model_weights": true,
+    "native_runtime": true,
+    "public_apk_upload_disabled": true,
+    "pr_6_draft": true
+  },
+  "limitations": [
+    "Two successful repeat sweeps do not prove zero intermittent failures",
+    "Only acted dialogue recordings",
+    "No natural speech-boundary DER reference",
+    "Physical ARM64 and full distribution review incomplete"
+  ],
+  "verdict": "NOT_READY"
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "status": "NOT_SCORED",
+    "reason": "No independent reference supplied"
+  },
+  "cpwer": {
+    "status": "NOT_SCORED",
+    "reason": "No independent reference supplied"
+  },
+  "der": {
+    "status": "NOT_SCORED",
+    "reason": "No independent reference supplied"
+  },
+  "hypothesis_sha256": "dc7bf085b6663acf59260c0db3516c32904e93de011339af74bfe3fbb00455ed",
+  "reference_sha256": null
+}

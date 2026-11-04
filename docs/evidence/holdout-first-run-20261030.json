@@ -1,0 +1,86 @@
+{
+  "kind": "ACTED_COMPOSED_DISJOINT_FROM_DEVELOPMENT",
+  "code_commit": "423eed6dcf1a9ec3acff2bf82b590e0a4849e3a4",
+  "android_run_id": 41127309893,
+  "android_run_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41127309893",
+  "run_conclusion": "success",
+  "emulator": {
+    "api": 33,
+    "abis": [
+      "x86_64"
+    ],
+    "device_model": "Android SDK built for x86_64"
+  },
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "audio_sha256": "52f34a15e35af61ac193d01ea135712e7b71df64d74c6e4d9d0c0da4772fb070",
+  "audio_ms": 42237,
+  "suite": "holdout",
+  "production_clustering_threshold": 0.800000011920929,
+  "parameter_sweep_present": false,
+  "wer": {
+    "errors": 2,
+    "substitutions": 2,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_words": 92,
+    "rate": 0.021739130434782608,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "SCORED",
+    "errors": 2,
+    "reference_words": 92,
+    "rate": 0.021739130434782608,
+    "substitutions": 2,
+    "deletions": 0,
+    "insertions": 0,
+    "mapping": [
+      {
+        "reference": "D",
+        "hypothesis": "Speaker 2"
+      },
+      {
+        "reference": "M",
+        "hypothesis": "Speaker 1"
+      }
+    ]
+  },
+  "recurrence": {
+    "method": "pairwise clip-level speaker recurrence using eligible raw diarization; not DER",
+    "hypothesis_clusters": [
+      "Speaker 1",
+      "Speaker 2",
+      "Speaker 1",
+      "Speaker 2"
+    ],
+    "total_clips": 4,
+    "same_speaker_pairs": 2,
+    "different_speaker_pairs": 4,
+    "status": "PASS"
+  },
+  "der": {
+    "status": "NOT_SCORED",
+    "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+  },
+  "total_inference_ms": 16596,
+  "rtf": 0.39292563392286384,
+  "reference_sha256": "2c512f6387536e51f6b22ab01408b3fe432f7bf15b5cefe2e83d63c8222ed682",
+  "hypothesis_sha256": "a0bc80c5ecc240bab893835e2749e61dcf5738114f7c943d27dfcf95d035cc86",
+  "benchmark_invocation": "3067a81d755143a0b67831b6f7943037",
+  "independent_recomputation": "Matched exact scores and pairwise recurrence from downloaded source artifacts",
+  "artifact_retrieval": "GitHub Actions acted-russian-evaluation-no-audio; no WAV uploaded",
+  "limitations": [
+    "Acted, concatenated same-source voices; only original clips are disjoint from development",
+    "Scripted external transcript not independently human-verified at the word level",
+    "DER not scored because independently annotated speech boundaries absent",
+    "No physical ARM64, natural dialogue, overlap, thermal or peak RAM acceptance",
+    "No blanket distribution license clearance; PR #6 remains draft"
+  ],
+  "prior_development_run_41127281473": {
+    "conclusion": "failure",
+    "reason": "DiarizationUnavailable: previous :diarization worker death unconfirmed in historical multi-threshold sweep",
+    "note": "Execution failure separate from this production-only holdout; historical evidence preserved"
+  },
+  "verdict": "NOT_READY"
+}

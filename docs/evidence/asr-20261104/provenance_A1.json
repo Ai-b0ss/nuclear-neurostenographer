@@ -1,0 +1,34 @@
+{
+ "candidate": "A1",
+ "repo": "Smirnov75/GigaAM-v3-sherpa-onnx",
+ "revision": "6888903da215c7735f51101d939f3bfa679fb2b8",
+ "license_tag": [
+  "license:mit"
+ ],
+ "files": {
+  "gigaam_v3_rnnt_encoder_int8.onnx": {
+   "bytes": 318995995,
+   "sha256": "53138ee4241c22482a45f3f9f80b787749fa7456f29221c4652afb7a1f84b681",
+   "hub_sha256": "53138ee4241c22482a45f3f9f80b787749fa7456f29221c4652afb7a1f84b681",
+   "verified": true
+  },
+  "gigaam_v3_rnnt_decoder.onnx": {
+   "bytes": 3331577,
+   "sha256": "633ef97f2c6c9ca11c91b6c7ee8f6054fc7a964e6b22d7a904fd096b458f0308",
+   "hub_sha256": "633ef97f2c6c9ca11c91b6c7ee8f6054fc7a964e6b22d7a904fd096b458f0308",
+   "verified": true
+  },
+  "gigaam_v3_rnnt_joint.onnx": {
+   "bytes": 1440448,
+   "sha256": "fd1d02f45c2ad3d6b67cc149811ad794ab4b020ed49a0a9e2790a8619d1cddd8",
+   "hub_sha256": "fd1d02f45c2ad3d6b67cc149811ad794ab4b020ed49a0a9e2790a8619d1cddd8",
+   "verified": true
+  },
+  "gigaam_v3_rnnt_tokens.txt": {
+   "bytes": 195,
+   "sha256": "48c9111eb77c9c42d08ecc71c00c09407ef2cce01195d72b7cc0c3c08ce89213",
+   "hub_sha256": null,
+   "verified": true
+  }
+ }
+}

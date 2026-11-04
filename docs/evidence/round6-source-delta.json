@@ -1,0 +1,66 @@
+{
+  "app/src/androidTest/java/ru/neurostenographer/app/RecordingTest.kt": {
+    "round5": null,
+    "round6": "291f6e4c98396504e570f3958d3c5447a37bd753fb3ddca6120a28bf80c9e986"
+  },
+  "app/src/main/java/ru/neurostenographer/app/TranscriptionViewModel.kt": {
+    "round5": "73f3f51762adaf8a4745e967e92d43c0c590202a64a1211cf40c6bad24e001c6",
+    "round6": "ff0c82848fcf348336270bf14999e3d79dd2289a1389c896bfa6bbefe402087a"
+  },
+  "core/src/main/kotlin/ru/neurostenographer/core/BoundedWavRecorder.kt": {
+    "round5": null,
+    "round6": "7975be848f19714ad594a9eb214d07af8cd94afddc8d984e32c66d49d564c26c"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/BoundedWavRecorderTest.kt": {
+    "round5": null,
+    "round6": "071f97ec5f265993105b4e1ea393fe47525763ffbc44deaad957992955b8599e"
+  },
+  "docs/PROGRESS.md": {
+    "round5": "08c87230386e65beea5b08feb901b0ff4c83544b48f28602f20e1117f4c567a6",
+    "round6": "0c2d326f6417efcfb48c46f45867ff3d8a7d8b998edd90c407bb1a75c528b865"
+  },
+  "docs/RECORDING.md": {
+    "round5": null,
+    "round6": "915619813228eb1d43e3a1e9f93a23359b9735c371023e26e310acd185168cb0"
+  },
+  "tools/create_checkpoint.py": {
+    "round5": "7639aa07278e450817976e5bf6497f56b0210cf7f7067c2b1c9af7390a51754d",
+    "round6": "bc6bb6091581163dab163a70f7481a6e892e7c7e94f37f735652db36c58301f1"
+  },
+  "tools/run_android_inference.sh": {
+    "round5": "62fc073bfd22876027c3de9a3c04d7096db4e5f24e27e0a5f42c20fe291c3014",
+    "round6": "b806972a38656a4252f096787fa57e0a1197b8fd0b790af375fb56e147d014b8"
+  },
+  "tools/test_android_workflow.py": {
+    "round5": "79e993c762222eaadeb54696aff1a230722c4e9861c7093767ac5cf5dcc49617",
+    "round6": "6a1b96654faccc4f908f33d1dc5150782424840268e5e0a323024eae6b9cacdd"
+  },
+  "tools/test_create_checkpoint.py": {
+    "round5": null,
+    "round6": "c554b9b0ebc48e786123d62b747ebd6e3837f14c4a7f05eab8b9561ee0971f2b"
+  },
+  ".github/workflows/android.yml": {
+    "round5": "2cfc76c613eb0a90364086ae334e35317ecc737d9d9b51aee3e796fd0d1d6516",
+    "round6": "9d76a16159fea29e1d2570321061b2cff121fa96ebeb699f4b8d58217fa61de2"
+  },
+  "README.md": {
+    "round5": "8b440800cb48c347466712bf031b427daf9d45f88de066bb27915af8c1d1fddc",
+    "round6": "d5c0df8901abaed268027e27801f56bd8c2e2108220b721476f375331f89a016"
+  },
+  "app/src/main/java/ru/neurostenographer/app/MainActivity.kt": {
+    "round5": "e066b39ed11aaef49aa0bd072ef8b748254a7d930aa12aceee8d63da710571a7",
+    "round6": "c81c6ec7e046008c83689022d74a2aa9cbd0cae1d5ef5280d64076a5ca5467ad"
+  },
+  "app/src/main/java/ru/neurostenographer/app/RecordWav.kt": {
+    "round5": "7404914466baa443230e82df2d716aa8978be6819d68bac7e0ddf354727be366",
+    "round6": "4bea054343f0662c2fed7a85e92709e930dc10416a16db8290b9badcf3cbc963"
+  },
+  "core/src/test/kotlin/ru/neurostenographer/core/TranscriptCoreTest.kt": {
+    "round5": "1285c1b34865a0597a30f10bdc7760c14324bb378b812b83b5209f816da63f93",
+    "round6": "62636285043aaede776c5e8da12f163dff7a29b3e987d0975655c50943d5bd9d"
+  },
+  "docs/TEST_PLAN.md": {
+    "round5": "8c13debf72154d8b8e8c415e10c92b1d7311d68a1df260c28cb82477b188ffd5",
+    "round6": "cddc05778021171987a00fcac05d19e733b97e92d2cf40015b44ea2c4a64459f"
+  }
+}

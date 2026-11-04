@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "segments": 4,
+  "audio_ms": 11290,
+  "formats": [
+    "json",
+    "srt",
+    "txt"
+  ],
+  "checks": [
+    "UTF8",
+    "milliseconds",
+    "duration_bounds",
+    "cue_order",
+    "same_text_speaker_and_intervals",
+    "provenance_and_warnings"
+  ],
+  "accuracy_benchmark": "NOT_RUN",
+  "android": "NOT_RUN"
+}

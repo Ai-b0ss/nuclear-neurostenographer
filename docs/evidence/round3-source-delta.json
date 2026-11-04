@@ -1,0 +1,26 @@
+{
+  "compared_to": "round2-source.zip",
+  "changed_code_and_workflows": [
+    ".github/workflows/host-inference.yml",
+    "app/src/androidTest/java/ru/neurostenographer/app/AudioInputTest.kt",
+    "app/src/androidTest/java/ru/neurostenographer/app/OfflineAsrTest.kt",
+    "app/src/androidTest/java/ru/neurostenographer/app/OfflineDiarizationTest.kt",
+    "app/src/asrSmoke/java/ru/neurostenographer/app/AsrSmokeActivity.kt",
+    "app/src/main/java/ru/neurostenographer/app/MainActivity.kt",
+    "app/src/main/java/ru/neurostenographer/app/OfflineAsr.kt",
+    "app/src/main/java/ru/neurostenographer/app/RecordWav.kt",
+    "app/src/main/java/ru/neurostenographer/app/TranscriptionViewModel.kt",
+    "core/src/main/kotlin/ru/neurostenographer/core/AudioSnapshot.kt",
+    "core/src/main/kotlin/ru/neurostenographer/core/PcmWav.kt",
+    "core/src/main/kotlin/ru/neurostenographer/core/TranscriptCore.kt",
+    "core/src/test/kotlin/ru/neurostenographer/core/AudioSnapshotTest.kt",
+    "core/src/test/kotlin/ru/neurostenographer/core/TranscriptCoreTest.kt",
+    "core/src/test/kotlin/ru/neurostenographer/core/TranscriptDocumentTest.kt",
+    "tools/DiarizationJvmSmoke.kt",
+    "tools/OfflineAsrJvmSmoke.kt",
+    "tools/OfflineDialogueJvmSmoke.kt",
+    "tools/OverlapJvmProbe.kt",
+    "tools/test_transcript_exports.py",
+    "tools/verify_transcript_exports.py"
+  ]
+}

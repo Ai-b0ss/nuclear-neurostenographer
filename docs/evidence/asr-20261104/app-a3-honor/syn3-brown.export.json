@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 37780,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 500, "end_ms": 2620, "speaker_id": "Speaker 1", "text": "Сколько будет четыре плюс пять?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 4240, "end_ms": 5670, "speaker_id": "Speaker 2", "text": "Проверь почту.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 7390, "end_ms": 8400, "speaker_id": "Speaker 3", "text": "Включи туман.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 9160, "end_ms": 9410, "speaker_id": null, "text": "Про", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 9730, "end_ms": 18800, "speaker_id": "Speaker 2", "text": "Продолжай читать героя нашего времени. С того места, где я остановился в прошлый раз.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 23460, "end_ms": 24880, "speaker_id": "Speaker 3", "text": "Сотри события в календаре.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 26280, "end_ms": 26530, "speaker_id": null, "text": "Включи", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 27440, "end_ms": 28510, "speaker_id": "Speaker 3", "text": "Включи пылесос.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30220, "end_ms": 37410, "speaker_id": "Speaker 2", "text": "Какая любимая поездка Элвиса? Можешь ли ты включить свет?", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

@@ -1,0 +1,56 @@
+{
+ "device": "HONOR 10X Lite DNN-LX9, arm64-v8a, Android 10, Kirin 710A (4 big + 4 little)",
+ "runner": "app_process + classes.dex (PhoneAsrBench.java), no APK",
+ "runtime": "sherpa-onnx 1.12.20 AAR from K:/nn-bench/harness: libonnxruntime.so == app AAR (ORT 1.17.1, md5 a31f9aae); libsherpa-onnx-jni.so differs from app AAR (md5 95988a9b vs 8931cd9b)",
+ "threads": 4,
+ "set": "HOLDOUT 20 clips (podlodka test)",
+ "battery_temp_note": "dumpsys battery, 0.1 C; in-bench sysfs path absent on Honor (NA)",
+ "runs": {
+  "A0": {
+   "meta": {
+    "mode": "a0",
+    "threads": "4",
+    "load_ms": "6684",
+    "rtf_total": "0.4276",
+    "VmHWM_kB": "762068",
+    "temp_before": "NA",
+    "temp_after": "NA"
+   },
+   "wall_s": 217,
+   "battery_before": {
+    "level": 100,
+    "temperature": 370
+   },
+   "battery_after": {
+    "level": 100,
+    "temperature": 430
+   }
+  },
+  "A3": {
+   "meta": {
+    "mode": "a3",
+    "threads": "4",
+    "load_ms": "5366",
+    "rtf_total": "0.3384",
+    "VmHWM_kB": "952500",
+    "temp_before": "NA",
+    "temp_after": "NA"
+   },
+   "wall_s": 172,
+   "battery_before": {
+    "level": 100,
+    "temperature": 390
+   },
+   "battery_after": {
+    "level": 100,
+    "temperature": 440
+   },
+   "encoder": "opset-stripped: sha256 75e93f387fa3cf5743e2b702dbc3108214b9769fdf4ae131f4e4c6d6087571ac (orig 2cac62d0...10f1)"
+  }
+ },
+ "A3_original_load": "FAIL: Ort::Exception ValidateOpsetForDomain: ai.onnx.ml opset 5 > supported 4; process aborted, exit 134",
+ "phone_vs_pc_text": {
+  "A0": "14/20 identical; 6 clips differ by 1-6 words (ARM64 vs x86 numerics)",
+  "A3": "0/20 identical raw; every phone text has a leading space; after strip 15/20 identical, 5 differ by 1-5 words"
+ }
+}

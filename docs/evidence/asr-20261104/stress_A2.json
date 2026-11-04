@@ -1,0 +1,727 @@
+{
+ "candidate": "A2",
+ "nonspeech": {
+  "silence_30s": {
+   "text": "",
+   "words": 0
+  },
+  "white_-60dBFS": {
+   "text": "",
+   "words": 0
+  },
+  "white_-40dBFS": {
+   "text": "",
+   "words": 0
+  },
+  "white_-20dBFS": {
+   "text": ".",
+   "words": 0
+  },
+  "tone_440Hz_-20dBFS": {
+   "text": "",
+   "words": 0
+  },
+  "click_train_4Hz": {
+   "text": "",
+   "words": 0
+  }
+ },
+ "boundary": [
+  {
+   "id": "podlodka-train-02",
+   "dur_s": 26.835,
+   "ref_words": 80,
+   "whole": {
+    "windows": 1,
+    "errors": 11,
+    "S": 6,
+    "D": 2,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 12,
+    "S": 6,
+    "D": 2,
+    "I": 4,
+    "boundary_repeat_words": 1
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 12,
+    "S": 8,
+    "D": 2,
+    "I": 2,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-05",
+   "dur_s": 29.306,
+   "ref_words": 55,
+   "whole": {
+    "windows": 1,
+    "errors": 10,
+    "S": 6,
+    "D": 2,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 12,
+    "S": 5,
+    "D": 2,
+    "I": 5,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 11,
+    "S": 6,
+    "D": 2,
+    "I": 3,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-07",
+   "dur_s": 26.313,
+   "ref_words": 51,
+   "whole": {
+    "windows": 1,
+    "errors": 3,
+    "S": 3,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 4,
+    "S": 3,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 5,
+    "S": 3,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-08",
+   "dur_s": 42.247,
+   "ref_words": 59,
+   "whole": {
+    "windows": 1,
+    "errors": 4,
+    "S": 2,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 3,
+    "errors": 4,
+    "S": 1,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 4,
+    "S": 0,
+    "D": 0,
+    "I": 4,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-09",
+   "dur_s": 27.256,
+   "ref_words": 42,
+   "whole": {
+    "windows": 1,
+    "errors": 3,
+    "S": 0,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 5,
+    "S": 1,
+    "D": 0,
+    "I": 4,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 3,
+    "S": 0,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-10",
+   "dur_s": 28.834,
+   "ref_words": 59,
+   "whole": {
+    "windows": 1,
+    "errors": 8,
+    "S": 3,
+    "D": 2,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 8,
+    "S": 3,
+    "D": 2,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 8,
+    "S": 3,
+    "D": 2,
+    "I": 3,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-11",
+   "dur_s": 47.029,
+   "ref_words": 98,
+   "whole": {
+    "windows": 1,
+    "errors": 3,
+    "S": 1,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 3,
+    "errors": 2,
+    "S": 1,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 2,
+    "S": 0,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-12",
+   "dur_s": 41.745,
+   "ref_words": 89,
+   "whole": {
+    "windows": 1,
+    "errors": 8,
+    "S": 3,
+    "D": 0,
+    "I": 5,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 3,
+    "errors": 12,
+    "S": 4,
+    "D": 0,
+    "I": 8,
+    "boundary_repeat_words": 1
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 10,
+    "S": 4,
+    "D": 0,
+    "I": 6,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-13",
+   "dur_s": 30.866,
+   "ref_words": 47,
+   "whole": {
+    "windows": 1,
+    "errors": 1,
+    "S": 0,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 1,
+    "S": 0,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 1,
+    "S": 0,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-15",
+   "dur_s": 38.376,
+   "ref_words": 115,
+   "whole": {
+    "windows": 1,
+    "errors": 7,
+    "S": 4,
+    "D": 2,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 8,
+    "S": 3,
+    "D": 4,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 7,
+    "S": 3,
+    "D": 3,
+    "I": 1,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-17",
+   "dur_s": 37.836,
+   "ref_words": 77,
+   "whole": {
+    "windows": 1,
+    "errors": 11,
+    "S": 6,
+    "D": 0,
+    "I": 5,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 13,
+    "S": 9,
+    "D": 0,
+    "I": 4,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 7,
+    "S": 7,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-22",
+   "dur_s": 34.378,
+   "ref_words": 97,
+   "whole": {
+    "windows": 1,
+    "errors": 2,
+    "S": 2,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 3,
+    "S": 2,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 0,
+    "S": 0,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-26",
+   "dur_s": 30.907,
+   "ref_words": 55,
+   "whole": {
+    "windows": 1,
+    "errors": 11,
+    "S": 8,
+    "D": 1,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 11,
+    "S": 8,
+    "D": 1,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 10,
+    "S": 8,
+    "D": 1,
+    "I": 1,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-27",
+   "dur_s": 28.633,
+   "ref_words": 72,
+   "whole": {
+    "windows": 1,
+    "errors": 4,
+    "S": 3,
+    "D": 1,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 4,
+    "S": 2,
+    "D": 1,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 3,
+    "S": 2,
+    "D": 1,
+    "I": 0,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-train-29",
+   "dur_s": 43.109,
+   "ref_words": 90,
+   "whole": {
+    "windows": 1,
+    "errors": 4,
+    "S": 2,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 3,
+    "errors": 4,
+    "S": 2,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 4,
+    "S": 2,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-04",
+   "dur_s": 27.496,
+   "ref_words": 68,
+   "whole": {
+    "windows": 1,
+    "errors": 1,
+    "S": 0,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 2,
+    "S": 0,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 1
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 2,
+    "S": 0,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 1
+   }
+  },
+  {
+   "id": "podlodka-test-07",
+   "dur_s": 39.509,
+   "ref_words": 81,
+   "whole": {
+    "windows": 1,
+    "errors": 3,
+    "S": 0,
+    "D": 1,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 4,
+    "S": 1,
+    "D": 1,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 4,
+    "S": 0,
+    "D": 1,
+    "I": 3,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-09",
+   "dur_s": 27.79,
+   "ref_words": 52,
+   "whole": {
+    "windows": 1,
+    "errors": 3,
+    "S": 0,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 3,
+    "S": 0,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 3,
+    "S": 0,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-10",
+   "dur_s": 24.602,
+   "ref_words": 65,
+   "whole": {
+    "windows": 1,
+    "errors": 4,
+    "S": 4,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 5,
+    "S": 4,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 1
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 5,
+    "S": 5,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-13",
+   "dur_s": 27.495,
+   "ref_words": 77,
+   "whole": {
+    "windows": 1,
+    "errors": 3,
+    "S": 1,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 4,
+    "S": 2,
+    "D": 0,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 5,
+    "S": 2,
+    "D": 0,
+    "I": 3,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-15",
+   "dur_s": 27.423,
+   "ref_words": 54,
+   "whole": {
+    "windows": 1,
+    "errors": 4,
+    "S": 4,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 6,
+    "S": 5,
+    "D": 1,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 3,
+    "S": 3,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-16",
+   "dur_s": 26.906,
+   "ref_words": 62,
+   "whole": {
+    "windows": 1,
+    "errors": 0,
+    "S": 0,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 2,
+    "errors": 2,
+    "S": 1,
+    "D": 0,
+    "I": 1,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 2,
+    "errors": 0,
+    "S": 0,
+    "D": 0,
+    "I": 0,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-17",
+   "dur_s": 59.362,
+   "ref_words": 141,
+   "whole": {
+    "windows": 1,
+    "errors": 21,
+    "S": 15,
+    "D": 2,
+    "I": 4,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 3,
+    "errors": 12,
+    "S": 7,
+    "D": 1,
+    "I": 4,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 4,
+    "errors": 15,
+    "S": 10,
+    "D": 1,
+    "I": 4,
+    "boundary_repeat_words": 0
+   }
+  },
+  {
+   "id": "podlodka-test-18",
+   "dur_s": 52.965,
+   "ref_words": 108,
+   "whole": {
+    "windows": 1,
+    "errors": 16,
+    "S": 7,
+    "D": 7,
+    "I": 2,
+    "boundary_repeat_words": 0
+   },
+   "hard20": {
+    "windows": 3,
+    "errors": 14,
+    "S": 7,
+    "D": 2,
+    "I": 5,
+    "boundary_repeat_words": 0
+   },
+   "quiet20": {
+    "windows": 3,
+    "errors": 13,
+    "S": 7,
+    "D": 3,
+    "I": 3,
+    "boundary_repeat_words": 1
+   }
+  }
+ ]
+}

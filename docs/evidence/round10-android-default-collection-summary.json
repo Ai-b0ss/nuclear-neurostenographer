@@ -1,0 +1,17 @@
+{
+  "scope": "JSON collection only, not inference assertions",
+  "collected": [
+    "asr-0",
+    "asr-1",
+    "diarization-0",
+    "diarization-1",
+    "codec-import",
+    "recording",
+    "worker-lifecycle",
+    "mixture",
+    "recording-pipeline"
+  ],
+  "missing": [],
+  "invalid": [],
+  "complete": true
+}

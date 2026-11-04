@@ -1,0 +1,54 @@
+name: Build APK for private kit (owner-triggered)
+# The APK is NOT published by default (docs/RUNTIME_LICENSES.md). This workflow exists so the
+# owner can get one debug APK for the phones of the team: it only runs when the owner types the
+# confirmation, keeps the artifact for one day, and tools/offline_kit.py fetch-apk deletes it
+# right after the download. A public repository's artifacts are visible to anyone while they exist.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type PRIVATE-USE-ONE-DAY to confirm a short-lived artifact'
+        required: true
+        default: ''
+permissions:
+  contents: read
+  actions: read
+jobs:
+  build:
+    if: ${{ inputs.confirm == 'PRIVATE-USE-ONE-DAY' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Locate preinstalled Android SDK manager
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          echo "$(dirname "$SDKMGR")" >> "$GITHUB_PATH"
+          "$SDKMGR" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Provision the pinned no-TTS runtime (checksum verified)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/provision_asr.py
+      - name: Assemble debug APK
+        run: gradle --no-daemon :app:assembleDebug
+      - name: Inspect permissions, ABIs, ELF alignment and bundled data
+        run: python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output apk-inspection.json
+      - name: Record checksum
+        run: |
+          mkdir -p kit-out
+          cp app/build/outputs/apk/debug/app-debug.apk kit-out/app-debug.apk
+          cp apk-inspection.json kit-out/
+          (cd kit-out && sha256sum app-debug.apk > APK-SHA256.txt && echo "commit ${GITHUB_SHA}" > BUILD-COMMIT.txt)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: private-apk-kit
+          path: kit-out/
+          retention-days: 1
+          if-no-files-found: error

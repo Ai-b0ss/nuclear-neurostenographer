@@ -1,0 +1,44 @@
+{
+  "apk_sha256": "1124282ef3deb43f5844b939cd5331c319a774e7f480254fa2206564b3e1bc85",
+  "apk_bytes": 53357856,
+  "permissions": [
+    "package: ru.neurostenographer.app",
+    "uses-permission: name='android.permission.RECORD_AUDIO'",
+    "permission: ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "uses-permission: name='ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+  ],
+  "native_load_alignment": {
+    "lib/arm64-v8a/libandroidx.graphics.path.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/arm64-v8a/libonnxruntime.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/arm64-v8a/libsherpa-onnx-jni.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/x86_64/libandroidx.graphics.path.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/x86_64/libonnxruntime.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/x86_64/libsherpa-onnx-jni.so": [
+      16384,
+      16384,
+      16384
+    ]
+  },
+  "android_inference": "NOT_RUN_BY_THIS_CHECK",
+  "distribution_cleared": false
+}

@@ -1,0 +1,1027 @@
+{
+ "case": "datahive-ru_000019",
+ "scope": "Signal statistics only; no human listening",
+ "callee_channel": {
+  "callee_labelled": {
+   "frames": 1684,
+   "median_dbfs": -18.0,
+   "voiced_share": 0.548
+  },
+  "only_caller_labelled": {
+   "frames": 2024,
+   "median_dbfs": -180.0,
+   "voiced_share": 0.046
+  },
+  "nobody_labelled": {
+   "frames": 2292,
+   "median_dbfs": -180.0,
+   "voiced_share": 0.046
+  }
+ },
+ "caller_channel": {
+  "caller_labelled": {
+   "frames": 2300,
+   "median_dbfs": -17.0,
+   "voiced_share": 0.68
+  },
+  "only_callee_labelled": {
+   "frames": 1408,
+   "median_dbfs": -66.5,
+   "voiced_share": 0.044
+  },
+  "nobody_labelled": {
+   "frames": 2292,
+   "median_dbfs": -62.8,
+   "voiced_share": 0.059
+  }
+ },
+ "voiced_unlabelled_ms": {
+  "caller_channel": 3960,
+  "callee_channel": 3980
+ },
+ "c2_on_unlabelled_callee_channel_sound": {
+  "h0": 20,
+  "h1": 1540
+ },
+ "c2_missed_reference_speech": {
+  "caller": {
+   "ms": 2640,
+   "own_channel_median_dbfs": -41.3,
+   "own_channel_voiced_share": 0.265,
+   "share_below_minus_60_dbfs": 0.045
+  },
+  "callee": {
+   "ms": 6320,
+   "own_channel_median_dbfs": -81.2,
+   "own_channel_voiced_share": 0.222,
+   "share_below_minus_60_dbfs": 0.658
+  }
+ },
+ "c2_speech_where_reference_has_none": {
+  "ms": 1060,
+  "loudest_channel_median_dbfs": -43.0,
+  "voiced_share_either_channel": 0.226
+ },
+ "per_second": [
+  {
+   "t_s": 0,
+   "caller_db": -59.4,
+   "callee_db": -7.5,
+   "ref": "B",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 1,
+   "caller_db": -58.9,
+   "callee_db": -4.3,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 2,
+   "caller_db": -59.6,
+   "callee_db": -20.8,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.22
+  },
+  {
+   "t_s": 3,
+   "caller_db": -22.1,
+   "callee_db": -21.0,
+   "ref": "AB",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.36
+  },
+  {
+   "t_s": 4,
+   "caller_db": -49.9,
+   "callee_db": -6.3,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 5,
+   "caller_db": -60.6,
+   "callee_db": -6.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 6,
+   "caller_db": -55.1,
+   "callee_db": -63.9,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 7,
+   "caller_db": -59.0,
+   "callee_db": -4.8,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 8,
+   "caller_db": -43.2,
+   "callee_db": -5.0,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 9,
+   "caller_db": -68.4,
+   "callee_db": -4.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 10,
+   "caller_db": -62.1,
+   "callee_db": -5.3,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 11,
+   "caller_db": -60.1,
+   "callee_db": -5.4,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.12
+  },
+  {
+   "t_s": 12,
+   "caller_db": -53.8,
+   "callee_db": -4.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 13,
+   "caller_db": -58.6,
+   "callee_db": -6.7,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 14,
+   "caller_db": -40.6,
+   "callee_db": -67.3,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 15,
+   "caller_db": -13.2,
+   "callee_db": -5.7,
+   "ref": "AB",
+   "c2": "01",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 16,
+   "caller_db": -64.6,
+   "callee_db": -69.4,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 17,
+   "caller_db": -6.6,
+   "callee_db": -19.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 18,
+   "caller_db": -11.8,
+   "callee_db": -68.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 19,
+   "caller_db": -11.8,
+   "callee_db": -69.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 20,
+   "caller_db": -5.7,
+   "callee_db": -69.1,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 21,
+   "caller_db": -6.1,
+   "callee_db": -68.9,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 22,
+   "caller_db": -5.2,
+   "callee_db": -7.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 23,
+   "caller_db": -4.9,
+   "callee_db": -3.7,
+   "ref": "AB",
+   "c2": "01",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 24,
+   "caller_db": -7.1,
+   "callee_db": -70.5,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 25,
+   "caller_db": -6.6,
+   "callee_db": -49.6,
+   "ref": "A",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 26,
+   "caller_db": -41.4,
+   "callee_db": -5.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 27,
+   "caller_db": -43.9,
+   "callee_db": -4.5,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 28,
+   "caller_db": -46.0,
+   "callee_db": -3.0,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 29,
+   "caller_db": -58.6,
+   "callee_db": -4.3,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 30,
+   "caller_db": -57.1,
+   "callee_db": -2.8,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 31,
+   "caller_db": -35.7,
+   "callee_db": -9.8,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 32,
+   "caller_db": -59.2,
+   "callee_db": -12.2,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 33,
+   "caller_db": -59.6,
+   "callee_db": -11.0,
+   "ref": "B",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.1
+  },
+  {
+   "t_s": 34,
+   "caller_db": -5.4,
+   "callee_db": -6.0,
+   "ref": "AB",
+   "c2": "01",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 35,
+   "caller_db": -6.5,
+   "callee_db": -4.7,
+   "ref": "AB",
+   "c2": "01",
+   "unlabelled_voiced_callee": 0.12
+  },
+  {
+   "t_s": 36,
+   "caller_db": -45.9,
+   "callee_db": -4.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 37,
+   "caller_db": -44.7,
+   "callee_db": -3.6,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 38,
+   "caller_db": -8.1,
+   "callee_db": -8.9,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 39,
+   "caller_db": -6.0,
+   "callee_db": -4.9,
+   "ref": "AB",
+   "c2": "01",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 40,
+   "caller_db": -39.8,
+   "callee_db": -37.9,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 41,
+   "caller_db": -55.9,
+   "callee_db": -69.3,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 42,
+   "caller_db": -7.1,
+   "callee_db": -68.3,
+   "ref": "A",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 43,
+   "caller_db": -8.3,
+   "callee_db": -67.9,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 44,
+   "caller_db": -5.8,
+   "callee_db": -71.2,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 45,
+   "caller_db": -7.1,
+   "callee_db": -69.9,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 46,
+   "caller_db": -6.9,
+   "callee_db": -70.1,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 47,
+   "caller_db": -6.5,
+   "callee_db": -69.6,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 48,
+   "caller_db": -8.4,
+   "callee_db": -70.1,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 49,
+   "caller_db": -42.5,
+   "callee_db": -21.7,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 50,
+   "caller_db": -38.4,
+   "callee_db": -5.6,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 51,
+   "caller_db": -10.1,
+   "callee_db": -68.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 52,
+   "caller_db": -6.5,
+   "callee_db": -71.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 53,
+   "caller_db": -7.5,
+   "callee_db": -70.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 54,
+   "caller_db": -9.3,
+   "callee_db": -69.8,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 55,
+   "caller_db": -5.7,
+   "callee_db": -23.4,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.2
+  },
+  {
+   "t_s": 56,
+   "caller_db": -11.7,
+   "callee_db": -70.6,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 57,
+   "caller_db": -6.8,
+   "callee_db": -64.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.1
+  },
+  {
+   "t_s": 58,
+   "caller_db": -8.2,
+   "callee_db": -69.1,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 59,
+   "caller_db": -7.3,
+   "callee_db": -68.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 60,
+   "caller_db": -10.0,
+   "callee_db": -70.7,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 61,
+   "caller_db": -12.9,
+   "callee_db": -69.4,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 62,
+   "caller_db": -48.2,
+   "callee_db": -69.4,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 63,
+   "caller_db": -6.5,
+   "callee_db": -68.0,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 64,
+   "caller_db": -6.7,
+   "callee_db": -71.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 65,
+   "caller_db": -7.9,
+   "callee_db": -68.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 66,
+   "caller_db": -9.1,
+   "callee_db": -69.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 67,
+   "caller_db": -11.9,
+   "callee_db": -70.0,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 68,
+   "caller_db": -7.4,
+   "callee_db": -68.0,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 69,
+   "caller_db": -24.8,
+   "callee_db": -70.4,
+   "ref": "A",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 70,
+   "caller_db": -62.5,
+   "callee_db": -67.0,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 71,
+   "caller_db": -20.5,
+   "callee_db": -67.6,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 72,
+   "caller_db": -59.4,
+   "callee_db": -68.1,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 73,
+   "caller_db": -6.3,
+   "callee_db": -68.4,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 74,
+   "caller_db": -6.0,
+   "callee_db": -67.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 75,
+   "caller_db": -7.0,
+   "callee_db": -69.5,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 76,
+   "caller_db": -7.8,
+   "callee_db": -68.7,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 77,
+   "caller_db": -8.2,
+   "callee_db": -69.6,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 78,
+   "caller_db": -9.2,
+   "callee_db": -68.8,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 79,
+   "caller_db": -32.3,
+   "callee_db": -68.8,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 80,
+   "caller_db": -15.7,
+   "callee_db": -67.9,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 81,
+   "caller_db": -50.2,
+   "callee_db": -68.3,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 82,
+   "caller_db": -6.4,
+   "callee_db": -67.0,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 83,
+   "caller_db": -6.8,
+   "callee_db": -70.0,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 84,
+   "caller_db": -10.1,
+   "callee_db": -68.6,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 85,
+   "caller_db": -6.6,
+   "callee_db": -69.4,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 86,
+   "caller_db": -7.7,
+   "callee_db": -66.5,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 87,
+   "caller_db": -8.2,
+   "callee_db": -69.0,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 88,
+   "caller_db": -6.8,
+   "callee_db": -39.6,
+   "ref": "AB",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 89,
+   "caller_db": -11.4,
+   "callee_db": -69.6,
+   "ref": "AB",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 90,
+   "caller_db": -44.0,
+   "callee_db": -69.5,
+   "ref": "B",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 91,
+   "caller_db": -25.8,
+   "callee_db": -69.0,
+   "ref": "B",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 92,
+   "caller_db": -55.0,
+   "callee_db": -70.4,
+   "ref": "B",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 93,
+   "caller_db": -24.2,
+   "callee_db": -4.6,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 94,
+   "caller_db": -32.7,
+   "callee_db": -66.3,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.1
+  },
+  {
+   "t_s": 95,
+   "caller_db": -9.8,
+   "callee_db": -69.4,
+   "ref": "-",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 96,
+   "caller_db": -51.6,
+   "callee_db": -68.3,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 97,
+   "caller_db": -8.9,
+   "callee_db": -4.2,
+   "ref": "AB",
+   "c2": "01",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 98,
+   "caller_db": -18.3,
+   "callee_db": -6.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 99,
+   "caller_db": -29.8,
+   "callee_db": -4.8,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 100,
+   "caller_db": -56.5,
+   "callee_db": -5.7,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 101,
+   "caller_db": -47.7,
+   "callee_db": -49.6,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 102,
+   "caller_db": -54.2,
+   "callee_db": -9.1,
+   "ref": "B",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 103,
+   "caller_db": -8.8,
+   "callee_db": -27.4,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 104,
+   "caller_db": -6.0,
+   "callee_db": -71.5,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 105,
+   "caller_db": -53.2,
+   "callee_db": -68.1,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 106,
+   "caller_db": -54.4,
+   "callee_db": -69.7,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 107,
+   "caller_db": -42.7,
+   "callee_db": -68.5,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 108,
+   "caller_db": -46.6,
+   "callee_db": -69.4,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 109,
+   "caller_db": -53.7,
+   "callee_db": -68.0,
+   "ref": "-",
+   "c2": "-",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 110,
+   "caller_db": -5.5,
+   "callee_db": -68.3,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 111,
+   "caller_db": -6.5,
+   "callee_db": -64.2,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 112,
+   "caller_db": -6.3,
+   "callee_db": -69.9,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.08
+  },
+  {
+   "t_s": 113,
+   "caller_db": -6.1,
+   "callee_db": -69.9,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.04
+  },
+  {
+   "t_s": 114,
+   "caller_db": -4.7,
+   "callee_db": -69.6,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.06
+  },
+  {
+   "t_s": 115,
+   "caller_db": -7.2,
+   "callee_db": -65.4,
+   "ref": "A",
+   "c2": "1",
+   "unlabelled_voiced_callee": 0.02
+  },
+  {
+   "t_s": 116,
+   "caller_db": -9.3,
+   "callee_db": -5.9,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 117,
+   "caller_db": -50.9,
+   "callee_db": -5.4,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 118,
+   "caller_db": -60.4,
+   "callee_db": -4.1,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  },
+  {
+   "t_s": 119,
+   "caller_db": -37.8,
+   "callee_db": -3.9,
+   "ref": "B",
+   "c2": "0",
+   "unlabelled_voiced_callee": 0.0
+  }
+ ]
+}

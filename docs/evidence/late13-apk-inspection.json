@@ -1,0 +1,68 @@
+{
+  "apk_sha256": "0818aa13b4af8f82fc35caaf5914120b9a3a37a44ef17a1103b621a3e20654fd",
+  "apk_bytes": 50972811,
+  "runtime_identity": {
+    "aar_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "packaged_native_sha256": {
+      "lib/arm64-v8a/libonnxruntime.so": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+      "lib/arm64-v8a/libsherpa-onnx-jni.so": "fbbe59319b4e1f485017e8f21160349b11ede52a77db551a47a388eb9ce730bf",
+      "lib/x86_64/libonnxruntime.so": "1eda995a3d24e48492aa2e671f4b69624d32a7c227dc7e0904c433e83df1aa7e",
+      "lib/x86_64/libsherpa-onnx-jni.so": "528dae634ebfd4cecadfbcac790960fb9a634b19c940fd037d5ec77d0c17e64f"
+    },
+    "build_config_digest": "MATCH",
+    "native_bytes": "MATCH"
+  },
+  "permissions": [
+    "package: ru.neurostenographer.app",
+    "uses-permission: name='android.permission.RECORD_AUDIO'",
+    "permission: ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "uses-permission: name='ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+  ],
+  "native_load_alignment": {
+    "lib/arm64-v8a/libandroidx.graphics.path.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/arm64-v8a/libonnxruntime.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/arm64-v8a/libsherpa-onnx-jni.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/x86_64/libandroidx.graphics.path.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/x86_64/libonnxruntime.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/x86_64/libsherpa-onnx-jni.so": [
+      16384,
+      16384,
+      16384
+    ]
+  },
+  "native_elf_machine": {
+    "lib/arm64-v8a/libandroidx.graphics.path.so": 183,
+    "lib/arm64-v8a/libonnxruntime.so": 183,
+    "lib/arm64-v8a/libsherpa-onnx-jni.so": 183,
+    "lib/x86_64/libandroidx.graphics.path.so": 62,
+    "lib/x86_64/libonnxruntime.so": 62,
+    "lib/x86_64/libsherpa-onnx-jni.so": 62
+  },
+  "diarization_worker": {
+    "process": ":diarization",
+    "exported": false,
+    "runtime_test": "NOT_RUN"
+  },
+  "android_inference": "NOT_RUN_BY_THIS_CHECK",
+  "distribution_cleared": false
+}

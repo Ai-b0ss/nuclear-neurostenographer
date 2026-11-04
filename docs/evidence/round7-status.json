@@ -1,0 +1,74 @@
+{
+  "round": 7,
+  "verdict": "NOT_READY",
+  "implemented": [
+    "Full RIFF extent/trailing chunk validation before PCM acceptance",
+    "Reject silently omitted additional WAV data and malformed tails",
+    "WAV snapshot preservation/cleanup and Android no-fallback regression tests",
+    "Scorer root/duration/flag validation and stale favorable report replacement"
+  ],
+  "verification": {
+    "core_test_groups": 15,
+    "new_wav_corruption_cases": 8,
+    "old_source_bug_reproduction_and_current_fix": "PASS",
+    "android_debug_build": "PASS",
+    "android_instrumentation_build": "PASS",
+    "build_result": "BUILD SUCCESSFUL in 1m 2s",
+    "build_tasks": "77 actionable tasks: 6 executed, 71 up-to-date",
+    "lint": {
+      "Error": 0,
+      "Warning": 7,
+      "Fatal": 0
+    },
+    "scorer_methods": 12,
+    "new_scorer_cli_corruptions": 18,
+    "collector_methods": 3,
+    "checkpoint_methods_pass": 3,
+    "checkpoint_methods_skip": 1,
+    "checkpoint_skip_reason": "Windows denies test symlink creation",
+    "download_negative_regression": "PASS",
+    "host_asr": "PASS",
+    "host_diarization_aba": "PASS",
+    "host_dialogue_exports": "PASS",
+    "host_export_corruption_negative_regression": "PASS",
+    "host_overlap": "FAIL_NATIVE_FATAL_NO_OUTPUT",
+    "host_suite_exit_code": 1,
+    "apk_static_inspection": "PASS",
+    "python_compile": "PASS",
+    "yaml": "PASS_5_FILES",
+    "git_diff_check": "PASS",
+    "android_inference_codec_microphone_worker_and_wav_selection": "NOT_RUN",
+    "physical_arm64_airplane_mode_ui_peak_ram_thermal": "NOT_RUN",
+    "independent_russian_dialogue_metrics": "NOT_SCORED_NO_INDEPENDENT_REFERENCE"
+  },
+  "git": {
+    "base_commit": "2cec9ddf47a4fe6a53d25cec0bef0b206a8c0f58",
+    "new_commits": 0,
+    "pushed": false,
+    "new_ci_runs": 0,
+    "branch_creation": "FAILED_READ_ONLY_GIT",
+    "remote_main_verified_unchanged": true
+  },
+  "blockers": [
+    "Protected read-only .git and CLI 401; prior connected-write automatic approval rejection unresolved",
+    "Known native overlap crash; Android containment unexecuted",
+    "Full AAR GPL/TTS distribution; no-TTS runtime unbuilt",
+    "Android execution and physical ARM64/microphone/airplane-mode evidence absent",
+    "Independent licensed Russian dialogue annotations absent"
+  ],
+  "build_log_sha256": "008234e09fcae4fafc6864084b98173511cdc00426fc064ec2179da8525030b9",
+  "last_remote_ci_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/40987151101",
+  "last_remote_ci_scope": "Old UI baseline only, not this working tree",
+  "apk_current_wav_guard_in_dex": "PASS",
+  "recovery_validation": {
+    "source_files": 141,
+    "source_only_archive": "PASS",
+    "reverse_patch_check": "PASS_CHECK_ONLY_NO_FILES_REVERTED",
+    "prior_checkpoints": "PRESERVED"
+  },
+  "recovery": [
+    ".local/round7-source.zip",
+    ".local/round7-recovery.patch",
+    ".local/round7-checkpoint.json"
+  ]
+}

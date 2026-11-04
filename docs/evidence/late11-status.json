@@ -1,0 +1,55 @@
+{
+  "continuation": 11,
+  "verdict": "NOT_READY",
+  "base_peer_head": "92b99a22ef55dfae387da8a1c333d9ed27fe91c3",
+  "validated_code_commit": "acb953992926fc60db56b2006337e043e467f6c2",
+  "default_threshold": 0.8,
+  "peer_changes_and_worktree_preserved": true,
+  "fixes": [
+    "Bounded wait for confirmed prior Binder death, unknown exit still blocks",
+    "Export provenance derives from actual production threshold"
+  ],
+  "verification": {
+    "instrumentation": {
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "ui_checks_pass": 11,
+    "saved_exports": "PASS",
+    "benchmark_invocation_and_hashes": "MATCH",
+    "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "local_benchmark_methods_pass": 7,
+    "optimized_evidence_methods_pass": 3,
+    "native_notice_methods_pass": 2
+  },
+  "acted_development_probe": {
+    "wer": "1/41 = 2.44%",
+    "cpwer": "1/41 = 2.44%",
+    "D_M_D": "PASS",
+    "der": "NOT_SCORED",
+    "scope": "Same three utterances used during threshold selection; not an untouched holdout or representative corpus"
+  },
+  "prior_failure": {
+    "run": 41071541258,
+    "status": "FAIL_UNCONFIRMED_PRIOR_WORKER_EXIT",
+    "retained": true
+  },
+  "recovered_evidence": {
+    "six_files_matched_backup_before_changes": true,
+    "backup_zip_sha256": "3b4125b8796dea4b4178d5c977be3642688222669b8771d0642b6afb1f683f8a",
+    "native_notices_digest": "MATCH",
+    "native_candidate_AAR": "BYTE_IDENTICAL_TO_PIN",
+    "old_native_workflow": "NATIVE_JOB_PASS_OLD_CANDIDATE_UI_FAIL",
+    "corrected_candidate_run_41062449527": "PASS"
+  },
+  "remaining": [
+    "Untouched Russian holdout/natural dialogue and independent DER",
+    "Physical ARM64/airplane mode/spoken microphone acceptance",
+    "Overlap quality and phone peak RAM/thermal/power",
+    "Whole-runtime linked-header/toolchain/license distribution review; APK publication disabled"
+  ],
+  "main_merged": false,
+  "runtime_promoted": false
+}

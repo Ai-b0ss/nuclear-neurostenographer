@@ -1,0 +1,55 @@
+{
+  "round": 11,
+  "recovery_call": 4,
+  "verdict": "NOT_READY",
+  "validated_code_commit": "12b81bbf3e28965bfae96e3d8a4d65bb09edb01d",
+  "branch": "codex/overnight-20261030-wip",
+  "draft_pr": 6,
+  "verification": {
+    "android_run": 41056348245,
+    "instrumentation_pass": 17,
+    "skips": 0,
+    "ui_checks_pass": 11,
+    "build_lint_core_apk_run": 41056348279,
+    "core_groups": 16,
+    "local_ui_methods": 6,
+    "local_benchmark_methods": 6,
+    "local_collector_methods": 5,
+    "no_tts_runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "actual_provider_exports": "TXT_JSON_SRT_PASS",
+    "benchmark_invocation_binding": "PASS",
+    "evidence_git_blob_hashes": "PASS",
+    "microphone_spoken_accuracy": "NOT_RUN_EMULATOR_CAPTURE_NO_DETECTED_SPEECH"
+  },
+  "tiny_acted_probe": {
+    "run": 41049800881,
+    "scope": "THREE_COMPOSED_ACTED_UTTERANCES_NOT_CORPUS_ACCURACY",
+    "wer_errors": 1,
+    "reference_words": 41,
+    "cpwer_errors": 25,
+    "recurrence": "FAIL_ALL_THREE_CLIPS_SPEAKER_1",
+    "der": "NOT_SCORED_NO_INDEPENDENT_SPEECH_BOUNDARIES",
+    "threshold_changed": false
+  },
+  "blockers": [
+    "Russian voices merged on independent tiny acted probe",
+    "DER and representative natural-dialogue accuracy absent",
+    "Physical ARM64, airplane mode and spoken microphone dialogue not tested",
+    "Overlap recognition/separation unproven",
+    "Dependency/header/toolchain notices and distribution review open; APK publication disabled",
+    "Pinned runtime Actions artifact may expire; fail-closed retrieval"
+  ],
+  "git": {
+    "main_untouched": true,
+    "merged": false,
+    "force_pushed": false
+  },
+  "preservation": {
+    "interrupted_sources_backup_kept": true,
+    "prior_evidence_and_logs_kept": true
+  },
+  "privacy": {
+    "audio_or_models_published": false,
+    "private_recordings_used": false
+  }
+}

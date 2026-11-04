@@ -1,0 +1,132 @@
+{
+  "conclusion": "success",
+  "databaseId": 41061172426,
+  "headSha": "f9af8adf0f08e7dd6104742424dc04663b10aa6c",
+  "jobs": [
+    {
+      "completedAt": "2026-10-30T13:13:57Z",
+      "conclusion": "success",
+      "databaseId": 124080991607,
+      "name": "android",
+      "startedAt": "2026-10-30T13:11:30Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-30T13:11:33Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-30T13:11:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:11:34Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-30T13:11:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:11:34Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-java@v4",
+          "number": 3,
+          "startedAt": "2026-10-30T13:11:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:11:40Z",
+          "conclusion": "success",
+          "name": "Locate preinstalled Android SDK manager",
+          "number": 4,
+          "startedAt": "2026-10-30T13:11:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:11:48Z",
+          "conclusion": "success",
+          "name": "Run gradle/actions/setup-gradle@v4",
+          "number": 5,
+          "startedAt": "2026-10-30T13:11:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:11:54Z",
+          "conclusion": "success",
+          "name": "Verify pinned sherpa-onnx runtime",
+          "number": 6,
+          "startedAt": "2026-10-30T13:11:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:52Z",
+          "conclusion": "success",
+          "name": "Test core and assemble debug APK",
+          "number": 7,
+          "startedAt": "2026-10-30T13:11:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:53Z",
+          "conclusion": "success",
+          "name": "Inspect permissions, ABIs, ELF alignment and accidental bundled data",
+          "number": 8,
+          "startedAt": "2026-10-30T13:13:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:54Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 9,
+          "startedAt": "2026-10-30T13:13:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:54Z",
+          "conclusion": "skipped",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "startedAt": "2026-10-30T13:13:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:54Z",
+          "conclusion": "success",
+          "name": "Post Run gradle/actions/setup-gradle@v4",
+          "number": 18,
+          "startedAt": "2026-10-30T13:13:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:55Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-java@v4",
+          "number": 19,
+          "startedAt": "2026-10-30T13:13:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:55Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "startedAt": "2026-10-30T13:13:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T13:13:55Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "startedAt": "2026-10-30T13:13:55Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172426/job/124080991607"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41061172426"
+}

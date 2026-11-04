@@ -1,0 +1,8 @@
+{
+  "scope": "public_known_mixture_worker_containment",
+  "native_completed": true,
+  "caller_alive": true,
+  "overlap_detected": false,
+  "unknown_turns": 4,
+  "accuracy_status": "NOT_SCORED"
+}

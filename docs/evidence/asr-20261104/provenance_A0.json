@@ -1,0 +1,22 @@
+{
+ "candidate": "A0",
+ "repo": "Smirnov75/GigaAM-v3-sherpa-onnx",
+ "revision": "6888903da215c7735f51101d939f3bfa679fb2b8",
+ "license_tag": [
+  "license:mit"
+ ],
+ "files": {
+  "gigaam_v3_ctc_int8.onnx": {
+   "bytes": 319183165,
+   "sha256": "3905685b05941e79772e68acc8af5ac5aafb615fe57a38a719ad3291dbcbf3ed",
+   "hub_sha256": "3905685b05941e79772e68acc8af5ac5aafb615fe57a38a719ad3291dbcbf3ed",
+   "verified": true
+  },
+  "gigaam_v3_ctc_tokens.txt": {
+   "bytes": 195,
+   "sha256": "48c9111eb77c9c42d08ecc71c00c09407ef2cce01195d72b7cc0c3c08ce89213",
+   "hub_sha256": null,
+   "verified": true
+  }
+ }
+}

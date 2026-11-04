@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "platform": "Android instrumentation",
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "sdk_int": 33,
+  "abis": [
+    "x86_64"
+  ],
+  "device_model": "Android SDK built for x86_64",
+  "audio_duration_ms": 56860,
+  "audio_sha256": "bedf036caed208386c67b4ef4b11f83d74dd0d420b102163a1c33cd09cde7010",
+  "fixture": "four-speakers.wav",
+  "reference_status": "No independent full text or speech-boundary annotation; WER/DER/cpWER NOT_SCORED",
+  "segments": [],
+  "diarization": [
+    {
+      "start_ms": 318,
+      "end_ms": 2056,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 2242,
+      "end_ms": 3997,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 4402,
+      "end_ms": 6865,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 7017,
+      "end_ms": 8148,
+      "speaker_id": "Speaker 2",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 8502,
+      "end_ms": 10747,
+      "speaker_id": "Speaker 2",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 11455,
+      "end_ms": 13632,
+      "speaker_id": "Speaker 2",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 13750,
+      "end_ms": 17041,
+      "speaker_id": "Speaker 3",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 22137,
+      "end_ms": 24837,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 27638,
+      "end_ms": 29478,
+      "speaker_id": "Speaker 4",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 30001,
+      "end_ms": 31553,
+      "speaker_id": "Speaker 4",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 33680,
+      "end_ms": 34405,
+      "speaker_id": "Speaker 4",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 34743,
+      "end_ms": 36346,
+      "speaker_id": "Speaker 4",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 36734,
+      "end_ms": 37932,
+      "speaker_id": "Speaker 4",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 48040,
+      "end_ms": 50470,
+      "speaker_id": "Speaker 3",
+      "attribution_eligible": true
+    },
+    {
+      "start_ms": 52529,
+      "end_ms": 54605,
+      "speaker_id": "Speaker 1",
+      "attribution_eligible": true
+    }
+  ],
+  "model_revision": "pyannote-9403a690/eres2net-1a331345/threshold-0.9",
+  "load_ms": 381,
+  "process_ms": 8182,
+  "memory_after": {
+    "process_pss_kib": 119365,
+    "java_used_bytes": 10352720,
+    "scope": "current instrumentation/app process snapshot; NOT peak, excludes diarization worker"
+  }
+}

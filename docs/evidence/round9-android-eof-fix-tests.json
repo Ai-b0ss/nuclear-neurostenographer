@@ -1,0 +1,122 @@
+{
+  "run_id": 41040228527,
+  "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41040228527",
+  "source_commit": "b223406",
+  "scope": "Real Android x86_64 API 33 emulator instrumentation; not physical ARM64 or accuracy benchmark",
+  "total": 15,
+  "pass": 14,
+  "fail": 1,
+  "skip": 0,
+  "tests": [
+    {
+      "name": "exportsWriteUtf8AndTruncateExistingDestination",
+      "classname": "ru.neurostenographer.app.AudioInputTest",
+      "time": "0.007",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "validImportIsSnapshotAndBadReplacementKeepsPreviousInput",
+      "classname": "ru.neurostenographer.app.AudioInputTest",
+      "time": "0.127",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "explicitAudioCleanupRemovesOwnedFilesAndClearsSelection",
+      "classname": "ru.neurostenographer.app.AudioInputTest",
+      "time": "0.035",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "rejectedAndCancelledImportLeavesNoStagedFiles",
+      "classname": "ru.neurostenographer.app.CodecImportTest",
+      "time": "0.077",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "generatedCodecsBecomeValidatedPrivatePcm",
+      "classname": "ru.neurostenographer.app.CodecImportTest",
+      "time": "0.338",
+      "status": "FAIL",
+      "failures": [
+        ""
+      ]
+    },
+    {
+      "name": "importedUserAudioThroughViewModelAndDocumentExports",
+      "classname": "ru.neurostenographer.app.OfflineAsrTest",
+      "time": "5.75",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "maliciousOrIncompleteModelDoesNotReplaceInstalledModel",
+      "classname": "ru.neurostenographer.app.OfflineAsrTest",
+      "time": "0.001",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "actualRussianInferenceRepeatedAndSilent",
+      "classname": "ru.neurostenographer.app.OfflineAsrTest",
+      "time": "9.792",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "knownMixedVoicesCannotKillCaller",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "1.638",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "workerDeathLeavesCallerAliveAndCanRestart",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "1.483",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "realEmbeddingsGlobalRecurrenceSilenceAndShortInput",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "19.176",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "realRussianAsrUsesInferredBoundariesAndExports",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "5.973",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "finalUnbindStopsNativeWorkerAfterSuccessAndCancellation",
+      "classname": "ru.neurostenographer.app.OfflineDiarizationTest",
+      "time": "2.488",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "failedRecordingAndStopTimeoutPreservePreviousInput",
+      "classname": "ru.neurostenographer.app.RecordingTest",
+      "time": "0.179",
+      "status": "PASS",
+      "failures": []
+    },
+    {
+      "name": "platformMicrophoneProducesBoundedWavAndReleasesForNextSession",
+      "classname": "ru.neurostenographer.app.RecordingTest",
+      "time": "1.059",
+      "status": "PASS",
+      "failures": []
+    }
+  ],
+  "xml_sha256": {
+    "TEST-emulator-5554 - 13-_app-.xml": "8b35a4274bf804e86249e128ed86a40ab103508028b668a6753db518d6a0983b"
+  }
+}

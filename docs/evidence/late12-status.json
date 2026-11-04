@@ -1,0 +1,77 @@
+{
+  "continuation": 12,
+  "verdict": "NOT_READY",
+  "snapshot_utc": "2026-10-30T19:57:32.210878+00:00",
+  "validated_code_commit": "e4aff33f967119f186972e11d00989345fcdaac3",
+  "fix": "Require nonempty native dependency inputs for each ABI, before publishing inventory",
+  "regression": {
+    "scope": "Authored local build-tree corruption checks, not model or device execution",
+    "before_fix": "4 failing subtests: missing or empty dependency tree for either ABI accepted",
+    "after_fix": "3 methods PASS, normal and optimized Python, including 4 negatives and valid controls",
+    "tracked_source_guard_files_pass": 290
+  },
+  "ci": [
+    {
+      "conclusion": "success",
+      "databaseId": 41119058581,
+      "headSha": "e4aff33f967119f186972e11d00989345fcdaac3",
+      "status": "completed",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119058581",
+      "workflowName": "Android debug APK and core tests"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 41119047210,
+      "headSha": "e4aff33f967119f186972e11d00989345fcdaac3",
+      "status": "in_progress",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047210",
+      "workflowName": "Build pinned ASR-only Android runtime candidate"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 41119047036,
+      "headSha": "e4aff33f967119f186972e11d00989345fcdaac3",
+      "status": "in_progress",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047036",
+      "workflowName": "Real offline Russian ASR (x86_64)"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41119047166,
+      "headSha": "e4aff33f967119f186972e11d00989345fcdaac3",
+      "status": "completed",
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/41119047166",
+      "workflowName": "Android debug APK and core tests"
+    }
+  ],
+  "preservation": {
+    "recovered_files_byte_identical_to_backup": [
+      "docs/evidence/round11-recovery10-native-dependencies.json",
+      "docs/evidence/round11-recovery10-native-package.json",
+      "docs/evidence/round11-recovery10-old-candidate-replay.json",
+      "docs/evidence/round11-recovery10-runtime-identity.json",
+      "docs/evidence/round11-recovery10-runtime-notices.txt"
+    ],
+    "backup_sha256": "3b4125b8796dea4b4178d5c977be3642688222669b8771d0642b6afb1f683f8a",
+    "historical_notices_digest": "MATCH",
+    "runtime_promoted": false,
+    "models_or_threshold_changed": false,
+    "peer_worktree_modified": false
+  },
+  "last_completed_device_evidence": {
+    "run": 41116632139,
+    "instrumentation_pass": 19,
+    "ui_checks_pass": 11,
+    "scope": "Previously completed at acb9539; not a fresh execution for this collector fix"
+  },
+  "speaker_accuracy_scope": "Threshold 0.8 retained; earlier 2.44% WER/cpWER is the same development probe used during selection, not an untouched holdout; DER NOT_SCORED",
+  "remaining": [
+    "Review pending native rebuild and emulator runs; pending is not PASS",
+    "Untouched Russian dialogue holdout and independent DER",
+    "Physical ARM64/airplane mode/spoken microphone acceptance",
+    "Overlap quality, phone peak RAM/thermal/power",
+    "Linked-header/toolchain and distribution review; APK publication disabled"
+  ],
+  "main_merged": false,
+  "pr_6": "OPEN_DRAFT"
+}

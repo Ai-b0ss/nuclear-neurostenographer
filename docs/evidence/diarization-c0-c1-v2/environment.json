@@ -1,0 +1,75 @@
+{
+ "platform": "Windows-10-10.0.19045-SP0",
+ "machine": "AMD64",
+ "processor": "Intel64 Family 6 Model 79 Stepping 1, GenuineIntel",
+ "physical_arm64": "NOT_RUN",
+ "threads": 2,
+ "c1_c2_onnxruntime": "1.31.1",
+ "c0_asr_onnxruntime": "1.17.1",
+ "configs": {
+  "C0": {
+   "system": "C0",
+   "threshold": "0.8",
+   "runtime": {
+    "sherpa_native_jar": "24d9fe53301fe0b5026fb1cb3877b54d1a47ed079f75819e83a99a9a9e41e55a",
+    "onnxruntime": "1.17.1"
+   },
+   "models": {
+    "c0/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+    "c0/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b"
+   },
+   "code": {
+    "tools/diar_bench/DiarBench.kt": "0144b64dd8fb4d232ac57b6ee432b99606468c074299c01e19eed09a42b13996",
+    "app/src/main/java/ru/neurostenographer/app/OfflineDiarization.kt": "2bed186dc099ff17c352428969a42906ec16b92c4cad1a92cbc06cad83d85772",
+    "core/src/main/kotlin/ru/neurostenographer/core/DiarizationTimeline.kt": "f47fc7c7873ff36f51b4723f9d4ba13abdb215d9e088f6689224d052857fa786"
+   }
+  },
+  "C1": {
+   "system": "C1",
+   "threshold": "0.5",
+   "runtime": {
+    "onnxruntime": "1.31.1"
+   },
+   "models": {
+    "nemotron/preprocessor_core.onnx": "28e815a770a8cbe47c351cd36908dd129a0b36ab31461aa8f370a369419703e1",
+    "nemotron/constants.npz": "fd49737a61e90e1990f4e90a3c0088f2f3ef649860ecdaa4abc76ad2428876df",
+    "nemotron/diarize.py": "170cb823efe5e3953a635d031511dbd984c18639fa7a4edc3e5780fd055dea1e",
+    "nemotron/model.onnx": "f4338e05a0d1913f387321d2b56bd1cb4985990e3288ce7149e755ea789929bf"
+   },
+   "code": {
+    "tools/diar_bench/run_c1.py": "f816327fe8c337edee9bd9fda00846c757c77824d6ca9d2bfac98eac2cfe9680"
+   }
+  },
+  "C2": {
+   "system": "C2",
+   "threshold": "0.5",
+   "runtime": {
+    "onnxruntime": "1.31.1"
+   },
+   "models": {
+    "nemotron/preprocessor_core.onnx": "28e815a770a8cbe47c351cd36908dd129a0b36ab31461aa8f370a369419703e1",
+    "nemotron/constants.npz": "fd49737a61e90e1990f4e90a3c0088f2f3ef649860ecdaa4abc76ad2428876df",
+    "nemotron/diarize.py": "170cb823efe5e3953a635d031511dbd984c18639fa7a4edc3e5780fd055dea1e",
+    "nemotron/model.int8.onnx": "17fd04215d655d2feee413a44f96e57d4ebd96cdd9cdbdf8c26da266e08bc835"
+   },
+   "code": {
+    "tools/diar_bench/run_c1.py": "f816327fe8c337edee9bd9fda00846c757c77824d6ca9d2bfac98eac2cfe9680"
+   }
+  }
+ },
+ "asr": {
+  "models": {
+   "asr/model.int8.onnx": "f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec",
+   "asr/tokens.txt": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2"
+  },
+  "runtime": {
+   "sherpa_native_jar": "24d9fe53301fe0b5026fb1cb3877b54d1a47ed079f75819e83a99a9a9e41e55a",
+   "onnxruntime": "1.17.1"
+  },
+  "code": {
+   "app/src/main/java/ru/neurostenographer/app/OfflineAsr.kt": "c0aa7c3c4bb92ca89fb74ad3a087365efaa86086b495544d5fec25c9829eee6b",
+   "core/src/main/kotlin/ru/neurostenographer/core/TranscriptCore.kt": "42a37380866b9bc5c984e3b02ccc8379dcd4a7a574846b9815e312a8e1ca3158",
+   "core/src/main/kotlin/ru/neurostenographer/core/QuietCuts.kt": "45d3f7cc20efd2eedcdfbb06b4f10f1ce972825e5632dc5c4b2a28926b2e197c"
+  }
+ }
+}

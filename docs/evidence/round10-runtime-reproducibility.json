@@ -1,0 +1,9 @@
+{
+  "original_native_run": 41039830327,
+  "independent_rebuild_run": 41044063814,
+  "aar_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "byte_identical": true,
+  "bytes": 41464159,
+  "scope": "Two independent GitHub-hosted builds of same pinned source/NDK/patch, same date; not universal cross-toolchain reproducibility",
+  "model_or_audio_committed": false
+}

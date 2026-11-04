@@ -1,0 +1,64 @@
+name: C2 side-by-side install check (build only, no emulator)
+# Light: runs when the files that decide the package change. Builds the contest app and the C2 prototype with their test APKs and proves from the merged manifests
+# that the prototype installs next to the contest app instead of over it. Uploads JSON reports, never APKs or audio.
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/nemotron-android-**']
+    paths: ['app/build.gradle.kts', 'app/src/main/AndroidManifest.xml', 'tools/phone_c2/**', '.github/workflows/nemotron-side-by-side.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  side-by-side:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Prepare SDK
+        run: |
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)
+          test -n "$SDKMGR" && test -x "$SDKMGR"
+          echo "$(dirname "$SDKMGR")" >> "$GITHUB_PATH"
+          "$SDKMGR" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Unit tests of the C2 tools
+        run: |
+          pip install -q numpy scipy pyarrow soundfile
+          python3 -m unittest discover -s tools/phone_c2 -p "test_*.py" -v
+          (cd tools/c2_same_tracks && python3 -m unittest test_same_tracks -v)
+          (cd tools/c2_analysis && python3 -m unittest test_gated_reference -v)
+      - name: Provision the pinned sherpa-onnx runtime
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/provision_asr.py
+      - name: Build the contest app and the prototype
+        run: |
+          mkdir -p apks evidence
+          gradle --no-daemon :core:runCoreTests :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
+          cp app/build/outputs/apk/debug/app-debug.apk apks/contest.apk
+          cp app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk apks/contest-test.apk
+          gradle --no-daemon -PnemotronPrototype=true :app:assembleDebug :app:assembleDebugAndroidTest
+          cp app/build/outputs/apk/debug/app-debug.apk apks/prototype.apk
+          cp app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk apks/prototype-test.apk
+      - name: Side-by-side and APK checks
+        run: |
+          ANALYZER=$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/apkanalyzer" -type f | sort -V | tail -n 1)
+          AAPT="$ANDROID_HOME/build-tools/35.0.0/aapt"
+          python3 tools/phone_c2/check_side_by_side.py --apkanalyzer "$ANALYZER" --main apks/contest.apk --main-test apks/contest-test.apk \
+            --prototype apks/prototype.apk --prototype-test apks/prototype-test.apk --out evidence/side-by-side.json
+          python3 tools/check_apk.py apks/contest.apk --aapt "$AAPT" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output evidence/contest-apk.json
+          python3 tools/nemotron/check_prototype_apk.py apks/prototype.apk app/libs/sherpa-onnx-1.12.20.aar "$AAPT" evidence/prototype-apk.json
+          sha256sum apks/*.apk | sed 's#apks/##' > evidence/apk-sha256.txt
+          ls -l apks >> evidence/apk-sha256.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: c2-side-by-side-evidence
+          path: evidence/

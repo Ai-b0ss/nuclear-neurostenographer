@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 33507,
+  "warnings": ["Интервалы фрагментов, не пословное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", "model_revision": "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec", "timestamp_source": "diarization_boundaries_and_input_windows", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 260, "end_ms": 1270, "speaker_id": "Speaker 1", "text": "билет на поезд", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 3220, "end_ms": 5110, "speaker_id": "Speaker 2", "text": "играй плейлист клавы коки", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 7160, "end_ms": 13710, "speaker_id": "Speaker 3", "text": "ты не мог бы перенести мою встречу я недоволен яндек я недоволен яндекс маркетом пожалуйста помогите мне", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 15880, "end_ms": 18100, "speaker_id": "Speaker 2", "text": "запланируй пожалуйста встречу с этим человеком", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 19690, "end_ms": 26380, "speaker_id": "Speaker 1", "text": "могу я послушать равные среди первых по радио в спальне скажи скажи мне есть ли у шоколадницы доставка", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 26480, "end_ms": 29230, "speaker_id": "Speaker 2", "text": "играй играй покинула чат клавы коки", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 31160, "end_ms": 32780, "speaker_id": "Speaker 2", "text": "воспроизведи европу плюс", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

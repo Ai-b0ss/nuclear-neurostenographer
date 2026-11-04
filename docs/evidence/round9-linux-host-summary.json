@@ -1,0 +1,26 @@
+{
+  "platform": "Linux x86_64",
+  "android": "NOT_RUN",
+  "native_jar_sha256": "baa839c265f37b6f7f1dafde6f1d8125b4c8422d7c4ae3ceef2c58bb6e084383",
+  "checks": {
+    "asr": {
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    "diarization": {
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    "dialogue": {
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    "overlap": {
+      "exit_code": 0,
+      "status": "PASS",
+      "native_fatal_error": false,
+      "output_produced": true
+    }
+  },
+  "overlap_note": "Native failure is a real blocker, never a PASS. Android worker containment requires device execution."
+}

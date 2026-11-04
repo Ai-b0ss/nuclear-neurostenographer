@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "package": "ru.neurostenographer.app.a3",
+  "clip": "syn3-brown.wav",
+  "export": "syn3-brown.phone.json",
+  "wall_s": 71.9,
+  "fragments": 9,
+  "audio_ms": 37780,
+  "model_load_ms": 4081,
+  "asr_ms": 6496,
+  "clusters": 3,
+  "diarization_ms": 5196,
+  "total_ms": 15773,
+  "rtf": 0.42
+}
