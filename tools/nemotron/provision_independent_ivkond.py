@@ -27,12 +27,12 @@ def digest(path):
         return hashlib.file_digest(file, "sha256").hexdigest()
 
 
-def suspicious_turn_labels(turns, audio):
-    """Reject DER labels that cover nearly all audio but mostly silence."""
+def turn_label_audit(turns, audio):
+    """Measure whether coarse turn extents can serve as speech boundaries."""
     frame = 320
     n = len(audio) // frame
     if not n:
-        return True
+        return {"coverage": 0.0, "silent_labelled": 1.0, "der_usable": False}
     rms = np.sqrt(np.mean(audio[:n * frame].reshape(n, frame) ** 2, axis=1) + 1e-12)
     active = rms > max(1e-3, 0.1 * np.percentile(rms, 95))
     labelled = np.zeros(n, dtype=bool)
@@ -40,7 +40,11 @@ def suspicious_turn_labels(turns, audio):
         labelled[turn["start_ms"] // 20:turn["end_ms"] // 20] = True
     coverage = float(labelled.mean())
     silent = float((labelled & ~active).sum() / max(int(labelled.sum()), 1))
-    return coverage >= 0.96 and silent > 0.33
+    # Long utterance/turn extents may include pauses. The old 96% coverage
+    # condition admitted a 94.9%-covered case with 43.5% silent labelled time.
+    # Such labels can support text/speaker scoring, but not a defensible DER.
+    return {"coverage": coverage, "silent_labelled": silent,
+            "der_usable": coverage >= 0.05 and not (coverage >= 0.75 and silent > 0.33)}
 
 
 def main():
@@ -96,7 +100,8 @@ def main():
                      "audio_sha256": digest(wav), "audio_duration_ms": duration,
                      "text_segments": texts,
                      "reference_limits": "Dataset turn extents, not manually audited word/speech boundaries; training contamination unverified"}
-        if not suspicious_turn_labels(turns, audio):
+        audit = turn_label_audit(turns, audio)
+        if audit["der_usable"]:
             reference["diarization"] = turns
         ref_path = args.references / f"{case_id}.ref.json"
         ref_path.write_text(json.dumps(reference, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -104,7 +109,8 @@ def main():
                                   "has_overlaps": row["has_overlaps"], "duration_ms": duration,
                                   "audio_sha256": reference["audio_sha256"],
                                   "reference_sha256": digest(ref_path),
-                                  "der_reference_accepted": "diarization" in reference})
+                                  "der_reference_accepted": "diarization" in reference,
+                                  "turn_label_audit": audit})
     (args.references / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(manifest["cases"], ensure_ascii=False, indent=2))
