@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(nemotron_native LANGUAGES CXX)
-add_library(nemotron_native SHARED nemotron_mel.cpp nemotron_cache.cpp nemotron_session.cpp)
+add_library(nemotron_native SHARED nemotron_mel.cpp nemotron_cache.cpp nemotron_session.cpp nemotron_pipeline.cpp)
 target_compile_features(nemotron_native PRIVATE cxx_std_17)
 target_compile_options(nemotron_native PRIVATE -O3 -Wall -Wextra -Werror)
 target_link_options(nemotron_native PRIVATE -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384)

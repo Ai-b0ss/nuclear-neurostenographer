@@ -44,21 +44,10 @@ object NemotronDiarization {
         val filters = floats(File(model, "mel_filters.bin"), NemotronConfig.MELS * NemotronConfig.BINS)
         val hann = floats(File(model, "hann400.bin"), NemotronConfig.WIN)
         val silence = floats(File(model, "silence_embeds.bin"), NemotronConfig.HIDDEN)
-        val started = System.nanoTime()
-        // Same four-thread cap as C0 and ASR, with the model call now owned by C++.
-        val session = CppNemotronSession(File(model, "model.int8.ir9.onnx").absolutePath,
-            InferenceThreads.count())
-        val loaded = System.nanoTime()
-        try {
-            val runner = NemotronChunkRunner { chunk, melFrames, melLength, context, contextFrames ->
-                session.run(chunk, melFrames, melLength, context, contextFrames)
-            }
-            val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled)
-            val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
-            return DiarizationOutput(turns, (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000,
-                DiarizationTimeline.speechWindows(raw, audio.durationMs))
-        } finally {
-            session.close()
-        }
+        val (raw, loadMs, processMs) = NativeNemotronPipeline.diarize(audio.samples, filters, hann, silence,
+            File(model, "model.int8.ir9.onnx").absolutePath, InferenceThreads.count(), checkCancelled)
+        val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
+        return DiarizationOutput(turns, loadMs, processMs,
+            DiarizationTimeline.speechWindows(raw, audio.durationMs))
     }
 }
