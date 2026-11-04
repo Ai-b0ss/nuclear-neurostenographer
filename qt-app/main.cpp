@@ -21,13 +21,13 @@ public:
         auto *layout = new QVBoxLayout(this);
         auto *record = new QPushButton(QStringLiteral("Записать разговор"));
         auto *import = new QPushButton(QStringLiteral("Импортировать аудио"));
-        auto *export = new QPushButton(QStringLiteral("Экспортировать TXT"));
+        auto *exportButton = new QPushButton(QStringLiteral("Экспортировать TXT"));
         transcript = new QTextEdit;
         transcript->setReadOnly(true);
         transcript->setPlaceholderText(QStringLiteral("Здесь появится стенограмма. Распознавание речи пока не подключено."));
         layout->addWidget(record);
         layout->addWidget(import);
-        layout->addWidget(export);
+        layout->addWidget(exportButton);
         layout->addWidget(transcript, 1);
         connect(record, &QPushButton::clicked, this, [this, record] { toggleRecording(record); });
         connect(import, &QPushButton::clicked, this, [this] {
@@ -35,7 +35,7 @@ public:
                 QStringLiteral("Аудио (*.wav *.mp3 *.m4a *.ogg);;Все файлы (*)"));
             if (!path.isEmpty()) { audioPath = path; transcript->setPlaceholderText(QStringLiteral("Выбран файл: ") + path + QStringLiteral("\nРаспознавание пока недоступно.")); }
         });
-        connect(export, &QPushButton::clicked, this, [this] {
+        connect(exportButton, &QPushButton::clicked, this, [this] {
             const auto path = QFileDialog::getSaveFileName(this, QStringLiteral("Экспорт стенограммы"),
                 QStringLiteral("transcript.txt"), QStringLiteral("Текст (*.txt)"));
             if (path.isEmpty()) return;
