@@ -1,6 +1,6 @@
 # Local C++ ASR parity probe on Android 16
 
-The integration branch's production ASR still uses sherpa-onnx JNI from Kotlin. This probe establishes a version-matched C++ path before changing that product flow. It never runs in ordinary or C2 candidate builds.
+The integration branch's ordinary ASR uses sherpa-onnx JNI from Kotlin. An opt-in candidate now owns the ASR model and per-window stream decoding in C++; Kotlin still chooses/refines windows, checks cancellation between them, and fuses speaker/text segments. The isolated parity probe and candidate are separate build switches. Neither path makes the UI a Qt application.
 
 ## Reproduce the native runtime
 
@@ -25,4 +25,10 @@ $env:ANDROID_SDK_ROOT=$env:ANDROID_HOME
 
 On `honor10x_lite_api36_16k` (API 36, `PAGE_SIZE=16384`), the one-case instrumentation test passed: C++ C API and current JNI returned identical text on the same 19.655 s public Russian WAV and GigaAM model. The test APK had both ABI libraries, no `espeak` markers in them, and passed `tools/check_android_native_pages.py` for ZIP and every packaged ELF. The probe measures text parity only; it does not establish full chunk/window attribution, cancellation, export parity, physical HONOR speed, or a full Qt application.
 
-The product path should move the ASR window loop to C++, rerun the six pinned internet recordings and failure/cancellation tests, then compare wall RTF and combined PSS on the physical HONOR before replacing JNI. The C API currently adds about 3.2 MB (ARM64) or 3.5 MB (x86_64) to a probe APK; removing the old JNI path is a separate step.
+## Opt-in C++ ASR candidate
+
+Run the pinned six-case C0/C2 instrumentation plan with `-PnemotronPrototype=true -PnativeAsrCandidate=true`; score the pulled `files/nemotron-evidence.json` with `tools/score_honor_cpp_emulator.py` and the same frozen references. On the API 36 16 KB AVD, all 12 runs passed. Every speaker turn and transcript segment was exactly equal to the pinned no-TTS JNI baseline. WER stayed C0 47/378 and C2 43/378 across these six cases; strict cpWER is unavailable on cases with unattributed words. DER is unscored because the external turn labels include substantial silence. Raw evidence and corrected scores are ignored under `.local/native-runtime/native-asr-six-case-{evidence,scores}.json`. The instrumentation wall/inference fields time diarization, not ASR, so these results establish text parity but no ASR speedup.
+
+The product-like debug build uses `-PnemotronProduct=true -Pc2Candidate=true -PnativeAsrCandidate=true`. Its locally saved APK is `.local/artifacts/honor-cpp-c2-native-asr-candidate-api36-debug.apk`, SHA-256 `fc82e81bfd5815100c5ff192c79de55acbbb3b79cf56c5d706881af438c3e034`, 58,777,613 bytes. `tools/nemotron/check_prototype_apk.py ... --native-asr` reported no problems, and `tools/check_android_native_pages.py` passed ZIP alignment and all ten ARM64/x86_64 ELF files. It installed and cold launched as `ru.neurostenographer.app.c2candidate` on the 16 KB emulator with a live PID. This is a debug-signed local candidate with no bundled model.
+
+Before replacing the ordinary JNI path, move window orchestration and UI to C++/Qt6, repeat cancellation and failure checks on that final path, and measure wall RTF, RAM and thermals on a physical HONOR. The C API adds about 3.2 MB (ARM64) or 3.5 MB (x86_64) to an APK while the old JNI runtime remains packaged.

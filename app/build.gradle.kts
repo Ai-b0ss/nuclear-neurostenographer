@@ -38,10 +38,14 @@ val nemotronPrototype = providers.gradleProperty("nemotronPrototype").orNull == 
 val nemotronProduct = providers.gradleProperty("nemotronProduct").orNull == "true"
 val c2Candidate = providers.gradleProperty("c2Candidate").orNull == "true"
 val nativeAsrProbe = providers.gradleProperty("nativeAsrProbe").orNull == "true"
+val nativeAsrCandidate = providers.gradleProperty("nativeAsrCandidate").orNull == "true"
+val nemotronEnabled = nemotronPrototype || nemotronProduct
 check(!(nemotronPrototype && nemotronProduct)) { "Prototype and product are separate variants" }
 check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduct=true" }
 check(!nativeAsrProbe || nemotronPrototype) { "Native ASR parity probe requires -PnemotronPrototype=true" }
-val nemotronEnabled = nemotronPrototype || nemotronProduct
+check(!nativeAsrCandidate || nemotronEnabled) { "Native ASR candidate requires a C2 variant" }
+check(!(nativeAsrProbe && nativeAsrCandidate)) { "Choose either the isolated parity probe or candidate ASR" }
+val nativeAsrEnabled = nativeAsrProbe || nativeAsrCandidate
 android {
     namespace = "ru.neurostenographer.app"
     compileSdk = 35
@@ -56,6 +60,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
+        buildConfigField("boolean", "NATIVE_ASR_CANDIDATE", nativeAsrCandidate.toString())
         manifestPlaceholders["appLabel"] = "Нейро-стенографист"
     }
     // Optional workspace-owned debug key for restricted local build environments.
@@ -98,16 +103,20 @@ android {
         }
     }
     packaging.jniLibs.excludes += "**/libsherpa-onnx-cxx-api.so"
-    if (!nativeAsrProbe) packaging.jniLibs.excludes += "**/libsherpa-onnx-c-api.so"
+    if (!nativeAsrEnabled) packaging.jniLibs.excludes += "**/libsherpa-onnx-c-api.so"
     if (nemotronEnabled) {
         ndkVersion = "26.1.10909125"
         externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt") } }
+        if (nativeAsrEnabled) {
+            defaultConfig.externalNativeBuild.cmake.arguments += "-DNATIVE_ASR_C_API=ON"
+            sourceSets.getByName("main").jniLibs.srcDir(rootProject.file(".local/native-runtime/probe-jni"))
+        }
         if (nativeAsrProbe) {
             defaultConfig.externalNativeBuild.cmake.arguments += "-DNATIVE_ASR_PROBE=ON"
-            sourceSets.getByName("main").jniLibs.srcDir(rootProject.file(".local/native-runtime/probe-jni"))
             sourceSets.getByName("main").java.srcDir("src/nativeAsrProbe/java")
             sourceSets.getByName("androidTest").java.srcDir("src/nativeAsrProbeTest/java")
         }
+        if (nativeAsrCandidate) defaultConfig.externalNativeBuild.cmake.arguments += "-DNATIVE_ASR_CANDIDATE=ON"
         // Research and candidate variants use distinct applicationIds.
         // The main product variant retains the contest applicationId.
         if (nemotronPrototype) {

@@ -18,7 +18,7 @@ def load_alignment(data):
     return min(struct.unpack_from("<Q", data, offset + i * size + 48)[0] for i in range(count) if struct.unpack_from("<I", data, offset + i * size)[0] == 1)
 
 
-def inspect(apk, sherpa_aar, badging):
+def inspect(apk, sherpa_aar, badging, native_asr=False):
     problems = []
     with zipfile.ZipFile(apk) as z, zipfile.ZipFile(sherpa_aar) as source:
         names = z.namelist()
@@ -26,8 +26,9 @@ def inspect(apk, sherpa_aar, badging):
         report = {"apk_bytes": Path(apk).stat().st_size, "native_files": sorted(native), "onnxruntime_source": {}}
         for abi in ("arm64-v8a", "x86_64"):
             present = {Path(n).name for n in native if n.startswith(f"lib/{abi}/")}
-            if present != EXPECTED_LIBS:
-                problems.append(f"{abi}: unexpected libraries {sorted(present ^ EXPECTED_LIBS)}")
+            expected = EXPECTED_LIBS | ({"libsherpa-onnx-c-api.so"} if native_asr else set())
+            if present != expected:
+                problems.append(f"{abi}: unexpected libraries {sorted(present ^ expected)}")
             for name in native:
                 if name.startswith(f"lib/{abi}/") and any(mark in z.read(name) for mark in FORBIDDEN):
                     problems.append(f"Forbidden TTS marker in {name}")
@@ -50,9 +51,13 @@ def inspect(apk, sherpa_aar, badging):
 
 
 def main():
-    apk, sherpa_aar, aapt, out = sys.argv[1:5]
+    native_asr = "--native-asr" in sys.argv[1:]
+    args = [arg for arg in sys.argv[1:] if arg != "--native-asr"]
+    if len(args) != 4:
+        raise SystemExit("usage: check_prototype_apk.py APK AAR AAPT OUTPUT [--native-asr]")
+    apk, sherpa_aar, aapt, out = args
     badging = subprocess.run([aapt, "dump", "permissions", apk], capture_output=True, text=True, check=True).stdout
-    report = inspect(apk, sherpa_aar, badging)
+    report = inspect(apk, sherpa_aar, badging, native_asr)
     Path(out).write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=1))
     return 1 if report["problems"] else 0

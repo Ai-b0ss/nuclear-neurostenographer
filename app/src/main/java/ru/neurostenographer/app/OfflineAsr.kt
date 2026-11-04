@@ -21,14 +21,16 @@ object OfflineAsr {
         checkCancelled()
         if (windows.isEmpty()) return AsrOutput(emptyList(), audio.durationMs, 0, 0)
         val started = System.nanoTime()
-        val recognizer = OfflineRecognizer(config = OfflineRecognizerConfig(
+        val native = if (BuildConfig.NATIVE_ASR_CANDIDATE)
+            NativeAsrSession.open(model.absolutePath, InferenceThreads.count()) else null
+        val recognizer = if (native == null) OfflineRecognizer(config = OfflineRecognizerConfig(
             featConfig = FeatureConfig(sampleRate = 16000, featureDim = 64),
             modelConfig = OfflineModelConfig(
                 nemo = OfflineNemoEncDecCtcModelConfig(model = File(model, "model.int8.onnx").absolutePath),
                 tokens = File(model, "tokens.txt").absolutePath,
                 numThreads = InferenceThreads.count(), provider = "cpu", debug = false
             ), decodingMethod = "greedy_search"
-        ))
+        )) else null
         val loaded = System.nanoTime()
         val chunks = mutableListOf<RecognizedChunk>()
         try {
@@ -39,19 +41,21 @@ object OfflineAsr {
                 progress(index + 1, total)
                 val start = (windows[index].startMs * 16).toInt()
                 val end = minOf((windows[index].endMs * 16).toInt(), audio.samples.size)
-                val stream = recognizer.createStream()
-                try {
-                    // A short final fragment still needs enough frames for convolution subsampling.
-                    val samples = audio.samples.copyOfRange(start, end)
-                    stream.acceptWaveform(if (samples.size < 16000) samples.copyOf(16000) else samples, 16000)
-                    recognizer.decode(stream)
-                    checkCancelled()
-                    val text = recognizer.getResult(stream).text.trim()
-                    if (text.isNotBlank()) chunks += RecognizedChunk(
+                // A short final fragment still needs enough frames for convolution subsampling.
+                val samples = audio.samples.copyOfRange(start, end)
+                val text = if (native != null) native.recognize(samples).trim() else {
+                    val stream = requireNotNull(recognizer).createStream()
+                    try {
+                        stream.acceptWaveform(if (samples.size < 16000) samples.copyOf(16000) else samples, 16000)
+                        recognizer.decode(stream)
+                        recognizer.getResult(stream).text.trim()
+                    } finally { stream.release() }
+                }
+                checkCancelled()
+                if (text.isNotBlank()) chunks += RecognizedChunk(
                         start * 1000L / 16000, maxOf(start * 1000L / 16000 + 1, end * 1000L / 16000), text)
-                } finally { stream.release() }
             }
-        } finally { recognizer.release() }
+        } finally { recognizer?.release(); native?.close() }
         return AsrOutput(TranscriptFusion.mergeReplies(TranscriptFusion.attributeChunks(chunks, turns)), audio.durationMs,
             (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000, windows.size)
     }
