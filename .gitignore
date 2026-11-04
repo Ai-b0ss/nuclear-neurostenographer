@@ -1,6 +1,7 @@
 /.gradle/
 /.idea/
 **/build/
+/build-android*/
 *.iml
 local.properties
 *.keystore
