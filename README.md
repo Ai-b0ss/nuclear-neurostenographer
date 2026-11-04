@@ -1,5 +1,8 @@
 # Nuclear Neurostenographer
 
+**Project status 2026-11-04:** [repository/PR audit](docs/REPOSITORY_AUDIT_2026-11-04.md) · [ASR model experiment handoff](docs/ASR_MODEL_HANDOFF_2026-11-04.md). The integration PR remains draft; no automatic merge to main.
+
+
 > **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [docs/RELEASE_READINESS_2026-11-04.md](docs/RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
 
 [![Integration branch Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg?branch=feature%2Flong-recordings)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml?query=branch%3Afeature%2Flong-recordings)
