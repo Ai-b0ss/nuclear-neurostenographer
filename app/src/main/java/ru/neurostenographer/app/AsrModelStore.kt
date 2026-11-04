@@ -13,7 +13,8 @@ class AsrModelStore(context: Context) {
     private val bundle = VerifiedModelBundle(AsrModelSpec.ACTIVE.files.mapValues { (_, pin) -> PinnedArtifact(pin.first, pin.second) })
 
     fun current(): File? = preferences.getString("active", null)?.let { name ->
-        File(root, name).takeIf { it.isDirectory && it.parentFile == root }
+        // A model left by another build (e.g. the CTC bundle of 0.2.0) does not count: the bundled one is installed instead.
+        File(root, name).takeIf { dir -> dir.isDirectory && dir.parentFile == root && AsrModelSpec.ACTIVE.files.keys.all { File(dir, it).isFile } }
     }
 
     fun verify(dir: File, checkCancelled: () -> Unit = {}) = bundle.verify(dir, checkCancelled)

@@ -43,7 +43,8 @@ def verify(directory, prefix="dialogue"):
         require(lines[0] == str(index), 'Export consistency check failed')
         times = lines[1].split(" --> ")
         require(len(times) == 2 and list(map(milliseconds, times)) == [start, end], 'Export consistency check failed')
-        speaker = segment["speaker_id"] or "Не определён"
+        sid = segment["speaker_id"]  # TXT/SRT show "Говорящий N" for the JSON id "Speaker N" (TranscriptExport.displaySpeaker)
+        speaker = "Не определён" if sid is None else ("Говорящий " + sid[len("Speaker "):] if sid.startswith("Speaker ") else sid)
         body = speaker + ": " + segment["text"]
         if segment["overlapping_speech"]:
             require(segment["speaker_id"] is None and not segment["attribution_reliable"], 'Export consistency check failed')

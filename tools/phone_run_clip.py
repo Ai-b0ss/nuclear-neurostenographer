@@ -3,8 +3,8 @@
   python phone_run_clip.py SERIAL CLIP.wav --out-dir DIR [--wait-minutes 15]
 
 Steps, all through the real UI and the system document picker: the clip is pushed to
-/sdcard/Download/ns-acceptance (a folder this tool owns), imported with "Импортировать аудио", processed with
-"Распознать офлайн", exported with "JSON" into the same folder, pulled, and the timings shown by the app
+/sdcard/Download/ns-acceptance (a folder this tool owns), imported with "Открыть аудиофайл", processed with
+"Распознать", exported with "JSON" (top of the transcript screen) into the same folder, pulled, and the timings shown by the app
 are parsed. Screenshots go to .local/phone-ui-private (git-ignored: pickers can show personal file names).
 Never run it against an emulator; it refuses serials of emulators. It never reads other files of the phone.
 """
@@ -86,15 +86,14 @@ def main():
     ui = PhoneUi(args.serial, Path(".local/phone-ui-private"), adb)
     run = lambda *a, **k: subprocess.run([adb, "-s", args.serial, *a], capture_output=True, text=True, check=True, **k)
     name = args.clip.name
-    run("shell", f"mkdir -p {FOLDER} && rm -f {FOLDER}/transcript.json")
+    stem = Path(name).stem
+    run("shell", f"mkdir -p {FOLDER} && rm -f {FOLDER}/transcript.json '{FOLDER}/{stem}.json'")
+    run("shell", "am", "force-stop", args.package)  # start on the home screen, not on a transcript left open
     run("push", str(args.clip), f"{FOLDER}/{name}")
     run("shell", "am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", f"file://{FOLDER}/{name}")
     run("shell", "am", "start", "-n", f"{args.package}/ru.neurostenographer.app.MainActivity")
-    time.sleep(2)
-    for _ in range(8):
-        ui.scroll(ui.tree(), False)
-    scroll_to(ui, "Импортировать аудио")
-    ui.tap_node(scroll_to(ui, "Импортировать аудио"))
+    time.sleep(3)
+    ui.tap_node(scroll_to(ui, "Открыть аудиофайл", direction="up"))
     time.sleep(3)
     if ui.find(label=name, timeout=1, exact=True)[1] is None:
         # A new package's picker opens at "Recent": walk the drawer to Downloads/ns-acceptance.
@@ -106,27 +105,33 @@ def main():
         time.sleep(3)
     ui.tap_node(scroll_to(ui, name))
     time.sleep(4)
-    ui.tap_node(scroll_to(ui, "Распознать офлайн"))
+    ui.tap_node(scroll_to(ui, "Распознать"))
     started = time.monotonic()
-    for _ in range(8):
-        ui.scroll(ui.tree(), False)
     message = ""
     while time.monotonic() - started < args.wait_minutes * 60:
         message = status_line(ui)
         if DONE.match(message):
+            break
+        if ui.find(label="JSON", timeout=1, exact=True)[1] is not None:  # transcript screen: details are at its end
+            for _ in range(40):
+                message = status_line(ui)
+                if DONE.match(message):
+                    break
+                swipe_largest(ui, True, fast=True)
+                time.sleep(0.5)
             break
         time.sleep(5)
     timings = parse_timings(message)
     if timings is None:
         print(json.dumps({"status": "FAIL", "message": message}, ensure_ascii=False))
         return 1
-    ui.tap_node(scroll_to(ui, "JSON", tries=40))  # export buttons follow every segment (281 on 20 min)
+    ui.tap_node(scroll_to(ui, "JSON", direction="up", tries=40))  # export buttons sit at the top of the transcript
     time.sleep(3)
     ui.tap_node(scroll_to(ui, "СОХР."))
     time.sleep(3)
     args.out_dir.mkdir(parents=True, exist_ok=True)
     target = args.out_dir / f"{Path(name).stem}.phone.json"
-    run("pull", f"{FOLDER}/transcript.json", str(target))
+    run("pull", f"{FOLDER}/{stem}.json", str(target))  # the app names the export after the audio file
     result = {"status": "OK", "package": args.package, "clip": name, "export": str(target), "wall_s": round(time.monotonic() - started, 1), **timings}
     (args.out_dir / f"{Path(name).stem}.timings.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False))

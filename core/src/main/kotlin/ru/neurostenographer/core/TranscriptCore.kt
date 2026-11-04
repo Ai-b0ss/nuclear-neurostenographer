@@ -184,13 +184,19 @@ object TranscriptExport {
     }
     fun txt(items: List<TranscriptSegment>): String = items.joinToString("\n") {
         "[" + time(it.startMs) + "–" + time(it.endMs) + "] " +
-            (it.speakerId ?: "Не определён") + ": " + it.text +
+            displaySpeaker(it.speakerId) + ": " + it.text +
             (if (it.overlappingSpeech) " [перекрытие речи]" else "")
+    }
+    /** Human-readable label for TXT/SRT; JSON keeps the stable id ("Speaker N"). */
+    fun displaySpeaker(id: String?): String = when {
+        id == null -> "Не определён"
+        id.startsWith("Speaker ") -> "Говорящий " + id.removePrefix("Speaker ")
+        else -> id
     }
     fun srt(items: List<TranscriptSegment>): String =
         items.sortedBy { it.startMs }.mapIndexed { i, s ->
             (i + 1).toString() + "\n" + srtTime(s.startMs) + " --> " +
-                srtTime(s.endMs) + "\n" + (s.speakerId ?: "Не определён") + ": " + s.text +
+                srtTime(s.endMs) + "\n" + displaySpeaker(s.speakerId) + ": " + s.text +
                 (if (s.overlappingSpeech) " [перекрытие речи]" else "")
         }.joinToString("\n\n")
     fun json(items: List<TranscriptSegment>, provenance: TranscriptProvenance? = null,

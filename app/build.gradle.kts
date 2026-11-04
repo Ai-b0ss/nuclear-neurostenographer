@@ -51,14 +51,14 @@ android {
         applicationId = "ru.neurostenographer.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.2.0-contest"
+        versionCode = 3
+        versionName = "0.3.0-contest"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
         buildConfigField("boolean", "ASR_A3", asrA3.toString())
-        manifestPlaceholders["appLabel"] = "Нейро-стенографист"
+        manifestPlaceholders["appLabel"] = "Нейростенограф"
     }
     // Optional workspace-owned debug key for restricted local build environments.
     providers.gradleProperty("localDebugStore").orNull?.let { debugKeyRelativePath ->
@@ -99,9 +99,10 @@ android {
             manifest.srcFile("src/asrSmoke/AndroidManifest.xml")
         }
     }
-    if (asrA3) {
+    // Side-by-side test install only; the product (A3 + C2) keeps the contest applicationId.
+    if (providers.gradleProperty("a3SideBySide").orNull == "true") {
         defaultConfig.applicationIdSuffix = ".a3"
-        defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист A3"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф A3"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
     if (nemotronEnabled) {
