@@ -69,6 +69,23 @@ Strict cpWER was scored on the same 538 words: A0 **115/538**, A3 **114/538**. T
 
 To reproduce, build the opt-in Android test with `-PnemotronPrototype=true -PnativeAsrCandidate=true -PasrHeadProbe=true`; provision verified A3 files in the test app's `files/asr-rnnt-v3`, then invoke `AsrHeadProbeTest` separately with `suite=nemotron-bench`, `suite=asr-holdout`, and `suite=window-merge-holdout`, plus `heads=a0,a3`, `backends=c2`, `c2ProductPolicy=true`, and `rnntThreads=2`. Pull each `files/asr-head-product-<suite>-evidence.json` before app uninstall and score with `tools/nemotron/score_asr_head_probe.py`. For the new suite, run `tools/nemotron/provision_window_merge_holdout.py` first; its audio and reference hashes are locked in `tools/fixtures/dialogs-ru-window-merge-holdout-lock.json`.
 
+## 220M GigaAM Multilingual CTC candidate (same emulator, 2026-11-05)
+
+The opt-in probe also accepts `heads=a0,mctc`, where `mctc` is the 220M `multilingual_ctc` char-wise CTC head, not the 600M large variant. The tested [sherpa-onnx conversion](https://huggingface.co/fussraider/GigaAM-Multilingual-sherpa-onnx-ctc) was pinned to revision `9f5a77e8975211abe8511693accd3a63ee1e9f43`. `model.int8.onnx` is 224,762,524 bytes, SHA-256 `2d94f93ffd4ef58e7899c9de885c25bbbc8c9f1073618868d118a674450ba5f7`; `tokens.txt` SHA-256 `9b5df7987cb4ca52c1a468649ce897fab1cd182067416e29fef49dfaa7a856c2`. The probe checks these hashes and the model size before inference. The original [GigaAM Multilingual model](https://huggingface.co/ai-sage/GigaAM-Multilingual) has a 220M CTC revision; this third-party ONNX packaging is a separate provenance point.
+
+Both A0 and `mctc` ran with the same C2 diarization, 150 ms boundary padding, 400 ms same-speaker window merge, four ASR threads, WAVs, and independent references. The Android 16 API 36 x86_64 emulator has 4 GiB RAM and 16 KiB pages. The test APK and `mctc` weights are research-only; the product's A0 selection did not change.
+
+| Suite | Reference words | A0 WER errors | `mctc` WER errors | A0/`mctc` strict cpWER errors | A0/`mctc` ASR wall sum |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Original six (partly synthetic) | 378 | 36 | 43 | 10/10 on 233 scored words | 10.629/10.898 s |
+| Earlier acted four | 147 | 4 | 7 | 61/65 on 147 | 5.611/5.917 s |
+| New acted four | 158 | 2 | 2 | 44/44 on 158 | 5.799/6.026 s |
+| **All 14** | **683** | **42 (6.15%)** | **52 (7.61%)** | **115/119 on 538** | **22.039/22.841 s** |
+
+`mctc` is worse on the existing text benchmark and does not improve speaker attribution. Its worst regression is `ivkond-4overlap` (3/76 → 9/76 WER errors); the synthetic reference there has unreliable speaker labels and is excluded from strict cpWER. PSS samples are confounded by sequential model loading, so the small differences in sample peaks are not a memory claim. This comparison is enough to reject `mctc` promotion on current evidence, but the mixed, small corpus does not establish a general model ranking or Kirin 710A performance. A0 remains the product head.
+
+Reproduction: download the two `mctc` files from the pinned revision into the debug app's `files/asr-multilingual-ctc`, build with `-PnemotronPrototype=true -PnativeAsrCandidate=true -PasrHeadProbe=true`, and run `AsrHeadProbeTest` for each suite with `heads=a0,mctc`, `backends=c2`, and `c2ProductPolicy=true`. Pull the three `files/asr-head-product-<suite>-evidence.json` files and score each with `tools/nemotron/score_asr_head_probe.py`. The local run's raw evidence is ignored under `.local/asr-head-mctc-<suite>.json` because it contains raw transcripts.
+
 ## C0 diarization threshold probe
 
 `DiarThresholdProbeTest` ran the same A0 ASR on C0 clustering thresholds 0.50, 0.65, 0.80 (current), and 0.90. It recorded turns and speech windows as well as transcripts; `score_diar_threshold_probe.py` verifies WAV hashes and scores against references. This is a debug-only measurement, not a product setting.

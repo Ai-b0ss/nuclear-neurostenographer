@@ -35,7 +35,7 @@ class AsrHeadProbeTest {
         val assets = instrumentation.context.assets
         val selected = (InstrumentationRegistry.getArguments().getString("heads") ?: "a0,a1,a2,a3")
             .split(',').toSet()
-        require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3") })
+        require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3", "mctc") })
         val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "nemotron-bench"
         require(suite in setOf("nemotron-bench", "asr-holdout", "window-merge-holdout"))
         val backends = (InstrumentationRegistry.getArguments().getString("backends") ?: "c0,c2")
@@ -72,6 +72,14 @@ class AsrHeadProbeTest {
                 "tokens.txt" to "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2")
             for ((name, hash) in hashes) assertEquals(hash, sha256(File(rnntV3, name)))
         }
+        val multilingual = File(context.filesDir, "asr-multilingual-ctc")
+        if ("mctc" in selected) {
+            assertEquals(224_762_524L, File(multilingual, "model.int8.onnx").length())
+            val hashes = mapOf(
+                "model.int8.onnx" to "2d94f93ffd4ef58e7899c9de885c25bbbc8c9f1073618868d118a674450ba5f7",
+                "tokens.txt" to "9b5df7987cb4ca52c1a468649ce897fab1cd182067416e29fef49dfaa7a856c2")
+            for ((name, hash) in hashes) assertEquals(hash, sha256(File(multilingual, name)))
+        }
 
         val baseline = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
         val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
@@ -95,7 +103,7 @@ class AsrHeadProbeTest {
                     padded.copy(windows = C2WindowMerge.apply(padded.windows, padded.turns))
                 } else rawDiarization
                 for ((head, model) in listOf("a0" to baseline, "a1" to candidate,
-                    "a2" to rnnt, "a3" to rnntV3).filter { it.first in selected }) {
+                    "a2" to rnnt, "a3" to rnntV3, "mctc" to multilingual).filter { it.first in selected }) {
                     val sampling = AtomicBoolean(true)
                     val peakPss = AtomicLong(0)
                     val sampler = Thread {
