@@ -116,7 +116,10 @@ android {
             sourceSets.getByName("main").java.srcDir("src/nativeAsrProbe/java")
             sourceSets.getByName("androidTest").java.srcDir("src/nativeAsrProbeTest/java")
         }
-        if (nativeAsrCandidate) defaultConfig.externalNativeBuild.cmake.arguments += "-DNATIVE_ASR_CANDIDATE=ON"
+        if (nativeAsrCandidate) {
+            defaultConfig.externalNativeBuild.cmake.arguments += "-DNATIVE_ASR_CANDIDATE=ON"
+            sourceSets.getByName("androidTest").java.srcDir("src/nativeAsrCandidateTest/java")
+        }
         // Research and candidate variants use distinct applicationIds.
         // The main product variant retains the contest applicationId.
         if (nemotronPrototype) {

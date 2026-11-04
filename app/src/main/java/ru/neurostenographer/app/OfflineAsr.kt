@@ -20,17 +20,36 @@ object OfflineAsr {
             windows.zipWithNext().all { (a, b) -> a.endMs <= b.startMs }) { "Invalid ASR input windows" }
         checkCancelled()
         if (windows.isEmpty()) return AsrOutput(emptyList(), audio.durationMs, 0, 0)
+        if (BuildConfig.NATIVE_ASR_CANDIDATE) {
+            val bounds = LongArray(windows.size * 2) { index ->
+                val window = windows[index / 2]
+                if (index % 2 == 0) window.startMs else window.endMs
+            }
+            val timing = LongArray(2)
+            val texts = NativeAsrBridge.run(audio.samples, model.absolutePath, InferenceThreads.count(),
+                bounds, checkCancelled, progress, timing)
+            check(texts.size == windows.size)
+            val chunks = texts.mapIndexedNotNull { index, raw ->
+                val text = raw.trim()
+                if (text.isBlank()) null else {
+                    val start = (windows[index].startMs * 16).toInt()
+                    val end = minOf((windows[index].endMs * 16).toInt(), audio.samples.size)
+                    RecognizedChunk(start * 1000L / 16000,
+                        maxOf(start * 1000L / 16000 + 1, end * 1000L / 16000), text)
+                }
+            }
+            return AsrOutput(TranscriptFusion.mergeReplies(TranscriptFusion.attributeChunks(chunks, turns)),
+                audio.durationMs, timing[0], timing[1], windows.size)
+        }
         val started = System.nanoTime()
-        val native = if (BuildConfig.NATIVE_ASR_CANDIDATE)
-            NativeAsrSession.open(model.absolutePath, InferenceThreads.count()) else null
-        val recognizer = if (native == null) OfflineRecognizer(config = OfflineRecognizerConfig(
+        val recognizer = OfflineRecognizer(config = OfflineRecognizerConfig(
             featConfig = FeatureConfig(sampleRate = 16000, featureDim = 64),
             modelConfig = OfflineModelConfig(
                 nemo = OfflineNemoEncDecCtcModelConfig(model = File(model, "model.int8.onnx").absolutePath),
                 tokens = File(model, "tokens.txt").absolutePath,
                 numThreads = InferenceThreads.count(), provider = "cpu", debug = false
             ), decodingMethod = "greedy_search"
-        )) else null
+        ))
         val loaded = System.nanoTime()
         val chunks = mutableListOf<RecognizedChunk>()
         try {
@@ -43,19 +62,17 @@ object OfflineAsr {
                 val end = minOf((windows[index].endMs * 16).toInt(), audio.samples.size)
                 // A short final fragment still needs enough frames for convolution subsampling.
                 val samples = audio.samples.copyOfRange(start, end)
-                val text = if (native != null) native.recognize(samples).trim() else {
-                    val stream = requireNotNull(recognizer).createStream()
-                    try {
-                        stream.acceptWaveform(if (samples.size < 16000) samples.copyOf(16000) else samples, 16000)
-                        recognizer.decode(stream)
-                        recognizer.getResult(stream).text.trim()
-                    } finally { stream.release() }
-                }
+                val stream = recognizer.createStream()
+                val text = try {
+                    stream.acceptWaveform(if (samples.size < 16000) samples.copyOf(16000) else samples, 16000)
+                    recognizer.decode(stream)
+                    recognizer.getResult(stream).text.trim()
+                } finally { stream.release() }
                 checkCancelled()
                 if (text.isNotBlank()) chunks += RecognizedChunk(
                         start * 1000L / 16000, maxOf(start * 1000L / 16000 + 1, end * 1000L / 16000), text)
             }
-        } finally { recognizer?.release(); native?.close() }
+        } finally { recognizer.release() }
         return AsrOutput(TranscriptFusion.mergeReplies(TranscriptFusion.attributeChunks(chunks, turns)), audio.durationMs,
             (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000, windows.size)
     }

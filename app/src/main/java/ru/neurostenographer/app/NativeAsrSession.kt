@@ -21,6 +21,9 @@ internal class NativeAsrSession private constructor(private var handle: Long) : 
 
 internal object NativeAsrBridge {
     init { System.loadLibrary("nemotron_native") }
+    external fun run(samples: FloatArray, modelDir: String, threads: Int,
+                     windows: LongArray, checkCancelled: () -> Unit,
+                     progress: (Int, Int) -> Unit, timing: LongArray): Array<String>
     external fun create(modelDir: String, threads: Int): Long
     external fun decode(handle: Long, samples: FloatArray): String
     external fun destroy(handle: Long)
