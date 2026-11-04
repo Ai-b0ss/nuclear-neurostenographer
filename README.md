@@ -25,4 +25,4 @@ $env:ANDROID_NDK_ROOT = "$env:ANDROID_SDK_ROOT\ndk\26.1.10909125"
 cmake --build build-android --target apk
 ```
 
-Android 16 compatibility still needs verification on a device. Qt 6.7.3's Android kit is used for local builds; Qt's documented Android 16 support starts with Qt 6.10.
+The available Qt 6.7.3 kit uses its bundled Android Gradle Plugin, so the app targets API 34 for Android 16 backward compatibility. Runtime compatibility still needs verification on a device. Qt's documented Android 16 support starts with Qt 6.10.

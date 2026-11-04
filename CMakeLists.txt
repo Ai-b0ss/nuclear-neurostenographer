@@ -10,5 +10,5 @@ if(ANDROID)
     set_property(TARGET nuclear-neurostenographer PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/qt-app/android")
     set_property(TARGET nuclear-neurostenographer PROPERTY QT_ANDROID_MIN_SDK_VERSION 26)
-    set_property(TARGET nuclear-neurostenographer PROPERTY QT_ANDROID_TARGET_SDK_VERSION 35)
+    set_property(TARGET nuclear-neurostenographer PROPERTY QT_ANDROID_TARGET_SDK_VERSION 34)
 endif()
