@@ -68,6 +68,7 @@ def main(cdir, rdir, prefix, cands):
     for c in cands:
         for g in ("DEV", "HOLDOUT"):
             R = [r for r in rows if r["cand"] == c and r["group"] == g]; s = lambda k: sum(r[k] for r in R)
+            if not R: continue  # e.g. phone run on HOLDOUT only
             tp, fp, fn = s("punct_tp"), s("punct_fp"), s("punct_fn")
             pr = tp/(tp+fp) if tp+fp else None; rc = tp/(tp+fn) if tp+fn else None
             out.append(dict(cand=c, group=g, clips=len(R), ref_words=s("ref_words"), WER=round(s("errors")/s("ref_words"), 4), WER_NORM2=round(s("errors2")/s("ref_words2"), 4),
