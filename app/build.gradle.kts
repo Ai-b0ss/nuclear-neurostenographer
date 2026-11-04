@@ -94,6 +94,13 @@ android {
     if (providers.gradleProperty("russianBenchmark").orNull == "true") {
         sourceSets.getByName("androidTest").java.srcDir("src/benchmarkTest/java")
     }
+    if (providers.gradleProperty("windowPolicyProbe").orNull == "true") {
+        sourceSets.getByName("androidTest").java.srcDir("src/windowPolicyProbe/java")
+    }
+    if (providers.gradleProperty("asrHeadProbe").orNull == "true") {
+        check(nativeAsrCandidate) { "ASR head probe requires -PnativeAsrCandidate=true" }
+        sourceSets.getByName("androidTest").java.srcDir("src/asrHeadProbe/java")
+    }
     // Explicit private cloud-test variant; ordinary builds never include model/audio assets.
     if (providers.gradleProperty("asrSmoke").orNull == "true") {
         sourceSets.getByName("debug").apply {
