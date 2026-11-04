@@ -53,11 +53,15 @@ class DiarizationService : Service() {
                 val threshold = data.getFloat("clusteringThreshold", OfflineDiarization.THRESHOLD)
                 require(OfflineDiarization.validThreshold(threshold))
                 require(BuildConfig.DEBUG || threshold == OfflineDiarization.THRESHOLD)
+                val expectedSpeakers = data.getInt("expectedSpeakers", -1)
+                require(expectedSpeakers == -1 ||
+                    (backend == NemotronBackend.C0 && expectedSpeakers in 1..8))
                 val samples = DataInputStream(input.inputStream().buffered()).use { stream ->
                     FloatArray((input.length() / 4).toInt()) { stream.readFloat() }
                 }
                 val result = if (backend == NemotronBackend.C0)
-                    OfflineDiarization.process(PcmAudio(samples, 16000), model, clusteringThreshold = threshold)
+                    OfflineDiarization.process(PcmAudio(samples, 16000), model,
+                        clusteringThreshold = threshold, expectedSpeakers = expectedSpeakers)
                 else NemotronBackend.process(PcmAudio(samples, 16000), model) {}
                 require(result.turns.size <= DiarizationReply.MAX_ITEMS && result.windows.size <= DiarizationReply.MAX_ITEMS)
                 val output = Bundle().apply {

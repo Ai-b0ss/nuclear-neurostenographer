@@ -102,7 +102,9 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.secondary)
                 }
                 if (state.c2Supported) item {
-                    Text("Nemotron C2 доступен офлайн. При распознавании модель проверяется по SHA-256; при её ошибке используется резервный C0 (если установлен).",
+                    Text(if (state.expectedSpeakers > 0)
+                        "При заданном числе участников используется установленная модель разделения голосов. Чтобы снова использовать Nemotron C2, выберите «Авто»."
+                    else "Nemotron C2 доступен офлайн. При распознавании модель проверяется по SHA-256; при её ошибке используется резервный C0 (если установлен).",
                         style = MaterialTheme.typography.bodySmall)
                 }
                 item {
@@ -135,6 +137,19 @@ class MainActivity : ComponentActivity() {
                 }
                 item { Text(state.sourceDurationMs?.let { "WAV · ${ru.neurostenographer.core.TranscriptExport.time(it)}" }
                     ?: if (state.source != null) "WAV выбран" else "WAV не выбран", style = MaterialTheme.typography.bodySmall) }
+                if (state.diarizationReady) item {
+                    Text("Число участников записи", style = MaterialTheme.typography.titleSmall)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (count in listOf(-1, 2, 3, 4)) {
+                            FilterChip(selected = state.expectedSpeakers == count,
+                                enabled = !state.busy && !recording,
+                                onClick = { model.setExpectedSpeakers(count) },
+                                label = { Text(if (count == -1) "Авто" else count.toString()) })
+                        }
+                    }
+                    Text("Укажите число, только если знаете его точно. Неверное число может ухудшить разделение голосов.",
+                        style = MaterialTheme.typography.bodySmall)
+                }
                 item {
                     TextButton(enabled = !state.busy && !recording, onClick = model::clearLocalAudio) {
                         Text("Удалить локальное аудио и результат")

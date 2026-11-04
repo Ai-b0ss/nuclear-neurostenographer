@@ -19,8 +19,10 @@ object OfflineDiarization {
     fun validThreshold(value: Float): Boolean = value.isFinite() && value in 0.30f..0.95f
     fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
                 progress: (Int, Int) -> Unit = { _, _ -> },
-                clusteringThreshold: Float = THRESHOLD): DiarizationOutput {
+                clusteringThreshold: Float = THRESHOLD,
+                expectedSpeakers: Int = -1): DiarizationOutput {
         require(validThreshold(clusteringThreshold)) { "Invalid speaker clustering threshold" }
+        require(expectedSpeakers == -1 || expectedSpeakers in 1..8)
         require(audio.sampleRate == 16000 && audio.samples.size in 1600..(PcmWav.MAX_SECONDS * 16000))
         require(audio.samples.all { it.isFinite() && it in -1f..1f })
         checkCancelled()
@@ -31,7 +33,7 @@ object OfflineDiarization {
                 numThreads = InferenceThreads.count(), provider = "cpu", debug = false),
             embedding = SpeakerEmbeddingExtractorConfig(
                 model = File(model, "embedding.onnx").absolutePath, numThreads = InferenceThreads.count(), provider = "cpu", debug = false),
-            clustering = FastClusteringConfig(numClusters = -1, threshold = clusteringThreshold),
+            clustering = FastClusteringConfig(numClusters = expectedSpeakers, threshold = clusteringThreshold),
             minDurationOn = 0.2f, minDurationOff = 0.0f
         ))
         val loaded = System.nanoTime()

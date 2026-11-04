@@ -19,7 +19,7 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val segments: List<TranscriptSegment> = emptyList(), val diarizationReady: Boolean = false,
     val speakerSource: String = "not_run", val timestampSource: String = "input_windows",
     val sourceDurationMs: Long? = null, val document: TranscriptDocument? = null,
-    val c2Supported: Boolean = false)
+    val c2Supported: Boolean = false, val expectedSpeakers: Int = -1)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
@@ -48,6 +48,15 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         private set
 
     private var pendingExport: Pair<String, String>? = null
+
+    fun setExpectedSpeakers(count: Int) {
+        require(count == -1 || count in 2..4)
+        if (mutable.value.busy || recording.value || (count != -1 && !mutable.value.diarizationReady)) return
+        if (mutable.value.expectedSpeakers == count) return
+        mutable.value = mutable.value.copy(expectedSpeakers = count, document = null,
+            segments = emptyList(), speakerSource = "not_run", timestampSource = "input_windows",
+            message = "Параметр числа говорящих изменён. Запустите распознавание заново.")
+    }
 
     fun select(uri: Uri) = work {
         var staged: File? = null
@@ -155,6 +164,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
      */
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
+        val expectedSpeakers = mutable.value.expectedSpeakers
         mutable.value = mutable.value.copy(segments = emptyList(), document = null,
             message = "Чтение WAV и проверка модели…")
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
@@ -170,7 +180,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             var backendUsed: String? = null
             var speakers: DiarizationOutput? = null
 
-            if (BuildConfig.NEMOTRON_PROTOTYPE) {
+            if (BuildConfig.NEMOTRON_PROTOTYPE && expectedSpeakers == -1) {
                 try {
                     mutable.value = mutable.value.copy(message = "Проверка Nemotron C2 (полностью офлайн)…")
                     // The product APK carries a pinned ZIP. The research prototype can
@@ -191,7 +201,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                     try {
                         speakerStore.verify(c0Model) { context.ensureActive() }
                         mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.")
-                        speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
+                        speakers = IsolatedDiarization.process(app, audio, c0Model,
+                            backend = NemotronBackend.C0, expectedSpeakers = expectedSpeakers)
                         backendUsed = NemotronBackend.C0
                     } catch (e: CancellationException) { throw e }
                     catch (e: Exception) {
@@ -210,10 +221,12 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
             diarization == null -> "not_run"
             backendUsed == NemotronBackend.C2 -> NemotronBackend.REVISION
-            else -> DiarizationModelStore.REVISION
+            else -> DiarizationModelStore.REVISION +
+                (if (expectedSpeakers > 0) "/user-speaker-count-$expectedSpeakers" else "")
         }
         val timestampSource = if (diarization == null) "input_windows" else "diarization_boundaries_and_input_windows"
         val warnings = listOfNotNull(warning, "Интервалы фрагментов, не пословное выравнивание.",
+            if (expectedSpeakers > 0) "Число говорящих задано вручную: $expectedSpeakers; ошибка в числе может ухудшить разделение." else null,
             if (output.decodedWindows == 0) "Сегментация не обнаружила речевых окон; ASR не запускался." else null,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
             if (diarization == null) "Говорящие не определены." else null)

@@ -58,4 +58,45 @@ class DiarThresholdProbeTest {
         }
         assertEquals(cases.size * thresholds.size, rows.length())
     }
+
+    /** Oracle speaker counts from source metadata; evidence for an optional user hint, not an automatic feature. */
+    @Test fun compareKnownSpeakerCount(): Unit = runBlocking {
+        val assets = instrumentation.context.assets
+        val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
+        val asr = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
+        val cases = listOf(
+            Triple("nemotron-bench", "aba", 2), Triple("nemotron-bench", "holdout", 2),
+            Triple("nemotron-bench", "ivkond-2clean", 2),
+            Triple("nemotron-bench", "ivkond-2overlap", 2),
+            Triple("nemotron-bench", "ivkond-3overlap", 3),
+            Triple("nemotron-bench", "ivkond-4overlap", 4),
+            *Array(4) { Triple("asr-holdout", "acted-holdout-$it", 3) })
+        val rows = JSONArray()
+        val evidence = File(context.filesDir, "known-speaker-evidence.json")
+        for ((suite, id, count) in cases) {
+            val bytes = assets.open("$suite/$id.wav").use { it.readBytes() }
+            val sha = MessageDigest.getInstance("SHA-256").digest(bytes)
+                .joinToString("") { "%02x".format(it) }
+            val audio = bytes.inputStream().use { PcmWav.read(it) }
+            for (known in listOf(-1, count)) {
+                val diarization = IsolatedDiarization.process(context, audio, c0,
+                    expectedSpeakers = known, backend = NemotronBackend.C0)
+                val asrOutput = OfflineAsr.transcribe(audio, asr, turns = diarization.turns,
+                    speechWindows = diarization.windows)
+                val segments = JSONArray(asrOutput.segments.map { segment ->
+                    JSONObject().put("start_ms", segment.startMs).put("end_ms", segment.endMs)
+                        .put("speaker_id", segment.speakerId ?: JSONObject.NULL)
+                        .put("text", segment.text)
+                })
+                rows.put(JSONObject().put("suite", suite).put("case", id)
+                    .put("expected_speakers", count).put("requested_speakers", known)
+                    .put("predicted_speakers", diarization.turns.map { it.speakerId }.distinct().size)
+                    .put("audio_sha256", sha).put("audio_ms", audio.durationMs)
+                    .put("diar_process_ms", diarization.processMs)
+                    .put("segments", segments))
+                evidence.writeText(JSONObject().put("runs", rows).toString())
+            }
+        }
+        assertEquals(cases.size * 2, rows.length())
+    }
 }

@@ -46,10 +46,12 @@ object IsolatedDiarization {
     suspend fun process(context: Context, audio: PcmAudio, model: File,
                         clusteringThreshold: Float = OfflineDiarization.THRESHOLD,
                         backend: String = NemotronBackend.C0,
+                        expectedSpeakers: Int = -1,
                         onWorkerStarted: (Int) -> Unit = {}): DiarizationOutput = withContext(Dispatchers.IO) {
         // Never let callers silently change production inference settings.
         require(OfflineDiarization.validThreshold(clusteringThreshold))
         require(BuildConfig.DEBUG || clusteringThreshold == OfflineDiarization.THRESHOLD)
+        require(expectedSpeakers == -1 || (backend == NemotronBackend.C0 && expectedSpeakers in 1..8))
         lease.withLock {
             // A previous timed-out cleanup must not permit another native task while
             // the old process may still own samples/models. A later observed death
@@ -75,7 +77,8 @@ object IsolatedDiarization {
                 try {
                     // Cheap phones can run slower than realtime on long recordings.
                     withTimeout(maxOf(10 * 60 * 1000L, audio.durationMs * 4)) {
-                        awaitWorker(context, input, model, audio.durationMs, clusteringThreshold, backend, onWorkerStarted)
+                        awaitWorker(context, input, model, audio.durationMs, clusteringThreshold, backend, onWorkerStarted,
+                            expectedSpeakers)
                     }
                 } catch (_: TimeoutCancellationException) { throw DiarizationUnavailable("Превышено время диаризации") }
             } finally { input.delete() }
@@ -84,7 +87,8 @@ object IsolatedDiarization {
 
     private suspend fun awaitWorker(context: Context, input: File, model: File, audioMs: Long,
                                     clusteringThreshold: Float, backend: String,
-                                    onWorkerStarted: (Int) -> Unit): DiarizationOutput = withContext(Dispatchers.Main.immediate) {
+                                    onWorkerStarted: (Int) -> Unit,
+                                    expectedSpeakers: Int): DiarizationOutput = withContext(Dispatchers.Main.immediate) {
         val result = CompletableDeferred<DiarizationOutput>()
         var workerDeath: CompletableDeferred<Unit>? = null
         var workerBinder: IBinder? = null
@@ -126,6 +130,7 @@ object IsolatedDiarization {
                             putString("input", input.absolutePath)
                             putString("model", model.absolutePath)
                             putFloat("clusteringThreshold", clusteringThreshold)
+                            putInt("expectedSpeakers", expectedSpeakers)
                             putString("backend", backend)
                         }
                     })

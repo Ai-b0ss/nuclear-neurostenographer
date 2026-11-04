@@ -140,6 +140,9 @@ android {
             defaultConfig.applicationIdSuffix = ".c2candidate"
             defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист C2 кандидат"
         }
+        if (providers.gradleProperty("pageSizeProbe").orNull == "true") {
+            defaultConfig.applicationIdSuffix = ".pageprobe"
+        }
         sourceSets.getByName("main").apply {
             java.srcDir("src/nemotron/java")
             assets.srcDir("src/nemotron/assets")
