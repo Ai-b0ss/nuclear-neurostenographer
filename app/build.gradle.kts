@@ -101,6 +101,9 @@ android {
         check(nativeAsrCandidate) { "ASR head probe requires -PnativeAsrCandidate=true" }
         sourceSets.getByName("androidTest").java.srcDir("src/asrHeadProbe/java")
     }
+    if (providers.gradleProperty("diarThresholdProbe").orNull == "true") {
+        sourceSets.getByName("androidTest").java.srcDir("src/diarThresholdProbe/java")
+    }
     // Explicit private cloud-test variant; ordinary builds never include model/audio assets.
     if (providers.gradleProperty("asrSmoke").orNull == "true") {
         sourceSets.getByName("debug").apply {

@@ -53,3 +53,9 @@ The [GigaAM authors' evaluation](https://github.com/salute-developers/GigaAM/blo
 On the new four-recording set, A3 at four threads kept 3/147 errors but took 7.75 s. Two threads reduced that paired sum to 6.79 s. The speed comparison is emulator-only and can vary with thermal/allocator state. The error reduction is small and source diversity remains weak, so A3 is an **unpromoted research candidate**; the product continues using the smaller/faster A0 CTC path.
 
 On three of four acted composites, C2 merges two of the three true speakers; C0 also merges them on three. For example, in `acted-holdout-0`, M and S are emitted as a single speaker in both backends. This explains cpWER such as 17/33 despite WER 1/33. Tuning ASR alone cannot fix that speaker error. Speaker separation and diarization need their own independent validation, particularly on genuinely recorded multi-speaker audio.
+
+## C0 diarization threshold probe
+
+`DiarThresholdProbeTest` ran the same A0 ASR on C0 clustering thresholds 0.50, 0.65, 0.80 (current), and 0.90. It recorded turns and speech windows as well as transcripts; `score_diar_threshold_probe.py` verifies WAV hashes and scores against references. This is a debug-only measurement, not a product setting.
+
+On the four newly frozen three-speaker acted composites, cpWER at 0.80 was 68/147 versus 46/147 at 0.65 and 34/147 at 0.50, with WER 8/147 at all three thresholds. But 0.50 split the two-speaker original holdout into **four** identities and raised cpWER from 2/92 to 44/92. Threshold 0.65 kept that original case at 2/92, yet worsened the synthetic two-speaker overlap cpWER from 21/48 at 0.80 to 33/48, with four predicted speakers instead of three. The synthetic annotations are too coarse for DER, but the extra identities are observable. Global threshold changes therefore fail the cross-case gate; 0.80 remains the product value.
