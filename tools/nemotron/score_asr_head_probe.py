@@ -36,20 +36,22 @@ def main() -> None:
         row = {"case": run["case"], "backend": run["backend"], "head": run["head"],
                "wer": score["wer"], "cpwer": score["cpwer"],
                "asr_wall_ms": run["asr_wall_ms"], "asr_load_ms": run["asr_load_ms"],
-               "asr_decode_ms": run["asr_decode_ms"]}
+               "asr_decode_ms": run["asr_decode_ms"],
+               "peak_app_pss_kb": run.get("peak_app_pss_kb")}
         rows.append(row)
         print(row["case"], row["backend"], row["head"],
               f'WER {row["wer"]["errors"]}/{row["wer"]["reference_words"]}',
               f'cpWER {row["cpwer"].get("errors")}/{row["cpwer"].get("reference_words")}',
               f'ASR {row["asr_wall_ms"]} ms')
     for backend in ("c0", "c2"):
-        for head in ("a0", "a1"):
+        for head in sorted({row["head"] for row in rows}):
             subset = [row for row in rows if row["backend"] == backend and row["head"] == head]
             assert len(subset) == len(refs)
             print("TOTAL", backend, head,
                   "WER", sum(row["wer"]["errors"] for row in subset), "/",
                   sum(row["wer"]["reference_words"] for row in subset),
-                  "ASR", sum(row["asr_wall_ms"] for row in subset), "ms")
+                  "ASR", sum(row["asr_wall_ms"] for row in subset), "ms",
+                  "max app PSS", max((row["peak_app_pss_kb"] or 0) for row in subset), "KiB")
 
 
 if __name__ == "__main__":

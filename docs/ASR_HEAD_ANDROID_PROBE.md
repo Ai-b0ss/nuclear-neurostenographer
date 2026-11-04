@@ -25,3 +25,17 @@ An additional opt-in `WindowPolicyProbeTest` evaluated decoding all gaps between
 The [GigaAM upstream project](https://github.com/salute-developers/GigaAM) documents that v3 E2E CTC adds punctuation and normalization, but those features did not improve this evaluation. Research on [overlapped-speech separation](https://arxiv.org/abs/2011.02014) suggests a possible next experiment, targeted only at overlapped spans. It would need an Android sized separation model, clean speaker references, and a memory/time budget before product use.
 
 No ASR weights were fine-tuned in this experiment; there is no demonstrated gain that justifies a model change. The C++ native C2 and ASR implementation in this branch remains the candidate, while the UI and some orchestration remain Kotlin/Compose. Physical HONOR validation and a representative Russian holdout are still needed.
+
+## RNN-T follow-up (same emulator, 2026-11-05)
+
+The C++ ASR candidate can now load an explicitly selected Sherpa NeMo transducer bundle (`encoder.int8.onnx`, `decoder.onnx`, `joiner.onnx`, `tokens.txt`) as well as the existing CTC bundle. The production model store still installs and verifies only A0. The comparison instrumented test accepts `-Pandroid.testInstrumentationRunnerArguments.heads=a0,a3` to run a subset without distributing the other research models.
+
+| Head | Provenance | Model files | C0 WER | C2 WER | C2 summed ASR wall time |
+| --- | --- | ---: | ---: | ---: | ---: |
+| A0 v3 CTC INT8 | Current pinned product model | 224.7 MB model | 47/378 | 43/378 | 11.16 s |
+| A2 v3 E2E RNN-T INT8 | [Alexxerm conversion](https://huggingface.co/Alexxerm/gigaam-v3-e2e-rnnt-sherpa-onnx), revision `c0acd38c8aeb2bdc04da221bd661ffcdb9645f7d` | 226.4 MB total | 52/378 | 49/378 | 14.40 s |
+| A3 v3 RNN-T INT8 | [sherpa-onnx model](https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-giga-am-v3-russian-2025-12-16), revision `0424d62637b37d8b7b1eb0f75a04d78dec55fdcc` | 229.3 MB total | 51/378 | 42/378 | 15.43 s |
+
+A2 and A0 timings came from one run; A3 and A0 timings came from a second run. The A3 C2 improvement is one word on a tiny mixed set, with roughly 38% longer ASR time in its paired run (11.16 → 15.43 s). A3 is worse on the four-speaker overlap case (3/76 → 5/76) and worse on C0 overall. The extra model is **not promoted**. The app process PSS sampled during the paired A0/A3 test peaked around 762 MiB for both, but sequential model loading and allocator retention make that an exploratory number, not a clean memory comparison. The model card's published phone speed uses a much faster device; these x86_64 emulator timings cannot establish HONOR throughput.
+
+The [GigaAM authors' evaluation](https://github.com/salute-developers/GigaAM/blob/main/evaluation.md) reports v3 RNN-T ahead of v3 CTC on many Russian datasets, while both E2E heads have higher normalized WER. Our narrow results are consistent with treating the plain RNN-T as the better research candidate than E2E, but do not establish a deployable gain. A larger independent acted or real Russian holdout should be frozen before tuning any selection rule.

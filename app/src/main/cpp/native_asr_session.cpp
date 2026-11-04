@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <unistd.h>
 #include "c-api.h"
 
 namespace {
@@ -42,11 +43,25 @@ Java_ru_neurostenographer_app_NativeAsrBridge_create(
     const std::string base(utf);
     env->ReleaseStringUTFChars(model_dir, utf);
     const std::string model = base + "/model.int8.onnx";
+    const std::string encoder = base + "/encoder.int8.onnx";
+    const std::string decoder = base + "/decoder.onnx";
+    const std::string joiner = base + "/joiner.onnx";
     const std::string tokens = base + "/tokens.txt";
     SherpaOnnxOfflineRecognizerConfig config{};
     config.feat_config.sample_rate = 16000;
     config.feat_config.feature_dim = 64;
-    config.model_config.nemo_ctc.model = model.c_str();
+    if (access(encoder.c_str(), R_OK) == 0) {
+        if (access(decoder.c_str(), R_OK) != 0 || access(joiner.c_str(), R_OK) != 0) {
+            fail(env, "Incomplete native ASR transducer bundle");
+            return 0;
+        }
+        config.model_config.transducer.encoder = encoder.c_str();
+        config.model_config.transducer.decoder = decoder.c_str();
+        config.model_config.transducer.joiner = joiner.c_str();
+        config.model_config.model_type = "nemo_transducer";
+    } else {
+        config.model_config.nemo_ctc.model = model.c_str();
+    }
     config.model_config.tokens = tokens.c_str();
     config.model_config.num_threads = threads;
     config.model_config.provider = "cpu";
