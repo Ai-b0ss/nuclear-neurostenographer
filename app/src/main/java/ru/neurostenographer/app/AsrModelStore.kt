@@ -10,9 +10,7 @@ import ru.neurostenographer.core.VerifiedModelBundle
 class AsrModelStore(context: Context) {
     private val root = File(context.filesDir, "asr-models").apply { mkdirs() }
     private val preferences = context.getSharedPreferences("asr-model", Context.MODE_PRIVATE)
-    private val bundle = VerifiedModelBundle(HASHES.mapValues { (name, hash) ->
-        PinnedArtifact(hash, if (name == "model.int8.onnx") 224_721_476L else 4096L)
-    })
+    private val bundle = VerifiedModelBundle(AsrModelSpec.ACTIVE.files.mapValues { (_, pin) -> PinnedArtifact(pin.first, pin.second) })
 
     fun current(): File? = preferences.getString("active", null)?.let { name ->
         File(root, name).takeIf { it.isDirectory && it.parentFile == root }
@@ -43,11 +41,7 @@ class AsrModelStore(context: Context) {
     }
 
     companion object {
-        const val REVISION = "32a4c7cc81809bd132e2d935ab99e9e6ab47fbec"
-        val HASHES = linkedMapOf(
-            "model.int8.onnx" to "f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec",
-            "tokens.txt" to "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2",
-            "LICENSE" to "f00de6715714c7a63d08639cdbfaa40224eefc407302614bd19f1a8b98c875aa"
-        )
+        val REVISION = AsrModelSpec.ACTIVE.revision
+        val HASHES: Map<String, String> = AsrModelSpec.ACTIVE.files.mapValues { it.value.first }
     }
 }

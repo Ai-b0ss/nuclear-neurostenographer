@@ -26,7 +26,7 @@ DONE = re.compile(r"^(ASR вернул|Ошибка|Недостаточно|Д�
 def parse_timings(message):
     """Timings and counts from the app status line, or None when it is not a finished-run message."""
     match = re.search(r"ASR вернул (\d+) фрагментов\. Аудио: (\d+) мс; загрузка (\d+) мс; обработка (\d+) мс\. "
-                      r"Диаризация: (\d+) кластеров, (\d+) мс", message)
+                      r"Диаризация(?: [A-Z0-9]+)?: (\d+) кластеров, (\d+) мс", message)
     if not match:
         return None
     fragments, audio, load, asr, clusters, diarization = map(int, match.groups())
@@ -35,12 +35,32 @@ def parse_timings(message):
             "diarization_ms": diarization, "total_ms": total, "rtf": round(total / audio, 2) if audio else None}
 
 
+def swipe_largest(ui, down):
+    """Swipe the biggest scrollable view (a picker can also expose a small breadcrumb list)."""
+    nodes = [n for n in ui.tree().iter("node") if n.get("scrollable") == "true"]
+    boxes = []
+    for n in nodes:
+        try:
+            boxes.append(ui.bounds(n))
+        except ValueError:
+            pass
+    if not boxes:
+        return
+    x1, y1, x2, y2 = max(boxes, key=lambda b: (b[2] - b[0]) * (b[3] - b[1]))
+    x, top, bottom = (x1 + x2) // 2, y1 + (y2 - y1) // 4, y1 + (y2 - y1) * 3 // 4
+    ui.shell("input", "swipe", str(x), str(bottom if down else top), str(x), str(top if down else bottom), "350")
+
+
 def scroll_to(ui, label, direction="down", tries=8, exact=True):
     for _ in range(tries):
         node = ui.find(label=label, timeout=1, exact=exact)[1]
         if node is not None:
-            return node
-        ui.scroll(ui.tree(), direction == "down")
+            try:
+                ui.bounds(node)  # present in the tree but maybe off screen (long picker lists)
+                return node
+            except ValueError:
+                pass
+        swipe_largest(ui, direction == "down")
         time.sleep(0.6)
     raise SystemExit(f"Control not found: {label}")
 
@@ -59,6 +79,7 @@ def main():
     parser.add_argument("clip", type=Path)
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--wait-minutes", type=float, default=15)
+    parser.add_argument("--package", default="ru.neurostenographer.app", help="e.g. ru.neurostenographer.app.a3 for the A3 test build")
     args = parser.parse_args()
     adb, _ = find_adb(None)
     ui = PhoneUi(args.serial, Path(".local/phone-ui-private"), adb)
@@ -67,13 +88,21 @@ def main():
     run("shell", f"mkdir -p {FOLDER} && rm -f {FOLDER}/transcript.json")
     run("push", str(args.clip), f"{FOLDER}/{name}")
     run("shell", "am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", f"file://{FOLDER}/{name}")
-    run("shell", "am", "start", "-n", "ru.neurostenographer.app/.MainActivity")
+    run("shell", "am", "start", "-n", f"{args.package}/ru.neurostenographer.app.MainActivity")
     time.sleep(2)
     for _ in range(8):
         ui.scroll(ui.tree(), False)
     scroll_to(ui, "Импортировать аудио")
     ui.tap_node(scroll_to(ui, "Импортировать аудио"))
     time.sleep(3)
+    if ui.find(label=name, timeout=1, exact=True)[1] is None:
+        # A new package's picker opens at "Recent": walk the drawer to Downloads/ns-acceptance.
+        ui.tap_node(ui.find(description="Показать", timeout=3)[1])
+        time.sleep(2)
+        ui.tap_node(scroll_to(ui, "Загрузки"))
+        time.sleep(3)
+        ui.tap_node(scroll_to(ui, FOLDER.rsplit("/", 1)[1]))
+        time.sleep(3)
     ui.tap_node(scroll_to(ui, name))
     time.sleep(4)
     ui.tap_node(scroll_to(ui, "Распознать офлайн"))
@@ -97,7 +126,7 @@ def main():
     args.out_dir.mkdir(parents=True, exist_ok=True)
     target = args.out_dir / f"{Path(name).stem}.phone.json"
     run("pull", f"{FOLDER}/transcript.json", str(target))
-    result = {"status": "OK", "clip": name, "export": str(target), "wall_s": round(time.monotonic() - started, 1), **timings}
+    result = {"status": "OK", "package": args.package, "clip": name, "export": str(target), "wall_s": round(time.monotonic() - started, 1), **timings}
     (args.out_dir / f"{Path(name).stem}.timings.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False))
     return 0

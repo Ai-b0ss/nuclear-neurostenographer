@@ -9,6 +9,18 @@ data class AsrOutput(val segments: List<TranscriptSegment>, val audioMs: Long,
 
 /** Owns native resources on one worker. Fragment times are input windows, not word alignments. */
 object OfflineAsr {
+    /** CTC (nemo) or NeMo RNNT (transducer); feature settings come from the model metadata in both cases. */
+    fun modelConfig(spec: AsrModelSpec, model: File): OfflineModelConfig {
+        fun path(name: String?) = File(model, requireNotNull(name)).absolutePath
+        return if (spec.ctcModel != null) OfflineModelConfig(
+            nemo = OfflineNemoEncDecCtcModelConfig(model = path(spec.ctcModel)), tokens = path(spec.tokens),
+            numThreads = InferenceThreads.count(), provider = "cpu", debug = false)
+        else OfflineModelConfig(
+            transducer = OfflineTransducerModelConfig(encoder = path(spec.encoder), decoder = path(spec.decoder), joiner = path(spec.joiner)),
+            tokens = path(spec.tokens), modelType = "nemo_transducer",
+            numThreads = InferenceThreads.count(), provider = "cpu", debug = false)
+    }
+
     fun transcribe(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
                    progress: (Int, Int) -> Unit = { _, _ -> },
                    turns: List<SpeakerTurn> = emptyList(),
@@ -23,11 +35,7 @@ object OfflineAsr {
         val started = System.nanoTime()
         val recognizer = OfflineRecognizer(config = OfflineRecognizerConfig(
             featConfig = FeatureConfig(sampleRate = 16000, featureDim = 64),
-            modelConfig = OfflineModelConfig(
-                nemo = OfflineNemoEncDecCtcModelConfig(model = File(model, "model.int8.onnx").absolutePath),
-                tokens = File(model, "tokens.txt").absolutePath,
-                numThreads = InferenceThreads.count(), provider = "cpu", debug = false
-            ), decodingMethod = "greedy_search"
+            modelConfig = modelConfig(AsrModelSpec.ACTIVE, model), decodingMethod = "greedy_search"
         ))
         val loaded = System.nanoTime()
         val chunks = mutableListOf<RecognizedChunk>()

@@ -40,6 +40,9 @@ val c2Candidate = providers.gradleProperty("c2Candidate").orNull == "true"
 check(!(nemotronPrototype && nemotronProduct)) { "Prototype and product are separate variants" }
 check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduct=true" }
 val nemotronEnabled = nemotronPrototype || nemotronProduct
+// Separate test build with GigaAM v3 e2e RNNT (punctuation); never the RC1 applicationId.
+val asrA3 = providers.gradleProperty("asrA3").orNull == "true"
+check(!(asrA3 && (c2Candidate || nemotronPrototype))) { "A3 test build is separate from C2 candidate/prototype" }
 android {
     namespace = "ru.neurostenographer.app"
     compileSdk = 35
@@ -54,6 +57,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
+        buildConfigField("boolean", "ASR_A3", asrA3.toString())
         manifestPlaceholders["appLabel"] = "Нейро-стенографист"
     }
     // Optional workspace-owned debug key for restricted local build environments.
@@ -94,6 +98,10 @@ android {
             assets.srcDir(rootProject.file(".local/androidTestAssets"))
             manifest.srcFile("src/asrSmoke/AndroidManifest.xml")
         }
+    }
+    if (asrA3) {
+        defaultConfig.applicationIdSuffix = ".a3"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейро-стенографист A3"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
     if (nemotronEnabled) {

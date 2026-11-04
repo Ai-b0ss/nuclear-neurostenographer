@@ -15,7 +15,7 @@ import ru.neurostenographer.core.*
 import java.io.File
 
 data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
-    val modelReady: Boolean = false, val message: String = "Установите локальный ZIP модели GigaAM v3 (225 МБ).",
+    val modelReady: Boolean = false, val message: String = "Установите локальный ZIP модели ${AsrModelSpec.ACTIVE.label} (${AsrModelSpec.ACTIVE.sizeLabel}).",
     val segments: List<TranscriptSegment> = emptyList(), val diarizationReady: Boolean = false,
     val speakerSource: String = "not_run", val timestampSource: String = "input_windows",
     val sourceDurationMs: Long? = null, val document: TranscriptDocument? = null,
@@ -92,7 +92,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 store.install(it) { context.ensureActive() }
             }
         }
-        mutable.value = mutable.value.copy(modelReady = true, message = "GigaAM v3 установлен; SHA-256 проверен.")
+        mutable.value = mutable.value.copy(modelReady = true, message = "${AsrModelSpec.ACTIVE.label} установлен; SHA-256 проверен.")
     }
 
     fun installDiarization(uri: Uri) = work {
@@ -218,7 +218,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
             if (diarization == null) "Говорящие не определены." else null)
         val document = TranscriptDocument(output.segments.toList(), output.audioMs, TranscriptProvenance(
-            "sherpa-onnx-1.12.20/gigaam-v3-ctc-int8", AsrModelStore.REVISION, timestampSource, speakerSource,
+            AsrModelSpec.ACTIVE.id, AsrModelStore.REVISION, timestampSource, speakerSource,
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings)
         mutable.value = mutable.value.copy(segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
@@ -349,7 +349,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     companion object {
         const val KIT_DIRECTORY = "kit"
-        const val KIT_ASR_ZIP = "gigaam-v3.zip"
+        val KIT_ASR_ZIP = AsrModelSpec.ACTIVE.zipName
         const val KIT_DIARIZATION_ZIP = "diarization.zip"
     }
 }

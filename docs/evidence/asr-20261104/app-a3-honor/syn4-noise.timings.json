@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "package": "ru.neurostenographer.app.a3",
+  "clip": "syn4-noise.wav",
+  "export": "syn4-noise.phone.json",
+  "wall_s": 79.0,
+  "fragments": 13,
+  "audio_ms": 57324,
+  "model_load_ms": 3899,
+  "asr_ms": 9024,
+  "clusters": 4,
+  "diarization_ms": 9096,
+  "total_ms": 22019,
+  "rtf": 0.38
+}

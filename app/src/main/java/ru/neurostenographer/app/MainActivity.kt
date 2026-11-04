@@ -72,8 +72,8 @@ class MainActivity : ComponentActivity() {
             LazyColumn(modifier = Modifier.fillMaxSize().padding(padding).padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item { Text("Нейро-стенографист", style = MaterialTheme.typography.headlineMedium) }
-                item { Text(if (state.c2Supported) "GigaAM v3 + Nemotron C2 · полностью офлайн"
-                    else "GigaAM v3 · экспериментальный офлайн ASR") }
+                item { Text(if (state.c2Supported) "${AsrModelSpec.ACTIVE.label} + Nemotron C2 · полностью офлайн"
+                    else "${AsrModelSpec.ACTIVE.label} · экспериментальный офлайн ASR") }
                 item { Text("WAV и системные аудиокодеки (экспериментально): 1–2 канала, 8–48 кГц, до 20 минут. Запись и распознавание остаются на устройстве.") }
                 // Status, errors and progress stay at the top: the screen is a long list and a
                 // message lost in the middle hides a failed operation or a running recording.
@@ -110,7 +110,7 @@ class MainActivity : ComponentActivity() {
                         onClick = { importModel.launch(arrayOf("application/zip", "application/octet-stream")) }) {
                         Text(if (state.modelReady) "Заменить модель ZIP" else "Установить модель ZIP")
                     }
-                    Text("gigaam-v3.zip (225 МБ) — по инструкции README. Либо положите оба ZIP в папку комплекта через adb (docs/OFFLINE_KIT.md): установка пройдёт сама при запуске.",
+                    Text("${AsrModelSpec.ACTIVE.zipName} (${AsrModelSpec.ACTIVE.sizeLabel}) — по инструкции README. Либо положите оба ZIP в папку комплекта через adb (docs/OFFLINE_KIT.md): установка пройдёт сама при запуске.",
                         style = MaterialTheme.typography.bodySmall)
                 }
                 item {
