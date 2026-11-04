@@ -1,8 +1,8 @@
 # Нейростенография — целевой продукт и границы обещаний (decision proposal)
 
-**Дата:** 04.11.2026. **Статус:** аналитическое предложение, не реализованный функционал и не окончательное ТЗ Hex.team. **Область:** офлайн Android. Никакого изменения приложения, APK, \`main\` или работающих сессий Claude.
+**Дата:** 04.11.2026. **Статус:** аналитическое предложение, не реализованный функционал и не окончательное ТЗ Hex.team. **Область:** офлайн Android. Никакого изменения приложения, APK, `main` или работающих сессий Claude.
 
-Основание: [PROJECT_CHARTER](PROJECT_CHARTER.md), [DECISION_REGISTER](DECISION_REGISTER.md), [RELEASE_READINESS](RELEASE_READINESS_2026-11-04.md), [JOINT_A_C](JOINT_A_C_EVALUATION_2026-11-03.md), [исследование улучшения ASR](CONTEXTUAL_ASR_DECISION_2026-11-04.md) (последний документ находится в *соседнем* аналитическом PR, ссылка станет действительной после его отдельного review). **Не трактовать гипотезы как требования организаторов:** постановка задач ожидается 6 ноября.
+Основание: [PROJECT_CHARTER](PROJECT_CHARTER.md), [DECISION_REGISTER](DECISION_REGISTER.md), [RELEASE_READINESS](RELEASE_READINESS_2026-11-04.md), [JOINT_A_C](JOINT_A_C_EVALUATION_2026-11-03.md), [исследование улучшения ASR](https://github.com/Ai-b0ss/nuclear-neurostenographer/blob/research/contextual-asr-20261104/docs/CONTEXTUAL_ASR_DECISION_2026-11-04.md) (последний документ находится в *соседнем* аналитическом PR, ссылка станет действительной после его отдельного review). **Не трактовать гипотезы как требования организаторов:** постановка задач ожидается 6 ноября.
 
 ## 1. Что именно мы делаем
 
@@ -32,12 +32,12 @@
 ### Схема данных будущего слоя проверки
 
 Сохранить раздельно:
-- \`source_audio_sha256\`, оригинальный URI/доступ, метаданные PCM;
-- \`raw_asr_segments\` и \`diarization_segments\`, модель+версия+конфигурация+временная система координат;
-- \`speaker_mapping\` (не путать автоматически с ФИО), \`confidence_evidence\` (может отсутствовать);
-- \`suggested_edits\` с типом \`glossary/spelling/rescored/llm\`, основанием, before/after, локальным вердиктом и явным статусом \`pending/accepted/rejected\`;
-- \`manual_edits\` отдельно от машинных, время и версия;
-- \`export_snapshot\`, чтобы TXT/SRT/JSON были воспроизводимы.
+- `source_audio_sha256`, оригинальный URI/доступ, метаданные PCM;
+- `raw_asr_segments` и `diarization_segments`, модель+версия+конфигурация+временная система координат;
+- `speaker_mapping` (не путать автоматически с ФИО), `confidence_evidence` (может отсутствовать);
+- `suggested_edits` с типом `glossary/spelling/rescored/llm`, основанием, before/after, локальным вердиктом и явным статусом `pending/accepted/rejected`;
+- `manual_edits` отдельно от машинных, время и версия;
+- `export_snapshot`, чтобы TXT/SRT/JSON были воспроизводимы.
 
 Это **контракт данных для review**, не описание уже имеющейся БД. Не превращать отсутствующий model confidence в точное число и не модифицировать оригинал необратимо.
 
@@ -58,7 +58,7 @@
 
 Сохраняем модульность CORE / A / C / **необязательный B**. Входом CORE служит **оригинальный звук**, выходом — проверяемая последовательность реплик. A (ASR), C (говорящие), B (исправления) имеют отдельные поля происхождения. Выбор лучшей A после тестов Sonnet **не должен ломать историю, просмотр и экспорт**.
 
-\`\`\`text
+```text
 MIC / IMPORT -> CORE (WAV, PCM, storage, cancel, error handling)
                     +-- A0 ... A4: speech -> text hypotheses
                     +-- C0 / C2: activity -> stable anonymous speaker IDs
@@ -67,7 +67,7 @@ MIC / IMPORT -> CORE (WAV, PCM, storage, cancel, error handling)
                -> B (optional, reversible glossary / alternate ASR / tiny LM)
                -> REVIEW (listen, compare raw/edited, speaker edits)
                -> LOCAL SAVE -> TXT / SRT / JSON
-\`\`\`
+```
 
 **Порядок:** сначала A и C работают проверенно; B не является обязательным этапом и должен иметь bypass. Joint-модель MOSS заменяет **A+C одновременно**, а не встраивается в каждый Android APK. Точное имя голосов — действие человека, не предположение нейросети.
 
@@ -91,4 +91,4 @@ MIC / IMPORT -> CORE (WAV, PCM, storage, cancel, error handling)
 
 **Рекомендую принять как продуктовый ориентир:** режим «дословно + обратимые правки», словарь терминов как пользовательский инструмент, прозрачные speaker/overlap ошибки, сохранение provenance и офлайн-работу на реальном Android. Оставить B и joint-модели P1/R&D, не связывать с конкурсным RC1 до измерений.
 
-**Этот PR не содержит кода, моделей, аудио, изменения сборки или API; только продуктовую концепцию.** Никаких изменений в \`main\` и рабочей ветке Sonnet.
+**Этот PR не содержит кода, моделей, аудио, изменения сборки или API; только продуктовую концепцию.** Никаких изменений в `main` и рабочей ветке Sonnet.
