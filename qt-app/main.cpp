@@ -9,6 +9,7 @@
 #include <QMediaDevices>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QPermissions>
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -60,6 +61,20 @@ private:
             QMessageBox::information(this, QStringLiteral("Запись сохранена"), recording.fileName());
             return;
         }
+#ifdef Q_OS_ANDROID
+        const QMicrophonePermission permission;
+        switch (qApp->checkPermission(permission)) {
+        case Qt::PermissionStatus::Undetermined:
+            qApp->requestPermission(permission, this, [this, button] { toggleRecording(button); });
+            return;
+        case Qt::PermissionStatus::Denied:
+            QMessageBox::warning(this, QStringLiteral("Нет доступа к микрофону"),
+                QStringLiteral("Разрешите доступ к микрофону в настройках Android."));
+            return;
+        case Qt::PermissionStatus::Granted:
+            break;
+        }
+#endif
         const auto device = QMediaDevices::defaultAudioInput();
         if (device.isNull()) { QMessageBox::warning(this, QStringLiteral("Микрофон недоступен"), QStringLiteral("Подключите микрофон и повторите.")); return; }
         audioPath = QDir::temp().filePath(QStringLiteral("recording-%1.pcm").arg(QDateTime::currentMSecsSinceEpoch()));
