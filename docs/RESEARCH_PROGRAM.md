@@ -109,3 +109,5 @@ WER / cpWER / DER / unknown / RTF / peak memory:
 ```
 
 **Главная дисциплина:** выбор технологии является следствием проверяемого результата, а не интуиции GPT/Opus. [Реестр решений](DECISION_REGISTER.md).
+
+New narrow ASR baseline (04.11.2026): [Whisper vs GigaAM A0](ASR_COMPARISON_2026-11-04.md). RNNT/e2e variants remain NOT_RUN.
