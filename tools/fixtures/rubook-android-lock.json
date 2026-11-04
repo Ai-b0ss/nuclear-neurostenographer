@@ -1,0 +1,79 @@
+{
+  "source": "mexus/ru-book-mix-10h",
+  "revision": "18655c48833c5acfcd868a36eb38465712d15f1c",
+  "license": "CC-BY-4.0",
+  "cases": [
+    {
+      "id": "rec_0000",
+      "split": "development",
+      "shard": "data/shard-0000.tar",
+      "n_speakers": 1,
+      "overlap2": 0.0,
+      "audio_sha256": "8cb57b358568b1300e2bfedb3e1eaedb856bd117d9ab87bed3cdb10d164a1b52",
+      "reference_sha256": "c8337258f351950e9b3a6c72dcf64a793e1e535d7d3448b12c532524fe18cbc4"
+    },
+    {
+      "id": "rec_0055",
+      "split": "development",
+      "shard": "data/shard-0000.tar",
+      "n_speakers": 2,
+      "overlap2": 0.12400719919130102,
+      "audio_sha256": "c223336b7b3da6387cd1052af3bf9579be6d2bc6bd5a19ef2ca8421601d1428f",
+      "reference_sha256": "5b0efc31d86aa01d9729895e4db2e7c7a90aed558edff014bf9966ab22589007"
+    },
+    {
+      "id": "rec_0275",
+      "split": "development",
+      "shard": "data/shard-0001.tar",
+      "n_speakers": 3,
+      "overlap2": 0.11598525291710618,
+      "audio_sha256": "18dde0836e1f51ee24ec213c8d1f84c256ab0f8fdae205e83be236d4069abb31",
+      "reference_sha256": "a36396cbec61b1b832ddf0e7598cf5aafede5dae98823cda83afe938ddd3f20c"
+    },
+    {
+      "id": "rec_0437",
+      "split": "development",
+      "shard": "data/shard-0002.tar",
+      "n_speakers": 4,
+      "overlap2": 0.12211048401041952,
+      "audio_sha256": "6592f31ffd3c6bc3a4cdb386f043244c90e6fa882a215610db6eaed11538084b",
+      "reference_sha256": "2ec3ad8f3a43ef4a07ab63f039511acc2524d25080042f1c37dba6f83ffb4e1a"
+    },
+    {
+      "id": "rec_0001",
+      "split": "holdout",
+      "shard": "data/shard-0000.tar",
+      "n_speakers": 1,
+      "overlap2": 0.0,
+      "audio_sha256": "cd48f0fc1201555dcd7c09dde08dc518cd1f0e2eb8695968e5502234f6c6bee1",
+      "reference_sha256": "0cab9fa4c27a3af0fda7149288e9c97808e053dc136b41edc2909550cf4b491c"
+    },
+    {
+      "id": "rec_0056",
+      "split": "holdout",
+      "shard": "data/shard-0000.tar",
+      "n_speakers": 2,
+      "overlap2": 0.028045808637930207,
+      "audio_sha256": "4bf732be031216cec2f581809d6dbb5700e1da767836638f26692835bffcc3d7",
+      "reference_sha256": "f115becedd7de041c7c7e5dedc19bced60bba24efbcce75ad8d08aae3045cb42"
+    },
+    {
+      "id": "rec_0274",
+      "split": "holdout",
+      "shard": "data/shard-0001.tar",
+      "n_speakers": 3,
+      "overlap2": 0.04473420017363925,
+      "audio_sha256": "e7a4551d659348778eaa49e0535efe4ddb54890f37bdbc0dbdfabcf2f0977e27",
+      "reference_sha256": "305eb39532a3ec1c3bb4254689a0629ca78bfc0542627cfc8a663090c1dc867a"
+    },
+    {
+      "id": "rec_0438",
+      "split": "holdout",
+      "shard": "data/shard-0002.tar",
+      "n_speakers": 4,
+      "overlap2": 0.07288783358934445,
+      "audio_sha256": "91debe750e1a712c8c505116f47efe9488de1e2f16f4d509fcdf5448d32718f4",
+      "reference_sha256": "f968090f3b9918204bd3da21b6e354288b129f7e62af80a9da7b7ea795c7c192"
+    }
+  ]
+}

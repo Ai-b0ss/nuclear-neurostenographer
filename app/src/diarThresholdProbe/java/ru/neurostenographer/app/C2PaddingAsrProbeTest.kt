@@ -1,0 +1,58 @@
+package ru.neurostenographer.app
+
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
+import org.json.JSONArray
+import org.json.JSONObject
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import ru.neurostenographer.core.PcmWav
+import java.io.File
+import java.security.MessageDigest
+
+/** Fixed 200 ms C2 padding: test its ASR and speaker attribution cost on frozen text cases. */
+class C2PaddingAsrProbeTest {
+    private val instrumentation = InstrumentationRegistry.getInstrumentation()
+    private val context get() = instrumentation.targetContext
+
+    @Test fun compareBaseAndPadded(): Unit = runBlocking {
+        val assets = instrumentation.context.assets
+        val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
+        val asr = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
+        val cases = listOf(
+            "nemotron-bench" to "aba", "nemotron-bench" to "holdout",
+            "nemotron-bench" to "ivkond-2clean", "nemotron-bench" to "ivkond-2overlap",
+            "nemotron-bench" to "ivkond-3overlap", "nemotron-bench" to "ivkond-4overlap",
+            *Array(4) { "asr-holdout" to "acted-holdout-$it" })
+        val runs = JSONArray()
+        val evidence = File(context.filesDir, "c2-padding-asr-evidence.json")
+        for ((suite, name) in cases) {
+            val bytes = assets.open("$suite/$name.wav").use { it.readBytes() }
+            val hash = MessageDigest.getInstance("SHA-256").digest(bytes)
+                .joinToString("") { "%02x".format(it) }
+            val audio = bytes.inputStream().use { PcmWav.read(it) }
+            val base = IsolatedDiarization.process(context, audio, c2, backend = NemotronBackend.C2)
+            val padded = C2BoundaryPadding.apply(base, audio.durationMs)
+            for ((mode, diarization) in listOf("base" to base,
+                "pad100" to C2BoundaryPadding.apply(base, audio.durationMs, 100),
+                "pad150" to C2BoundaryPadding.apply(base, audio.durationMs, 150),
+                "pad200" to padded,
+                "padTurns200" to base.copy(turns = padded.turns),
+                "padWindows200" to base.copy(windows = padded.windows))) {
+                val output = OfflineAsr.transcribe(audio, asr, turns = diarization.turns,
+                    speechWindows = diarization.windows)
+                val segments = JSONArray(output.segments.map { segment ->
+                    JSONObject().put("start_ms", segment.startMs).put("end_ms", segment.endMs)
+                        .put("speaker_id", segment.speakerId ?: JSONObject.NULL)
+                        .put("text", segment.text)
+                })
+                runs.put(JSONObject().put("suite", suite).put("case", name).put("mode", mode)
+                    .put("audio_sha256", hash).put("audio_ms", audio.durationMs)
+                    .put("asr_load_ms", output.loadMs).put("asr_decode_ms", output.decodeMs)
+                    .put("segments", segments))
+                evidence.writeText(JSONObject().put("runs", runs).toString())
+            }
+        }
+        assertEquals(cases.size * 6, runs.length())
+    }
+}
