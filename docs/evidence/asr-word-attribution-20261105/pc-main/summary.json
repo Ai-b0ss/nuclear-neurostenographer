@@ -1,0 +1,65 @@
+{
+ "all": {
+  "unattributed_words": 160,
+  "wer": {
+   "errors": 379,
+   "words": 1812,
+   "rate": 0.2092,
+   "cases": 29
+  },
+  "cpwer": {
+   "errors": 137,
+   "words": 693,
+   "rate": 0.1977,
+   "cases": 13
+  },
+  "cpwer_u": {
+   "errors": 448,
+   "words": 1812,
+   "rate": 0.2472,
+   "cases": 29
+  }
+ },
+ "holdout": {
+  "unattributed_words": 157,
+  "wer": {
+   "errors": 363,
+   "words": 1647,
+   "rate": 0.2204,
+   "cases": 26
+  },
+  "cpwer": {
+   "errors": 132,
+   "words": 641,
+   "rate": 0.2059,
+   "cases": 12
+  },
+  "cpwer_u": {
+   "errors": 434,
+   "words": 1647,
+   "rate": 0.2635,
+   "cases": 26
+  }
+ },
+ "phone3": {
+  "unattributed_words": 3,
+  "wer": {
+   "errors": 16,
+   "words": 165,
+   "rate": 0.097,
+   "cases": 3
+  },
+  "cpwer": {
+   "errors": 5,
+   "words": 52,
+   "rate": 0.0962,
+   "cases": 1
+  },
+  "cpwer_u": {
+   "errors": 14,
+   "words": 165,
+   "rate": 0.0848,
+   "cases": 3
+  }
+ }
+}

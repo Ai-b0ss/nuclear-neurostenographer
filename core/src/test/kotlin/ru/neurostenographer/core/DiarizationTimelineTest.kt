@@ -23,6 +23,15 @@ fun testDiarizationTimeline() {
     }
     check(DiarizationTimeline.speechWindows(listOf(ClusterTurn(0f, 0.2f, 1), ClusterTurn(1f, 2f, -1)), 3000) ==
         listOf(AudioWindow(0, 200), AudioWindow(1000, 2000)))
+    // Back-to-back turns and an overlap at the speaker change stay one window; a real pause cuts.
+    check(DiarizationTimeline.speechWindows(listOf(ClusterTurn(0f, 2f, 1), ClusterTurn(1.8f, 4f, 2),
+        ClusterTurn(1.9f, 2.1f, -1), ClusterTurn(4.3f, 5f, 1), ClusterTurn(6f, 7f, 2)), 8000) ==
+        listOf(AudioWindow(0, 5000), AudioWindow(6000, 7000)))
+    check(DiarizationTimeline.turnWindows(DiarizationTimeline.canonicalize(listOf(ClusterTurn(0f, 2f, 1),
+        ClusterTurn(1.8f, 4f, 2), ClusterTurn(6f, 7f, 2)), 8000), 8000) ==
+        listOf(AudioWindow(0, 1800), AudioWindow(1800, 2000), AudioWindow(2000, 4000), AudioWindow(6000, 7000)))
+    check(DiarizationTimeline.speechWindows(listOf(ClusterTurn(0f, 25f, 1), ClusterTurn(25f, 30f, 2)), 30000) ==
+        listOf(AudioWindow(0, 20000), AudioWindow(20000, 30000)))
     check(DiarizationTimeline.speechWindows(emptyList(), 3000).isEmpty())
     check(DiarizationTimeline.windows(emptyList(), 40001) == listOf(AudioWindow(0, 20000), AudioWindow(20000, 40000)))
     check(DiarizationTimeline.canonicalize(listOf(ClusterTurn(1f, 11f, 2)), 2000).single().endMs == 2000L)

@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "package": "ru.neurostenographer.app",
+  "clip": "long-20min.wav",
+  "export": "..\\.local\\phone-0.3.2\\long\\long-20min.phone.json",
+  "wall_s": 630.4,
+  "fragments": 304,
+  "audio_ms": 1200000,
+  "model_load_ms": 5512,
+  "asr_ms": 322329,
+  "clusters": 2,
+  "diarization_ms": 217073,
+  "total_ms": 544914,
+  "rtf": 0.45
+}

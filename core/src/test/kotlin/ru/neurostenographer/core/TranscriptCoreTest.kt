@@ -20,6 +20,32 @@ fun main() {
         val words = listOf(RecognizedWord(4050, 4500, "согласен"), RecognizedWord(100, 600, "привет"), RecognizedWord(2100, 2500, "да"))
         check(TranscriptFusion.attributeWords(words, turns).map { it.speakerId } == listOf("A", "B", "A"))
     }
+    test("token timestamps to words") {
+        // GigaAM e2e RNNT through sherpa-onnx 1.12.20: start of each token in seconds from the window start.
+        val tokens = arrayOf(" От", "крой", " ", "темп", "ера", "туру", ",", " пожалуйста", ".", " Да", "?")
+        val times = floatArrayOf(0.44f, 0.6f, 0.96f, 1.08f, 1.24f, 1.36f, 3.0f, 3.2f, 3.9f, 4.0f, 4.1f)
+        val words = TokenWords.words(tokens, times, 10_000, 15_400)!!
+        check(words.map { it.text } == listOf("Открой", "температуру,", "пожалуйста.", "Да?")) { words.toString() }
+        check(words[0] == RecognizedWord(10_440, 10_840, "Открой"))
+        check(words[1].startMs == 10_960L && words[1].endMs == 11_600L) // punctuation does not stretch the word
+        check(words[2].endMs == 13_440L && words[3] == RecognizedWord(14_000, 14_240, "Да?"))
+        check(TokenWords.words(arrayOf(" Да", " ", ".", " нет"), floatArrayOf(0.1f, 0.3f, 0.4f, 0.5f), 0, 1000)!!
+            .map { it.text } == listOf("Да.", "нет"))
+        check(TokenWords.words(tokens, null, 0, 6000) == null)
+        check(TokenWords.words(tokens, times.copyOf(3), 0, 6000) == null)
+        check(TokenWords.words(arrayOf(" а", " б"), floatArrayOf(1f, 0.5f), 0, 6000) == null)
+        check(TokenWords.words(arrayOf(" а"), floatArrayOf(0.9f), 0, 500) == listOf(RecognizedWord(499, 500, "а")))
+        // A speaker change inside one window: each word goes to its own speaker, the overlap stays unknown.
+        val turns = listOf(SpeakerTurn(10_000, 12_000, "A"), SpeakerTurn(11_900, 16_000, "B"))
+        val segments = TranscriptFusion.attributeWords(words, turns)
+        check(segments.map { it.speakerId to it.text } == listOf("A" to "Открой температуру,", "B" to "пожалуйста. Да?"))
+    }
+    test("export file names keep dates") {
+        check(TranscriptExport.fileBase("Запись 5 нояб., 01:40") == "Запись 5 нояб_ 01_40")
+        check(TranscriptExport.fileBase("interview.final.MP3") == "interview_final")
+        check(TranscriptExport.fileBase("v1.2 итог") == "v1_2 итог")
+        check(TranscriptExport.fileBase(" ... ") == "transcript")
+    }
     test("unknown without diarization") {
         val result = TranscriptFusion.attributeWords(listOf(RecognizedWord(0, 500, "текст")), emptyList())
         check(result.single().speakerId == null && !result.single().attributionReliable)

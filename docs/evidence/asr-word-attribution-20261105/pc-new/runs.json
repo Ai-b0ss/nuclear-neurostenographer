@@ -1,0 +1,321 @@
+{
+ "syn3-clean": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "meta": {
+   "load_ms": 2115,
+   "decode_ms": 1343,
+   "windows": 7,
+   "token_timed_windows": 7,
+   "threads": 2
+  }
+ },
+ "syn3-brown": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "meta": {
+   "load_ms": 1965,
+   "decode_ms": 1568,
+   "windows": 9,
+   "token_timed_windows": 9,
+   "threads": 2
+  }
+ },
+ "syn4-noise": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 1950,
+   "decode_ms": 2055,
+   "windows": 11,
+   "token_timed_windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s4-r00": {
+  "status": "OK",
+  "wall_s": 4.2,
+  "meta": {
+   "load_ms": 1991,
+   "decode_ms": 1916,
+   "windows": 8,
+   "token_timed_windows": 8,
+   "threads": 2
+  }
+ },
+ "hold-s4-r01": {
+  "status": "OK",
+  "wall_s": 4.9,
+  "meta": {
+   "load_ms": 2085,
+   "decode_ms": 2499,
+   "windows": 11,
+   "token_timed_windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s4-r30": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2111,
+   "decode_ms": 1936,
+   "windows": 11,
+   "token_timed_windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s4-r39": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2075,
+   "decode_ms": 1931,
+   "windows": 12,
+   "token_timed_windows": 12,
+   "threads": 2
+  }
+ },
+ "hold-s4-r41": {
+  "status": "OK",
+  "wall_s": 4.6,
+  "meta": {
+   "load_ms": 2019,
+   "decode_ms": 2314,
+   "windows": 13,
+   "token_timed_windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s4-r54": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2153,
+   "decode_ms": 1852,
+   "windows": 11,
+   "token_timed_windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s4-r59": {
+  "status": "OK",
+  "wall_s": 5.3,
+  "meta": {
+   "load_ms": 2152,
+   "decode_ms": 2930,
+   "windows": 16,
+   "token_timed_windows": 16,
+   "threads": 2
+  }
+ },
+ "hold-s5-r19": {
+  "status": "OK",
+  "wall_s": 4.7,
+  "meta": {
+   "load_ms": 2110,
+   "decode_ms": 2288,
+   "windows": 13,
+   "token_timed_windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s5-r21": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "meta": {
+   "load_ms": 2052,
+   "decode_ms": 1153,
+   "windows": 5,
+   "token_timed_windows": 5,
+   "threads": 2
+  }
+ },
+ "hold-s5-r24": {
+  "status": "OK",
+  "wall_s": 4.1,
+  "meta": {
+   "load_ms": 2082,
+   "decode_ms": 1815,
+   "windows": 9,
+   "token_timed_windows": 9,
+   "threads": 2
+  }
+ },
+ "hold-s5-r31": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "meta": {
+   "load_ms": 1955,
+   "decode_ms": 1449,
+   "windows": 10,
+   "token_timed_windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s5-r48": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "meta": {
+   "load_ms": 1887,
+   "decode_ms": 1320,
+   "windows": 7,
+   "token_timed_windows": 7,
+   "threads": 2
+  }
+ },
+ "hold-s5-r58": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2245,
+   "decode_ms": 1777,
+   "windows": 10,
+   "token_timed_windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s5-r61": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2116,
+   "decode_ms": 1900,
+   "windows": 12,
+   "token_timed_windows": 12,
+   "threads": 2
+  }
+ },
+ "hold-s5-r68": {
+  "status": "OK",
+  "wall_s": 3.4,
+  "meta": {
+   "load_ms": 1895,
+   "decode_ms": 1228,
+   "windows": 10,
+   "token_timed_windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s6-r01": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "meta": {
+   "load_ms": 1886,
+   "decode_ms": 1336,
+   "windows": 9,
+   "token_timed_windows": 9,
+   "threads": 2
+  }
+ },
+ "hold-s6-r09": {
+  "status": "OK",
+  "wall_s": 5.0,
+  "meta": {
+   "load_ms": 1905,
+   "decode_ms": 2803,
+   "windows": 17,
+   "token_timed_windows": 16,
+   "threads": 2
+  }
+ },
+ "hold-s6-r18": {
+  "status": "OK",
+  "wall_s": 3.4,
+  "meta": {
+   "load_ms": 1867,
+   "decode_ms": 1217,
+   "windows": 10,
+   "token_timed_windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s6-r23": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "meta": {
+   "load_ms": 1857,
+   "decode_ms": 2298,
+   "windows": 14,
+   "token_timed_windows": 14,
+   "threads": 2
+  }
+ },
+ "hold-s6-r29": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "meta": {
+   "load_ms": 1957,
+   "decode_ms": 1460,
+   "windows": 10,
+   "token_timed_windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s6-r38": {
+  "status": "OK",
+  "wall_s": 3.5,
+  "meta": {
+   "load_ms": 1977,
+   "decode_ms": 1272,
+   "windows": 7,
+   "token_timed_windows": 7,
+   "threads": 2
+  }
+ },
+ "hold-s6-r40": {
+  "status": "OK",
+  "wall_s": 4.0,
+  "meta": {
+   "load_ms": 1823,
+   "decode_ms": 1941,
+   "windows": 11,
+   "token_timed_windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s6-r47": {
+  "status": "OK",
+  "wall_s": 4.5,
+  "meta": {
+   "load_ms": 1986,
+   "decode_ms": 2264,
+   "windows": 11,
+   "token_timed_windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s6-r54": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "meta": {
+   "load_ms": 1850,
+   "decode_ms": 1554,
+   "windows": 13,
+   "token_timed_windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s6-r55": {
+  "status": "OK",
+  "wall_s": 4.5,
+  "meta": {
+   "load_ms": 1872,
+   "decode_ms": 2321,
+   "windows": 12,
+   "token_timed_windows": 12,
+   "threads": 2
+  }
+ },
+ "hold-s6-r59": {
+  "status": "OK",
+  "wall_s": 3.3,
+  "meta": {
+   "load_ms": 1879,
+   "decode_ms": 1195,
+   "windows": 10,
+   "token_timed_windows": 10,
+   "threads": 2
+  }
+ }
+}

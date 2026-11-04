@@ -1,0 +1,292 @@
+{
+ "syn3-clean": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "meta": {
+   "load_ms": 1950,
+   "decode_ms": 1461,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "syn3-brown": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "meta": {
+   "load_ms": 1954,
+   "decode_ms": 1592,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "syn4-noise": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 1999,
+   "decode_ms": 2003,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s4-r00": {
+  "status": "OK",
+  "wall_s": 4.1,
+  "meta": {
+   "load_ms": 2040,
+   "decode_ms": 1801,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s4-r01": {
+  "status": "OK",
+  "wall_s": 5.4,
+  "meta": {
+   "load_ms": 2065,
+   "decode_ms": 3028,
+   "windows": 31,
+   "threads": 2
+  }
+ },
+ "hold-s4-r30": {
+  "status": "OK",
+  "wall_s": 4.8,
+  "meta": {
+   "load_ms": 2024,
+   "decode_ms": 2444,
+   "windows": 28,
+   "threads": 2
+  }
+ },
+ "hold-s4-r39": {
+  "status": "OK",
+  "wall_s": 4.2,
+  "meta": {
+   "load_ms": 1985,
+   "decode_ms": 1881,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s4-r41": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "meta": {
+   "load_ms": 2060,
+   "decode_ms": 2061,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s4-r54": {
+  "status": "OK",
+  "wall_s": 3.9,
+  "meta": {
+   "load_ms": 2020,
+   "decode_ms": 1659,
+   "windows": 14,
+   "threads": 2
+  }
+ },
+ "hold-s4-r59": {
+  "status": "OK",
+  "wall_s": 6.5,
+  "meta": {
+   "load_ms": 2025,
+   "decode_ms": 4148,
+   "windows": 45,
+   "threads": 2
+  }
+ },
+ "hold-s5-r19": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2008,
+   "decode_ms": 2028,
+   "windows": 15,
+   "threads": 2
+  }
+ },
+ "hold-s5-r21": {
+  "status": "OK",
+  "wall_s": 3.4,
+  "meta": {
+   "load_ms": 2010,
+   "decode_ms": 1111,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "hold-s5-r24": {
+  "status": "OK",
+  "wall_s": 4.5,
+  "meta": {
+   "load_ms": 2030,
+   "decode_ms": 2229,
+   "windows": 21,
+   "threads": 2
+  }
+ },
+ "hold-s5-r31": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "meta": {
+   "load_ms": 2044,
+   "decode_ms": 1485,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s5-r48": {
+  "status": "OK",
+  "wall_s": 3.6,
+  "meta": {
+   "load_ms": 2060,
+   "decode_ms": 1304,
+   "windows": 7,
+   "threads": 2
+  }
+ },
+ "hold-s5-r58": {
+  "status": "OK",
+  "wall_s": 4.6,
+  "meta": {
+   "load_ms": 1997,
+   "decode_ms": 2404,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "hold-s5-r61": {
+  "status": "OK",
+  "wall_s": 4.3,
+  "meta": {
+   "load_ms": 2032,
+   "decode_ms": 1996,
+   "windows": 15,
+   "threads": 2
+  }
+ },
+ "hold-s5-r68": {
+  "status": "OK",
+  "wall_s": 3.6,
+  "meta": {
+   "load_ms": 2035,
+   "decode_ms": 1293,
+   "windows": 10,
+   "threads": 2
+  }
+ },
+ "hold-s6-r01": {
+  "status": "OK",
+  "wall_s": 3.6,
+  "meta": {
+   "load_ms": 2008,
+   "decode_ms": 1352,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s6-r09": {
+  "status": "OK",
+  "wall_s": 7.0,
+  "meta": {
+   "load_ms": 1996,
+   "decode_ms": 4680,
+   "windows": 55,
+   "threads": 2
+  }
+ },
+ "hold-s6-r18": {
+  "status": "OK",
+  "wall_s": 3.6,
+  "meta": {
+   "load_ms": 1988,
+   "decode_ms": 1289,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s6-r23": {
+  "status": "OK",
+  "wall_s": 5.6,
+  "meta": {
+   "load_ms": 2085,
+   "decode_ms": 3256,
+   "windows": 33,
+   "threads": 2
+  }
+ },
+ "hold-s6-r29": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "meta": {
+   "load_ms": 1992,
+   "decode_ms": 1529,
+   "windows": 11,
+   "threads": 2
+  }
+ },
+ "hold-s6-r38": {
+  "status": "OK",
+  "wall_s": 3.8,
+  "meta": {
+   "load_ms": 2131,
+   "decode_ms": 1379,
+   "windows": 9,
+   "threads": 2
+  }
+ },
+ "hold-s6-r40": {
+  "status": "OK",
+  "wall_s": 4.6,
+  "meta": {
+   "load_ms": 2136,
+   "decode_ms": 2224,
+   "windows": 12,
+   "threads": 2
+  }
+ },
+ "hold-s6-r47": {
+  "status": "OK",
+  "wall_s": 5.0,
+  "meta": {
+   "load_ms": 2153,
+   "decode_ms": 2594,
+   "windows": 17,
+   "threads": 2
+  }
+ },
+ "hold-s6-r54": {
+  "status": "OK",
+  "wall_s": 4.4,
+  "meta": {
+   "load_ms": 2284,
+   "decode_ms": 1893,
+   "windows": 13,
+   "threads": 2
+  }
+ },
+ "hold-s6-r55": {
+  "status": "OK",
+  "wall_s": 5.6,
+  "meta": {
+   "load_ms": 2194,
+   "decode_ms": 3173,
+   "windows": 24,
+   "threads": 2
+  }
+ },
+ "hold-s6-r59": {
+  "status": "OK",
+  "wall_s": 3.7,
+  "meta": {
+   "load_ms": 2072,
+   "decode_ms": 1398,
+   "windows": 11,
+   "threads": 2
+  }
+ }
+}
