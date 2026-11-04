@@ -1,0 +1,95 @@
+{
+  "repository": "langswap/dialogs-ru-emotional-conversations",
+  "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "selection_policy": "Four lowest SHA-256 ranks per speaker D/M/S among published test.csv WAVs with 3-12 s duration, excluding two prior fixture locks and poem/tongue-twister emotions; rank SHA-256(asr-independent-holdout-v1:audio_path). Group by rank D-M-S. Chosen before model inference.",
+  "metadata_sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2",
+  "license_sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143",
+  "sample_rate": 44100,
+  "gap_frames": 22050,
+  "clips": [
+    {
+      "path": "wavs/masha_dima_part9_395.wav",
+      "speaker": "D",
+      "emotion": "angry",
+      "frames": 331015,
+      "sha256": "c76519721f7f786495634740361dd6e0b71c47cd8aaf4894c00af39d8ca9baf9"
+    },
+    {
+      "path": "wavs/masha_sveta_part10_732.wav",
+      "speaker": "M",
+      "emotion": "neutral",
+      "frames": 196268,
+      "sha256": "f5453f4aa9731b312ae871cfc1e1f5e069615bbe6a03f82ed694d564b4b7bb4f"
+    },
+    {
+      "path": "wavs/masha_sveta_part3_261.wav",
+      "speaker": "S",
+      "emotion": "surprise",
+      "frames": 148053,
+      "sha256": "051f38d41f839eab40ed5144c5d9ba89c55b1df79ebb58e5c97b9bc901dd77a1"
+    },
+    {
+      "path": "wavs/masha_dima_part11_296.wav",
+      "speaker": "D",
+      "emotion": "whisper",
+      "frames": 493439,
+      "sha256": "4a9be355e2e55ce8dbffe38b04035f76c8ab23e4846e5735e282ee2bc4bbfc3c"
+    },
+    {
+      "path": "wavs/masha_dima_part5_53.wav",
+      "speaker": "M",
+      "emotion": "surprise",
+      "frames": 333072,
+      "sha256": "5039a1bf377de26e20f1ac986b0eb178979366b22aea005a3b063c565b14005b"
+    },
+    {
+      "path": "wavs/masha_sveta_part1_257.wav",
+      "speaker": "S",
+      "emotion": "sad",
+      "frames": 239083,
+      "sha256": "69e7b24b485c81cf3a3e7a3984c6ba3558ee4108e328c24f673c9480e5d10b78"
+    },
+    {
+      "path": "wavs/masha_dima_part1_103.wav",
+      "speaker": "D",
+      "emotion": "angry",
+      "frames": 359101,
+      "sha256": "efaf999f05283e6504bfe1b8ff126a5e41432b790f9f726452f49548f8183fac"
+    },
+    {
+      "path": "wavs/masha_sveta_part10_1395.wav",
+      "speaker": "M",
+      "emotion": "neutral",
+      "frames": 191131,
+      "sha256": "dc3bbcadda477bc15bf275d67bb3d3b3f5e3f0f86d128406269a397aa7059c73"
+    },
+    {
+      "path": "wavs/masha_sveta_part10_2063.wav",
+      "speaker": "S",
+      "emotion": "happy",
+      "frames": 304019,
+      "sha256": "278fb98eef6b957f85bf84f8f32d2830d1e10a96aac16b6910510ee7daf01d5b"
+    },
+    {
+      "path": "wavs/masha_dima_part11_130.wav",
+      "speaker": "D",
+      "emotion": "neutral",
+      "frames": 165562,
+      "sha256": "99096caee769d6aeb7b918b3d09100d5ea74b4ace3345d7b38987ca7da8c33de"
+    },
+    {
+      "path": "wavs/masha_dima_part8_207.wav",
+      "speaker": "M",
+      "emotion": "neutral",
+      "frames": 245513,
+      "sha256": "df5a9af9e83087dbfad2b1407d64c34f6caa0e4823662d5d3d27db5d5de375c1"
+    },
+    {
+      "path": "wavs/masha_sveta_part3_611.wav",
+      "speaker": "S",
+      "emotion": "surprise",
+      "frames": 236376,
+      "sha256": "f163e9cb82eb33e8990a765087b76a35f4e09d69f98b42894f88099881ecc655"
+    }
+  ]
+}

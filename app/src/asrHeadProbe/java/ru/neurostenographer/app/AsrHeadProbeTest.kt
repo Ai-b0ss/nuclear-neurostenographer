@@ -36,6 +36,8 @@ class AsrHeadProbeTest {
         val selected = (InstrumentationRegistry.getArguments().getString("heads") ?: "a0,a1,a2,a3")
             .split(',').toSet()
         require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3") })
+        val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "nemotron-bench"
+        require(suite == "nemotron-bench" || suite == "asr-holdout")
         val candidate = File(context.filesDir, "asr-e2e")
         val candidateModel = File(candidate, "model.int8.onnx")
         val candidateTokens = File(candidate, "tokens.txt")
@@ -68,13 +70,13 @@ class AsrHeadProbeTest {
         val baseline = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
         val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
         val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
-        val plan = assets.open("nemotron-bench/plan.tsv").bufferedReader().readLines()
+        val plan = assets.open("$suite/plan.tsv").bufferedReader().readLines()
             .filter { it.isNotBlank() }
         val rows = JSONArray()
         val evidence = File(context.filesDir, "asr-head-evidence.json")
         for (line in plan) {
             val id = line.substringBefore('\t')
-            val bytes = assets.open("nemotron-bench/$id.wav").use { it.readBytes() }
+            val bytes = assets.open("$suite/$id.wav").use { it.readBytes() }
             val audioSha = MessageDigest.getInstance("SHA-256").digest(bytes)
                 .joinToString("") { "%02x".format(it) }
             val audio = bytes.inputStream().use { PcmWav.read(it) }
@@ -104,7 +106,7 @@ class AsrHeadProbeTest {
                             .put("speaker_id", segment.speakerId ?: JSONObject.NULL)
                             .put("text", segment.text)
                     })
-                    rows.put(JSONObject().put("case", id).put("backend", backend).put("head", head)
+                    rows.put(JSONObject().put("suite", suite).put("case", id).put("backend", backend).put("head", head)
                         .put("audio_sha256", audioSha).put("audio_ms", audio.durationMs)
                         .put("decoded_windows", result.decodedWindows)
                         .put("asr_load_ms", result.loadMs).put("asr_decode_ms", result.decodeMs)
