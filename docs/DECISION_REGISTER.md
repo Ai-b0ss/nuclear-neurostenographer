@@ -64,3 +64,10 @@
 Изменить **ПРИНЯТО** в продукте можно после: (а) ссылки на изменённое условие или эксперимент, (б) проверки на устройстве, (в) review влияния на остальные функции, (г) решения ответственного за интеграцию. Каждый опыт должен добавлять ссылку на конкретный прогон, commit и сравнение в [RESEARCH_PROGRAM.md](RESEARCH_PROGRAM.md), а не только текст «лучше».
 
 Источники: [карта переписок](CONVERSATION_SOURCES.md), [PROJECT_CHARTER](PROJECT_CHARTER.md), [ARCHITECTURE](ARCHITECTURE.md), [MODELS](MODELS.md), [PROGRESS](PROGRESS.md), [issue #5](https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/5), [issue #7](https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/7), [issue #10](https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/10).
+
+
+## Дополнение 04.11.2026: исследовательский U1 и коллизия индексов
+
+- **R-12/U1:** Hume Audio Decisions — облачный API ответов по сырому звуку (`noul/choice/score/span`), **НЕ** распознаёт полную стенограмму и не заменяет A/C; P2, NOT_TESTED, офлайн Android не подтверждён. [Проверенная записка](HUME_AUDIO_DECISIONS_2026-11-04.md).
+- **E-10:** старые и новые A1–A4 относятся к **разным** моделям. Фиксировать `ASR-20261104-v2` и полный `canonical_model_id` в новых измерениях. [Crosswalk](RESEARCH_COVERAGE_AUDIT_2026-11-04.md).
+- **E-11:** Draft [PR #17](https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/17) о продукте и [PR #18](https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/18) о contextual ASR пока не входят в интеграцию, предложения не выдавать за реализованный код.

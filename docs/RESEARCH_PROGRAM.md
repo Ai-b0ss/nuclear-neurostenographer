@@ -111,3 +111,8 @@ WER / cpWER / DER / unknown / RTF / peak memory:
 **Главная дисциплина:** выбор технологии является следствием проверяемого результата, а не интуиции GPT/Opus. [Реестр решений](DECISION_REGISTER.md).
 
 New narrow ASR baseline (04.11.2026): [Whisper vs GigaAM A0](ASR_COMPARISON_2026-11-04.md). RNNT/e2e variants remain NOT_RUN.
+
+
+## 8. Корректировка исследовательской карты (04.11.2026)
+
+[Аудит всех сохранённых направлений](RESEARCH_COVERAGE_AUDIT_2026-11-04.md) фиксирует недостающие статусы и конфликт обозначений. **A1–A4 в разделе 2 являются историческими кодами** и НЕ соответствуют A1–A4 нового [поручения Sonnet](ASR_MODEL_HANDOFF_2026-11-04.md). Для следующего измерения использовать схему `ASR-20261104-v2`, полные имена и ревизии моделей. [Hume](HUME_AUDIO_DECISIONS_2026-11-04.md) относится к U1/P2: audio decision, не ASR/диаризация, NOT_TESTED. Новые продуктовые/контекстные исследовательские Draft [PR #17](https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/17) и [PR #18](https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/18) ещё не интегрированы.
