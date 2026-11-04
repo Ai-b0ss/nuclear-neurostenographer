@@ -1,5 +1,7 @@
 # Progress — 2026-10-30
 
+> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [RELEASE_READINESS_2026-11-04.md](RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+
 ## 2026-11-02 — documentation check against code
 
 - Docs and two user messages still described the old 120-second and 24 MB limits,

@@ -1,5 +1,7 @@
 # Architecture and non-functional constraints
 
+> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [RELEASE_READINESS_2026-11-04.md](RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+
 ## Mandatory functionality
 1. Android application.
 2. Audio transcription **on device**, without cloud ASR.

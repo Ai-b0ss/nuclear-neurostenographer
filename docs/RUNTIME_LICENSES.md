@@ -1,6 +1,8 @@
 # Pinned runtime and model license review
 
-Review date: 2026-10-30. This is engineering provenance, not a blanket clearance of a binary distribution.
+> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [RELEASE_READINESS_2026-11-04.md](RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+
+Review date: 2026-10-30; rechecked repository visibility 2026-11-04 (PRIVATE). This is engineering provenance, not blanket distribution clearance. A private prerelease now exists. Do not remove model/runtime notices; broader redistribution still requires checking the relevant third-party terms.
 
 ## Model: cleared MIT provenance
 Hugging Face repository `csukuangfj/sherpa-onnx-nemo-ctc-giga-am-v3-russian-2025-12-16`, immutable revision `32a4c7cc81809bd132e2d935ab99e9e6ab47fbec`.

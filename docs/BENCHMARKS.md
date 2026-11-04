@@ -1,5 +1,7 @@
 # Offline scoring and performance evidence
 
+> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [RELEASE_READINESS_2026-11-04.md](RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+
 `python tools/test_score_transcript.py` runs authored Russian text/timing arithmetic
 cases, randomized assignment checks against exhaustive permutations, and DER checks
 against an independent discrete-time oracle. These are **scorer tests, not model
