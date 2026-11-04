@@ -35,7 +35,7 @@ def parse_timings(message):
             "diarization_ms": diarization, "total_ms": total, "rtf": round(total / audio, 2) if audio else None}
 
 
-def swipe_largest(ui, down):
+def swipe_largest(ui, down, fast=False):
     """Swipe the biggest scrollable view (a picker can also expose a small breadcrumb list)."""
     nodes = [n for n in ui.tree().iter("node") if n.get("scrollable") == "true"]
     boxes = []
@@ -48,7 +48,8 @@ def swipe_largest(ui, down):
         return
     x1, y1, x2, y2 = max(boxes, key=lambda b: (b[2] - b[0]) * (b[3] - b[1]))
     x, top, bottom = (x1 + x2) // 2, y1 + (y2 - y1) // 4, y1 + (y2 - y1) * 3 // 4
-    ui.shell("input", "swipe", str(x), str(bottom if down else top), str(x), str(top if down else bottom), "350")
+    for _ in range(6 if fast else 1):  # fast: flings through a long transcript list
+        ui.shell("input", "swipe", str(x), str(bottom if down else top), str(x), str(top if down else bottom), "80" if fast else "350")
 
 
 def scroll_to(ui, label, direction="down", tries=8, exact=True):
@@ -60,7 +61,7 @@ def scroll_to(ui, label, direction="down", tries=8, exact=True):
                 return node
             except ValueError:
                 pass
-        swipe_largest(ui, direction == "down")
+        swipe_largest(ui, direction == "down", fast=tries > 8)
         time.sleep(0.6)
     raise SystemExit(f"Control not found: {label}")
 
@@ -119,7 +120,7 @@ def main():
     if timings is None:
         print(json.dumps({"status": "FAIL", "message": message}, ensure_ascii=False))
         return 1
-    ui.tap_node(scroll_to(ui, "JSON"))
+    ui.tap_node(scroll_to(ui, "JSON", tries=40))  # export buttons follow every segment (281 on 20 min)
     time.sleep(3)
     ui.tap_node(scroll_to(ui, "СОХР."))
     time.sleep(3)
