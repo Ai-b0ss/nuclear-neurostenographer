@@ -115,6 +115,8 @@ def main():
         LOCK_PATH.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     else:
         assert result == json.loads(LOCK_PATH.read_text(encoding="utf-8")), "Holdout differs from frozen lock"
+    (ASSETS / "plan.tsv").write_text("".join(f"{case['id']}\t1\t1\t1\n" for case in result["cases"]),
+                                     encoding="utf-8")
     print(json.dumps({"cases": result["cases"], "source": result["repository"]}, indent=2))
 
 

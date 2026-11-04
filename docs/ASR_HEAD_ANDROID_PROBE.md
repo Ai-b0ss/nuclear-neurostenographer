@@ -54,6 +54,21 @@ On the new four-recording set, A3 at four threads kept 3/147 errors but took 7.7
 
 On three of four acted composites, C2 merges two of the three true speakers; C0 also merges them on three. For example, in `acted-holdout-0`, M and S are emitted as a single speaker in both backends. This explains cpWER such as 17/33 despite WER 1/33. Tuning ASR alone cannot fix that speaker error. Speaker separation and diarization need their own independent validation, particularly on genuinely recorded multi-speaker audio.
 
+## RNN-T recheck after C2 boundary and window improvements
+
+The opt-in `AsrHeadProbeTest` now accepts `c2ProductPolicy=true` and `backends=c2`, so both A0 and A3 receive exactly the C2 turns, 150 ms boundary padding, and conservative 400 ms same-speaker ASR window merging used by the product. It also accepts the newly frozen `window-merge-holdout` suite. A3 files were downloaded from the pinned model revision and matched the four SHA-256 values in the test before running; A3 used two inference threads, A0 used the existing four-thread cap. Every paired run used the same WAV and model-independent reference.
+
+| C2 product policy suite | A0 CTC WER | A3 RNN-T WER | A0 / A3 ASR wall sum |
+| --- | ---: | ---: | ---: |
+| Original six, 378 words | 36 | 38 | 10.69 / 12.61 s |
+| Earlier acted four, 147 words | 4 | 3 | 6.54 / 6.50 s |
+| New acted four, 158 words | 2 | 2 | 5.62 / 6.58 s |
+| **All 14, 683 words** | **42 (6.15%)** | **43 (6.30%)** | **22.85 / 25.69 s** |
+
+Strict cpWER was scored on the same 538 words: A0 **115/538**, A3 **114/538**. The one-error attribution difference is too small to justify the slower, slightly larger RNN-T model, especially with unresolved speaker merges. On the four new clips both heads produced identical WER 2/158 and cpWER 44/158. The source is acted/composited and the six original cases include synthetic examples; this is not a natural meeting benchmark or a Kirin speed measurement. A3 remains a research candidate; the product continues to pin A0. The new policy is what improved A0 from the earlier 48/525 result to 40/525 on the original ten files.
+
+To reproduce, build the opt-in Android test with `-PnemotronPrototype=true -PnativeAsrCandidate=true -PasrHeadProbe=true`; provision verified A3 files in the test app's `files/asr-rnnt-v3`, then invoke `AsrHeadProbeTest` separately with `suite=nemotron-bench`, `suite=asr-holdout`, and `suite=window-merge-holdout`, plus `heads=a0,a3`, `backends=c2`, `c2ProductPolicy=true`, and `rnntThreads=2`. Pull each `files/asr-head-product-<suite>-evidence.json` before app uninstall and score with `tools/nemotron/score_asr_head_probe.py`. For the new suite, run `tools/nemotron/provision_window_merge_holdout.py` first; its audio and reference hashes are locked in `tools/fixtures/dialogs-ru-window-merge-holdout-lock.json`.
+
 ## C0 diarization threshold probe
 
 `DiarThresholdProbeTest` ran the same A0 ASR on C0 clustering thresholds 0.50, 0.65, 0.80 (current), and 0.90. It recorded turns and speech windows as well as transcripts; `score_diar_threshold_probe.py` verifies WAV hashes and scores against references. This is a debug-only measurement, not a product setting.

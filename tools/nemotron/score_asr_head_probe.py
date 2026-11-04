@@ -26,10 +26,17 @@ def main() -> None:
     })
     refs.update({f"acted-holdout-{index}": ROOT / f".local/asr-independent-holdout/acted-holdout-{index}.ref.json"
                  for index in range(4)})
+    refs.update({f"window-holdout-{index}": ROOT / f".local/window-merge-holdout-refs/window-holdout-{index}.ref.json"
+                 for index in range(4)})
     suite = evidence["runs"][0].get("suite", "nemotron-bench")
     expected = ({"aba", "holdout", "ivkond-2clean", "ivkond-2overlap",
                  "ivkond-3overlap", "ivkond-4overlap"} if suite == "nemotron-bench"
-                else {f"acted-holdout-{index}" for index in range(4)})
+                else {f"acted-holdout-{index}" for index in range(4)} if suite == "asr-holdout"
+                else {f"window-holdout-{index}" for index in range(4)})
+    assert suite in ("nemotron-bench", "asr-holdout", "window-merge-holdout")
+    holdout_lock = (json.loads((ROOT / "tools/fixtures/dialogs-ru-window-merge-holdout-lock.json").read_text(encoding="utf-8"))
+                    if suite == "window-merge-holdout" else None)
+    holdout_cases = {case["id"]: case for case in holdout_lock["cases"]} if holdout_lock else {}
     rows = []
     for run in evidence["runs"]:
         assert run.get("suite", "nemotron-bench") == suite and run["case"] in expected
@@ -37,6 +44,9 @@ def main() -> None:
         wav = ROOT / f".local/androidTestAssets/{suite}" / f'{run["case"]}.wav'
         sha = hashlib.sha256(wav.read_bytes()).hexdigest()
         assert sha == run["audio_sha256"] == ref["audio_sha256"]
+        if holdout_lock:
+            assert sha == holdout_cases[run["case"]]["audio_sha256"]
+            assert hashlib.sha256(refs[run["case"]].read_bytes()).hexdigest() == holdout_cases[run["case"]]["reference_sha256"]
         hyp = {"audio_sha256": sha, "audio_duration_ms": run["audio_ms"],
                "segments": run["segments"]}
         score = evaluate(ref, hyp)
@@ -50,13 +60,15 @@ def main() -> None:
               f'WER {row["wer"]["errors"]}/{row["wer"]["reference_words"]}',
               f'cpWER {row["cpwer"].get("errors")}/{row["cpwer"].get("reference_words")}',
               f'ASR {row["asr_wall_ms"]} ms')
-    for backend in ("c0", "c2"):
+    for backend in sorted({row["backend"] for row in rows}):
         for head in sorted({row["head"] for row in rows}):
             subset = [row for row in rows if row["backend"] == backend and row["head"] == head]
             assert len(subset) == len(expected)
             print("TOTAL", backend, head,
                   "WER", sum(row["wer"]["errors"] for row in subset), "/",
                   sum(row["wer"]["reference_words"] for row in subset),
+                  "scored cpWER", sum(row["cpwer"].get("errors", 0) for row in subset), "/",
+                  sum(row["cpwer"].get("reference_words", 0) for row in subset),
                   "ASR", sum(row["asr_wall_ms"] for row in subset), "ms",
                   "max app PSS", max((row["peak_app_pss_kb"] or 0) for row in subset), "KiB")
 

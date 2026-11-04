@@ -37,7 +37,11 @@ class AsrHeadProbeTest {
             .split(',').toSet()
         require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3") })
         val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "nemotron-bench"
-        require(suite == "nemotron-bench" || suite == "asr-holdout")
+        require(suite in setOf("nemotron-bench", "asr-holdout", "window-merge-holdout"))
+        val backends = (InstrumentationRegistry.getArguments().getString("backends") ?: "c0,c2")
+            .split(',').toSet()
+        require(backends.isNotEmpty() && backends.all { it in setOf(NemotronBackend.C0, NemotronBackend.C2) })
+        val productPolicy = InstrumentationRegistry.getArguments().getString("c2ProductPolicy") == "true"
         val rnntThreads = (InstrumentationRegistry.getArguments().getString("rnntThreads") ?: "4").toInt()
         require(rnntThreads in 1..4)
         val candidate = File(context.filesDir, "asr-e2e")
@@ -75,16 +79,21 @@ class AsrHeadProbeTest {
         val plan = assets.open("$suite/plan.tsv").bufferedReader().readLines()
             .filter { it.isNotBlank() }
         val rows = JSONArray()
-        val evidence = File(context.filesDir, "asr-head-evidence.json")
+        val evidence = File(context.filesDir, if (productPolicy) "asr-head-product-$suite-evidence.json"
+            else "asr-head-evidence.json")
         for (line in plan) {
             val id = line.substringBefore('\t')
             val bytes = assets.open("$suite/$id.wav").use { it.readBytes() }
             val audioSha = MessageDigest.getInstance("SHA-256").digest(bytes)
                 .joinToString("") { "%02x".format(it) }
             val audio = bytes.inputStream().use { PcmWav.read(it) }
-            for (backend in listOf(NemotronBackend.C0, NemotronBackend.C2)) {
-                val diarization = IsolatedDiarization.process(context, audio,
+            for (backend in listOf(NemotronBackend.C0, NemotronBackend.C2).filter { it in backends }) {
+                val rawDiarization = IsolatedDiarization.process(context, audio,
                     if (backend == NemotronBackend.C0) c0 else c2, backend = backend)
+                val diarization = if (productPolicy && backend == NemotronBackend.C2) {
+                    val padded = C2BoundaryPadding.apply(rawDiarization, audio.durationMs)
+                    padded.copy(windows = C2WindowMerge.apply(padded.windows, padded.turns))
+                } else rawDiarization
                 for ((head, model) in listOf("a0" to baseline, "a1" to candidate,
                     "a2" to rnnt, "a3" to rnntV3).filter { it.first in selected }) {
                     val sampling = AtomicBoolean(true)
@@ -121,6 +130,6 @@ class AsrHeadProbeTest {
                 }
             }
         }
-        assertEquals(plan.size * 2 * selected.size, rows.length())
+        assertEquals(plan.size * backends.size * selected.size, rows.length())
     }
 }
