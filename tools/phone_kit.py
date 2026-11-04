@@ -365,8 +365,8 @@ def command_monitor(args):
     try:
         while time.monotonic() < end:
             try:
-                app = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", PACKAGE, check=False, timeout=30))
-                worker = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", f"{PACKAGE}:diarization", check=False, timeout=30))
+                app = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", args.package, check=False, timeout=30))
+                worker = parse_meminfo_total_pss(adb.shell("dumpsys", "meminfo", f"{args.package}:diarization", check=False, timeout=30))
                 temperature, level = parse_battery(adb.shell("dumpsys", "battery", check=False, timeout=30))
             except (subprocess.TimeoutExpired, OSError):
                 # The phone was unplugged or adb stalled: keep what was collected, keep trying.
@@ -428,6 +428,7 @@ def main():
     monitor.add_argument("--minutes", type=float, default=25)
     monitor.add_argument("--interval", type=float, default=1.0)
     monitor.add_argument("--output", default="phone-monitor.json")
+    monitor.add_argument("--package", default=PACKAGE, help="e.g. ru.neurostenographer.app.a3 for the A3 test build")
     sub.add_parser("scan")
     exports = sub.add_parser("exports")
     exports.add_argument("--prefix", default="transcript")

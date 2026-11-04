@@ -105,7 +105,9 @@ class KitTests(unittest.TestCase):
 
     def test_pinned_values_match_the_application_sources(self):
         root = Path(__file__).resolve().parents[1]
-        store = (root / "app/src/main/java/ru/neurostenographer/app/AsrModelStore.kt").read_text(encoding="utf-8")
+        # The kit carries the CTC bundle; its pins live in AsrModelSpec.CTC (the A3 test build has its own).
+        spec = (root / "app/src/main/java/ru/neurostenographer/app/AsrModelSpec.kt").read_text(encoding="utf-8")
+        store = spec.split("val E2E_RNNT", 1)[0]
         for digest in offline_kit.ASR_FILES.values():
             self.assertIn(digest, store)
         self.assertIn(offline_kit.RUNTIME_SHA256, (root / "tools/runtime/runtime.properties").read_text())
