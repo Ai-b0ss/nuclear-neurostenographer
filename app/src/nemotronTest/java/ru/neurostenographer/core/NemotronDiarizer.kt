@@ -11,9 +11,6 @@ import kotlin.math.max
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-/** One chunk through the encoder graph: flattened [frames, 8] logits and [frames, 512] embeddings. */
-class NemotronStep(val logits: FloatArray, val logitFrames: Int, val embeds: FloatArray, val embedFrames: Int)
-
 fun interface NemotronChunkRunner {
     fun run(chunkMel: FloatArray, melFrames: Int, melLength: Int, context: FloatArray, contextFrames: Int): NemotronStep
 }

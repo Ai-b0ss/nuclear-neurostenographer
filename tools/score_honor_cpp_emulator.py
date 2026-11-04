@@ -52,6 +52,12 @@ def main():
                 raise ValueError(f"{name}/{backend}: transcript or exports unavailable")
             hypothesis = {"audio_sha256": audio_sha, "audio_duration_ms": run["audio_ms"],
                           "segments": segments}
+            if "diarization" in reference:
+                hypothesis["diarization"] = [
+                    {"start_ms": start, "end_ms": end,
+                     "speaker_id": None if cluster < 0 else f"Speaker {cluster + 1}"}
+                    for start, end, cluster in run["turns"]
+                ]
             score = evaluate(reference, hypothesis)
             row["backends"][backend] = {
                 "wer": score["wer"], "cpwer": score["cpwer"], "der": score["der"],
@@ -72,9 +78,11 @@ def main():
     args.output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for row in summary["cases"]:
         for backend, result in row["backends"].items():
+            der_text = (f"{result['der']['rate']:.2%}" if result['der']['status'] == "SCORED"
+                        else result['der']['status'])
             print(f"{row['case']} {backend}: WER {result['wer']['errors']}/{result['wer']['reference_words']}, "
                   f"cpWER {result['cpwer'].get('errors')}/{result['cpwer'].get('reference_words')}, "
-                  f"DER {result['der']['status']}, infer {result['infer_ms']} ms"
+                  f"DER {der_text}, infer {result['infer_ms']} ms"
                   + (f", parity {result['baseline_parity']}" if baseline else ""))
 
 
