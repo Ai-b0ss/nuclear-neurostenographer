@@ -1,9 +1,9 @@
-"""Check ZIP and ARM64 ELF 16 KB alignment of an Android APK.
+"""Check ZIP and packaged ARM64/x86_64 ELF 16 KB alignment of an Android APK.
 
 Example: python tools/check_android_native_pages.py --apk app/build/outputs/apk/debug/app-debug.apk
          --ndk C:/Users/Anon/AppData/Local/Android/Sdk/ndk/26.1.10909125
          --zipalign C:/Users/Anon/AppData/Local/Android/Sdk/build-tools/35.0.0/zipalign.exe
-The gate fails if even one packaged ARM64 library is 4 KB aligned.
+The gate fails if any packaged library is 4 KB aligned.
 """
 import argparse
 import json
@@ -25,7 +25,9 @@ def main():
                                  capture_output=True).returncode == 0
     libraries = {}
     with ZipFile(args.apk) as apk, tempfile.TemporaryDirectory() as temporary:
-        for name in sorted(n for n in apk.namelist() if n.startswith("lib/arm64-v8a/") and n.endswith(".so")):
+        for name in sorted(n for n in apk.namelist() if
+                           (n.startswith("lib/arm64-v8a/") or n.startswith("lib/x86_64/"))
+                           and n.endswith(".so")):
             path = Path(temporary) / Path(name).name
             path.write_bytes(apk.read(name))
             result = subprocess.run([str(objdump), "-p", str(path)], capture_output=True, text=True, check=True)
@@ -34,8 +36,10 @@ def main():
             if not exponents:
                 raise ValueError(f"No ELF LOAD segments in {name}")
             libraries[name] = {"minimum_page_bytes": 1 << min(exponents), "pass": min(exponents) >= 14}
-    report = {"zip_alignment_16kb": aligned_zip, "arm64_libraries": libraries,
-              "pass": aligned_zip and bool(libraries) and all(item["pass"] for item in libraries.values())}
+    abis = {name.split("/")[1] for name in libraries}
+    report = {"zip_alignment_16kb": aligned_zip, "libraries": libraries,
+              "pass": aligned_zip and abis == {"arm64-v8a", "x86_64"}
+              and all(item["pass"] for item in libraries.values())}
     print(json.dumps(report, indent=2))
     return 0 if report["pass"] else 2
 
