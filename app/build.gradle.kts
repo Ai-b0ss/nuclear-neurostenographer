@@ -97,6 +97,8 @@ android {
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
     if (nemotronEnabled) {
+        ndkVersion = "26.1.10909125"
+        externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt") } }
         // Research and candidate variants use distinct applicationIds.
         // The main product variant retains the contest applicationId.
         if (nemotronPrototype) {

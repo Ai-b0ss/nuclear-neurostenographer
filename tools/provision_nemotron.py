@@ -2,7 +2,7 @@
 
 The export declares ONNX IR 10, which ONNX Runtime 1.17.1 rejects. Only the IR version byte of the graph changes;
 weights and operators stay the same, and the result is pinned below. The ONNX preprocessor is not shipped: it fails
-on 1.17.1 at STFT, so NemotronMel computes the log-mel in Kotlin from the pinned filter bank and window.
+on 1.17.1 at STFT, so NemotronMel computes the log-mel in the app from the pinned filter bank and window.
 python tools/provision_nemotron.py [--test-assets]
 """
 import argparse
@@ -67,6 +67,8 @@ def main():
         assets = ROOT / ".local/androidTestAssets"
         assets.mkdir(exist_ok=True)
         shutil.copyfile(dest, assets / dest.name)
+        for name in ("mel_filters.bin", "hann400.bin"):
+            shutil.copyfile(folder / name, assets / name)
     print(json.dumps({"zip": str(dest), "sha256": sha256(dest), "patched_model_sha256": PATCHED_MODEL_SHA256}))
 
 

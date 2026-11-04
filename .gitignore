@@ -2,6 +2,7 @@
 /.idea/
 **/build/
 /build-android*/
+/app/.cxx/
 *.iml
 local.properties
 *.keystore

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: LicenseRef-OpenMDW-1.1
-// Kotlin port of diarize.py from joosthel/Nemotron-3-Diarization-ONNX (Copyright 2026 Joost Helfers),
+// Port of diarize.py from joosthel/Nemotron-3-Diarization-ONNX (Copyright 2026 Joost Helfers),
 // revision 4a911fc3ca821b76a99fffd5ce5135bd1efca540. See docs/NEMOTRON_ANDROID.md.
 package ru.neurostenographer.core
 
@@ -48,6 +48,7 @@ object NemotronConfig {
 
 /** Log-mel frames on demand, so a long recording never needs a second full-file array. */
 class NemotronMel(private val wave: FloatArray, private val filters: FloatArray, hann: FloatArray) {
+    private val hannCoefficients = hann.copyOf()
     val frames = 1 + wave.size / NemotronConfig.HOP
     private val window = DoubleArray(NemotronConfig.N_FFT)
     private val cosines = DoubleArray(NemotronConfig.N_FFT / 2) { cos(2 * PI * it / NemotronConfig.N_FFT) }
@@ -110,7 +111,11 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
     }
 
     /** Frames [first, first + count) row by row into [out]. The trailing frame stays zero, as in the export. */
-    fun write(first: Int, count: Int, out: FloatArray) {
+    fun write(first: Int, count: Int, out: FloatArray) =
+        NativeNemotronMel.write(wave, filters, hannCoefficients, first, count, out)
+
+    /** Reference path retained for paired numerical checks during the C++ port. */
+    fun writeReference(first: Int, count: Int, out: FloatArray) {
         for (index in 0 until count) {
             val frame = first + index
             val row = index * NemotronConfig.MELS
