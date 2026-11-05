@@ -1,9 +1,10 @@
 # HONOR ARM64 — фактическая приёмка 6 ноября 2026
 
-**DEVICE PIPELINE PASS; полная запрошенная приёмка НЕ завершена.**
+**DEVICE PIPELINE PASS + SAF UI PASS; полная запрошенная приёмка НЕ завершена.**
 Реальные A3+C2, микрофон, экспорты и lifecycle выполнены на HONOR DNN-LX9 /
-Android 10 / ARM64. UI file picker защищён Huawei App Lock и требует обычной
-аутентификации владельца. Пароль не вводился, защита не обходилась.
+Android 10 / ARM64. Системный выбор файлов успешно проверен после обычной аутентификации владельца
+в Huawei App Lock: импорт OpenDocument и экспорт TXT/JSON/SRT через CreateDocument.
+Пароль не вводился через ADB или чат, защита не обходилась.
 
 Код: `c05127c366511ad50fa2d41f8cbf4c9c83021a08`, ветка
 `qa/honor-acceptance-20261106`, исходный main `a10dd395`.
@@ -70,7 +71,7 @@ incremental ZIP сохранил свободное место после пре
 | UI recording/background/stop | **PASS для capture**, обычный permission dialog, HOME и возврат: WAV 73.700 s / 16 kHz успешно обработан. Речь с динамиков Windows не дошла, результат 0 segments; это НЕ acoustic speech PASS |
 | Полностью локальный runtime | **PASS**, фактический APK без INTERNET; read-only airplane=1, Wi-Fi=0; offline assets/pinned JNI |
 | Crash/ANR наблюдение | **PASS в собранной области**, 11 PID-filtered logs без FATAL/ANR markers, QA отсутствует в lastANR snapshot; intentional SIGKILL учтён отдельно |
-| UI SAF import/export | **NOT_RUN / BLOCKED**, Huawei App Lock; File URI tests не заменяют UI picker |
+| UI SAF import/export | **PASS**, реальный DocumentsUI OpenDocument + CreateDocument после обычной разблокировки владельцем; тестовые TXT/JSON/SRT созданы на телефоне и независимо проверены |
 | Screen-off / новый длительный full pipeline | **NOT_RUN**, 120 s выше — отдельный C2 lifecycle test |
 | Независимый human WER/cpWER/DER | **NOT_SCORED**, новой человеческой разметки нет |
 | 16 KiB device | **NOT_RUN**, HONOR имеет страницы 4096 bytes; известный ORT-Java ELF alignment дефект не исправлен |
@@ -80,6 +81,34 @@ incremental ZIP сохранил свободное место после пре
 JUnit-вывод сохранён; последующий сбор использовал поддерживаемый `--pid`.
 Ограниченный набор PID и lastANR snapshot не доказывают отсутствие всех сбоев
 на устройстве во все моменты времени.
+
+## SAF UI Owner-Unlock — дополнительная проверка 6 ноября
+
+После обычной аутентификации владельцем в Huawei App Lock системный DocumentsUI
+открылся без обхода защиты. Через реальный экран **«Открыть аудиофайл»** выбрана
+синтетическая тестовая запись NEUROSTENO_QA_20261106_ABA.wav (414444 байта,
+SHA-256 300e7ef28c6caf93395af9be07fd3df0a850cbe6797c8416bd57489aaec143a7),
+предварительно помещённая в Download с проверкой хэша на телефоне. Приложение
+показало имя/длительность и после нажатия «Распознать» отобразило **3 реплики,
+2 speaker IDs, аудио 12950 мс** (A-B-A), с временными метками и текстом.
+
+Кнопками TXT, JSON и SRT открыт системный **CreateDocument** и трижды выполнено
+«СОХР.» в Download, без перезаписи чужих файлов. Результаты скопированы обратно
+с телефона через ADB и независимо сопоставлены: тексты реплик, speaker ID,
+начало/конец в миллисекундах, очередность фрагментов, UTF-8 и длительность.
+**PASS**.
+
+| Файл | Размер | SHA-256 после ADB pull |
+|---|---:|---|
+| TXT | 549 B | 93f7f96b17280262775fb4f323891bd823ada03801327200aff248aee39acaf6 |
+| JSON | 1223 B | b6c5f2403af21e6e9ae249d852aa847bed3d44f0a3d040e0801ef31f2ff6d6b5 |
+| SRT | 354 B | e835238d3b8156d276d6c9a444983749dd22f5d1c4c718e7cf16372741fd5082 |
+
+Приватное доказательство, копии трёх экспортов и независимый тест находятся
+в ignored .local/honor-acceptance-20261106/saf-ui-20261106/;
+verdict.json имеет status=PASS. Это одна короткая синтетическая запись,
+не независимый WER/cpWER/DER на естественной речи. Конкурсное приложение
+ru.neurostenographer.app не обновлялось.
 
 ## Измерения
 
@@ -142,7 +171,7 @@ source/model/JNI/DEX hashes, PSS, exports и logs находятся в ignored
 Микрофонные записи остаются приватными в QA package. Raw audio/transcripts/logs,
 serial, debug keys и APK не входят в публичный агрегат.
 
-Следующий блокер — обычная аутентификация владельца в App Lock для проверки
-системного file picker. Естественная речь с ручной разметкой, новая длинная
-запись и 16 KiB runtime остаются отдельными gates. Автоматического GC старых
+Блокировка Huawei App Lock для UI SAF закрыта обычной аутентификацией владельца.
+Естественная речь с ручной разметкой, новая длинная запись с выключенным экраном
+и 16 KiB runtime остаются отдельными gates. Автоматического GC старых
 C2 generations пока нет: прежний model сохраняется ради in-flight worker.
