@@ -55,7 +55,14 @@ def verify(directory, prefix="dialogue"):
             require(sid is not None and isinstance(name, str) and name.strip() == name and name and "\n" not in name,
                     'Export consistency check failed')
             labels = [name]
-        suffix = ": " + segment["text"] + (" [перекрытие речи]" if segment["overlapping_speech"] else "")
+        # 0.3.2+: accepted spelling edits (term dictionary) keep the raw ASR "text" and add "text_edited";
+        # TXT/SRT must then show exactly the edited text.
+        shown = segment["text"]
+        if "text_edited" in segment:
+            edited = segment["text_edited"]
+            require(isinstance(edited, str) and edited.strip() and edited != segment["text"], 'Export consistency check failed')
+            shown = edited
+        suffix = ": " + shown + (" [перекрытие речи]" if segment["overlapping_speech"] else "")
         if segment["overlapping_speech"]:
             require(segment["speaker_id"] is None and not segment["attribution_reliable"], 'Export consistency check failed')
         body = "\n".join(lines[2:])

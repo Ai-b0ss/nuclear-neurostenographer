@@ -21,13 +21,14 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val sourceDurationMs: Long? = null, val document: TranscriptDocument? = null,
     val c2Supported: Boolean = false, val sourceName: String? = null, val progress: Float? = null,
     val history: List<SavedTranscript> = emptyList(), val current: SavedTranscript? = null,
-    val details: String = "")
+    val details: String = "", val userTerms: List<Term> = emptyList())
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
     private val store = AsrModelStore(application)
     private val speakerStore = DiarizationModelStore(application)
     private val history = TranscriptHistory(application.filesDir)
+    private val terms = UserTerms(application.filesDir)
     private fun bundled(name: String) = runCatching { getApplication<Application>().assets.list("")?.contains(name) == true }.getOrDefault(false)
     /** Platform errors are English and mean nothing to a user: keep the text only as a detail. */
     private fun userMessage(e: Exception): String {
@@ -42,7 +43,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val mutable = MutableStateFlow(store.current().let { installed ->
         val base = ScreenState(modelReady = installed != null,
             diarizationReady = speakerStore.current() != null, c2Supported = c2Available(),
-            history = runCatching { history.list() }.getOrDefault(emptyList()))
+            history = runCatching { history.list() }.getOrDefault(emptyList()), userTerms = terms.list())
         if (installed != null) base.copy(message = READY) else base
     })
     val state = mutable.asStateFlow()
@@ -207,9 +208,37 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     }
 
     private fun currentNames() = mutable.value.current?.speakerNames.orEmpty()
+    private fun currentEdits() = mutable.value.current?.termEdits.orEmpty()
+
+    /** Spelling proposals for the open transcript that were neither accepted nor declined yet. */
+    fun termSuggestions(item: SavedTranscript): List<TermEdit> {
+        val done = item.termEdits.map { it.key() }.toSet() + item.dismissedTerms
+        return TermDictionary.suggest(item.document.segments, BuiltinTerms.ALL + mutable.value.userTerms).filter { it.key() !in done }
+    }
+
+    fun resolveTerms(id: String, accepted: List<TermEdit>, declined: List<TermEdit>) = work {
+        withContext(Dispatchers.IO) { history.setTermEdits(id, accepted, declined) }
+        reloadCurrent(id)
+    }
+
+    fun revertTerms(id: String) = work {
+        withContext(Dispatchers.IO) { history.setTermEdits(id, emptyList(), emptyList(), reset = true) }
+        reloadCurrent(id)
+    }
+
+    fun addUserTerm(heard: String, canonical: String) = work {
+        if (heard.isBlank() || canonical.isBlank()) return@work
+        val all = withContext(Dispatchers.IO) { terms.add(heard, canonical) }
+        mutable.value = mutable.value.copy(userTerms = all)
+    }
+
+    private suspend fun reloadCurrent(id: String) {
+        val left = withContext(Dispatchers.IO) { history.list() }
+        mutable.value = mutable.value.copy(history = left, current = left.firstOrNull { it.id == id })
+    }
 
     /** TXT of the open transcript for the system share sheet (the app itself has no network access). */
-    fun shareText(): String? = mutable.value.document?.export("txt", currentNames())
+    fun shareText(): String? = mutable.value.document?.export("txt", currentNames(), currentEdits())
 
     /** Prefer verified local Nemotron C2 when this product variant contains it.
      * A C2 startup, model or worker failure falls back to the unchanged C0 implementation.
@@ -300,7 +329,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     fun prepareExport(format: String) {
         val document = requireNotNull(mutable.value.document) { "Нет распознанной стенограммы" }
-        pendingExport = format to document.export(format, currentNames())
+        pendingExport = format to document.export(format, currentNames(), currentEdits())
     }
 
     fun finishExport(uri: Uri?) {

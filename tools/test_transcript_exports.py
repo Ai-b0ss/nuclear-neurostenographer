@@ -51,10 +51,26 @@ def main():
                 s.pop("speaker_name", None)
             path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
             rejected()  # TXT/SRT show names the JSON no longer has
+        edited = [s for s in json.loads((args.directory / "dialogue.json").read_text(encoding="utf-8"))["segments"]
+                  if "text_edited" in s]
+        if edited:
+            reset()
+            data = json.loads(path.read_text(encoding="utf-8"))
+            for s in data["segments"]:
+                s.pop("text_edited", None)
+            path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            rejected()  # TXT/SRT show edits the JSON does not declare
+            reset()
+            data = json.loads(path.read_text(encoding="utf-8"))
+            s = next(s for s in data["segments"] if "text_edited" in s)
+            s["text_edited"] = s["text"]
+            path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            rejected()  # a no-op edit is not a valid edit
         reset()
         verify(root)
     print("PASS export validator: corrupted SRT, missing TXT, beyond-audio JSON" +
-          (", wrong/missing speaker_name" if named else "") + " rejected; original regression PASS")
+          (", wrong/missing speaker_name" if named else "") + (", missing/no-op text_edited" if edited else "") +
+          " rejected; original regression PASS")
 
 
 if __name__ == "__main__":

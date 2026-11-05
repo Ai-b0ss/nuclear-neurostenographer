@@ -46,11 +46,18 @@ private fun writeExportSamples() {
     val segments = listOf(TranscriptSegment(0, 1200, "Speaker 1", "Добрый день, начнём."),
         TranscriptSegment(1300, 2500, "Speaker 2", "Да, я готов: \"план\" на столе."),
         TranscriptSegment(2400, 2600, null, "угу", overlappingSpeech = true),
-        TranscriptSegment(2700, 4000, "Speaker 1", "Тогда первый вопрос."))
+        TranscriptSegment(2700, 4000, "Speaker 1", "Тогда первый вопрос про котлин и свифте."))
     val document = TranscriptDocument(segments, 4100, TranscriptProvenance("engine", "revision",
         "diarization_boundaries_and_input_windows", "speaker-revision"), listOf("Интервалы фрагментов, не пословное выравнивание."))
-    for ((name, names) in listOf("plain" to emptyMap(), "named" to mapOf("Speaker 1" to "Иван", "Speaker 2" to "Мария Петровна"))) {
+    val names = mapOf("Speaker 1" to "Иван", "Speaker 2" to "Мария Петровна")
+    val edits = TermDictionary.suggest(segments, BuiltinTerms.ALL)
+    check(edits.map { it.replacement } == listOf("Kotlin", "Swift-е"))
+    val json = document.export("json", names, edits)
+    check(json.contains("\"text\": \"Тогда первый вопрос про котлин и свифте.\", \"text_edited\": \"Тогда первый вопрос про Kotlin и Swift-е.\"") &&
+        json.split("text_edited").size == 2)
+    check(document.export("txt", names, edits).contains("Иван: Тогда первый вопрос про Kotlin и Swift-е."))
+    for ((name, n, e) in listOf(Triple("plain", emptyMap(), emptyList()), Triple("named", names, emptyList()), Triple("edited", names, edits))) {
         val dir = java.io.File("build/export-samples/$name").apply { mkdirs() }
-        for (format in listOf("json", "srt", "txt")) java.io.File(dir, "dialogue.$format").writeText(document.export(format, names), Charsets.UTF_8)
+        for (format in listOf("json", "srt", "txt")) java.io.File(dir, "dialogue.$format").writeText(document.export(format, n, e), Charsets.UTF_8)
     }
 }

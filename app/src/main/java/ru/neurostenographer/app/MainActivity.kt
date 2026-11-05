@@ -17,6 +17,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -45,6 +47,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.delay
 import ru.neurostenographer.core.PcmWav
+import ru.neurostenographer.core.TermEdit
 import ru.neurostenographer.core.TranscriptExport
 import ru.neurostenographer.core.TranscriptSegment
 import java.text.SimpleDateFormat
@@ -100,6 +103,9 @@ class MainActivity : ComponentActivity() {
             TranscriptScreen(current, state, onBack = model::closeTranscript, onDelete = { model.delete(current.id) },
                 onRename = { model.rename(current.id, it) },
                 onRenameSpeaker = { speaker, name -> model.renameSpeaker(current.id, speaker, name) },
+                suggestions = remember(current, state.userTerms) { model.termSuggestions(current) },
+                onResolveTerms = { accepted, declined -> model.resolveTerms(current.id, accepted, declined) },
+                onRevertTerms = { model.revertTerms(current.id) }, onAddTerm = model::addUserTerm,
                 onShare = {
                     model.shareText()?.let { text ->
                         val send = Intent(Intent.ACTION_SEND).setType("text/plain")
@@ -278,19 +284,23 @@ private fun BigAction(title: String, subtitle: String, modifier: Modifier, enabl
 @Composable
 private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: () -> Unit, onDelete: () -> Unit,
                              onRename: (String) -> Unit, onRenameSpeaker: (String, String) -> Unit,
+                             suggestions: List<TermEdit>, onResolveTerms: (List<TermEdit>, List<TermEdit>) -> Unit,
+                             onRevertTerms: () -> Unit, onAddTerm: (String, String) -> Unit,
                              onShare: () -> Unit, onExport: (String) -> Unit) {
     var renaming by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
     var naming by remember { mutableStateOf<String?>(null) }
+    var reviewingTerms by remember { mutableStateOf(false) }
     var query by remember(item.id) { mutableStateOf("") }
     val names = item.speakerNames
-    val segments = item.document.segments
+    val segments = item.shownSegments
+    val editedIndexes = item.termEdits.map { it.segment }.toSet()
     val counts = segments.groupingBy { it.speakerId }.eachCount()
     val needle = query.trim()
-    val shown = if (needle.isEmpty()) segments else segments.filter {
+    val shown = segments.withIndex().filter { (_, it) -> needle.isEmpty() ||
         it.text.contains(needle, ignoreCase = true) || speakerName(it.speakerId, names).contains(needle, ignoreCase = true)
     }
-    val hits = if (needle.isEmpty()) 0 else shown.sumOf { occurrences(it.text, needle) + occurrences(speakerName(it.speakerId, names), needle) }
+    val hits = if (needle.isEmpty()) 0 else shown.sumOf { (_, it) -> occurrences(it.text, needle) + occurrences(speakerName(it.speakerId, names), needle) }
     Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
         TopAppBar(title = { Text(item.title, maxLines = 1, overflow = TextOverflow.Ellipsis) },
             navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } },
@@ -333,6 +343,15 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                 }
             }
             if (segments.isNotEmpty()) item {
+                val label = when {
+                    suggestions.isNotEmpty() -> "Исправить термины (${suggestions.size})"
+                    item.termEdits.isNotEmpty() -> "Термины исправлены (${item.termEdits.size})"
+                    else -> "Словарь терминов"
+                }
+                FilledTonalButton(onClick = { reviewingTerms = true }, enabled = !state.busy,
+                    contentPadding = PaddingValues(horizontal = 14.dp)) { Text(label) }
+            }
+            if (segments.isNotEmpty()) item {
                 OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true,
                     placeholder = { Text("Поиск по тексту и именам") },
                     leadingIcon = { Icon(Icons.Filled.Search, null) },
@@ -344,7 +363,8 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                     }), shape = RoundedCornerShape(14.dp))
             }
             if (segments.isEmpty()) item { Text("Речь не распознана.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            items(shown) { Reply(it, names, needle, onSpeaker = { id -> if (!state.busy) naming = id }) }
+            items(shown) { (index, it) -> Reply(it, names, needle, edited = index in editedIndexes,
+                onSpeaker = { id -> if (!state.busy) naming = id }) }
             item {
                 Spacer(Modifier.height(8.dp))
                 Text("Время — границы реплик, не отдельных слов. Нажмите на говорящего, чтобы указать имя.",
@@ -379,6 +399,9 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                 }
             })
     }
+    if (reviewingTerms) TermsDialog(item, suggestions, onDismiss = { reviewingTerms = false },
+        onApply = { a, d -> onResolveTerms(a, d); reviewingTerms = false },
+        onRevert = { onRevertTerms(); reviewingTerms = false }, onAddTerm = onAddTerm)
     if (confirmDelete) AlertDialog(onDismissRequest = { confirmDelete = false }, title = { Text("Удалить стенограмму?") },
         text = { Text("Она будет удалена с телефона. Экспортированные файлы останутся.") },
         confirmButton = { TextButton(onClick = { confirmDelete = false; onDelete() }) { Text("Удалить") } },
@@ -403,7 +426,8 @@ private fun highlighted(text: String, needle: String, mark: Color): AnnotatedStr
 }
 
 @Composable
-private fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, onSpeaker: (String) -> Unit) {
+private fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
+                  onSpeaker: (String) -> Unit) {
     val color = speakerColor(segment.speakerId)
     Row(Modifier.fillMaxWidth()) {
         Box(Modifier.width(4.dp).heightIn(min = 40.dp).clip(RoundedCornerShape(2.dp)).background(color))
@@ -420,8 +444,57 @@ private fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle
                     Spacer(Modifier.width(8.dp))
                     Text("перекрытие", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+                if (edited) {
+                    Spacer(Modifier.width(8.dp))
+                    Text("правка", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+                }
             }
             Text(highlighted(segment.text, needle, Color(0xFFFFD54F).copy(alpha = 0.55f)), style = MaterialTheme.typography.bodyLarge)
         }
     }
+}
+
+/** «было → стало» review of the term dictionary proposals; the raw ASR text is kept and can be restored. */
+@Composable
+private fun TermsDialog(item: SavedTranscript, suggestions: List<TermEdit>, onDismiss: () -> Unit,
+                        onApply: (List<TermEdit>, List<TermEdit>) -> Unit, onRevert: () -> Unit, onAddTerm: (String, String) -> Unit) {
+    val checked = remember(suggestions) { mutableStateMapOf<TermEdit, Boolean>().apply { suggestions.forEach { put(it, !it.ambiguous) } } }
+    var heard by remember { mutableStateOf("") }
+    var written by remember { mutableStateOf("") }
+    AlertDialog(onDismissRequest = onDismiss, title = { Text("Написание терминов") },
+        text = {
+            Column(Modifier.heightIn(max = 460.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(if (suggestions.isEmpty()) "Новых предложений нет. Исходный текст распознавания сохраняется всегда."
+                    else "Отметьте, что исправить. Исходный текст распознавания сохраняется, правки можно отменить.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                suggestions.forEach { e ->
+                    val text = item.document.segments[e.segment].text
+                    val context = "…" + text.substring(maxOf(0, e.start - 24), minOf(text.length, e.end + 24)) + "…"
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().clickable { checked[e] = checked[e] != true }) {
+                        Checkbox(checked = checked[e] == true, onCheckedChange = { checked[e] = it })
+                        Column(Modifier.weight(1f)) {
+                            Text("«${e.original}» → ${e.replacement}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                            Text(context, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            if (e.ambiguous) Text("может быть обычным словом", style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.error)
+                        }
+                    }
+                }
+                if (item.termEdits.isNotEmpty()) TextButton(onClick = onRevert) { Text("Вернуть исходный текст (правок: ${item.termEdits.size})") }
+                HorizontalDivider()
+                Text("Свой термин", style = MaterialTheme.typography.labelLarge)
+                OutlinedTextField(heard, { heard = it.take(60) }, singleLine = true, label = { Text("Как распознано") },
+                    placeholder = { Text("шерпа онникс") })
+                OutlinedTextField(written, { written = it.take(60) }, singleLine = true, label = { Text("Как писать") },
+                    placeholder = { Text("sherpa-onnx") })
+                TextButton(onClick = { onAddTerm(heard, written); heard = ""; written = "" },
+                    enabled = heard.isNotBlank() && written.isNotBlank() && !heard.contains('*')) { Text("Добавить в словарь") }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onApply(suggestions.filter { checked[it] == true }, suggestions.filter { checked[it] != true }) },
+                enabled = suggestions.isNotEmpty()) { Text("Применить") }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text("Закрыть") } })
 }

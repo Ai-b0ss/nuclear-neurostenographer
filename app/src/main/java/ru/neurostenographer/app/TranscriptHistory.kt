@@ -1,19 +1,30 @@
 package ru.neurostenographer.app
 
+import org.json.JSONArray
 import org.json.JSONObject
+import ru.neurostenographer.core.Term
+import ru.neurostenographer.core.TermDictionary
+import ru.neurostenographer.core.TermEdit
 import ru.neurostenographer.core.TranscriptDocument
 import ru.neurostenographer.core.TranscriptProvenance
 import ru.neurostenographer.core.TranscriptSegment
 import java.io.File
 
 data class SavedTranscript(val id: String, val title: String, val createdMs: Long, val document: TranscriptDocument,
-                           val speakerNames: Map<String, String> = emptyMap()) {
+                           val speakerNames: Map<String, String> = emptyMap(),
+                           val termEdits: List<TermEdit> = emptyList(), val dismissedTerms: Set<String> = emptySet()) {
     val speakers: List<String> get() = document.segments.mapNotNull { it.speakerId }.distinct()
+    /** What the screen and TXT/SRT show: raw ASR plus the spelling edits the user accepted. */
+    val shownSegments: List<TranscriptSegment> by lazy { TermDictionary.apply(document.segments, termEdits) }
 }
+
+/** Stable key of a proposal, so accepted and declined ones are not proposed again. */
+fun TermEdit.key() = "$segment:$start:$original"
 
 /** Finished transcripts kept in the app's private storage, so a restart does not lose them.
  * Each one is the same JSON as the export (`<id>.json`) plus a small `<id>.meta.json` (title, time and
- * `speaker_names`: stable id "Speaker N" → name the user typed; the inference JSON itself never changes).
+ * `speaker_names`: stable id "Speaker N" → name the user typed; `term_edits`/`term_dismissed`: accepted and declined
+ * spelling proposals of the term dictionary; the inference JSON itself never changes).
  * Writes go through a temporary file and a rename: a crash leaves either the old state or the new one.
  */
 class TranscriptHistory(filesDir: File) {
@@ -43,6 +54,17 @@ class TranscriptHistory(filesDir: File) {
         atomicWrite(File(dir, "$id.meta.json"), meta.put("speaker_names", names).toString())
     }
 
+    /** Accepted edits are added, declined proposals remembered; [reset] drops both (back to the raw ASR text). */
+    fun setTermEdits(id: String, accepted: List<TermEdit>, declined: List<TermEdit>, reset: Boolean = false) {
+        val meta = JSONObject(File(dir, "$id.meta.json").readText())
+        val edits = if (reset) JSONArray() else meta.optJSONArray("term_edits") ?: JSONArray()
+        val dismissed = if (reset) JSONArray() else meta.optJSONArray("term_dismissed") ?: JSONArray()
+        accepted.forEach { e -> edits.put(JSONObject().put("segment", e.segment).put("start", e.start).put("end", e.end)
+            .put("original", e.original).put("replacement", e.replacement)) }
+        declined.forEach { dismissed.put(it.key()) }
+        atomicWrite(File(dir, "$id.meta.json"), meta.put("term_edits", edits).put("term_dismissed", dismissed).toString())
+    }
+
     fun delete(id: String) {
         require(id.matches(Regex("t\\d+")))
         File(dir, "$id.json").delete(); File(dir, "$id.meta.json").delete()
@@ -53,7 +75,11 @@ class TranscriptHistory(filesDir: File) {
     private fun load(id: String): SavedTranscript {
         val meta = JSONObject(File(dir, "$id.meta.json").readText())
         val names = meta.optJSONObject("speaker_names")?.let { o -> o.keys().asSequence().associateWith { o.getString(it) } }.orEmpty()
-        return SavedTranscript(id, meta.getString("title"), meta.getLong("created_ms"), parse(File(dir, "$id.json").readText()), names)
+        val edits = meta.optJSONArray("term_edits")?.let { a -> (0 until a.length()).map { i -> a.getJSONObject(i).let { e ->
+            TermEdit(e.getInt("segment"), e.getInt("start"), e.getInt("end"), e.getString("original"), e.getString("replacement")) } } }.orEmpty()
+        val dismissed = meta.optJSONArray("term_dismissed")?.let { a -> (0 until a.length()).map { a.getString(it) }.toSet() }.orEmpty()
+        return SavedTranscript(id, meta.getString("title"), meta.getLong("created_ms"), parse(File(dir, "$id.json").readText()),
+            names, edits, dismissed)
     }
 
     private fun atomicWrite(target: File, text: String) {
@@ -78,5 +104,28 @@ class TranscriptHistory(filesDir: File) {
             val warnings = root.optJSONArray("warnings")?.let { w -> (0 until w.length()).map { w.getString(it) } }.orEmpty()
             return TranscriptDocument(segments, root.getLong("audio_duration_ms"), provenance, warnings)
         }
+    }
+}
+
+/** Terms the user added («как распознано» → «как писать»), shared by all transcripts, kept in `terms.json`. */
+class UserTerms(filesDir: File) {
+    private val file = File(filesDir, "terms.json")
+
+    fun list(): List<Term> = runCatching {
+        val a = JSONArray(file.readText())
+        (0 until a.length()).map { i -> a.getJSONObject(i).let { o ->
+            Term(o.getString("canonical"), o.getJSONArray("variants").let { v -> (0 until v.length()).map(v::getString) }) } }
+    }.getOrDefault(emptyList())
+
+    fun add(heard: String, canonical: String): List<Term> {
+        val variant = heard.trim().lowercase().replace(Regex("\\s+"), " ")
+        val term = Term(canonical.trim(), listOf(variant))
+        val all = list().filterNot { it.variants == term.variants } + term
+        val out = JSONArray()
+        all.forEach { t -> out.put(JSONObject().put("canonical", t.canonical).put("variants", JSONArray(t.variants))) }
+        val temp = File(file.parentFile, file.name + ".tmp")
+        temp.writeText(out.toString(), Charsets.UTF_8)
+        check(temp.renameTo(file) || (file.delete() && temp.renameTo(file))) { "Не удалось сохранить словарь" }
+        return all
     }
 }

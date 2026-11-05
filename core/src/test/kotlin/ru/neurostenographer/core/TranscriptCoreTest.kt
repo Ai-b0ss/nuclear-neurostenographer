@@ -12,6 +12,7 @@ fun main() {
     testBoundedWavRecorder()
     testAudioSnapshots()
     testTranscriptDocument()
+    testTermDictionary()
     testVerifiedModelBundle()
     testDiarizationTimeline()
     testDecodeBudget()

@@ -48,9 +48,9 @@ jobs:
           python3 tools/provision_asr.py
       - name: Test core and assemble debug APK
         run: gradle --no-daemon :core:runCoreTests :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
-      - name: Verify TXT/SRT/JSON exports of this build (numbered and named speakers)
+      - name: Verify TXT/SRT/JSON exports of this build (numbered and named speakers, term edits)
         run: |
-          for kind in plain named; do
+          for kind in plain named edited; do
             python3 tools/verify_transcript_exports.py core/build/export-samples/$kind
             python3 tools/test_transcript_exports.py core/build/export-samples/$kind
           done
