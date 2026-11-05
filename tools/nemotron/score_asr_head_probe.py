@@ -28,14 +28,21 @@ def main() -> None:
                  for index in range(4)})
     refs.update({f"window-holdout-{index}": ROOT / f".local/window-merge-holdout-refs/window-holdout-{index}.ref.json"
                  for index in range(4)})
+    refs.update({f"speaker-holdout-{index}": ROOT / f".local/speaker-refinement-holdout-refs/speaker-holdout-{index}.ref.json"
+                 for index in range(4)})
     suite = evidence["runs"][0].get("suite", "nemotron-bench")
     expected = ({"aba", "holdout", "ivkond-2clean", "ivkond-2overlap",
                  "ivkond-3overlap", "ivkond-4overlap"} if suite == "nemotron-bench"
                 else {f"acted-holdout-{index}" for index in range(4)} if suite == "asr-holdout"
-                else {f"window-holdout-{index}" for index in range(4)})
-    assert suite in ("nemotron-bench", "asr-holdout", "window-merge-holdout")
-    holdout_lock = (json.loads((ROOT / "tools/fixtures/dialogs-ru-window-merge-holdout-lock.json").read_text(encoding="utf-8"))
-                    if suite == "window-merge-holdout" else None)
+                else {f"window-holdout-{index}" for index in range(4)} if suite == "window-merge-holdout"
+                else {f"speaker-holdout-{index}" for index in range(4)})
+    assert suite in ("nemotron-bench", "asr-holdout", "window-merge-holdout",
+                     "speaker-refinement-holdout")
+    lock_path = (ROOT / "tools/fixtures/dialogs-ru-window-merge-holdout-lock.json"
+                 if suite == "window-merge-holdout" else
+                 ROOT / "tools/fixtures/dialogs-ru-speaker-refinement-holdout-lock.json"
+                 if suite == "speaker-refinement-holdout" else None)
+    holdout_lock = json.loads(lock_path.read_text(encoding="utf-8")) if lock_path else None
     holdout_cases = {case["id"]: case for case in holdout_lock["cases"]} if holdout_lock else {}
     rows = []
     for run in evidence["runs"]:

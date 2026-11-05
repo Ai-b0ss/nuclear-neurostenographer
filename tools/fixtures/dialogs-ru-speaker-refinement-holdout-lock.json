@@ -1,0 +1,137 @@
+{
+  "repository": "langswap/dialogs-ru-emotional-conversations",
+  "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "metadata_sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2",
+  "license_sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143",
+  "selection_seed": "c2-speaker-refinement-holdout-v1",
+  "selection_ranks": {
+    "D": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "M": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "S": [
+      0,
+      1,
+      3,
+      5
+    ]
+  },
+  "sample_rate": 44100,
+  "gap_frames": 22050,
+  "clips": [
+    {
+      "path": "wavs/masha_dima_part1_71.wav",
+      "speaker": "D",
+      "emotion": "sad",
+      "frames": 413710,
+      "sha256": "e6a5ab17beb51162a10eeb15fbea9928b11d3431ba179ac1fc53d5b668a2be84"
+    },
+    {
+      "path": "wavs/masha_sveta_part9_664.wav",
+      "speaker": "M",
+      "emotion": "happy",
+      "frames": 160168,
+      "sha256": "bdf08c89b27d4bb8b0812325f6c1aa4f612c8b002809de475c8b5848ae9c6371"
+    },
+    {
+      "path": "wavs/masha_sveta_part4_223.wav",
+      "speaker": "S",
+      "emotion": "arrogance",
+      "frames": 241322,
+      "sha256": "20389e101c76e24cb4a27ea72f353e53252239e2a9c9b01742675dfb94578e29"
+    },
+    {
+      "path": "wavs/masha_dima_part1_261.wav",
+      "speaker": "D",
+      "emotion": "surprise",
+      "frames": 369999,
+      "sha256": "a8d946c4b2a10f6411c683a19a67bd990d1e8c01acf5b9cd828ea4961e0fdc9c"
+    },
+    {
+      "path": "wavs/masha_dima_part9_332.wav",
+      "speaker": "M",
+      "emotion": "surprise",
+      "frames": 297830,
+      "sha256": "08d35b9cf33e4a28c04a7e309c46c04d0b011a3a6efb0d53d52b9ab65c75c6df"
+    },
+    {
+      "path": "wavs/masha_sveta_part9_1037.wav",
+      "speaker": "S",
+      "emotion": "happy",
+      "frames": 339179,
+      "sha256": "b91ae24359760659a99eacc77ab110dd40b406b08916afbe998349392e58277c"
+    },
+    {
+      "path": "wavs/masha_dima_part6_278.wav",
+      "speaker": "D",
+      "emotion": "happy",
+      "frames": 417256,
+      "sha256": "959cb3385f1c48a144a57d5ee587bd592fd15c70993cab3f180b968e4f27790f"
+    },
+    {
+      "path": "wavs/masha_sveta_part7_245.wav",
+      "speaker": "M",
+      "emotion": "neutral",
+      "frames": 142733,
+      "sha256": "89a6ebe32d8b8d70763a3f6b02ea5258ffd285ed4a4d46b9282660104930022d"
+    },
+    {
+      "path": "wavs/masha_sveta_part9_238.wav",
+      "speaker": "S",
+      "emotion": "surprise",
+      "frames": 197761,
+      "sha256": "0f329881b9402686f50427e8aec4879d00a344d16d579c03ff10c703ed16f138"
+    },
+    {
+      "path": "wavs/masha_dima_part9_196.wav",
+      "speaker": "D",
+      "emotion": "angry",
+      "frames": 369103,
+      "sha256": "c11b49fef9213b3eced8decb751e0e6b01d6756f517095b6485442daa6352a57"
+    },
+    {
+      "path": "wavs/masha_dima_part9_211.wav",
+      "speaker": "M",
+      "emotion": "neutral",
+      "frames": 164239,
+      "sha256": "23f619bef1200db42103a27b4cc5519374bdf1eb4aafa88294d8298df1b2b570"
+    },
+    {
+      "path": "wavs/masha_sveta_part10_473.wav",
+      "speaker": "S",
+      "emotion": "neutral",
+      "frames": 231493,
+      "sha256": "2cd7c5743aa4961426cc942585de9ee410dc35a4288e6c2424623fc08899d4f2"
+    }
+  ],
+  "cases": [
+    {
+      "id": "speaker-holdout-0",
+      "audio_sha256": "e2ac909e2a067782759013fae8b8c4e2617f8eaf5fe343d9907da12b2ef33ce3",
+      "reference_sha256": "e261be82f48efbbfadb01a5b57d3adf561f34a1e5087e4329bf188644cc0d5de"
+    },
+    {
+      "id": "speaker-holdout-1",
+      "audio_sha256": "be0e574da6bb5ebb0e9151d9fd2df069d0ccd7ff02c282a2f2abbd1ac1a135bb",
+      "reference_sha256": "cd94631c91ea45e33ff4d9672d81fcd06bb1a5fc4f409a05baa107e767036d3c"
+    },
+    {
+      "id": "speaker-holdout-2",
+      "audio_sha256": "e4b833d04c37637c7c44fc6418312389064648e434af2188041104e18e22a135",
+      "reference_sha256": "d893053e009787f55e5fda8fae82254c1aa6231b713305c654e7cab6dd3effde"
+    },
+    {
+      "id": "speaker-holdout-3",
+      "audio_sha256": "dfc07f54c3a8d91500f563269c8138ea3efcf8d8003aab8773e5acbf29cfec54",
+      "reference_sha256": "819d25e7518e579c70b01cd2f4354d096b44a5cf4b340e5ff84bf08472b4c191"
+    }
+  ]
+}

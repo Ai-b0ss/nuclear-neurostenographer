@@ -37,7 +37,8 @@ class AsrHeadProbeTest {
             .split(',').toSet()
         require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3", "mctc") })
         val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "nemotron-bench"
-        require(suite in setOf("nemotron-bench", "asr-holdout", "window-merge-holdout"))
+        require(suite in setOf("nemotron-bench", "asr-holdout", "window-merge-holdout",
+            "speaker-refinement-holdout"))
         val backends = (InstrumentationRegistry.getArguments().getString("backends") ?: "c0,c2")
             .split(',').toSet()
         require(backends.isNotEmpty() && backends.all { it in setOf(NemotronBackend.C0, NemotronBackend.C2) })
@@ -128,6 +129,7 @@ class AsrHeadProbeTest {
                     })
                     rows.put(JSONObject().put("suite", suite).put("case", id).put("backend", backend).put("head", head)
                         .put("asr_threads", threads)
+                        .put("speaker_count", diarization.turns.map { it.speakerId }.distinct().size)
                         .put("audio_sha256", audioSha).put("audio_ms", audio.durationMs)
                         .put("decoded_windows", result.decodedWindows)
                         .put("asr_load_ms", result.loadMs).put("asr_decode_ms", result.decodeMs)

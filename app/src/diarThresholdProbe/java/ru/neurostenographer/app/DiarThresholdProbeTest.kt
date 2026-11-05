@@ -18,11 +18,12 @@ class DiarThresholdProbeTest {
     @Test fun compareC0Thresholds(): Unit = runBlocking {
         val assets = instrumentation.context.assets
         val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "asr-holdout"
-        require(suite == "asr-holdout" || suite == "nemotron-bench")
+        require(suite in setOf("asr-holdout", "window-merge-holdout",
+            "speaker-refinement-holdout", "nemotron-bench"))
         val c0 = assets.open("diarization.zip").use { DiarizationModelStore(context).install(it) }
         val asr = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
         val allCases = InstrumentationRegistry.getArguments().getString("caseList") == "all"
-        val cases = (if (suite == "asr-holdout" || allCases) assets.open("$suite/plan.tsv")
+        val cases = (if (suite != "nemotron-bench" || allCases) assets.open("$suite/plan.tsv")
             .bufferedReader().readLines().filter { it.isNotBlank() }.map { it.substringBefore('\t') }
             else listOf("aba", "holdout"))
         val thresholds = listOf(0.5f, 0.65f, 0.8f, 0.9f)
