@@ -38,6 +38,7 @@ object NemotronDiarization {
         return out
     }
 
+    @JvmOverloads
     fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
                 activityThreshold: Float = 0f): DiarizationOutput {
         require(audio.sampleRate == 16000)

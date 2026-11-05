@@ -38,7 +38,7 @@ class AsrHeadProbeTest {
         require(selected.isNotEmpty() && selected.all { it in setOf("a0", "a1", "a2", "a3", "mctc") })
         val suite = InstrumentationRegistry.getArguments().getString("suite") ?: "nemotron-bench"
         require(suite in setOf("nemotron-bench", "asr-holdout", "window-merge-holdout",
-            "speaker-refinement-holdout", "golos-farfield", "rudevices-tail"))
+            "speaker-refinement-holdout", "golos-farfield", "rudevices-tail", "rinco"))
         val backends = (InstrumentationRegistry.getArguments().getString("backends") ?: "c0,c2")
             .split(',').toSet()
         require(backends.isNotEmpty() && backends.all { it in setOf(NemotronBackend.C0, NemotronBackend.C2) })

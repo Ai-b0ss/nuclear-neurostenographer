@@ -7,6 +7,7 @@ import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.neurostenographer.core.PcmWav
+import ru.neurostenographer.core.DiarizationTimeline
 import java.io.File
 import java.security.MessageDigest
 
@@ -17,6 +18,8 @@ class C2PaddingAsrProbeTest {
 
     @Test fun compareBaseAndPadded(): Unit = runBlocking {
         val assets = instrumentation.context.assets
+        val experiment = InstrumentationRegistry.getArguments().getString("experiment") ?: "threshold"
+        require(experiment in setOf("threshold", "all_windows"))
         val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
         val asr = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
         val cases = listOf(
@@ -25,17 +28,23 @@ class C2PaddingAsrProbeTest {
             "nemotron-bench" to "ivkond-3overlap", "nemotron-bench" to "ivkond-4overlap",
             *Array(4) { "asr-holdout" to "acted-holdout-$it" })
         val runs = JSONArray()
-        val evidence = File(context.filesDir, "c2-padding-asr-evidence.json")
+        val evidence = File(context.filesDir, if (experiment == "threshold")
+            "c2-padding-asr-evidence.json" else "c2-all-windows-evidence.json")
         for ((suite, name) in cases) {
             val bytes = assets.open("$suite/$name.wav").use { it.readBytes() }
             val hash = MessageDigest.getInstance("SHA-256").digest(bytes)
                 .joinToString("") { "%02x".format(it) }
             val audio = bytes.inputStream().use { PcmWav.read(it) }
             val current = NemotronDiarization.process(audio, c2, activityThreshold = 0f)
-            val relaxed = NemotronDiarization.process(audio, c2, activityThreshold = -0.25f)
-            for ((mode, diarization) in listOf(
-                "pad150" to C2BoundaryPadding.apply(current, audio.durationMs, 150),
-                "threshold_minus_0_25" to C2BoundaryPadding.apply(relaxed, audio.durationMs, 150))) {
+            val padded = C2BoundaryPadding.apply(current, audio.durationMs, 150)
+            val modes = if (experiment == "threshold") listOf(
+                "pad150" to padded,
+                "threshold_minus_0_25" to C2BoundaryPadding.apply(
+                    NemotronDiarization.process(audio, c2, activityThreshold = -0.25f), audio.durationMs, 150))
+            else listOf("pad150" to padded,
+                "all_windows" to padded.copy(windows =
+                    DiarizationTimeline.windows(padded.turns, audio.durationMs)))
+            for ((mode, diarization) in modes) {
                 val windows = C2WindowMerge.apply(diarization.windows, diarization.turns)
                 val output = OfflineAsr.transcribe(audio, asr, turns = diarization.turns,
                     speechWindows = windows)

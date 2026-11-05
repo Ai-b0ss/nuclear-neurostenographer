@@ -97,7 +97,12 @@ object IsolatedDiarization {
             try {
                 when (message.what) {
                     DiarizationService.STARTED -> onWorkerStarted(message.arg1)
-                    DiarizationService.FAILURE -> result.completeExceptionally(DiarizationUnavailable("Ошибка процесса диаризации"))
+                    DiarizationService.FAILURE -> {
+                        val kind = message.data.getString("error")
+                            ?.takeIf { it.matches(Regex("[A-Za-z]{1,64}")) }
+                        result.completeExceptionally(DiarizationUnavailable(
+                            "Ошибка процесса диаризации" + (kind?.let { ": $it" } ?: "")))
+                    }
                     DiarizationService.RESULT -> {
                         val data = message.data
                         val starts = requireNotNull(data.getLongArray("starts"))
