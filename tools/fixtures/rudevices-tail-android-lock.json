@@ -1,0 +1,341 @@
+{
+  "dataset": "SOVA RuDevices live Russian speech",
+  "mirror": "Sh1man/rudevices",
+  "revision": "3d5a8ee75616a47d339c9c9a7f84fc75c0e93d43",
+  "archive": "rudevices_audio_records/test/test-00001.tar",
+  "archive_sha256": "4a37760aba6ec72d55d0911bd2941510ef3fbdf368bfed012ba42debb2a1cfcc",
+  "selection": "all 47 records in tail shard",
+  "split_caveat": "SOVA authors did not define an official test split",
+  "metric": "WER only; no speaker/timing labels",
+  "cases": [
+    {
+      "id": "rudevices-00",
+      "source_id": "0ae96fd4-d1f8-4b09-a2c3-15de1834ac72",
+      "wav_sha256": "a1d3060045892b44ebf2289cafa6032b44f14ef28779587bbee673e49579cf87",
+      "reference_sha256": "73e4bb3714e5f12cdd7a98c6a8dd95c799762c57748c9bfa15e6d7bc719a0856",
+      "duration": 3.63
+    },
+    {
+      "id": "rudevices-01",
+      "source_id": "0b20d302-5480-4318-bdce-f50c0b4ff18e",
+      "wav_sha256": "f7a68d309486dad1a05f3e33d0e477af31aced8350d66cce7b3677c325736f8a",
+      "reference_sha256": "01a7965548e6a9e29475d075f95286ccdd0a9dad69fbdba3540e99b215c2928c",
+      "duration": 4.56
+    },
+    {
+      "id": "rudevices-02",
+      "source_id": "0d81c3b7-abd1-4092-8595-367ae00ce39a",
+      "wav_sha256": "61c4d6f7ca50ad428b450bb7af56199332020e47bba11df9fe1da39bef57d63c",
+      "reference_sha256": "3fed5e44da308c8101c3d42a1a79315885eb0b0b41f9e2df550e1e997cb42359",
+      "duration": 5.67
+    },
+    {
+      "id": "rudevices-03",
+      "source_id": "0fdc44ef-3474-463d-b121-f820d2c15062",
+      "wav_sha256": "7b66b90c4b99b849933205821f2f7a3e148836c62c591340dcf151474e96fb75",
+      "reference_sha256": "54552b58bf97223030c10361e8d6b2fbe37cb843102e86967c32ad146bda3909",
+      "duration": 3.0265
+    },
+    {
+      "id": "rudevices-04",
+      "source_id": "15b90d6b-bdbd-405f-ab5e-207be507534b",
+      "wav_sha256": "793c8e2aba826614a27706abba1b52751e9b4f442add83aea190649267b75778",
+      "reference_sha256": "2ec5dc9b3b76a5dbbea1b0a7e37f617a8b1a7c5b2737250eace5d6368047136f",
+      "duration": 4.92
+    },
+    {
+      "id": "rudevices-05",
+      "source_id": "1bd7b28f-17e1-488d-b530-817c2236f9db",
+      "wav_sha256": "728dfcfdbaa5ddaa0d9b8aff1c039f22588388c603098827286f03d58658d9d0",
+      "reference_sha256": "de5603979f17bdb6b7271ff65dfe49f3aa741da6d2f24a4bdb90ffcb0ce56f92",
+      "duration": 2.0665
+    },
+    {
+      "id": "rudevices-06",
+      "source_id": "1c822edd-f734-4b33-8d72-f1cb5f681deb",
+      "wav_sha256": "b3d4282fbcd5a01d64cb614a31cfc90017d2ca29aae2631d546ef70bfc337a0f",
+      "reference_sha256": "f4bb03bc174c456a9dda50fb5ab3c4e3d00bab30349c83f115e8350103058603",
+      "duration": 3.15
+    },
+    {
+      "id": "rudevices-07",
+      "source_id": "21195bde-3c96-43bb-bafb-a87dc6ac5d5a",
+      "wav_sha256": "2598ad38892331b735f0b116c05499082443d185e35c48e3129763b30e71188f",
+      "reference_sha256": "1b2454e5a78386fb97eb783f4bc28e8cc2a10f01ff45b39d6c88c0e2db111dc2",
+      "duration": 3.15
+    },
+    {
+      "id": "rudevices-08",
+      "source_id": "27974ef0-72e8-41b7-b514-1e2e11434b2d",
+      "wav_sha256": "0bb28dd4320da8f72cf82d1641f9c1132c7d82f1528f60afaf508893e432cdc5",
+      "reference_sha256": "0b51d9341c0ec82e097bb82806bb1998691d9608cf96ef299c550938db76a743",
+      "duration": 6.6
+    },
+    {
+      "id": "rudevices-09",
+      "source_id": "28076947-bf81-4d99-86d4-fc31d5b8d0d2",
+      "wav_sha256": "2d807e80cf212f66ce2271df7c8c64870295dd5251858c9eb4f9bfa106a6766c",
+      "reference_sha256": "09910c682e23c6505fae93539565ebf894bcee224a7a51018eb0b2d29e67b2a9",
+      "duration": 4.4699375
+    },
+    {
+      "id": "rudevices-10",
+      "source_id": "292799c1-0d56-4a5e-94e2-641d8dff4a6c",
+      "wav_sha256": "a13d6940547b8860201d97aaac9050ea1b72f90507530363a7c13d8502af3ade",
+      "reference_sha256": "82d085481f63a4834d0345a891c4c85d46e1f4a431babed53e48963dcf7ffe60",
+      "duration": 4.29
+    },
+    {
+      "id": "rudevices-11",
+      "source_id": "2944cabb-563a-48e7-9bd8-19d52e102f43",
+      "wav_sha256": "b79f4b84944fbcc8240ba9987fa62508bef2c188184b52100c13747e1a32bac0",
+      "reference_sha256": "7143741209c72f7ca268295f73377b95183309ab8308b9a27913ef7c2b8884bd",
+      "duration": 3.5065
+    },
+    {
+      "id": "rudevices-12",
+      "source_id": "2a47fe04-69ca-4f9a-a068-a2cf8077883d",
+      "wav_sha256": "acf808f667368a78368b505e4b024f257c181ed114e7815296ac428ca380702c",
+      "reference_sha256": "0a795b154d2da3e852fec6a34e355933ec667c073abe3f3aaf8b3c4e4edfe3f5",
+      "duration": 2.1
+    },
+    {
+      "id": "rudevices-13",
+      "source_id": "2fbfc997-5927-4708-a3c9-7e4fa3cea1d9",
+      "wav_sha256": "e4518e397625f8cd8dbec7c702de1f722a0d506990714656beafe4e1d689adb3",
+      "reference_sha256": "e3a2788632eb518c2de64ee80eb783a26e894513fddb5b2e563e91abc40f93f9",
+      "duration": 2.64
+    },
+    {
+      "id": "rudevices-14",
+      "source_id": "34e391d5-48e1-467c-8470-db9da290c88a",
+      "wav_sha256": "dec85be57db15167c9b83606ac232807d760d79d98d8dd8fc0c13b608489d169",
+      "reference_sha256": "e692285f725f483f895f07859cf415efca2f080fce703430f2c52ce348d83fc9",
+      "duration": 4.08
+    },
+    {
+      "id": "rudevices-15",
+      "source_id": "3f406213-e1f9-405a-a00a-33cecb2384ca",
+      "wav_sha256": "06b2bf3094dc980c0166359ec649b228cffba73902bd7173177517c457bb33e7",
+      "reference_sha256": "9fc028b43f34821f4f5245bfbb4a434a4fea5a8a4c32b2ef9903c3ba24a543ac",
+      "duration": 2.7
+    },
+    {
+      "id": "rudevices-16",
+      "source_id": "42fabc84-ade4-487e-ac94-b2b8de5bf0be",
+      "wav_sha256": "c29fb216312b685057a9ad8a0e20bf2d0f49ebc97a5bfcc502e161ad14e20cd8",
+      "reference_sha256": "9b19fcec50611d71af0671839324cc28f323c5457c1d37a1078d6cd082d2b718",
+      "duration": 6.0
+    },
+    {
+      "id": "rudevices-17",
+      "source_id": "51561e71-f18c-417b-97a2-b0c3c6c95fd3",
+      "wav_sha256": "cf0a97a1082c18a9cda81170eaa04519ae446e2ca48893891b03bc9d6e9fe5d5",
+      "reference_sha256": "74fd0c3859ee3b345221b11fa01ef9addf939c9d077bddca68386264f207cfb6",
+      "duration": 1.35
+    },
+    {
+      "id": "rudevices-18",
+      "source_id": "515c8d39-afb9-4340-bb75-24601ff3ffee",
+      "wav_sha256": "0a211c6e476c82412babf667527504047378b8f8d6930738359a75b75cbb6239",
+      "reference_sha256": "cafb3891f1de7905e835fa4549bf13d8da7af7bf90386f86384a3043bd9ea67b",
+      "duration": 1.95
+    },
+    {
+      "id": "rudevices-19",
+      "source_id": "53377449-4f13-4e0e-a852-489a679164ca",
+      "wav_sha256": "e20855ee3c5503f951f61afd649c60a6bdae6aaa9dd423353fe858e1ff4eb13e",
+      "reference_sha256": "bb570382ec5f72745a3cc79ed112faca6b9b0abf5ad28287597da4e4548430a6",
+      "duration": 3.18
+    },
+    {
+      "id": "rudevices-20",
+      "source_id": "59e64bbb-3bcc-456e-a659-f0e3d21fe90b",
+      "wav_sha256": "a3023a4679915b7c8523b947b5125bd1efe14f152c0d9154b0857f1ed8053b03",
+      "reference_sha256": "e5e4d31a2dba3aa943ee6a915eac0763389454f6c733294fa2aeaf2d2042beb2",
+      "duration": 3.84
+    },
+    {
+      "id": "rudevices-21",
+      "source_id": "5b4964b9-9394-4844-87c1-ba036f89766f",
+      "wav_sha256": "6324e0c0e430972d53aad92a6b6b0ccdcb7f4da8fa4a1116ee60c0cdff3de21c",
+      "reference_sha256": "9cef7b89c9aa7abbf055102d75e72caff0ec081df9bba361e3aa336187387b86",
+      "duration": 8.6065
+    },
+    {
+      "id": "rudevices-22",
+      "source_id": "5d4c998e-16d4-44d9-86a6-058dfb5de676",
+      "wav_sha256": "af1dc1d67d4a42c280647dfe2f1abb857dfdc2c8b4bce6a78b4bf5aa2ec84ec2",
+      "reference_sha256": "730719f075cf9349e3179d0df79c032295fadbfe8788a2805a2b967fa8fa7509",
+      "duration": 2.5
+    },
+    {
+      "id": "rudevices-23",
+      "source_id": "691ab441-467c-408e-9cff-b8f45a3626e8",
+      "wav_sha256": "c8bac3b2a094c408afa0c03a71c95132d80b22baec794f1ef497f57ba9a27314",
+      "reference_sha256": "040372b097d09a9ea6c5b40daf4cf37b4cab2988828d079811e232a239b5fd94",
+      "duration": 2.7
+    },
+    {
+      "id": "rudevices-24",
+      "source_id": "6b40bb14-665e-4c10-bbdb-7237a0511da3",
+      "wav_sha256": "059b25e6a733eef02ebedf50675e7a8b007f6f778adaa86a60b479273cfcd9e9",
+      "reference_sha256": "25b7ccdf08cbcd4535574eebf9fb79349e34bb89730c580d8d426ebce29dfcf2",
+      "duration": 3.42
+    },
+    {
+      "id": "rudevices-25",
+      "source_id": "6f0d9a35-7848-41e4-a424-fa29fe0878fd",
+      "wav_sha256": "2dc399b2f5150d7831a102e10da09f03c541e247abc5763b2fc3eae747bc1eb0",
+      "reference_sha256": "985ea4006a1d6b4948cbdcdcd1f4b78e645da24f5a01a926e43da22f6962ba50",
+      "duration": 4.62
+    },
+    {
+      "id": "rudevices-26",
+      "source_id": "79ae77db-e11f-41a9-8192-3fbc962be135",
+      "wav_sha256": "08702ce9010b13d948002c6ed33d295ae03eb8a8f02ced3718303979c98baeb8",
+      "reference_sha256": "6b5f4734cc481b328b05cfc9ff0cdb5d1c6888eb6436e9a21afaf24b5c6d24ee",
+      "duration": 1.83
+    },
+    {
+      "id": "rudevices-27",
+      "source_id": "8a33bff5-a53d-4ab4-9451-016f73a2b7d3",
+      "wav_sha256": "651183e65130133bee96588e02f06a947e622e333fbdd8a30265dc3d84c269b8",
+      "reference_sha256": "c6303f29b39ed879d1007fd20a0fb50d5939fff6afce2fc5da3619997e329f41",
+      "duration": 5.8465
+    },
+    {
+      "id": "rudevices-28",
+      "source_id": "8b049cf6-816f-43eb-90e1-68510e3e8c06",
+      "wav_sha256": "4b5a1a42f969556be5c71685b057521ced213a3616824d72f5828550f67d8f36",
+      "reference_sha256": "f8f0e4f588f91522d8f3d81fb276f7dba6a9808b91d9e8d6ee7f67f03fd31d24",
+      "duration": 4.98
+    },
+    {
+      "id": "rudevices-29",
+      "source_id": "8b3d27c4-5636-4dbf-9b3c-d56303ae1279",
+      "wav_sha256": "bf38824b8e3c30b1fd568ffa8023abb099491e0292c9a5f873df36a9a131bc3b",
+      "reference_sha256": "8a1e1f169bbfd89e7241435fe3902c139c67f513b1d06a202d904b57c7c9ee9c",
+      "duration": 1.1
+    },
+    {
+      "id": "rudevices-30",
+      "source_id": "8ffaf311-6cee-49ac-a9e1-8981eb2dd2d2",
+      "wav_sha256": "7e3d64802e955b5fc7c4a7f03c33d69aa628202943891561d6691004cf032d9d",
+      "reference_sha256": "8aee52816df1fbcd3404cd7bbc2de80842758d026c83c67fb6fe64284af1f678",
+      "duration": 6.0
+    },
+    {
+      "id": "rudevices-31",
+      "source_id": "984034ce-bd5a-4350-b0d5-2271bac882e2",
+      "wav_sha256": "f9e4bc84fbe8be71727b577e7a5fa0fa26fcadffd68e9c17858ba060bbdfee04",
+      "reference_sha256": "51636ebe8c878fd99c7e2ead3cb9e43f8c78ffb1e37846d019c5746038b2ebae",
+      "duration": 5.5465
+    },
+    {
+      "id": "rudevices-32",
+      "source_id": "9c8f453e-21b4-48ce-8559-11e7f064f8b3",
+      "wav_sha256": "9ca9247423d5f803d442dd40f4a6a1e41c6555fdb583be7e46d057ea58c14245",
+      "reference_sha256": "3ea4b08c642bcf35e483a5c61d77fc30a68a4530d74e37642e1073be1a5f0830",
+      "duration": 1.62
+    },
+    {
+      "id": "rudevices-33",
+      "source_id": "a3a08baa-24c4-4b3c-969a-03f5d23f1598",
+      "wav_sha256": "1dc6ba302212bc3d18c1a23f40a21867d9da81b2e54b71c870a55c589af9b93f",
+      "reference_sha256": "a10e704755172390df81081c1856efeafafeb7f24d828f783c1a1ba3371a9d15",
+      "duration": 1.44
+    },
+    {
+      "id": "rudevices-34",
+      "source_id": "a5f15732-e27d-496f-9ec4-b0dc185ca5a5",
+      "wav_sha256": "08b97bfa0c0712cdcf313a4f2ff3573d42f7ee4660aa24174c7aea915f4ad745",
+      "reference_sha256": "82047df091aecc75ba5d8eeffadc762ef2d7c20dcaabb06d91386fdf6c30fafe",
+      "duration": 3.4499375
+    },
+    {
+      "id": "rudevices-35",
+      "source_id": "b0d467c4-0d1f-4dd4-8421-c4c8c2d9b95b",
+      "wav_sha256": "0ac87780aad7e07f727d6f050b9d6ee75d0e48cb849e479c82b776b4ac747f54",
+      "reference_sha256": "b633eff77fe4bdeb7a689d9680decdd77ad96d237fea43d0b878633e37849423",
+      "duration": 5.0700625
+    },
+    {
+      "id": "rudevices-36",
+      "source_id": "b78fd612-2234-4c4f-a63e-3b9a326c851f",
+      "wav_sha256": "b2c022dc83ed67ad0036ea0dd58c74f6cf934c31801a4019a8989908a32bbfea",
+      "reference_sha256": "8bbd8752f8dcddd77b20fc5ba8afc7aa16c549116dcb94c543b8220e3983cb60",
+      "duration": 1.89
+    },
+    {
+      "id": "rudevices-37",
+      "source_id": "c46c6b2b-08f7-4b58-ad21-5e28210abde1",
+      "wav_sha256": "a24d0597085e4da85ad4da3a83ee27b6d1d3b515a7870536af0821c272940399",
+      "reference_sha256": "419db6f8fe75ce69ea76ec540c6ad8aed7d2d3936a3e3cc50f4ec81473b20017",
+      "duration": 3.42
+    },
+    {
+      "id": "rudevices-38",
+      "source_id": "c6fa7f32-f6e4-4159-ad47-85309bfece7f",
+      "wav_sha256": "dac61dc0326a30c9cd3047f9ad919ebd4a9adeb9da622821e81da3fbe2c070fa",
+      "reference_sha256": "89215719ab5d2b83dfec1c332789b2cd0eba6d69a10c8b3df16eedee301fc2a9",
+      "duration": 3.27
+    },
+    {
+      "id": "rudevices-39",
+      "source_id": "d214bc08-af95-4749-8b40-91123c88f78a",
+      "wav_sha256": "6b304e7e98d688dc380fbb07cec1beae5dab04a5c8e2d82a56c5507a9443cf88",
+      "reference_sha256": "e98521d72a1f07d58e3e1581726de8b9df1b999a358a21db68c84dd05b43e433",
+      "duration": 5.79
+    },
+    {
+      "id": "rudevices-40",
+      "source_id": "d448e942-23f3-4d82-8610-506e4407da44",
+      "wav_sha256": "df679ccd1cbfebb932e76d1ed8008fb4556d0eeee1756a362363af35cc8f27e6",
+      "reference_sha256": "9b7a03faf9bdc93c8565ce0be2ca8950b1b68c9eb3320a635ff7adff7631b5f8",
+      "duration": 9.8065
+    },
+    {
+      "id": "rudevices-41",
+      "source_id": "d541b88d-a8de-4304-8bc6-12b0cd70c835",
+      "wav_sha256": "ba4dc06aeb80f470228a6f96f631de67769fdabce1b82ba4b68c2e8416404037",
+      "reference_sha256": "b227168011b2eaca0bf7df5825497996ca25b557a76c2c5560d7e84fce1f5d96",
+      "duration": 1.4
+    },
+    {
+      "id": "rudevices-42",
+      "source_id": "d6e45be8-29a8-4d9d-b696-5358dd96deef",
+      "wav_sha256": "3e95fcdbf52c6bb94ed79581373aa15b98b0f6bc9c9651315ee4ec42a3e7fa8a",
+      "reference_sha256": "da6ab00f53aa8462da7c1af3f027e086d5e2058c6a40ff621e6703d0f9da6e4b",
+      "duration": 6.0
+    },
+    {
+      "id": "rudevices-43",
+      "source_id": "dc7d5c45-2a8b-44c0-9028-f51c95018b4b",
+      "wav_sha256": "317cc9aa30228a9286ff5c91736c50a97e19a376ffe2d42d405ac0a3622c3654",
+      "reference_sha256": "79b757e0754afc242ef71ad3ab22fdd5dfd6ea54ca9f54bccf0db75a3316c37a",
+      "duration": 4.0799375
+    },
+    {
+      "id": "rudevices-44",
+      "source_id": "f6f03e57-3944-4ea1-9439-55ff9935b237",
+      "wav_sha256": "e9ac49f92210c0c9e72c1f5216318331632ce4d8a7542af3ce84ec461e8bda40",
+      "reference_sha256": "1eaa50e34a66a2921bbf63b1682218e3b01ab3d0cdc8b3c79cea6eb00ecf4330",
+      "duration": 4.14
+    },
+    {
+      "id": "rudevices-45",
+      "source_id": "f7b91852-3993-47a6-a734-a86b1c0f438f",
+      "wav_sha256": "de51c62c71745f73dea17a6b333312344ce024328f0e3b92a8a5866e9f81296a",
+      "reference_sha256": "e4943c5481729d0c439d8ddad74df908f2d0a39ad8af18bc485395c19add7803",
+      "duration": 2.1
+    },
+    {
+      "id": "rudevices-46",
+      "source_id": "f9c7e840-2250-47c9-96a6-7c7bd8b9e1a0",
+      "wav_sha256": "dd720599678349871a8ea79747819f4cd120f19356fac8ceb989eb138b985713",
+      "reference_sha256": "9a6850787f09cdb3bb807217f966a388bb2d3e246de9e948013e760b8a476dfe",
+      "duration": 1.29
+    }
+  ]
+}

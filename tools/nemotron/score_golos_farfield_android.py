@@ -1,4 +1,4 @@
-"""Score frozen Golos farfield Android ASR runs; no diarization claim."""
+"""Score frozen Golos or RuDevices Android ASR runs; no diarization claim."""
 
 import hashlib
 import json
@@ -17,18 +17,24 @@ def sha(path):
 
 def main():
     evidence = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8-sig"))
-    lock = json.loads((ROOT / "tools/fixtures/golos-farfield-android-lock.json")
+    runs = evidence["runs"]
+    suite = runs[0]["suite"]
+    assert suite in {"golos-farfield", "rudevices-tail"}
+    lock_name = ("golos-farfield-android-lock.json" if suite == "golos-farfield"
+                 else "rudevices-tail-android-lock.json")
+    refs_dir = ("golos-farfield-refs" if suite == "golos-farfield"
+                else "rudevices-tail-refs")
+    lock = json.loads((ROOT / "tools/fixtures" / lock_name)
                       .read_text(encoding="utf-8"))
     cases = {case["id"]: case for case in lock["cases"]}
-    assert len(cases) == 30
-    runs = evidence["runs"]
+    assert len(cases) == (30 if suite == "golos-farfield" else 47)
     assert len({(r["case"], r["backend"], r["head"]) for r in runs}) == len(runs)
     totals = {}
     for run in runs:
-        assert run["suite"] == "golos-farfield" and run["case"] in cases
+        assert run["suite"] == suite and run["case"] in cases
         case = cases[run["case"]]
-        wav = ROOT / ".local/androidTestAssets/golos-farfield" / f'{run["case"]}.wav'
-        ref = ROOT / ".local/golos-farfield-refs" / f'{run["case"]}.json'
+        wav = ROOT / ".local/androidTestAssets" / suite / f'{run["case"]}.wav'
+        ref = ROOT / ".local" / refs_dir / f'{run["case"]}.json'
         assert sha(wav) == case["wav_sha256"] == run["audio_sha256"]
         assert sha(ref) == case["reference_sha256"]
         reference = json.loads(ref.read_text(encoding="utf-8"))
