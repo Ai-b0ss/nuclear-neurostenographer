@@ -1,0 +1,1356 @@
+[
+ {
+  "case": "syn3-clean",
+  "set": "phone3",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2109,
+   "attributed_correctly": 2062,
+   "attribution": 0.9777,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 11,
+   "different_correct": 11,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 52,
+   "rate": 0.09615384615384616
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 52,
+   "rate": 0.09615384615384616,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 52,
+   "rate": 0.09615384615384616
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "syn3-brown",
+  "set": "phone3",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2217,
+   "attributed_correctly": 2193,
+   "attribution": 0.9892,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 11,
+   "different_correct": 11,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 37,
+   "rate": 0.10810810810810811
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 2,
+   "reference_words": 37,
+   "rate": 0.05405405405405406
+  },
+  "unattributed_words": 2,
+  "asr_speakers": 3,
+  "unattributed_segments": 2
+ },
+ {
+  "case": "syn4-noise",
+  "set": "phone3",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3194,
+   "attributed_correctly": 3105,
+   "attribution": 0.9721,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 9,
+   "same_correct": 9,
+   "different_pairs": 36,
+   "different_correct": 36,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 76,
+   "rate": 0.09210526315789473
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 76,
+   "rate": 0.09210526315789473
+  },
+  "unattributed_words": 1,
+  "asr_speakers": 4,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s4-r00",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2812,
+   "attributed_correctly": 2736,
+   "attribution": 0.973,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 5,
+   "same_correct": 5,
+   "different_pairs": 23,
+   "different_correct": 23,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 13,
+   "reference_words": 62,
+   "rate": 0.20967741935483872
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 12,
+   "reference_words": 62,
+   "rate": 0.1935483870967742
+  },
+  "unattributed_words": 1,
+  "asr_speakers": 4,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s4-r01",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2967,
+   "attributed_correctly": 2370,
+   "attribution": 0.7988,
+   "split_speakers": [
+    "3"
+   ],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 8,
+   "different_pairs": 37,
+   "different_correct": 37,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 30,
+   "reference_words": 62,
+   "rate": 0.4838709677419355
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 34,
+   "reference_words": 62,
+   "rate": 0.5483870967741935
+  },
+  "unattributed_words": 17,
+  "asr_speakers": 4,
+  "unattributed_segments": 9
+ },
+ {
+  "case": "hold-s4-r30",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2297,
+   "attributed_correctly": 2128,
+   "attribution": 0.9264,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 8,
+   "different_pairs": 37,
+   "different_correct": 37,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 16,
+   "reference_words": 61,
+   "rate": 0.26229508196721313
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 23,
+   "reference_words": 61,
+   "rate": 0.3770491803278688
+  },
+  "unattributed_words": 17,
+  "asr_speakers": 4,
+  "unattributed_segments": 9
+ },
+ {
+  "case": "hold-s4-r39",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2939,
+   "attributed_correctly": 2900,
+   "attribution": 0.9867,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 9,
+   "same_correct": 9,
+   "different_pairs": 36,
+   "different_correct": 36,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 60,
+   "rate": 0.15
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 60,
+   "rate": 0.15,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 9,
+   "reference_words": 60,
+   "rate": 0.15
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r41",
+  "set": "holdout",
+  "hyp_speakers": 2,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3346,
+   "attributed_correctly": 1754,
+   "attribution": 0.5242,
+   "split_speakers": [
+    "2"
+   ],
+   "merged_clusters": [
+    "h0",
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 7,
+   "same_correct": 7,
+   "different_pairs": 29,
+   "different_correct": 18,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 70,
+   "rate": 0.08571428571428572
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 61,
+   "reference_words": 70,
+   "rate": 0.8714285714285714,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 61,
+   "reference_words": 70,
+   "rate": 0.8714285714285714
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 2,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s4-r54",
+  "set": "holdout",
+  "hyp_speakers": 5,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2395,
+   "attributed_correctly": 2088,
+   "attribution": 0.8718,
+   "split_speakers": [
+    "4"
+   ],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 6,
+   "same_correct": 5,
+   "different_pairs": 30,
+   "different_correct": 30,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 59,
+   "rate": 0.1694915254237288
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 13,
+   "reference_words": 59,
+   "rate": 0.22033898305084745
+  },
+  "unattributed_words": 1,
+  "asr_speakers": 5,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s4-r59",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3271,
+   "attributed_correctly": 2837,
+   "attribution": 0.8673,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h2"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 14,
+   "same_correct": 10,
+   "different_pairs": 52,
+   "different_correct": 47,
+   "turns": 12
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 51,
+   "reference_words": 107,
+   "rate": 0.4766355140186916
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 40,
+   "reference_words": 107,
+   "rate": 0.37383177570093457
+  },
+  "unattributed_words": 36,
+  "asr_speakers": 4,
+  "unattributed_segments": 12
+ },
+ {
+  "case": "hold-s5-r19",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3075,
+   "attributed_correctly": 3012,
+   "attribution": 0.9795,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 15,
+   "same_correct": 15,
+   "different_pairs": 40,
+   "different_correct": 40,
+   "turns": 11
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 76,
+   "rate": 0.05263157894736842
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 3,
+   "reference_words": 76,
+   "rate": 0.039473684210526314
+  },
+  "unattributed_words": 1,
+  "asr_speakers": 3,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s5-r21",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1645,
+   "attributed_correctly": 1645,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 1,
+   "same_correct": 1,
+   "different_pairs": 9,
+   "different_correct": 9,
+   "turns": 5
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 38,
+   "rate": 0.10526315789473684
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 38,
+   "rate": 0.10526315789473684,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 38,
+   "rate": 0.10526315789473684
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r24",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2275,
+   "attributed_correctly": 2051,
+   "attribution": 0.9015,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h2"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 8,
+   "different_pairs": 20,
+   "different_correct": 20,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 15,
+   "reference_words": 59,
+   "rate": 0.2542372881355932
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 18,
+   "reference_words": 59,
+   "rate": 0.3050847457627119
+  },
+  "unattributed_words": 11,
+  "asr_speakers": 3,
+  "unattributed_segments": 6
+ },
+ {
+  "case": "hold-s5-r31",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2291,
+   "attributed_correctly": 2229,
+   "attribution": 0.9729,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 12,
+   "same_correct": 12,
+   "different_pairs": 24,
+   "different_correct": 24,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 52,
+   "rate": 0.1346153846153846
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 52,
+   "rate": 0.1346153846153846,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 52,
+   "rate": 0.1346153846153846
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r48",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2183,
+   "attributed_correctly": 1997,
+   "attribution": 0.9148,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 2,
+   "same_correct": 2,
+   "different_pairs": 13,
+   "different_correct": 11,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 0,
+   "reference_words": 46,
+   "rate": 0.0
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 46,
+   "rate": 0.21739130434782608,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 46,
+   "rate": 0.21739130434782608
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s5-r58",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2242,
+   "attributed_correctly": 1986,
+   "attribution": 0.8858,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 5,
+   "same_correct": 5,
+   "different_pairs": 16,
+   "different_correct": 16,
+   "turns": 7
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 20,
+   "reference_words": 49,
+   "rate": 0.40816326530612246
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 16,
+   "reference_words": 49,
+   "rate": 0.32653061224489793
+  },
+  "unattributed_words": 11,
+  "asr_speakers": 3,
+  "unattributed_segments": 7
+ },
+ {
+  "case": "hold-s5-r61",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3014,
+   "attributed_correctly": 2843,
+   "attribution": 0.9433,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 9,
+   "same_correct": 9,
+   "different_pairs": 36,
+   "different_correct": 33,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 13,
+   "reference_words": 81,
+   "rate": 0.16049382716049382
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 17,
+   "reference_words": 81,
+   "rate": 0.20987654320987653
+  },
+  "unattributed_words": 1,
+  "asr_speakers": 3,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s5-r68",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1959,
+   "attributed_correctly": 1959,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 6,
+   "same_correct": 6,
+   "different_pairs": 30,
+   "different_correct": 30,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 44,
+   "rate": 0.09090909090909091
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 44,
+   "rate": 0.09090909090909091,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 4,
+   "reference_words": 44,
+   "rate": 0.09090909090909091
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r01",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2102,
+   "attributed_correctly": 2081,
+   "attribution": 0.99,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 4,
+   "different_pairs": 24,
+   "different_correct": 24,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 2,
+   "reference_words": 44,
+   "rate": 0.045454545454545456
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 0,
+   "reference_words": 44,
+   "rate": 0.0
+  },
+  "unattributed_words": 2,
+  "asr_speakers": 4,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s6-r09",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3313,
+   "attributed_correctly": 2437,
+   "attribution": 0.7356,
+   "split_speakers": [
+    "2",
+    "3"
+   ],
+   "merged_clusters": [
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 25,
+   "same_correct": 11,
+   "different_pairs": 80,
+   "different_correct": 70,
+   "turns": 15
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 58,
+   "reference_words": 102,
+   "rate": 0.5686274509803921
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 69,
+   "reference_words": 102,
+   "rate": 0.6764705882352942
+  },
+  "unattributed_words": 28,
+  "asr_speakers": 4,
+  "unattributed_segments": 15
+ },
+ {
+  "case": "hold-s6-r18",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1847,
+   "attributed_correctly": 1847,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 10,
+   "same_correct": 10,
+   "different_pairs": 35,
+   "different_correct": 35,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 51,
+   "rate": 0.0196078431372549
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 51,
+   "rate": 0.0196078431372549,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 1,
+   "reference_words": 51,
+   "rate": 0.0196078431372549
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r23",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2978,
+   "attributed_correctly": 2869,
+   "attribution": 0.9634,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 19,
+   "same_correct": 19,
+   "different_pairs": 47,
+   "different_correct": 47,
+   "turns": 12
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 33,
+   "reference_words": 82,
+   "rate": 0.4024390243902439
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 28,
+   "reference_words": 82,
+   "rate": 0.34146341463414637
+  },
+  "unattributed_words": 19,
+  "asr_speakers": 3,
+  "unattributed_segments": 10
+ },
+ {
+  "case": "hold-s6-r29",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2371,
+   "attributed_correctly": 2371,
+   "attribution": 1.0,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 10,
+   "same_correct": 10,
+   "different_pairs": 26,
+   "different_correct": 26,
+   "turns": 9
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 51,
+   "rate": 0.11764705882352941
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 51,
+   "rate": 0.11764705882352941,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 51,
+   "rate": 0.11764705882352941
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r38",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2032,
+   "attributed_correctly": 1963,
+   "attribution": 0.966,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 3,
+   "same_correct": 3,
+   "different_pairs": 12,
+   "different_correct": 12,
+   "turns": 6
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 44,
+   "rate": 0.1590909090909091
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 44,
+   "rate": 0.1590909090909091,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 44,
+   "rate": 0.1590909090909091
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r40",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3344,
+   "attributed_correctly": 3259,
+   "attribution": 0.9746,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 17,
+   "same_correct": 17,
+   "different_pairs": 38,
+   "different_correct": 38,
+   "turns": 11
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 82,
+   "rate": 0.08536585365853659
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 82,
+   "rate": 0.08536585365853659,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 7,
+   "reference_words": 82,
+   "rate": 0.08536585365853659
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r47",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3878,
+   "attributed_correctly": 3760,
+   "attribution": 0.9696,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 16,
+   "same_correct": 16,
+   "different_pairs": 62,
+   "different_correct": 62,
+   "turns": 13
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 72,
+   "rate": 0.08333333333333333
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 72,
+   "rate": 0.06944444444444445
+  },
+  "unattributed_words": 1,
+  "asr_speakers": 4,
+  "unattributed_segments": 1
+ },
+ {
+  "case": "hold-s6-r54",
+  "set": "holdout",
+  "hyp_speakers": 3,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 2445,
+   "attributed_correctly": 2378,
+   "attribution": 0.9726,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 12,
+   "same_correct": 12,
+   "different_pairs": 33,
+   "different_correct": 33,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 57,
+   "rate": 0.17543859649122806
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 57,
+   "rate": 0.17543859649122806,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 10,
+   "reference_words": 57,
+   "rate": 0.17543859649122806
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 3,
+  "unattributed_segments": 0
+ },
+ {
+  "case": "hold-s6-r55",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 3689,
+   "attributed_correctly": 3283,
+   "attribution": 0.8899,
+   "split_speakers": [],
+   "merged_clusters": [
+    "h1"
+   ]
+  },
+  "recurrence": {
+   "same_pairs": 8,
+   "same_correct": 8,
+   "different_pairs": 37,
+   "different_correct": 37,
+   "turns": 10
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 26,
+   "reference_words": 90,
+   "rate": 0.28888888888888886
+  },
+  "cpwer": {
+   "status": "NOT_SCORED",
+   "errors": null,
+   "reference_words": null,
+   "rate": null,
+   "reason": "Hypothesis contains unattributed words"
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 24,
+   "reference_words": 90,
+   "rate": 0.26666666666666666
+  },
+  "unattributed_words": 11,
+  "asr_speakers": 4,
+  "unattributed_segments": 5
+ },
+ {
+  "case": "hold-s6-r59",
+  "set": "holdout",
+  "hyp_speakers": 4,
+  "unknown_turns": 0,
+  "speaker": {
+   "frames": 1760,
+   "attributed_correctly": 1621,
+   "attribution": 0.921,
+   "split_speakers": [],
+   "merged_clusters": []
+  },
+  "recurrence": {
+   "same_pairs": 4,
+   "same_correct": 3,
+   "different_pairs": 24,
+   "different_correct": 22,
+   "turns": 8
+  },
+  "der": {
+   "status": "NOT_SCORED",
+   "reason": "NOT_SCORED: dataset labels tile the file, silence included"
+  },
+  "wer": {
+   "status": "SCORED",
+   "errors": 5,
+   "reference_words": 46,
+   "rate": 0.10869565217391304
+  },
+  "cpwer": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 46,
+   "rate": 0.13043478260869565,
+   "reason": null
+  },
+  "cpwer_u": {
+   "status": "SCORED",
+   "errors": 6,
+   "reference_words": 46,
+   "rate": 0.13043478260869565
+  },
+  "unattributed_words": 0,
+  "asr_speakers": 4,
+  "unattributed_segments": 0
+ }
+]

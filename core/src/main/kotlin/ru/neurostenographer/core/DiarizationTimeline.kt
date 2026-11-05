@@ -7,21 +7,42 @@ data class ClusterTurn(val startSeconds: Float, val endSeconds: Float, val clust
 data class AudioWindow(val startMs: Long, val endMs: Long)
 
 object DiarizationTimeline {
-    /** Use detected speech (including short/unknown clusters), not silence gaps,
-     * as ASR input when segmentation has actually run. Missed speech remains a
-     * model false negative; it must not be filled with guessed text.
+    /** Pauses shorter than this stay inside one ASR window. */
+    const val MERGE_GAP_MS = 500L
+
+    /** ASR input when segmentation has actually run: continuous detected speech
+     * (including short/unknown clusters), one window per stretch without a real
+     * pause, never cut at a speaker change. Turn boundaries inside a stretch are
+     * left to word timestamps; stretches over 20 s are split for QuietCuts.refine.
+     * Missed speech remains a model false negative; it must not be filled with guessed text.
      */
-    fun speechWindows(raw: List<ClusterTurn>, audioMs: Long): List<AudioWindow> {
-        canonicalize(raw, audioMs) // validate native intervals
-        val speech = raw.mapNotNull {
-            val start = (it.startSeconds * 1000.0).roundToLong().coerceAtMost(audioMs)
-            val end = (it.endSeconds * 1000.0).roundToLong().coerceAtMost(audioMs)
-            if (end > start) SpeakerTurn(start, end, "speech") else null
+    fun speechWindows(raw: List<ClusterTurn>, audioMs: Long): List<AudioWindow> =
+        speechWindowsOf(canonicalize(raw, audioMs)) // also validates native intervals
+
+    /** The same policy over canonical turns; the parent re-derives it to validate the worker reply. */
+    fun speechWindowsOf(turns: List<SpeakerTurn>): List<AudioWindow> {
+        val spans = mutableListOf<LongArray>()
+        turns.sortedBy { it.startMs }.forEach { turn ->
+            val last = spans.lastOrNull()
+            if (last != null && turn.startMs - last[1] < MERGE_GAP_MS) last[1] = maxOf(last[1], turn.endMs)
+            else spans += longArrayOf(turn.startMs, turn.endMs)
         }
-        return windows(speech, audioMs).filter { window ->
-            speech.any { it.startMs <= window.startMs && it.endMs >= window.endMs }
+        return spans.flatMap { (start, end) ->
+            val out = mutableListOf<AudioWindow>()
+            var at = start
+            while (at < end) {
+                val next = minOf(at + 20_000, end)
+                if (next - at >= 100) out += AudioWindow(at, next)
+                at = next
+            }
+            out
         }
     }
+
+    /** Pre-0.3.2 policy, still used for ASR without word timestamps (CTC build): speech cut at every
+     * turn boundary, so each fragment can be attributed as a whole. */
+    fun turnWindows(turns: List<SpeakerTurn>, audioMs: Long): List<AudioWindow> =
+        windows(turns, audioMs).filter { w -> turns.any { it.startMs <= w.startMs && it.endMs >= w.endMs } }
 
     /** Deterministic first-appearance names, scoped to one complete recording. */
     fun canonicalize(raw: List<ClusterTurn>, audioMs: Long): List<SpeakerTurn> {

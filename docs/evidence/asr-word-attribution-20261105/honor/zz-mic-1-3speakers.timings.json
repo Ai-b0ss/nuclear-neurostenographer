@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "package": "ru.neurostenographer.app",
+  "clip": "zz-mic-1-3speakers.wav",
+  "export": "..\\.local\\phone-0.3.2-final\\zz-mic-1-3speakers\\zz-mic-1-3speakers.phone.json",
+  "wall_s": 71.2,
+  "fragments": 12,
+  "audio_ms": 53700,
+  "model_load_ms": 3949,
+  "asr_ms": 8609,
+  "clusters": 3,
+  "diarization_ms": 6563,
+  "total_ms": 19121,
+  "rtf": 0.36
+}

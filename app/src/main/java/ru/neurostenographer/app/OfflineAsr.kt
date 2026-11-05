@@ -5,9 +5,11 @@ import ru.neurostenographer.core.*
 import java.io.File
 
 data class AsrOutput(val segments: List<TranscriptSegment>, val audioMs: Long,
-    val loadMs: Long, val decodeMs: Long, val decodedWindows: Int = 0)
+    val loadMs: Long, val decodeMs: Long, val decodedWindows: Int = 0, val tokenTimedWindows: Int = 0, val untimedWindows: Int = 0)
 
-/** Owns native resources on one worker. Fragment times are input windows, not word alignments. */
+/** Owns native resources on one worker. With speaker turns, windows follow continuous speech and each
+ * word is attributed by its own token timestamps; a window without usable timestamps (and the
+ * no-diarization path) keeps input-window times and conservative chunk attribution. */
 object OfflineAsr {
     /** CTC (nemo) or NeMo RNNT (transducer); feature settings come from the model metadata in both cases. */
     fun modelConfig(spec: AsrModelSpec, model: File): OfflineModelConfig {
@@ -27,7 +29,14 @@ object OfflineAsr {
                    speechWindows: List<AudioWindow>? = null): AsrOutput {
         require(audio.sampleRate == 16000 && audio.samples.size >= 1600 &&
             audio.samples.size <= PcmWav.MAX_SECONDS * 16000) { "Аудио должно длиться от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
-        val windows = QuietCuts.refine(speechWindows ?: DiarizationTimeline.windows(turns, audio.durationMs), audio.samples)
+        // Token timing is measured for the A3 transducer only (docs/ASR_WORD_ATTRIBUTION_2026-11-05.md);
+        // the CTC build keeps cutting at speaker turns and attributing whole fragments.
+        val wordTimed = AsrModelSpec.ACTIVE.ctcModel == null
+        val windows = QuietCuts.refine(when {
+            speechWindows == null -> DiarizationTimeline.windows(turns, audio.durationMs)
+            wordTimed -> speechWindows
+            else -> DiarizationTimeline.turnWindows(turns, audio.durationMs)
+        }, audio.samples)
         require(windows.all { it.startMs >= 0 && it.endMs <= audio.durationMs && it.endMs - it.startMs in 100..20_000 } &&
             windows.zipWithNext().all { (a, b) -> a.endMs <= b.startMs }) { "Invalid ASR input windows" }
         checkCancelled()
@@ -39,8 +48,10 @@ object OfflineAsr {
         ))
         val loaded = System.nanoTime()
         val chunks = mutableListOf<RecognizedChunk>()
+        val words = mutableListOf<RecognizedWord>()
+        var timed = 0
         try {
-            // Bound Conformer attention memory; cutting words at boundaries is a known baseline limitation.
+            // Bound Conformer attention memory: windows are at most ~22 s, cut at the quietest moment.
             val total = windows.size
             for (index in 0 until total) {
                 checkCancelled()
@@ -54,13 +65,20 @@ object OfflineAsr {
                     stream.acceptWaveform(if (samples.size < 16000) samples.copyOf(16000) else samples, 16000)
                     recognizer.decode(stream)
                     checkCancelled()
-                    val text = recognizer.getResult(stream).text.trim()
-                    if (text.isNotBlank()) chunks += RecognizedChunk(
-                        start * 1000L / 16000, maxOf(start * 1000L / 16000 + 1, end * 1000L / 16000), text)
+                    val result = recognizer.getResult(stream)
+                    val text = result.text.trim()
+                    val startMs = start * 1000L / 16000
+                    val endMs = maxOf(startMs + 1, end * 1000L / 16000)
+                    val tokenWords = if (turns.isEmpty() || text.isBlank() || !wordTimed) null
+                        else TokenWords.words(result.tokens, result.timestamps, startMs, endMs)?.takeIf { it.isNotEmpty() }
+                    if (tokenWords != null) { words += tokenWords; timed++ }
+                    else if (text.isNotBlank()) chunks += RecognizedChunk(startMs, endMs, text)
                 } finally { stream.release() }
             }
         } finally { recognizer.release() }
-        return AsrOutput(TranscriptFusion.mergeReplies(TranscriptFusion.attributeChunks(chunks, turns)), audio.durationMs,
-            (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000, windows.size)
+        val segments = (TranscriptFusion.attributeWords(words, turns) + TranscriptFusion.attributeChunks(chunks, turns))
+            .sortedBy { it.startMs }
+        return AsrOutput(TranscriptFusion.mergeReplies(segments), audio.durationMs,
+            (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000, windows.size, timed, chunks.size)
     }
 }

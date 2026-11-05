@@ -27,7 +27,8 @@ def verify(directory, prefix="dialogue"):
     directory = Path(directory)
     data = json.loads((directory / (prefix + ".json")).read_text(encoding="utf-8"))
     require(data["units"] == "milliseconds" and data["audio_duration_ms"] > 0, 'Export consistency check failed')
-    require(data["provenance"]["timestamp_source"] == "diarization_boundaries_and_input_windows", 'Export consistency check failed')
+    require(data["provenance"]["timestamp_source"] in ("diarization_boundaries_and_input_windows", "asr_token_timestamps",
+                                                     "asr_token_timestamps_and_input_windows"), 'Export consistency check failed')
     require(isinstance(data["warnings"], list) and data["warnings"], 'Export consistency check failed')
     segments = data["segments"]
     require(segments, "Expected nonempty actual public Russian fixture output")

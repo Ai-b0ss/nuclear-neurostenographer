@@ -32,9 +32,7 @@ object DiarizationReply {
         require(windows.zipWithNext().all { (a, b) -> a.endMs <= b.startMs })
         // The same partition policy is used inside the worker. In particular a
         // missing/extra window cannot silently omit speech or decode a silence gap.
-        val expected = DiarizationTimeline.windows(turns, audioMs).filter { w ->
-            turns.any { it.startMs <= w.startMs && it.endMs >= w.endMs }
-        }
+        val expected = DiarizationTimeline.speechWindowsOf(turns)
         require(windows == expected) { "Worker speech windows disagree with turns" }
         return Validated(turns, windows)
     }
