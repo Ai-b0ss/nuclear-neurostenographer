@@ -194,13 +194,18 @@ data class TranscriptDocument(val segments: List<TranscriptSegment>, val audioMs
         require(audioMs > 0 && segments.all { it.endMs <= audioMs })
         require(segments.zipWithNext().all { (a, b) -> a.startMs <= b.startMs })
     }
-    /** [speakerNames] maps a stable id ("Speaker N") to a name the user typed; TXT/SRT show it, JSON adds `speaker_name`. */
-    fun export(format: String, speakerNames: Map<String, String> = emptyMap()): String = when (format) {
-        "json" -> TranscriptExport.json(segments, provenance, audioMs, warnings, speakerNames)
-        "srt" -> TranscriptExport.srt(segments, speakerNames)
-        "txt" -> TranscriptExport.header(segments, audioMs) + "\n" +
-            warnings.joinToString("") { "Примечание: $it\n" } + "\n" + TranscriptExport.txt(segments, speakerNames)
-        else -> error("Неизвестный формат экспорта")
+    /** [speakerNames] maps a stable id ("Speaker N") to a name the user typed; TXT/SRT show it, JSON adds `speaker_name`.
+     * [termEdits] are accepted B0 spelling edits (TermDictionary): TXT/SRT show the edited text, JSON keeps the raw ASR
+     * `text` and adds `text_edited` to the segments that changed. */
+    fun export(format: String, speakerNames: Map<String, String> = emptyMap(), termEdits: List<TermEdit> = emptyList()): String {
+        val edited = TermDictionary.apply(segments, termEdits)
+        return when (format) {
+            "json" -> TranscriptExport.json(segments, provenance, audioMs, warnings, speakerNames, edited)
+            "srt" -> TranscriptExport.srt(edited, speakerNames)
+            "txt" -> TranscriptExport.header(segments, audioMs) + "\n" +
+                warnings.joinToString("") { "Примечание: $it\n" } + "\n" + TranscriptExport.txt(edited, speakerNames)
+            else -> error("Неизвестный формат экспорта")
+        }
     }
 }
 
@@ -257,7 +262,7 @@ object TranscriptExport {
         }.joinToString("\n\n")
     fun json(items: List<TranscriptSegment>, provenance: TranscriptProvenance? = null,
              audioMs: Long? = null, warnings: List<String> = emptyList(),
-             names: Map<String, String> = emptyMap()): String =
+             names: Map<String, String> = emptyMap(), edited: List<TranscriptSegment> = items): String =
         "{\n  \"version\": 1,\n  \"units\": \"milliseconds\",\n" +
             (audioMs?.let { "  \"audio_duration_ms\": $it,\n" } ?: "") +
             "  \"warnings\": [" + warnings.joinToString(", ", transform = ::jsonString) + "],\n" +
@@ -267,12 +272,14 @@ object TranscriptExport {
                 ", \"speaker_source\": " + jsonString(it.speakerSource) +
                 (it.runtimeSha256?.let { sha -> ", \"runtime_sha256\": " + jsonString(sha) } ?: "") + "},\n" } ?: "") +
             "  \"segments\": [\n" +
-            items.joinToString(",\n") {
+            items.withIndex().joinToString(",\n") { (index, it) ->
+                val fixed = edited.getOrNull(index)?.text?.takeIf { t -> t != it.text }
                 "    {\"start_ms\": " + it.startMs + ", \"end_ms\": " + it.endMs +
                     ", \"speaker_id\": " + (it.speakerId?.let(::jsonString) ?: "null") +
                     (it.speakerId?.let { id -> names[id]?.trim()?.takeIf(String::isNotEmpty) }
                         ?.let { name -> ", \"speaker_name\": " + jsonString(name) } ?: "") +
-                    ", \"text\": " + jsonString(it.text) + ", \"overlapping_speech\": " +
+                    ", \"text\": " + jsonString(it.text) + (fixed?.let { t -> ", \"text_edited\": " + jsonString(t) } ?: "") +
+                    ", \"overlapping_speech\": " +
                     it.overlappingSpeech + ", \"attribution_reliable\": " + it.attributionReliable + "}"
             } + "\n  ]\n}\n"
 }
