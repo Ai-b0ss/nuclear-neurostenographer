@@ -50,10 +50,10 @@ an external research reference, but it has not been run on this corpus.
 [MOSS-Transcribe-Diarize 0.9B](https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize)
 supports joint text, speaker tags and timestamps in Russian and is much
 smaller. The published checkpoint is BF16 (about 1.8 GB for weights alone);
-community quantizations exist, but this Android C++ runtime has no validated
-implementation for its encoder/LLM pair. Its phone memory, latency and Russian
-cpWER/DER remain unmeasured. It is a worthwhile separate candidate only after
-an Android ARM64 runtime and identical-corpus evaluation exist.
+community quantizations exist. A subsequent [standalone Android C++ Q4
+probe](MOSS_Q4_ANDROID_PROBE_2026-11-05.md) measured two Russian WAVs; it
+improved one word on the harder file but remained much slower than A0. App
+integration, HONOR ARM64 latency and Russian cpWER/DER remain unmeasured.
 
 [VibeVoice-ASR-BitNet and its C++ runtime](https://github.com/microsoft/VibeASR.cpp)
 reduce the model to 1.58 GB and report CPU inference, but the weight size is
