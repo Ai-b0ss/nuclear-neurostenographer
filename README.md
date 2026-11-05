@@ -1,9 +1,10 @@
 # Nuclear Neurostenographer
 
-**Project status 2026-11-04:** [repository/PR audit](docs/REPOSITORY_AUDIT_2026-11-04.md) · [ASR model experiment handoff](docs/ASR_MODEL_HANDOFF_2026-11-04.md). The integration PR remains draft; no automatic merge to main.
-
-
-> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [docs/RELEASE_READINESS_2026-11-04.md](docs/RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+**Текущий статус (05.11.2026): [v0.3.3-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.3-contest)** — подписанный APK (arm64 + x86_64), модели внутри: GigaAM v3 e2e RNN-T int8 с пунктуацией (A3) + диаризация Nemotron C2, полностью офлайн. Проверено на физическом HONOR 10X Lite.
+- 0.3.2: окна ASR по сплошной речи, слова раскладываются по говорящим по меткам времени токенов A3. 29 размеченных дорожек: WER 20,9 % → 16,8 %, cpWER-U 24,7 % → 23,8 % (не хуже). Подробно: [docs/ASR_WORD_ATTRIBUTION_2026-11-05.md](docs/ASR_WORD_ATTRIBUTION_2026-11-05.md).
+- 0.3.3: обратимый словарь написания терминов (B0), правки только с согласия пользователя. Подробно: [docs/TERM_DICTIONARY_B0_2026-11-05.md](docs/TERM_DICTIONARY_B0_2026-11-05.md).
+- Открыто: повторная запись через микрофон на 0.3.2+; натуральная речь с ручной разметкой (issue #5); выравнивание страниц 16 КБ для ORT Java (C2) не решено.
+- Всё ниже — история испытаний, а не текущий статус.
 
 [![Integration branch Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg?branch=feature%2Flong-recordings)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml?query=branch%3Afeature%2Flong-recordings)
 
