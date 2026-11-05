@@ -9,6 +9,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.neurostenographer.core.PcmWav
+import ru.neurostenographer.core.SpeakerTurn
+import ru.neurostenographer.core.TranscriptSegment
 import java.io.File
 import java.security.MessageDigest
 import java.util.concurrent.atomic.AtomicBoolean
@@ -19,6 +21,36 @@ import kotlin.concurrent.thread
 class C2LongAsrProbeTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
+
+    private fun unknownReasons(segments: List<TranscriptSegment>, turns: List<SpeakerTurn>): JSONObject {
+        val counts = linkedMapOf("no_turn" to 0, "overlap" to 0,
+            "ineligible_turn" to 0, "low_coverage_or_margin" to 0,
+            "overlap_at_most_100ms" to 0)
+        for (segment in segments.filter { it.speakerId == null }) {
+            val intersecting = turns.filter { it.startMs < segment.endMs && it.endMs > segment.startMs }
+            val reason = when {
+                intersecting.isEmpty() -> "no_turn"
+                segment.overlappingSpeech -> "overlap"
+                intersecting.any { !it.attributionEligible } -> "ineligible_turn"
+                else -> "low_coverage_or_margin"
+            }
+            counts[reason] = counts.getValue(reason) + 1
+            if (reason == "overlap" && intersecting.all { it.attributionEligible }) {
+                val bySpeaker = intersecting.groupBy { it.speakerId }
+                val names = bySpeaker.keys.toList()
+                var overlapMs = 0L
+                for (i in names.indices) for (j in i + 1 until names.size) {
+                    for (a in bySpeaker.getValue(names[i])) for (b in bySpeaker.getValue(names[j])) {
+                        overlapMs += (minOf(segment.endMs, a.endMs, b.endMs) -
+                            maxOf(segment.startMs, a.startMs, b.startMs)).coerceAtLeast(0)
+                    }
+                }
+                if (overlapMs in 1L..100L) counts["overlap_at_most_100ms"] =
+                    counts.getValue("overlap_at_most_100ms") + 1
+            }
+        }
+        return JSONObject(counts as Map<*, *>)
+    }
 
     private fun samplePss(worker: AtomicInteger, active: AtomicBoolean,
                           peak: IntArray): Thread {
@@ -120,11 +152,23 @@ class C2LongAsrProbeTest {
             val textDigest = MessageDigest.getInstance("SHA-256").digest(
                 output.segments.joinToString("\n") { it.text }.toByteArray(Charsets.UTF_8))
                 .joinToString("") { "%02x".format(it) }
+            val wordSequence = output.segments.joinToString(" ") { it.text }
+                .trim().replace(Regex("\\s+"), " ")
+            val wordDigest = MessageDigest.getInstance("SHA-256").digest(
+                wordSequence.toByteArray(Charsets.UTF_8))
+                .joinToString("") { "%02x".format(it) }
+            fun wordCount(items: List<TranscriptSegment>): Int = items.sumOf {
+                it.text.trim().split(Regex("\\s+")).count(String::isNotEmpty)
+            }
             root.put(mode, JSONObject().put("windows", windows.size)
                 .put("decoded_windows", output.decodedWindows)
                 .put("segments", output.segments.size)
                 .put("attributed_segments", output.segments.count { it.speakerId != null })
+                .put("word_count", wordCount(output.segments))
+                .put("unattributed_words", wordCount(output.segments.filter { it.speakerId == null }))
+                .put("unknown_reasons", unknownReasons(output.segments, padded.turns))
                 .put("text_sha256", textDigest)
+                .put("word_sequence_sha256", wordDigest)
                 .put("asr_load_ms", output.loadMs).put("asr_decode_ms", output.decodeMs)
                 .put("asr_wall_ms", (System.nanoTime() - started) / 1_000_000)
                 .put("peak_app_pss_kib", appPeak[0]))
