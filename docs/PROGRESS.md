@@ -2,6 +2,31 @@
 
 > **Обновлено 05.11.2026:** текущий выпуск — [v0.3.3-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.3-contest) (A3 + C2, подписан, проверен на HONOR). Ниже — история.
 
+## 2026-11-06 — отдельный QA на физическом HONOR
+
+- В текущем repo, ветка `qa/honor-acceptance-20261106`, локальный код-коммит
+  `c05127c366511ad50fa2d41f8cbf4c9c83021a08`; без нового worktree/push/merge.
+  Выборочно проверены и перенесены QA/C2 safety fixes из `4214d104`.
+- **PASS**: 16 core groups, app + AndroidTest build; реальный HONOR ARM64:
+  исходные `OK (3 tests)` и расширенные `OK (4 tests)`. 2/3/4 speakers,
+  A-B-A, licensed acted DEV, silence/corrupt inputs, 15 TXT/JSON/SRT exports,
+  C2 replacement при активном 120 s worker без удаления прежней generation,
+  worker death/cancel/recovery, настоящий микрофон 19.940 s + 1.940 s.
+  Акустический публичный probe MIC→C2→A3: 4 контрольных слова / 3 segments.
+- Stable `ru.neurostenographer.app` 0.3.3-contest сохранён; before/after APK SHA
+  совпал. Обновлены только `.solhigh` и `.solhigh.test`, подписи/installed hashes
+  проверены; uninstall/data clear/settings changes не выполнялись.
+- Наибольший sampled total PSS 1071503 KiB (instrumentation suite, не release
+  benchmark), worker отдельно 387062 KiB; 36→38 °C при питании. В собранных
+  QA PID logs нет FATAL/ANR; intentional worker SIGKILL учтён отдельно.
+- **NOT_READY для полной приёмки**: системный picker закрыт Huawei App Lock,
+  пароль не обходился; UI SAF import/export **NOT_RUN**. Human-gold accuracy
+  **NOT_SCORED**; Unknown в noise и acted DEV не скрыт за общим speaker-count
+  PASS. Screen-off, новая длинная full-pipeline запись и 16 KiB device **NOT_RUN**.
+  Новый CI **NOT_RUN** без push. Raw evidence/APK/audio сохранены только в `.local`.
+- [Полный отчёт с hashes, ошибками ранних проверок и командами](HONOR_ACCEPTANCE_2026-11-06.md),
+  [публичный агрегат](evidence/honor-acceptance-20261106/summary.json).
+
 ## 2026-11-05 — 0.3.2 и 0.3.3 в main
 
 - PR #24 (0.3.2, merge `53455c3`): окна ASR по сплошной речи вместо нарезки на каждой смене говорящего; слова по говорящим по меткам токенов A3 (`TokenWords` + `TranscriptFusion.attributeWords`); имя экспорта больше не режется на точке в «нояб.». 29 дорожек, парный bootstrap: WER 379 → 304 из 1812 (ДИ −6,4…−2,1 п.п.), cpWER-U 448 → 431 (−2,1…+0,1). HONOR: проверки UI и экспорта пройдены, 20 мин RTF 0,45. Детали: [ASR_WORD_ATTRIBUTION_2026-11-05.md](ASR_WORD_ATTRIBUTION_2026-11-05.md).

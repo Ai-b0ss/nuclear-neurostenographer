@@ -1,0 +1,317 @@
+{
+  "date": "2026-11-06",
+  "source_commit": "c05127c366511ad50fa2d41f8cbf4c9c83021a08",
+  "baseline_main": "a10dd3954a1a53aaf749f7ef7696bf6446cc42f4",
+  "verdict": "DEVICE_PIPELINE_PASS_FULL_ACCEPTANCE_INCOMPLETE",
+  "device": {
+    "model": "HONOR DNN-LX9",
+    "android_api": 29,
+    "abi": "arm64-v8a",
+    "page_size": 4096,
+    "airplane_mode": 1,
+    "wifi_on": 0,
+    "network_settings_modified": false
+  },
+  "packages": {
+    "stable": {
+      "id": "ru.neurostenographer.app",
+      "version": "0.3.3-contest",
+      "version_code": 6,
+      "sha256_before_and_after": "5ba1f0c5545f48f21a3eb1dcd9da869c5a234c0e2c8395d3fb610019754d3bb0",
+      "replaced_or_cleared": false
+    },
+    "qa": {
+      "id": "ru.neurostenographer.app.solhigh",
+      "installed_sha256": "01edec85369562f786c62ea5964ddf08f0fd48bda2c5b876f2764625a1bbe42a",
+      "rebuilt_sha256": "fb79aa976a8ad61bc530a5abdbbf716f276b946ef662e28841e75bf441593dc0",
+      "zip_entries_identical": true,
+      "internet_permission": false
+    },
+    "test": {
+      "id": "ru.neurostenographer.app.solhigh.test",
+      "installed_sha256": "1671f34c936fdf811c09ee9539932ab9fb3a576b88a2403f110fb41bf5e92ebb",
+      "bytes": 215111460
+    }
+  },
+  "build": {
+    "status": "PASS",
+    "core_groups": 16,
+    "gradle_tasks": 73,
+    "final_wall_seconds": 39,
+    "ci_new_commit": "NOT_RUN_NO_PUSH"
+  },
+  "instrumentation": {
+    "original": {
+      "status": "PASS",
+      "tests": 3,
+      "seconds": 70.659
+    },
+    "extended": {
+      "status": "PASS",
+      "tests": 4,
+      "seconds": 148.557,
+      "success_statuses": 4
+    }
+  },
+  "fixtures": [
+    {
+      "fixture": "aba.wav",
+      "input_sha256": "300e7ef28c6caf93395af9be07fd3df0a850cbe6797c8416bd57489aaec143a7",
+      "audio_ms": 12950,
+      "wall_ms": 14049,
+      "expected_fixture_speakers": 2,
+      "observed_speakers": 2,
+      "speaker_count_gate": "PASS",
+      "segments": 3,
+      "timestamp_source": "asr_token_timestamps",
+      "input_sha256_verified": true,
+      "wer": {
+        "errors": 1,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          }
+        ]
+      },
+      "der": {
+        "status": "NOT_SCORED",
+        "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+      },
+      "independent_exports": "PASS",
+      "unknown_segments": 0,
+      "recurrence": "PASS_SPEAKER_1_SPEAKER_2_SPEAKER_1"
+    },
+    {
+      "fixture": "syn3-clean.wav",
+      "input_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+      "audio_ms": 33507,
+      "wall_ms": 19351,
+      "expected_fixture_speakers": 3,
+      "observed_speakers": 3,
+      "speaker_count_gate": "PASS",
+      "segments": 7,
+      "timestamp_source": "asr_token_timestamps",
+      "input_sha256_verified": true,
+      "wer": {
+        "errors": 3,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          },
+          {
+            "reference": "3",
+            "hypothesis": "Speaker 3"
+          }
+        ]
+      },
+      "der": {
+        "status": "NOT_SCORED",
+        "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+      },
+      "independent_exports": "PASS",
+      "unknown_segments": 0
+    },
+    {
+      "fixture": "syn4-noise.wav",
+      "input_sha256": "939648072d210ef99b1d6b1866110997852a53239d63989b78cbb2b267a70d49",
+      "audio_ms": 57324,
+      "wall_ms": 26257,
+      "expected_fixture_speakers": 4,
+      "observed_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "segments": 13,
+      "timestamp_source": "asr_token_timestamps",
+      "input_sha256_verified": true,
+      "wer": {
+        "errors": 12,
+        "substitutions": 9,
+        "deletions": 2,
+        "insertions": 1,
+        "reference_words": 76,
+        "rate": 0.15789473684210525,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "NOT_SCORED",
+        "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+      },
+      "independent_exports": "PASS",
+      "unknown_segments": 1
+    },
+    {
+      "fixture": "silence.wav",
+      "input_sha256": "190415015d40eef0cd797e1b59ffe00846b01873050b12d44b3a216de3faa2a9",
+      "audio_ms": 8000,
+      "wall_ms": 5316,
+      "expected_fixture_speakers": 0,
+      "observed_speakers": 0,
+      "speaker_count_gate": "PASS",
+      "segments": 0,
+      "timestamp_source": "diarization_boundaries_and_input_windows",
+      "input_sha256_verified": true,
+      "independent_exports": "EMPTY_SILENCE_EXACT_EXPORTS_VERIFIED_ON_DEVICE"
+    },
+    {
+      "fixture": "acted-dev.wav",
+      "input_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+      "audio_ms": 19655,
+      "wall_ms": 14469,
+      "expected_fixture_speakers": 2,
+      "observed_speakers": 2,
+      "speaker_count_gate": "PASS",
+      "segments": 7,
+      "timestamp_source": "asr_token_timestamps",
+      "input_sha256_verified": true,
+      "wer": {
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "reference_words": 41,
+        "rate": 0.0,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "NOT_SCORED",
+        "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+      },
+      "independent_exports": "PASS",
+      "unknown_segments": 2
+    }
+  ],
+  "active_model_replacement": {
+    "status": "PASS",
+    "worker_active_at_publication": true,
+    "old_model_hash_preserved": true,
+    "audio_ms": 120000,
+    "turns": 45,
+    "device_scope": "physical_ARM64_QA"
+  },
+  "worker_lifecycle": {
+    "status": "PASS",
+    "injected_worker_death": true,
+    "cancellation": true,
+    "recovery_silence_empty": true,
+    "staged_cleanup": true,
+    "device_scope": "physical_ARM64_QA"
+  },
+  "microphone": {
+    "platform": {
+      "status": "PASS",
+      "runs": [
+        {
+          "requested_ms": 20000,
+          "duration_ms": 19940,
+          "rate_hz": 16000,
+          "wav_bytes": 638124
+        },
+        {
+          "requested_ms": 2000,
+          "duration_ms": 1940,
+          "rate_hz": 16000,
+          "wav_bytes": 62124
+        }
+      ],
+      "speech_accuracy": "NOT_SCORED",
+      "scope": "real_platform_capture_not_acoustic_accuracy",
+      "device_scope": "physical_ARM64_QA"
+    },
+    "acoustic": {
+      "probe_keywords_matched": 4,
+      "segments": 3,
+      "audio_ms": 19940,
+      "status": "PASS",
+      "human_accuracy": "NOT_SCORED",
+      "device_scope": "physical_ARM64_QA"
+    },
+    "ui_background_recording_ms": 73700,
+    "host_playback_acoustic_result": "NOT_HEARD_DO_NOT_COUNT_AS_SPEECH_PASS"
+  },
+  "memory": {
+    "app_pss_kib": 1071503,
+    "worker_pss_kib": 387062,
+    "sampled_total_pss_kib": 1071503,
+    "samples": 61,
+    "sample_interval_seconds": 2,
+    "scope": "sequential_per_PID_reads_in_one_sampling_round_not_sum_of_independent_peaks",
+    "peak_round_duration_ms": 470
+  },
+  "logs": {
+    "observed_pid_log_files": 11,
+    "fatal_or_anr_matches": 0,
+    "qa_record_in_lastanr": false,
+    "scope": "sampled_QA_PIDs_and_lastANR_snapshot_only",
+    "intentional_worker_SIGKILL": true
+  },
+  "battery": {
+    "level_before_and_after": 100,
+    "temperature_before_c": 36,
+    "temperature_after_c": 38,
+    "charging": true,
+    "thermal_stress": "NOT_RUN"
+  },
+  "blocked": {
+    "SAF_import_export_UI": "NOT_RUN_HUAWEI_APP_LOCK_PASSWORD_REQUIRED",
+    "screen_off_recording": "NOT_RUN",
+    "natural_human_gold_accuracy": "NOT_SCORED",
+    "16KiB_runtime": "NOT_RUN_ON_4KiB_DEVICE_KNOWN_ORT_JNI_ALIGNMENT_DEFECT"
+  },
+  "privacy": {
+    "raw_audio_logs_transcripts_apks": "IGNORED_LOCAL_ONLY",
+    "serial_in_public_evidence": false,
+    "uninstall_or_data_clear": false,
+    "push_or_merge": false
+  }
+}
