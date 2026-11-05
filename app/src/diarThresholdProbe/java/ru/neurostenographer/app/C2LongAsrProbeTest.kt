@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert.assertTrue
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.neurostenographer.core.PcmWav
 import java.io.File
@@ -14,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 
-/** Opt-in 20-minute natural-call C2 + A0 paired window policy probe on the 4 GiB emulator. */
+/** Opt-in 20-minute natural-call C2 + A0/A3 probe on the 4 GiB emulator. */
 class C2LongAsrProbeTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
@@ -38,8 +39,32 @@ class C2LongAsrProbeTest {
 
     @Test fun longRecordingPairedPolicy(): Unit = runBlocking {
         val assets = instrumentation.context.assets
+        val head = InstrumentationRegistry.getArguments().getString("head") ?: "a0"
+        require(head in setOf("a0", "a3"))
         val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
-        val asr = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
+        val asr = if (head == "a0") {
+            assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
+        } else {
+            File(context.filesDir, "asr-rnnt-v3").also { dir ->
+                val hashes = mapOf(
+                    "encoder.int8.onnx" to "0ec54e5f130a91c0f228d21795ede10b31c992a1f73e45dcd827e843a71a9b50",
+                    "decoder.onnx" to "5d1cfef155d8e07f213bd2f3229b5f6c5c29355c7fa5c1b9eb62cb1925725254",
+                    "joiner.onnx" to "fd1d02f45c2ad3d6b67cc149811ad794ab4b020ed49a0a9e2790a8619d1cddd8",
+                    "tokens.txt" to "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2")
+                for ((name, expected) in hashes) {
+                    val digest = MessageDigest.getInstance("SHA-256")
+                    File(dir, name).inputStream().use { input ->
+                        val buffer = ByteArray(1024 * 1024)
+                        while (true) {
+                            val count = input.read(buffer)
+                            if (count < 0) break
+                            digest.update(buffer, 0, count)
+                        }
+                    }
+                    assertEquals(expected, digest.digest().joinToString("") { "%02x".format(it) })
+                }
+            }
+        }
         val digest = MessageDigest.getInstance("SHA-256")
         assets.open("nemotron-bench/natural-long-ru_000010.wav").use { input ->
             val buffer = ByteArray(1024 * 1024)
@@ -53,8 +78,10 @@ class C2LongAsrProbeTest {
         val audio = assets.open("nemotron-bench/natural-long-ru_000010.wav").use { PcmWav.read(it) }
         assertTrue(hash == "e9933e55693151a6f2c5d0f34188348d62053b66a70d9dad0dd25ffd3a408df5")
         assertTrue(audio.durationMs == 1_200_000L)
-        val evidence = File(context.filesDir, "c2-natural-long-asr-evidence.json")
+        val evidence = File(context.filesDir, if (head == "a0") "c2-natural-long-asr-evidence.json"
+            else "c2-natural-long-a3-evidence.json")
         val root = JSONObject().put("audio_sha256", hash).put("audio_ms", audio.durationMs)
+            .put("head", head)
             .put("source", "datahiveai/multilingual-conversations-sample:ru_000010:0-1200s")
         val worker = AtomicInteger(0)
         val active = AtomicBoolean(true)
@@ -76,13 +103,16 @@ class C2LongAsrProbeTest {
         val padded = C2BoundaryPadding.apply(raw, audio.durationMs)
         val merged = C2WindowMerge.apply(padded.windows, padded.turns)
         assertTrue(merged.size <= padded.windows.size)
-        for ((mode, windows) in listOf("pad150" to padded.windows, "merge400" to merged)) {
+        val policies = if (head == "a0") listOf("pad150" to padded.windows,
+            "merge400" to merged) else listOf("merge400" to merged)
+        for ((mode, windows) in policies) {
             val appActive = AtomicBoolean(true)
             val appPeak = IntArray(3)
             val appSampler = samplePss(AtomicInteger(0), appActive, appPeak)
             val started = System.nanoTime()
             val output = try {
-                OfflineAsr.transcribe(audio, asr, turns = padded.turns, speechWindows = windows)
+                OfflineAsr.transcribe(audio, asr, turns = padded.turns, speechWindows = windows,
+                    threads = if (head == "a3") 2 else InferenceThreads.count())
             } finally {
                 appActive.set(false)
                 appSampler.join()
