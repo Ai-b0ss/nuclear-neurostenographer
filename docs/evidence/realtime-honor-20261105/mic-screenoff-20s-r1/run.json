@@ -1,0 +1,11 @@
+{
+  "status": "FAIL",
+  "method": "ru.neurostenographer.app.RealtimeDeviceTest#foregroundMicrophoneScreenOff",
+  "clip": "syn3-clean",
+  "pause": "500",
+  "fallback": false,
+  "paced": true,
+  "wall_s": 27.665,
+  "utc": "2026-11-05T15:17:13.013435+00:00",
+  "adb_exit": 255
+}

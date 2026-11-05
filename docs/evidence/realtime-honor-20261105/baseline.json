@@ -1,0 +1,232 @@
+{
+  "utc": "2026-11-05T14:33:05.133122+00:00",
+  "scope": "READ_ONLY_DEVICE_BASELINE",
+  "commands": [
+    {
+      "argv": [
+        "get-state"
+      ],
+      "exit": 0,
+      "output": "device\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "getprop",
+        "ro.product.model"
+      ],
+      "exit": 0,
+      "output": "DNN-LX9\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "getprop",
+        "ro.build.version.sdk"
+      ],
+      "exit": 0,
+      "output": "29\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "getprop",
+        "ro.product.cpu.abi"
+      ],
+      "exit": 0,
+      "output": "arm64-v8a\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "getconf",
+        "PAGE_SIZE"
+      ],
+      "exit": 0,
+      "output": "4096\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "battery"
+      ],
+      "exit": 0,
+      "output": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 1000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4370\n  temperature: 350\n  technology: Li-poly\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "thermalservice"
+      ],
+      "exit": 0,
+      "output": "IsStatusOverride: false\nThermalEventListeners:\n\tcallbacks: 1\n\tkilled: false\n\tbroadcasts count: -1\nThermalStatusListeners:\n\tcallbacks: 1\n\tkilled: false\n\tbroadcasts count: -1\nThermal Status: 0\nCached temperatures:\n\tTemperature{mValue=38.0, mType=1, mName=gpu, mStatus=0}\n\tTemperature{mValue=38.0, mType=0, mName=cluster0, mStatus=0}\n\tTemperature{mValue=41.0, mType=0, mName=cluster1, mStatus=0}\n\tTemperature{mValue=29.0, mType=2, mName=Battery, mStatus=0}\n\tTemperature{mValue=18.85, mType=3, mName=system_h, mStatus=0}\nHAL Ready: true\nHAL connection:\n\tThermalHAL 1.0 connected: yes\nCurrent temperatures from HAL:\n\tTemperature{mValue=34.0, mType=1, mName=gpu, mStatus=0}\n\tTemperature{mValue=22.5, mType=3, mName=system_h, mStatus=0}\n\tTemperature{mValue=35.0, mType=0, mName=cluster0, mStatus=0}\n\tTemperature{mValue=35.0, mType=0, mName=cluster1, mStatus=0}\n\tTemperature{mValue=35.0, mType=2, mName=Battery, mStatus=0}\nCurrent cooling devices from HAL:\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "df",
+        "-h",
+        "/data"
+      ],
+      "exit": 0,
+      "output": "Filesystem            Size  Used Avail Use% Mounted on\n/dev/block/mmcblk0p74 109G   77G   32G  71% /data\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "cat",
+        "/proc/meminfo"
+      ],
+      "exit": 0,
+      "output": "MemTotal:        3767300 kB\nMemFree:          363072 kB\nMemAvailable:    1605556 kB\nBuffers:            4556 kB\nCached:          1339196 kB\nSwapCached:        24472 kB\nActive:          1040640 kB\nInactive:        1004700 kB\nActive(anon):     384852 kB\nInactive(anon):   324864 kB\nActive(file):     655788 kB\nInactive(file):   679836 kB\nUnevictable:         284 kB\nMlocked:             284 kB\nSwapTotal:       2293756 kB\nSwapFree:         846512 kB\nDirty:                 0 kB\nWriteback:             0 kB\nAnonPages:        698904 kB\nMapped:           697280 kB\nShmem:              8024 kB\nSlab:             300988 kB\nSReclaimable:     105152 kB\nSUnreclaim:       195836 kB\nKernelStack:       61056 kB\nPageTables:        82720 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     4177404 kB\nCommitted_AS:   90097084 kB\nVmallocTotal:   263061440 kB\nVmallocUsed:           0 kB\nVmallocChunk:          0 kB\nCmaTotal:         458752 kB\nCmaFree:               0 kB\nIonTotalCache:         0 kB\nIonTotalUsed:     166832 kB\nRsvTotalUsed:     276484 kB\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "settings",
+        "get",
+        "global",
+        "airplane_mode_on"
+      ],
+      "exit": 0,
+      "output": "1\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "settings",
+        "get",
+        "global",
+        "wifi_on"
+      ],
+      "exit": 0,
+      "output": "0\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "settings",
+        "get",
+        "global",
+        "bluetooth_on"
+      ],
+      "exit": 0,
+      "output": "1\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,NAME"
+      ],
+      "exit": 0,
+      "output": "  PID NAME                       \n25853 ru.neurostenographer.app"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "package",
+        "ru.neurostenographer.app"
+      ],
+      "exit": 0,
+      "output": "Activity Resolver Table:\n  Non-Data Actions:\n      android.intent.action.MAIN:\n        d629bc2 ru.neurostenographer.app/.MainActivity filter 2cd46a9\n          Action: \"android.intent.action.MAIN\"\n          Category: \"android.intent.category.LAUNCHER\"\n\nReceiver Resolver Table:\n  Non-Data Actions:\n      androidx.profileinstaller.action.SAVE_PROFILE:\n        87d9dd3 ru.neurostenographer.app/androidx.profileinstaller.ProfileInstallReceiver filter 290395c\n          Action: \"androidx.profileinstaller.action.SAVE_PROFILE\"\n      androidx.profileinstaller.action.INSTALL_PROFILE:\n        87d9dd3 ru.neurostenographer.app/androidx.profileinstaller.ProfileInstallReceiver filter ca4c42e\n          Action: \"androidx.profileinstaller.action.INSTALL_PROFILE\"\n      androidx.profileinstaller.action.SKIP_FILE:\n        87d9dd3 ru.neurostenographer.app/androidx.profileinstaller.ProfileInstallReceiver filter f81bbcf\n          Action: \"androidx.profileinstaller.action.SKIP_FILE\"\n      androidx.profileinstaller.action.BENCHMARK_OPERATION:\n        87d9dd3 ru.neurostenographer.app/androidx.profileinstaller.ProfileInstallReceiver filter 20aa465\n          Action: \"androidx.profileinstaller.action.BENCHMARK_OPERATION\"\n\nPermissions:\n  Permission [ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (19179ed):\n    sourcePackage=ru.neurostenographer.app\n    uid=10352 gids=null type=0 prot=signature\n    perm=Permission{7c4ad10 ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}\n    packageSetting=PackageSetting{dd9aab3 ru.neurostenographer.app/10352}\n\nRegistered ContentProviders:\n  ru.neurostenographer.app/androidx.startup.InitializationProvider:\n    Provider{5d8c009 ru.neurostenographer.app/androidx.startup.InitializationProvider}\n\nContentProvider Authorities:\n  [ru.neurostenographer.app.androidx-startup]:\n    Provider{5d8c009 ru.neurostenographer.app/androidx.startup.InitializationProvider}\n      applicationInfo=ApplicationInfo{7c2b20e ru.neurostenographer.app}\n\nKey Set Manager:\n  [ru.neurostenographer.app]\n      Signing KeySets: 320\n\nPackages:\n  Package [ru.neurostenographer.app] (dd9aab3):\n    userId=10352\n    pkg=Package{81d5144 ru.neurostenographer.app}\n    codePath=/data/app/ru.neurostenographer.app-EJ4935seOr-4IKj72dFypQ==\n    resourcePath=/data/app/ru.neurostenographer.app-EJ4935seOr-4IKj72dFypQ==\n    legacyNativeLibraryDir=/data/app/ru.neurostenographer.app-EJ4935seOr-4IKj72dFypQ==/lib\n    primaryCpuAbi=arm64-v8a\n    secondaryCpuAbi=null\n    versionCode=6 minSdk=26 targetSdk=35\n    versionName=0.3.3-contest\n    splits=[base]\n    apkSigningVersion=2\n    applicationInfo=ApplicationInfo{7c2b20e ru.neurostenographer.app}\n    applicationInfo.owns=0\n    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]\n    hwflags=[ ]\n    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE ]\n    dataDir=/data/user/0/ru.neurostenographer.app\n    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]\n    timeStamp=2026-11-05 03:11:39\n    firstInstallTime=2026-11-04 02:08:12\n    lastUpdateTime=2026-11-05 03:13:51\n    signatures=PackageSignatures{4ac4c6e version:2, signatures:[207c9bf2], past signatures:[]}\n    installPermissionsFixed=true\n    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]\n    declared permissions:\n      ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED\n    requested permissions:\n      android.permission.RECORD_AUDIO\n      android.permission.FOREGROUND_SERVICE\n      android.permission.FOREGROUND_SERVICE_MICROPHONE\n      android.permission.POST_NOTIFICATIONS\n      ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\n    install permissions:\n      ru.neurostenographer.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true\n      android.permission.FOREGROUND_SERVICE: granted=true\n    User 0: ceDataInode=268913 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false\n    overlay paths:\n      /system/emui/base/overlay/frameworkhwexthonor/frameworkhwexthonor.apk\n      runtime permissions:\n        android.permission.RECORD_AUDIO: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]\n\nPackage Changes:\n  Sequence number=110\n  User 0:\n    seq=9, package=com.gbox.com.google.android.apps.docs\n    seq=12, package=com.huawei.gamebox\n    seq=13, package=ru.mail.mailapp\n    seq=15, package=com.touchtype.swiftkey\n    seq=18, package=com.vkontakte.android\n    seq=29, package=ru.yandex.mail\n    seq=30, package=ru.cian.main\n    seq=33, package=ru.gosuslugi.goskey\n    seq=34, package=com.taxsee.taxsee\n    seq=35, package=com.anonymous.rosskoretail\n    seq=38, package=com.vivaldi.browser\n    seq=39, package=com.wildberries.ru\n    seq=40, package=ru.domclick.mortgage\n    seq=41, package=ru.yandex.rasp\n    seq=42, package=ru.rutube.app\n    seq=43, package=com.vk.vkvideo\n    seq=44, package=org.mozilla.firefox\n    seq=45, package=ru.leroymerlin.mobile\n    seq=46, package=com.juzipie.supercalculator\n    seq=47, package=com.gnivts.selfemployed\n    seq=50, package=com.idamobile.android.crediteuropa\n    seq=51, package=ru.gosuslugi.auto\n    seq=53, package=com.android.shell\n    seq=54, package=com.android.settings\n    seq=56, package=ru.vtb24.mobilebanking.android\n    seq=58, package=com.carshering\n    seq=59, package=com.yandex.mobile.drive\n    seq=60, package=ru.bestprice.fixprice\n    seq=61, package=ru.bankuralsib.mb.android\n    seq=62, package=ru.yandex.taxi\n    seq=63, package=org.policefines.finesNotCommercial\n    seq=64, package=com.platfomni.gorzdrav\n    seq=65, package=ru.dublgis.dgismobile\n    seq=66, package=ru.s7.android\n    seq=74, package=ru.pyaterochka.app.browser\n    seq=75, package=ru.hh.android\n    seq=76, package=pro.bacca.uralairlines\n    seq=77, package=com.logistic.sdek\n    seq=80, package=ru.neurostenographer.app.c2.test\n    seq=81, package=ru.neurostenographer.app.c2\n    seq=82, package=ru.neurostenographer.app.c2candidate\n    seq=99, package=ru.neurostenographer.app.a3\n    seq=107, package=ru.neurostenographer.app\n    seq=109, package=com.huawei.android.thememanager\n\n\n\nCompiler stats:\n  [ru.neurostenographer.app]\n     base.apk - 4666\n\nActive APEX packages:\n\n\nInactive APEX packages:\n\n\nFactory APEX packages:\n\n\n  APEX session state:\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "activity",
+        "services",
+        "ru.neurostenographer.app"
+      ],
+      "exit": 0,
+      "output": "ACTIVITY MANAGER SERVICES (dumpsys activity services)\n  (nothing)\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "meminfo",
+        "ru.neurostenographer.app"
+      ],
+      "exit": 0,
+      "output": "Applications Memory Usage (in Kilobytes):\nUptime: 140007102 Realtime: 172216807\n\n** MEMINFO in pid 25853 [ru.neurostenographer.app] **\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\n                ------   ------   ------   ------   ------   ------   ------\n  Native Heap      356      356        0    14891    24576    17150     7425\n  Dalvik Heap      220      220        0     4364     9599     3455     6144\n Dalvik Other      100      100        0     2749                           \n        Stack       20       20        0      208                           \n    Other dev        8        0        8        0                           \n     .so mmap     1966       16       32      155                           \n    .jar mmap     1020        0       52        0                           \n    .apk mmap      139        0        0        0                           \n    .ttf mmap       25        0        0        0                           \n    .dex mmap      940        0      940        4                           \n    .oat mmap      689        0        0        0                           \n    .art mmap      183      168        0     2025                           \n   Other mmap      149      112        0        4                           \n    GL mtrack     7980     7980        0        0                           \n      Unknown      132      132        0      906                           \n        TOTAL    39233     9104     1032    25306    34175    20605    13569\n \n App Summary\n                       Pss(KB)\n                        ------\n           Java Heap:      388\n         Native Heap:      356\n                Code:     1040\n               Stack:       20\n            Graphics:     7980\n       Private Other:      352\n              System:    29097\n \n               TOTAL:    39233       TOTAL SWAP PSS:    25306\n \n Objects\n               Views:        8         ViewRootImpl:        1\n         AppContexts:        6           Activities:        1\n              Assets:        7        AssetManagers:        0\n       Local Binders:       15        Proxy Binders:       34\n       Parcel memory:        5         Parcel count:       20\n    Death Recipients:        0      OpenSSL Sockets:        0\n            WebViews:        0\n \n SQL\n         MEMORY_USED:        0\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\n \n"
+    },
+    {
+      "argv": [
+        "shell",
+        "pm",
+        "path",
+        "ru.neurostenographer.app"
+      ],
+      "exit": 0,
+      "output": "package:/data/app/ru.neurostenographer.app-EJ4935seOr-4IKj72dFypQ==/base.apk\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "ls",
+        "-l",
+        "/sdcard/Android/data/ru.neurostenographer.app/files"
+      ],
+      "exit": 0,
+      "output": "total 3\ndrwxrwx--x 2 u0_a352 sdcard_rw 3488 2026-11-04 02:09 kit\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "package",
+        "ru.neurostenographer.app.c2candidate"
+      ],
+      "exit": 0,
+      "output": "Activity Resolver Table:\n  Non-Data Actions:\n      android.intent.action.MAIN:\n        fdf8e52 ru.neurostenographer.app.c2candidate/ru.neurostenographer.app.MainActivity filter 11e617f\n          Action: \"android.intent.action.MAIN\"\n          Category: \"android.intent.category.LAUNCHER\"\n\nReceiver Resolver Table:\n  Non-Data Actions:\n      androidx.profileinstaller.action.SAVE_PROFILE:\n        4f8c523 ru.neurostenographer.app.c2candidate/androidx.profileinstaller.ProfileInstallReceiver filter c1b5aaa\n          Action: \"androidx.profileinstaller.action.SAVE_PROFILE\"\n      androidx.profileinstaller.action.INSTALL_PROFILE:\n        4f8c523 ru.neurostenographer.app.c2candidate/androidx.profileinstaller.ProfileInstallReceiver filter 2de654c\n          Action: \"androidx.profileinstaller.action.INSTALL_PROFILE\"\n      androidx.profileinstaller.action.SKIP_FILE:\n        4f8c523 ru.neurostenographer.app.c2candidate/androidx.profileinstaller.ProfileInstallReceiver filter 567995\n          Action: \"androidx.profileinstaller.action.SKIP_FILE\"\n      androidx.profileinstaller.action.BENCHMARK_OPERATION:\n        4f8c523 ru.neurostenographer.app.c2candidate/androidx.profileinstaller.ProfileInstallReceiver filter 6c1969b\n          Action: \"androidx.profileinstaller.action.BENCHMARK_OPERATION\"\n\nPermissions:\n  Permission [ru.neurostenographer.app.c2candidate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (60eca20):\n    sourcePackage=ru.neurostenographer.app.c2candidate\n    uid=10351 gids=null type=0 prot=signature\n    perm=Permission{aa1ffd9 ru.neurostenographer.app.c2candidate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}\n    packageSetting=PackageSetting{dc43d9e ru.neurostenographer.app.c2candidate/10351}\n\nRegistered ContentProviders:\n  ru.neurostenographer.app.c2candidate/androidx.startup.InitializationProvider:\n    Provider{d88907f ru.neurostenographer.app.c2candidate/androidx.startup.InitializationProvider}\n\nContentProvider Authorities:\n  [ru.neurostenographer.app.c2candidate.androidx-startup]:\n    Provider{d88907f ru.neurostenographer.app.c2candidate/androidx.startup.InitializationProvider}\n      applicationInfo=ApplicationInfo{66684c ru.neurostenographer.app.c2candidate}\n\nKey Set Manager:\n  [ru.neurostenographer.app.c2candidate]\n      Signing KeySets: 319\n\nPackages:\n  Package [ru.neurostenographer.app.c2candidate] (dc43d9e):\n    userId=10351\n    pkg=Package{7bab29e ru.neurostenographer.app.c2candidate}\n    codePath=/data/app/ru.neurostenographer.app.c2candidate-zXZgd7poCBVHLYQPNXg4ow==\n    resourcePath=/data/app/ru.neurostenographer.app.c2candidate-zXZgd7poCBVHLYQPNXg4ow==\n    legacyNativeLibraryDir=/data/app/ru.neurostenographer.app.c2candidate-zXZgd7poCBVHLYQPNXg4ow==/lib\n    primaryCpuAbi=arm64-v8a\n    secondaryCpuAbi=null\n    versionCode=1 minSdk=26 targetSdk=35\n    versionName=0.1.0-alpha\n    splits=[base]\n    apkSigningVersion=2\n    applicationInfo=ApplicationInfo{66684c ru.neurostenographer.app.c2candidate}\n    applicationInfo.owns=0\n    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]\n    hwflags=[ ]\n    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE ]\n    dataDir=/data/user/0/ru.neurostenographer.app.c2candidate\n    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]\n    timeStamp=2026-11-04 01:38:24\n    firstInstallTime=2026-11-04 01:38:29\n    lastUpdateTime=2026-11-04 01:38:29\n    signatures=PackageSignatures{629c095 version:2, signatures:[7c181b89], past signatures:[]}\n    installPermissionsFixed=true\n    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]\n    declared permissions:\n      ru.neurostenographer.app.c2candidate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED\n    requested permissions:\n      android.permission.RECORD_AUDIO\n      android.permission.FOREGROUND_SERVICE\n      android.permission.FOREGROUND_SERVICE_MICROPHONE\n      android.permission.POST_NOTIFICATIONS\n      ru.neurostenographer.app.c2candidate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\n    install permissions:\n      ru.neurostenographer.app.c2candidate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true\n      android.permission.FOREGROUND_SERVICE: granted=true\n    User 0: ceDataInode=270947 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false\n    overlay paths:\n      /system/emui/base/overlay/frameworkhwexthonor/frameworkhwexthonor.apk\n      runtime permissions:\n        android.permission.RECORD_AUDIO: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]\n\nPackage Changes:\n  Sequence number=110\n  User 0:\n    seq=9, package=com.gbox.com.google.android.apps.docs\n    seq=12, package=com.huawei.gamebox\n    seq=13, package=ru.mail.mailapp\n    seq=15, package=com.touchtype.swiftkey\n    seq=18, package=com.vkontakte.android\n    seq=29, package=ru.yandex.mail\n    seq=30, package=ru.cian.main\n    seq=33, package=ru.gosuslugi.goskey\n    seq=34, package=com.taxsee.taxsee\n    seq=35, package=com.anonymous.rosskoretail\n    seq=38, package=com.vivaldi.browser\n    seq=39, package=com.wildberries.ru\n    seq=40, package=ru.domclick.mortgage\n    seq=41, package=ru.yandex.rasp\n    seq=42, package=ru.rutube.app\n    seq=43, package=com.vk.vkvideo\n    seq=44, package=org.mozilla.firefox\n    seq=45, package=ru.leroymerlin.mobile\n    seq=46, package=com.juzipie.supercalculator\n    seq=47, package=com.gnivts.selfemployed\n    seq=50, package=com.idamobile.android.crediteuropa\n    seq=51, package=ru.gosuslugi.auto\n    seq=53, package=com.android.shell\n    seq=54, package=com.android.settings\n    seq=56, package=ru.vtb24.mobilebanking.android\n    seq=58, package=com.carshering\n    seq=59, package=com.yandex.mobile.drive\n    seq=60, package=ru.bestprice.fixprice\n    seq=61, package=ru.bankuralsib.mb.android\n    seq=62, package=ru.yandex.taxi\n    seq=63, package=org.policefines.finesNotCommercial\n    seq=64, package=com.platfomni.gorzdrav\n    seq=65, package=ru.dublgis.dgismobile\n    seq=66, package=ru.s7.android\n    seq=74, package=ru.pyaterochka.app.browser\n    seq=75, package=ru.hh.android\n    seq=76, package=pro.bacca.uralairlines\n    seq=77, package=com.logistic.sdek\n    seq=80, package=ru.neurostenographer.app.c2.test\n    seq=81, package=ru.neurostenographer.app.c2\n    seq=82, package=ru.neurostenographer.app.c2candidate\n    seq=99, package=ru.neurostenographer.app.a3\n    seq=107, package=ru.neurostenographer.app\n    seq=109, package=com.huawei.android.thememanager\n\n\n\nCompiler stats:\n  [ru.neurostenographer.app.c2candidate]\n     base.apk - 10317\n\nActive APEX packages:\n\n\nInactive APEX packages:\n\n\nFactory APEX packages:\n\n\n  APEX session state:\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "activity",
+        "services",
+        "ru.neurostenographer.app.c2candidate"
+      ],
+      "exit": 0,
+      "output": "ACTIVITY MANAGER SERVICES (dumpsys activity services)\n  (nothing)\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "dumpsys",
+        "meminfo",
+        "ru.neurostenographer.app.c2candidate"
+      ],
+      "exit": 0,
+      "output": "No process found for: ru.neurostenographer.app.c2candidate\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "pm",
+        "path",
+        "ru.neurostenographer.app.c2candidate"
+      ],
+      "exit": 0,
+      "output": "package:/data/app/ru.neurostenographer.app.c2candidate-zXZgd7poCBVHLYQPNXg4ow==/base.apk\n"
+    },
+    {
+      "argv": [
+        "shell",
+        "ls",
+        "-l",
+        "/sdcard/Android/data/ru.neurostenographer.app.c2candidate/files"
+      ],
+      "exit": 0,
+      "output": "total 3\ndrwxrwx--x 2 u0_a351 sdcard_rw 3488 2026-11-04 01:39 kit\n"
+    }
+  ]
+}

@@ -47,8 +47,10 @@ object NemotronConfig {
 }
 
 /** Log-mel frames on demand, so a long recording never needs a second full-file array. */
-class NemotronMel(private val wave: FloatArray, private val filters: FloatArray, hann: FloatArray) {
-    val frames = 1 + wave.size / NemotronConfig.HOP
+class NemotronMel(private val wave: FloatArray, private val filters: FloatArray, hann: FloatArray,
+                  private val sampleCount: Int = wave.size, private val final: Boolean = true,
+                  private val sampleAt: (Int) -> Float = { wave[it] }) {
+    val frames = 1 + sampleCount / NemotronConfig.HOP
     private val window = DoubleArray(NemotronConfig.N_FFT)
     private val cosines = DoubleArray(NemotronConfig.N_FFT / 2) { cos(2 * PI * it / NemotronConfig.N_FFT) }
     private val sines = DoubleArray(NemotronConfig.N_FFT / 2) { sin(2 * PI * it / NemotronConfig.N_FFT) }
@@ -74,9 +76,9 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
     }
 
     private fun emphasized(n: Int): Float = when {
-        n < 0 || n >= wave.size -> 0f
-        n == 0 -> wave[0]
-        else -> wave[n] - NemotronConfig.PREEMPHASIS * wave[n - 1]
+        n < 0 || n >= sampleCount -> 0f
+        n == 0 -> sampleAt(0)
+        else -> sampleAt(n) - NemotronConfig.PREEMPHASIS * sampleAt(n - 1)
     }
 
     private fun fft() {
@@ -114,7 +116,7 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
         for (index in 0 until count) {
             val frame = first + index
             val row = index * NemotronConfig.MELS
-            if (frame == frames - 1) {
+            if (final && frame == frames - 1) {
                 out.fill(0f, row, row + NemotronConfig.MELS)
                 continue
             }
@@ -139,7 +141,9 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
 }
 
 /** Arrival-order speaker cache and FIFO, one recording at a time. */
-class NemotronSpeakerCache(private val silence: FloatArray) {
+class NemotronSpeakerCache(private val silence: FloatArray,
+                           private val fifoCapacity: Int = NemotronConfig.FIFO,
+                           private val updatePeriod: Int = NemotronConfig.UPDATE_PERIOD) {
     private val hidden = NemotronConfig.HIDDEN
     private val speakers = NemotronConfig.SPEAKERS
     private val length = NemotronConfig.CACHE
@@ -149,14 +153,14 @@ class NemotronSpeakerCache(private val silence: FloatArray) {
     private val weak = floor(budget * NemotronConfig.WEAK_RATE).toInt()
     private var embeds = FloatArray(length * hidden)
     private var probs = FloatArray(length * speakers)
-    private val fifo = FloatArray(NemotronConfig.FIFO * hidden)
+    private val fifo = FloatArray(fifoCapacity * hidden)
     var cacheFrames = 0
         private set
     var fifoFrames = 0
         private set
     private var compressed = false
 
-    init { require(silence.size == hidden) }
+    init { require(silence.size == hidden && fifoCapacity in 1..512 && updatePeriod in 1..512) }
 
     fun contextFrames() = cacheFrames + fifoFrames
 
@@ -192,7 +196,7 @@ class NemotronSpeakerCache(private val silence: FloatArray) {
         fifo.copyInto(fifoEmbeds, 0, 0, fifoFrames * hidden)
         step.embeds.copyInto(fifoEmbeds, fifoFrames * hidden, chunkStart * hidden, (chunkStart + chunkFrames) * hidden)
         var remaining = pending
-        val popped = if (pending <= NemotronConfig.FIFO) 0 else min(max(NemotronConfig.UPDATE_PERIOD, pending - NemotronConfig.FIFO), pending)
+        val popped = if (pending <= fifoCapacity) 0 else min(max(updatePeriod, pending - fifoCapacity), pending)
         if (popped > 0) {
             var rows = cacheFrames + popped
             var cacheEmbeds = FloatArray(rows * hidden)

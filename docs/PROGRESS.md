@@ -2,6 +2,14 @@
 
 > **Обновлено 05.11.2026:** текущий выпуск — [v0.3.3-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.3-contest) (A3 + C2, подписан, проверен на HONOR). Ниже — история.
 
+## 2026-11-05 — отдельный realtime prototype, NOT_READY
+
+- Ветка `feature/realtime-honor-20261105`, отдельный пакет `.realtime`; основной APK и `.c2candidate` не заменялись, их SHA-256 до/после совпали.
+- Реализованы независимый WAV/ring capture, Silero VAD, постоянный A3, stateful C2 FAST/FALLBACK, bounded ASR-priority worker, честная отложенная атрибуция, восстановление WAV и явный batch fallback. Финальные core/debug/instrumentation/lint и realtime-disabled product build PASS.
+- HONOR, одна и та же синтетика 33,5 с, проверенный pacing: compute RTF 0,674 FAST / 0,488 FALLBACK; WER 3/52 в обоих; FAST выделил 2/3 голоса, FALLBACK 3/3 с неизвестными словами, строгая cpWER NOT_SCORED. Отдельные первые зависания и UiAutomation crash сохранены как проблемы, не скрыты.
+- Windows native C2: точная offline parity; ускоренные 20/60 мин с bounded cache и causal reads PASS, **не Android и не ASR**. Физический mic/HOME/screen-off сохранил 19,94 с, но общий тест FAIL из-за UiAutomation; исправленный harness ещё не установлен.
+- После screen-off HONOR защищён PIN; следующая установка требует обычной разблокировки владельцем. Финальный APK собран, но на нём телефонные проверки NOT_RUN. Подробные команды, хэши, логи, измерения и дальнейшие шаги: [REALTIME_HONOR_2026-11-05.md](REALTIME_HONOR_2026-11-05.md).
+
 ## 2026-11-05 — 0.3.2 и 0.3.3 в main
 
 - PR #24 (0.3.2, merge `53455c3`): окна ASR по сплошной речи вместо нарезки на каждой смене говорящего; слова по говорящим по меткам токенов A3 (`TokenWords` + `TranscriptFusion.attributeWords`); имя экспорта больше не режется на точке в «нояб.». 29 дорожек, парный bootstrap: WER 379 → 304 из 1812 (ДИ −6,4…−2,1 п.п.), cpWER-U 448 → 431 (−2,1…+0,1). HONOR: проверки UI и экспорта пройдены, 20 мин RTF 0,45. Детали: [ASR_WORD_ATTRIBUTION_2026-11-05.md](ASR_WORD_ATTRIBUTION_2026-11-05.md).

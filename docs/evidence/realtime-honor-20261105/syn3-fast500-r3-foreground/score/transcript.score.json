@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 3,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_words": 52,
+    "rate": 0.057692307692307696,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "NOT_SCORED",
+    "reason": "Hypothesis contains unattributed words"
+  },
+  "der": {
+    "status": "NOT_SCORED",
+    "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+  },
+  "reference": {
+    "recording_id": "syn3-clean",
+    "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 25 (audio rewritten as 16-bit PCM WAV)",
+    "license": "MIT (dataset card)",
+    "kind": "SYNTHETIC_TTS_DIALOGUE",
+    "audio_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9"
+  },
+  "hypothesis_sha256": "de5291e120ffd367d7d6105f27f2d360941415fc3c4c765078d4c26e079bc715",
+  "reference_sha256": "47c831d49c5f5a04e686d7a112dc38ffd6a68b6bad75537c1eae7aa6d28569ae"
+}

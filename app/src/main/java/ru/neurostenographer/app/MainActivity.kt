@@ -59,6 +59,28 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent { StenoTheme { ApplicationScreen() } }
+        selectRealtimeFallback(intent)
+    }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        selectRealtimeFallback(intent)
+    }
+    override fun onResume() {
+        super.onResume()
+        if (BuildConfig.REALTIME) model.refreshHistory()
+    }
+    private fun selectRealtimeFallback(intent: Intent?) {
+        if (!BuildConfig.REALTIME || intent?.action != "ru.neurostenographer.REALTIME_BATCH") return
+        val uri = intent.data ?: return
+        if (uri.scheme != "file") return
+        val file = java.io.File(uri.path ?: return).canonicalFile
+        val root = java.io.File(filesDir, "realtime").canonicalFile
+        // Explicit own-file action only; exported activity cannot select another app's files.
+        if (file.name == "capture.wav" && file.parentFile?.parentFile == root &&
+            (java.io.File(file.parentFile, "capture-finalized.txt").isFile || java.io.File(file.parentFile, "recovered.txt").isFile)) {
+            model.select(android.net.Uri.fromFile(file))
+        }
     }
     override fun onStop() {
         // With the foreground service the recording survives; without it the system
@@ -124,7 +146,10 @@ class MainActivity : ComponentActivity() {
         } else {
             HomeScreen(state, recording, notice, onRecord = record,
                 onImport = { importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream")) },
-                onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open)
+                onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open,
+                onRealtime = if (BuildConfig.REALTIME) ({
+                    startActivity(Intent().setClassName(this@MainActivity, "ru.neurostenographer.app.RealtimeActivity"))
+                }) else null)
         }
     }
 }
@@ -164,7 +189,8 @@ private fun date(ms: Long) = SimpleDateFormat("d MMMM, HH:mm", Locale("ru")).for
 
 @Composable
 private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
-                       onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit) {
+                       onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit,
+                       onRealtime: (() -> Unit)? = null) {
     val elapsed by produceState(0L, recording) {
         if (!recording) value = 0L else {
             val started = SystemClock.elapsedRealtime()
@@ -218,6 +244,10 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
                 }
             } else if (state.message.isNotBlank() && (state.source == null || !state.modelReady)) item {
                 Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
+            }
+            if (onRealtime != null) item {
+                OutlinedButton(onClick = onRealtime, enabled = !state.busy && !recording && state.modelReady,
+                    modifier = Modifier.fillMaxWidth()) { Text("Realtime · эксперимент") }
             }
             if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error) }
             if (state.source != null && !recording && !state.busy) item {

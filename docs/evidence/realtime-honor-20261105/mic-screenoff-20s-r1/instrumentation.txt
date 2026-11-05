@@ -1,0 +1,8 @@
+INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.RealtimeDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+ru.neurostenographer.app.RealtimeDeviceTest:
+INSTRUMENTATION_STATUS: test=foregroundMicrophoneScreenOff
+INSTRUMENTATION_STATUS_CODE: 1

@@ -1,0 +1,121 @@
+{
+ "schema_version": 1,
+ "recording_id": "syn3-clean",
+ "audio_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+ "audio_duration_ms": 33507,
+ "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 25 (audio rewritten as 16-bit PCM WAV)",
+ "license": "MIT (dataset card)",
+ "kind": "SYNTHETIC_TTS_DIALOGUE",
+ "text_segments": [
+  {
+   "start_ms": 0,
+   "end_ms": 1500,
+   "speaker_id": "1",
+   "text": "билет на поезд"
+  },
+  {
+   "start_ms": 1500,
+   "end_ms": 5980,
+   "speaker_id": "2",
+   "text": "играй плейлист клавы коки"
+  },
+  {
+   "start_ms": 5980,
+   "end_ms": 10570,
+   "speaker_id": "3",
+   "text": "ты не мог бы перенести мою встречу"
+  },
+  {
+   "start_ms": 10570,
+   "end_ms": 14770,
+   "speaker_id": "3",
+   "text": "я недоволен яндекс маркетом пожалуйста помогите мне"
+  },
+  {
+   "start_ms": 14770,
+   "end_ms": 18540,
+   "speaker_id": "2",
+   "text": "запланируй пожалуйста встречу с этим человеком"
+  },
+  {
+   "start_ms": 18540,
+   "end_ms": 24010,
+   "speaker_id": "1",
+   "text": "могу я послушать равные среди первых по радио в спальне"
+  },
+  {
+   "start_ms": 24010,
+   "end_ms": 26950,
+   "speaker_id": "1",
+   "text": "скажи мне есть ли у шоколадницы доставка"
+  },
+  {
+   "start_ms": 26950,
+   "end_ms": 29980,
+   "speaker_id": "2",
+   "text": "играй покинула чат клавы коки"
+  },
+  {
+   "start_ms": 29980,
+   "end_ms": 33507,
+   "speaker_id": "2",
+   "text": "воспроизведи европу плюс"
+  }
+ ],
+ "diarization": [
+  {
+   "start_ms": 0,
+   "end_ms": 1500,
+   "speaker_id": "1"
+  },
+  {
+   "start_ms": 1500,
+   "end_ms": 5980,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 5980,
+   "end_ms": 10570,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 10570,
+   "end_ms": 14770,
+   "speaker_id": "3"
+  },
+  {
+   "start_ms": 14770,
+   "end_ms": 18540,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 18540,
+   "end_ms": 24010,
+   "speaker_id": "1"
+  },
+  {
+   "start_ms": 24010,
+   "end_ms": 26950,
+   "speaker_id": "1"
+  },
+  {
+   "start_ms": 26950,
+   "end_ms": 29980,
+   "speaker_id": "2"
+  },
+  {
+   "start_ms": 29980,
+   "end_ms": 33507,
+   "speaker_id": "2"
+  }
+ ],
+ "meta": {
+  "num_speakers": 3,
+  "difficulty": "medium",
+  "has_overlaps": true,
+  "has_simultaneous": false,
+  "has_noise": false,
+  "noise_type": null,
+  "snr": null
+ }
+}
