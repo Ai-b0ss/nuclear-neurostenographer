@@ -10,7 +10,7 @@ import ru.neurostenographer.core.PcmWav
 import java.io.File
 import java.security.MessageDigest
 
-/** Fixed 200 ms C2 padding: test its ASR and speaker attribution cost on frozen text cases. */
+/** Paired C2 boundary policies on frozen Russian text cases. */
 class C2PaddingAsrProbeTest {
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
@@ -32,13 +32,9 @@ class C2PaddingAsrProbeTest {
                 .joinToString("") { "%02x".format(it) }
             val audio = bytes.inputStream().use { PcmWav.read(it) }
             val base = IsolatedDiarization.process(context, audio, c2, backend = NemotronBackend.C2)
-            val padded = C2BoundaryPadding.apply(base, audio.durationMs)
-            for ((mode, diarization) in listOf("base" to base,
-                "pad100" to C2BoundaryPadding.apply(base, audio.durationMs, 100),
+            for ((mode, diarization) in listOf(
                 "pad150" to C2BoundaryPadding.apply(base, audio.durationMs, 150),
-                "pad200" to padded,
-                "padTurns200" to base.copy(turns = padded.turns),
-                "padWindows200" to base.copy(windows = padded.windows))) {
+                "pad200" to C2BoundaryPadding.apply(base, audio.durationMs, 200))) {
                 val output = OfflineAsr.transcribe(audio, asr, turns = diarization.turns,
                     speechWindows = diarization.windows)
                 val segments = JSONArray(output.segments.map { segment ->
@@ -53,6 +49,6 @@ class C2PaddingAsrProbeTest {
                 evidence.writeText(JSONObject().put("runs", runs).toString())
             }
         }
-        assertEquals(cases.size * 6, runs.length())
+        assertEquals(cases.size * 2, runs.length())
     }
 }
