@@ -9,6 +9,7 @@ import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
+import android.util.AtomicFile
 
 /** Prototype C2: Nemotron 3 INT8 through ONNX Runtime 1.17.1, the version already in the APK.
  * Compiled only with -PnemotronPrototype=true; C0 stays the default everywhere.
@@ -26,13 +27,32 @@ object NemotronDiarization {
     )
 
     /** Verified install into filesDir/nemotron-models, the only folder the worker accepts for C2. */
-    fun install(filesDir: File, input: java.io.InputStream): File {
+    @Synchronized fun install(filesDir: File, input: java.io.InputStream): File {
         val root = File(filesDir, "nemotron-models").apply { mkdirs() }
-        val stage = File(root, "current")
-        stage.deleteRecursively()
-        check(stage.mkdir())
-        VerifiedModelBundle(ARTIFACTS).unpack(input, stage)
-        return stage
+        val stage = File.createTempFile("bundle-", ".stage", root)
+        check(stage.delete() && stage.mkdir())
+        var installed = false
+        try {
+            // Validate completely before changing the selected model. A corrupt ZIP,
+            // cancelled read or disk error must leave the previous bundle available.
+            VerifiedModelBundle(ARTIFACTS).unpack(input, stage)
+            val pointer = AtomicFile(File(root, "active.txt"))
+            val output = pointer.startWrite()
+            try {
+                output.write(stage.name.toByteArray(Charsets.UTF_8))
+                pointer.finishWrite(output)
+            } catch (e: Throwable) {
+                pointer.failWrite(output)
+                throw e
+            }
+            installed = true
+            // Preserve the previous generation. A separate :diarization worker may have
+            // already received its path; deleting it here races its verify/load phase.
+            // Reclaim stale generations only when no worker can hold their paths.
+            return stage
+        } finally {
+            if (!installed) stage.deleteRecursively()
+        }
     }
 
     private fun floats(file: File, count: Int): FloatArray {
