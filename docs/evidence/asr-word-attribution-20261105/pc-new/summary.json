@@ -1,0 +1,152 @@
+{
+ "all": {
+  "unattributed_words": 192,
+  "wer": {
+   "errors": 304,
+   "words": 1812,
+   "rate": 0.1678,
+   "cases": 29
+  },
+  "wer_paired": {
+   "cases": 29,
+   "base_errors": 379,
+   "errors": 304,
+   "words": 1812,
+   "ci95_minus_base": [
+    -0.0639,
+    -0.0205
+   ]
+  },
+  "cpwer": {
+   "errors": 144,
+   "words": 909,
+   "rate": 0.1584,
+   "cases": 16
+  },
+  "cpwer_paired": {
+   "cases": 12,
+   "base_errors": 133,
+   "errors": 128,
+   "words": 655,
+   "ci95_minus_base": [
+    -0.0173,
+    0.0
+   ]
+  },
+  "cpwer_u": {
+   "errors": 431,
+   "words": 1812,
+   "rate": 0.2379,
+   "cases": 29
+  },
+  "cpwer_u_paired": {
+   "cases": 29,
+   "base_errors": 448,
+   "errors": 431,
+   "words": 1812,
+   "ci95_minus_base": [
+    -0.0205,
+    0.0012
+   ]
+  }
+ },
+ "holdout": {
+  "unattributed_words": 189,
+  "wer": {
+   "errors": 290,
+   "words": 1647,
+   "rate": 0.1761,
+   "cases": 26
+  },
+  "wer_paired": {
+   "cases": 26,
+   "base_errors": 363,
+   "errors": 290,
+   "words": 1647,
+   "ci95_minus_base": [
+    -0.0691,
+    -0.0212
+   ]
+  },
+  "cpwer": {
+   "errors": 141,
+   "words": 857,
+   "rate": 0.1645,
+   "cases": 15
+  },
+  "cpwer_paired": {
+   "cases": 11,
+   "base_errors": 128,
+   "errors": 125,
+   "words": 603,
+   "ci95_minus_base": [
+    -0.0137,
+    0.0028
+   ]
+  },
+  "cpwer_u": {
+   "errors": 419,
+   "words": 1647,
+   "rate": 0.2544,
+   "cases": 26
+  },
+  "cpwer_u_paired": {
+   "cases": 26,
+   "base_errors": 434,
+   "errors": 419,
+   "words": 1647,
+   "ci95_minus_base": [
+    -0.0202,
+    0.0024
+   ]
+  }
+ },
+ "phone3": {
+  "unattributed_words": 3,
+  "wer": {
+   "errors": 14,
+   "words": 165,
+   "rate": 0.0848,
+   "cases": 3
+  },
+  "wer_paired": {
+   "cases": 3,
+   "base_errors": 16,
+   "errors": 14,
+   "words": 165,
+   "ci95_minus_base": [
+    -0.0385,
+    0.0132
+   ]
+  },
+  "cpwer": {
+   "errors": 3,
+   "words": 52,
+   "rate": 0.0577,
+   "cases": 1
+  },
+  "cpwer_paired": {
+   "cases": 1,
+   "base_errors": 5,
+   "errors": 3,
+   "words": 52,
+   "ci95_minus_base": null
+  },
+  "cpwer_u": {
+   "errors": 12,
+   "words": 165,
+   "rate": 0.0727,
+   "cases": 3
+  },
+  "cpwer_u_paired": {
+   "cases": 3,
+   "base_errors": 14,
+   "errors": 12,
+   "words": 165,
+   "ci95_minus_base": [
+    -0.0385,
+    0.0
+   ]
+  }
+ }
+}

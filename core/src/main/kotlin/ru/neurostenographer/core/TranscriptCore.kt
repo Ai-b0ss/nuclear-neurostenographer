@@ -26,6 +26,47 @@ data class TranscriptSegment(
     init { require(startMs >= 0 && endMs > startMs && text.isNotBlank()) }
 }
 
+/** Words from a transducer's subword tokens and their emission times (sherpa-onnx
+ * OfflineRecognizerResult.tokens / .timestamps: seconds from the window start, one per token,
+ * start of the token, 40 ms frames for GigaAM). A token beginning with a space opens a word;
+ * punctuation sticks to the previous word and does not move its timing. A word ends at the next
+ * word's start or [TAIL_MS] after its last emitted token, whichever is first. Returns null when the
+ * timing is missing or inconsistent, so the caller falls back to chunk attribution.
+ */
+object TokenWords {
+    const val TAIL_MS = 240L
+    private val PUNCT = Regex("[\\p{P}]+")
+
+    fun words(tokens: Array<String>, seconds: FloatArray?, windowStartMs: Long, windowEndMs: Long): List<RecognizedWord>? {
+        require(windowEndMs > windowStartMs)
+        if (tokens.isEmpty()) return emptyList()
+        if (seconds == null || seconds.size != tokens.size || seconds.any { !it.isFinite() || it < 0f }) return null
+        if (seconds.toList().zipWithNext().any { (a, b) -> b < a }) return null
+        class Draft(val startMs: Long, var lastMs: Long, val text: StringBuilder)
+        val drafts = mutableListOf<Draft>()
+        for (i in tokens.indices) {
+            val token = tokens[i]
+            val at = (windowStartMs + Math.round(seconds[i] * 1000.0)).coerceAtMost(windowEndMs - 1)
+            val piece = token.trim()
+            val last = drafts.lastOrNull()
+            when {
+                piece.isEmpty() -> if (last == null || last.text.isNotEmpty()) drafts += Draft(at, at, StringBuilder())
+                PUNCT.matches(piece) && drafts.any { it.text.isNotEmpty() } ->
+                    drafts.last { it.text.isNotEmpty() }.text.append(piece)
+                last == null || (token.first().isWhitespace() && last.text.isNotEmpty()) ->
+                    drafts += Draft(at, at, StringBuilder(piece))
+                else -> { last.text.append(piece); last.lastMs = at }
+            }
+        }
+        val kept = drafts.filter { it.text.isNotBlank() }
+        return kept.mapIndexed { i, d ->
+            val limit = kept.getOrNull(i + 1)?.startMs ?: windowEndMs
+            val end = minOf(limit, d.lastMs + TAIL_MS, windowEndMs).coerceAtLeast(d.startMs + 1)
+            RecognizedWord(d.startMs, end, d.text.toString())
+        }
+    }
+}
+
 /** Does not invent speaker IDs or word timestamps when evidence is ambiguous. */
 object TranscriptFusion {
     private data class Attribution(val speakerId: String?, val overlap: Boolean, val reliable: Boolean)
@@ -188,6 +229,12 @@ object TranscriptExport {
         }
         append('"')
     }
+    private val AUDIO_EXTENSION = Regex("\\.(wav|mp3|m4a|ogg|opus|flac|aac|amr|3gp|webm|mp4)$", RegexOption.IGNORE_CASE)
+    /** Export file name without extension: only a known audio extension is dropped, so the dot in
+     * "Запись 5 нояб., 01:40" is not taken for one; characters unsafe in file names become "_". */
+    fun fileBase(title: String): String =
+        title.trim().replace(AUDIO_EXTENSION, "").replace(Regex("[^\\p{L}\\p{N} _-]+"), "_")
+            .trim(' ', '_').ifBlank { "transcript" }
     /** Human-readable first line of the TXT export; technical provenance stays in JSON. */
     fun header(items: List<TranscriptSegment>, audioMs: Long): String {
         val s = audioMs / 1000

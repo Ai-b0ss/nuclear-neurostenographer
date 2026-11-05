@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "package": "ru.neurostenographer.app",
+  "clip": "syn3-clean.wav",
+  "export": "..\\.local\\phone-0.3.2-final\\syn3-clean\\syn3-clean.phone.json",
+  "wall_s": 62.7,
+  "fragments": 7,
+  "audio_ms": 33507,
+  "model_load_ms": 5576,
+  "asr_ms": 5885,
+  "clusters": 3,
+  "diarization_ms": 4727,
+  "total_ms": 16188,
+  "rtf": 0.48
+}

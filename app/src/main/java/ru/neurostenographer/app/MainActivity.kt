@@ -114,7 +114,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }, onExport = { format ->
                     model.prepareExport(format)
-                    val name = current.title.substringBeforeLast('.').replace(Regex("[^\\p{L}\\p{N} _-]"), "_").ifBlank { "transcript" }
+                    val name = TranscriptExport.fileBase(current.title)
                     when (format) {
                         "json" -> exportJson.launch("$name.json")
                         "srt" -> exportSrt.launch("$name.srt")

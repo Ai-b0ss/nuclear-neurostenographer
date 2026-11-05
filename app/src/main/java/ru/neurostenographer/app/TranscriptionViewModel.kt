@@ -304,8 +304,15 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             backendUsed == NemotronBackend.C2 -> NemotronBackend.REVISION
             else -> DiarizationModelStore.REVISION
         }
-        val timestampSource = if (diarization == null) "input_windows" else "diarization_boundaries_and_input_windows"
-        val warnings = listOfNotNull(warning, "Интервалы фрагментов, не пословное выравнивание.",
+        val timestampSource = when {
+            diarization == null -> "input_windows"
+            output.tokenTimedWindows == 0 -> "diarization_boundaries_and_input_windows"
+            output.untimedWindows == 0 -> "asr_token_timestamps"
+            else -> "asr_token_timestamps_and_input_windows"
+        }
+        val warnings = listOfNotNull(warning, if (output.tokenTimedWindows > 0)
+                "Время слов — по меткам токенов ASR (шаг 40 мс), не точное выравнивание."
+            else "Интервалы фрагментов, не пословное выравнивание.",
             if (output.decodedWindows == 0) "Сегментация не обнаружила речевых окон; ASR не запускался." else null,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
             if (diarization == null) "Говорящие не определены." else null)

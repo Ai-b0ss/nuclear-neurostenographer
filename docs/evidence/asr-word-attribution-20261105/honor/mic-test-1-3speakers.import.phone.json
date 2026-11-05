@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 53700,
+  "warnings": ["Время слов — по меткам токенов ASR (шаг 40 мс), не точное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 360, "end_ms": 2270, "speaker_id": "Speaker 1", "text": "Информация о недавних событиях.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 4450, "end_ms": 6290, "speaker_id": "Speaker 2", "text": "Десять ли часов сейчас?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 7270, "end_ms": 10470, "speaker_id": "Speaker 3", "text": "Олли, Олли, как много торнадо было здесь в этом месяце.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 12670, "end_ms": 16810, "speaker_id": "Speaker 1", "text": "Как много встреч с господином Ивановым у меня было в последние три месяца.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 19570, "end_ms": 21130, "speaker_id": "Speaker 3", "text": "Есть у кого-нибудь день рождения?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 22280, "end_ms": 24440, "speaker_id": "Speaker 2", "text": "Какой будет погода завтра?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 25950, "end_ms": 27250, "speaker_id": "Speaker 3", "text": "Что ты думаешь о будущем?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 29660, "end_ms": 31510, "speaker_id": "Speaker 1", "text": "Удалить. Будильник.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 33850, "end_ms": 34850, "speaker_id": "Speaker 1", "text": "Покажи встречу.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 37370, "end_ms": 40330, "speaker_id": "Speaker 2", "text": "Вывести все списки на этом устройстве.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 42730, "end_ms": 45590, "speaker_id": "Speaker 1", "text": "Каков самый актуальный обменный курс в Китае?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 48560, "end_ms": 53360, "speaker_id": "Speaker 3", "text": "Пожалуйста, поищи в интернете и покажи видео на YouTube, где готовят блюда русской кухни.", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

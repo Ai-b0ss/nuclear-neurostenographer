@@ -27,7 +27,8 @@ def verify(directory, prefix="dialogue"):
     directory = Path(directory)
     data = json.loads((directory / (prefix + ".json")).read_text(encoding="utf-8"))
     require(data["units"] == "milliseconds" and data["audio_duration_ms"] > 0, 'Export consistency check failed')
-    require(data["provenance"]["timestamp_source"] == "diarization_boundaries_and_input_windows", 'Export consistency check failed')
+    require(data["provenance"]["timestamp_source"] in ("diarization_boundaries_and_input_windows", "asr_token_timestamps",
+                                                     "asr_token_timestamps_and_input_windows"), 'Export consistency check failed')
     require(isinstance(data["warnings"], list) and data["warnings"], 'Export consistency check failed')
     segments = data["segments"]
     require(segments, "Expected nonempty actual public Russian fixture output")
@@ -55,7 +56,7 @@ def verify(directory, prefix="dialogue"):
             require(sid is not None and isinstance(name, str) and name.strip() == name and name and "\n" not in name,
                     'Export consistency check failed')
             labels = [name]
-        # 0.3.2+: accepted spelling edits (term dictionary) keep the raw ASR "text" and add "text_edited";
+        # 0.3.3+: accepted spelling edits (term dictionary) keep the raw ASR "text" and add "text_edited";
         # TXT/SRT must then show exactly the edited text.
         shown = segment["text"]
         if "text_edited" in segment:

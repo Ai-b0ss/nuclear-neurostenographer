@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 49402,
+  "warnings": ["Время слов — по меткам токенов ASR (шаг 40 мс), не точное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 480, "end_ms": 2140, "speaker_id": "Speaker 1", "text": "Запусти следующий подкаст.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 4370, "end_ms": 5490, "speaker_id": null, "text": "Открой температуру.", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 8000, "end_ms": 9440, "speaker_id": null, "text": "На какое время установлены", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 9440, "end_ms": 10330, "speaker_id": "Speaker 3", "text": "мои будильники?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 12410, "end_ms": 12650, "speaker_id": null, "text": "Включи", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 12810, "end_ms": 14590, "speaker_id": "Speaker 4", "text": "станцию с музыкой кантри.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 17450, "end_ms": 18570, "speaker_id": "Speaker 1", "text": "Продвигаются акции.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 20150, "end_ms": 21430, "speaker_id": "Speaker 4", "text": "Покажи мою встречу", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 21430, "end_ms": 22390, "speaker_id": null, "text": "на следующий", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 22390, "end_ms": 22630, "speaker_id": "Speaker 4", "text": "месяц.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 24420, "end_ms": 25420, "speaker_id": null, "text": "Расскажите мне", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 25420, "end_ms": 27820, "speaker_id": "Speaker 4", "text": "информацию о географии Индии.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 29320, "end_ms": 30640, "speaker_id": null, "text": "Удали мою следующую", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 30640, "end_ms": 31400, "speaker_id": "Speaker 2", "text": "встречу, пожалуйста.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 33470, "end_ms": 33830, "speaker_id": "Speaker 1", "text": "Удали", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 33830, "end_ms": 35030, "speaker_id": null, "text": "стремст. Что происходит в", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 35030, "end_ms": 35920, "speaker_id": "Speaker 3", "text": "мире в эти дни?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 37720, "end_ms": 44790, "speaker_id": "Speaker 4", "text": "Подскажи варианты поезда до Санкт-Петербурга в следующую среду или четверг. Рецепты,", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 44790, "end_ms": 45750, "speaker_id": null, "text": "которые... Сколько лет", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 45750, "end_ms": 47040, "speaker_id": "Speaker 3", "text": "Джейке Роулингу?", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}
