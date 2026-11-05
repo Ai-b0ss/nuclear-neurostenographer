@@ -8,14 +8,16 @@ internal object NativeNemotronPipeline {
     private external fun run(wave: FloatArray, filters: FloatArray, hann: FloatArray,
                              silence: FloatArray, modelPath: String, threads: Int,
                              checkCancelled: () -> Unit, activityThreshold: Float,
+                             exclusiveGapThreshold: Float,
                              timing: LongArray): FloatArray
 
     fun diarize(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray,
                 modelPath: String, threads: Int, checkCancelled: () -> Unit,
-                activityThreshold: Float = 0f): Triple<List<ClusterTurn>, Long, Long> {
+                activityThreshold: Float = 0f,
+                exclusiveGapThreshold: Float = 0f): Triple<List<ClusterTurn>, Long, Long> {
         val timing = LongArray(2)
         val packed = run(wave, filters, hann, silence, modelPath, threads, checkCancelled,
-            activityThreshold, timing)
+            activityThreshold, exclusiveGapThreshold, timing)
         require(packed.size % 3 == 0) { "Invalid native Nemotron turns" }
         return Triple(packed.asList().chunked(3).map { ClusterTurn(it[0], it[1], it[2].toInt()) },
             timing[0], timing[1])

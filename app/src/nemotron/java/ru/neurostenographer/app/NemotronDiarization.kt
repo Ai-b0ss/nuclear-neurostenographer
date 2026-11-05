@@ -40,16 +40,20 @@ object NemotronDiarization {
 
     @JvmOverloads
     fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
-                activityThreshold: Float = 0f): DiarizationOutput {
+                activityThreshold: Float = 0f,
+                exclusiveGapThreshold: Float = 0f): DiarizationOutput {
         require(audio.sampleRate == 16000)
-        require(BuildConfig.DEBUG || activityThreshold == 0f)
+        require(BuildConfig.DEBUG || (activityThreshold == 0f && exclusiveGapThreshold == 0f))
+        require(exclusiveGapThreshold == 0f ||
+            (exclusiveGapThreshold.isFinite() && exclusiveGapThreshold >= -2f &&
+                exclusiveGapThreshold < activityThreshold))
         VerifiedModelBundle(ARTIFACTS).verify(model, checkCancelled)
         val filters = floats(File(model, "mel_filters.bin"), NemotronConfig.MELS * NemotronConfig.BINS)
         val hann = floats(File(model, "hann400.bin"), NemotronConfig.WIN)
         val silence = floats(File(model, "silence_embeds.bin"), NemotronConfig.HIDDEN)
         val (raw, loadMs, processMs) = NativeNemotronPipeline.diarize(audio.samples, filters, hann, silence,
             File(model, "model.int8.ir9.onnx").absolutePath, InferenceThreads.count(), checkCancelled,
-            activityThreshold)
+            activityThreshold, exclusiveGapThreshold)
         val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
         return DiarizationOutput(turns, loadMs, processMs,
             DiarizationTimeline.speechWindows(raw, audio.durationMs))

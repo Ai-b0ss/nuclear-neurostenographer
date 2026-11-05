@@ -57,12 +57,15 @@ extern "C" JNIEXPORT jfloatArray JNICALL
 Java_ru_neurostenographer_core_NativeNemotronPipeline_run(
     JNIEnv* env, jobject, jfloatArray wave, jfloatArray filters, jfloatArray hann,
     jfloatArray silence, jstring model, jint threads, jobject check_cancelled,
-    jfloat activity_threshold, jlongArray timing) {
+    jfloat activity_threshold, jfloat exclusive_gap_threshold, jlongArray timing) {
     if (!wave || !filters || !hann || !silence || !model || !check_cancelled || !timing ||
         env->GetArrayLength(wave) < 1600 || env->GetArrayLength(filters) != mels * 257 ||
         env->GetArrayLength(hann) != 400 || env->GetArrayLength(silence) != 512 ||
         env->GetArrayLength(timing) < 2 || threads < 1 || threads > 4 ||
-        !std::isfinite(activity_threshold) || activity_threshold < -2.0f || activity_threshold > 2.0f) {
+        !std::isfinite(activity_threshold) || activity_threshold < -2.0f || activity_threshold > 2.0f ||
+        !std::isfinite(exclusive_gap_threshold) ||
+        (exclusive_gap_threshold != 0.0f &&
+         (exclusive_gap_threshold < -2.0f || exclusive_gap_threshold >= activity_threshold))) {
         invalid(env, "Invalid native Nemotron pipeline input");
         return nullptr;
     }
@@ -137,8 +140,24 @@ Java_ru_neurostenographer_core_NativeNemotronPipeline_run(
                                                      static_cast<jsize>(values.size()), values.data());
         if (env->ExceptionCheck()) return nullptr;
         for (int row = from; row < until; ++row) {
+            int exclusive_speaker = -1;
+            if (exclusive_gap_threshold != 0.0f) {
+                bool baseline_speech = false;
+                int candidates = 0;
+                for (int speaker = 0; speaker < speakers; ++speaker) {
+                    const float value = values[static_cast<size_t>((row - from) * speakers + speaker)];
+                    baseline_speech |= value > activity_threshold;
+                    if (value > exclusive_gap_threshold) {
+                        exclusive_speaker = speaker;
+                        ++candidates;
+                    }
+                }
+                if (baseline_speech || candidates != 1) exclusive_speaker = -1;
+            }
             for (int speaker = 0; speaker < speakers; ++speaker) {
-                const bool active = values[static_cast<size_t>((row - from) * speakers + speaker)] > activity_threshold;
+                const bool active =
+                    values[static_cast<size_t>((row - from) * speakers + speaker)] > activity_threshold ||
+                    speaker == exclusive_speaker;
                 if (active && opened[speaker] < 0) opened[speaker] = written;
                 if (!active && opened[speaker] >= 0) {
                     turns.push_back({opened[speaker] * 0.01f, written * 0.01f, speaker});

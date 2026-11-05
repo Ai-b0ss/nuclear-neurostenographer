@@ -20,7 +20,8 @@ class C2PaddingAsrProbeTest {
     @Test fun compareBaseAndPadded(): Unit = runBlocking {
         val assets = instrumentation.context.assets
         val experiment = InstrumentationRegistry.getArguments().getString("experiment") ?: "threshold"
-        require(experiment in setOf("threshold", "all_windows", "silero_gaps"))
+        require(experiment in setOf("threshold", "all_windows", "silero_gaps",
+            "turn_only_threshold", "exclusive_gap"))
         require(experiment != "silero_gaps" || BuildConfig.NATIVE_ASR_CANDIDATE)
         val c2 = assets.open("nemotron.zip").use { NemotronDiarization.install(context.filesDir, it) }
         val asr = assets.open("gigaam-v3.zip").use { AsrModelStore(context).install(it) }
@@ -33,6 +34,8 @@ class C2PaddingAsrProbeTest {
         val evidence = File(context.filesDir, when (experiment) {
             "threshold" -> "c2-padding-asr-evidence.json"
             "all_windows" -> "c2-all-windows-evidence.json"
+            "turn_only_threshold" -> "c2-turn-only-threshold-evidence.json"
+            "exclusive_gap" -> "c2-exclusive-gap-asr-evidence.json"
             else -> "c2-silero-gaps-evidence.json"
         })
         val vadModel = if (experiment == "silero_gaps") File(context.filesDir, "silero_vad.onnx").also { file ->
@@ -56,6 +59,20 @@ class C2PaddingAsrProbeTest {
             else if (experiment == "all_windows") listOf("pad150" to padded,
                 "all_windows" to padded.copy(windows =
                     DiarizationTimeline.windows(padded.turns, audio.durationMs)))
+            else if (experiment == "turn_only_threshold") listOf("pad150" to padded) +
+                listOf(-0.25f, -0.5f).map { threshold ->
+                    val tuned = C2BoundaryPadding.apply(
+                        NemotronDiarization.process(audio, c2, activityThreshold = threshold),
+                        audio.durationMs, 150)
+                    "turn_minus_${(-threshold * 100).toInt()}" to padded.copy(turns = tuned.turns)
+                }
+            else if (experiment == "exclusive_gap") listOf("pad150" to padded) +
+                listOf(-0.25f, -0.5f).map { threshold ->
+                    val tuned = C2BoundaryPadding.apply(
+                        NemotronDiarization.process(audio, c2, exclusiveGapThreshold = threshold),
+                        audio.durationMs, 150)
+                    "exclusive_gap_${(-threshold * 100).toInt()}" to padded.copy(turns = tuned.turns)
+                }
             else listOf("pad150" to padded) + listOf(0.35f, 0.5f, 0.65f).map { threshold ->
                 val vad = NativeVadProbe.detect(audio.samples, vadModel!!.absolutePath, threshold)
                 check(vad.size % 2 == 0)
@@ -64,8 +81,10 @@ class C2PaddingAsrProbeTest {
                 "silero_${(threshold * 100).toInt()}" to padded.copy(
                     windows = (padded.windows + extra).sortedBy { it.startMs })
             }
+            val fixedWindows = C2WindowMerge.apply(padded.windows, padded.turns)
             for ((mode, diarization) in modes) {
-                val windows = C2WindowMerge.apply(diarization.windows, diarization.turns)
+                val windows = if (experiment in setOf("turn_only_threshold", "exclusive_gap")) fixedWindows else
+                    C2WindowMerge.apply(diarization.windows, diarization.turns)
                 val output = OfflineAsr.transcribe(audio, asr, turns = diarization.turns,
                     speechWindows = windows)
                 val segments = JSONArray(output.segments.map { segment ->
@@ -81,7 +100,12 @@ class C2PaddingAsrProbeTest {
                 evidence.writeText(JSONObject().put("runs", runs).toString())
             }
         }
-        assertEquals(cases.size * if (experiment == "silero_gaps") 4 else 2, runs.length())
+        val modeCount = when (experiment) {
+            "silero_gaps" -> 4
+            "turn_only_threshold", "exclusive_gap" -> 3
+            else -> 2
+        }
+        assertEquals(cases.size * modeCount, runs.length())
     }
 
     private fun sileroOnlyGaps(vad: List<AudioWindow>, base: List<AudioWindow>, audioMs: Long): List<AudioWindow> {

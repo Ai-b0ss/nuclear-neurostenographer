@@ -30,7 +30,15 @@ def main() -> None:
     seen = set()
     for run in runs:
         key = (run["suite"], run["case"])
-        threshold = run["activity_threshold"]
+        policy = run.get("policy", "global")
+        if policy not in ("global", "exclusive_gap"):
+            raise ValueError("Unexpected activity policy")
+        if policy == "exclusive_gap" and run["activity_threshold"] != 0.0:
+            raise ValueError("Exclusive policy must retain the zero baseline threshold")
+        if policy == "global" and run.get("exclusive_gap_threshold", 0.0) != 0.0:
+            raise ValueError("Global policy must not enable exclusive gap recovery")
+        threshold = (run["activity_threshold"] if policy == "global" else
+                     run["exclusive_gap_threshold"])
         if key not in CASES or threshold not in THRESHOLDS or (key, threshold) in seen:
             raise ValueError("Unexpected or repeated run")
         seen.add((key, threshold))
@@ -49,7 +57,7 @@ def main() -> None:
                    "speaker_id": t["speaker_id"]} for t in turns]
         raw_score = der(reference["diarization"], turns, duration, collar_ms=250)
         padded_score = der(reference["diarization"], padded, duration, collar_ms=250)
-        print(run["case"], threshold,
+        print(run["case"], policy, threshold,
               "raw DER", f"{raw_score['rate']:.3%}",
               "pad150 DER", f"{padded_score['rate']:.3%}",
               "speakers", len({t["speaker_id"] for t in turns}),
