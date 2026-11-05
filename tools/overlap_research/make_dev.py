@@ -10,7 +10,7 @@ import json
 import wave
 from pathlib import Path
 import numpy as np
-from common import REPO, LOCAL, owned, sha, write_json
+from common import REPO, LOCAL, owned, sha, write_json,fetch
 
 def read_wav(path):
     with wave.open(str(path)) as w:
@@ -60,7 +60,8 @@ def build(source, output):
                    kind='SYNTHETIC_DEV_FROM_ACTED_SOURCES', split='DEV', annotation_source=lock['repository']+'@'+lock['revision']+'/test.csv',
                    license='Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git', text_segments=segments,
                    reference_limits='Scripted utterances, not manually verified audible words or word times. No speech activity ground truth. Not natural overlap; not HOLDOUT.')
-        write_json(output / (name+'.ref.json'), ref)
+        # Preserve the exact Windows-frozen reference bytes across hosts.
+        write_json(output / (name+'.ref.json'), ref,line_ending='\r\n')
         stem_hashes = {}
         for who, x in stems.items():
             p = output / (name+'.source-'+who+'.wav')
@@ -75,9 +76,16 @@ def build(source, output):
     manifest = dict(schema_version=1, scope='SYNTHETIC DEV ONLY; existing 4-clip holdout untouched', source_lock=lock,
                     mixture='mono16k; deterministic linear resampling; gain0.45 per stem, integer PCM rounding; no ASR-derived reference',
                     cases=cases)
-    write_json(output / 'manifest.json', manifest)
+    write_json(output / 'manifest.json', manifest,line_ending='\r\n')
     return manifest
 
 if __name__ == '__main__':
-    ap=argparse.ArgumentParser(); ap.add_argument('--source',type=Path,required=True); ap.add_argument('--out',type=Path,default=LOCAL/'dev')
-    args=ap.parse_args(); print(json.dumps(build(args.source,args.out),ensure_ascii=False,indent=2))
+    ap=argparse.ArgumentParser(); ap.add_argument('--source',type=Path,help='Existing verified source clips; omit to fetch exactly three DEV clips')
+    ap.add_argument('--out',type=Path,default=LOCAL/'dev')
+    args=ap.parse_args()
+    if args.source is None:
+        lock=json.loads((REPO/'tools/fixtures/dialogs-ru-smoke-lock.json').read_text())
+        args.source=owned(LOCAL/'source-dev')
+        base='https://huggingface.co/datasets/'+lock['repository']+'/resolve/'+lock['revision']+'/'
+        for p in [lock['license'],lock['metadata'],*lock['clips']]:fetch(base+p['path'],args.source/Path(p['path']).name,p['sha256'])
+    print(json.dumps(build(args.source,args.out),ensure_ascii=False,indent=2))

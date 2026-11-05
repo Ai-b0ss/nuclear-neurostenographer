@@ -1,7 +1,9 @@
 """Issue #10 task-owned I/O. No private audio is uploaded by these tools."""
 import hashlib
 import json
+import os
 from pathlib import Path
+import time
 import urllib.request
 
 REPO = Path(__file__).resolve().parents[2]
@@ -11,10 +13,14 @@ def sha(path):
     with Path(path).open('rb') as f:
         return hashlib.file_digest(f, 'sha256').hexdigest()
 
-def write_json(path, value):
+def write_json(path, value, *, line_ending='\n'):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+    payload=(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False)+'\n').replace('\n',line_ending)
+    temporary=path.with_name(path.name+'.'+str(os.getpid())+'.'+str(time.time_ns())+'.tmp')
+    with temporary.open('wb') as stream:
+        stream.write(payload.encode('utf-8'));stream.flush();os.fsync(stream.fileno())
+    temporary.replace(path)
 
 def owned(path):
     path = Path(path).resolve()

@@ -15,9 +15,11 @@ from common import LOCAL,REPO,owned,sha,write_json
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--serial',required=True);ap.add_argument('--a3',type=Path,required=True);ap.add_argument('--c2',type=Path,required=True)
-    ap.add_argument('--repeats',type=int,default=5);ap.add_argument('--setup-only',action='store_true');ap.add_argument('--probe-only',action='store_true');a=ap.parse_args()
+    ap.add_argument('--repeats',type=int,default=5);ap.add_argument('--setup-only',action='store_true');ap.add_argument('--probe-only',action='store_true')
+    ap.add_argument('--quality-only',action='store_true',help='Separate non-performance word-sidecar runs, after repeated performance jobs')
+    ap.add_argument('--out',type=Path,default=LOCAL/'phone-runs');a=ap.parse_args()
     if not 1<=a.repeats<=10:raise ValueError('Bounded repeats1..10 required')
-    out=owned(LOCAL/'phone-runs');adb=str(LOCAL/'android-sdk/platform-tools/adb.exe')
+    out=owned(a.out);adb=str(LOCAL/'android-sdk/platform-tools/adb.exe')
     env=dict(os.environ,ANDROID_USER_HOME=str(LOCAL/'android-user'),ANDROID_SDK_HOME=str(LOCAL/'android-user'))
     prefix=[adb,'-P','5047','-s',a.serial]
     def run(args,timeout=120,check=True):
@@ -34,6 +36,7 @@ def main():
         write_json(state_path,state)
     remote=state['remote']
     if not remote.startswith('/data/local/tmp/nn_issue10_codex_20261105_'):raise ValueError('Unsafe task directory')
+    if state['serial_sha256']!=__import__('hashlib').sha256(a.serial.encode()).hexdigest():raise ValueError('State belongs to a different device')
     # Never infer a timed-out device operation failed. Refuse dispatch until reconciled.
     if state['status']=='UNKNOWN_OUTCOME':
         r=shell('cat '+remote+'/job.rc',check=False)
@@ -48,7 +51,7 @@ def main():
     mappings.update({'a3/'+n:p for n,p in baseline_files.items()});mappings.update({'c2/'+n:a.c2/n for n in c2_names})
     if state['status']=='CREATED':
         write_json(out/'device-before.json',dict(info=shell('getprop ro.product.model; getprop ro.product.cpu.abi; getprop ro.build.version.release; getconf PAGESIZE; settings get global airplane_mode_on; settings get global wifi_on; settings get global mobile_data; dumpsys battery; df /data/local/tmp').stdout))
-        shell('mkdir '+remote+'/native '+remote+'/a3 '+remote+'/c2 '+remote+'/vox')
+        shell('mkdir -p '+remote+'/native '+remote+'/a3 '+remote+'/c2 '+remote+'/vox')
         checks={}
         for relative,path in mappings.items():
             digest=sha(path);run(['push',str(path),remote+'/'+relative],timeout=300)
@@ -56,16 +59,21 @@ def main():
             if actual!=digest:raise ValueError('Phone transfer hash mismatch:'+relative)
             checks[relative]=dict(sha256=digest,bytes=path.stat().st_size)
         write_json(out/'inputs.json',checks);state['status']='STAGED';write_json(state_path,state)
+    else:
+        checks=json.loads((out/'inputs.json').read_text())
+        if any(sha(path)!=checks[relative]['sha256'] for relative,path in mappings.items()):
+            raise ValueError('Staged input changed; choose a new task output directory')
     if a.setup_only:print('STAGED task-owned probe');return
     if shell('settings get global airplane_mode_on').stdout.strip()!='1':raise RuntimeError('Phone is not in airplane mode; do not silently change owner settings')
-    def job(key,cls,args,outputs):
+    def job(key,cls,args,outputs,words=False):
         if any(r['key']==key and r['status']=='OK' for r in state['runs']):return
-        cmd=' '.join(shlex.quote(str(x)) for x in ['app_process','-Djava.library.path='+remote+'/native','-Dresearch.words=false',remote,cls,*args])
+        cmd=' '.join(shlex.quote(str(x)) for x in ['app_process','-Djava.library.path='+remote+'/native','-Dresearch.words='+str(words).lower(),remote,cls,*args])
         command='export CLASSPATH='+remote+'/probe.jar LD_LIBRARY_PATH='+remote+'/native; '+cmd+' > '+remote+'/'+key+'.log 2>&1 & pid=$!; echo $pid > '+remote+'/job.pid; wait $pid; rc=$?; echo $rc > '+remote+'/job.rc; exit $rc'
         shell('rm -f '+remote+'/job.rc '+remote+'/job.pid') # exact task-owned status files only
-        start=time.perf_counter();p=subprocess.Popen(prefix+['shell',command],env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-        samples=[];record=dict(key=key,status='RUNNING',outputs=outputs)
+        start=time.perf_counter();samples=[];record=dict(key=key,status='RUNNING',outputs=outputs,started_utc=__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat())
         state['runs'].append(record);state['status']='UNKNOWN_OUTCOME';write_json(state_path,state)
+        # Durable unknown outcome BEFORE external dispatch; a process crash cannot make a retry look safe.
+        p=subprocess.Popen(prefix+['shell',command],env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         # Sampling itself adds overhead; compare all task workers with this same protocol.
         while p.poll() is None:
             if time.perf_counter()-start>1200:
@@ -89,6 +97,11 @@ def main():
         print(key,record['status'],round(record['wall_s'],2),record['sampled_peak_total_task_pss_kib'],flush=True)
         if record['status']!='OK':raise RuntimeError('Device probe failed; inspect task log '+key)
     cls='ru.neurostenographer.tools.OverlapHostKt';vcls='ru.neurostenographer.research.VoxLockProbe'
+    if a.quality_only:
+        for key,wav in [('quality-baseline','mix.wav'),('quality-target0','r0-target0.wav'),('quality-target1','r0-target1.wav')]:
+            job(key,cls,['asr',remote+'/a3',remote+'/'+wav,remote+'/r0.tsv',remote+'/'+key+'.json',remote+'/'+key+'.meta.json'],
+                [key+'.json',key+'.json.words.json',key+'.meta.json'],words=True)
+        state['status']='COMPLETE';write_json(state_path,state);print('PHONE QUALITY SIDECARS COMPLETE');return
     for i in range(a.repeats):
         if not a.probe_only:
             job('r'+str(i)+'-c2',cls,['c2',remote+'/c2',remote+'/mix.wav',remote+'/r'+str(i)+'.tsv',remote+'/r'+str(i)+'-c2.meta.json'],['r'+str(i)+'.tsv','r'+str(i)+'-c2.meta.json'])

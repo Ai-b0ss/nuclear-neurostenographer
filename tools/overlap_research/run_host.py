@@ -69,6 +69,10 @@ def main():
     ap.add_argument('--c2',required=True,type=Path);ap.add_argument('--out',type=Path,default=LOCAL/'host-v1')
     ap.add_argument('--enrollment-mode',choices=['strict-c2','provided-dev'],default='strict-c2');args=ap.parse_args()
     out=owned(args.out); h=LOCAL/'harness';tmp=owned(out/'tmp')
+    if (out/'summary.json').exists():raise ValueError('Use a new output directory; previous evidence is immutable')
+    provenance=json.loads((LOCAL/'provenance.json').read_text())
+    for name,digest in provenance['harness'].items():
+        if sha(h/name)!=digest:raise ValueError('Harness dependency changed: '+name)
     # Verify same pinned A3 bytes used by the contest app, including opset-fixed encoder.
     pins={'gigaam_v3_e2e_rnnt_encoder_int8.onnx':'75e93f387fa3cf5743e2b702dbc3108214b9769fdf4ae131f4e4c6d6087571ac',
           'gigaam_v3_e2e_rnnt_decoder.onnx':'781971998e6a355d6a714f6932a30eab295e7ba0d14fd7e0f78c83b87e811860',
@@ -80,13 +84,14 @@ def main():
         if sha(LOCAL/'voxlock'/name)!=digest:raise ValueError('VoxLock pin mismatch: '+name)
     manifest=json.loads((LOCAL/'dev/manifest.json').read_text(encoding='utf-8'))
     protocol=dict(split='SYNTHETIC DEV; no holdout read',candidate='VoxLock v2 INT8, threads1, 3s C2-clean enrollment, no automatic enrollment',
-                  quality_gate='Exploratory only: lower paired cpWER-U and no increase of clean-speech WER errors; strict cpWER, full WER, unknown and negative controls mandatory. Natural manual ground truth and independent identity verifier still required.',
+                  quality_gate='Exploratory only: no increase of clean-speech WER errors; strict cpWER/full WER/unknown/negative controls mandatory. cpWER-U cannot improve recovered-null words structurally: identity gate remains unavailable. Natural manual ground truth and independent identity verifier required for integration.',
                   frozen_before_candidate=True,enrollment_mode=args.enrollment_mode,
                   enrollment='strict-c2: C2 continuous clean>=3100ms,50ms guard; provided-dev: controlled synthetic single-source anchor,250ms guard,3s with natural pauses; unique C2 identity in anchor; neither uses reference text',
                   overlap='Replace midpoint-in-C2-overlap words only; baseline kept elsewhere; no identity verifier -> null speaker',
                   word_recall='NOT_SCORED: no independent reference word times',
                   parity='Actual production OfflineAsr/TokenWords/fusion/C2; host JNI build differs from signed APK; QuietCuts refines each waveform independently; extra word decode excluded from app timing',
-                  a3=pins,host_jar=sha(h/'overlap-host.jar'),manifest_sha256=sha(LOCAL/'dev/manifest.json'))
+                  a3=pins,host_jar=sha(h/'overlap-host.jar'),manifest_sha256=sha(LOCAL/'dev/manifest.json'),
+                  source_hashes={p.name:sha(p) for p in Path(__file__).parent.glob('*') if p.suffix in ('.py','.kt','.java')})
     write_json(out/'protocol.json',protocol)
     cp=os.pathsep.join(str(h/p) for p in ['overlap-host.jar','kotlin/kotlin-stdlib.jar','classes.jar','placeholder.jar','onnxruntime-1.17.1.jar'])
     jvm=[str(args.java),'-Djava.io.tmpdir='+str(tmp),'-Djava.library.path='+str(h/'native'),'-Xmx3g','-XX:ErrorFile='+str(out/'hs_err_%p.log'),'-cp',cp,'ru.neurostenographer.tools.OverlapHostKt']
@@ -155,7 +160,10 @@ def main():
             target_tr=out/(name+'.target-'+str(i)+'.json')
             target=seal_hyp(java('asr',args.a3,p,turns_path,target_tr),wav,turns)
             write_json(target_tr,target)
-            target_words[e['speaker_id']]=json.loads(Path(str(target_tr)+'.words.json').read_text(encoding='utf-8'))['segments']
+            sidecar=json.loads(Path(str(target_tr)+'.words.json').read_text(encoding='utf-8'))['segments']
+            if [w for s in target['segments'] for w in words(s['text'])] != [w for s in sidecar for w in words(s['text'])]:
+                raise ValueError('Target sidecar differs from production text')
+            target_words[e['speaker_id']]=sidecar
             row['controls']['target_'+str(i)]=dict(status='OK',speaker_id=e['speaker_id'],audio_sha256=sha(p),samples=len(y),
                 peak=float(np.max(np.abs(y))),clipped_samples=int(np.sum(np.abs(y)>=1)),rms=float(np.sqrt(np.mean(y*y))),wall_s=elapsed,cpu_s=cpu,rtf=elapsed/(len(x)/16000),
                 transcript=score(ref,target))
@@ -170,6 +178,15 @@ def main():
         row['target_correlation']=float(np.corrcoef(stems)[0,1]);row['targets_duplicate_bytes']=np.array_equal(stems[0],stems[1])
         hybrid=dict(base,segments=build_hybrid(base_words,target_words,spans));write_json(out/(name+'.candidate.json'),hybrid)
         row['candidate']=score(ref,hybrid)
+        assumed=copy.deepcopy(hybrid)
+        for s in assumed['segments']:
+            if 'conditioned_target_id' in s:s.update(speaker_id=s['conditioned_target_id'],attribution_reliable=True)
+        write_json(out/(name+'.assumed-identity-diagnostic.json'),assumed)
+        row['assumed_identity_diagnostic']=dict(scope='ASSUMPTION ONLY: enrollment identity stamped without verifier; not accepted app metric',score=score(ref,assumed))
+        target_lists=list(target_words.values())
+        row['cross_target_duplicate_word_candidates']=sum(
+            words(a['text'])==words(b['text']) and abs((a['start_ms']+a['end_ms']-b['start_ms']-b['end_ms'])/2)<=250
+            for a in target_lists[0] for b in target_lists[1] if in_overlap(a,spans) and in_overlap(b,spans))
         # Explicit wrong-enrollment control: swap target samples, keeping requested identity.
         # Outputs equal the already-run opposite extraction by construction; no false claim of third voice.
         wrong={enroll[0]['speaker_id']:target_words[enroll[1]['speaker_id']],enroll[1]['speaker_id']:target_words[enroll[0]['speaker_id']]}

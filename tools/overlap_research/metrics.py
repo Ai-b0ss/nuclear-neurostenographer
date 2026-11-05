@@ -37,6 +37,8 @@ def temporal_recall(reference_words,hypothesis_words,tolerance_ms=250):
     """Max cardinality one-to-one word matching, literal supplied IDs, emission midpoint tolerance.
     Only caller-provided independent single-word annotations are accepted.
     """
+    if type(tolerance_ms) is not int or tolerance_ms<0:
+        raise ValueError('Nonnegative integer tolerance required')
     if any(len(words(s['text']))!=1 for s in reference_words+hypothesis_words):
         raise ValueError('Temporal recall requires one normalized word per interval')
     edges=[]

@@ -7,3 +7,5 @@ docs/licenses/dialogs-OpenRAIL.md -text
 docs/licenses/asio-* -text
 docs/evidence/round11-recovery10-* -text whitespace=cr-at-eol
 docs/evidence/late11-*.json -text
+docs/evidence/issue10-codex-20261105/*.json -text
+docs/licenses/issue10-voxlock-*.txt -text

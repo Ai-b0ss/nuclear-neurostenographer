@@ -12,6 +12,7 @@ import com.k2fsa.sherpa.onnx.*
 fun main(args: Array<String>) {
     fun cpuMs(): Long = try { Class.forName("android.os.Process").getMethod("getElapsedCpuTime").invoke(null) as Long } catch(_: Exception) {-1L}
     val processCpuStart=cpuMs()
+    fun elapsedCpuMs(): Long { val now=cpuMs(); return if(now<0 || processCpuStart<0) -1L else now-processCpuStart }
     if(System.getProperty("os.name").startsWith("Windows"))
         System.load(File(System.getProperty("java.library.path"), "onnxruntime.dll").absolutePath)
     else System.loadLibrary("onnxruntime")
@@ -21,7 +22,7 @@ fun main(args: Array<String>) {
         File(args[3]).writeText(r.turns.joinToString("") {
             "${it.startMs}\t${it.endMs}\t${if(it.speakerId == "Unknown") -1 else it.speakerId.removePrefix("Speaker ").toInt()-1}\n"
         })
-        File(args[4]).writeText("{\"load_ms\":${r.loadMs},\"infer_ms\":${r.processMs},\"process_cpu_ms\":${cpuMs()-processCpuStart},\"threads\":${InferenceThreads.count()}}")
+        File(args[4]).writeText("{\"load_ms\":${r.loadMs},\"infer_ms\":${r.processMs},\"process_cpu_ms\":${elapsedCpuMs()},\"threads\":${InferenceThreads.count()}}")
     } else {
         val raw = File(args[3]).readLines().filter { it.isNotBlank() }.map {
             val (a,b,c) = it.split('\t'); ClusterTurn(a.toLong()/1000f,b.toLong()/1000f,c.toInt())
@@ -31,7 +32,7 @@ fun main(args: Array<String>) {
         val r = OfflineAsr.transcribe(audio,File(args[1]),turns=turns,speechWindows=windows)
         File(args[4]).writeText(TranscriptExport.json(r.segments, audioMs=audio.durationMs))
         File(args[5]).writeText("{\"load_ms\":${r.loadMs},\"decode_ms\":${r.decodeMs},\"windows\":${r.decodedWindows},"+
-            "\"token_timed_windows\":${r.tokenTimedWindows},\"untimed_windows\":${r.untimedWindows},\"process_cpu_ms\":${cpuMs()-processCpuStart},\"threads\":${InferenceThreads.count()}}")
+            "\"token_timed_windows\":${r.tokenTimedWindows},\"untimed_windows\":${r.untimedWindows},\"process_cpu_ms\":${elapsedCpuMs()},\"threads\":${InferenceThreads.count()}}")
         // Additional unmerged emission words for overlap-only research splicing.
         // A second deterministic decode; the app output above is independently retained.
         if(System.getProperty("research.words") != "false") {
