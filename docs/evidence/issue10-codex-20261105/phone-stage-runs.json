@@ -1,0 +1,890 @@
+{
+  "scope": "Actual device observations, task-only worker; PID sample traces retained under ignored .local",
+  "status": "COMPLETE",
+  "remote_directory": "/data/local/tmp/nn_issue10_codex_20261105_1793856593",
+  "measured_code_checkpoint": "1d9fdda",
+  "runs": [
+    {
+      "key": "r0-c2",
+      "status": "OK",
+      "outputs": [
+        "r0.tsv",
+        "r0-c2.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 14.027297399999952,
+      "sampled_peak_total_task_pss_kib": 277703,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r0.tsv": "072a5e88049665d28d8ec897abf9b06b88f1918e8cafe56686b5d97f5a9855d1",
+        "r0-c2.meta.json": "87a163d4a7b8edfaf3b0e6ec79601dc6d08895d835032f4b386e2e20e6c42713"
+      },
+      "inference": {
+        "load_ms": 7746,
+        "infer_ms": 2760,
+        "process_cpu_ms": 18467,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 132000\n  status: 2\n  health: 2\n  present: true\n  level: 97\n  scale: 100\n  voltage: 4397\n  temperature: 340\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r0-baseline",
+      "status": "OK",
+      "outputs": [
+        "r0-baseline.json",
+        "r0-baseline.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 12.953021299999818,
+      "sampled_peak_total_task_pss_kib": 699323,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r0-baseline.json": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+        "r0-baseline.meta.json": "44f05b0d4accc27ca36936c3cc96008c457132c937a6e4f3765d31b1175a04ee"
+      },
+      "inference": {
+        "load_ms": 5424,
+        "decode_ms": 5944,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 30211,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 129000\n  status: 2\n  health: 2\n  present: true\n  level: 98\n  scale: 100\n  voltage: 4355\n  temperature: 340\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r0-target0",
+      "status": "OK",
+      "outputs": [
+        "r0-target0.wav",
+        "r0-target0.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 273.2910050999999,
+      "sampled_peak_total_task_pss_kib": 253435,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r0-target0.wav": "b3b0dd8783ef0611bdb2ddcf93ff2acbd43e010f3c7655afe19da7a33db62a7d",
+        "r0-target0.meta.json": "3ce28c8f9624b0a12baf52ae12e05e051a290c0cd6ce94255c16919191431bf0"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2255.882812,
+        "infer_ms": 268770.361939,
+        "process_cpu_ms": 268898.0,
+        "peak": 0.20650983,
+        "clipped": 0,
+        "rms": 0.020156643298099127,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 110000\n  status: 2\n  health: 2\n  present: true\n  level: 98\n  scale: 100\n  voltage: 4397\n  temperature: 340\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r0-target0-asr",
+      "status": "OK",
+      "outputs": [
+        "r0-target0.json",
+        "r0-target0-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 11.63273190000018,
+      "sampled_peak_total_task_pss_kib": 776634,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r0-target0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "r0-target0-asr.meta.json": "588775366c817efe70fec03a3a9b9dc6e27766247d6c03f329f71e813637895d"
+      },
+      "inference": {
+        "load_ms": 3940,
+        "decode_ms": 6052,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 29330,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 110000\n  status: 2\n  health: 2\n  present: true\n  level: 98\n  scale: 100\n  voltage: 4397\n  temperature: 340\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r0-target1",
+      "status": "OK",
+      "outputs": [
+        "r0-target1.wav",
+        "r0-target1.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 257.8401077000003,
+      "sampled_peak_total_task_pss_kib": 259378,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r0-target1.wav": "341e5bd4b6941d88023274884397e359e8a5917756864c0bf5936d2ecbe04f57",
+        "r0-target1.meta.json": "944ec3d443fedffc71b510a1598d23d5d5f26cc014b9d681e2b1fd6b15f8d977"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2028.584896,
+        "infer_ms": 253224.209857,
+        "process_cpu_ms": 253342.0,
+        "peak": 0.24819177,
+        "clipped": 0,
+        "rms": 0.0257973267219955,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 92000\n  status: 2\n  health: 2\n  present: true\n  level: 98\n  scale: 100\n  voltage: 4396\n  temperature: 350\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r0-target1-asr",
+      "status": "OK",
+      "outputs": [
+        "r0-target1.json",
+        "r0-target1-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 20.091383099999803,
+      "sampled_peak_total_task_pss_kib": 880359,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r0-target1.json": "f855db7aff3f665151935ca64dc5c21fd886dc5444f4cf56bc2c1dec725ea98a",
+        "r0-target1-asr.meta.json": "297c7c4bad7ad3833dae976e387cc3e5f66b1015958d7f0b91de8cd64c95892c"
+      },
+      "inference": {
+        "load_ms": 11328,
+        "decode_ms": 6226,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 37214,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 91000\n  status: 2\n  health: 2\n  present: true\n  level: 98\n  scale: 100\n  voltage: 4397\n  temperature: 350\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r1-c2",
+      "status": "OK",
+      "outputs": [
+        "r1.tsv",
+        "r1-c2.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 12.7307823000001,
+      "sampled_peak_total_task_pss_kib": 278594,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r1.tsv": "072a5e88049665d28d8ec897abf9b06b88f1918e8cafe56686b5d97f5a9855d1",
+        "r1-c2.meta.json": "e6b8a942b3df6a25e29701dc0cad8e7c684f2604a6d95fa65fdeb1249b14b5e4"
+      },
+      "inference": {
+        "load_ms": 7867,
+        "infer_ms": 2411,
+        "process_cpu_ms": 17195,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 90000\n  status: 2\n  health: 2\n  present: true\n  level: 98\n  scale: 100\n  voltage: 4396\n  temperature: 350\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r1-baseline",
+      "status": "OK",
+      "outputs": [
+        "r1-baseline.json",
+        "r1-baseline.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 19.897027899999557,
+      "sampled_peak_total_task_pss_kib": 859353,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r1-baseline.json": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+        "r1-baseline.meta.json": "47059af66b6d0b57a19fab9901cb02af6b76dbec42c801f6a0134b95efc01f76"
+      },
+      "inference": {
+        "load_ms": 11243,
+        "decode_ms": 6202,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 37126,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 90000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4397\n  temperature: 350\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r1-target0",
+      "status": "OK",
+      "outputs": [
+        "r1-target0.wav",
+        "r1-target0.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 200.4707515,
+      "sampled_peak_total_task_pss_kib": 251114,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r1-target0.wav": "b3b0dd8783ef0611bdb2ddcf93ff2acbd43e010f3c7655afe19da7a33db62a7d",
+        "r1-target0.meta.json": "4d353a1526669cc236269839593c396ee8fa6c5177b1683f0589d9fc41ef2a07"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2026.085416,
+        "infer_ms": 196236.435387,
+        "process_cpu_ms": 196402.0,
+        "peak": 0.20650983,
+        "clipped": 0,
+        "rms": 0.020156643298099127,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 77000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4396\n  temperature: 350\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r1-target0-asr",
+      "status": "OK",
+      "outputs": [
+        "r1-target0.json",
+        "r1-target0-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 20.968040499999915,
+      "sampled_peak_total_task_pss_kib": 832061,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r1-target0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "r1-target0-asr.meta.json": "f288573a9553bcd905fc2e1e4c90c3271fae0ab61ded2a07204238cb4cd457c6"
+      },
+      "inference": {
+        "load_ms": 11361,
+        "decode_ms": 7375,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 41159,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 76000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4395\n  temperature: 360\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r1-target1",
+      "status": "OK",
+      "outputs": [
+        "r1-target1.wav",
+        "r1-target1.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 120.39285279999967,
+      "sampled_peak_total_task_pss_kib": 246675,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r1-target1.wav": "341e5bd4b6941d88023274884397e359e8a5917756864c0bf5936d2ecbe04f57",
+        "r1-target1.meta.json": "8b9fec83c75666540c4167de71b6877a004198039137e4a08d6139aba98f172f"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2033.765104,
+        "infer_ms": 116130.308836,
+        "process_cpu_ms": 116410.0,
+        "peak": 0.24819177,
+        "clipped": 0,
+        "rms": 0.0257973267219955,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 70000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4395\n  temperature: 360\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r1-target1-asr",
+      "status": "OK",
+      "outputs": [
+        "r1-target1.json",
+        "r1-target1-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 20.99740490000022,
+      "sampled_peak_total_task_pss_kib": 861191,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r1-target1.json": "f855db7aff3f665151935ca64dc5c21fd886dc5444f4cf56bc2c1dec725ea98a",
+        "r1-target1-asr.meta.json": "19f524c23f9441d23be3f5d6ebe70aed6209e030fe33f498f3c2686bd13bf777"
+      },
+      "inference": {
+        "load_ms": 11135,
+        "decode_ms": 7445,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 41298,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 69000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4396\n  temperature: 360\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r2-c2",
+      "status": "OK",
+      "outputs": [
+        "r2.tsv",
+        "r2-c2.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 12.971533800000543,
+      "sampled_peak_total_task_pss_kib": 279541,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r2.tsv": "072a5e88049665d28d8ec897abf9b06b88f1918e8cafe56686b5d97f5a9855d1",
+        "r2-c2.meta.json": "d10e5f68a12aa6c178f7dd3c27bef877e48fc3216edb32934b13070ab8bdf675"
+      },
+      "inference": {
+        "load_ms": 7877,
+        "infer_ms": 2739,
+        "process_cpu_ms": 18484,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 67000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4393\n  temperature: 360\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r2-baseline",
+      "status": "OK",
+      "outputs": [
+        "r2-baseline.json",
+        "r2-baseline.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 18.54007509999974,
+      "sampled_peak_total_task_pss_kib": 888737,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r2-baseline.json": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+        "r2-baseline.meta.json": "fe317edd381f34ea056987afe3897d26b9cea0ada03b1880781ef467d48f877e"
+      },
+      "inference": {
+        "load_ms": 10451,
+        "decode_ms": 6272,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 36760,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 67000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4395\n  temperature: 360\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r2-target0",
+      "status": "OK",
+      "outputs": [
+        "r2-target0.wav",
+        "r2-target0.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 136.93385219999982,
+      "sampled_peak_total_task_pss_kib": 259306,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r2-target0.wav": "b3b0dd8783ef0611bdb2ddcf93ff2acbd43e010f3c7655afe19da7a33db62a7d",
+        "r2-target0.meta.json": "91ae4bd0ee97d6773c35df13a80e186928f25b9420f5564ed7cca47f469ccb15"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2008.254167,
+        "infer_ms": 132827.447896,
+        "process_cpu_ms": 133095.0,
+        "peak": 0.20650983,
+        "clipped": 0,
+        "rms": 0.020156643298099127,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 59000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4395\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r2-target0-asr",
+      "status": "OK",
+      "outputs": [
+        "r2-target0.json",
+        "r2-target0-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 11.572628500000064,
+      "sampled_peak_total_task_pss_kib": 850690,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r2-target0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "r2-target0-asr.meta.json": "242dd010ebd72cb3bb1be99191859f8ba4593eb68aadb0d53e1a831e241593e5"
+      },
+      "inference": {
+        "load_ms": 3825,
+        "decode_ms": 6219,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 29801,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 59000\n  status: 2\n  health: 2\n  present: true\n  level: 99\n  scale: 100\n  voltage: 4395\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r2-target1",
+      "status": "OK",
+      "outputs": [
+        "r2-target1.wav",
+        "r2-target1.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 215.42944490000082,
+      "sampled_peak_total_task_pss_kib": 260633,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r2-target1.wav": "341e5bd4b6941d88023274884397e359e8a5917756864c0bf5936d2ecbe04f57",
+        "r2-target1.meta.json": "a7a54e9c9fb0bbc2c8d234e7a76868f6f544df0b3768fb2d16801e6174974862"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2011.45,
+        "infer_ms": 211424.453093,
+        "process_cpu_ms": 211570.0,
+        "peak": 0.24819177,
+        "clipped": 0,
+        "rms": 0.0257973267219955,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 48000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4396\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r2-target1-asr",
+      "status": "OK",
+      "outputs": [
+        "r2-target1.json",
+        "r2-target1-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 19.809346000000005,
+      "sampled_peak_total_task_pss_kib": 860506,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r2-target1.json": "f855db7aff3f665151935ca64dc5c21fd886dc5444f4cf56bc2c1dec725ea98a",
+        "r2-target1-asr.meta.json": "dcf5e834fb422844072fc14e882e86fa587c08eafb528570937451776c9af915"
+      },
+      "inference": {
+        "load_ms": 11187,
+        "decode_ms": 6030,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 36336,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 46000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4394\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r3-c2",
+      "status": "OK",
+      "outputs": [
+        "r3.tsv",
+        "r3-c2.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 12.770531499999379,
+      "sampled_peak_total_task_pss_kib": 281678,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r3.tsv": "072a5e88049665d28d8ec897abf9b06b88f1918e8cafe56686b5d97f5a9855d1",
+        "r3-c2.meta.json": "2f5c7c0987d7747568157cf4234291ea630c1c24f882a9dabc521340e588eb74"
+      },
+      "inference": {
+        "load_ms": 7841,
+        "infer_ms": 2780,
+        "process_cpu_ms": 18583,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 46000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4394\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r3-baseline",
+      "status": "OK",
+      "outputs": [
+        "r3-baseline.json",
+        "r3-baseline.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 20.18350290000035,
+      "sampled_peak_total_task_pss_kib": 865729,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r3-baseline.json": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+        "r3-baseline.meta.json": "75cf3fb7b22c082fda9e4ea87bb01f78afeaa99327baf04e6951a1f0ebb77839"
+      },
+      "inference": {
+        "load_ms": 11354,
+        "decode_ms": 6204,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 37261,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 45000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4396\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r3-target0",
+      "status": "OK",
+      "outputs": [
+        "r3-target0.wav",
+        "r3-target0.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 135.64587310000024,
+      "sampled_peak_total_task_pss_kib": 248697,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r3-target0.wav": "b3b0dd8783ef0611bdb2ddcf93ff2acbd43e010f3c7655afe19da7a33db62a7d",
+        "r3-target0.meta.json": "202504aafdbd327f2542350e2baf6c3b7ac3cbdf4a268b4ca49502c7c8f563b3"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 2057.497916,
+        "infer_ms": 131867.342688,
+        "process_cpu_ms": 132159.0,
+        "peak": 0.20650983,
+        "clipped": 0,
+        "rms": 0.020156643298099127,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 39000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r3-target0-asr",
+      "status": "OK",
+      "outputs": [
+        "r3-target0.json",
+        "r3-target0-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 11.44527830000061,
+      "sampled_peak_total_task_pss_kib": 784573,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r3-target0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "r3-target0-asr.meta.json": "73c4ad7bf4a503de2545ec29a25dae25c9207fa1af087eba6a1119942499091f"
+      },
+      "inference": {
+        "load_ms": 3879,
+        "decode_ms": 6088,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 29281,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 38000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4384\n  temperature: 370\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r3-target1",
+      "status": "OK",
+      "outputs": [
+        "r3-target1.wav",
+        "r3-target1.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 110.71491479999986,
+      "sampled_peak_total_task_pss_kib": 255252,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r3-target1.wav": "341e5bd4b6941d88023274884397e359e8a5917756864c0bf5936d2ecbe04f57",
+        "r3-target1.meta.json": "a15e0176f3a17c68ee3d8022b33dafa896c8d0fd53279ea2da911d1605b0c60a"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 770.025521,
+        "infer_ms": 108220.318734,
+        "process_cpu_ms": 108530.0,
+        "peak": 0.24819177,
+        "clipped": 0,
+        "rms": 0.0257973267219955,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 34000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r3-target1-asr",
+      "status": "OK",
+      "outputs": [
+        "r3-target1.json",
+        "r3-target1-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 18.74353129999963,
+      "sampled_peak_total_task_pss_kib": 870084,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r3-target1.json": "f855db7aff3f665151935ca64dc5c21fd886dc5444f4cf56bc2c1dec725ea98a",
+        "r3-target1-asr.meta.json": "97c917f6d1b2d4999b65a4b2c6c595449565e569fd8be6d27ed680a74f78c538"
+      },
+      "inference": {
+        "load_ms": 11022,
+        "decode_ms": 6000,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 36109,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 32000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r4-c2",
+      "status": "OK",
+      "outputs": [
+        "r4.tsv",
+        "r4-c2.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 12.828871500000787,
+      "sampled_peak_total_task_pss_kib": 279889,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r4.tsv": "072a5e88049665d28d8ec897abf9b06b88f1918e8cafe56686b5d97f5a9855d1",
+        "r4-c2.meta.json": "88a4b9f0b4cb8e8da75152d05a059f2e74334a58341dd501a369fdc37d627a5c"
+      },
+      "inference": {
+        "load_ms": 7908,
+        "infer_ms": 2554,
+        "process_cpu_ms": 17778,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 32000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r4-baseline",
+      "status": "OK",
+      "outputs": [
+        "r4-baseline.json",
+        "r4-baseline.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 11.639632000000347,
+      "sampled_peak_total_task_pss_kib": 776647,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r4-baseline.json": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+        "r4-baseline.meta.json": "8992b7dfba11c5aa15b7743eee088828e323c9bbd82757dbf8336f0b66495669"
+      },
+      "inference": {
+        "load_ms": 3856,
+        "decode_ms": 5966,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 28982,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 31000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4393\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r4-target0",
+      "status": "OK",
+      "outputs": [
+        "r4-target0.wav",
+        "r4-target0.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 112.04476070000055,
+      "sampled_peak_total_task_pss_kib": 252645,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r4-target0.wav": "b3b0dd8783ef0611bdb2ddcf93ff2acbd43e010f3c7655afe19da7a33db62a7d",
+        "r4-target0.meta.json": "3b48f330d327c27fa43f0c1064025caea51e85bfaf3a5d14f92975d2460a4901"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 757.013021,
+        "infer_ms": 109452.338004,
+        "process_cpu_ms": 109702.0,
+        "peak": 0.20650983,
+        "clipped": 0,
+        "rms": 0.020156643298099127,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 27000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r4-target0-asr",
+      "status": "OK",
+      "outputs": [
+        "r4-target0.json",
+        "r4-target0-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 11.384736500000145,
+      "sampled_peak_total_task_pss_kib": 735074,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r4-target0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "r4-target0-asr.meta.json": "eafd5190d1d4f4d78a582ddd7041179a61baa2ccd37f322663ad10f46dc0ddc8"
+      },
+      "inference": {
+        "load_ms": 3828,
+        "decode_ms": 6047,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 29089,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 26000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4394\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r4-target1",
+      "status": "OK",
+      "outputs": [
+        "r4-target1.wav",
+        "r4-target1.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 111.7993618999999,
+      "sampled_peak_total_task_pss_kib": 252204,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r4-target1.wav": "341e5bd4b6941d88023274884397e359e8a5917756864c0bf5936d2ecbe04f57",
+        "r4-target1.meta.json": "18df3f747e209c177cc6739719498c9f0535cc08418b1453a1caf66949e28303"
+      },
+      "inference": {
+        "status": "OK",
+        "samples": 322488,
+        "load_ms": 757.688542,
+        "infer_ms": 108574.655192,
+        "process_cpu_ms": 108821.0,
+        "peak": 0.24819177,
+        "clipped": 0,
+        "rms": 0.0257973267219955,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 21000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 390\n  technology: Li-poly\n"
+    },
+    {
+      "key": "r4-target1-asr",
+      "status": "OK",
+      "outputs": [
+        "r4-target1.json",
+        "r4-target1-asr.meta.json"
+      ],
+      "exit_code": 0,
+      "wall_s": 21.01677230000041,
+      "sampled_peak_total_task_pss_kib": 838768,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "r4-target1.json": "f855db7aff3f665151935ca64dc5c21fd886dc5444f4cf56bc2c1dec725ea98a",
+        "r4-target1-asr.meta.json": "fb40c84a2c776007f141dee98d4fc68b65457b128df30ceaea62f458dcfa237a"
+      },
+      "inference": {
+        "load_ms": 11356,
+        "decode_ms": 7229,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 40666,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 21000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 390\n  technology: Li-poly\n"
+    },
+    {
+      "key": "quality-baseline",
+      "status": "OK",
+      "outputs": [
+        "quality-baseline.json",
+        "quality-baseline.json.words.json",
+        "quality-baseline.meta.json"
+      ],
+      "started_utc": "2026-11-05T06:04:46.819833+00:00",
+      "exit_code": 0,
+      "wall_s": 23.736748299999817,
+      "sampled_peak_total_task_pss_kib": 697138,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "quality-baseline.json": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+        "quality-baseline.json.words.json": "3f93b8dc9c188585213e7f8b5b9b363829233214c439f0f366088b893d34c2a8",
+        "quality-baseline.meta.json": "d6478e697645a7771885fbd636fc915ce49324fc95ccc1458de12b6fb4a1affa"
+      },
+      "inference": {
+        "load_ms": 6785,
+        "decode_ms": 5690,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 30720,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 17000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "quality-target0",
+      "status": "OK",
+      "outputs": [
+        "quality-target0.json",
+        "quality-target0.json.words.json",
+        "quality-target0.meta.json"
+      ],
+      "started_utc": "2026-11-05T06:05:10.842901+00:00",
+      "exit_code": 0,
+      "wall_s": 29.440877099999852,
+      "sampled_peak_total_task_pss_kib": 873561,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "quality-target0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "quality-target0.json.words.json": "ad4f33e21d3dcbf79ae3f15a566403fba733bc49ba11001bec03b0ec947a45c6",
+        "quality-target0.meta.json": "79ef43b680f29af1576e0a486394f72439d696f34530b624400354911c1fc940"
+      },
+      "inference": {
+        "load_ms": 11275,
+        "decode_ms": 6083,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 36670,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 16000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4395\n  temperature: 380\n  technology: Li-poly\n"
+    },
+    {
+      "key": "quality-target1",
+      "status": "OK",
+      "outputs": [
+        "quality-target1.json",
+        "quality-target1.json.words.json",
+        "quality-target1.meta.json"
+      ],
+      "started_utc": "2026-11-05T06:05:40.562991+00:00",
+      "exit_code": 0,
+      "wall_s": 22.185039900000447,
+      "sampled_peak_total_task_pss_kib": 869050,
+      "measurement": "1s requested sampling plus adb overhead; one task-owned worker at a time; sampled estimate, not true peak",
+      "output_sha256": {
+        "quality-target1.json": "f855db7aff3f665151935ca64dc5c21fd886dc5444f4cf56bc2c1dec725ea98a",
+        "quality-target1.json.words.json": "822340135e8b8ad4f094431285122c4ec19fe8aa507af6075ebfce023fb30122",
+        "quality-target1.meta.json": "00312a10d1d5a1f9a165f1ecc99f8e6ba5c65d1f320294062d650430f3d4a775"
+      },
+      "inference": {
+        "load_ms": 3915,
+        "decode_ms": 6284,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": 30136,
+        "threads": 4
+      },
+      "battery": "Current Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 15000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4394\n  temperature: 390\n  technology: Li-poly\n"
+    }
+  ]
+}

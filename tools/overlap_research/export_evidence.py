@@ -19,6 +19,9 @@ def export(allow_partial=False):
                        ('graphs.json','onnx-graphs.json'),('provider-audit.json','provider-audit.json'),('python-packages.json','python-packages.json'),
                        ('fixture-rebuild.json','fixture-rebuild.json'),('fallback-verification.json','fallback-verification.json'),
                        ('native-loaded-maps.json','native-loaded-maps.json'),('baseline/provenance.json','baseline-rebuild.json'),
+                       ('source-reconciliation.json','source-reconciliation.json'),
+                       ('input-guard-regression.json','input-guard-regression.json'),('decision.json','decision.json'),
+                       ('phone-cleanup.json','phone-cleanup.json'),
                        ('public-audit.json','other-candidates.json'),('hardware.json','hardware.json'),('dev/manifest.json','fixture-manifest.json')]:
         save(name,read(LOCAL/local))
     provenance=read(LOCAL/'provenance.json');save('model-runtime-provenance.json',provenance)
@@ -28,6 +31,11 @@ def export(allow_partial=False):
     save('phone-summary.json',phone)
     save('phone-build.json',read(LOCAL/'phone/build.json'))
     save('phone-inputs.json',read(LOCAL/'phone-runs/inputs.json'))
+    negatives=read(LOCAL/'phone-negatives.json')
+    negatives['invalid_enrollment']={k:v for k,v in negatives['invalid_enrollment'].items() if k!='log'}
+    negatives['invalid_enrollment']['observed_exception']='IllegalArgumentException: Enrollment must be48000 samples; old research DEX, expected Java rejection/exit137; repaired separately'
+    negatives['raw_evidence_sha256']=sha(LOCAL/'phone-negatives.json')
+    save('phone-negatives.json',negatives)
     # Preserve actual per-stage metadata/hashes while retaining detailed sample traces locally.
     state=read(LOCAL/'phone-runs/state.json')
     save('phone-stage-runs.json',dict(scope='Actual device observations, task-only worker; PID sample traces retained under ignored .local',
@@ -55,7 +63,7 @@ def export(allow_partial=False):
          base_sha='a10dd3954a1a53aaf749f7ef7696bf6446cc42f4',branch='research/issue10-codex-20261105',
          files={n:dict(sha256=sha(OUT/n),bytes=(OUT/n).stat().st_size) for n in exported},
          limitations=['SYNTHETIC DEV only; natural manually annotated Russian overlap missing','Identity verifier and real app lifecycle gates still open','16KB ORT Java alignment fails','No paid APIs, no issue publication/closure, no main/release changes']))
-    print('EXPORTED',len(exported)+1,'deidentified evidence artifacts')
+    print('EXPORTED',len(exported),'deidentified evidence artifacts')
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--allow-partial',action='store_true');a=p.parse_args();export(a.allow_partial)

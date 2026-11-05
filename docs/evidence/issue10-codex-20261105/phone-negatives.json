@@ -1,0 +1,34 @@
+{
+  "scope": "Standalone task process only; not application Binder/UI lifecycle",
+  "status": "PASS",
+  "tag": "cancel-probe-1793858928193162600",
+  "invalid_enrollment": {
+    "status": "EXPECTED_REJECTION",
+    "exit_code": 137,
+    "pid": 11341,
+    "logcat_scope": "Only task-created invalid-enrollment PID; no clearing/global log export",
+    "observed_exception": "IllegalArgumentException: Enrollment must be48000 samples; old research DEX, expected Java rejection/exit137; repaired separately"
+  },
+  "cancellation": {
+    "status": "CONFIRMED_TERMINATED",
+    "exit_code": 143,
+    "native_loaded": true,
+    "pid_disappeared": true,
+    "log": "Terminated \r\n"
+  },
+  "recovery": {
+    "status": "PASS",
+    "baseline_text_equal": true,
+    "transcript_sha256": "c9c0df64c6645b314e26aee93ee792b2a48c40079a950ade65fa2bbcedbf0b53",
+    "meta": {
+      "load_ms": 11192,
+      "decode_ms": 7979,
+      "windows": 3,
+      "token_timed_windows": 3,
+      "untimed_windows": 0,
+      "process_cpu_ms": 43606,
+      "threads": 4
+    }
+  },
+  "raw_evidence_sha256": "4bde1c26aea8b733a148912844f88bcb4348d542d39b769698faf0e3b6b25240"
+}

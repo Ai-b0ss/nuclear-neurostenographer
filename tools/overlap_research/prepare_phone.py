@@ -13,8 +13,8 @@ ORT_URL='https://repo1.maven.org/maven2/com/microsoft/onnxruntime/onnxruntime-an
 ORT_SHA='35fc867b4d50942da3058f196d74c5669b4b34228794702cf15a05a4bd0b77c4'
 SHERPA_SHA='771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8'
 
-def prepare(jdk,sdk,sherpa):
-    out=owned(LOCAL/'phone');h=LOCAL/'harness'
+def prepare(jdk,sdk,sherpa,out=None):
+    out=owned(out or LOCAL/'phone');h=LOCAL/'harness'
     fetch(ORT_URL,out/'ort-android.aar',ORT_SHA)
     if sha(sherpa)!=SHERPA_SHA:raise ValueError('Contest AAR pin mismatch')
     native=out/'native';native.mkdir(exist_ok=True)
@@ -42,4 +42,4 @@ def prepare(jdk,sdk,sherpa):
     print('PHONE PROBE BUILT',flush=True)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--jdk',type=Path,required=True);p.add_argument('--sdk',type=Path,required=True);p.add_argument('--sherpa',type=Path,required=True);a=p.parse_args();prepare(a.jdk,a.sdk,a.sherpa)
+    p=argparse.ArgumentParser();p.add_argument('--jdk',type=Path,required=True);p.add_argument('--sdk',type=Path,required=True);p.add_argument('--sherpa',type=Path,required=True);p.add_argument('--out',type=Path);a=p.parse_args();prepare(a.jdk,a.sdk,a.sherpa,a.out)

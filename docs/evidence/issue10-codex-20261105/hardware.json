@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "physical_ram_total": 34191253504,
+  "physical_ram_available": 25222352896,
+  "gpu": "NVIDIA GeForce RTX2060 SUPER,8192MiB,driver621.01",
+  "benchmark_provider": "CPU deliberate; GPU not used"
+}

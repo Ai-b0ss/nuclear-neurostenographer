@@ -1,0 +1,16 @@
+{
+  "host-strict-v2/aba-clean": {
+    "no_enrollment_exact": true
+  },
+  "host-strict-v2/two-person-overlap": {
+    "no_enrollment_exact": true
+  },
+  "host-provided-v2/aba-clean": {
+    "no_enrollment_exact": true,
+    "accepted_exact": true
+  },
+  "host-provided-v2/two-person-overlap": {
+    "no_enrollment_exact": true,
+    "accepted_exact": true
+  }
+}

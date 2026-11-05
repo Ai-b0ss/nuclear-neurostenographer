@@ -1,0 +1,19 @@
+{
+  "scope": "Actual ARM64 ORT1.17.1 vs host Python ORT1.31.1, same exact PCM/enrollment/model bytes; numeric comparison, not intelligibility",
+  "rows": [
+    {
+      "target": 0,
+      "samples": 322488,
+      "correlation": 0.9999908327270421,
+      "rms_difference": 8.741459168959409e-05,
+      "max_difference": 0.002655029296875
+    },
+    {
+      "target": 1,
+      "samples": 322488,
+      "correlation": 0.9999989836044146,
+      "rms_difference": 3.678162465803325e-05,
+      "max_difference": 0.00103759765625
+    }
+  ]
+}

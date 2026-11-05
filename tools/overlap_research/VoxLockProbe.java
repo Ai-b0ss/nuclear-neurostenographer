@@ -31,6 +31,14 @@ public final class VoxLockProbe {
   static float[] floats(OnnxTensor t){FloatBuffer b=t.getFloatBuffer();float[] x=new float[b.remaining()];b.get(x);return x;}
   static long cpu(){try{return ((Long)Class.forName("android.os.Process").getMethod("getElapsedCpuTime").invoke(null))*1000000L;}catch(Exception e){return -1;}}
   public static void main(String[] args)throws Exception{
+    try { run(args); }
+    catch(IllegalArgumentException e){
+      System.err.println("INVALID_INPUT: "+e.getMessage());
+      if(args.length==5)java.nio.file.Files.write(java.nio.file.Paths.get(args[4]),"{\"status\":\"INVALID_INPUT\"}".getBytes("UTF-8"));
+      System.exit(2);
+    }
+  }
+  static void run(String[] args)throws Exception{
     if(args.length!=5)throw new IllegalArgumentException("models mix.wav enroll.wav out.wav meta.json");
     float[] x=read(args[1]),sample=read(args[2]);if(sample.length!=48000)throw new IllegalArgumentException("Enrollment must be48000 samples");
     long started=System.nanoTime();

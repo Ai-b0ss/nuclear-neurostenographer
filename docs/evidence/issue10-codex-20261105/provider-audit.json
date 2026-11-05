@@ -1,0 +1,18 @@
+{
+  "available": [
+    "AzureExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "enroll": [
+    "CPUExecutionProvider"
+  ],
+  "chunk": [
+    "CPUExecutionProvider"
+  ],
+  "runtime": "1.31.1",
+  "thread_env": {
+    "OMP_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null
+  }
+}

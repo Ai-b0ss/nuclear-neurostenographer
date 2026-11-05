@@ -1,0 +1,70 @@
+{
+  "BUTSpeechFIT/DiCoP": {
+    "commit": "b9ccee411877f5e8da42e56ed27e693829f80ce1",
+    "url": "https://github.com/BUTSpeechFIT/DiCoP/tree/b9ccee411877f5e8da42e56ed27e693829f80ce1",
+    "license": null,
+    "license_files": [],
+    "android_paths": [],
+    "truncated": false,
+    "scope": "Live repository metadata/tree only; paths do not prove Android execution"
+  },
+  "0xShug0/audio.cpp": {
+    "commit": "f7ac446fb75e594a6913c846bea6c85b637f6ac0",
+    "url": "https://github.com/0xShug0/audio.cpp/tree/f7ac446fb75e594a6913c846bea6c85b637f6ac0",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "license_files": [
+      "LICENSE",
+      "assets/framework/models/earshot_vad/LICENSE-MIT",
+      "external/cJSON/LICENSE",
+      "external/cpp-httplib/LICENSE",
+      "external/ggml/LICENSE",
+      "external/libyaml/License",
+      "external/sentencepiece/LICENSE",
+      "external/sentencepiece/third_party/absl/LICENSE",
+      "external/sentencepiece/third_party/darts_clone/LICENSE",
+      "external/sentencepiece/third_party/esaxx/LICENSE",
+      "external/sentencepiece/third_party/protobuf-lite/LICENSE",
+      "external/utf8proc/LICENSE.md",
+      "src/community_models/nemotron_transcribe/LICENSE.apache-2.0",
+      "src/models/lfm_d1_omni/LICENSE.lfm1.0"
+    ],
+    "android_paths": [],
+    "truncated": false,
+    "scope": "Live repository metadata/tree only; paths do not prove Android execution"
+  },
+  "dicop_checkpoint": {
+    "sha": "c9674b1162868a1e7f777f7c8c53a9cc3e297659",
+    "card": {
+      "license": "cc-by-4.0",
+      "language": [
+        "en"
+      ],
+      "library_name": "nemo",
+      "pipeline_tag": "automatic-speech-recognition",
+      "base_model": "nvidia/parakeet-tdt-0.6b-v2",
+      "tags": [
+        "automatic-speech-recognition",
+        "target-speaker-asr",
+        "speaker-diarization",
+        "multi-talker",
+        "parakeet",
+        "nemo",
+        "rnnt",
+        "tdt"
+      ]
+    },
+    "storage": 2473072640,
+    "siblings": [
+      ".gitattributes",
+      "DiCoP_v0.1.nemo",
+      "README.md",
+      "model_config.yaml"
+    ]
+  }
+}

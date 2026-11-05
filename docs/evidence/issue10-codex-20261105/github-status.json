@@ -1,0 +1,82 @@
+{
+  "issue10": {
+    "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/10",
+    "issue_number": 10,
+    "state": "open",
+    "title": "P1 · Исследовать восстановление перекрывающейся речи: VoxLock, DiCoP, audio.cpp"
+  },
+  "related": [
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/3",
+      "issue_number": 3,
+      "state": "closed"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/5",
+      "issue_number": 5,
+      "state": "open"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/issues/7",
+      "issue_number": 7,
+      "state": "closed"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/6",
+      "number": 6,
+      "state": "closed",
+      "merged": false,
+      "head_sha": "03cfa5e0983a0f667b6167c7c8f2051fb172fef7",
+      "merge_commit_sha": "9e65cea012f849159b32e43cc215a6b5f39a8622"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/9",
+      "number": 9,
+      "state": "closed",
+      "merged": false,
+      "head_sha": "4b531c558128e39b5064faa5cfd37bb47f89e50a",
+      "merge_commit_sha": "0be93591969460a97726aa6990c610d2d24f26b5"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/16",
+      "number": 16,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "6c32c5546ed59a817dbb319da080aa2462f8a889",
+      "merge_commit_sha": "6c32c5546ed59a817dbb319da080aa2462f8a889"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/20",
+      "number": 20,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "e61f2ce3e334c2a487f8d5307d9a2cc8914f5a5d",
+      "merge_commit_sha": "689eb5911a49e5b0208262e4af7d0960d0ec5a7c"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/24",
+      "number": 24,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "53841c0e7089bfd849020de6a3f8b3924f315c13",
+      "merge_commit_sha": "53455c3eab531eac8b343cab5774adce5a561d37"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/25",
+      "number": 25,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "80dbe5af9126038da051ced78cd0dc1a0e6db0d5",
+      "merge_commit_sha": "043f9a892c5fa2eeabc8f0d2b7fb093ee1507b6d"
+    },
+    {
+      "url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/26",
+      "number": 26,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "394a5aabbd370c656d244795839f992818aeb629",
+      "merge_commit_sha": "a10dd3954a1a53aaf749f7ef7696bf6446cc42f4"
+    }
+  ],
+  "cli": "gh API404; authenticated connector read succeeded; git ls-remote succeeded outside sandbox, no auth changes"
+}

@@ -1,0 +1,1633 @@
+{
+  "protocol": {
+    "split": "SYNTHETIC DEV; no holdout read",
+    "candidate": "VoxLock v2 INT8, threads1, 3s C2-clean enrollment, no automatic enrollment",
+    "quality_gate": "Exploratory only: no increase of clean-speech WER errors; strict cpWER/full WER/unknown/negative controls mandatory. cpWER-U cannot improve recovered-null words structurally: identity gate remains unavailable. Natural manual ground truth and independent identity verifier required for integration.",
+    "frozen_before_candidate": true,
+    "enrollment_mode": "provided-dev",
+    "enrollment": "strict-c2: C2 continuous clean>=3100ms,50ms guard; provided-dev: controlled synthetic single-source anchor,250ms guard,3s with natural pauses; unique C2 identity in anchor; neither uses reference text",
+    "overlap": "Replace midpoint-in-C2-overlap words only; baseline kept elsewhere; no identity verifier -> null speaker",
+    "word_recall": "NOT_SCORED: no independent reference word times",
+    "parity": "Actual production OfflineAsr/TokenWords/fusion/C2; host JNI build differs from signed APK; QuietCuts refines each waveform independently; extra word decode excluded from app timing",
+    "a3": {
+      "gigaam_v3_e2e_rnnt_encoder_int8.onnx": "75e93f387fa3cf5743e2b702dbc3108214b9769fdf4ae131f4e4c6d6087571ac",
+      "gigaam_v3_e2e_rnnt_decoder.onnx": "781971998e6a355d6a714f6932a30eab295e7ba0d14fd7e0f78c83b87e811860",
+      "gigaam_v3_e2e_rnnt_joint.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "gigaam_v3_e2e_rnnt_tokens.txt": "7ddf22514c42c531358182c81446a8159771e9921019f09ae743ea622d40221d"
+    },
+    "host_jar": "a7ffdf93585d951c23749f14cb0afe1b3e7c48f353e1ea41b1d19a8646f1b01d",
+    "manifest_sha256": "1f734898a5bb9ad65dc32342ec13efa783d09cae620242ac0d4ae87282ca6cd6",
+    "source_hashes": {
+      "build_host.py": "d4db1278fb8b004e8993eac2b2b7289a18598903ff8c4f1e3480f4345da9c0e5",
+      "common.py": "627583f5740918aaf96446cea9d0d8c3f305d77a31922414d70f232622ecc994",
+      "make_dev.py": "aeb0961fe649bfd6fdf4596899630685e21b861e9869f04edb121490e26c8a32",
+      "metrics.py": "92b0846d398b9edaece73232325f444b0cf7e35cf33af210ccf04f3d0c715d68",
+      "OverlapHost.kt": "236e489ed810a293c203844df4497d56a4b12f5ee31466d335563516ed05b26a",
+      "preflight.py": "2786ce8fd05d2e4ad566eb3156a5aadecf38a55dc796c8407770fbb97cd2af27",
+      "prepare_phone.py": "524d1f7fdb09f6fa6d7605793595ef215b445f054f96031655bfff2df7abdf50",
+      "provision.py": "cd56d1f9af6c1ec4a0f3d46a98a090fe09d3f5892cbac0376e39b78b7c988a2f",
+      "run_host.py": "f5f63d491120fc735e7a4ce495146f4598312a6abfdd19ac0205d5be30ea2970",
+      "run_phone.py": "cdefe409e764744528af9f540af2c0eb8269c491d054d44533c01912464346a9",
+      "test_overlap.py": "55f150377ff44eaf6657182757e2c083b6233fe0c9f7a6aad2e1fdeb8ec37e48",
+      "VoxLockProbe.java": "414b4ae7cc4dca1fdf0f676d7bc334139ded4304fcc73b21c653b694695c6596"
+    }
+  },
+  "rows": [
+    {
+      "case": "aba-clean",
+      "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f",
+      "baseline": {
+        "schema_version": 1,
+        "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+        "wer": {
+          "errors": 0,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "reference_words": 41,
+          "rate": 0.0,
+          "status": "SCORED",
+          "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+        },
+        "cpwer": {
+          "status": "NOT_SCORED",
+          "reason": "Hypothesis contains unattributed words"
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "reference": {
+          "recording_id": "aba-clean",
+          "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+          "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+          "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+          "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+        },
+        "cpwer_u": {
+          "status": "SCORED",
+          "errors": 2,
+          "reference_words": 41,
+          "rate": 0.04878048780487805,
+          "substitutions": 0,
+          "deletions": 2,
+          "insertions": 0,
+          "mapping": [
+            {
+              "reference": "D",
+              "hypothesis": "Speaker 1"
+            },
+            {
+              "reference": "M",
+              "hypothesis": "Speaker 2"
+            }
+          ],
+          "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+        },
+        "unknown_words": 2,
+        "hypothesis_words": 41,
+        "der_collar250": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "overlap_words": {
+          "status": "NOT_SCORED",
+          "reason": "No independently annotated word times/speaker activity supplied"
+        }
+      },
+      "c2_turns": [
+        {
+          "start_ms": 240,
+          "end_ms": 1080,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 1500,
+          "end_ms": 5830,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 6880,
+          "end_ms": 9140,
+          "speaker_id": "Speaker 2"
+        },
+        {
+          "start_ms": 9620,
+          "end_ms": 11020,
+          "speaker_id": "Speaker 2"
+        },
+        {
+          "start_ms": 12060,
+          "end_ms": 15740,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 16300,
+          "end_ms": 19540,
+          "speaker_id": "Speaker 1"
+        }
+      ],
+      "overlap_spans": [],
+      "enrollments": [
+        {
+          "speaker_id": "Speaker 1",
+          "start_ms": 250,
+          "end_ms": 3250,
+          "source": "PROVIDED_SYNTHETIC_SINGLE_SOURCE_ANCHOR_NOT_AUTOMATIC_C2_ENROLLMENT",
+          "sha256": "6e6a82157aa8d4c70422845c1697f9090a7d86d9053c67e5c4215133a79ec128"
+        },
+        {
+          "speaker_id": "Speaker 2",
+          "start_ms": 6844,
+          "end_ms": 9844,
+          "source": "PROVIDED_SYNTHETIC_SINGLE_SOURCE_ANCHOR_NOT_AUTOMATIC_C2_ENROLLMENT",
+          "sha256": "d41dd62426d04ef1bef374ff6df87d35bd069eebdfd5329ffdc105fcb9303fdb"
+        }
+      ],
+      "voxlock_load_s": 0.36420440000028975,
+      "controls": {
+        "no_enrollment": {
+          "status": "FALLBACK",
+          "baseline_exact": true,
+          "hypothesis_sha256": "3a78181e26baf86fd4bbaa06d2a633183a488004dc5cd376c3ae07af09d58f5d"
+        },
+        "target_0": {
+          "status": "OK",
+          "speaker_id": "Speaker 1",
+          "audio_sha256": "776f8d111dc448f49854e560d5720759a6537726572fdac54f24ebd15b705f73",
+          "samples": 322488,
+          "peak": 0.20651234686374664,
+          "clipped_samples": 0,
+          "rms": 0.020194295793771744,
+          "wall_s": 21.516683700000158,
+          "cpu_s": 21.390625,
+          "rtf": 1.0675341073156288,
+          "transcript": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 1,
+              "substitutions": 0,
+              "deletions": 1,
+              "insertions": 0,
+              "reference_words": 41,
+              "rate": 0.024390243902439025,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 2,
+              "reference_words": 41,
+              "rate": 0.04878048780487805,
+              "substitutions": 0,
+              "deletions": 2,
+              "insertions": 0,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 1,
+            "hypothesis_words": 40,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 11,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 11,
+              "reference_words": 29,
+              "rate": 0.3793103448275862,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 12,
+              "reference_words": 29,
+              "rate": 0.41379310344827586,
+              "substitutions": 0,
+              "deletions": 1,
+              "insertions": 11,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 1,
+            "hypothesis_words": 40,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "wrong_requested_target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 30,
+              "substitutions": 0,
+              "deletions": 1,
+              "insertions": 29,
+              "reference_words": 12,
+              "rate": 2.5,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 29,
+              "reference_words": 12,
+              "rate": 2.4166666666666665,
+              "substitutions": 0,
+              "deletions": 1,
+              "insertions": 28,
+              "mapping": [
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 1"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 1,
+            "hypothesis_words": 40,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          }
+        },
+        "target_1": {
+          "status": "OK",
+          "speaker_id": "Speaker 2",
+          "audio_sha256": "c515069510efe96f33d93e100479bf7855b289ea3187176232b3b620535cc473",
+          "samples": 322488,
+          "peak": 0.24820296466350555,
+          "clipped_samples": 0,
+          "rms": 0.02522735856473446,
+          "wall_s": 20.69773269999996,
+          "cpu_s": 20.65625,
+          "rtf": 1.0269024683088963,
+          "transcript": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 41,
+              "rate": 0.0,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 2,
+              "reference_words": 41,
+              "rate": 0.04878048780487805,
+              "substitutions": 0,
+              "deletions": 2,
+              "insertions": 0,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 2,
+            "hypothesis_words": 41,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 29,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 29,
+              "reference_words": 12,
+              "rate": 2.4166666666666665,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 29,
+              "reference_words": 12,
+              "rate": 2.4166666666666665,
+              "substitutions": 0,
+              "deletions": 1,
+              "insertions": 28,
+              "mapping": [
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 1"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 2,
+            "hypothesis_words": 41,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "wrong_requested_target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 12,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 12,
+              "reference_words": 29,
+              "rate": 0.41379310344827586,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 12,
+              "reference_words": 29,
+              "rate": 0.41379310344827586,
+              "substitutions": 0,
+              "deletions": 1,
+              "insertions": 11,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 2,
+            "hypothesis_words": 41,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          }
+        },
+        "wrong_enrollment": {
+          "status": "EXECUTED_OPPOSITE_SPEAKER_ENROLLMENT",
+          "identity_verifier": "UNAVAILABLE",
+          "score": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 41,
+              "rate": 0.0,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "aba-clean",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 2,
+              "reference_words": 41,
+              "rate": 0.04878048780487805,
+              "substitutions": 0,
+              "deletions": 2,
+              "insertions": 0,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 2,
+            "hypothesis_words": 41,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "limitation": "Same two model executions reused with requested identity swapped; known different person, not a third unseen voice. Conservative null assignment intentionally makes aggregate scores identical."
+        },
+        "clean_policy": {
+          "baseline_unchanged": true,
+          "c2_false_overlaps_possible": true
+        },
+        "silence": {
+          "samples": 16000,
+          "peak": 0.0,
+          "rms": 0.0
+        }
+      },
+      "target_correlation": 0.8379562036439641,
+      "targets_duplicate_bytes": false,
+      "candidate": {
+        "schema_version": 1,
+        "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+        "wer": {
+          "errors": 0,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "reference_words": 41,
+          "rate": 0.0,
+          "status": "SCORED",
+          "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+        },
+        "cpwer": {
+          "status": "NOT_SCORED",
+          "reason": "Hypothesis contains unattributed words"
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "reference": {
+          "recording_id": "aba-clean",
+          "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+          "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+          "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+          "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+        },
+        "cpwer_u": {
+          "status": "SCORED",
+          "errors": 2,
+          "reference_words": 41,
+          "rate": 0.04878048780487805,
+          "substitutions": 0,
+          "deletions": 2,
+          "insertions": 0,
+          "mapping": [
+            {
+              "reference": "D",
+              "hypothesis": "Speaker 1"
+            },
+            {
+              "reference": "M",
+              "hypothesis": "Speaker 2"
+            }
+          ],
+          "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+        },
+        "unknown_words": 2,
+        "hypothesis_words": 41,
+        "der_collar250": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "overlap_words": {
+          "status": "NOT_SCORED",
+          "reason": "No independently annotated word times/speaker activity supplied"
+        }
+      },
+      "assumed_identity_diagnostic": {
+        "scope": "ASSUMPTION ONLY: enrollment identity stamped without verifier; not accepted app metric",
+        "score": {
+          "schema_version": 1,
+          "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+          "wer": {
+            "errors": 0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "reference_words": 41,
+            "rate": 0.0,
+            "status": "SCORED",
+            "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+          },
+          "cpwer": {
+            "status": "NOT_SCORED",
+            "reason": "Hypothesis contains unattributed words"
+          },
+          "der": {
+            "status": "NOT_SCORED",
+            "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+          },
+          "reference": {
+            "recording_id": "aba-clean",
+            "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+            "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+            "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+            "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f"
+          },
+          "cpwer_u": {
+            "status": "SCORED",
+            "errors": 2,
+            "reference_words": 41,
+            "rate": 0.04878048780487805,
+            "substitutions": 0,
+            "deletions": 2,
+            "insertions": 0,
+            "mapping": [
+              {
+                "reference": "D",
+                "hypothesis": "Speaker 1"
+              },
+              {
+                "reference": "M",
+                "hypothesis": "Speaker 2"
+              }
+            ],
+            "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+          },
+          "unknown_words": 2,
+          "hypothesis_words": 41,
+          "der_collar250": {
+            "status": "NOT_SCORED",
+            "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+          },
+          "overlap_words": {
+            "status": "NOT_SCORED",
+            "reason": "No independently annotated word times/speaker activity supplied"
+          }
+        }
+      },
+      "cross_target_duplicate_word_candidates": 0,
+      "accepted": {
+        "status": "FALLBACK_IDENTITY_UNVERIFIED",
+        "baseline_exact": true
+      }
+    },
+    {
+      "case": "two-person-overlap",
+      "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02",
+      "baseline": {
+        "schema_version": 1,
+        "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+        "wer": {
+          "errors": 16,
+          "substitutions": 1,
+          "deletions": 9,
+          "insertions": 6,
+          "reference_words": 53,
+          "rate": 0.3018867924528302,
+          "status": "SCORED",
+          "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+        },
+        "cpwer": {
+          "status": "NOT_SCORED",
+          "reason": "Hypothesis contains unattributed words"
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "reference": {
+          "recording_id": "two-person-overlap",
+          "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+          "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+          "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+          "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+        },
+        "cpwer_u": {
+          "status": "SCORED",
+          "errors": 18,
+          "reference_words": 53,
+          "rate": 0.33962264150943394,
+          "substitutions": 0,
+          "deletions": 18,
+          "insertions": 0,
+          "mapping": [
+            {
+              "reference": "D",
+              "hypothesis": "Speaker 1"
+            },
+            {
+              "reference": "M",
+              "hypothesis": "Speaker 2"
+            }
+          ],
+          "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+        },
+        "unknown_words": 15,
+        "hypothesis_words": 50,
+        "der_collar250": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "overlap_words": {
+          "status": "NOT_SCORED",
+          "reason": "No independently annotated word times/speaker activity supplied"
+        }
+      },
+      "c2_turns": [
+        {
+          "start_ms": 240,
+          "end_ms": 1080,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 1500,
+          "end_ms": 5830,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 6870,
+          "end_ms": 9140,
+          "speaker_id": "Speaker 2"
+        },
+        {
+          "start_ms": 9620,
+          "end_ms": 11020,
+          "speaker_id": "Speaker 2"
+        },
+        {
+          "start_ms": 12060,
+          "end_ms": 15760,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 14180,
+          "end_ms": 16450,
+          "speaker_id": "Speaker 2"
+        },
+        {
+          "start_ms": 16280,
+          "end_ms": 19540,
+          "speaker_id": "Speaker 1"
+        },
+        {
+          "start_ms": 16900,
+          "end_ms": 18320,
+          "speaker_id": "Speaker 2"
+        }
+      ],
+      "overlap_spans": [
+        {
+          "start_ms": 14180,
+          "end_ms": 15760,
+          "speakers": [
+            "Speaker 1",
+            "Speaker 2"
+          ]
+        },
+        {
+          "start_ms": 16280,
+          "end_ms": 16450,
+          "speakers": [
+            "Speaker 1",
+            "Speaker 2"
+          ]
+        },
+        {
+          "start_ms": 16900,
+          "end_ms": 18320,
+          "speakers": [
+            "Speaker 1",
+            "Speaker 2"
+          ]
+        }
+      ],
+      "enrollments": [
+        {
+          "speaker_id": "Speaker 1",
+          "start_ms": 250,
+          "end_ms": 3250,
+          "source": "PROVIDED_SYNTHETIC_SINGLE_SOURCE_ANCHOR_NOT_AUTOMATIC_C2_ENROLLMENT",
+          "sha256": "6e6a82157aa8d4c70422845c1697f9090a7d86d9053c67e5c4215133a79ec128"
+        },
+        {
+          "speaker_id": "Speaker 2",
+          "start_ms": 6844,
+          "end_ms": 9844,
+          "source": "PROVIDED_SYNTHETIC_SINGLE_SOURCE_ANCHOR_NOT_AUTOMATIC_C2_ENROLLMENT",
+          "sha256": "d41dd62426d04ef1bef374ff6df87d35bd069eebdfd5329ffdc105fcb9303fdb"
+        }
+      ],
+      "voxlock_load_s": 0.36420440000028975,
+      "controls": {
+        "no_enrollment": {
+          "status": "FALLBACK",
+          "baseline_exact": true,
+          "hypothesis_sha256": "1d9ef607f73dc34361e632d322d01ee00d5605fbf7783afade3a5f1949c9d05f"
+        },
+        "target_0": {
+          "status": "OK",
+          "speaker_id": "Speaker 1",
+          "audio_sha256": "a0ea9f57354aacc5c9536ad644287f4dafd9c90b4323f0af3297fdcd46079098",
+          "samples": 322488,
+          "peak": 0.20651234686374664,
+          "clipped_samples": 0,
+          "rms": 0.020142585039138794,
+          "wall_s": 20.06002800000033,
+          "cpu_s": 20.03125,
+          "rtf": 0.9952632283992126,
+          "transcript": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 13,
+              "substitutions": 0,
+              "deletions": 13,
+              "insertions": 0,
+              "reference_words": 53,
+              "rate": 0.24528301886792453,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 20,
+              "reference_words": 53,
+              "rate": 0.37735849056603776,
+              "substitutions": 0,
+              "deletions": 20,
+              "insertions": 0,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 7,
+            "hypothesis_words": 40,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 11,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 11,
+              "reference_words": 29,
+              "rate": 0.3793103448275862,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 18,
+              "reference_words": 29,
+              "rate": 0.6206896551724138,
+              "substitutions": 0,
+              "deletions": 7,
+              "insertions": 11,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 7,
+            "hypothesis_words": 40,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "wrong_requested_target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 30,
+              "substitutions": 12,
+              "deletions": 1,
+              "insertions": 17,
+              "reference_words": 24,
+              "rate": 1.25,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 35,
+              "reference_words": 24,
+              "rate": 1.4583333333333333,
+              "substitutions": 22,
+              "deletions": 2,
+              "insertions": 11,
+              "mapping": [
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 7,
+            "hypothesis_words": 40,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          }
+        },
+        "target_1": {
+          "status": "OK",
+          "speaker_id": "Speaker 2",
+          "audio_sha256": "ec11899465084bf14a7ea97924697ecc6c01834ce2f604f19df887f01340fdbf",
+          "samples": 322488,
+          "peak": 0.24820296466350555,
+          "clipped_samples": 0,
+          "rms": 0.025797545909881592,
+          "wall_s": 20.435483300000215,
+          "cpu_s": 20.4375,
+          "rtf": 1.0138911612215136,
+          "transcript": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 9,
+              "substitutions": 0,
+              "deletions": 9,
+              "insertions": 0,
+              "reference_words": 53,
+              "rate": 0.16981132075471697,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 23,
+              "reference_words": 53,
+              "rate": 0.4339622641509434,
+              "substitutions": 0,
+              "deletions": 23,
+              "insertions": 0,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 14,
+            "hypothesis_words": 44,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 20,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 20,
+              "reference_words": 24,
+              "rate": 0.8333333333333334,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 32,
+              "reference_words": 24,
+              "rate": 1.3333333333333333,
+              "substitutions": 0,
+              "deletions": 13,
+              "insertions": 19,
+              "mapping": [
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 1"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 14,
+            "hypothesis_words": 44,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "wrong_requested_target_only": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 24,
+              "substitutions": 9,
+              "deletions": 0,
+              "insertions": 15,
+              "reference_words": 29,
+              "rate": 0.8275862068965517,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 21,
+              "reference_words": 29,
+              "rate": 0.7241379310344828,
+              "substitutions": 0,
+              "deletions": 10,
+              "insertions": 11,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": null,
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 14,
+            "hypothesis_words": 44,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          }
+        },
+        "wrong_enrollment": {
+          "status": "EXECUTED_OPPOSITE_SPEAKER_ENROLLMENT",
+          "identity_verifier": "UNAVAILABLE",
+          "score": {
+            "schema_version": 1,
+            "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+            "wer": {
+              "errors": 19,
+              "substitutions": 2,
+              "deletions": 7,
+              "insertions": 10,
+              "reference_words": 53,
+              "rate": 0.3584905660377358,
+              "status": "SCORED",
+              "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+            },
+            "cpwer": {
+              "status": "NOT_SCORED",
+              "reason": "Hypothesis contains unattributed words"
+            },
+            "der": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "reference": {
+              "recording_id": "two-person-overlap",
+              "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+              "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+              "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+              "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+            },
+            "cpwer_u": {
+              "status": "SCORED",
+              "errors": 18,
+              "reference_words": 53,
+              "rate": 0.33962264150943394,
+              "substitutions": 0,
+              "deletions": 18,
+              "insertions": 0,
+              "mapping": [
+                {
+                  "reference": "D",
+                  "hypothesis": "Speaker 1"
+                },
+                {
+                  "reference": "M",
+                  "hypothesis": "Speaker 2"
+                }
+              ],
+              "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+            },
+            "unknown_words": 21,
+            "hypothesis_words": 56,
+            "der_collar250": {
+              "status": "NOT_SCORED",
+              "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+            },
+            "overlap_words": {
+              "status": "NOT_SCORED",
+              "reason": "No independently annotated word times/speaker activity supplied"
+            }
+          },
+          "limitation": "Same two model executions reused with requested identity swapped; known different person, not a third unseen voice. Conservative null assignment intentionally makes aggregate scores identical."
+        },
+        "clean_policy": {
+          "baseline_unchanged": null,
+          "c2_false_overlaps_possible": true
+        },
+        "silence": {
+          "samples": 16000,
+          "peak": 0.0,
+          "rms": 0.0
+        }
+      },
+      "target_correlation": 0.6317223898112158,
+      "targets_duplicate_bytes": false,
+      "candidate": {
+        "schema_version": 1,
+        "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+        "wer": {
+          "errors": 19,
+          "substitutions": 2,
+          "deletions": 7,
+          "insertions": 10,
+          "reference_words": 53,
+          "rate": 0.3584905660377358,
+          "status": "SCORED",
+          "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+        },
+        "cpwer": {
+          "status": "NOT_SCORED",
+          "reason": "Hypothesis contains unattributed words"
+        },
+        "der": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "reference": {
+          "recording_id": "two-person-overlap",
+          "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+          "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+          "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+          "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+        },
+        "cpwer_u": {
+          "status": "SCORED",
+          "errors": 18,
+          "reference_words": 53,
+          "rate": 0.33962264150943394,
+          "substitutions": 0,
+          "deletions": 18,
+          "insertions": 0,
+          "mapping": [
+            {
+              "reference": "D",
+              "hypothesis": "Speaker 1"
+            },
+            {
+              "reference": "M",
+              "hypothesis": "Speaker 2"
+            }
+          ],
+          "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+        },
+        "unknown_words": 21,
+        "hypothesis_words": 56,
+        "der_collar250": {
+          "status": "NOT_SCORED",
+          "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+        },
+        "overlap_words": {
+          "status": "NOT_SCORED",
+          "reason": "No independently annotated word times/speaker activity supplied"
+        }
+      },
+      "assumed_identity_diagnostic": {
+        "scope": "ASSUMPTION ONLY: enrollment identity stamped without verifier; not accepted app metric",
+        "score": {
+          "schema_version": 1,
+          "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+          "wer": {
+            "errors": 19,
+            "substitutions": 2,
+            "deletions": 7,
+            "insertions": 10,
+            "reference_words": 53,
+            "rate": 0.3584905660377358,
+            "status": "SCORED",
+            "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+          },
+          "cpwer": {
+            "status": "NOT_SCORED",
+            "reason": "Hypothesis contains unattributed words"
+          },
+          "der": {
+            "status": "NOT_SCORED",
+            "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+          },
+          "reference": {
+            "recording_id": "two-person-overlap",
+            "annotation_source": "langswap/dialogs-ru-emotional-conversations@a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd/test.csv",
+            "license": "Dialogs OpenRAIL; see local LICENSE.md; no redistribution of audio in Git",
+            "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+            "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02"
+          },
+          "cpwer_u": {
+            "status": "SCORED",
+            "errors": 4,
+            "reference_words": 53,
+            "rate": 0.07547169811320754,
+            "substitutions": 0,
+            "deletions": 3,
+            "insertions": 1,
+            "mapping": [
+              {
+                "reference": "D",
+                "hypothesis": "Speaker 1"
+              },
+              {
+                "reference": "M",
+                "hypothesis": "Speaker 2"
+              }
+            ],
+            "definition": "Project-specific cpWER after dropping unknown/unreliable words; can hide insertions, not an upper bound"
+          },
+          "unknown_words": 5,
+          "hypothesis_words": 56,
+          "der_collar250": {
+            "status": "NOT_SCORED",
+            "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+          },
+          "overlap_words": {
+            "status": "NOT_SCORED",
+            "reason": "No independently annotated word times/speaker activity supplied"
+          }
+        }
+      },
+      "cross_target_duplicate_word_candidates": 0,
+      "accepted": {
+        "status": "FALLBACK_IDENTITY_UNVERIFIED",
+        "baseline_exact": true
+      }
+    }
+  ],
+  "runs": [
+    {
+      "mode": "c2",
+      "input_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f",
+      "returncode": 0,
+      "wall_s": 10.577575000000252,
+      "log": "0.jvm.log",
+      "outputs": {
+        "aba-clean.c2.tsv": "e47ff01879fd2ccf6cbf813da395ac8ee69c8431e1a01aebd9eb858f61b18756",
+        "aba-clean.c2.tsv.meta.json": "6cad81e0f91bada1644ddf4b58f7bb476ad1eb54c5b372ab1164477e04aeb41f"
+      },
+      "inference": {
+        "load_ms": 9524,
+        "infer_ms": 392,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "asr",
+      "input_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f",
+      "returncode": 0,
+      "wall_s": 6.491066900000078,
+      "log": "1.jvm.log",
+      "outputs": {
+        "aba-clean.baseline.json": "d46fde1da3a2a4d2c9d59ce10557479621813ebb82e41b56e1a965b126b81077",
+        "aba-clean.baseline.json.words.json": "5b050e87c605399a1a2fe0ec3d827cc6ceb1c635ac51440fd549cf1d6ace31d6",
+        "aba-clean.baseline.json.meta.json": "599b12bf19a1a75b9267fe2a8a7a6a68cebc233b43db701575316e94f0dda0d9"
+      },
+      "inference": {
+        "load_ms": 2311,
+        "decode_ms": 1010,
+        "windows": 4,
+        "token_timed_windows": 4,
+        "untimed_windows": 0,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "asr",
+      "input_sha256": "776f8d111dc448f49854e560d5720759a6537726572fdac54f24ebd15b705f73",
+      "returncode": 0,
+      "wall_s": 5.97956430000022,
+      "log": "2.jvm.log",
+      "outputs": {
+        "aba-clean.target-0.json": "8181173c2533f9ced14b681be92ad3090a11f1e1084e9084044bb773168cd265",
+        "aba-clean.target-0.json.words.json": "5adff36123078170858f122e804010fd570e1e3207fb5e954dc0a6671728a2a5",
+        "aba-clean.target-0.json.meta.json": "32338bf41b2592a1a3fbe46d60ec18e8215bd765a63ad21c1eb6fd051c98ec1b"
+      },
+      "inference": {
+        "load_ms": 1918,
+        "decode_ms": 959,
+        "windows": 4,
+        "token_timed_windows": 4,
+        "untimed_windows": 0,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "asr",
+      "input_sha256": "c515069510efe96f33d93e100479bf7855b289ea3187176232b3b620535cc473",
+      "returncode": 0,
+      "wall_s": 5.8726134000003185,
+      "log": "3.jvm.log",
+      "outputs": {
+        "aba-clean.target-1.json": "03cc2a5eaf53dfa0f41e11c876e63f2f9c0a3dcf52e51dcf7f8fe00ea6792c6d",
+        "aba-clean.target-1.json.words.json": "bb78e5dc0c31d8397f56574a629657795a451028383287d221cf148e9404d39b",
+        "aba-clean.target-1.json.meta.json": "0301795dbf644baea84f0fa76011cb6a145a1367ae139b9b149b699e6011366b"
+      },
+      "inference": {
+        "load_ms": 1849,
+        "decode_ms": 951,
+        "windows": 4,
+        "token_timed_windows": 4,
+        "untimed_windows": 0,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "c2",
+      "input_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02",
+      "returncode": 0,
+      "wall_s": 10.329107600000043,
+      "log": "4.jvm.log",
+      "outputs": {
+        "two-person-overlap.c2.tsv": "08e11eab9d2a41c63003cec22f701b5d4ec606e346e5caf3764a6ef43d209303",
+        "two-person-overlap.c2.tsv.meta.json": "1969a5b23b2cb176bd7d334abf11ef6dc8b3d525f37870029eb8bb89368a71bf"
+      },
+      "inference": {
+        "load_ms": 9328,
+        "infer_ms": 349,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "asr",
+      "input_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02",
+      "returncode": 0,
+      "wall_s": 5.856366099999832,
+      "log": "5.jvm.log",
+      "outputs": {
+        "two-person-overlap.baseline.json": "9b8bc24ab23c5b09f41b88b4f1d2600acd777085675b6817f5d70ec5908281fd",
+        "two-person-overlap.baseline.json.words.json": "687434d166bdb1afdb1d32222fc6ac567e814acb31fd7a94f315fb1d24326ae6",
+        "two-person-overlap.baseline.json.meta.json": "940760eb7f50d132a45171e6e4bb4a6491c22efb3b3c887713c5137c7f906237"
+      },
+      "inference": {
+        "load_ms": 1933,
+        "decode_ms": 939,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "asr",
+      "input_sha256": "a0ea9f57354aacc5c9536ad644287f4dafd9c90b4323f0af3297fdcd46079098",
+      "returncode": 0,
+      "wall_s": 6.018522000000303,
+      "log": "6.jvm.log",
+      "outputs": {
+        "two-person-overlap.target-0.json": "0c87259e28cd9924b8214bb7587cacbaa63acb97892f99e790e7ff7506323be6",
+        "two-person-overlap.target-0.json.words.json": "febfd2c594b1b58c2231e30d6aa8dc6dd3b822f22c2562097b5d712340783bf1",
+        "two-person-overlap.target-0.json.meta.json": "79b84855a43299551b409ea350d5bc4ab2a2011d0dd245c3ad424ee7c625cc87"
+      },
+      "inference": {
+        "load_ms": 1888,
+        "decode_ms": 947,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    },
+    {
+      "mode": "asr",
+      "input_sha256": "ec11899465084bf14a7ea97924697ecc6c01834ce2f604f19df887f01340fdbf",
+      "returncode": 0,
+      "wall_s": 5.781275599999844,
+      "log": "7.jvm.log",
+      "outputs": {
+        "two-person-overlap.target-1.json": "36aa39a00565c0462bc8dc8f4cf5501a129f30e39df268eaed72327e2d179558",
+        "two-person-overlap.target-1.json.words.json": "34bf8b0bf643d1880dc0f18d5a219e9a4394f3fe71f8eb01b00822a1357cf373",
+        "two-person-overlap.target-1.json.meta.json": "20d726f82bee633e2527d58cbde1706c9a2c42f592666f7d47a3f340ca4c0ed9"
+      },
+      "inference": {
+        "load_ms": 1830,
+        "decode_ms": 932,
+        "windows": 3,
+        "token_timed_windows": 3,
+        "untimed_windows": 0,
+        "process_cpu_ms": -1,
+        "threads": 4
+      }
+    }
+  ],
+  "network": "Python socket connects disabled during inference; JVM uses local files"
+}

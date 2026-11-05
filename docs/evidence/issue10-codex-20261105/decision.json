@@ -1,0 +1,44 @@
+{
+  "decision": "RESEARCH ONLY",
+  "integration": "NO-GO",
+  "issue_recommendation": "STILL OPEN",
+  "criteria": [
+    {
+      "id": 1,
+      "status": "PARTIAL / EXTERNAL BLOCKER",
+      "evidence": "Two hash-frozen SYNTHETIC DEV fixtures; no independently manually annotated natural Russian overlap or untouched natural holdout."
+    },
+    {
+      "id": 2,
+      "status": "PARTIAL",
+      "evidence": "New host and5 physical paired standalone repeats; WER/cpWER-U scored. Strict cpWER/DER/overlap word recall unavailable where annotation or attribution missing. App+worker PSS/UI/emulator remain unverified."
+    },
+    {
+      "id": 3,
+      "status": "EXECUTED / RESEARCH ONLY",
+      "evidence": "Correct A/B, opposite-speaker enrollment, short/no enrollment, clean/silence controls, both stems through same pinned A3; conservative accepted output falls back unchanged. Identity verifier missing."
+    },
+    {
+      "id": 4,
+      "status": "PARTIAL /16KB FAIL",
+      "evidence": "Actual ARM64 JNI/ORT1.17.1 inference, native mapped paths, transfer hashes,5 fresh-process repeats, standalone cancel/recovery. Existing ORT Java ELF alignment4096 fails16KB. No research APK/Binder/background/OOM clearance."
+    },
+    {
+      "id": 5,
+      "status": "RESEARCH COMPLETE",
+      "evidence": "DiCoP live commit b9ccee411877f5e8da42e56ed27e693829f80ce1; no code license found; English CC-BY4 checkpoint,2.47GB. No training/conversion attempted."
+    },
+    {
+      "id": 6,
+      "status": "RESEARCH COMPLETE / NO MIGRATION",
+      "evidence": "audio.cpp live commit f7ac446fb75e594a6913c846bea6c85b637f6ac0; Apache2 license inspected; no Android/JNI/NDK paths in tree. No comparative Android implementation/proof."
+    },
+    {
+      "id": 7,
+      "status": "EXECUTED ON SYNTHETIC DEV / STILL OPEN",
+      "evidence": "Paired same-input host and physical tables, negative outcomes and diagnostic positive counterevidence retained. Natural holdout and identity/app gates not satisfied."
+    }
+  ],
+  "measured_quality": "Accepted fallback preserves baseline; exploratory splice regresses sequence WER. Assumed identity improves cpWER-U but is not accepted speaker proof.",
+  "genuine_blocker": "Independent natural Russian manual word/speaker/activity annotation and untouched holdout are absent; cannot fabricate human annotation or calibrated speaker verification."
+}

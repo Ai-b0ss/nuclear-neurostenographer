@@ -1,0 +1,63 @@
+{
+  "scope": "Static ELF inspection; nothing was installed or run on a device",
+  "abis": {
+    "arm64-v8a": {
+      "machine_ok": true,
+      "packaged_onnxruntime": {
+        "from": "sherpa no-TTS AAR",
+        "load_align": 16384,
+        "version_strings": [
+          "1.17.1"
+        ]
+      },
+      "onnxruntime4j_jni": {
+        "load_align": 4096,
+        "needed": [
+          "libonnxruntime.so",
+          "libm.so",
+          "libdl.so",
+          "libc.so"
+        ],
+        "onnxruntime_symbols_needed": [
+          "OrtGetApiBase",
+          "OrtSessionOptionsAppendExecutionProvider_CPU",
+          "OrtSessionOptionsAppendExecutionProvider_Nnapi"
+        ],
+        "missing_in_packaged_onnxruntime": []
+      },
+      "sherpa_onnx_jni_load_align": 16384,
+      "not_16kb_aligned": [
+        "libonnxruntime4j_jni.so"
+      ]
+    },
+    "x86_64": {
+      "machine_ok": true,
+      "packaged_onnxruntime": {
+        "from": "sherpa no-TTS AAR",
+        "load_align": 16384,
+        "version_strings": [
+          "1.17.1"
+        ]
+      },
+      "onnxruntime4j_jni": {
+        "load_align": 4096,
+        "needed": [
+          "libonnxruntime.so",
+          "libm.so",
+          "libdl.so",
+          "libc.so"
+        ],
+        "onnxruntime_symbols_needed": [
+          "OrtGetApiBase",
+          "OrtSessionOptionsAppendExecutionProvider_CPU",
+          "OrtSessionOptionsAppendExecutionProvider_Nnapi"
+        ],
+        "missing_in_packaged_onnxruntime": []
+      },
+      "sherpa_onnx_jni_load_align": 16384,
+      "not_16kb_aligned": [
+        "libonnxruntime4j_jni.so"
+      ]
+    }
+  }
+}

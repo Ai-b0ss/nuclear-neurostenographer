@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "scope": "Separate repaired DEX; original5-repeat DEX unchanged. Actual ARM64 handled invalid input and valid silence inference.",
+  "new_dex_sha256": "098593a2f807c2314978e638d03f23ec8932ec07d6c751a8263b2010cf99dfc7",
+  "rows": [
+    {
+      "label": "invalid",
+      "exit_code": 2,
+      "meta": {
+        "status": "INVALID_INPUT"
+      },
+      "stdout": "",
+      "stderr": "INVALID_INPUT: Enrollment must be48000 samples\n"
+    },
+    {
+      "label": "valid-silence",
+      "exit_code": 0,
+      "meta": {
+        "status": "OK",
+        "samples": 1600,
+        "load_ms": 2031.415625,
+        "infer_ms": 2530.70052,
+        "process_cpu_ms": 2541.0,
+        "peak": 0.0,
+        "clipped": 0,
+        "rms": 0.0,
+        "ort": "1.17.1",
+        "threads": 1
+      },
+      "stdout": "{\"status\":\"OK\",\"samples\":1600,\"load_ms\":2031.415625,\"infer_ms\":2530.70052,\"process_cpu_ms\":2541.0,\"peak\":0.0,\"clipped\":0,\"rms\":0.0,\"ort\":\"1.17.1\",\"threads\":1}\n",
+      "stderr": ""
+    }
+  ],
+  "build": {
+    "scope": "Task-only DEX app_process, no APK replacement",
+    "dex_sha256": "098593a2f807c2314978e638d03f23ec8932ec07d6c751a8263b2010cf99dfc7",
+    "dex_bytes": 2468600,
+    "ort_aar_sha256": "35fc867b4d50942da3058f196d74c5669b4b34228794702cf15a05a4bd0b77c4",
+    "sherpa_aar_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+    "native": {
+      "libonnxruntime.so": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+      "libonnxruntime4j_jni.so": "8fc7e20fba98c5601582ae14c8c7fed194644856fc315d6184ed1776c50d9272",
+      "libsherpa-onnx-jni.so": "fbbe59319b4e1f485017e8f21160349b11ede52a77db551a47a388eb9ce730bf"
+    },
+    "java_source_sha256": "2a53eb6579c8f1975ee6044891bfe8832c75d284017be26ae6ed8eab7f1eb860",
+    "kotlin_source_sha256": "236e489ed810a293c203844df4497d56a4b12f5ee31466d335563516ed05b26a",
+    "apk_delta": "NOT_BUILT",
+    "models_bytes": 77584388
+  }
+}

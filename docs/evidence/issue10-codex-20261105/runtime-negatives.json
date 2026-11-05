@@ -1,0 +1,51 @@
+{
+  "scope": "Host Python ORT1.31.1; five session create/infer/delete/GC cycles; allocator RSS retention is not a leak proof; not Android lifecycle",
+  "rows": [
+    {
+      "attempt": 0,
+      "short_enrollment_rejected": true,
+      "samples": 1600,
+      "peak": 0.0,
+      "wall_s": 0.5674435999999332,
+      "rss_before_release": 174804992,
+      "rss_after_release": 63832064
+    },
+    {
+      "attempt": 1,
+      "short_enrollment_rejected": true,
+      "samples": 1600,
+      "peak": 0.0,
+      "wall_s": 0.5599349999993137,
+      "rss_before_release": 176091136,
+      "rss_after_release": 63954944
+    },
+    {
+      "attempt": 2,
+      "short_enrollment_rejected": true,
+      "samples": 1600,
+      "peak": 0.0,
+      "wall_s": 0.5566201999999976,
+      "rss_before_release": 176148480,
+      "rss_after_release": 64004096
+    },
+    {
+      "attempt": 3,
+      "short_enrollment_rejected": true,
+      "samples": 1600,
+      "peak": 0.0,
+      "wall_s": 0.5599574999996548,
+      "rss_before_release": 176869376,
+      "rss_after_release": 63713280
+    },
+    {
+      "attempt": 4,
+      "short_enrollment_rejected": true,
+      "samples": 1600,
+      "peak": 0.0,
+      "wall_s": 0.5476268999991589,
+      "rss_before_release": 176697344,
+      "rss_after_release": 64450560
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "scope": "SYNTHETIC DEV ONLY; existing 4-clip holdout untouched",
+  "source_lock": {
+    "repository": "langswap/dialogs-ru-emotional-conversations",
+    "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+    "license": {
+      "path": "LICENSE.md",
+      "sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143"
+    },
+    "metadata": {
+      "path": "test.csv",
+      "sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2"
+    },
+    "selection_policy": "In pinned test.csv order: first neutral D, first neutral M, second neutral D. Frozen before model evaluation; no accuracy-based selection.",
+    "gap_frames": 22050,
+    "sample_rate": 44100,
+    "composite_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+    "clips": [
+      {
+        "path": "wavs/masha_dima_part1_368.wav",
+        "speaker": "D",
+        "sha256": "34f7bf10840524d0ce92f43cc2da3cd8fd40f1178d4087391bcdd07de2c16006",
+        "frames": 268777
+      },
+      {
+        "path": "wavs/masha_dima_part4_118.wav",
+        "speaker": "M",
+        "sha256": "ad55d7166a36ff4e61369c186a78b14dcb3af27dad4492c8950347077b4a06d9",
+        "frames": 211438
+      },
+      {
+        "path": "wavs/masha_dima_part4_45.wav",
+        "speaker": "D",
+        "sha256": "c19fae87e9e5b12d8c310eda0dca1586645b777b0537719d3f11ccc7e22eb43a",
+        "frames": 342495
+      }
+    ]
+  },
+  "mixture": "mono16k; deterministic linear resampling; gain0.45 per stem, integer PCM rounding; no ASR-derived reference",
+  "cases": [
+    {
+      "id": "aba-clean",
+      "split": "DEV",
+      "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+      "audio_sha256": "b4ad551bcda144c1a84451ba689979a685da86e07223392c23179ae7b2b2c19f",
+      "reference_sha256": "b0b8f3368449d3105b9b6844c03184949aa58d8bb4359c04ac722545fc56a39a",
+      "duration_ms": 20155,
+      "source_stem_sha256": {
+        "D": "7ed873153162aa1c4b3b719e1c074f33cb888bbe311a49bbc0728588df853d3b",
+        "M": "337c5ee60ff612cabf4f1e679468e735ec236092a3739509c7e36021bcb53e1d"
+      },
+      "placements": [
+        {
+          "source_index": 0,
+          "start_sample": 0
+        },
+        {
+          "source_index": 1,
+          "start_sample": 105515
+        },
+        {
+          "source_index": 2,
+          "start_sample": 190227
+        }
+      ],
+      "enrollment_anchor_ms": [
+        [
+          0,
+          6094
+        ],
+        [
+          6594,
+          11389
+        ]
+      ],
+      "word_reference": "NOT_AVAILABLE",
+      "diarization_reference": "NOT_AVAILABLE"
+    },
+    {
+      "id": "two-person-overlap",
+      "split": "DEV",
+      "kind": "SYNTHETIC_DEV_FROM_ACTED_SOURCES",
+      "audio_sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02",
+      "reference_sha256": "0965315313ef64700c41a37d325037967cab0ce508a0989d893babe4f6f81f50",
+      "duration_ms": 20155,
+      "source_stem_sha256": {
+        "D": "7ed873153162aa1c4b3b719e1c074f33cb888bbe311a49bbc0728588df853d3b",
+        "M": "f2838338f22c03011730c9898311a7d23ec51072db0328684fd2e72d75b43d25"
+      },
+      "placements": [
+        {
+          "source_index": 0,
+          "start_sample": 0
+        },
+        {
+          "source_index": 1,
+          "start_sample": 105515
+        },
+        {
+          "source_index": 2,
+          "start_sample": 190227
+        },
+        {
+          "source_index": 1,
+          "start_sample": 222227
+        }
+      ],
+      "enrollment_anchor_ms": [
+        [
+          0,
+          6094
+        ],
+        [
+          6594,
+          11389
+        ]
+      ],
+      "word_reference": "NOT_AVAILABLE",
+      "diarization_reference": "NOT_AVAILABLE"
+    }
+  ]
+}

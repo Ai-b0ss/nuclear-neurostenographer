@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "removed_directory": "/data/local/tmp/nn_issue10_codex_20261105_1793856593",
+  "original_probe_sha256": "bfd1c84207c2b07c5562131207f9227de957a326d011cb3f7fa290ca559e11ff",
+  "resolved_path_verified": true,
+  "phone_state_before_cleanup": "1\n0\nCurrent Battery Service state:\n  AC powered: true\n  USB powered: false\n  Wireless powered: false\n  Max charging current: 0\n  Max charging voltage: 0\n  Charge counter: 1000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4374\n  temperature: 360\n  technology: Li-poly\n",
+  "owned_server_port": 5047,
+  "server_exit_code": 0,
+  "scope": "Only completed task directory removed; native/model/WAV sources and signed contest APK untouched; no default adb5037 action"
+}

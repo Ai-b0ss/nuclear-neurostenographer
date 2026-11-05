@@ -1,0 +1,82 @@
+{
+  "probe.jar": {
+    "sha256": "bfd1c84207c2b07c5562131207f9227de957a326d011cb3f7fa290ca559e11ff",
+    "bytes": 2468280
+  },
+  "mix.wav": {
+    "sha256": "2f480709b5825953dca2a06dafb936a053f546613dec93525566721b33994c02",
+    "bytes": 645020
+  },
+  "enroll0.wav": {
+    "sha256": "6e6a82157aa8d4c70422845c1697f9090a7d86d9053c67e5c4215133a79ec128",
+    "bytes": 96044
+  },
+  "enroll1.wav": {
+    "sha256": "d41dd62426d04ef1bef374ff6df87d35bd069eebdfd5329ffdc105fcb9303fdb",
+    "bytes": 96044
+  },
+  "vox/enroll.onnx": {
+    "sha256": "81f305c9b7a32f13d1401f53bb4c6301826a607c9e807e60912f36ef1b9fae29",
+    "bytes": 21023799
+  },
+  "vox/chunk_int8.onnx": {
+    "sha256": "c50ffdc8d723fd4f91cb08889f3d0143491f95967b705f35c444a0b4afe88172",
+    "bytes": 56560589
+  },
+  "native/libonnxruntime.so": {
+    "sha256": "c7c0e6b0f9c364a4df4bfc9a3a3576b691899e96f4d9beb60f3b3a7ce4bf572c",
+    "bytes": 15988232
+  },
+  "native/libonnxruntime4j_jni.so": {
+    "sha256": "8fc7e20fba98c5601582ae14c8c7fed194644856fc315d6184ed1776c50d9272",
+    "bytes": 760104
+  },
+  "native/libsherpa-onnx-jni.so": {
+    "sha256": "fbbe59319b4e1f485017e8f21160349b11ede52a77db551a47a388eb9ce730bf",
+    "bytes": 3442968
+  },
+  "a3/gigaam_v3_e2e_rnnt_decoder.onnx": {
+    "sha256": "781971998e6a355d6a714f6932a30eab295e7ba0d14fd7e0f78c83b87e811860",
+    "bytes": 4600058
+  },
+  "a3/gigaam_v3_e2e_rnnt_encoder_int8.onnx": {
+    "sha256": "75e93f387fa3cf5743e2b702dbc3108214b9769fdf4ae131f4e4c6d6087571ac",
+    "bytes": 318995831
+  },
+  "a3/gigaam_v3_e2e_rnnt_joint.onnx": {
+    "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+    "bytes": 2712896
+  },
+  "a3/gigaam_v3_e2e_rnnt_tokens.txt": {
+    "sha256": "7ddf22514c42c531358182c81446a8159771e9921019f09ae743ea622d40221d",
+    "bytes": 13353
+  },
+  "c2/model.int8.ir9.onnx": {
+    "sha256": "c465504c2f3a29242e1b3d894187ae5962be7320bed71a2ae203950285ee6025",
+    "bytes": 103726888
+  },
+  "c2/mel_filters.bin": {
+    "sha256": "bce5ec5f194a5913f6508cee5a85512e7bad2352db8fc28f5c6ff75af8b09137",
+    "bytes": 131584
+  },
+  "c2/hann400.bin": {
+    "sha256": "c427e2029118cf789649e5a4d439b6115d0dd0cbf95dcd22f65e3c848add8c5b",
+    "bytes": 1600
+  },
+  "c2/silence_embeds.bin": {
+    "sha256": "d4417b3c0eabdf7c47032fac2b5b5a7ee83d819a6ddda8fd8eaf74e2b5cc4ac7",
+    "bytes": 2048
+  },
+  "c2/LICENSE": {
+    "sha256": "2ab44b68365473c112f5092211a38f231cb23e50de68b75a13369adbd76a74df",
+    "bytes": 2619
+  },
+  "c2/NOTICE": {
+    "sha256": "29e938a6febe0878b9ab2c8983c342e7d6cae5530964f674dc04312d06d29d71",
+    "bytes": 3748
+  },
+  "c2/CHANGES.txt": {
+    "sha256": "8a58e4b3805b9ea837b38e559d728e64db74896725962847f2359b91bfb88357",
+    "bytes": 325
+  }
+}

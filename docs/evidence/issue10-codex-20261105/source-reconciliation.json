@@ -1,0 +1,78 @@
+{
+  "host": [
+    {
+      "file": "build_host.py",
+      "sha256": "d4db1278fb8b004e8993eac2b2b7289a18598903ff8c4f1e3480f4345da9c0e5",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    },
+    {
+      "file": "common.py",
+      "sha256": "627583f5740918aaf96446cea9d0d8c3f305d77a31922414d70f232622ecc994",
+      "source": "1d9fdda"
+    },
+    {
+      "file": "make_dev.py",
+      "sha256": "aeb0961fe649bfd6fdf4596899630685e21b861e9869f04edb121490e26c8a32",
+      "source": "1d9fdda"
+    },
+    {
+      "file": "metrics.py",
+      "sha256": "92b0846d398b9edaece73232325f444b0cf7e35cf33af210ccf04f3d0c715d68",
+      "source": "1d9fdda"
+    },
+    {
+      "file": "OverlapHost.kt",
+      "sha256": "236e489ed810a293c203844df4497d56a4b12f5ee31466d335563516ed05b26a",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    },
+    {
+      "file": "preflight.py",
+      "sha256": "2786ce8fd05d2e4ad566eb3156a5aadecf38a55dc796c8407770fbb97cd2af27",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    },
+    {
+      "file": "prepare_phone.py",
+      "sha256": "524d1f7fdb09f6fa6d7605793595ef215b445f054f96031655bfff2df7abdf50",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    },
+    {
+      "file": "provision.py",
+      "sha256": "cd56d1f9af6c1ec4a0f3d46a98a090fe09d3f5892cbac0376e39b78b7c988a2f",
+      "source": "1d9fdda"
+    },
+    {
+      "file": "run_host.py",
+      "sha256": "f5f63d491120fc735e7a4ce495146f4598312a6abfdd19ac0205d5be30ea2970",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    },
+    {
+      "file": "run_phone.py",
+      "sha256": "cdefe409e764744528af9f540af2c0eb8269c491d054d44533c01912464346a9",
+      "source": "1d9fdda"
+    },
+    {
+      "file": "test_overlap.py",
+      "sha256": "55f150377ff44eaf6657182757e2c083b6233fe0c9f7a6aad2e1fdeb8ec37e48",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    },
+    {
+      "file": "VoxLockProbe.java",
+      "sha256": "414b4ae7cc4dca1fdf0f676d7bc334139ded4304fcc73b21c653b694695c6596",
+      "source": "9d3b277a0c825c6a428e28bc89afab2c3b560807"
+    }
+  ],
+  "phone": [
+    {
+      "file": "OverlapHost.kt",
+      "sha256": "5ed4df3ac6dda8819fc19c3e5068665c31c25ecf9fa3f0678df844532ce71319",
+      "source": "1d9fdda"
+    },
+    {
+      "file": "VoxLockProbe.java",
+      "sha256": "414b4ae7cc4dca1fdf0f676d7bc334139ded4304fcc73b21c653b694695c6596",
+      "source": "1d9fdda"
+    }
+  ],
+  "status": "ALL_MEASURED_SOURCE_HASHES_RECONCILED",
+  "note": "Every measured source hash maps to an actual committed blob; earlier instrumentation variants are pinned to1d9fdda, and all measured source bytes are saved locally."
+}

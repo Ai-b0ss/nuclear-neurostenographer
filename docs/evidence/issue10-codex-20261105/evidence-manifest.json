@@ -1,0 +1,129 @@
+{
+  "status": "COMPLETE_ARTIFACT_EXPORT_NOT_ISSUE_CLOSURE",
+  "base_sha": "a10dd3954a1a53aaf749f7ef7696bf6446cc42f4",
+  "branch": "research/issue10-codex-20261105",
+  "files": {
+    "host-provided.json": {
+      "sha256": "1f7605693ba5434ba90293a591d947f87f09ed641bfe320daf959cd1d060fde2",
+      "bytes": 65890
+    },
+    "host-strict-c2.json": {
+      "sha256": "bbdccad604b29612b9bd5f5a3bf44fa5ce5ab2da85c74672332d50da28078a0b",
+      "bytes": 11055
+    },
+    "runtime-negatives.json": {
+      "sha256": "70c1e40c2c68ae482e712c0e4d8cf4608128082d3312e46109f6a22f7e64797b",
+      "bytes": 1322
+    },
+    "native-static.json": {
+      "sha256": "dda79df6d2053197057150d00c7c91f52a72d1e7710ded7e3170fae61d113e2c",
+      "bytes": 1618
+    },
+    "jvm-waveform-parity.json": {
+      "sha256": "944409d377847131c29ae249047a0311d27fc30ca5e7e155f4c1980d4e71bc6c",
+      "bytes": 194
+    },
+    "arm64-waveform-parity.json": {
+      "sha256": "6ee2e88e066e8525f0e082323b55c8317312e8f501e1c744d09d182477daf3aa",
+      "bytes": 534
+    },
+    "onnx-graphs.json": {
+      "sha256": "8ec435eb0cee863190786fd9fa679b9a131be10fc5638082110f6d6eda016ce5",
+      "bytes": 2554
+    },
+    "provider-audit.json": {
+      "sha256": "f65f2bbf6e9fc970d0449798fad0096bc684ed11c01f05bb328636b9955eb725",
+      "bytes": 310
+    },
+    "python-packages.json": {
+      "sha256": "cfcd340400650b05d9c8e6eb181b6a5cfdc298bc406c6563b59a09d8a9dcc52d",
+      "bytes": 135
+    },
+    "fixture-rebuild.json": {
+      "sha256": "de48a3b867641808a524924f6b54179f13b225a7ff78f76c9a682f3ddb2da574",
+      "bytes": 404
+    },
+    "fallback-verification.json": {
+      "sha256": "083107bc83fa26126a398618f912b3273b0d70131ab940dd8c19a6c599e4524c",
+      "bytes": 357
+    },
+    "native-loaded-maps.json": {
+      "sha256": "cbbe3865db07bef2467eeabd1be66c31b767e899b61ef2f50b3e46155882e182",
+      "bytes": 999
+    },
+    "baseline-rebuild.json": {
+      "sha256": "449e2b063441858ad3594e473fdc8693a4d8151e6a578a8472f4e375da4d6075",
+      "bytes": 669
+    },
+    "source-reconciliation.json": {
+      "sha256": "7ea61c49932b44589fef853ca73c1b9c103681e492b6550b57f85a444d345e1c",
+      "bytes": 2655
+    },
+    "input-guard-regression.json": {
+      "sha256": "dafcff9ef129bf85cf977395025482c54dc8798792788e291e54363c8972dd29",
+      "bytes": 1979
+    },
+    "decision.json": {
+      "sha256": "fc821c6f6d0fd5e8d68a320b50dd4022bcc8b893d244986f8769f80a23711164",
+      "bytes": 2376
+    },
+    "phone-cleanup.json": {
+      "sha256": "d29bb39bf99c8abd550adfb943dedac18685c51ca16dbc9752a18093b937c8e5",
+      "bytes": 775
+    },
+    "other-candidates.json": {
+      "sha256": "21e676d9b1b5f2175b84ad3781bc6e37b0c365ace55c3e1223cef3f599bba315",
+      "bytes": 2200
+    },
+    "hardware.json": {
+      "sha256": "15bcd4e2512925ab13588dbc6b68627a3c65dab41bf1cc82b1221437261c72a9",
+      "bytes": 213
+    },
+    "fixture-manifest.json": {
+      "sha256": "2e0f327a03824eac28eb6f2d4945419594bf410ffeb49e82aa0ed5164fb63afc",
+      "bytes": 3728
+    },
+    "model-runtime-provenance.json": {
+      "sha256": "752f28edb2ea94537fcecaf535010b6ba5cf3c56aa93be6b29a95ad5d1d479ef",
+      "bytes": 2763
+    },
+    "phone-summary.json": {
+      "sha256": "92ea57755fa63030da5a646de134725ecc816a94202e7f86b513b44cc15779d1",
+      "bytes": 75937
+    },
+    "phone-build.json": {
+      "sha256": "a58bb687d5538c6caae3f2b93cee4aabe00e07731e9c255f207658c89e822971",
+      "bytes": 899
+    },
+    "phone-inputs.json": {
+      "sha256": "44fe4fb7d8f3867fa0a37c60cbd812d97604bf349fc99cf89eb6d4c34c9c882d",
+      "bytes": 2704
+    },
+    "phone-negatives.json": {
+      "sha256": "2e6dcbed778a56f51c4420bf2f7bb89da0f68dbc94821ce687525f4bc43c7a13",
+      "bytes": 1139
+    },
+    "phone-stage-runs.json": {
+      "sha256": "8d078be42c322536b6f9b2ee1b01720cee682423e06fa4c222322bd0e712dfaf",
+      "bytes": 39900
+    },
+    "regressions.json": {
+      "sha256": "68fb34b0d18793c0e1c4579b237ccf4708e206242d03591834a740b153a4f5f4",
+      "bytes": 4807
+    },
+    "github-status.json": {
+      "sha256": "4685eebb6949360b5f60e73dc961088bc31f814be1b6493dd15a2baba9e45742",
+      "bytes": 2856
+    },
+    "raw-output-manifest.json": {
+      "sha256": "80869ae06e2cee0430d5f4de7e82fdaa92394d336f88573627ef739018d70450",
+      "bytes": 40680
+    }
+  },
+  "limitations": [
+    "SYNTHETIC DEV only; natural manually annotated Russian overlap missing",
+    "Identity verifier and real app lifecycle gates still open",
+    "16KB ORT Java alignment fails",
+    "No paid APIs, no issue publication/closure, no main/release changes"
+  ]
+}

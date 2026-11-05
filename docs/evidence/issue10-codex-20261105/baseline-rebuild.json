@@ -1,0 +1,11 @@
+{
+  "onnx": "1.23.2",
+  "a3": {
+    "gigaam_v3_e2e_rnnt_encoder_int8.onnx": "75e93f387fa3cf5743e2b702dbc3108214b9769fdf4ae131f4e4c6d6087571ac",
+    "gigaam_v3_e2e_rnnt_decoder.onnx": "781971998e6a355d6a714f6932a30eab295e7ba0d14fd7e0f78c83b87e811860",
+    "gigaam_v3_e2e_rnnt_joint.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+    "gigaam_v3_e2e_rnnt_tokens.txt": "7ddf22514c42c531358182c81446a8159771e9921019f09ae743ea622d40221d"
+  },
+  "c2_model": "c465504c2f3a29242e1b3d894187ae5962be7320bed71a2ae203950285ee6025",
+  "transformations": "Existing repository opset removal and IR10->9 conversion only; bytes must equal pinned app files"
+}

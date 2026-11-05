@@ -1,0 +1,8 @@
+{
+  "task_key": "r3-target1",
+  "returncode": 0,
+  "maps": "TASK_PID=8734\n753a8d1000-753b7bb000 r-xp 00000000 b3:4a 22809                          /data/local/tmp/nn_issue10_codex_20261105_1793856593/native/libonnxruntime.so\n753b7be000-753b814000 r--p 00ee9000 b3:4a 22809                          /data/local/tmp/nn_issue10_codex_20261105_1793856593/native/libonnxruntime.so\n753b817000-753b818000 rw-p 00f3e000 b3:4a 22809                          /data/local/tmp/nn_issue10_codex_20261105_1793856593/native/libonnxruntime.so\n753b865000-753b878000 r-xp 00000000 b3:4a 38872                          /data/local/tmp/nn_issue10_codex_20261105_1793856593/native/libonnxruntime4j_jni.so\n753b878000-753b879000 r--p 00012000 b3:4a 38872                          /data/local/tmp/nn_issue10_codex_20261105_1793856593/native/libonnxruntime4j_jni.so\n",
+  "stderr": "",
+  "verified_paths": true,
+  "scope": "Only journal-owned live worker; verify mapped paths against pinned transferred native files"
+}

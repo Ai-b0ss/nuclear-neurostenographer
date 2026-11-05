@@ -102,8 +102,12 @@ five actual host session create/infer/free cycles are separately recorded.
 ```
 
 Use `--out .local/issue10/new-phone-run` for a separate trial; pass the same out
-to the quality-only and summary commands. Official Google platform-tools are
-staged with the official repository checksum. Probe adb uses its own port5047,
+to the quality-only and summary commands.
+After a run has been cleaned, its journal is retired; use a new `--out` to run
+physical inference again. Local summarization/verification still works offline.
+
+Official Google platform-tools are staged with the official repository checksum.
+Probe adb uses its own port5047,
 task-local Android home, and a new `/data/local/tmp/nn_issue10_codex_*` directory.
 Every transferred model/native/DEX/WAV hash is checked on the phone. No APK is
 installed, replaced or cleared. Airplane mode must already be enabled; the script
@@ -117,6 +121,11 @@ input/native/model loading; VoxLock's counter covers inference after load.
 Outer wall RTF includes startup/load/monitoring and is the comparable total.
 The measured candidate runs whole-clip extraction for each target and overlap-only
 transcript splicing; it does not prove optimized overlap-window device cost.
+Measured DEX JAR entries are not4-byte aligned and Android extracts them as a
+fallback; that startup/cache cost is included. Preserve these JARs when comparing
+the published runs. A separately repaired DEX handles invalid enrollment with
+`INVALID_INPUT`/exit2 and passes actual ARM64 valid-silence regression; it is not
+substituted into the original5-repeat measurements.
 
 Performance runs disable extra word-sidecar decoding. `--quality-only` separately
 reruns A3 with sidecars and excludes those jobs from performance summaries.

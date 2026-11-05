@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "byte_identical_files": {
+    "aba-clean.ref.json": true,
+    "aba-clean.source-D.wav": true,
+    "aba-clean.source-M.wav": true,
+    "aba-clean.wav": true,
+    "LICENSE.md": true,
+    "manifest.json": true,
+    "two-person-overlap.ref.json": true,
+    "two-person-overlap.source-D.wav": true,
+    "two-person-overlap.source-M.wav": true,
+    "two-person-overlap.wav": true
+  }
+}

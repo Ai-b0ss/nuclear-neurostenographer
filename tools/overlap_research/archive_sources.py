@@ -8,10 +8,12 @@ from common import REPO,LOCAL,owned,write_json
 if __name__=='__main__':
     source=REPO/'tools/overlap_research'
     protocol=json.loads((LOCAL/'host-provided-v2/protocol.json').read_text())
+    head=subprocess.run(['git','rev-parse','HEAD'],cwd=REPO,capture_output=True,text=True,check=True).stdout.strip()
     snapshot=owned(LOCAL/'source-snapshots/host-v2');rows=[]
     for name,want in protocol['source_hashes'].items():
         path=source/name
-        candidates=[('worktree',path.read_bytes())]
+        committed=subprocess.run(['git','show',head+':tools/overlap_research/'+name],cwd=REPO,capture_output=True)
+        candidates=[(head,committed.stdout)] if committed.returncode==0 else []
         r=subprocess.run(['git','show','1d9fdda:tools/overlap_research/'+name],cwd=REPO,capture_output=True)
         if r.returncode==0:candidates.append(('1d9fdda',r.stdout))
         match=next(((ref,blob) for ref,blob in candidates if hashlib.sha256(blob).hexdigest()==want),None)
@@ -23,5 +25,5 @@ if __name__=='__main__':
         if hashlib.sha256(r.stdout).hexdigest()!=phone[key]:raise ValueError('Phone source checkpoint mismatch')
         phone_rows.append(dict(file=name,sha256=phone[key],source='1d9fdda'))
     write_json(LOCAL/'source-reconciliation.json',dict(host=rows,phone=phone_rows,status='ALL_MEASURED_SOURCE_HASHES_RECONCILED',
-        note='worktree entries must match final committed files; earlier instrumentation variants are pinned to1d9fdda, and all measured source bytes are saved locally.'))
+        note='Every measured source hash maps to an actual committed blob; earlier instrumentation variants are pinned to1d9fdda, and all measured source bytes are saved locally.'))
     print('RECONCILED',len(rows),'host sources and2 phone sources')

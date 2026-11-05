@@ -70,6 +70,11 @@ def summarize(folder):
         from metrics import overlap_spans
         turns=read_turns(folder/'r0.tsv');spans=overlap_spans(turns)
         raw=[json.loads((folder/(k+'.json.words.json')).read_text(encoding='utf-8')) for k in quality_keys]
+        from score_transcript import words
+        for key,sidecar in zip(quality_keys,raw):
+            app=json.loads((folder/(key+'.json')).read_text(encoding='utf-8'))
+            if [w for s in app['segments'] for w in words(s['text'])] != [w for s in sidecar['segments'] for w in words(s['text'])]:
+                raise ValueError('Physical sidecar does not match actual app-code text')
         base=dict(raw[0],audio_sha256=ref['audio_sha256'],diarization=turns)
         enroll=json.loads((LOCAL/'host-provided-v2/summary.json').read_text(encoding='utf-8'))['rows'][1]['enrollments']
         targets={e['speaker_id']:r['segments'] for e,r in zip(enroll,raw[1:])}

@@ -1,0 +1,48 @@
+{
+  "source_revision": "48b9a71e9b6ce853670c9a4dbc64ddb532638d53",
+  "model_revision": "2413b292bc2c337bfc19a9802aaf3e011e68e9c4",
+  "license": "Apache-2.0; preserve upstream NOTICE",
+  "files": {
+    "core.py": {
+      "url": "https://raw.githubusercontent.com/arbazsiddiqui/voxlock/48b9a71e9b6ce853670c9a4dbc64ddb532638d53/voxlock/core.py",
+      "sha256": "0a8e21ae8c74b169a279ced36e9cec8a14cb180c8b46bb6b21632ced9a70df98",
+      "bytes": 12297
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/arbazsiddiqui/voxlock/48b9a71e9b6ce853670c9a4dbc64ddb532638d53/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    "NOTICE": {
+      "url": "https://raw.githubusercontent.com/arbazsiddiqui/voxlock/48b9a71e9b6ce853670c9a4dbc64ddb532638d53/NOTICE",
+      "sha256": "245ce5d9925659adae2f664a2f4886f11dceabc1c9a99d151a9140afecb0d457",
+      "bytes": 940
+    },
+    "enroll.onnx": {
+      "url": "https://huggingface.co/arbazsiddiqui/voxlock/resolve/2413b292bc2c337bfc19a9802aaf3e011e68e9c4/onnx/v2/enroll.onnx",
+      "sha256": "81f305c9b7a32f13d1401f53bb4c6301826a607c9e807e60912f36ef1b9fae29",
+      "bytes": 21023799
+    },
+    "chunk_int8.onnx": {
+      "url": "https://huggingface.co/arbazsiddiqui/voxlock/resolve/2413b292bc2c337bfc19a9802aaf3e011e68e9c4/onnx/v2/chunk_int8.onnx",
+      "sha256": "c50ffdc8d723fd4f91cb08889f3d0143491f95967b705f35c444a0b4afe88172",
+      "bytes": 56560589
+    }
+  },
+  "numpy": "2.5.4",
+  "ort_python": "1.31.1",
+  "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "harness": {
+    "classes.jar": "6d42d1032ce6cad7f2fc6ed52a7cc2723687f011b28cc9d7977cc6b88ffea936",
+    "onnxruntime-1.17.1.jar": "a4e57e18a04b6c1b5b0e2885af1d8557873d4ca04bfcebf79743966c4c8eb20f",
+    "kotlin\\annotations.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+    "kotlin\\kotlin-compiler-embeddable.jar": "e39ee0b62f0ad79fd45e84334f34aaee99c7291f591ddf68e2cdcdd09b73a472",
+    "kotlin\\kotlin-reflect.jar": "3277ac102ae17aad10a55abec75ff5696c8d109790396434b496e75087854203",
+    "kotlin\\kotlin-script-runtime.jar": "9933edd6677b6aac46d1b5effda1adee9063fbb04c746e78b403398158abaf47",
+    "kotlin\\kotlin-stdlib.jar": "f9cdcdbff1f5de85380ae526977e683726c2aa42db1ed6e6e50ae89e496e95fd",
+    "kotlin\\trove4j.jar": "c5fd725bffab51846bf3c77db1383c60aaaebfe1b7fe2f00d23fe1b7df0a439d",
+    "native\\onnxruntime.dll": "b9dba35ec85d49c0186332c19a01601ae598ede701b79dcc70de50d4dba36fa6",
+    "native\\sherpa-onnx-jni.dll": "27acff39824f5a81b5545ea20d1023ba137244c6bf36969b24cc03d85ef02f8f"
+  },
+  "parity": "Host JNI release 1.12.20; not identical signed APK native build; C2 ORT Java 1.17.1"
+}

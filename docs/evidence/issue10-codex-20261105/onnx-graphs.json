@@ -1,0 +1,140 @@
+{
+  "scope": "Actual pinned VoxLock v2 ONNX graphs; independently load/infer-tested on ORT1.17.1",
+  "rows": [
+    {
+      "file": "chunk_int8.onnx",
+      "sha256": "c50ffdc8d723fd4f91cb08889f3d0143491f95967b705f35c444a0b4afe88172",
+      "bytes": 56560589,
+      "ir": 8,
+      "opsets": [
+        {
+          "domain": "",
+          "version": 17
+        },
+        {
+          "domain": "com.microsoft",
+          "version": 1
+        }
+      ],
+      "inputs": {
+        "wav": [
+          1,
+          "S"
+        ],
+        "enroll_n": [
+          257,
+          376
+        ],
+        "k": [
+          32,
+          2,
+          64,
+          298
+        ],
+        "v": [
+          32,
+          2,
+          298,
+          64
+        ],
+        "h": [
+          6,
+          32,
+          256
+        ],
+        "c": [
+          6,
+          32,
+          256
+        ]
+      },
+      "outputs": [
+        "frames",
+        "h_out",
+        "c_out"
+      ],
+      "operators": [
+        ":Add",
+        ":Clip",
+        ":Concat",
+        ":Constant",
+        ":Conv",
+        ":Div",
+        ":Expand",
+        ":Gather",
+        ":InstanceNormalization",
+        ":LayerNormalization",
+        ":LpNormalization",
+        ":MatMul",
+        ":Mul",
+        ":Pow",
+        ":ReduceL2",
+        ":ReduceMean",
+        ":ReduceSum",
+        ":Reshape",
+        ":Shape",
+        ":Sigmoid",
+        ":Slice",
+        ":Softmax",
+        ":Sqrt",
+        ":Squeeze",
+        ":Sub",
+        ":Tanh",
+        ":Transpose",
+        ":Unsqueeze",
+        "com.microsoft:DynamicQuantizeLSTM"
+      ]
+    },
+    {
+      "file": "enroll.onnx",
+      "sha256": "81f305c9b7a32f13d1401f53bb4c6301826a607c9e807e60912f36ef1b9fae29",
+      "bytes": 21023799,
+      "ir": 8,
+      "opsets": [
+        {
+          "domain": "",
+          "version": 17
+        }
+      ],
+      "inputs": {
+        "enroll": [
+          1,
+          48000
+        ]
+      },
+      "outputs": [
+        "enroll_n",
+        "k",
+        "v"
+      ],
+      "operators": [
+        ":Add",
+        ":BatchNormalization",
+        ":Clip",
+        ":Concat",
+        ":Constant",
+        ":Conv",
+        ":Div",
+        ":Expand",
+        ":Gather",
+        ":Gemm",
+        ":Log",
+        ":MatMul",
+        ":Mul",
+        ":Pad",
+        ":Pow",
+        ":ReduceL2",
+        ":ReduceMean",
+        ":Relu",
+        ":Reshape",
+        ":Sigmoid",
+        ":Slice",
+        ":Split",
+        ":Sqrt",
+        ":Sub",
+        ":Transpose",
+        ":Unsqueeze"
+      ]
+    }
+  ]
+}

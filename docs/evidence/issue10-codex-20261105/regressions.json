@@ -1,0 +1,194 @@
+{
+  "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "rows": [
+    {
+      "suite": "overlap",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 6,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/overlap_research/test_overlap.py"
+      ],
+      "log_sha256": "fa59defc26fd5febca5ba4add6b3520374cf9d7bec67bd8928f4b0654c070fcb"
+    },
+    {
+      "suite": "overlap-optimized",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 6,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "-O",
+        "tools/overlap_research/test_overlap.py"
+      ],
+      "log_sha256": "fa59defc26fd5febca5ba4add6b3520374cf9d7bec67bd8928f4b0654c070fcb"
+    },
+    {
+      "suite": "same-corpus",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 8,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/c2_same_tracks/test_same_tracks.py"
+      ],
+      "log_sha256": "8b36f5d775f6038698627bad183563ca10e0b0afec0c8d8dcefb1e897b6d9d21"
+    },
+    {
+      "suite": "scorer",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 12,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_score_transcript.py"
+      ],
+      "log_sha256": "e956eac974f71d6cf699cbbb5e26e85119a6b5933e0deb2839e2018c5c7597df"
+    },
+    {
+      "suite": "phone-score",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 6,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_score_clip_run.py"
+      ],
+      "log_sha256": "aa80bfaf02e97ed36a6ddff5fdcefae2f61acd9caf9ac7887d470ff885c2f4bd"
+    },
+    {
+      "suite": "evidence",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 3,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_android_evidence.py"
+      ],
+      "log_sha256": "9187c2b28d191b10834ae084a119ba028f609588cec251a5590efdb31999fd21"
+    },
+    {
+      "suite": "evidence-optimized",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 3,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "-O",
+        "tools/test_android_evidence.py"
+      ],
+      "log_sha256": "9187c2b28d191b10834ae084a119ba028f609588cec251a5590efdb31999fd21"
+    },
+    {
+      "suite": "runtime-identity",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 3,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_runtime_identity.py"
+      ],
+      "log_sha256": "05be6ca4882358752c42a09424e7b898e6ffabf7d1d24f059229be7547fe6768"
+    },
+    {
+      "suite": "runtime-identity-optimized",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 3,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "-O",
+        "tools/test_runtime_identity.py"
+      ],
+      "log_sha256": "cdeaebb6f746bb7bf5848003bc5413863b4597a56224dcbd35aa80c7fcf86282"
+    },
+    {
+      "suite": "worker-collector",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": 7,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_android_workflow.py"
+      ],
+      "log_sha256": "e8e0dda21df71ec923e11b06a58a06910dc5b08f667cf5f49e3180396177a1ed"
+    },
+    {
+      "suite": "checkpoint-privacy",
+      "status": "PASS_WITH_SKIP",
+      "returncode": 0,
+      "tests": 4,
+      "skipped": 1,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_create_checkpoint.py"
+      ],
+      "log_sha256": "c998da0e11fb53f4dfd96357a6fe10571c5cdfd4f540dddeeecd5b2b66e9f63d"
+    },
+    {
+      "suite": "exports-plain",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": null,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_transcript_exports.py",
+        "build/export-samples/plain"
+      ],
+      "log_sha256": "24d2349d178be69f0c2ad72c7b75a7494fcffb424416fe999cc5f452c1e37ce4"
+    },
+    {
+      "suite": "exports-named",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": null,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_transcript_exports.py",
+        "build/export-samples/named"
+      ],
+      "log_sha256": "ecbfa0d40a23dbdbf18b9196a232bc9a81ffaa09792d7e92740b921bcd29a3ab"
+    },
+    {
+      "suite": "exports-edited",
+      "status": "PASS",
+      "returncode": 0,
+      "tests": null,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-B",
+        "tools/test_transcript_exports.py",
+        "build/export-samples/edited"
+      ],
+      "log_sha256": "c038a88e649ed198b897e0fcdbbcc04f0c340e4e91a145e328f2a6a7679134dd"
+    }
+  ],
+  "all_pass": true
+}

@@ -11,6 +11,7 @@ from pathlib import Path
 import shlex
 import subprocess
 import time
+import re
 from common import LOCAL,REPO,owned,sha,write_json
 
 def main():
@@ -35,14 +36,25 @@ def main():
         state=dict(remote=remote,status='CREATED',serial_sha256=__import__('hashlib').sha256(a.serial.encode()).hexdigest(),runs=[])
         write_json(state_path,state)
     remote=state['remote']
-    if not remote.startswith('/data/local/tmp/nn_issue10_codex_20261105_'):raise ValueError('Unsafe task directory')
+    if state.get('remote_cleanup'):raise ValueError('Remote task retired after evidence collection; choose a new --out directory')
+    if not re.fullmatch(r'/data/local/tmp/nn_issue10_codex_20261105_[0-9]+',remote):raise ValueError('Unsafe task directory')
     if state['serial_sha256']!=__import__('hashlib').sha256(a.serial.encode()).hexdigest():raise ValueError('State belongs to a different device')
     # Never infer a timed-out device operation failed. Refuse dispatch until reconciled.
     if state['status']=='UNKNOWN_OUTCOME':
         r=shell('cat '+remote+'/job.rc',check=False)
         if r.returncode:raise RuntimeError('UNKNOWN_OUTCOME: owned job still unresolved; inspect task PID before retry')
         raise RuntimeError('Previous job exit now known: '+r.stdout.strip()+'; preserve evidence and explicitly reconcile state')
-    baseline_files={p.name:p for p in a.a3.glob('*') if p.suffix in ('.onnx','.txt')}
+    spec=(REPO/'app/src/main/java/ru/neurostenographer/app/AsrModelSpec.kt').read_text(encoding='utf-8').split('val E2E_RNNT',1)[1]
+    a3_pins={n:h for n,h in re.findall(r'"(gigaam_v3_e2e_rnnt_[\w.]+)" to \("([0-9a-f]{64})"',spec)}
+    if len(a3_pins)!=4 or any(sha(a.a3/n)!=h for n,h in a3_pins.items()):raise ValueError('Phone A3 pin mismatch')
+    baseline_files={n:a.a3/n for n in a3_pins}
+    build=json.loads((LOCAL/'phone/build.json').read_text())
+    if sha(LOCAL/'phone/probe-dex.jar')!=build['dex_sha256']:raise ValueError('Phone DEX changed')
+    for name,digest in build['native'].items():
+        if sha(LOCAL/'phone/native'/name)!=digest:raise ValueError('Phone native file changed')
+    from provision import PINS
+    for name in ('enroll.onnx','chunk_int8.onnx'):
+        if sha(LOCAL/'voxlock'/name)!=PINS[name][1]:raise ValueError('Phone VoxLock graph pin mismatch')
     c2_names=['model.int8.ir9.onnx','mel_filters.bin','hann400.bin','silence_embeds.bin','LICENSE','NOTICE','CHANGES.txt']
     mappings={'probe.jar':LOCAL/'phone/probe-dex.jar','mix.wav':LOCAL/'dev/two-person-overlap.wav',
               'enroll0.wav':LOCAL/'host-provided-v1/two-person-overlap.enroll-0.wav','enroll1.wav':LOCAL/'host-provided-v1/two-person-overlap.enroll-1.wav',
