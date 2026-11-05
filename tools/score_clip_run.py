@@ -28,7 +28,7 @@ def clamp_reference(reference):
 def hypothesis_from_export(export, reference):
     return {"schema_version": 1, "recording_id": reference["recording_id"], "audio_sha256": reference["audio_sha256"],
             "audio_duration_ms": export["audio_duration_ms"],
-            "segments": [{k: s[k] for k in ("start_ms", "end_ms", "speaker_id", "text")} for s in export["segments"]]}
+            "segments": [{k: s[k] for k in ("start_ms", "end_ms", "speaker_id", "text", "attribution_reliable") if k in s} for s in export["segments"]]}
 
 
 def main():

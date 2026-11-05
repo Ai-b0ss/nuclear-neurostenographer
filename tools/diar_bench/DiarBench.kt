@@ -43,7 +43,7 @@ fun main(args: Array<String>) {
             val result = OfflineAsr.transcribe(audio, File(args[1]), turns = turns, speechWindows = windows)
             File(args[4]).writeText(TranscriptExport.json(result.segments))
             File(args[5]).writeText("{\"load_ms\":${result.loadMs},\"decode_ms\":${result.decodeMs}," +
-                "\"windows\":${result.decodedWindows},\"token_timed_windows\":${result.tokenTimedWindows},\"threads\":2}\n")
+                "\"windows\":${result.decodedWindows},\"token_timed_windows\":${result.tokenTimedWindows},\"threads\":${InferenceThreads.count()}}\n")
         }
         else -> error("Usage: c0|asr ...")
     }

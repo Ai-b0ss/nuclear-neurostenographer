@@ -5,8 +5,8 @@ python tools/c2_same_tracks/score_same_corpus.py --corpus ROOT/data/same --resul
   WER / cpWER  tools/score_transcript.py on the app-format transcript (start, end, speaker, text), reference end times
                clamped to the audio as tools/score_clip_run.py does for the phone runs. Unattributed words make cpWER
                NOT_SCORED, never a silently matched speaker. Only sets with reference text.
-  cpWER-U      Pessimistic companion: unattributed words are dropped from the hypothesis, so the reference words they
-               cover count as deletions (an extra "unknown" speaker would be matched to a real one). Next to cpWER, never in its place.
+  cpWER-U      Project-specific companion: unattributed words are dropped. This can also hide unknown insertions;
+               it is not an error upper bound. Report full WER and dropped word count alongside it.
   DER         realmix only, collar 250 ms, overlap scored, against the gated channel reference. Synthetic sets: NOT_SCORED.
   Attribution  NOT DER: on 10 ms frames where the reference has one speaker and the system one cluster, the share of
                frames whose cluster maps to that speaker under the best one-to-one mapping. Silence is left out.
@@ -64,7 +64,7 @@ def der(reference, hypothesis, duration, collar_ms=0, skip_overlap=False):
     overlap = np.zeros((len(rn), len(hn)))
     for dt, r, h in regions:
         for who in r:
-            for other in h:
+            for other in h - {None}:
                 overlap[rn.index(who), hn.index(other)] += dt
     rows, cols = linear_sum_assignment(-overlap) if rn and hn else ([], [])
     mapping = {hn[j]: rn[i] for i, j in zip(rows, cols) if overlap[i, j] > 0}
@@ -119,9 +119,11 @@ def measure(case, reference, turns, segments):
     row["speaker"] = speaker_measures(speaker_reference, turns, duration)
     row["recurrence"] = recurrence(speaker_reference, turns)
     if case["set"] == "realmix":
-        hypothesis = [{"start_ms": a, "end_ms": b, "speaker_id": f"h{c}"} for a, b, c in turns if c >= 0]
+        hypothesis = [{"start_ms": a, "end_ms": b, "speaker_id": f"h{c}" if c >= 0 else None} for a, b, c in turns]
         d = der(reference["diarization"], hypothesis, duration, 250, False)
-        row["der"] = {"status": "SCORED", "rate": round(d["rate"], 4), **{k: d[k] for k in ("miss_ms", "false_alarm_ms", "confusion_ms", "reference_speaker_ms")}}
+        row["der"] = {"status": "SCORED" if d["rate"] is not None else "UNDEFINED_EMPTY_REFERENCE",
+                      "rate": round(d["rate"], 4) if d["rate"] is not None else None,
+                      **{k: d[k] for k in ("miss_ms", "false_alarm_ms", "confusion_ms", "reference_speaker_ms")}}
     else:
         row["der"] = {"status": "NOT_SCORED", "reason": case["der"]}
     if not case["text"]:
@@ -130,14 +132,14 @@ def measure(case, reference, turns, segments):
         row["wer"] = row["cpwer"] = {"status": "NOT_RUN", "reason": "no transcript for this run"}
     else:
         hypothesis = {"schema_version": 1, "recording_id": case["id"], "audio_sha256": reference["audio_sha256"], "audio_duration_ms": duration,
-                      "segments": [{k: s[k] for k in ("start_ms", "end_ms", "speaker_id", "text")} for s in segments]}
+                      "segments": [{k: s[k] for k in ("start_ms", "end_ms", "speaker_id", "text", "attribution_reliable") if k in s} for s in segments]}
         report = evaluate({k: v for k, v in reference.items() if k != "diarization"}, hypothesis)
         row["wer"] = {k: report["wer"].get(k) for k in ("status", "errors", "reference_words", "rate")}
         row["cpwer"] = {k: report["cpwer"].get(k) for k in ("status", "errors", "reference_words", "rate", "reason")}
-        unknown = dict(hypothesis, segments=[s for s in hypothesis["segments"] if s["speaker_id"] is not None])
+        unknown = dict(hypothesis, segments=[s for s in hypothesis["segments"] if s["speaker_id"] is not None and s.get("attribution_reliable", True)])
         pessimistic = evaluate({k: v for k, v in reference.items() if k != "diarization"}, unknown)["cpwer"]
         row["cpwer_u"] = {k: pessimistic.get(k) for k in ("status", "errors", "reference_words", "rate")}
-        row["unattributed_words"] = sum(len(s["text"].split()) for s in segments if s["speaker_id"] is None)
+        row["unattributed_words"] = sum(len(s["text"].split()) for s in segments if s["speaker_id"] is None or not s.get("attribution_reliable", True))
         row["asr_speakers"] = len({s["speaker_id"] for s in segments if s["speaker_id"]})
         row["unattributed_segments"] = sum(1 for s in segments if s["speaker_id"] is None)
     return row

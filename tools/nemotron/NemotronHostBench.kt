@@ -1,6 +1,7 @@
 package ru.neurostenographer.tools
 
 import ru.neurostenographer.app.NemotronDiarization
+import ru.neurostenographer.app.InferenceThreads
 import ru.neurostenographer.core.*
 import java.io.File
 
@@ -15,7 +16,7 @@ fun main(args: Array<String>) {
             val cluster = if (it.speakerId == "Unknown") -1 else it.speakerId.removePrefix("Speaker ").toInt() - 1
             "${it.startMs}\t${it.endMs}\t$cluster\n"
         })
-        File(meta).writeText("{\"load_ms\":${result.loadMs},\"infer_ms\":${result.processMs},\"threads\":2,\"onnxruntime\":\"1.17.1\"}\n")
+        File(meta).writeText("{\"load_ms\":${result.loadMs},\"infer_ms\":${result.processMs},\"threads\":${InferenceThreads.count()},\"onnxruntime\":\"1.17.1\"}\n")
         println("$wav ${result.processMs}")
     }
 }

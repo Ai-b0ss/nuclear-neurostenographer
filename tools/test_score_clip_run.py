@@ -31,6 +31,12 @@ class ClampTests(unittest.TestCase):
         self.assertEqual(hypothesis["audio_sha256"], "a" * 64)
         self.assertEqual(set(hypothesis["segments"][0]), {"start_ms", "end_ms", "speaker_id", "text"})
 
+    def test_unreliable_attribution_survives_export_adapter(self):
+        export={"audio_duration_ms":1000,"segments":[{"start_ms":0,"end_ms":500,"speaker_id":"Speaker 1",
+                "text":"word","attribution_reliable":False}]}
+        hyp=score_clip_run.hypothesis_from_export(export,self.reference())
+        self.assertIs(hyp['segments'][0]['attribution_reliable'],False)
+
 
 if __name__ == "__main__":
     unittest.main()

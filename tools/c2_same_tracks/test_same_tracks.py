@@ -30,6 +30,28 @@ def reference(turns, text=None, duration=10000):
 
 
 class Rules(unittest.TestCase):
+    def test_unknown_der_and_unreliable_words(self):
+        r=[{'start_ms':0,'end_ms':1000,'speaker_id':'A'}]
+        h=[{'start_ms':0,'end_ms':1000,'speaker_id':None}]
+        self.assertEqual(der(r,h,1000)['confusion_ms'],1000)
+        self.assertEqual(der(r,h,1000)['rate'],reference_der(r,h,1000)['rate'])
+        case=dict(id='x',set='phone3',text=True,der='no independent activity')
+        ref=reference([(0,1000,'A')],['one'],duration=1000)
+        s=dict(start_ms=0,end_ms=1000,speaker_id='A',text='one',attribution_reliable=False)
+        result=measure(case,ref,[(0,1000,0)],[s])
+        self.assertEqual(result['cpwer']['status'],'NOT_SCORED')
+        self.assertEqual(result['unattributed_words'],1)
+        self.assertEqual(result['cpwer_u']['errors'],1)
+        unknown_case=dict(case,set='realmix')
+        self.assertEqual(measure(unknown_case,ref,[(0,1000,-1)],[s])['der']['confusion_ms'],500)
+
+    def test_empty_der_after_collar_stays_undefined(self):
+        case=dict(id='x',set='realmix',text=False,der='auto reference')
+        ref=reference([(0,100,'A')],duration=100)
+        result=measure(case,ref,[(0,100,0)],None)
+        self.assertEqual(result['der']['status'],'UNDEFINED_EMPTY_REFERENCE')
+        self.assertIsNone(result['der']['rate'])
+
     def test_wav_conversion_truncates_like_the_phone_tracks(self):
         data = wav_bytes(np.array([0.5, -0.5, 0.99999, 2.0], dtype=np.float32))
         with wave.open(io.BytesIO(data)) as w:
