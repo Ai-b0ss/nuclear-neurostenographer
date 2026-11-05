@@ -1,0 +1,266 @@
+{
+  "dataset": "Golos farfield test (OpenSLR SLR114)",
+  "mirror": "Sh1man/golos_opus",
+  "revision": "931f5c412a8045e0b03b9e5584072f0810c41dcc",
+  "archive": "farfield/test/test-00000.tar",
+  "archive_sha256": "f0a587ea242d22c3e1bfacfd08ecb6fd822bcee199811c2154b5bca883b7ec3b",
+  "selection_seed": "golos-farfield-android-wer-v1",
+  "duration_bins_seconds": [
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "cases_per_bin": 10,
+  "cases": [
+    {
+      "id": "golos-farfield-00",
+      "source_id": "02e2fd7b2355a14ad60fdeedecfcf968",
+      "source_opus_sha256": "81972bb658f6b36e440d22494970ca37a64c472cd9d7a3cac12f8bbec2731720",
+      "wav_sha256": "a7912139ba30aa1e1d0c29c4357baca8f95d46853673f74c21c55fbdbcc1d8c9",
+      "reference_sha256": "d8b5eb27aa0596ce98722f6d02a71e2b8967ed1d0271e53127ef64b7f53e8e4a",
+      "duration": 2.2536875
+    },
+    {
+      "id": "golos-farfield-01",
+      "source_id": "c227c3be6bf290d1be3f31eb9108e281",
+      "source_opus_sha256": "70cab9f474bb1d7b3b3e4530fb44738f16c355cfdbf002d34528c7535579b73d",
+      "wav_sha256": "c89f0acaf77360ef974a0257f138fe5bce54a3f140bc89f79e74b494fa695d5c",
+      "reference_sha256": "85997d483184fb0fef4a60059d1bab8bb1654c28578628b4da83d8bf6bf2c7d3",
+      "duration": 2.395625
+    },
+    {
+      "id": "golos-farfield-02",
+      "source_id": "d4fcdea7106fa3849196c1c9de5231b6",
+      "source_opus_sha256": "bd83a82cd886766db1a7b3f962888e4c69da314865750442b82b2802dc0f2e1a",
+      "wav_sha256": "af0e7fb69aa73423e0cb3c0ede1106ced23a20053db604f3d645f4c73f0df991",
+      "reference_sha256": "27796d8482fb4aaaca05adca1c1e9974026850ff5e46a1157510521cea36f5ad",
+      "duration": 2.0635625
+    },
+    {
+      "id": "golos-farfield-03",
+      "source_id": "e0f0e4bd4c9e47889ccbf35cfd91afaa",
+      "source_opus_sha256": "65eefb6710d8e06fad02795e16f111407fd24fa58be8e0c0f90601ca71c5c819",
+      "wav_sha256": "fc722e28468ae09e0312bdc10bfaea482d53983a0d950a5b32e0133ed64fc660",
+      "reference_sha256": "fe6ffc7dde5b71e7b3b636e4de6e9dd82a25ea4dfc164bdb70eb86ec3eed1325",
+      "duration": 2.5180625
+    },
+    {
+      "id": "golos-farfield-04",
+      "source_id": "539b28e3645ccf6bbb052de8c82cd921",
+      "source_opus_sha256": "c295b5e4c64efca8a912be0610273c8bca8781290ea7eddb30c14c7fbe2e6eef",
+      "wav_sha256": "3253dba2bfb6565d931d487f6e09cffe132aa2ea311c0d27f5328e7ebaf72344",
+      "reference_sha256": "1203d15e74a7f9b7fb8cb299600bd7e919d31e66d431abf3c67d9e10d6c2ee5f",
+      "duration": 2.7271875
+    },
+    {
+      "id": "golos-farfield-05",
+      "source_id": "a9d26776dc8adad86a39fab3cec5acfe",
+      "source_opus_sha256": "1f4b3b319bad0fa439dfdd2526b973c811e40d649c61349730e36963d998ed1d",
+      "wav_sha256": "3cb06a550e800e504c49581b29db42b0ca839b11f634293e2f606617fdf3d985",
+      "reference_sha256": "d366e59642f3ec1de9537de482001f7222665b85b328b9b2c50cf49662facf43",
+      "duration": 2.52625
+    },
+    {
+      "id": "golos-farfield-06",
+      "source_id": "b223d3d6387ab50dc8894e9c340d43b0",
+      "source_opus_sha256": "8b01260db4981d8aafa2248907b35c28a8b86895a8c447efdabb026b439df22b",
+      "wav_sha256": "bf348946d20057a215b62767958a8cdc6528bebcc211dce6396bb67f774055d4",
+      "reference_sha256": "e4be5c3cf65bba178d59ed09b285696025a60bea99cc6f1a2471e78388fcf67d",
+      "duration": 2.306125
+    },
+    {
+      "id": "golos-farfield-07",
+      "source_id": "94806c112fec89fa85b03e7a480b61c9",
+      "source_opus_sha256": "37f9e74c80a771ce1a8f667db653bad8ff09ac956a29168debb33969b388ced7",
+      "wav_sha256": "90412d6e638a95c2b2fa135c28be24d0a1c7070cf571677c81068b438051ca01",
+      "reference_sha256": "1bf5e156b411be6f98ab575b479b0d5b30f420e0f39a1abc04cfc00b66aa54ef",
+      "duration": 2.4278125
+    },
+    {
+      "id": "golos-farfield-08",
+      "source_id": "d91714f150c6884b49c5fc826c0dcc8c",
+      "source_opus_sha256": "aa1ebaddadefbffaedf53a7f05887e9c431592e1d28c1acdfb7f3e885214b5db",
+      "wav_sha256": "fffbf0906f031220d76c6e05a48a27697c271a75ac76408e4aa17c2c2c708adc",
+      "reference_sha256": "0dc2039a3bb7a50cfc1b6e527e4592c67d062cc6c06ed3d6f6a3548b357c098e",
+      "duration": 2.07825
+    },
+    {
+      "id": "golos-farfield-09",
+      "source_id": "abfe2b9a9e5ac54a9d28036e93c817cc",
+      "source_opus_sha256": "7915d08c43524c7082534d6cee89b3d83bb3b2228e0d6c5946eced1a92d399a3",
+      "wav_sha256": "6778ea7b9db7af134fc5a6587197cd17962c5bac54a7a3513963c587e695b4d9",
+      "reference_sha256": "f1d1678878740a20a0e583e1c9cbcb4e4a3c2cef0182c8c90c02901d20bfdfe1",
+      "duration": 2.168375
+    },
+    {
+      "id": "golos-farfield-10",
+      "source_id": "7842519f8bf1e16583761ce1e6129939",
+      "source_opus_sha256": "c7cf3864121bb55f2db43dccd421af59040ddb40d89887456619559207385737",
+      "wav_sha256": "76bc59c61d6b1736724d38f0dc681ca43cd9cb6f703ed5a8940c192859ac2252",
+      "reference_sha256": "709491edc268d670bcf6008a8c89898f27314844f3aa60e1d806079d9c893d1a",
+      "duration": 3.15025
+    },
+    {
+      "id": "golos-farfield-11",
+      "source_id": "a74b623b8de11e4cfda6889d865e7fba",
+      "source_opus_sha256": "5290ca041d5ad3aad5a4850895e69a6082b2efe69509fd36f2c7379764973a1d",
+      "wav_sha256": "520e0057aafc77e5563e4b214cf96aa1bc4693f712ee32b76809ffa9bd26dbe8",
+      "reference_sha256": "f8f3aaed55dcd891f66e1a9fb5db77fa7766f5aca96a46777cf27ad850280acf",
+      "duration": 3.058375
+    },
+    {
+      "id": "golos-farfield-12",
+      "source_id": "dd9930549abb0225e12b61c6a9e2239f",
+      "source_opus_sha256": "2a0d37e40527af36892fb1ea571f276ed4ae779cf070c90f30d72d2f4d06e32d",
+      "wav_sha256": "06f5a4827dc398d5d56fcbfc7447a9212ba6668285cd76f4b5337c24128aa05c",
+      "reference_sha256": "f396defa47d50c54418ed13a2aeb16cc47a64be11565c22acbb45d1fb07acda4",
+      "duration": 3.425
+    },
+    {
+      "id": "golos-farfield-13",
+      "source_id": "56dbae5b4499e568feebacaa4ec3689c",
+      "source_opus_sha256": "44032aa8eed16e1ec27272a97668825cfcd416d2d9a2ecae9ae44fa1008330ba",
+      "wav_sha256": "7b81e81368423c86ec5fdb741492ea70a9477e6d18e78052a05f717977849a46",
+      "reference_sha256": "05d8a80f313fc8519265881f68a1cf653c3a0d3d55fa02fc09988e12d3177e96",
+      "duration": 3.111625
+    },
+    {
+      "id": "golos-farfield-14",
+      "source_id": "aa7acd3a1505f2a00cba11879126c9d2",
+      "source_opus_sha256": "6c6187ca229c3b996f1079d3049077a9cc2666bca6d7f9cae50545e0f7286cd8",
+      "wav_sha256": "93db24072fd52f9007415afff751507c24180d5fe63442dca0e738cb7c3796d5",
+      "reference_sha256": "fdb3f7772000e30ed14711402ede530d664af231353b429312690dfd00625991",
+      "duration": 3.732125
+    },
+    {
+      "id": "golos-farfield-15",
+      "source_id": "7a8262f00f57be4f967f8e4dbb7204f4",
+      "source_opus_sha256": "e3e655c6a06b551cd914762c946c80e831c9442a06ac623d1fe1583c8751f5b1",
+      "wav_sha256": "64ab75c9271ad1fa0541b7e450a90b4afdd47035f857f352971ef1d642221d56",
+      "reference_sha256": "acbaf015c62798dba1ccf8605a6fc98dce69fdc0b5ecdf4d9c70fb2b9c3385af",
+      "duration": 3.0728125
+    },
+    {
+      "id": "golos-farfield-16",
+      "source_id": "29b23bcf026a595431178ae0ac78eedc",
+      "source_opus_sha256": "2cb7ef722dd392c4e63c6a52fa54110c834ffdec40baa2f7f77686e1b2968605",
+      "wav_sha256": "b936a858ab7f2924fc320e83383dcc1ecf306935c687dca60146f217d8ef9ac1",
+      "reference_sha256": "d611760afb1bbc76155c869df8d0bcd4cfc33372ca0d9818f75ee75f907ae630",
+      "duration": 3.28425
+    },
+    {
+      "id": "golos-farfield-17",
+      "source_id": "7e55843e745a239b35212e2caba77239",
+      "source_opus_sha256": "e144bf1126028862e4902e7e4e44ff6f3e0852b8f9d21a61f85f667b3e8109d7",
+      "wav_sha256": "99cdcac135dd1942a8b7324b9a6f011731bf862c2db92c262762335f31848fab",
+      "reference_sha256": "cc148a6ae2f4361f8a3772f3416fda5e6a6c05b5b1b40b497a26a0fabf188802",
+      "duration": 3.0640625
+    },
+    {
+      "id": "golos-farfield-18",
+      "source_id": "10fc85667fa1b0a6941de521f959b730",
+      "source_opus_sha256": "1149f83089286a002a9618cb07db224c0d7a5404de719393b3bc580949a12c94",
+      "wav_sha256": "5499f5219c29e0e68742ce3cf7f604dcdd2047b1dd4f7326e8da30c924b029f5",
+      "reference_sha256": "c0152886b1c9cf69aa93eab17ff13946fd65178a63935369934029872d2e5b19",
+      "duration": 3.02325
+    },
+    {
+      "id": "golos-farfield-19",
+      "source_id": "65bd957ae706f3914ce6d41d69f6ded8",
+      "source_opus_sha256": "dc199c9112e8622db624d972a5d1834d32f43ed3478c708fa5cb68db271137db",
+      "wav_sha256": "a64b38f50b933946fe62feec9aa8f3a3750d584fa77d2844483db585fa3e09a6",
+      "reference_sha256": "07a3ed6e44737f0f787c6747065b1330f246705a6b52be5f6690ae65677feed5",
+      "duration": 3.6879375
+    },
+    {
+      "id": "golos-farfield-20",
+      "source_id": "52436122bb338fbd886623a4f68cc28d",
+      "source_opus_sha256": "e82252e024972e01eb82457c924cf4efe5bd0f041d91d22d73e27b4dc8e25e12",
+      "wav_sha256": "4f8876c2e8c1653f558ec934957a5457c0bffc8de5f1bb44822b37ce223d99af",
+      "reference_sha256": "056638d367a59ed52b0cae752412f75316465d7bc3e6650172a390f31e4db80b",
+      "duration": 5.7984375
+    },
+    {
+      "id": "golos-farfield-21",
+      "source_id": "87323ab62f7a3243fe9866314cc796fa",
+      "source_opus_sha256": "6bb13fff22ca85d6ca9f5cf4a44fa9d753104bb40f5ce5992d5d5c41012f63b2",
+      "wav_sha256": "f8f9d7fec0c20cc3603af0fd44ac6e5afef0779b13df032551f9c0c6664239c3",
+      "reference_sha256": "da1ddaf7181459e77e48eed8267e1619176b6d69e1a57455d781d683fcf07013",
+      "duration": 5.423
+    },
+    {
+      "id": "golos-farfield-22",
+      "source_id": "1db939032517aaa02717c767e4df07fc",
+      "source_opus_sha256": "52881a1dc8edc1495cfe63ddc39d3348718d7223f3d6a4110956376214470d58",
+      "wav_sha256": "5d723103488240fcd4ffd195338c1d4ac3b21952aa097a38f6807545d7bdf656",
+      "reference_sha256": "76d7cc6e2413dca0bd6216cc7a70661006ee84c4f47bc3c2543c250134fba85a",
+      "duration": 4.0234375
+    },
+    {
+      "id": "golos-farfield-23",
+      "source_id": "98076f8b679617c9ffe7f9950e68c90e",
+      "source_opus_sha256": "81f2fada9ff37e8fff18cee8915e7d4960421c6ef3cb265ae9f3a8ef28c4abcd",
+      "wav_sha256": "45dceaaf92714a6d2787c31652a3a6a45d759dac31cf324183ad189c0a35d600",
+      "reference_sha256": "f99af4a58119dd969040f4c12cc81d9ac2f5c8a009d6dd016c2aac4be31c00c6",
+      "duration": 5.5446875
+    },
+    {
+      "id": "golos-farfield-24",
+      "source_id": "a3e22383ce8d192d06a24c3861980d63",
+      "source_opus_sha256": "58d2de7120649948773a5d7e45b94de1c2efe8d2ddacd911dd6ddb62cb722422",
+      "wav_sha256": "998fb95f92c8a959b3d205e1a09cefdb6c98a7f190d785ef6c9fd78cb6faac87",
+      "reference_sha256": "8a776af5d97928a6bc59284674c56a9b3bf32693c06aa1778fee79fe6fc90e4a",
+      "duration": 5.0328125
+    },
+    {
+      "id": "golos-farfield-25",
+      "source_id": "b6cb5dbfd40fefc3b03b4ab24d558628",
+      "source_opus_sha256": "0042fddd88c011e3f5cf52b272663c310d05af1f8f95756bfb4971e8974ae2e3",
+      "wav_sha256": "64e99ebef5527dcad03c81a13638aaacdbf4d5b5929e7ef49014f749f55b1378",
+      "reference_sha256": "404fb3cf0eb000275222d1bb3fd74c731ab9ea437edb628af4bd3d1ba357266f",
+      "duration": 4.07275
+    },
+    {
+      "id": "golos-farfield-26",
+      "source_id": "bfacd68d93c7e45092b02fb9073ca324",
+      "source_opus_sha256": "453ccecb29f620473bbcc2bfa6b532ce088a7444cc1266f0a05b5682fd7e8729",
+      "wav_sha256": "12ee9aceb0875ace1b1138849d977f9e4b2a8adfe50223c836e4eae5733ff2d1",
+      "reference_sha256": "714925ac2c1ddf5dd802d98554a429e9a648756b1d877cc8deab52c266c838e1",
+      "duration": 4.809
+    },
+    {
+      "id": "golos-farfield-27",
+      "source_id": "fbce71aeba9a47c90f723033a2def627",
+      "source_opus_sha256": "6a557dd66308ce8c72bac9859357ea51d4e439802a584779de9336d1bb4e40bb",
+      "wav_sha256": "beca3abff3be0c351873263b18893bde2f7127764b39815cc21c81b2d6e3f850",
+      "reference_sha256": "41d8ec0356100538185fb7d08dda1a0f62a5cd97db678f1cf3b6eeaf478206c4",
+      "duration": 5.71575
+    },
+    {
+      "id": "golos-farfield-28",
+      "source_id": "5d311dc1f8e60f3fc699bff90203e1dd",
+      "source_opus_sha256": "32918cd45067b8889e2e3359e9b76fc51c05b3bdf7ed87842ab94b4beaf04435",
+      "wav_sha256": "81aad157aa01b024fd5451a72c92c21c5b7bcd1cc860ffe4c1c4a56a1e31b3af",
+      "reference_sha256": "b45d39b6bd2d02f9cd470b7ef307fb471b5743ac91a7cf27938bf5c84108fe8c",
+      "duration": 5.630625
+    },
+    {
+      "id": "golos-farfield-29",
+      "source_id": "a99cb312edaec042709c9b8a29d275b4",
+      "source_opus_sha256": "7a0f9b3e269fc2685bc513b10f56780be74a9265173df5ebc78da81d41ec99bd",
+      "wav_sha256": "816690e12a220429c414564accf2deb7d08f4442a0ac7f68188a2b3943d1bfa6",
+      "reference_sha256": "f5c8f1148701cf4ccd6b67fb7d324b0f6d1e6ec4edc863d18b1f8c3f3a19c8e6",
+      "duration": 4.26175
+    }
+  ],
+  "metric": "WER only; no multi-speaker or timing ground truth"
+}
