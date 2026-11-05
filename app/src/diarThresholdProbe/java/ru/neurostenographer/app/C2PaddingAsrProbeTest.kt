@@ -31,12 +31,14 @@ class C2PaddingAsrProbeTest {
             val hash = MessageDigest.getInstance("SHA-256").digest(bytes)
                 .joinToString("") { "%02x".format(it) }
             val audio = bytes.inputStream().use { PcmWav.read(it) }
-            val base = IsolatedDiarization.process(context, audio, c2, backend = NemotronBackend.C2)
+            val current = NemotronDiarization.process(audio, c2, activityThreshold = 0f)
+            val relaxed = NemotronDiarization.process(audio, c2, activityThreshold = -0.25f)
             for ((mode, diarization) in listOf(
-                "pad150" to C2BoundaryPadding.apply(base, audio.durationMs, 150),
-                "pad200" to C2BoundaryPadding.apply(base, audio.durationMs, 200))) {
+                "pad150" to C2BoundaryPadding.apply(current, audio.durationMs, 150),
+                "threshold_minus_0_25" to C2BoundaryPadding.apply(relaxed, audio.durationMs, 150))) {
+                val windows = C2WindowMerge.apply(diarization.windows, diarization.turns)
                 val output = OfflineAsr.transcribe(audio, asr, turns = diarization.turns,
-                    speechWindows = diarization.windows)
+                    speechWindows = windows)
                 val segments = JSONArray(output.segments.map { segment ->
                     JSONObject().put("start_ms", segment.startMs).put("end_ms", segment.endMs)
                         .put("speaker_id", segment.speakerId ?: JSONObject.NULL)

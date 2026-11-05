@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <cmath>
 #include <cstdint>
 #include <vector>
 
@@ -55,11 +56,13 @@ int64_t millis(Clock::time_point from, Clock::time_point to) {
 extern "C" JNIEXPORT jfloatArray JNICALL
 Java_ru_neurostenographer_core_NativeNemotronPipeline_run(
     JNIEnv* env, jobject, jfloatArray wave, jfloatArray filters, jfloatArray hann,
-    jfloatArray silence, jstring model, jint threads, jobject check_cancelled, jlongArray timing) {
+    jfloatArray silence, jstring model, jint threads, jobject check_cancelled,
+    jfloat activity_threshold, jlongArray timing) {
     if (!wave || !filters || !hann || !silence || !model || !check_cancelled || !timing ||
         env->GetArrayLength(wave) < 1600 || env->GetArrayLength(filters) != mels * 257 ||
         env->GetArrayLength(hann) != 400 || env->GetArrayLength(silence) != 512 ||
-        env->GetArrayLength(timing) < 2 || threads < 1 || threads > 4) {
+        env->GetArrayLength(timing) < 2 || threads < 1 || threads > 4 ||
+        !std::isfinite(activity_threshold) || activity_threshold < -2.0f || activity_threshold > 2.0f) {
         invalid(env, "Invalid native Nemotron pipeline input");
         return nullptr;
     }
@@ -135,7 +138,7 @@ Java_ru_neurostenographer_core_NativeNemotronPipeline_run(
         if (env->ExceptionCheck()) return nullptr;
         for (int row = from; row < until; ++row) {
             for (int speaker = 0; speaker < speakers; ++speaker) {
-                const bool active = values[static_cast<size_t>((row - from) * speakers + speaker)] > 0.0f;
+                const bool active = values[static_cast<size_t>((row - from) * speakers + speaker)] > activity_threshold;
                 if (active && opened[speaker] < 0) opened[speaker] = written;
                 if (!active && opened[speaker] >= 0) {
                     turns.push_back({opened[speaker] * 0.01f, written * 0.01f, speaker});
