@@ -130,6 +130,9 @@ android {
             defaultConfig.externalNativeBuild.cmake.arguments += "-DNATIVE_ASR_CANDIDATE=ON"
             sourceSets.getByName("androidTest").java.srcDir("src/nativeAsrCandidateTest/java")
         }
+        if (nativeAsrCandidate && providers.gradleProperty("diarThresholdProbe").orNull == "true") {
+            defaultConfig.externalNativeBuild.cmake.arguments += "-DSILERO_GAP_PROBE=ON"
+        }
         // Research and candidate variants use distinct applicationIds.
         // The main product variant retains the contest applicationId.
         if (nemotronPrototype) {
