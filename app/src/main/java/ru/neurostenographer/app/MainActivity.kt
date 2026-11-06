@@ -17,6 +17,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.items
@@ -78,7 +79,13 @@ class MainActivity : ComponentActivity() {
             onDispose { view.keepScreenOn = false }
         }
         var notice by remember { mutableStateOf("") }
-        val importAudio = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> uri?.let(model::select) }
+        val importAudio = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            if (uri == null) notice = "Выбор файла отменён."
+            else {
+                notice = ""
+                model.select(uri)
+            }
+        }
         val exportTxt = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain"), model::finishExport)
         val exportJson = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json"), model::finishExport)
         val exportSrt = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-subrip"), model::finishExport)
@@ -123,7 +130,10 @@ class MainActivity : ComponentActivity() {
                 })
         } else {
             HomeScreen(state, recording, notice, onRecord = record,
-                onImport = { importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream")) },
+                onImport = {
+                    notice = "Выберите аудиофайл в системном окне."
+                    importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream"))
+                },
                 onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open)
         }
     }
@@ -171,8 +181,14 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
             while (true) { value = SystemClock.elapsedRealtime() - started; delay(250) }
         }
     }
+    val listState = rememberLazyListState()
+    // Imported file card is near the top; bring it into view even if the user
+    // was scrolling old transcripts before opening the system file picker.
+    LaunchedEffect(state.source, state.sourceDurationMs) {
+        if (state.source != null) listState.animateScrollToItem(0)
+    }
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(20.dp),
+        LazyColumn(Modifier.fillMaxSize().padding(padding), state = listState, contentPadding = PaddingValues(20.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)) {
             item {
                 Column {
@@ -216,7 +232,7 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
                         TextButton(onClick = onCancel, modifier = Modifier.align(Alignment.End)) { Text("Отменить") }
                     }
                 }
-            } else if (state.message.isNotBlank() && (state.source == null || !state.modelReady)) item {
+            } else if (state.message.isNotBlank()) item {
                 Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
             }
             if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error) }
