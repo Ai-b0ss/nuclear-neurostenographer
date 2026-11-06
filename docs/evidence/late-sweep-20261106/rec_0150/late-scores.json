@@ -1,0 +1,46 @@
+[
+  {
+    "mode": "fast-late-baseline",
+    "der": 0.04895232200396862,
+    "miss_ms": 2689,
+    "fa_ms": 0,
+    "confusion_ms": 0,
+    "speakers": 2,
+    "host_compute_rtf": 0.0972,
+    "host_cpu_ms": 23703,
+    "wav_sha": "f611751fc23d34131d53816be074acb067bf1659c80b55e553c66756601e4f29"
+  },
+  {
+    "mode": "fast-late-72-3",
+    "der": 0.049316415138992556,
+    "miss_ms": 2709,
+    "fa_ms": 0,
+    "confusion_ms": 0,
+    "speakers": 2,
+    "host_compute_rtf": 0.06713333333333334,
+    "host_cpu_ms": 15953,
+    "wav_sha": "f611751fc23d34131d53816be074acb067bf1659c80b55e553c66756601e4f29"
+  },
+  {
+    "mode": "fast-late-90-3",
+    "der": 0.05752671533378238,
+    "miss_ms": 3160,
+    "fa_ms": 0,
+    "confusion_ms": 0,
+    "speakers": 2,
+    "host_compute_rtf": 0.05755,
+    "host_cpu_ms": 13843,
+    "wav_sha": "f611751fc23d34131d53816be074acb067bf1659c80b55e553c66756601e4f29"
+  },
+  {
+    "mode": "fast-late-72-5",
+    "der": 0.050208443319801205,
+    "miss_ms": 2758,
+    "fa_ms": 0,
+    "confusion_ms": 0,
+    "speakers": 2,
+    "host_compute_rtf": 0.07326666666666666,
+    "host_cpu_ms": 17609,
+    "wav_sha": "f611751fc23d34131d53816be074acb067bf1659c80b55e553c66756601e4f29"
+  }
+]

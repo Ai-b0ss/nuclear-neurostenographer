@@ -1,0 +1,445 @@
+{
+  "state": "COMPLETE",
+  "failure": null,
+  "invocation": "veche2-default",
+  "c2_state": "ACTIVE",
+  "scope": "PACED_DEVICE_STREAM",
+  "sdk": 29,
+  "samples": 940320,
+  "audio_ms": 58770,
+  "elapsed_ms": 78110,
+  "native_load_ms": 8944,
+  "asr_ms": 13887,
+  "c2_ms": 44205,
+  "vad_ms": 1947,
+  "compute_rtf": 1.021592649310873,
+  "finalization_ms": 9929,
+  "finalization_state": "COMPLETE",
+  "revised_frames": 212,
+  "consensus_experimental": false,
+  "speaker_disagreement_ms": 0,
+  "speaker_offline_fill_ms": 0,
+  "cpu_ms": 242288,
+  "sampled_pss_kb": 1022577,
+  "battery_temperature_tenths_c": 370,
+  "battery_level": 100,
+  "thermal_status": 0,
+  "max_lag_ms": 8960,
+  "queue_peak": 1,
+  "fallback": false,
+  "silence_ms": 500,
+  "max_phrase_ms": 15000,
+  "disk_recovery_reads": 4,
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "recognizer_loads": 1,
+  "phrases": [
+    {
+      "start_sample": 896,
+      "end_sample": 66176,
+      "ready_sample": 71168,
+      "decode_ms": 1073,
+      "display_at_ms": 10693,
+      "latency_from_audio_end_ms": 6558,
+      "words": 10,
+      "untimed": false
+    },
+    {
+      "start_sample": 83328,
+      "end_sample": 209536,
+      "ready_sample": 214528,
+      "decode_ms": 2086,
+      "display_at_ms": 15488,
+      "latency_from_audio_end_ms": 2392,
+      "words": 19,
+      "untimed": false
+    },
+    {
+      "start_sample": 225664,
+      "end_sample": 453024,
+      "ready_sample": 465920,
+      "decode_ms": 3728,
+      "display_at_ms": 32878,
+      "latency_from_audio_end_ms": 4564,
+      "words": 36,
+      "untimed": false
+    },
+    {
+      "start_sample": 453024,
+      "end_sample": 490112,
+      "ready_sample": 495104,
+      "decode_ms": 600,
+      "display_at_ms": 35835,
+      "latency_from_audio_end_ms": 5203,
+      "words": 6,
+      "untimed": false
+    },
+    {
+      "start_sample": 502144,
+      "end_sample": 580736,
+      "ready_sample": 585728,
+      "decode_ms": 1250,
+      "display_at_ms": 42682,
+      "latency_from_audio_end_ms": 6386,
+      "words": 11,
+      "untimed": false
+    },
+    {
+      "start_sample": 584064,
+      "end_sample": 690816,
+      "ready_sample": 695808,
+      "decode_ms": 1712,
+      "display_at_ms": 47853,
+      "latency_from_audio_end_ms": 4677,
+      "words": 17,
+      "untimed": false
+    },
+    {
+      "start_sample": 692608,
+      "end_sample": 712832,
+      "ready_sample": 717824,
+      "decode_ms": 325,
+      "display_at_ms": 50495,
+      "latency_from_audio_end_ms": 5943,
+      "words": 2,
+      "untimed": false
+    },
+    {
+      "start_sample": 728448,
+      "end_sample": 838784,
+      "ready_sample": 843776,
+      "decode_ms": 1730,
+      "display_at_ms": 57824,
+      "latency_from_audio_end_ms": 5400,
+      "words": 21,
+      "untimed": false
+    },
+    {
+      "start_sample": 849792,
+      "end_sample": 877184,
+      "ready_sample": 882176,
+      "decode_ms": 451,
+      "display_at_ms": 61544,
+      "latency_from_audio_end_ms": 6720,
+      "words": 2,
+      "untimed": false
+    },
+    {
+      "start_sample": 878976,
+      "end_sample": 940320,
+      "ready_sample": 940320,
+      "decode_ms": 932,
+      "display_at_ms": 66042,
+      "latency_from_audio_end_ms": 7272,
+      "words": 10,
+      "untimed": false
+    }
+  ],
+  "diarization_steps": [
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 3600,
+      "captured_prefix_samples": 65536,
+      "context_frames": 45,
+      "process_ms": 449,
+      "at_ms": 9547
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 7200,
+      "captured_prefix_samples": 123392,
+      "context_frames": 90,
+      "process_ms": 592,
+      "at_ms": 11431
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 10800,
+      "captured_prefix_samples": 180736,
+      "context_frames": 135,
+      "process_ms": 939,
+      "at_ms": 12511
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 14400,
+      "captured_prefix_samples": 238592,
+      "context_frames": 180,
+      "process_ms": 1060,
+      "at_ms": 16645
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 18000,
+      "captured_prefix_samples": 295936,
+      "context_frames": 225,
+      "process_ms": 1352,
+      "at_ms": 19846
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 21600,
+      "captured_prefix_samples": 353792,
+      "context_frames": 270,
+      "process_ms": 1633,
+      "at_ms": 23738
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 25200,
+      "captured_prefix_samples": 411136,
+      "context_frames": 315,
+      "process_ms": 1914,
+      "at_ms": 27607
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 28800,
+      "captured_prefix_samples": 468992,
+      "context_frames": 360,
+      "process_ms": 2171,
+      "at_ms": 35126
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 32400,
+      "captured_prefix_samples": 526336,
+      "context_frames": 405,
+      "process_ms": 2469,
+      "at_ms": 38417
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 36000,
+      "captured_prefix_samples": 584192,
+      "context_frames": 450,
+      "process_ms": 2790,
+      "at_ms": 41363
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 39600,
+      "captured_prefix_samples": 641536,
+      "context_frames": 315,
+      "process_ms": 3160,
+      "at_ms": 45992
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 43200,
+      "captured_prefix_samples": 699392,
+      "context_frames": 360,
+      "process_ms": 2160,
+      "at_ms": 50087
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 46800,
+      "captured_prefix_samples": 756736,
+      "context_frames": 405,
+      "process_ms": 2453,
+      "at_ms": 53068
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 50400,
+      "captured_prefix_samples": 814592,
+      "context_frames": 450,
+      "process_ms": 2779,
+      "at_ms": 55993
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 54000,
+      "captured_prefix_samples": 871936,
+      "context_frames": 495,
+      "process_ms": 3085,
+      "at_ms": 61016
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 57600,
+      "captured_prefix_samples": 929792,
+      "context_frames": 318,
+      "process_ms": 3358,
+      "at_ms": 65036
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 58770,
+      "captured_prefix_samples": 940320,
+      "context_frames": 333,
+      "process_ms": 1912,
+      "at_ms": 68016
+    }
+  ],
+  "capture_failure": null,
+  "loading_stages": [
+    {
+      "stage": "verify_install_a3",
+      "elapsed_ms": 44
+    },
+    {
+      "stage": "load_silero",
+      "elapsed_ms": 1403
+    },
+    {
+      "stage": "load_a3",
+      "elapsed_ms": 1520
+    },
+    {
+      "stage": "verify_install_c2",
+      "elapsed_ms": 5894
+    },
+    {
+      "stage": "load_c2",
+      "elapsed_ms": 6545
+    },
+    {
+      "stage": "ready",
+      "elapsed_ms": 8977
+    }
+  ],
+  "diarization_turns": [
+    {
+      "start_ms": 229,
+      "end_ms": 1030,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 1339,
+      "end_ms": 3899,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 5330,
+      "end_ms": 9940,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 10250,
+      "end_ms": 12880,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 14230,
+      "end_ms": 18869,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 19060,
+      "end_ms": 20430,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 20779,
+      "end_ms": 24650,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 24740,
+      "end_ms": 25269,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 25609,
+      "end_ms": 28150,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 28400,
+      "end_ms": 30480,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 31519,
+      "end_ms": 32200,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 33030,
+      "end_ms": 33960,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 34110,
+      "end_ms": 36040,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 36660,
+      "end_ms": 39980,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 40120,
+      "end_ms": 40670,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 41020,
+      "end_ms": 42899,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 43450,
+      "end_ms": 44329,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 45690,
+      "end_ms": 47770,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 47700,
+      "end_ms": 49800,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 48649,
+      "end_ms": 51530,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 51590,
+      "end_ms": 52309,
+      "speaker_id": "Speaker 2"
+    },
+    {
+      "start_ms": 53239,
+      "end_ms": 54660,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 55039,
+      "end_ms": 58770,
+      "speaker_id": "Speaker 1"
+    }
+  ],
+  "test_status": "PASS",
+  "producer_elapsed_ms": 58770,
+  "max_feed_lateness_ms": 34,
+  "pacing_valid": true,
+  "clip": "veche-2-one-to-one",
+  "fixture_sha256": "1a248421ee4725e56bbc3c5e49d37f5f346fcf97a249b0809be3b0cfe15273b8",
+  "captured_wav_sha256": "1a248421ee4725e56bbc3c5e49d37f5f346fcf97a249b0809be3b0cfe15273b8",
+  "pcm_exact": true,
+  "input_samples": 940320
+}

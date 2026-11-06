@@ -72,7 +72,7 @@ fun main(args: Array<String>) {
                 }
             }
             embeddingRows.clear()
-            fun run(name: String, config: NemotronChunkConfig, duration: Long = audio.samples.size.toLong(), adaptive: Boolean = false, revise: Boolean = false): List<ClusterTurn> {
+            fun run(name: String, config: NemotronChunkConfig, duration: Long = audio.samples.size.toLong(), adaptive: Boolean = false, revise: Boolean = false, hybridChunk: Int = 0, hybridAfterCalls: Int = 1): List<ClusterTurn> {
                 trace.clear()
                 activeConfig = config; emittedEmbeddings = 0; chronological = true; emitted = BooleanArray(0)
                 val stream = NemotronStreaming(filters, hann, silence, runner, config, revise)
@@ -85,6 +85,10 @@ fun main(args: Array<String>) {
                     available = minOf(duration, available + 512)
                     if (adaptive && stream.calls >= 3 && stream.config == NemotronChunkConfig.FAST) {
                         callsBeforeSwitch = stream.calls; stream.config = NemotronChunkConfig.FALLBACK
+                        activeConfig = stream.config
+                    }
+                    if (hybridChunk > 0 && stream.calls >= hybridAfterCalls && stream.config.chunk != hybridChunk) {
+                        stream.config = NemotronChunkConfig(hybridChunk, 6, 264, 222)
                         activeConfig = stream.config
                     }
                     while (stream.canStep(available, false)) {
@@ -118,6 +122,44 @@ fun main(args: Array<String>) {
             }
             if (args.getOrNull(3) == "final-hour") {
                 run("selected-final-60min", NemotronChunkConfig.OFFLINE, 60 * 60 * 16000L)
+                return
+            }
+            if (args.getOrNull(3) == "late-holdout") {
+                run("fast-late-baseline", NemotronChunkConfig.FAST, revise = true)
+                run("fast-late-72-3", NemotronChunkConfig.FAST, revise = true, hybridChunk = 72, hybridAfterCalls = 3)
+                File(out, "mode.txt").writeText("FIXED_SPEED_HOLDOUT_NO_PARAMETER_SEARCH\n")
+                return
+            }
+            if (args.getOrNull(3) == "late") {
+                run("fast-late-baseline", NemotronChunkConfig.FAST, revise = true)
+                run("fast-late-72-3", NemotronChunkConfig.FAST, revise = true, hybridChunk = 72, hybridAfterCalls = 3)
+                run("fast-late-90-3", NemotronChunkConfig.FAST, revise = true, hybridChunk = 90, hybridAfterCalls = 3)
+                run("fast-late-72-5", NemotronChunkConfig.FAST, revise = true, hybridChunk = 72, hybridAfterCalls = 5)
+                File(out, "mode.txt").writeText("HOST_LATE_CHUNK_EXPERIMENT_NO_ANDROID\n")
+                return
+            }
+            if (args.getOrNull(3) == "hybrid") {
+                run("fast-hybrid-45", NemotronChunkConfig.FAST, revise = true)
+                for (size in listOf(60, 72, 90)) {
+                    run("fast-hybrid-$size", NemotronChunkConfig.FAST, revise = true, hybridChunk = size)
+                }
+                File(out, "mode.txt").writeText("HOST_HYBRID_EXPERIMENT_NO_ANDROID\n")
+                return
+            }
+            if (args.getOrNull(3) == "chunk") {
+                run("fast-chunk-45", NemotronChunkConfig.FAST, revise = true)
+                for (size in listOf(60, 72, 90, 120)) {
+                    run("fast-chunk-$size", NemotronChunkConfig(size, 6, 264, 222), revise = true)
+                }
+                File(out, "mode.txt").writeText("HOST_CHUNK_EXPERIMENT_NO_ANDROID\n")
+                return
+            }
+            if (args.getOrNull(3) == "cache") {
+                run("fast-cache-baseline", NemotronChunkConfig.FAST, revise = true)
+                for (fifo in listOf(200, 160, 120, 80)) {
+                    run("fast-cache-$fifo", NemotronChunkConfig(45, 6, fifo, fifo), revise = true)
+                }
+                File(out, "mode.txt").writeText("HOST_FAST_CACHE_EXPERIMENT_NO_ANDROID\n")
                 return
             }
             val offline = run("incremental-offline", NemotronChunkConfig.OFFLINE)

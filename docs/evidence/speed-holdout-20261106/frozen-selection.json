@@ -1,0 +1,86 @@
+{
+  "seed": "NN-C2-PREVIEW-FIRST-HOLDOUT-20261106-V1",
+  "scope": "RUSSIAN_AUDIOBOOK_SYNTHETIC_BLIND_HOLDOUT_NOT_HUMAN_CONVERSATION",
+  "dataset_url": "https://huggingface.co/datasets/mexus/ru-book-mix-10h",
+  "source_license": "CC-BY-4.0",
+  "selection_before_inference": true,
+  "excluded_dev": [
+    "rec_0150",
+    "rec_0300",
+    "rec_0437"
+  ],
+  "records": [
+    {
+      "file_id": "rec_0259",
+      "shard": "data/shard-0001.tar",
+      "n_speakers": 2,
+      "overlap_stats": {
+        "single": 0.9655865092723332,
+        "overlap2": 0.034413490727666696,
+        "overlap3plus": 0.0,
+        "speech": 0.9438425439861516
+      },
+      "speaker_disjoint": true
+    },
+    {
+      "file_id": "rec_0129",
+      "shard": "data/shard-0000.tar",
+      "n_speakers": 2,
+      "overlap_stats": {
+        "single": 0.9468710271110349,
+        "overlap2": 0.05312897288896516,
+        "overlap3plus": 0.0,
+        "speech": 0.9426368281250056
+      },
+      "speaker_disjoint": true
+    },
+    {
+      "file_id": "rec_0388",
+      "shard": "data/shard-0002.tar",
+      "n_speakers": 3,
+      "overlap_stats": {
+        "single": 1.0,
+        "overlap2": 0.0,
+        "overlap3plus": 0.0,
+        "speech": 0.9430819086156647
+      },
+      "speaker_disjoint": true
+    },
+    {
+      "file_id": "rec_0345",
+      "shard": "data/shard-0002.tar",
+      "n_speakers": 3,
+      "overlap_stats": {
+        "single": 0.8608026019633076,
+        "overlap2": 0.13919739803669245,
+        "overlap3plus": 0.0,
+        "speech": 0.9368005844948962
+      },
+      "speaker_disjoint": true
+    },
+    {
+      "file_id": "rec_0528",
+      "shard": "data/shard-0003.tar",
+      "n_speakers": 4,
+      "overlap_stats": {
+        "single": 0.9459439375616682,
+        "overlap2": 0.054056062438331845,
+        "overlap3plus": 0.0,
+        "speech": 0.9450897725350115
+      },
+      "speaker_disjoint": true
+    },
+    {
+      "file_id": "rec_0514",
+      "shard": "data/shard-0003.tar",
+      "n_speakers": 4,
+      "overlap_stats": {
+        "single": 1.0,
+        "overlap2": 0.0,
+        "overlap3plus": 0.0,
+        "speech": 0.9355788271175918
+      },
+      "speaker_disjoint": true
+    }
+  ]
+}

@@ -16,7 +16,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 data class RealtimeOptions(val silenceMs: Int = 500, val fallback: Boolean = false,
     val adaptive: Boolean = true, val paced: Boolean = true, val invocation: String? = null,
-    val consensusExperimental: Boolean = false)
+    val consensusExperimental: Boolean = false,
+    val c2Chunk72AfterThreeExperimental: Boolean = false)
 
 /** One worker owns VAD, recognizer, C2 and cache. Capture only appends to the journal.
  * Under pressure, ASR metadata is drained before more VAD/C2 and PCM stays on disk. */
@@ -79,7 +80,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             if (untimedChunks == 0) "asr_token_timestamps" else "asr_token_timestamps_and_input_windows",
             if (finalizationState == "COMPLETE") "${NemotronBackend.REVISION}/" +
                 (if (options.consensusExperimental) "dual-pass-preview-first-final-fill-experimental"
-                 else "global-offline-final")
+                 else "global-offline-final") +
+                (if (options.c2Chunk72AfterThreeExperimental) "/fast-chunk72-after3-experimental" else "")
             else if (c2State == "ACTIVE") "${NemotronBackend.REVISION}/revisable-provisional" else "c2_unavailable_or_partial_unknown_speakers",
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings.toList() +
                 if (finalizationState == "COMPLETE") emptyList() else listOf("Метки говорящих предварительные; финальное уточнение ещё не завершено."))
@@ -110,6 +112,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             .put("compute_rtf", if (audioMs > 0) (asrMs + c2Ms + vadMs).toDouble() / audioMs else JSONObject.NULL)
             .put("finalization_ms", finalizationMs).put("finalization_state", finalizationState).put("revised_frames", revisedFrames)
             .put("consensus_experimental", options.consensusExperimental)
+            .put("c2_chunk72_after3_experimental", options.c2Chunk72AfterThreeExperimental)
             .put("speaker_disagreement_ms", speakerDisagreementMs).put("speaker_offline_fill_ms", speakerOfflineFillMs)
             .put("cpu_ms", Process.getElapsedCpuTime() - cpuStart).put("sampled_pss_kb", highPss)
             .put("battery_temperature_tenths_c", battery?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1))
@@ -180,6 +183,14 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                             raw = native.diarizer.step(cursor, eof, journal::read)
                             committedMs = minOf(native.diarizer.committedSamples / 16, cursor / 16)
                             revisedFrames = native.diarizer.revisedFrames
+                            // First three C2 chunks are the standard FAST preview.
+                            // Reuse the existing FIFO/cache, switch only subsequent chunk size.
+                            // This is an explicit test-only performance experiment, never default.
+                            if (options.c2Chunk72AfterThreeExperimental &&
+                                native.diarizer.calls == 3 &&
+                                native.diarizer.config == NemotronChunkConfig.FAST) {
+                                native.diarizer.config = NemotronChunkConfig(72, 6, 264, 222)
+                            }
                         } catch (e: Exception) {
                             diarFailed = true; raw = emptyList(); committedMs = 0
                             c2State = "FAILED"

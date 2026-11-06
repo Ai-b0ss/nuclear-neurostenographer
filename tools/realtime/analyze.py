@@ -56,7 +56,7 @@ def analyze(folder, references):
         if 'diarization_turns' in metrics:
             hyp['diarization'] = metrics['diarization_turns']
         score = evaluate(ref, hyp, collar_ms=250)
-        score.update(scope='SYNTHETIC_TTS_NOT_NATURAL_HUMAN_ANNOTATIONS',
+        score.update(scope=ref.get('kind', 'UNSPECIFIED_REFERENCE_KIND'),
                      export_sha256=hashlib.sha256((folder / 'transcript.json').read_bytes()).hexdigest())
         (folder / 'independent-score.json').write_text(json.dumps(score, ensure_ascii=False, indent=2), encoding='utf-8')
         row['wer'] = score['wer']; row['cpwer'] = score['cpwer']; row['der'] = score['der']

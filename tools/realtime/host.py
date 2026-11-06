@@ -15,6 +15,11 @@ def main():
     parser.add_argument('--fixture', type=Path, default=Path('C:/Users/user/Documents/nuclear-neurostenographer/.local/synthetic-ru/syn3-clean.wav'))
     parser.add_argument('--diagnostic', action='store_true')
     parser.add_argument('--quality-only', action='store_true')
+    parser.add_argument('--cache-sweep', action='store_true')
+    parser.add_argument('--chunk-sweep', action='store_true')
+    parser.add_argument('--hybrid-sweep', action='store_true')
+    parser.add_argument('--late-sweep', action='store_true')
+    parser.add_argument('--late-holdout', action='store_true')
     parser.add_argument('--hour', action='store_true')
     parser.add_argument('--final-hour', action='store_true')
     args = parser.parse_args()
@@ -51,7 +56,7 @@ def main():
     tmp = ROOT / '.local/tmp/host-ort'; tmp.mkdir(exist_ok=True)
     subprocess.run([java, '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-cp', os.pathsep.join([str(target), cp]),
                     'ru.neurostenographer.tools.HostStreamingKt', str(model), str(fixture), str(out),
-                    *(['quality'] if args.quality_only else ['final-hour'] if args.final_hour else ['hour'] if args.hour else ['diagnostic'] if args.diagnostic else [])], check=True)
+                    *(['late-holdout'] if args.late_holdout else ['late'] if args.late_sweep else ['hybrid'] if args.hybrid_sweep else ['chunk'] if args.chunk_sweep else ['cache'] if args.cache_sweep else ['quality'] if args.quality_only else ['final-hour'] if args.final_hour else ['hour'] if args.hour else ['diagnostic'] if args.diagnostic else [])], check=True)
 
 
 if __name__ == '__main__':

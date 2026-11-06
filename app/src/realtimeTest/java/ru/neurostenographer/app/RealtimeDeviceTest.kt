@@ -40,7 +40,9 @@ class RealtimeDeviceTest {
         val clip = args.getString("clip") ?: "syn3-clean"
         require(clip in listOf("syn3-clean", "syn3-brown", "syn4-noise", "silence", "overlap", "aba", "single",
             // Public synthetic audiobook RTTM evaluation; clips are pushed externally, never bundled.
-            "rec_0150", "rec_0300", "rec_0437"))
+            "rec_0150", "rec_0300", "rec_0437",
+            // Public human volunteers reading scripted meetings, anonymous speaker labels only.
+            "veche-2-one-to-one", "veche-3-auth-incident"))
         val input = context.getExternalFilesDirs(null).filterNotNull().map { File(it, "realtime-fixtures/$clip.wav") }.first { it.isFile }
         val audio = input.inputStream().use { PcmWav.read(it) }
         val paced = args.getString("paced", "true") == "true"
@@ -52,7 +54,8 @@ class RealtimeDeviceTest {
         val sourceHash = sha(input)
         val session = RealtimeSession(context, journal, RealtimeOptions(pause, fallback, adaptive = false, paced = paced,
             invocation = args.getString("invocation"),
-            consensusExperimental = args.getString("consensus", "false") == "true"))
+            consensusExperimental = args.getString("consensus", "false") == "true",
+            c2Chunk72AfterThreeExperimental = args.getString("chunk72", "false") == "true"))
         var maxFeedLatenessMs = 0L
         var producerElapsedMs = 0L
         val producer = Thread {
