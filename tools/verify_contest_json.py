@@ -22,7 +22,8 @@ def verify(contest_path: Path, original_path: Path) -> None:
         assert type(row["speaker_id"]) is str
         assert re.fullmatch(r"speaker_[1-9]\d*|unknown", row["speaker_id"])
         assert type(row["start_ms"]) is int and type(row["end_ms"]) is int
-        assert 0 <= previous <= row["start_ms"] < row["end_ms"] <= source["audio_duration_ms"] if previous >= 0 else 0 <= row["start_ms"] < row["end_ms"] <= source["audio_duration_ms"]
+        assert 0 <= row["start_ms"] < row["end_ms"] <= source["audio_duration_ms"]
+        assert previous <= row["start_ms"]
         previous = row["start_ms"]
         assert type(row["text"]) is str and row["text"] == src["text"] and bool(row["text"])
         assert row["start_ms"] == src["start_ms"] and row["end_ms"] == src["end_ms"]
