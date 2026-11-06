@@ -42,6 +42,11 @@ check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduc
 val nemotronEnabled = nemotronPrototype || nemotronProduct
 // Separate test build with GigaAM v3 e2e RNNT (punctuation); never the RC1 applicationId.
 val asrA3 = providers.gradleProperty("asrA3").orNull == "true"
+// Isolated physical-device acceptance; never replace the signed contest application.
+val solHighAcceptance = providers.gradleProperty("solHighAcceptance").orNull == "true"
+check(!solHighAcceptance || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
+    "Sol High acceptance requires the A3+C2 product configuration"
+}
 check(!(asrA3 && (c2Candidate || nemotronPrototype))) { "A3 test build is separate from C2 candidate/prototype" }
 android {
     namespace = "ru.neurostenographer.app"
@@ -51,8 +56,8 @@ android {
         applicationId = "ru.neurostenographer.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "0.3.3-contest"
+        versionCode = 7
+        versionName = "0.3.4-contest"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
@@ -86,7 +91,9 @@ android {
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
-    sourceSets.getByName("androidTest").assets.srcDir(rootProject.file(".local/androidTestAssets"))
+    // QA uses only its named fixtures, never stale models/audio from prior test runs.
+    sourceSets.getByName("androidTest").assets.srcDir(rootProject.file(
+        if (solHighAcceptance) ".local/solHighTestAssets" else ".local/androidTestAssets"))
     // Separate opt-in evaluation class, not an implicit benchmark during UI QA.
     if (providers.gradleProperty("russianBenchmark").orNull == "true") {
         sourceSets.getByName("androidTest").java.srcDir("src/benchmarkTest/java")
@@ -104,6 +111,11 @@ android {
         defaultConfig.applicationIdSuffix = ".a3"
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф A3"
     }
+    if (solHighAcceptance) {
+        check(providers.gradleProperty("a3SideBySide").orNull != "true")
+        defaultConfig.applicationIdSuffix = ".solhigh"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Sol QA"
+    }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
     if (nemotronEnabled) {
         // Research and candidate variants use distinct applicationIds.
@@ -119,7 +131,8 @@ android {
         sourceSets.getByName("main").apply {
             java.srcDir("src/nemotron/java")
             assets.srcDir("src/nemotron/assets")
-            if (nemotronProduct) assets.srcDir(rootProject.file(".local/productAssets"))
+            if (nemotronProduct) assets.srcDir(rootProject.file(
+                providers.gradleProperty("productAssetsDir").orNull ?: ".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
         // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
