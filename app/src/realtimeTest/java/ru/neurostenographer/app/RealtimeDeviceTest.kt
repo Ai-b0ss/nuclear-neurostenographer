@@ -47,12 +47,25 @@ class RealtimeDeviceTest {
         val audio = input.inputStream().use { PcmWav.read(it) }
         val paced = args.getString("paced", "true") == "true"
         val fallback = args.getString("fallback", "false") == "true"
-        val pause = args.getString("pause", "500")!!.toInt()
+        // Defaults are the product live settings; the old ones are pause=500 maxPhrase=15000 c2thread=false.
+        val pause = args.getString("pause", "400")!!.toInt()
+        val maxPhrase = args.getString("maxPhrase", "8000")!!.toInt()
+        val c2Thread = args.getString("c2thread", "true") == "true"
+        val asrFirst = args.getString("asrFirst", "true") == "true"
+        // preload=true: like a user who opens the live screen and taps Start once models are loaded.
+        val preload = args.getString("preload", "true") == "true"
+        if (preload) {
+            val deadline = SystemClock.elapsedRealtime() + 60_000
+            while (!RealtimePreload.isReady && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(100)
+            check(RealtimePreload.isReady) { "Live screen did not preload models within 60 s" }
+        } else RealtimePreload.release()
         val root = directory(clip)
         File(context.filesDir, "realtime-last-synthetic.txt").writeText(root.name)
         val journal = RealtimeJournal(File(root, "capture.wav"))
         val sourceHash = sha(input)
-        val session = RealtimeSession(context, journal, RealtimeOptions(pause, fallback, adaptive = false, paced = paced,
+        val session = RealtimeSession(context, journal, RealtimeOptions(silenceMs = pause, maxPhraseMs = maxPhrase,
+            fallback = fallback, adaptive = false, paced = paced, separateC2Thread = c2Thread,
+            usePreload = preload, asrFirst = asrFirst,
             invocation = args.getString("invocation"),
             consensusExperimental = args.getString("consensus", "false") == "true",
             c2Chunk72AfterThreeExperimental = args.getString("chunk72", "false") == "true"))

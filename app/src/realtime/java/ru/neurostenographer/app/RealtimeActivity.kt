@@ -40,6 +40,19 @@ class RealtimeActivity : ComponentActivity() {
         setContent { StenoTheme { LiveScreen() } }
     }
 
+    private fun liveBusy() = RealtimeService.view.value.status in listOf("LOADING", "RUNNING", "FINALIZING", "CAPTURE_ONLY")
+
+    override fun onStart() {
+        super.onStart()
+        if (!liveBusy()) RealtimePreload.start(this)
+    }
+
+    override fun onStop() {
+        // Leaving the screen without a live session frees the ~1 GB of preloaded models.
+        if (!liveBusy()) RealtimePreload.release()
+        super.onStop()
+    }
+
     @Composable
     private fun LiveScreen() {
         val state by RealtimeService.view.collectAsState()
@@ -63,6 +76,8 @@ class RealtimeActivity : ComponentActivity() {
         val segments = state.document?.segments.orEmpty()
         val list = rememberLazyListState()
         LaunchedEffect(segments.size) { if (segments.isNotEmpty()) list.animateScrollToItem(segments.size - 1) }
+        // After a session ends, the next one should start without a model-loading wait as well.
+        LaunchedEffect(busy) { if (!busy) RealtimePreload.start(this@RealtimeActivity) }
 
         Scaffold { padding ->
             Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp, vertical = 12.dp),

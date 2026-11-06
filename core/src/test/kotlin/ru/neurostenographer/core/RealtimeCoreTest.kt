@@ -66,8 +66,8 @@ fun testRealtimeCore() {
     check(ring.read(0, 1) == null && ring.read(1400, 1) == null)
     check(ring.read(400, 1000)!!.indices.all { ring.read((it + 400).toLong(), 1)!![0] == (it + 400) / 32768f })
 
-    for (minutes in listOf(20, 60)) for (pause in listOf(300, 500)) {
-        val segmenter = RealtimePhrases(pause)
+    for (minutes in listOf(20, 60)) for ((pause, maxMs) in listOf(300 to 15000, 500 to 15000, 400 to 8000)) {
+        val segmenter = RealtimePhrases(pause, maxMs)
         val spans = mutableListOf<SampleSpan>()
         var at = 0L
         val total = minutes * 60 * 16000L
@@ -80,10 +80,10 @@ fun testRealtimeCore() {
         check(spans.first().start == 0L && spans.last().end == total)
         check(spans.sumOf { it.end - it.start } == total)
         check(spans.zipWithNext().all { (a, b) -> a.end == b.start })
-        check(spans.all { it.end - it.start <= 240000 })
+        check(spans.all { it.end - it.start <= maxMs * 16L })
         check(segmenter.finish().isEmpty())
     }
-    for (pause in listOf(300, 500)) {
+    for (pause in listOf(300, 400, 500)) {
         val silent = RealtimePhrases(pause)
         repeat(1000) { check(silent.accept(512, false) { _, size -> size }.isEmpty()) }
         check(silent.finish().isEmpty())
@@ -142,5 +142,10 @@ fun testRealtimeCore() {
         NemotronChunkRunner { _, _, _, _, _ -> NemotronStep(floatArrayOf(Float.NaN), 1, FloatArray(512), 1) })
     check(runCatching { bad.step(65536, false, ::read) }.isFailure)
     check(bad.calls == 0 && bad.contextFrames == 0)
-    println("PASS realtime: ring overwrite, causal prefixes, cache continuity/pressure, 20/60-min sample conservation, pauses, silence, short speech, EOF, queue bounds, adaptation")
+    // Provisional smoothing: same-speaker gap 0.3 s closed, 0.1 s flicker dropped, 1 s gap kept, overlap kept.
+    val smoothed = ProvisionalTurns.smooth(listOf(ClusterTurn(0f, 1f, 0), ClusterTurn(1.3f, 2f, 0),
+        ClusterTurn(2f, 2.1f, 1), ClusterTurn(3f, 3.5f, 0), ClusterTurn(3.2f, 4f, 1)))
+    check(smoothed == listOf(ClusterTurn(0f, 2f, 0), ClusterTurn(3f, 3.5f, 0), ClusterTurn(3.2f, 4f, 1))) { smoothed.toString() }
+    check(ProvisionalTurns.smooth(emptyList()).isEmpty())
+    println("PASS realtime: ring overwrite, causal prefixes, cache continuity/pressure, 20/60-min sample conservation (incl. 400 ms / 8 s phrases), pauses, silence, short speech, EOF, queue bounds, adaptation, provisional smoothing")
 }

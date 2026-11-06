@@ -7,7 +7,7 @@ import java.io.RandomAccessFile
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-/** Single capture writer and single inference reader; durable PCM is the overflow path.
+/** Single capture writer; inference readers (ASR worker, live C2 thread) share it; durable PCM is the overflow path.
  * No queue/model lock on capture. Audio is private and retained for recovery/batch fallback. */
 class RealtimeJournal(val file: File) : Closeable {
     private val writer: Pcm16WavWriter
@@ -44,9 +44,9 @@ class RealtimeJournal(val file: File) : Closeable {
     fun read(start: Long, count: Int): FloatArray {
         require(start >= 0 && count >= 0 && start + count <= samples)
         ring.read(start, count)?.let { return it }
-        diskReads++
         val bytes = ByteArray(count * 2)
-        reader.seek(44 + start * 2); reader.readFully(bytes)
+        // ASR and live C2 read on separate threads; the shared file pointer must not interleave.
+        synchronized(reader) { diskReads++; reader.seek(44 + start * 2); reader.readFully(bytes) }
         val shorts = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer()
         return FloatArray(count) { shorts.get() / 32768f }
     }

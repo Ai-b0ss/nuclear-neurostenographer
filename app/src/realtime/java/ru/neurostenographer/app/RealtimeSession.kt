@@ -14,13 +14,20 @@ import ru.neurostenographer.core.*
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
 
-data class RealtimeOptions(val silenceMs: Int = 500, val fallback: Boolean = false,
+data class RealtimeOptions(val silenceMs: Int = 400, val maxPhraseMs: Int = 8000, val fallback: Boolean = false,
     val adaptive: Boolean = true, val paced: Boolean = true, val invocation: String? = null,
     val consensusExperimental: Boolean = false,
-    val c2Chunk72AfterThreeExperimental: Boolean = false)
+    val c2Chunk72AfterThreeExperimental: Boolean = false,
+    /** Live C2 on its own lower-priority thread, so VAD and ASR never wait for a diarization step. */
+    val separateC2Thread: Boolean = true,
+    /** Take models preloaded by the live screen instead of loading them after Start. */
+    val usePreload: Boolean = true,
+    /** Live C2 starts no new step while a phrase is queued or being recognized (ASR gets the fast cores). */
+    val asrFirst: Boolean = true)
 
-/** One worker owns VAD, recognizer, C2 and cache. Capture only appends to the journal.
- * Under pressure, ASR metadata is drained before more VAD/C2 and PCM stays on disk. */
+/** The worker owns VAD and the recognizer; live C2 runs on its own lower-priority thread (or inline when
+ * [RealtimeOptions.separateC2Thread] is false). Capture only appends to the journal. Shared transcript and
+ * metric state is guarded by one lock. The full-recording speaker pass runs after live C2 has stopped. */
 class RealtimeSession(private val context: Context, val journal: RealtimeJournal,
     val options: RealtimeOptions = RealtimeOptions(), private val update: (String, TranscriptDocument?) -> Unit = { _, _ -> }) {
     private val cancelled = AtomicBoolean(false)
@@ -69,7 +76,20 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
         val tmp = File(directory, "$name.tmp"); tmp.writeText(text)
         check(tmp.renameTo(File(directory, name))) { "Cannot persist realtime checkpoint" }
     }
-    private fun publish(initialUnknown: Boolean = false) {
+    private val lock = Any()
+    @Volatile private var diarFailed = false
+    @Volatile private var c2Fallback = false
+    @Volatile private var stopC2 = false
+    /** A phrase is queued or being decoded; with [RealtimeOptions.asrFirst] live C2 waits. */
+    @Volatile private var asrPending = false
+    private var preloadedModels = false
+    @Volatile private var c2Thread: Thread? = null
+
+    /** Live C2 shares the ORT session with the full pass and must stop before the session closes. */
+    private fun stopLiveC2() { stopC2 = true; c2Thread?.join() }
+
+    private fun publish(initialUnknown: Boolean = false) = synchronized(lock) { publishLocked(initialUnknown) }
+    private fun publishLocked(initialUnknown: Boolean) {
         val duration = journal.samples / 16
         if (duration == 0L) return
         val turns = raw.map {
@@ -82,7 +102,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             if (untimedChunks == 0) "asr_token_timestamps" else "asr_token_timestamps_and_input_windows",
             if (finalizationState == "COMPLETE") "${NemotronBackend.REVISION}/" +
                 (if (options.consensusExperimental) "dual-pass-preview-first-final-fill-experimental"
-                 else "global-offline-final") +
+                 else "global-offline-final-warm-postprocessed") +
                 (if (options.c2Chunk72AfterThreeExperimental) "/fast-chunk72-after3-experimental" else "")
             else if (c2State == "ACTIVE") "${NemotronBackend.REVISION}/revisable-provisional" else "c2_unavailable_or_partial_unknown_speakers",
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings.toList() +
@@ -105,7 +125,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
         return thermalStatus
     }
 
-    private fun saveMetrics() {
+    private fun saveMetrics() = synchronized(lock) { saveMetricsLocked() }
+    private fun saveMetricsLocked() {
         highPss = maxOf(highPss, Debug.getPss())
         val battery = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val audioMs = journal.samples / 16
@@ -125,7 +146,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             .put("battery_temperature_tenths_c", battery?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1))
             .put("battery_level", battery?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)).put("thermal_status", thermal())
             .put("max_lag_ms", maxLagMs).put("queue_peak", queue.peak).put("fallback", options.fallback || queue.fallback)
-            .put("silence_ms", options.silenceMs).put("max_phrase_ms", 15000).put("disk_recovery_reads", journal.diskReads)
+            .put("silence_ms", options.silenceMs).put("max_phrase_ms", options.maxPhraseMs).put("separate_c2_thread", options.separateC2Thread)
+            .put("preloaded_models", preloadedModels).put("asr_first", options.asrFirst).put("disk_recovery_reads", journal.diskReads)
             .put("runtime_sha256", BuildConfig.SHERPA_RUNTIME_SHA256).put("recognizer_loads", if (nativeMs > 0) 1 else 0)
             .put("phrases", phrases).put("diarization_steps", steps).put("capture_failure", journal.failure ?: JSONObject.NULL)
             .put("loading_stages", loading).put("diarization_turns", JSONArray().also { list ->
@@ -135,24 +157,78 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             .toString(2))
     }
 
+    /** One live C2 step over the captured prefix; provisional turns get the duration part of the product
+     * post-processing (no flicker under 0.24 s, same-speaker gaps under 0.4 s closed). */
+    private fun c2Step(native: RealtimeNative, available: Long, eof: Boolean) {
+        val config = native.diarizer.config
+        val t = System.nanoTime()
+        var turns: List<ClusterTurn>? = null
+        var error: Exception? = null
+        try {
+            turns = ProvisionalTurns.smooth(native.diarizer.step(available, eof, journal::read))
+            // First three C2 chunks are the standard FAST preview.
+            // Reuse the existing FIFO/cache, switch only subsequent chunk size.
+            // This is an explicit test-only performance experiment, never default.
+            if (options.c2Chunk72AfterThreeExperimental && native.diarizer.calls == 3 &&
+                native.diarizer.config == NemotronChunkConfig.FAST) native.diarizer.config = NemotronChunkConfig(72, 6, 264, 222)
+        } catch (e: Exception) { error = e }
+        val took = (System.nanoTime() - t) / 1_000_000
+        synchronized(lock) {
+            if (turns != null) {
+                raw = turns
+                committedMs = minOf(native.diarizer.committedSamples / 16, available / 16)
+                revisedFrames = native.diarizer.revisedFrames
+            } else {
+                diarFailed = true; raw = emptyList(); committedMs = 0; c2State = "FAILED"
+                warnings += "C2 остановлен: ${error?.javaClass?.simpleName}; говорящие неизвестны. Доступен пакетный повтор."
+            }
+            c2Ms += took
+            steps.put(JSONObject().put("chunk", config.chunk).put("right_context", config.right)
+                .put("committed_ms", committedMs).put("captured_prefix_samples", available)
+                .put("context_frames", native.diarizer.contextFrames).put("process_ms", took).put("at_ms", elapsedMs())
+                .put("thread", Thread.currentThread().name))
+        }
+        publish(); saveMetrics()
+    }
+
     private fun run() {
         try {
             saveMetrics()
             if (cancelled.get()) { state = "CANCELLED"; publish(); saveMetrics(); return }
             val loaded = System.nanoTime()
-            RealtimeNative(context, if (options.fallback) NemotronChunkConfig.FALLBACK else NemotronChunkConfig.FAST) { stage ->
+            val stage: (String) -> Unit = { stage ->
                 loading.put(JSONObject().put("stage", stage).put("elapsed_ms", elapsedMs()))
                 atomic("loading.json", loading.toString(2))
                 check(!cancelled.get()) { "Session cancelled during loading" }
-            }.use { native ->
+            }
+            // Models loaded while the live screen was open (RealtimePreload) are taken over; otherwise load now.
+            val preloaded = if (options.usePreload) RealtimePreload.take() else null
+            if (preloaded != null) stage("preloaded")
+            (preloaded ?: RealtimeNative(context,
+                if (options.fallback) NemotronChunkConfig.FALLBACK else NemotronChunkConfig.FAST, stage = stage)).use { native -> try {
+                if (preloaded != null && options.fallback && native.hasDiarizer) native.diarizer.config = NemotronChunkConfig.FALLBACK
                 nativeMs = (System.nanoTime() - loaded) / 1_000_000
+                preloadedModels = preloaded != null
                 state = "RUNNING"
-                val segmenter = RealtimePhrases(options.silenceMs)
+                val segmenter = RealtimePhrases(options.silenceMs, options.maxPhraseMs)
                 var cursor = 0L
                 var flushed = false
-                var diarFailed = !native.hasDiarizer
+                diarFailed = !native.hasDiarizer
                 c2State = if (diarFailed) "UNAVAILABLE" else "ACTIVE"
-                if (diarFailed) warnings += "C2 не загрузился; ASR продолжает без говорящих. ${native.diarizationFailure}"
+                if (diarFailed) synchronized(lock) { warnings += "C2 не загрузился; ASR продолжает без говорящих. ${native.diarizationFailure}" }
+                c2Thread = if (!diarFailed && options.separateC2Thread) Thread({
+                    // Below the ASR/VAD worker: words first, speaker labels catch up.
+                    Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND)
+                    while (!cancelled.get() && !diarFailed && !stopC2) {
+                        val eof = journal.done
+                        val available = journal.samples
+                        if (c2Fallback && native.diarizer.config == NemotronChunkConfig.FAST) native.diarizer.config = NemotronChunkConfig.FALLBACK
+                        if (options.asrFirst && asrPending && !eof) Thread.sleep(10)
+                        else if (available > 0 && native.diarizer.canStep(available, eof)) c2Step(native, available, eof)
+                        else if (eof) break
+                        else Thread.sleep(20)
+                    }
+                }, "RealtimeC2").also { it.start() } else null
                 while (!cancelled.get()) {
                     val available = journal.samples
                     val remaining = available - cursor
@@ -170,48 +246,34 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                     if (eof && !flushed) { segmenter.finish().forEach(queue::add); flushed = true }
                     val lag = journal.samples - cursor
                     maxLagMs = maxOf(maxLagMs, lag / 16)
-                    if (!diarFailed && options.adaptive && queue.adapt(lag, thermal())) native.diarizer.config = NemotronChunkConfig.FALLBACK
+                    if (!diarFailed && options.adaptive && queue.adapt(lag, thermal())) {
+                        if (c2Thread != null) c2Fallback = true else native.diarizer.config = NemotronChunkConfig.FALLBACK
+                    }
+                    if (queue.size > 0) asrPending = true
                     val phrase = queue.next()
                     if (phrase != null) {
                         val t = System.nanoTime()
                         val result = native.decode(journal.read(phrase.start, (phrase.end - phrase.start).toInt()), phrase)
-                        val took = (System.nanoTime() - t) / 1_000_000; asrMs += took
-                        transcript.add(phrase, result.first, result.second)
-                        if (result.second != null) untimedChunks++
-                        phrases.put(JSONObject().put("start_sample", phrase.start).put("end_sample", phrase.end)
-                            .put("ready_sample", phrase.readyAt).put("decode_ms", took).put("display_at_ms", elapsedMs())
-                            .put("latency_from_audio_end_ms", if (options.paced) elapsedMs() - phrase.endMs else JSONObject.NULL)
-                            .put("words", result.first.size).put("untimed", result.second != null))
-                        publish(initialUnknown = true); publish(); saveMetrics(); progressed = true
-                    } else if (!diarFailed && native.diarizer.canStep(cursor, eof)) {
-                        val config = native.diarizer.config
-                        val t = System.nanoTime()
-                        try {
-                            raw = native.diarizer.step(cursor, eof, journal::read)
-                            committedMs = minOf(native.diarizer.committedSamples / 16, cursor / 16)
-                            revisedFrames = native.diarizer.revisedFrames
-                            // First three C2 chunks are the standard FAST preview.
-                            // Reuse the existing FIFO/cache, switch only subsequent chunk size.
-                            // This is an explicit test-only performance experiment, never default.
-                            if (options.c2Chunk72AfterThreeExperimental &&
-                                native.diarizer.calls == 3 &&
-                                native.diarizer.config == NemotronChunkConfig.FAST) {
-                                native.diarizer.config = NemotronChunkConfig(72, 6, 264, 222)
-                            }
-                        } catch (e: Exception) {
-                            diarFailed = true; raw = emptyList(); committedMs = 0
-                            c2State = "FAILED"
-                            warnings += "C2 остановлен: ${e.javaClass.simpleName}; говорящие неизвестны. Доступен пакетный повтор."
+                        val took = (System.nanoTime() - t) / 1_000_000
+                        synchronized(lock) {
+                            asrMs += took
+                            transcript.add(phrase, result.first, result.second)
+                            if (result.second != null) untimedChunks++
+                            phrases.put(JSONObject().put("start_sample", phrase.start).put("end_sample", phrase.end)
+                                .put("ready_sample", phrase.readyAt).put("decode_ms", took).put("display_at_ms", elapsedMs())
+                                .put("latency_from_audio_end_ms", if (options.paced) elapsedMs() - phrase.endMs else JSONObject.NULL)
+                                .put("words", result.first.size).put("untimed", result.second != null))
                         }
-                        val took = (System.nanoTime() - t) / 1_000_000; c2Ms += took
-                        steps.put(JSONObject().put("chunk", config.chunk).put("right_context", config.right)
-                            .put("committed_ms", committedMs).put("captured_prefix_samples", cursor)
-                            .put("context_frames", native.diarizer.contextFrames).put("process_ms", took).put("at_ms", elapsedMs()))
-                        publish(); saveMetrics(); progressed = true
+                        asrPending = queue.size > 0
+                        publish(initialUnknown = true); publish(); saveMetrics(); progressed = true
+                    } else if (c2Thread == null && !diarFailed && native.diarizer.canStep(cursor, eof)) {
+                        c2Step(native, cursor, eof); progressed = true
                     }
-                    if (eof && queue.size == 0 && (diarFailed || !native.diarizer.canStep(cursor, true))) break
+                    if (eof && queue.size == 0 && (c2Thread != null || diarFailed || !native.diarizer.canStep(cursor, true))) break
                     if (!progressed) Thread.sleep(8)
                 }
+                // Live C2 must finish (or stop on cancel) before the full pass reuses the same ORT session.
+                c2Thread?.join()
                 if (!cancelled.get() && native.hasDiarizer && journal.samples > 0) {
                     state = "FINALIZING"; finalizationState = "RUNNING"; publish(); saveMetrics()
                     val began = System.nanoTime()
@@ -248,7 +310,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                         .format(java.util.Date(directory.name.toLongOrNull() ?: System.currentTimeMillis()))
                     TranscriptHistory(context.filesDir).save(title, it)
                 }
-            }
+            } finally { stopLiveC2() } }
         } catch (e: Throwable) {
             failure = if (cancelled.get()) null else "${e.javaClass.simpleName}: ${e.message}"
             state = if (cancelled.get()) "CANCELLED" else "FAILED"
