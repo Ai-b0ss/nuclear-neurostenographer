@@ -1,0 +1,80 @@
+{
+ "scope": "HONOR_PACED_REPLAY_SYN3_NOT_MICROPHONE",
+ "runs": [
+  {
+   "run": "7-C",
+   "mode": "C",
+   "state": "COMPLETE",
+   "test": "PASS",
+   "pacing": true,
+   "phrases": 8,
+   "p50": 1418.5,
+   "p95": 2479.5499999999993,
+   "max": 2853,
+   "first_text_ms": 2057,
+   "load_ms": 1,
+   "asr_ms": 9218,
+   "c2_ms": 28555,
+   "finalization_ms": 12378,
+   "rtf": 1.2240128928283642,
+   "max_lag_ms": 2688,
+   "separate_c2": true,
+   "silence_ms": 400,
+   "max_phrase_ms": 8000,
+   "c2_steps": 10
+  },
+  {
+   "run": "8-C",
+   "mode": "C",
+   "state": "COMPLETE",
+   "test": "PASS",
+   "pacing": true,
+   "phrases": 8,
+   "p50": 1310.5,
+   "p95": 2415.149999999999,
+   "max": 2930,
+   "first_text_ms": 2040,
+   "load_ms": 0,
+   "asr_ms": 8863,
+   "c2_ms": 28582,
+   "finalization_ms": 12400,
+   "rtf": 1.2329364013489719,
+   "max_lag_ms": 2752,
+   "separate_c2": true,
+   "silence_ms": 400,
+   "max_phrase_ms": 8000,
+   "c2_steps": 10
+  },
+  {
+   "run": "9-C",
+   "mode": "C",
+   "state": "COMPLETE",
+   "test": "PASS",
+   "pacing": true,
+   "phrases": 8,
+   "p50": 1379.0,
+   "p95": 2509.2999999999993,
+   "max": 2937,
+   "first_text_ms": 2030,
+   "load_ms": 1,
+   "asr_ms": 9213,
+   "c2_ms": 28371,
+   "finalization_ms": 12413,
+   "rtf": 1.2315038648640582,
+   "max_lag_ms": 2816,
+   "separate_c2": true,
+   "silence_ms": 400,
+   "max_phrase_ms": 8000,
+   "c2_steps": 10
+  }
+ ],
+ "pooled": {
+  "C": {
+   "n": 24,
+   "p50": 1383.0,
+   "p95": 2918.45,
+   "max": 2937,
+   "mean": 1382.4166666666667
+  }
+ }
+}
