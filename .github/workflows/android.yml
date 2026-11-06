@@ -54,6 +54,8 @@ jobs:
             python3 tools/verify_transcript_exports.py core/build/export-samples/$kind
             python3 tools/test_transcript_exports.py core/build/export-samples/$kind
           done
+      - name: Validate official Nuclear IT Hack 2026 JSON schema and raw source parity
+        run: python3 tools/verify_contest_json.py core/build/export-samples/contest/dialogue.json core/build/export-samples/plain/dialogue.json
       - name: Inspect permissions, ABIs, ELF alignment and accidental bundled data
         run: python3 tools/check_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt "$ANDROID_HOME/build-tools/35.0.0/aapt" --runtime-aar app/libs/sherpa-onnx-1.12.20.aar --output apk-inspection.json
       - uses: actions/upload-artifact@v4
