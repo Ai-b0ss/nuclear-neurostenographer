@@ -69,7 +69,28 @@ fun main(args: Array<String>) {
                 fun tsv(turns: List<ClusterTurn>) = turns.joinToString("") { "${it.startSeconds}\t${it.endSeconds}\t${it.cluster}\n" }
                 File(out, "$name.raw.tsv").writeText(tsv(raw))
                 if (pp != null) File(out, "$name.pp.tsv").writeText(tsv(NemotronDiarizer.binarize(frame, pp)))
-                println("$name frames=${frame.frames} c2_ms=$ms raw_turns=${raw.size} legacy=EQUAL")
+                fun save(suffix: String, f: NemotronFrameLogits) =
+                    ByteBuffer.allocate(f.logits.size * 4).order(ByteOrder.LITTLE_ENDIAN).also { it.asFloatBuffer().put(f.logits) }
+                        .array().let { File(out, "$name.$suffix.f32").writeBytes(it) }
+                val passes = System.getProperty("c2pp.passes", "").split(',').filter { it.isNotBlank() }
+                var extra = ""
+                if (!saved && "warm" in passes) {
+                    val audio = wav.inputStream().use { PcmWav.read(it) }
+                    val t1 = System.nanoTime()
+                    val warm = NemotronDiarizer.warmFrameLogits(audio.samples, filters, hann, silence, runner)
+                    check(warm.frames == frame.frames)
+                    save("warm", warm); extra += " warm_ms=${(System.nanoTime() - t1) / 1_000_000}"
+                }
+                if (!saved && "rev" in passes) {
+                    val audio = wav.inputStream().use { PcmWav.read(it) }
+                    val t1 = System.nanoTime()
+                    val rev = NemotronDiarizer.frameLogits(audio.samples.reversedArray(), filters, hann, silence, runner)
+                    // Back to forward time: frame t of the reversed pass covers forward frame frames-1-t.
+                    val flipped = FloatArray(rev.logits.size)
+                    for (t in 0 until rev.frames) System.arraycopy(rev.logits, t * 8, flipped, (rev.frames - 1 - t) * 8, 8)
+                    save("rev", NemotronFrameLogits(flipped, rev.frames)); extra += " rev_ms=${(System.nanoTime() - t1) / 1_000_000} rev_frames=${rev.frames}"
+                }
+                println("$name frames=${frame.frames} c2_ms=$ms raw_turns=${raw.size} legacy=EQUAL$extra")
             }
         }
     }

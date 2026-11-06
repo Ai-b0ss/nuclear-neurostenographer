@@ -158,6 +158,15 @@ class NemotronSpeakerCache(private val silence: FloatArray) {
 
     init { require(silence.size == hidden) }
 
+    /** The long-term speaker cache of a finished pass, with an empty FIFO: a second pass over the same audio
+     * then starts already knowing every voice, in the same speaker slots. */
+    fun warmCopy(): NemotronSpeakerCache = NemotronSpeakerCache(silence).also {
+        embeds.copyInto(it.embeds)
+        probs.copyInto(it.probs)
+        it.cacheFrames = cacheFrames
+        it.compressed = compressed
+    }
+
     fun contextFrames() = cacheFrames + fifoFrames
 
     fun context(): FloatArray {
@@ -318,8 +327,10 @@ object NemotronDiarizer {
     const val FRAME_SECONDS = 0.01f
 
     fun diarize(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
-                checkCancelled: () -> Unit = {}, postprocess: NemotronPostprocess = NemotronPostprocess.RAW): List<ClusterTurn> =
-        binarize(frameLogits(wave, filters, hann, silence, runner, checkCancelled), postprocess)
+                checkCancelled: () -> Unit = {}, postprocess: NemotronPostprocess = NemotronPostprocess.RAW,
+                warmSecondPass: Boolean = false): List<ClusterTurn> =
+        binarize(if (warmSecondPass) warmFrameLogits(wave, filters, hann, silence, runner, checkCancelled)
+                 else frameLogits(wave, filters, hann, silence, runner, checkCancelled), postprocess)
 
     private fun logit(p: Float): Float = if (p == 0.5f) 0f else ln(p / (1f - p))
 
@@ -378,13 +389,24 @@ object NemotronDiarizer {
 
     /** The offline chunk loop; returns raw logits for every 10 ms frame (positive logit = probability > 0.5). */
     fun frameLogits(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
-                    checkCancelled: () -> Unit = {}): NemotronFrameLogits {
+                    checkCancelled: () -> Unit = {}): NemotronFrameLogits =
+        frameLogitsWithCache(wave, filters, hann, silence, runner, checkCancelled, NemotronSpeakerCache(silence)).first
+
+    /** Second pass over the same audio, starting from the speaker cache the first pass ended with. */
+    fun warmFrameLogits(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
+                        checkCancelled: () -> Unit = {}): NemotronFrameLogits {
+        val first = frameLogitsWithCache(wave, filters, hann, silence, runner, checkCancelled, NemotronSpeakerCache(silence))
+        return frameLogitsWithCache(wave, filters, hann, silence, runner, checkCancelled, first.second.warmCopy()).first
+    }
+
+    private fun frameLogitsWithCache(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray,
+                                     runner: NemotronChunkRunner, checkCancelled: () -> Unit,
+                                     cache: NemotronSpeakerCache): Pair<NemotronFrameLogits, NemotronSpeakerCache> {
         val mel = NemotronMel(wave, filters, hann)
         val factor = NemotronConfig.SUBSAMPLING
         val melFrames = mel.frames
         val embeddings = (melFrames + factor - 1) / factor
         val valid = max(melFrames - 1, 0)
-        val cache = NemotronSpeakerCache(silence)
         val speakers = NemotronConfig.SPEAKERS
         val all = FloatArray(melFrames * speakers)
         var written = 0
@@ -408,6 +430,6 @@ object NemotronDiarizer {
             }
             start = end
         }
-        return NemotronFrameLogits(if (written == melFrames) all else all.copyOf(written * speakers), written)
+        return NemotronFrameLogits(if (written == melFrames) all else all.copyOf(written * speakers), written) to cache
     }
 }
