@@ -32,9 +32,15 @@ class AndroidUi:
         return self.command("shell", *arguments).decode("utf-8", errors="replace")
 
     def tree(self):
-        raw = self.command("exec-out", "uiautomator", "dump", "/dev/tty").decode("utf-8")
-        start, end = raw.find("<?xml"), raw.rfind("</hierarchy>")
-        if start < 0 or end < start:
+        # uiautomator returns no hierarchy while an animation (progress bar, picker transition) keeps
+        # the screen from going idle; retry for a while before failing.
+        for attempt in range(15):
+            raw = self.command("exec-out", "uiautomator", "dump", "/dev/tty").decode("utf-8")
+            start, end = raw.find("<?xml"), raw.rfind("</hierarchy>")
+            if start >= 0 and end >= start:
+                break
+            time.sleep(1)
+        else:
             raise ValueError("No UI hierarchy returned")
         text = raw[start:end + len("</hierarchy>")]
         (self.directory / f"tree-{self.index:03}.xml").write_text(text, encoding="utf-8")
