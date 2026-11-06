@@ -99,7 +99,8 @@ class TranscriptHistory(filesDir: File) {
                 val s = items.getJSONObject(i)
                 TranscriptSegment(s.getLong("start_ms"), s.getLong("end_ms"),
                     if (s.isNull("speaker_id")) null else s.getString("speaker_id"), s.getString("text"),
-                    s.optBoolean("overlapping_speech"), s.optBoolean("attribution_reliable"))
+                    s.optBoolean("overlapping_speech"), s.optBoolean("attribution_reliable"),
+                    s.optJSONArray("overlap_speaker_ids")?.let { a -> (0 until a.length()).map { a.getString(it) } }.orEmpty())
             }
             val warnings = root.optJSONArray("warnings")?.let { w -> (0 until w.length()).map { w.getString(it) } }.orEmpty()
             return TranscriptDocument(segments, root.getLong("audio_duration_ms"), provenance, warnings)
