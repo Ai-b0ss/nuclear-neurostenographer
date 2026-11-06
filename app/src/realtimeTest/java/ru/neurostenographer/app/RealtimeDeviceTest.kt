@@ -216,6 +216,55 @@ class RealtimeDeviceTest {
             .put("restart_microphone_test", "separate microphoneCaptureOnlyAndRestart").toString(2))
     }
 
+    @Test fun recoveryKeepsCompletedAndShortInterruptedAudio() {
+        // Isolate recovery from unrelated historical user recordings.
+        val sandbox = File(context.cacheDir, "recovery-scope-${UUID.randomUUID()}")
+        val base = File(sandbox, "realtime").apply { mkdirs() }
+        try {
+            val doneDir = File(base, "completed").apply { mkdirs() }
+            val done = RealtimeJournal(File(doneDir, "capture.wav"))
+            repeat(4) { done.append(ShortArray(512) { 123 }, 512) }
+            done.finish(); done.close()
+            val originalSha = sha(done.file)
+            assertTrue(File(doneDir, "capture-finalized.txt").exists())
+
+            val tornDir = File(base, "interrupted").apply { mkdirs() }
+            val torn = RealtimeJournal(File(tornDir, "capture.wav"))
+            torn.append(shortArrayOf(1234), 1)
+            torn.close() // Crash simulation: only raw PCM, zeroed WAV header.
+            java.io.RandomAccessFile(torn.file, "rw").use {
+                it.seek(it.length()); it.write(0xAB) // Torn half-sample must be discarded.
+            }
+            assertEquals(47L, torn.file.length())
+
+            val emptyDir = File(base, "empty").apply { mkdirs() }
+            val empty = RealtimeJournal(File(emptyDir, "capture.wav"))
+            empty.close()
+
+            RealtimeService.recover(sandbox)
+            assertEquals("Do not mutate finalized audio", originalSha, sha(done.file))
+            assertFalse("Completed recording must not be labeled as recovered",
+                File(doneDir, "recovered.txt").exists())
+
+            assertEquals(46L, torn.file.length())
+            java.io.RandomAccessFile(torn.file, "r").use { wav ->
+                assertEquals("RIFF", ByteArray(4).also { wav.readFully(it) }.toString(Charsets.US_ASCII))
+                assertEquals(38, Integer.reverseBytes(wav.readInt()))
+                wav.seek(40)
+                assertEquals(2, Integer.reverseBytes(wav.readInt()))
+                assertEquals(0xD2, wav.readUnsignedByte())
+                assertEquals(0x04, wav.readUnsignedByte())
+            }
+            assertTrue(File(tornDir, "recovered.txt").readText().contains("1 persisted samples"))
+            assertEquals(44L, empty.file.length())
+            assertTrue(File(emptyDir, "recovered.txt").readText().contains("0 persisted samples"))
+            val repairedHash = sha(torn.file)
+            RealtimeService.recover(sandbox)
+            assertEquals("Idempotent repair", repairedHash, sha(torn.file))
+            assertEquals(originalSha, sha(done.file))
+        } finally { sandbox.deleteRecursively() }
+    }
+
     @Test fun foregroundMicrophoneScreenOff() {
         val seconds = args.getString("micSeconds", "20")!!.toInt().coerceIn(15, 3600)
         // Host adb controls HOME/screen-off. Magic UI disconnects UiAutomation on screen-off;

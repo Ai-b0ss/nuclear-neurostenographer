@@ -122,7 +122,10 @@ class RealtimeService : Service() {
             if (captureActive) return
             File(filesDir, "realtime").listFiles().orEmpty().filter { it.isDirectory }.forEach { dir ->
                 val wav = File(dir, "capture.wav")
-                if (wav.exists() && !File(dir, "recovered.txt").exists()) {
+                // A completed writer has already persisted a valid header. Never reopen
+                // its audio for repair or mislabel a clean recording as interrupted.
+                if (wav.isFile && !File(dir, "capture-finalized.txt").exists() &&
+                    !File(dir, "recovered.txt").exists()) {
                     runCatching { RealtimeJournal.recover(wav) }.onSuccess {
                         File(dir, "recovered.txt").writeText("Header checked/recovered from $it persisted samples; interrupted live inference is not resumed. Use batch recognition.\n")
                     }

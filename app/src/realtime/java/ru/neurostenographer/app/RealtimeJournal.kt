@@ -58,7 +58,10 @@ class RealtimeJournal(val file: File) : Closeable {
         fun recover(file: File): Long {
             require(file.name == "capture.wav" && file.parentFile?.parentFile?.name == "realtime")
             RandomAccessFile(file, "rw").use { out ->
-                require(out.length() in 3244..(44 + 3600L * 32000))
+                // A crash may occur before the first 100 ms or even before the first sample.
+                // Retain every complete PCM16 sample; the minimum inference duration
+                // belongs to the decoder, not to crash recovery.
+                require(out.length() in 44L..(44L + 3600L * 32000L))
                 val bytes = (out.length() - 44) / 2 * 2
                 out.setLength(bytes + 44); out.seek(0)
                 val header = ByteBuffer.allocate(44).order(ByteOrder.LITTLE_ENDIAN).apply {
