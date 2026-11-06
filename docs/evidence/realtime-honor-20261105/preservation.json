@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "scope": "PROTECTED_APK_IDENTITY_NOT_PRIVATE_SESSION_CONTENT",
+  "packages": [
+    {
+      "package": "ru.neurostenographer.app",
+      "before_sha256": "5ba1f0c5545f48f21a3eb1dcd9da869c5a234c0e2c8395d3fb610019754d3bb0",
+      "after_sha256": "5ba1f0c5545f48f21a3eb1dcd9da869c5a234c0e2c8395d3fb610019754d3bb0",
+      "apk_unchanged": true,
+      "version": "versionCode=6 minSdk=26 targetSdk=35\nversionName=0.3.3-contest",
+      "bundled_model_asset_inventory": "103869540  1981-01-01 01:01   assets/nemotron.zip\n326322714  1981-01-01 01:01   assets/gigaam-v3-e2e-rnnt.zip"
+    },
+    {
+      "package": "ru.neurostenographer.app.c2candidate",
+      "before_sha256": "fbe7f3cc2642519c5afe6ad1be39e4c593b816d7f342a2c8b9e04641fed667a8",
+      "after_sha256": "fbe7f3cc2642519c5afe6ad1be39e4c593b816d7f342a2c8b9e04641fed667a8",
+      "apk_unchanged": true,
+      "version": "versionCode=1 minSdk=26 targetSdk=35\nversionName=0.1.0-alpha",
+      "bundled_model_asset_inventory": "103869540  1981-01-01 01:01   assets/nemotron.zip"
+    }
+  ],
+  "tested_apk_backup_sha256": "7a9ff20a809311061b92429c767dda969b87fc114cf32f42cee7539d301d85f3",
+  "tested_apk_backup": ".local/tested-phone-v5.apk",
+  "keyguard": "showing=true\nsecure=true\nmIsShowing=true",
+  "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 330\r\n  technology: Li-poly\r\n",
+  "candidate_services": "ACTIVITY MANAGER SERVICES (dumpsys activity services)\r\n  (nothing)\r\n"
+}

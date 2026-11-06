@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "recording_id": "rec_0300",
+  "audio_duration_ms": 60000,
+  "audio_sha256": "094fd25e55ea16929a42571a879c9665b5b812b52fda9e4b5a8e1678583a1a09",
+  "annotation_source": "mexus/ru-book-mix-10h NIST RTTM",
+  "kind": "SYNTHETIC_RUSSIAN_AUDIOBOOK_MIX_NOT_CONVERSATION",
+  "license": "CC-BY-4.0",
+  "diarization": [
+    {
+      "start_ms": 363,
+      "end_ms": 7499,
+      "speaker_id": "spk0"
+    },
+    {
+      "start_ms": 7825,
+      "end_ms": 11758,
+      "speaker_id": "spk1"
+    },
+    {
+      "start_ms": 12344,
+      "end_ms": 15832,
+      "speaker_id": "spk2"
+    },
+    {
+      "start_ms": 16417,
+      "end_ms": 20289,
+      "speaker_id": "spk1"
+    },
+    {
+      "start_ms": 20729,
+      "end_ms": 25785,
+      "speaker_id": "spk0"
+    },
+    {
+      "start_ms": 26036,
+      "end_ms": 28916,
+      "speaker_id": "spk1"
+    },
+    {
+      "start_ms": 27308,
+      "end_ms": 35212,
+      "speaker_id": "spk0"
+    },
+    {
+      "start_ms": 35459,
+      "end_ms": 42787,
+      "speaker_id": "spk2"
+    },
+    {
+      "start_ms": 42918,
+      "end_ms": 50118,
+      "speaker_id": "spk0"
+    },
+    {
+      "start_ms": 50485,
+      "end_ms": 54965,
+      "speaker_id": "spk2"
+    },
+    {
+      "start_ms": 55463,
+      "end_ms": 58695,
+      "speaker_id": "spk0"
+    },
+    {
+      "start_ms": 59045,
+      "end_ms": 60000,
+      "speaker_id": "spk1"
+    }
+  ]
+}

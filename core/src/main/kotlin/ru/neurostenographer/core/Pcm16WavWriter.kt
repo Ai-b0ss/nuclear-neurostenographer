@@ -8,7 +8,9 @@ import java.nio.ByteBuffer
 /** Bounded sink for decoder PCM16 LE. A successful finish is required before use.
  * close without finish deletes partial audio; caller owns the completed file.
  */
-class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: Int) : Closeable {
+class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: Int,
+                     maxSeconds: Int = PcmWav.MAX_SECONDS,
+                     private val preservePartialOnFailure: Boolean = false) : Closeable {
     private val output: RandomAccessFile
     private var bytes = 0L
     private var finished = false
@@ -17,7 +19,8 @@ class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: 
 
     init {
         require(sampleRate in 8000..48000 && channels in 1..2) { "Нужны 8–48 кГц и 1–2 канала" }
-        limit = sampleRate.toLong() * channels * 2 * PcmWav.MAX_SECONDS
+        require(maxSeconds in 1..3600)
+        limit = sampleRate.toLong() * channels * 2 * maxSeconds
         output = RandomAccessFile(file, "rw")
         try { output.setLength(0); output.write(ByteArray(44)) }
         catch (e: Throwable) { output.close(); file.delete(); throw e }
@@ -56,6 +59,6 @@ class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: 
 
     override fun close() {
         try { if (!closed) output.close() }
-        finally { closed = true; if (!finished) file.delete() }
+        finally { closed = true; if (!finished && !preservePartialOnFailure) file.delete() }
     }
 }

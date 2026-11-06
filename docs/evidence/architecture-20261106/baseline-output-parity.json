@@ -1,0 +1,65 @@
+[
+  {
+    "fixture": "syn3",
+    "mode": "fast",
+    "byte_identical": true,
+    "new_sha256": "81834683640ff1705a7a9315dcdad10df2971b5444d08b35487d54834435bbc1",
+    "archived_sha256": "81834683640ff1705a7a9315dcdad10df2971b5444d08b35487d54834435bbc1"
+  },
+  {
+    "fixture": "syn3",
+    "mode": "fallback",
+    "byte_identical": true,
+    "new_sha256": "e4dd066091c72f37a8d5462440922e465a0b27595dcf1046dfca13cfc2ce2352",
+    "archived_sha256": "e4dd066091c72f37a8d5462440922e465a0b27595dcf1046dfca13cfc2ce2352"
+  },
+  {
+    "fixture": "syn3",
+    "mode": "original-offline",
+    "byte_identical": true,
+    "new_sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8",
+    "archived_sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8"
+  },
+  {
+    "fixture": "aba",
+    "mode": "fast",
+    "byte_identical": true,
+    "new_sha256": "1e425f31e3ceea809e8dc2c1d6e785ab1f63fc2703e471b79b6ee5d460942bdd",
+    "archived_sha256": "1e425f31e3ceea809e8dc2c1d6e785ab1f63fc2703e471b79b6ee5d460942bdd"
+  },
+  {
+    "fixture": "aba",
+    "mode": "fallback",
+    "byte_identical": true,
+    "new_sha256": "e672a02d63e95d96433e14f9f21e2cf917104f8471cd669770921ba005ab4f16",
+    "archived_sha256": "e672a02d63e95d96433e14f9f21e2cf917104f8471cd669770921ba005ab4f16"
+  },
+  {
+    "fixture": "aba",
+    "mode": "original-offline",
+    "byte_identical": true,
+    "new_sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986",
+    "archived_sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986"
+  },
+  {
+    "fixture": "syn4",
+    "mode": "fast",
+    "byte_identical": true,
+    "new_sha256": "de0f5607b4e8c45dfc1b41382d37a436b716d1fff997fb227bdd18b4e7259ab2",
+    "archived_sha256": "de0f5607b4e8c45dfc1b41382d37a436b716d1fff997fb227bdd18b4e7259ab2"
+  },
+  {
+    "fixture": "syn4",
+    "mode": "fallback",
+    "byte_identical": true,
+    "new_sha256": "ede7b0a4a54ba0f2cec4c77f58f707fabe0c3b5e478be6c308d5aa308d611d98",
+    "archived_sha256": "ede7b0a4a54ba0f2cec4c77f58f707fabe0c3b5e478be6c308d5aa308d611d98"
+  },
+  {
+    "fixture": "syn4",
+    "mode": "original-offline",
+    "byte_identical": true,
+    "new_sha256": "c235cee83196f0053c1faeceb8c0a43fdbc731229b0e704921d7b4fc60b20160",
+    "archived_sha256": "c235cee83196f0053c1faeceb8c0a43fdbc731229b0e704921d7b4fc60b20160"
+  }
+]

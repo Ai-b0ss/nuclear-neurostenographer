@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "status": "NOT_SCORED",
+    "reason": "No reference text_segments"
+  },
+  "cpwer": {
+    "status": "NOT_SCORED",
+    "reason": "No reference text_segments"
+  },
+  "der": {
+    "status": "SCORED",
+    "rate": 0.13767322783518543,
+    "miss_ms": 4608,
+    "false_alarm_ms": 0,
+    "confusion_ms": 2813,
+    "reference_speaker_ms": 53903,
+    "scored_wall_ms": 48419,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "Speaker 1": "spk0",
+      "Speaker 2": "spk1",
+      "Speaker 3": "spk2",
+      "Speaker 4": "spk3"
+    }
+  },
+  "reference": {
+    "recording_id": "rec_0437",
+    "annotation_source": "mexus/ru-book-mix-10h NIST RTTM",
+    "license": "CC-BY-4.0",
+    "kind": "SYNTHETIC_RUSSIAN_AUDIOBOOK_MIX_NOT_CONVERSATION",
+    "audio_sha256": "514248b54b904c998ff848f5c681755568995db654df5d8b1fe00be7b8987979"
+  },
+  "scope": "SYNTHETIC_RUSSIAN_AUDIOBOOK_MIX_NOT_CONVERSATION",
+  "export_sha256": "26637ced5d3c0f2f97a7fe9ae659b455607132c9117283c1fb8ebe2a34ad2d11"
+}

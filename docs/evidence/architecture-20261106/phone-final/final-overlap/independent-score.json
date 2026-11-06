@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 6,
+    "substitutions": 2,
+    "deletions": 4,
+    "insertions": 0,
+    "reference_words": 14,
+    "rate": 0.42857142857142855,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "NOT_SCORED",
+    "reason": "Hypothesis contains unattributed words"
+  },
+  "der": {
+    "status": "SCORED",
+    "rate": 0.3636255924170616,
+    "miss_ms": 3069,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "reference_speaker_ms": 8440,
+    "scored_wall_ms": 4470,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "Speaker 1": "1",
+      "Speaker 2": "2"
+    }
+  },
+  "reference": {
+    "recording_id": "overlap",
+    "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 25 (audio rewritten as 16-bit PCM WAV)",
+    "license": "MIT (dataset card)",
+    "kind": "DERIVED_SYNTHETIC_TTS_DEVELOPMENT_PROBE",
+    "audio_sha256": "0cf28d979cb5a800699aeaf9e74a21feeeef2d5e89e672fd4f03e9c03fdc0319"
+  },
+  "scope": "SYNTHETIC_TTS_NOT_NATURAL_HUMAN_ANNOTATIONS",
+  "export_sha256": "5435b88de0d5052d517f3b784e8fd17cbe80ebcedd135251f2673aefab3a73cc"
+}

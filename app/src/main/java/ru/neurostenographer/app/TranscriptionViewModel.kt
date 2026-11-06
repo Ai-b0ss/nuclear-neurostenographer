@@ -186,6 +186,13 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     }
 
     fun closeTranscript() { mutable.value = mutable.value.copy(current = null) }
+    fun refreshHistory() {
+        if (mutable.value.busy || recording.value) return
+        viewModelScope.launch {
+            val saved = withContext(Dispatchers.IO) { history.list() }
+            mutable.value = mutable.value.copy(history = saved)
+        }
+    }
 
     fun delete(id: String) = work {
         withContext(Dispatchers.IO) { history.delete(id) }

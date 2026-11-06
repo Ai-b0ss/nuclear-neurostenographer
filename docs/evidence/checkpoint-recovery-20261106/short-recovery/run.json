@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "method": "ru.neurostenographer.app.RealtimeDeviceTest#recoveryKeepsCompletedAndShortInterruptedAudio",
+  "clip": "syn3-clean",
+  "pause": "500",
+  "fallback": false,
+  "paced": true,
+  "wall_s": 5.499,
+  "utc": "2026-11-06T05:46:29.949664+00:00",
+  "adb_exit": 0,
+  "screen_switched_off": false,
+  "screen_restored": false
+}

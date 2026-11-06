@@ -1,0 +1,162 @@
+{
+  "source_audio_sha256": "b987f38f5c3b7570523a6c4850ee4e5891c68abb8fe449d30e5745263c76c57c",
+  "reference_sha256": "af4c5258ec93df1c83c2e2897aab2b46a8d6b4e34d3e3a6d8d6bcf509f5bca90",
+  "hypothesis_sha256": "12c1f66591539a2f490ed7feff14eac9b0002f92b2c72fbf301080e948a53649",
+  "scope": "SCRIPTED_HUMAN_RUSSIAN_MEETING_WITH_OVERLAP_NOT_SPONTANEOUS/PCM_ENERGY_ONLY_NOT_SPEECH_GOLD",
+  "collar_radius_ms": 250,
+  "threshold_dbfs": {
+    "quiet": -45.0,
+    "energetic": -35.0
+  },
+  "score": {
+    "status": "SCORED",
+    "rate": 0.043153457702099246,
+    "miss_ms": 2068,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "reference_speaker_ms": 47922,
+    "scored_wall_ms": 49098,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "Speaker 1": "speaker_1",
+      "Speaker 2": "speaker_2",
+      "Speaker 3": "speaker_3"
+    }
+  },
+  "totals": {
+    "reference_ms": 47922,
+    "missed_ms": 2068,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "scored_ms": 49098,
+    "excluded_ms": 10455,
+    "missed_quiet45_ms": 1552,
+    "missed_quiet35_ms": 2008,
+    "missed_loud35_ms": 60
+  },
+  "per_reference": [
+    {
+      "reference_index": 0,
+      "speaker": "speaker_1",
+      "start_ms": 320,
+      "end_ms": 8608,
+      "scored_ms": 7788,
+      "missed_ms": 1260,
+      "missed_pcm_quiet45_ms": 780
+    },
+    {
+      "reference_index": 1,
+      "speaker": "speaker_2",
+      "start_ms": 10142,
+      "end_ms": 18878,
+      "scored_ms": 8019,
+      "missed_ms": 290,
+      "missed_pcm_quiet45_ms": 290
+    },
+    {
+      "reference_index": 2,
+      "speaker": "speaker_3",
+      "start_ms": 18661,
+      "end_ms": 21061,
+      "scored_ms": 1683,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 3,
+      "speaker": "speaker_1",
+      "start_ms": 21370,
+      "end_ms": 23418,
+      "scored_ms": 1548,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 4,
+      "speaker": "speaker_2",
+      "start_ms": 23742,
+      "end_ms": 30398,
+      "scored_ms": 6156,
+      "missed_ms": 340,
+      "missed_pcm_quiet45_ms": 340
+    },
+    {
+      "reference_index": 5,
+      "speaker": "speaker_1",
+      "start_ms": 30456,
+      "end_ms": 31864,
+      "scored_ms": 577,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 6,
+      "speaker": "speaker_3",
+      "start_ms": 31533,
+      "end_ms": 37101,
+      "scored_ms": 4512,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 7,
+      "speaker": "speaker_2",
+      "start_ms": 36876,
+      "end_ms": 40716,
+      "scored_ms": 3115,
+      "missed_ms": 96,
+      "missed_pcm_quiet45_ms": 60
+    },
+    {
+      "reference_index": 8,
+      "speaker": "speaker_1",
+      "start_ms": 40868,
+      "end_ms": 43492,
+      "scored_ms": 2124,
+      "missed_ms": 82,
+      "missed_pcm_quiet45_ms": 82
+    },
+    {
+      "reference_index": 9,
+      "speaker": "speaker_2",
+      "start_ms": 43814,
+      "end_ms": 47078,
+      "scored_ms": 2764,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 10,
+      "speaker": "speaker_3",
+      "start_ms": 47473,
+      "end_ms": 50129,
+      "scored_ms": 2156,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 11,
+      "speaker": "speaker_1",
+      "start_ms": 50501,
+      "end_ms": 52869,
+      "scored_ms": 1868,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 12,
+      "speaker": "speaker_1",
+      "start_ms": 53441,
+      "end_ms": 59553,
+      "scored_ms": 5612,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    }
+  ],
+  "caveats": [
+    "PCM energy alone does not prove human speech, silence or voice identity.",
+    "Ground-truth timestamps are corpus annotations; inspect boundary precision and overlap before interpreting misses.",
+    "Predicted turns reflect saved raw C2 output; ASR/VAD evidence is not inferred from them."
+  ]
+}

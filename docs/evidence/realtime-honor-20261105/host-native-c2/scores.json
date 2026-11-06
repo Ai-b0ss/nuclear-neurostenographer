@@ -1,0 +1,68 @@
+{
+  "scope": "HOST_C2_SYNTHETIC_COARSE_TURN_REFERENCE_NOT_HUMAN_DER",
+  "results": {
+    "original-offline": {
+      "status": "SCORED",
+      "rate": 0.31947460957699864,
+      "miss_ms": 9047,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    },
+    "incremental-offline": {
+      "status": "SCORED",
+      "rate": 0.31947460957699864,
+      "miss_ms": 9047,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    },
+    "fast": {
+      "status": "SCORED",
+      "rate": 0.5721032854138656,
+      "miss_ms": 9435,
+      "false_alarm_ms": 0,
+      "confusion_ms": 7160,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2"
+      }
+    },
+    "fallback": {
+      "status": "SCORED",
+      "rate": 0.4397214465473851,
+      "miss_ms": 9057,
+      "false_alarm_ms": 0,
+      "confusion_ms": 3698,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    }
+  }
+}

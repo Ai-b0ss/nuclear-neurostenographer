@@ -1,0 +1,92 @@
+Building realtime APK, offline
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.9/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+> Task :core:checkKotlinGradlePluginConfigurationErrors
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:processTestResources NO-SOURCE
+> Task :core:jar UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:verifySherpaRuntime
+> Task :app:preBuild
+> Task :app:preDebugBuild
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:checkDebugAarMetadata
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :core:compileTestKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+
+> Task :core:runCoreTests
+PASS realtime chunk boundaries: exact mel slices, causal PCM, EOF, cache identities, adaptation, overlap/unknown, no duplicate output
+PASS realtime: ring overwrite, causal prefixes, cache continuity/pressure, 20/60-min sample conservation, pauses, silence, short speech, EOF, queue bounds, adaptation
+PASS PCM16 limits, truncation, encoding, normalization, stereo/resampling
+PASS streaming PCM: 48 exact parity cases, truncated tails, bounded bulk I/O, input ownership
+
+> Task :app:mergeDebugResources
+
+> Task :core:runCoreTests
+PASS PCM16 writer: 8 roundtrips, exact bounds, partial/cancel/error cleanup
+PASS bounded recorder (9 capture/cleanup/timeout/PCM cases; fake capture only)
+PASS audio snapshots: recording/import, stereo 44.1k, changed provider, malformed/short/long/oversize/disconnected/cancelled input
+PASS transcript document: exact ms, hour/Arabic locale, escaping, provenance, overlap, empty speech, bounds, speaker names
+PASS term dictionary: stems+endings, multi-word, longest match, ambiguous flag, common-word guards, apply/stale
+PASS model ZIP: success, traversal, missing/extra files, bad hash, oversize, truncation, tampering, cancellation
+PASS diarization timeline: global A-B-A, order, overlap unknown, short/negative unknown, clipping, invalid native intervals, windows
+PASS decode budget scales with duration and stays bounded
+PASS A B A speaker returns
+PASS token timestamps to words
+PASS export file names keep dates
+PASS unknown without diarization
+PASS overlap detected instead of invented identity
+PASS adjacent speakers not overlap
+PASS adjacent fragments of one speaker merge into a reply
+PASS forced cuts move to a nearby pause and keep the audio covered
+PASS long ASR chunk crossing turn ambiguous
+PASS punctuation and export
+PASS WAV container: metadata/padding/fragmented reads, 8 corruption negatives, snapshot preservation, tail cancellation
+PASS diarization IPC validation (21 corruptions, speech gaps, silence, unknown and overlap)
+16 CORE TEST GROUPS PASSED
+
+> Task :app:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:javaPreCompileDebug
+> Task :app:processDebugManifestForPackage
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:processDebugResources
+> Task :app:processDebugAndroidTestManifest
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac
+> Task :app:generateDebugAndroidTestBuildConfig UP-TO-DATE
+> Task :app:checkDebugAndroidTestAarMetadata
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :app:mapDebugAndroidTestSourceSetPaths
+> Task :app:generateDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestResources
+> Task :app:processDebugAndroidTestResources
+> Task :app:extractProguardFiles
+> Task :app:generateDebugLintReportModel
+> Task :app:preDebugUnitTestBuild
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:compileDebugAndroidTestKotlin UP-TO-DATE
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:lintAnalyzeDebug
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:lintAnalyzeDebugUnitTest
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///C:/Users/user/Documents/nn-realtime-honor-20261105/app/build/reports/lint-results-debug.html
+
+> Task :app:lintDebug
+
+BUILD SUCCESSFUL in 2m 54s
+43 actionable tasks: 35 executed, 8 up-to-date

@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <application>
+        <activity android:name=".RealtimeActivity" android:exported="false" />
+        <service android:name=".RealtimeService" android:exported="false"
+            android:foregroundServiceType="microphone" />
+    </application>
+</manifest>

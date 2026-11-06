@@ -47,8 +47,10 @@ object NemotronConfig {
 }
 
 /** Log-mel frames on demand, so a long recording never needs a second full-file array. */
-class NemotronMel(private val wave: FloatArray, private val filters: FloatArray, hann: FloatArray) {
-    val frames = 1 + wave.size / NemotronConfig.HOP
+class NemotronMel(private val wave: FloatArray, private val filters: FloatArray, hann: FloatArray,
+                  private val sampleCount: Int = wave.size, private val final: Boolean = true,
+                  private val sampleAt: (Int) -> Float = { wave[it] }) {
+    val frames = 1 + sampleCount / NemotronConfig.HOP
     private val window = DoubleArray(NemotronConfig.N_FFT)
     private val cosines = DoubleArray(NemotronConfig.N_FFT / 2) { cos(2 * PI * it / NemotronConfig.N_FFT) }
     private val sines = DoubleArray(NemotronConfig.N_FFT / 2) { sin(2 * PI * it / NemotronConfig.N_FFT) }
@@ -74,9 +76,9 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
     }
 
     private fun emphasized(n: Int): Float = when {
-        n < 0 || n >= wave.size -> 0f
-        n == 0 -> wave[0]
-        else -> wave[n] - NemotronConfig.PREEMPHASIS * wave[n - 1]
+        n < 0 || n >= sampleCount -> 0f
+        n == 0 -> sampleAt(0)
+        else -> sampleAt(n) - NemotronConfig.PREEMPHASIS * sampleAt(n - 1)
     }
 
     private fun fft() {
@@ -114,7 +116,7 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
         for (index in 0 until count) {
             val frame = first + index
             val row = index * NemotronConfig.MELS
-            if (frame == frames - 1) {
+            if (final && frame == frames - 1) {
                 out.fill(0f, row, row + NemotronConfig.MELS)
                 continue
             }
@@ -139,7 +141,9 @@ class NemotronMel(private val wave: FloatArray, private val filters: FloatArray,
 }
 
 /** Arrival-order speaker cache and FIFO, one recording at a time. */
-class NemotronSpeakerCache(private val silence: FloatArray) {
+class NemotronSpeakerCache(private val silence: FloatArray,
+                           private val fifoCapacity: Int = NemotronConfig.FIFO,
+                           private val updatePeriod: Int = NemotronConfig.UPDATE_PERIOD) {
     private val hidden = NemotronConfig.HIDDEN
     private val speakers = NemotronConfig.SPEAKERS
     private val length = NemotronConfig.CACHE
@@ -149,18 +153,19 @@ class NemotronSpeakerCache(private val silence: FloatArray) {
     private val weak = floor(budget * NemotronConfig.WEAK_RATE).toInt()
     private var embeds = FloatArray(length * hidden)
     private var probs = FloatArray(length * speakers)
-    private val fifo = FloatArray(NemotronConfig.FIFO * hidden)
+    private val fifo = FloatArray(fifoCapacity * hidden)
     var cacheFrames = 0
         private set
     var fifoFrames = 0
         private set
     private var compressed = false
+    val chronological get() = !compressed
 
-    init { require(silence.size == hidden) }
+    init { require(silence.size == hidden && fifoCapacity in 1..512 && updatePeriod in 1..512) }
 
     /** The long-term speaker cache of a finished pass, with an empty FIFO: a second pass over the same audio
      * then starts already knowing every voice, in the same speaker slots. */
-    fun warmCopy(): NemotronSpeakerCache = NemotronSpeakerCache(silence).also {
+    fun warmCopy(): NemotronSpeakerCache = NemotronSpeakerCache(silence, fifoCapacity, updatePeriod).also {
         embeds.copyInto(it.embeds)
         probs.copyInto(it.probs)
         it.cacheFrames = cacheFrames
@@ -201,7 +206,7 @@ class NemotronSpeakerCache(private val silence: FloatArray) {
         fifo.copyInto(fifoEmbeds, 0, 0, fifoFrames * hidden)
         step.embeds.copyInto(fifoEmbeds, fifoFrames * hidden, chunkStart * hidden, (chunkStart + chunkFrames) * hidden)
         var remaining = pending
-        val popped = if (pending <= NemotronConfig.FIFO) 0 else min(max(NemotronConfig.UPDATE_PERIOD, pending - NemotronConfig.FIFO), pending)
+        val popped = if (pending <= fifoCapacity) 0 else min(max(updatePeriod, pending - fifoCapacity), pending)
         if (popped > 0) {
             var rows = cacheFrames + popped
             var cacheEmbeds = FloatArray(rows * hidden)
@@ -390,19 +395,34 @@ object NemotronDiarizer {
     /** The offline chunk loop; returns raw logits for every 10 ms frame (positive logit = probability > 0.5). */
     fun frameLogits(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
                     checkCancelled: () -> Unit = {}): NemotronFrameLogits =
-        frameLogitsWithCache(wave, filters, hann, silence, runner, checkCancelled, NemotronSpeakerCache(silence)).first
+        frameLogitsWithCache({ NemotronMel(wave, filters, hann) }, runner, checkCancelled, NemotronSpeakerCache(silence)).first
 
     /** Second pass over the same audio, starting from the speaker cache the first pass ended with. */
     fun warmFrameLogits(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
-                        checkCancelled: () -> Unit = {}): NemotronFrameLogits {
-        val first = frameLogitsWithCache(wave, filters, hann, silence, runner, checkCancelled, NemotronSpeakerCache(silence))
-        return frameLogitsWithCache(wave, filters, hann, silence, runner, checkCancelled, first.second.warmCopy()).first
+                        checkCancelled: () -> Unit = {}): NemotronFrameLogits =
+        warm({ NemotronMel(wave, filters, hann) }, silence, runner, checkCancelled)
+
+    /**
+     * The same offline diarization over audio read through [sampleAt] (e.g. a recording journal on disk),
+     * so a long capture never has to be loaded as one array.
+     */
+    fun diarizeSamples(sampleCount: Int, sampleAt: (Int) -> Float, filters: FloatArray, hann: FloatArray, silence: FloatArray,
+                       runner: NemotronChunkRunner, checkCancelled: () -> Unit = {},
+                       postprocess: NemotronPostprocess = NemotronPostprocess.RAW, warmSecondPass: Boolean = false): List<ClusterTurn> {
+        val mel = { NemotronMel(FloatArray(0), filters, hann, sampleCount, true, sampleAt) }
+        return binarize(if (warmSecondPass) warm(mel, silence, runner, checkCancelled)
+                        else frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence)).first, postprocess)
     }
 
-    private fun frameLogitsWithCache(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray,
-                                     runner: NemotronChunkRunner, checkCancelled: () -> Unit,
+    private fun warm(mel: () -> NemotronMel, silence: FloatArray, runner: NemotronChunkRunner,
+                     checkCancelled: () -> Unit): NemotronFrameLogits {
+        val first = frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence))
+        return frameLogitsWithCache(mel, runner, checkCancelled, first.second.warmCopy()).first
+    }
+
+    private fun frameLogitsWithCache(newMel: () -> NemotronMel, runner: NemotronChunkRunner, checkCancelled: () -> Unit,
                                      cache: NemotronSpeakerCache): Pair<NemotronFrameLogits, NemotronSpeakerCache> {
-        val mel = NemotronMel(wave, filters, hann)
+        val mel = newMel()
         val factor = NemotronConfig.SUBSAMPLING
         val melFrames = mel.frames
         val embeddings = (melFrames + factor - 1) / factor

@@ -1,0 +1,3 @@
+mel_frames	mel_length	context_frames	history_positive_rows_per_slot	committed_positive_rows_per_slot	right_positive_rows_per_slot	history_bits_different_from_emitted_or_minus1_after_compression
+549	548	0	0,0,0,0,0,0,0,0	244,87,0,0,0,0,0,0	147,96,0,0,0,0,0,0	0
+189	188	45	244,87,0,0,0,0,0,0	147,97,0,0,0,0,0,0	0,0,0,0,0,0,0,0	0

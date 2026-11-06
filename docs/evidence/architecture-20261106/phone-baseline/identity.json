@@ -1,0 +1,6 @@
+{
+  "scope": "FRESH_PHYSICAL_RUNS_PRECHANGE_INSTALLED_APP",
+  "installed_apk_sha256": "7a9ff20a809311061b92429c767dda969b87fc114cf32f42cee7539d301d85f3",
+  "source_revision": "NOT_INDEPENDENTLY_BOUND_TO_INSTALLED_APK",
+  "comparison": "Host baseline uses immutable branch in current harness with reviseHistory=false; phone prechange behavior reproduced from actual installed APK."
+}

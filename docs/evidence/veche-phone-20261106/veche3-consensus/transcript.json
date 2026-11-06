@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 59553,
+  "warnings": ["Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/dual-pass-preview-first-final-fill-experimental", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 632, "end_ms": 8912, "speaker_id": "Speaker 1", "text": "Коллеги, давайте начнём. Повод понятен: инцидент с логином П2. Илья, восстановим хронологию с самого начала.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 10144, "end_ms": 18384, "speaker_id": "Speaker 2", "text": "Да, первые симптомы— резкий рост 400 перых и 500-х при лагине. Начало в 18—27, почти сразу пошли", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 18384, "end_ms": 18904, "speaker_id": null, "text": "аллерты.", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 18904, "end_ms": 21024, "speaker_id": "Speaker 3", "text": "Это уже подтверждено поддержкой, да.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 21344, "end_ms": 23504, "speaker_id": "Speaker 1", "text": "О'кей, а по времени пик когда был?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 23824, "end_ms": 30584, "speaker_id": "Speaker 2", "text": "Основной пик Примерно с 18:30 до 20:00. Потом постепенно пошло на спад.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30624, "end_ms": 31064, "speaker_id": "Speaker 1", "text": "Понял.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 31664, "end_ms": 32064, "speaker_id": null, "text": "По нашим", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 32064, "end_ms": 36544, "speaker_id": "Speaker 3", "text": "данным, около 8% пользователей не смогли войти. Часть пробовала по несколько", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 36744, "end_ms": 37264, "speaker_id": null, "text": "раз. Да,", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 37264, "end_ms": 40404, "speaker_id": "Speaker 2", "text": "это коррелирует с метриками. Всплеск именно на логине.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 41112, "end_ms": 43592, "speaker_id": "Speaker 1", "text": "Инцидент сразу классифицировали как P2?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 43992, "end_ms": 47192, "speaker_id": "Speaker 2", "text": "Да, как только стало ясно, что это не единичные ошибки.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 47400, "end_ms": 49720, "speaker_id": "Speaker 3", "text": "В поддержку обращения пошли почти сразу.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 50448, "end_ms": 59553, "speaker_id": "Speaker 1", "text": "Хорошо, давайте тогда дальше. Причины. Илья, расскажи подробнее, как у нас сейчас устроена авторизация и сессии.", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

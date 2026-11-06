@@ -1,0 +1,9 @@
+E/AndroidRuntime(19403): FATAL EXCEPTION: Instr: androidx.test.runner.AndroidJUnitRunner
+E/AndroidRuntime(19403): Process: ru.neurostenographer.app.realtime, PID: 19403
+E/AndroidRuntime(19403): java.lang.IllegalStateException: UiAutomation not connected!
+E/AndroidRuntime(19403): 	at android.app.UiAutomation.throwIfNotConnectedLocked(UiAutomation.java:1198)
+E/AndroidRuntime(19403): 	at android.app.UiAutomation.disconnect(UiAutomation.java:294)
+E/AndroidRuntime(19403): 	at android.app.Instrumentation.finish(Instrumentation.java:261)
+E/AndroidRuntime(19403): 	at androidx.test.runner.MonitoringInstrumentation.finish(MonitoringInstrumentation.java:409)
+E/AndroidRuntime(19403): 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:474)
+E/AndroidRuntime(19403): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2258)

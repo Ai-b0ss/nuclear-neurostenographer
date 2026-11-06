@@ -47,6 +47,12 @@ val solHighAcceptance = providers.gradleProperty("solHighAcceptance").orNull == 
 check(!solHighAcceptance || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
     "Sol High acceptance requires the A3+C2 product configuration"
 }
+val realtime = providers.gradleProperty("realtime").orNull == "true"
+check(!realtime || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
+    "Realtime requires A3 + product C2 and its own application ID"
+}
+check(!realtime || (providers.gradleProperty("litertProbe").orNull != "true" &&
+    providers.gradleProperty("asrSmoke").orNull != "true")) { "Realtime cannot share another experiment's manifest or applicationId" }
 check(!(asrA3 && (c2Candidate || nemotronPrototype))) { "A3 test build is separate from C2 candidate/prototype" }
 android {
     namespace = "ru.neurostenographer.app"
@@ -63,6 +69,7 @@ android {
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
         buildConfigField("boolean", "ASR_A3", asrA3.toString())
+        buildConfigField("boolean", "REALTIME", realtime.toString())
         manifestPlaceholders["appLabel"] = "Нейростенограф"
     }
     // Optional workspace-owned debug key for restricted local build environments.
@@ -117,6 +124,18 @@ android {
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Sol QA"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
+    if (realtime) {
+        defaultConfig.applicationIdSuffix = ".realtime"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф realtime (эксперимент)"
+        sourceSets.getByName("main").apply {
+            java.srcDir("src/realtime/java")
+            assets.srcDir("src/realtime/assets")
+            assets.srcDir(rootProject.file(".local/realtimeAssets"))
+        }
+        sourceSets.getByName("debug").manifest.srcFile("src/realtime/AndroidManifest.xml")
+        sourceSets.getByName("release").manifest.srcFile("src/realtime/AndroidManifest.xml")
+        sourceSets.getByName("androidTest").java.srcDir("src/realtimeTest/java")
+    }
     if (nemotronEnabled) {
         // Research and candidate variants use distinct applicationIds.
         // The main product variant retains the contest applicationId.

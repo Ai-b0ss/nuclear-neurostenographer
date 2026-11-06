@@ -1,0 +1,70 @@
+[
+  {
+    "run": "snapshot-crash-injection",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#transcriptSnapshotCrashRecovery",
+    "inference": "NOT_RUN_OR_MISSING_EVIDENCE"
+  },
+  {
+    "run": "snapshot-default-2voice",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+    "state": "COMPLETE",
+    "audio_ms": 60000,
+    "elapsed_ms": 78510,
+    "native_load_ms": 9669,
+    "asr_ms": 14921,
+    "c2_ms": 44076,
+    "vad_ms": 1767,
+    "compute_rtf": 1.0127333333333333,
+    "cpu_ms": 246258,
+    "max_lag_ms": 9696,
+    "fallback": false,
+    "silence_ms": 500,
+    "pcm_exact": true,
+    "pacing_valid": true,
+    "max_feed_lateness_ms": 0,
+    "sampled_pss_kb": 1013701,
+    "recognizer_loads": 1,
+    "asr_latency_count": 7,
+    "asr_latency_p50_ms": 3946.0,
+    "asr_latency_p95_ms": 6779.1,
+    "c2_step_count": 17,
+    "c2_step_p50_ms": 2146.0,
+    "c2_step_p95_ms": 3184.2,
+    "e2e_wall_rtf": 1.3085,
+    "cpu_core_equivalent": 3.1366,
+    "kernel_sampled_peak_pss_kb": 1072744,
+    "battery_c_minmax": [
+      34.0,
+      36.0
+    ],
+    "speakers": 2,
+    "unknown_segments": 3,
+    "wer": {
+      "status": "NOT_SCORED",
+      "reason": "No reference text_segments"
+    },
+    "cpwer": {
+      "status": "NOT_SCORED",
+      "reason": "No reference text_segments"
+    },
+    "der": {
+      "status": "SCORED",
+      "rate": 0.051701225173399354,
+      "miss_ms": 2840,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 54931,
+      "scored_wall_ms": 49210,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "spk0",
+        "Speaker 2": "spk1"
+      }
+    },
+    "reference_speakers": 2,
+    "timing_validity": "PACED_CONFIRMED"
+  }
+]

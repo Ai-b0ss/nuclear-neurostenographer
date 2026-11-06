@@ -1,0 +1,188 @@
+[
+  {
+    "elapsed_s": 0.534,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "No process found for: ru.neurostenographer.app.realtime\r\n",
+    "cpu": ""
+  },
+  {
+    "elapsed_s": 6.708,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141605610 Realtime: 173815316\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap     9072     9040        0       52    12288     6192     6095\r\n  Dalvik Heap     4181     4168        0       29    11577     5433     6144\r\n Dalvik Other     1509     1504        0        2                           \r\n        Stack       44       44        0        0                           \r\n    Other dev       13        4        8        0                           \r\n     .so mmap     1881      100       68       40                           \r\n    .jar mmap     1799        0      360        0                           \r\n    .apk mmap   173624        0   173460        0                           \r\n    .dex mmap    50444    50264      108        0                           \r\n    .oat mmap      116        0        0        0                           \r\n    .art mmap     7754     7484        0       68                           \r\n   Other mmap      119       64        0        0                           \r\n      Unknown      768      732        0        4                           \r\n        TOTAL   251519    73404   174004      195    23865    11625    12239\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:    11652\r\n         Native Heap:     9040\r\n                Code:   224360\r\n               Stack:       44\r\n            Graphics:        0\r\n       Private Other:     2312\r\n              System:     4111\r\n \r\n               TOTAL:   251519       TOTAL SWAP PSS:      195\r\n \r\n Objects\r\n               Views:        0         ViewRootImpl:        0\r\n         AppContexts:        3           Activities:        0\r\n              Assets:        9        AssetManagers:        0\r\n       Local Binders:        7        Proxy Binders:       24\r\n       Parcel memory:        5         Parcel count:       20\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  fg 00:00:06 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 17.585,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141611560 Realtime: 173821265\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 28.169,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141622158 Realtime: 173831863\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 38.753,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141632746 Realtime: 173842451\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 49.336,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141643327 Realtime: 173853033\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 59.926,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141653910 Realtime: 173863615\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 70.501,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141664498 Realtime: 173874203\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 81.076,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141675070 Realtime: 173884775\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 91.65,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141685645 Realtime: 173895351\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 102.246,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141696229 Realtime: 173905935\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 112.818,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141706813 Realtime: 173916518\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 118.55,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141717423 Realtime: 173927128\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap   860367   860300        0    51393   939520   929855     9664\r\n  Dalvik Heap     4588     4528        0     1361    12227     6083     6144\r\n Dalvik Other     1107     1088        0      138                           \r\n        Stack       16       16        0       28                           \r\n    Other dev       13        4        8        0                           \r\n     .so mmap     2797      164     1948       55                           \r\n    .jar mmap     2645        0     1756        0                           \r\n    .apk mmap    94464      212    94232      224                           \r\n    .dex mmap     6938     6852       32    43412                           \r\n    .oat mmap       95        0       64        0                           \r\n    .art mmap     4882     4216       60     5172                           \r\n   Other mmap      196       92        0        0                           \r\n      Unknown      967      920        0      220                           \r\n        TOTAL  1081078   878392    98100   102003   951747   935938    15808\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:     8804\r\n         Native Heap:   860300\r\n                Code:   105260\r\n               Stack:       16\r\n            Graphics:        0\r\n       Private Other:     2112\r\n              System:   104586\r\n \r\n               TOTAL:  1081078       TOTAL SWAP PSS:   102003\r\n \r\n Objects\r\n               Views:        0         ViewRootImpl:        0\r\n         AppContexts:        3           Activities:        0\r\n              Assets:        9        AssetManagers:        0\r\n       Local Binders:        5        Proxy Binders:       24\r\n       Parcel memory:        4         Parcel count:       17\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  fg 00:00:15 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 124.194,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141723093 Realtime: 173932798\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap   807383   807316        0    13865  1276928  1225255    51672\r\n  Dalvik Heap     9420     9360        0      565    14937     7469     7468\r\n Dalvik Other     1379     1360        0      110                           \r\n        Stack       16       16        0       28                           \r\n    Other dev       13        4        8        0                           \r\n     .so mmap     2965      164     2008       55                           \r\n    .jar mmap     3451        0     2556        0                           \r\n    .apk mmap    14492      256    14200      184                           \r\n    .dex mmap     8374     8188      132    42076                           \r\n    .oat mmap      168        0      108        0                           \r\n    .art mmap     5259     4568       60     4844                           \r\n   Other mmap      252      112        0        0                           \r\n      Unknown     1591     1544        0      176                           \r\n        TOTAL   916666   832888    19072    61903  1291865  1232724    59140\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:    13988\r\n         Native Heap:   807316\r\n                Code:    27612\r\n               Stack:       16\r\n            Graphics:        0\r\n       Private Other:     3028\r\n              System:    64706\r\n \r\n               TOTAL:   916666       TOTAL SWAP PSS:    61903\r\n \r\n Objects\r\n               Views:        0         ViewRootImpl:        0\r\n         AppContexts:        3           Activities:        0\r\n              Assets:        8        AssetManagers:        0\r\n       Local Binders:        5        Proxy Binders:       24\r\n       Parcel memory:        4         Parcel count:       17\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  fg 00:00:27 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 134.783,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141728768 Realtime: 173938473\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 145.369,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141739354 Realtime: 173949059\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 155.956,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141749944 Realtime: 173959649\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 166.534,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141760526 Realtime: 173970231\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 177.135,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141771110 Realtime: 173980815\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 187.739,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141781709 Realtime: 173991414\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 198.344,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4370\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141792314 Realtime: 174002019\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 208.929,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141802909 Realtime: 174012615\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 219.509,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141813499 Realtime: 174023204\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 230.114,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141824077 Realtime: 174033782\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 240.67,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141834684 Realtime: 174044389\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 251.256,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141845237 Realtime: 174054942\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 261.849,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141855830 Realtime: 174065535\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\nGot IoException! java.io.IOException: Timeout\r\n",
+    "cpu": "17306  fg 00:00:31 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 267.632,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141866374 Realtime: 174076079\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap   682724   682668        0   138248  1276928  1225355    51572\r\n  Dalvik Heap     4815     4684        0      564    13801     6901     6900\r\n Dalvik Other     1141     1132        0      110                           \r\n        Stack       16       16        0       28                           \r\n    Other dev       33        4       28        0                           \r\n     .so mmap     1981       92      948       53                           \r\n    .jar mmap     2021        0      540        0                           \r\n    .apk mmap    14481      256    14200      184                           \r\n    .dex mmap     8369     8188      132    42076                           \r\n    .oat mmap       75        0        0        0                           \r\n    .art mmap     4252     3440       60     4839                           \r\n   Other mmap      252      108        0        0                           \r\n      Unknown     1490     1432        0      176                           \r\n        TOTAL   907928   702020    15908   186278  1290729  1232256    58472\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:     8184\r\n         Native Heap:   682668\r\n                Code:    24356\r\n               Stack:       16\r\n            Graphics:        0\r\n       Private Other:     2704\r\n              System:   190000\r\n \r\n               TOTAL:   907928       TOTAL SWAP PSS:   186278\r\n \r\n Objects\r\n               Views:        0         ViewRootImpl:        0\r\n         AppContexts:        5           Activities:        0\r\n              Assets:        8        AssetManagers:        0\r\n       Local Binders:        5        Proxy Binders:       26\r\n       Parcel memory:        4         Parcel count:       18\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  vi 00:00:36 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 273.356,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141872193 Realtime: 174081898\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap   783766   783668        0    51551  1285120  1233134    51985\r\n  Dalvik Heap    15541    15412        0      564    20259    10130    10129\r\n Dalvik Other     3565     3556        0       46                           \r\n        Stack      188      188        0        0                           \r\n       Ashmem        2        0        0        0                           \r\n    Other dev       37        4       28        0                           \r\n     .so mmap    21190      600    17044       30                           \r\n    .jar mmap     2667        0      552        0                           \r\n    .apk mmap    14919      256    14320      184                           \r\n    .ttf mmap      706        0      636        0                           \r\n    .dex mmap    13381    13232      100    37032                           \r\n    .oat mmap      133        0        0        0                           \r\n    .art mmap     6614     5656       60     2885                           \r\n   Other mmap      513      168       64        0                           \r\n    GL mtrack     6996     6996        0        0                           \r\n      Unknown     2028     1964        0      101                           \r\n        TOTAL   964639   831700    32804    92393  1305379  1243264    62114\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:    21128\r\n         Native Heap:   783668\r\n                Code:    46740\r\n               Stack:      188\r\n            Graphics:     6996\r\n       Private Other:     5784\r\n              System:   100135\r\n \r\n               TOTAL:   964639       TOTAL SWAP PSS:    92393\r\n \r\n Objects\r\n               Views:        8         ViewRootImpl:        1\r\n         AppContexts:        7           Activities:        1\r\n              Assets:        8        AssetManagers:        0\r\n       Local Binders:       12        Proxy Binders:       35\r\n       Parcel memory:        5         Parcel count:       21\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  vi 00:01:00 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 279.047,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141877897 Realtime: 174087602\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap   795286   795192        0    51515  1285120  1233237    51882\r\n  Dalvik Heap    12857    12728        0      564    20985    10493    10492\r\n Dalvik Other     3561     3552        0       46                           \r\n        Stack      188      188        0        0                           \r\n       Ashmem        2        0        0        0                           \r\n    Other dev       37        4       28        0                           \r\n     .so mmap    21138      604    16960       30                           \r\n    .jar mmap     2666        0      552        0                           \r\n    .apk mmap    14919      256    14320      184                           \r\n    .ttf mmap      706        0      636        0                           \r\n    .dex mmap    13381    13232      100    37032                           \r\n    .oat mmap      132        0        0        0                           \r\n    .art mmap     6590     5652       60     2885                           \r\n   Other mmap      549      180       64        0                           \r\n    GL mtrack     6996     6996        0        0                           \r\n      Unknown     2020     1956        0      101                           \r\n        TOTAL   973385   840540    32720    92357  1306105  1243730    62374\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:    18440\r\n         Native Heap:   795192\r\n                Code:    46660\r\n               Stack:      188\r\n            Graphics:     6996\r\n       Private Other:     5784\r\n              System:   100125\r\n \r\n               TOTAL:   973385       TOTAL SWAP PSS:    92357\r\n \r\n Objects\r\n               Views:        8         ViewRootImpl:        1\r\n         AppContexts:        7           Activities:        1\r\n              Assets:        8        AssetManagers:        0\r\n       Local Binders:       12        Proxy Binders:       35\r\n       Parcel memory:        5         Parcel count:       21\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  vi 00:01:21 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 284.787,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 1000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4369\r\n  temperature: 360\r\n  technology: Li-poly\r\n",
+    "meminfo": "Applications Memory Usage (in Kilobytes):\r\nUptime: 141883605 Realtime: 174093310\r\n\r\n** MEMINFO in pid 17306 [ru.neurostenographer.app.realtime] **\r\n                   Pss  Private  Private  SwapPss     Heap     Heap     Heap\r\n                 Total    Dirty    Clean    Dirty     Size    Alloc     Free\r\n                ------   ------   ------   ------   ------   ------   ------\r\n  Native Heap   799062   798968        0    51563  1285120  1233240    51879\r\n  Dalvik Heap    13189    13060        0      564    20737    10369    10368\r\n Dalvik Other     3565     3556        0       46                           \r\n        Stack      188      188        0        0                           \r\n       Ashmem        2        0        0        0                           \r\n    Other dev       37        4       28        0                           \r\n     .so mmap    21138      604    16960       30                           \r\n    .jar mmap     2666        0      552        0                           \r\n    .apk mmap    14547      256    13948      184                           \r\n    .ttf mmap      706        0      636        0                           \r\n    .dex mmap    13381    13232      100    37032                           \r\n    .oat mmap      132        0        0        0                           \r\n    .art mmap     6590     5652       60     2885                           \r\n   Other mmap      581      192       64        0                           \r\n    GL mtrack     6996     6996        0        0                           \r\n      Unknown     2020     1956        0      101                           \r\n        TOTAL   977205   844664    32348    92405  1305857  1243609    62247\r\n \r\n App Summary\r\n                       Pss(KB)\r\n                        ------\r\n           Java Heap:    18772\r\n         Native Heap:   798968\r\n                Code:    46288\r\n               Stack:      188\r\n            Graphics:     6996\r\n       Private Other:     5800\r\n              System:   100193\r\n \r\n               TOTAL:   977205       TOTAL SWAP PSS:    92405\r\n \r\n Objects\r\n               Views:        8         ViewRootImpl:        1\r\n         AppContexts:        7           Activities:        1\r\n              Assets:        8        AssetManagers:        0\r\n       Local Binders:       12        Proxy Binders:       35\r\n       Parcel memory:        5         Parcel count:       21\r\n    Death Recipients:        0      OpenSSL Sockets:        0\r\n            WebViews:        0\r\n \r\n SQL\r\n         MEMORY_USED:        0\r\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\r\n \r\n",
+    "cpu": "17306  vi 00:01:44 ru.neurostenographer.app.realtime"
+  }
+]

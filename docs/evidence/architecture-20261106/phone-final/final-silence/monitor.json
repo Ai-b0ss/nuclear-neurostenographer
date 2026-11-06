@@ -1,0 +1,20 @@
+[
+  {
+    "elapsed_s": 0.4,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 29000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4395\r\n  temperature: 390\r\n  technology: Li-poly\r\n",
+    "meminfo": "",
+    "cpu": ""
+  },
+  {
+    "elapsed_s": 5.882,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 29000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4395\r\n  temperature: 390\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              508140 kB\r\nPss:              433593 kB\r\nShared_Clean:      77684 kB\r\nShared_Dirty:      10124 kB\r\nPrivate_Clean:     15332 kB\r\nPrivate_Dirty:    405000 kB\r\nReferenced:       508076 kB\r\nAnonymous:        414536 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:              13268 kB\r\nSwapPss:             252 kB\r\nLocked:                0 kB\r\n",
+    "cpu": "21177  vi 00:00:04 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 11.448,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 28000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4395\r\n  temperature: 380\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              921432 kB\r\nPss:              846786 kB\r\nShared_Clean:      77872 kB\r\nShared_Dirty:      10032 kB\r\nPrivate_Clean:     15596 kB\r\nPrivate_Dirty:    817932 kB\r\nReferenced:       815896 kB\r\nAnonymous:        827428 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:              13336 kB\r\nSwapPss:             250 kB\r\nLocked:                0 kB\r\n",
+    "cpu": "21177  vi 00:00:10 ru.neurostenographer.app.realtime"
+  }
+]

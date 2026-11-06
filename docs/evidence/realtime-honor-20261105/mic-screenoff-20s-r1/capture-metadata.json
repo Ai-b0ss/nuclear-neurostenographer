@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "scope": "PHYSICAL_FOREGROUND_CAPTURE_ONLY_NO_TRANSCRIPTION_NO_AUDIO_EXPORT",
+  "samples": 319040,
+  "wav_bytes": 638124,
+  "capture_failure": null,
+  "max_read_gap_ms": 143,
+  "hardware_frame_position": 319040,
+  "hardware_timestamp_samples": 994,
+  "invocation": "mic-screenoff-20s-r1",
+  "wall_ms": 21176,
+  "requested_seconds": 20,
+  "screen_off": true,
+  "foreground_verified": true
+}

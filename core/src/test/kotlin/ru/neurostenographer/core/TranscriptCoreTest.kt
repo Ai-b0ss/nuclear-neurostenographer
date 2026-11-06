@@ -6,6 +6,7 @@ private fun test(label: String, action: () -> Unit) {
 }
 
 fun main() {
+    testRealtimeCore()
     testPcmWav()
     testPcmStreaming()
     testPcm16WavWriter()

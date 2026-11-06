@@ -1,0 +1,208 @@
+[
+  {
+    "run": "mic-screenoff-20s-r1",
+    "instrumentation": "FAIL",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#foregroundMicrophoneScreenOff",
+    "inference": "NOT_RUN_OR_MISSING_EVIDENCE"
+  },
+  {
+    "run": "syn3-fallback500-r1",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+    "state": "COMPLETE",
+    "audio_ms": 33507,
+    "elapsed_ms": 37069,
+    "native_load_ms": 6933,
+    "asr_ms": 6557,
+    "c2_ms": 7527,
+    "vad_ms": 2251,
+    "compute_rtf": 0.48751007252215955,
+    "cpu_ms": 67977,
+    "max_lag_ms": 6944,
+    "fallback": true,
+    "silence_ms": 500,
+    "pcm_exact": true,
+    "pacing_valid": true,
+    "max_feed_lateness_ms": 0,
+    "sampled_pss_kb": 942965,
+    "recognizer_loads": 1,
+    "asr_latency_count": 8,
+    "asr_latency_p50_ms": 1416.0,
+    "asr_latency_p95_ms": 4838.35,
+    "c2_step_count": 4,
+    "c2_step_p50_ms": 1953.5,
+    "c2_step_p95_ms": 2478.6,
+    "e2e_wall_rtf": 1.10631,
+    "cpu_core_equivalent": 1.8338,
+    "kernel_sampled_peak_pss_kb": 915337,
+    "battery_c_minmax": [
+      36.0,
+      37.0
+    ],
+    "speakers": 3,
+    "unknown_segments": 1,
+    "wer": {
+      "errors": 3,
+      "substitutions": 0,
+      "deletions": 0,
+      "insertions": 3,
+      "reference_words": 52,
+      "rate": 0.057692307692307696,
+      "status": "SCORED",
+      "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+    },
+    "cpwer": {
+      "status": "NOT_SCORED",
+      "reason": "Hypothesis contains unattributed words"
+    },
+    "der": {
+      "status": "SCORED",
+      "rate": 0.4407212052263247,
+      "miss_ms": 9075,
+      "false_alarm_ms": 0,
+      "confusion_ms": 3709,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "1",
+        "Speaker 2": "2",
+        "Speaker 3": "3"
+      }
+    },
+    "reference_speakers": 3,
+    "timing_validity": "PACED_CONFIRMED"
+  },
+  {
+    "run": "syn3-fast500-r1",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+    "state": "COMPLETE",
+    "audio_ms": 33507,
+    "elapsed_ms": 283737,
+    "native_load_ms": 118375,
+    "asr_ms": 6934,
+    "c2_ms": 156172,
+    "vad_ms": 940,
+    "compute_rtf": 4.895872504252843,
+    "cpu_ms": 109699,
+    "max_lag_ms": 33475,
+    "fallback": false,
+    "silence_ms": 500,
+    "pcm_exact": true,
+    "pacing_valid": null,
+    "max_feed_lateness_ms": null,
+    "sampled_pss_kb": 978749,
+    "recognizer_loads": 1,
+    "asr_latency_count": 8,
+    "asr_latency_p50_ms": 248232.0,
+    "asr_latency_p95_ms": 251433.45,
+    "c2_step_count": 10,
+    "c2_step_p50_ms": 1726.5,
+    "c2_step_p95_ms": 79268.3,
+    "e2e_wall_rtf": 8.46799,
+    "cpu_core_equivalent": 0.3866,
+    "kernel_sampled_peak_pss_kb": null,
+    "battery_c_minmax": [
+      36.0,
+      36.0
+    ],
+    "speakers": 2,
+    "unknown_segments": 1,
+    "wer": {
+      "errors": 3,
+      "substitutions": 0,
+      "deletions": 0,
+      "insertions": 3,
+      "reference_words": 52,
+      "rate": 0.057692307692307696,
+      "status": "SCORED",
+      "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+    },
+    "cpwer": {
+      "status": "NOT_SCORED",
+      "reason": "Hypothesis contains unattributed words"
+    },
+    "der": {
+      "status": "NOT_SCORED",
+      "reason": "Independent reference and raw hypothesis diarization required; ASR chunk times are not speech boundaries"
+    },
+    "reference_speakers": 3,
+    "timing_validity": "UNVERIFIED"
+  },
+  {
+    "run": "syn3-fast500-r2-kernel-monitor",
+    "instrumentation": "FAIL",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+    "inference": "NOT_RUN_OR_MISSING_EVIDENCE"
+  },
+  {
+    "run": "syn3-fast500-r3-foreground",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+    "state": "COMPLETE",
+    "audio_ms": 33507,
+    "elapsed_ms": 39003,
+    "native_load_ms": 9681,
+    "asr_ms": 6320,
+    "c2_ms": 14992,
+    "vad_ms": 1255,
+    "compute_rtf": 0.6735010594801086,
+    "cpu_ms": 97301,
+    "max_lag_ms": 9696,
+    "fallback": false,
+    "silence_ms": 500,
+    "pcm_exact": true,
+    "pacing_valid": true,
+    "max_feed_lateness_ms": 0,
+    "sampled_pss_kb": 944902,
+    "recognizer_loads": 1,
+    "asr_latency_count": 8,
+    "asr_latency_p50_ms": 3457.5,
+    "asr_latency_p95_ms": 7795.05,
+    "c2_step_count": 10,
+    "c2_step_p50_ms": 1486.0,
+    "c2_step_p95_ms": 2487.6,
+    "e2e_wall_rtf": 1.16403,
+    "cpu_core_equivalent": 2.4947,
+    "kernel_sampled_peak_pss_kb": 1086611,
+    "battery_c_minmax": [
+      36.0,
+      36.0
+    ],
+    "speakers": 2,
+    "unknown_segments": 1,
+    "wer": {
+      "errors": 3,
+      "substitutions": 0,
+      "deletions": 0,
+      "insertions": 3,
+      "reference_words": 52,
+      "rate": 0.057692307692307696,
+      "status": "SCORED",
+      "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+    },
+    "cpwer": {
+      "status": "NOT_SCORED",
+      "reason": "Hypothesis contains unattributed words"
+    },
+    "der": {
+      "status": "SCORED",
+      "rate": 0.5714137966697693,
+      "miss_ms": 9186,
+      "false_alarm_ms": 0,
+      "confusion_ms": 7389,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "1",
+        "Speaker 2": "2"
+      }
+    },
+    "reference_speakers": 3,
+    "timing_validity": "PACED_CONFIRMED"
+  }
+]

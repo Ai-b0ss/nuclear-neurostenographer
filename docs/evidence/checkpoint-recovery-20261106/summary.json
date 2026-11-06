@@ -1,0 +1,102 @@
+[
+  {
+    "run": "previous-recovery",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#cancellationRecoveryAndRestart",
+    "inference": "NOT_RUN_OR_MISSING_EVIDENCE"
+  },
+  {
+    "run": "short-recovery",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#recoveryKeepsCompletedAndShortInterruptedAudio",
+    "inference": "NOT_RUN_OR_MISSING_EVIDENCE"
+  },
+  {
+    "run": "syn3-after-recovery-fix",
+    "instrumentation": "PASS",
+    "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+    "state": "COMPLETE",
+    "audio_ms": 33507,
+    "elapsed_ms": 44136,
+    "native_load_ms": 9922,
+    "asr_ms": 6383,
+    "c2_ms": 20044,
+    "vad_ms": 1247,
+    "compute_rtf": 0.8259169725728952,
+    "cpu_ms": 116332,
+    "max_lag_ms": 9920,
+    "fallback": false,
+    "silence_ms": 500,
+    "pcm_exact": true,
+    "pacing_valid": true,
+    "max_feed_lateness_ms": 0,
+    "sampled_pss_kb": 928480,
+    "recognizer_loads": 1,
+    "asr_latency_count": 8,
+    "asr_latency_p50_ms": 3441.0,
+    "asr_latency_p95_ms": 8071.4,
+    "c2_step_count": 10,
+    "c2_step_p50_ms": 1480.5,
+    "c2_step_p95_ms": 2464.4,
+    "e2e_wall_rtf": 1.31722,
+    "cpu_core_equivalent": 2.6358,
+    "kernel_sampled_peak_pss_kb": 1061754,
+    "battery_c_minmax": [
+      36.0,
+      36.0
+    ],
+    "speakers": 3,
+    "unknown_segments": 0,
+    "wer": {
+      "errors": 3,
+      "substitutions": 0,
+      "deletions": 0,
+      "insertions": 3,
+      "reference_words": 52,
+      "rate": 0.057692307692307696,
+      "status": "SCORED",
+      "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+    },
+    "cpwer": {
+      "status": "SCORED",
+      "errors": 3,
+      "reference_words": 52,
+      "rate": 0.057692307692307696,
+      "substitutions": 0,
+      "deletions": 0,
+      "insertions": 3,
+      "mapping": [
+        {
+          "reference": "1",
+          "hypothesis": "Speaker 1"
+        },
+        {
+          "reference": "2",
+          "hypothesis": "Speaker 2"
+        },
+        {
+          "reference": "3",
+          "hypothesis": "Speaker 3"
+        }
+      ]
+    },
+    "der": {
+      "status": "SCORED",
+      "rate": 0.31947460957699864,
+      "miss_ms": 9047,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "1",
+        "Speaker 2": "2",
+        "Speaker 3": "3"
+      }
+    },
+    "reference_speakers": 3,
+    "timing_validity": "PACED_CONFIRMED"
+  }
+]

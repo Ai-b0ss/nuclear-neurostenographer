@@ -1,0 +1,4 @@
+Signer #1 certificate DN: CN=Realtime Test
+Signer #1 certificate SHA-256 digest: 929e33293d05bfd617cbb724f95e3694feb4375456a620ddbf39d6275aeac76c
+Signer #1 certificate SHA-1 digest: 48d0602d8eb90def79287afbe0f4e52284dcd2b0
+Signer #1 certificate MD5 digest: df359927787ad02ed2aedc73bc8ebe0b

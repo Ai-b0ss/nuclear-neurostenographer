@@ -1,0 +1,563 @@
+{
+  "summary": {
+    "status": "GO_FOR_ANDROID_EXPERIMENT_ONLY",
+    "total_reference_speaker_ms": 314663,
+    "production_errors_ms": 15213,
+    "candidate_errors_ms": 14882,
+    "production_der": 0.04834696167010421,
+    "candidate_der": 0.04729504263291204,
+    "relative_error_reduction": 0.021757707224084665,
+    "max_per_file_der_deterioration_pp": 0.0,
+    "all_speaker_counts_match": true,
+    "held_out": 6,
+    "blinded_candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730"
+  },
+  "records": [
+    {
+      "recording": "rec_0259",
+      "speakers": 2,
+      "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+      "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+      "fixture_sha256": "204167065eeb6025b9c62902b943521182debc723155940f84ecca078e4c697e",
+      "rttm_sha256": "8754ec47651475b24454d4a6175db37e222e051801635fb1840c69bf047bf4c2",
+      "flac_sha256": "eae6b0159805a93cc51851aaa4b19343436affb72a13bd4b99c71f6786c807d7",
+      "collar_radius_ms": 250,
+      "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+      "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+      "results": {
+        "original-fast": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03528567827992012,
+            "miss_ms": 1820,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51579,
+            "scored_wall_ms": 50503,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "revised-fast": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.035498943368425136,
+            "miss_ms": 1831,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51579,
+            "scored_wall_ms": 50503,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "production-final": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03974485740320673,
+            "miss_ms": 2050,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51579,
+            "scored_wall_ms": 50503,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "preview-first-candidate": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.034897923573547374,
+            "miss_ms": 1800,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51579,
+            "scored_wall_ms": 50503,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        }
+      },
+      "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+    },
+    {
+      "recording": "rec_0129",
+      "speakers": 2,
+      "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+      "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+      "fixture_sha256": "8da2f6ca86f7b948d0785dec7d6ad1bf34949c864306b2f434b188c722d44d1b",
+      "rttm_sha256": "eb34ffb3fce5232e93c4bb7b1974d7f9e79efc5a4ba6f3a7a509fa9e8118552f",
+      "flac_sha256": "5cc3319de832dec8ceec1b1ec781c4058a19a0712b9ee1c96d54dc06f71fec50",
+      "collar_radius_ms": 250,
+      "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+      "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+      "results": {
+        "original-fast": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.10387880805726653,
+            "miss_ms": 5616,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54063,
+            "scored_wall_ms": 51824,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "revised-fast": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.10961285907182361,
+            "miss_ms": 5926,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54063,
+            "scored_wall_ms": 51824,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "production-final": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.10757819580859368,
+            "miss_ms": 5816,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54063,
+            "scored_wall_ms": 51824,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "preview-first-candidate": {
+          "predicted_speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.10757819580859368,
+            "miss_ms": 5816,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54063,
+            "scored_wall_ms": 51824,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        }
+      },
+      "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+    },
+    {
+      "recording": "rec_0388",
+      "speakers": 3,
+      "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+      "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+      "fixture_sha256": "8385d096f2cf3fb06735ba026dd11ea959d998e6717f598a0b382c4df846f103",
+      "rttm_sha256": "ba2bfb419fc5250361f176a382eead6d137a7e293e98bc69d96f7bc7253254d3",
+      "flac_sha256": "36066fadc388baa3359e070b1fad57946afdaa0d219130203299df4657b919b0",
+      "collar_radius_ms": 250,
+      "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+      "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+      "results": {
+        "original-fast": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.04569157700882039,
+            "miss_ms": 2357,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51585,
+            "scored_wall_ms": 51675,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "revised-fast": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.05912571483958515,
+            "miss_ms": 3050,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51585,
+            "scored_wall_ms": 51675,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "production-final": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.041833866434040905,
+            "miss_ms": 2158,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51585,
+            "scored_wall_ms": 51675,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "preview-first-candidate": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.041640011631288165,
+            "miss_ms": 2148,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 51585,
+            "scored_wall_ms": 51675,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        }
+      },
+      "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+    },
+    {
+      "recording": "rec_0345",
+      "speakers": 3,
+      "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+      "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+      "fixture_sha256": "2bc756c25440735206ea8b4f937fee1729831e503ad1301c671a954fd200abcb",
+      "rttm_sha256": "f3e49047c11d9b54bb9e1db09910063d2056ec5f7fba2f3be9922f6e65bda41a",
+      "flac_sha256": "70cec85aeeca5965681bd8e2b7dd06fd79ec8a90720a896959b66c78b724babe",
+      "collar_radius_ms": 250,
+      "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+      "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+      "results": {
+        "original-fast": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03304627225346061,
+            "miss_ms": 1769,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53531,
+            "scored_wall_ms": 47819,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "revised-fast": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03304627225346061,
+            "miss_ms": 1769,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53531,
+            "scored_wall_ms": 47819,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "production-final": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03304627225346061,
+            "miss_ms": 1769,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53531,
+            "scored_wall_ms": 47819,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "preview-first-candidate": {
+          "predicted_speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03304627225346061,
+            "miss_ms": 1769,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53531,
+            "scored_wall_ms": 47819,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        }
+      },
+      "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+    },
+    {
+      "recording": "rec_0528",
+      "speakers": 4,
+      "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+      "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+      "fixture_sha256": "3522e1d72833b801efd36bc4760d3164d79ae27cb0b0efd6d4cd1c75a5f5fcc4",
+      "rttm_sha256": "5da897af6547d8e5e2371383052788800ce238a0118cc60034eba44a9953abc3",
+      "flac_sha256": "91d793a2f412bfdee1b22f30cb735007f4aea07d2734713a50c096a90ad18ded",
+      "collar_radius_ms": 250,
+      "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+      "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+      "results": {
+        "original-fast": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03271340896410638,
+            "miss_ms": 1759,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53770,
+            "scored_wall_ms": 51249,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "revised-fast": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.032880788543797654,
+            "miss_ms": 1768,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53770,
+            "scored_wall_ms": 51249,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "production-final": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.02957039241212572,
+            "miss_ms": 1590,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53770,
+            "scored_wall_ms": 51249,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "preview-first-candidate": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.02957039241212572,
+            "miss_ms": 1590,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53770,
+            "scored_wall_ms": 51249,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        }
+      },
+      "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+    },
+    {
+      "recording": "rec_0514",
+      "speakers": 4,
+      "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+      "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+      "fixture_sha256": "c63cabe7907915b5faaadad9fa4954e306eeeede3bed726d560977829b95cd5c",
+      "rttm_sha256": "c2318629ca95f27135d6e2d60911ae2b74898f29f938c35ec990c0e382903426",
+      "flac_sha256": "5c0d3c1f58c69c12c82b840ed24af82d6fd7653b865684f7e4af00e9721656fb",
+      "collar_radius_ms": 250,
+      "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+      "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+      "results": {
+        "original-fast": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.16984142814401118,
+            "miss_ms": 5431,
+            "false_alarm_ms": 0,
+            "confusion_ms": 3084,
+            "reference_speaker_ms": 50135,
+            "scored_wall_ms": 50250,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "revised-fast": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03548419267976464,
+            "miss_ms": 1779,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 50135,
+            "scored_wall_ms": 50250,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "production-final": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.03650144609554204,
+            "miss_ms": 1830,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 50135,
+            "scored_wall_ms": 50250,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "preview-first-candidate": {
+          "predicted_speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.035085269771616634,
+            "miss_ms": 1759,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 50135,
+            "scored_wall_ms": 50250,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        }
+      },
+      "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+    }
+  ]
+}

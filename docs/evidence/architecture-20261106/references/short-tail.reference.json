@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "recording_id": "short-tail",
+  "audio_sha256": "65d02c92d60e473d460ac2b9a56fdaeb7b283915e09f41dc3c7a76b394ec0d3b",
+  "audio_duration_ms": 4007,
+  "diarization": [
+    {
+      "start_ms": 0,
+      "end_ms": 700,
+      "speaker_id": "1"
+    },
+    {
+      "start_ms": 1000,
+      "end_ms": 1700,
+      "speaker_id": "2"
+    },
+    {
+      "start_ms": 2000,
+      "end_ms": 2700,
+      "speaker_id": "1"
+    },
+    {
+      "start_ms": 3000,
+      "end_ms": 3700,
+      "speaker_id": "2"
+    }
+  ],
+  "kind": "DERIVED_SYNTHETIC_COARSE_INTERVALS_NO_WORD_GOLD",
+  "source_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+  "recipe": {
+    "indices": [
+      0,
+      1,
+      5,
+      1
+    ],
+    "gap_ms": 300,
+    "clip_ms": 700,
+    "tail_samples": 127
+  }
+}

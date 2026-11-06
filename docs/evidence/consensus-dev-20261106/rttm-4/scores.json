@@ -1,0 +1,103 @@
+{
+  "preview": {
+    "speakers": 4,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.08661855555349424,
+      "miss_ms": 4669,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 53903,
+      "scored_wall_ms": 48419,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "spk0",
+        "1": "spk1",
+        "2": "spk2",
+        "3": "spk3"
+      }
+    }
+  },
+  "final": {
+    "speakers": 4,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.13767322783518543,
+      "miss_ms": 4608,
+      "false_alarm_ms": 0,
+      "confusion_ms": 2813,
+      "reference_speaker_ms": 53903,
+      "scored_wall_ms": 48419,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "spk0",
+        "1": "spk1",
+        "3": "spk2",
+        "2": "spk3"
+      }
+    }
+  },
+  "preview-first": {
+    "speakers": 4,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.08570951524033912,
+      "miss_ms": 4589,
+      "false_alarm_ms": 0,
+      "confusion_ms": 31,
+      "reference_speaker_ms": 53903,
+      "scored_wall_ms": 48419,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "spk0",
+        "1": "spk1",
+        "2": "spk2",
+        "3": "spk3"
+      }
+    }
+  },
+  "final-first": {
+    "speakers": 4,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.13767322783518543,
+      "miss_ms": 4608,
+      "false_alarm_ms": 0,
+      "confusion_ms": 2813,
+      "reference_speaker_ms": 53903,
+      "scored_wall_ms": 48419,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "spk0",
+        "1": "spk1",
+        "2": "spk2",
+        "3": "spk3"
+      }
+    }
+  },
+  "union": {
+    "speakers": 4,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.13732074281579876,
+      "miss_ms": 4589,
+      "false_alarm_ms": 2782,
+      "confusion_ms": 31,
+      "reference_speaker_ms": 53903,
+      "scored_wall_ms": 48419,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "spk0",
+        "1": "spk1",
+        "2": "spk2",
+        "3": "spk3"
+      }
+    }
+  },
+  "reference_speakers": 4
+}

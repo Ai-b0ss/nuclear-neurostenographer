@@ -1,0 +1,30 @@
+[
+  {
+    "case": "2-one-to-one",
+    "clip_name": "veche-2-one-to-one",
+    "clip_duration_ms": 58770,
+    "speakers": 2,
+    "utterances": 17,
+    "ref_sha256": "3a064a5c430415ca714c37220495f25dc630ab2f56ba886bc77bd842e95032ee",
+    "wav_sha256": "1a248421ee4725e56bbc3c5e49d37f5f346fcf97a249b0809be3b0cfe15273b8",
+    "source_wav_sha256": "d7693dce5f82b4b7b5b5e197aac51f617835d7957901f77b177071ef0169fdf7",
+    "source_csv_sha256": "0c6b1cb6e14f7d6224dafbf05d271c307336a46227b31b6bbea9c857ac556147",
+    "dataset_url": "https://huggingface.co/datasets/artem-tish/veche-bench",
+    "license": "CC-BY-4.0",
+    "scope": "HUMAN_VOLUNTEERS_READING_PREPARED_SCRIPTS_NOT_SPONTANEOUS"
+  },
+  {
+    "case": "3-auth-incident",
+    "clip_name": "veche-3-auth-incident",
+    "clip_duration_ms": 59553,
+    "speakers": 3,
+    "utterances": 13,
+    "ref_sha256": "af4c5258ec93df1c83c2e2897aab2b46a8d6b4e34d3e3a6d8d6bcf509f5bca90",
+    "wav_sha256": "b987f38f5c3b7570523a6c4850ee4e5891c68abb8fe449d30e5745263c76c57c",
+    "source_wav_sha256": "a8d5c8e257df18d7655782e561510359446e06457e368214d34242fc30164751",
+    "source_csv_sha256": "5791b813ae6f64f7382fdc8394471778f85cffc160d47871f09b969e68a24287",
+    "dataset_url": "https://huggingface.co/datasets/artem-tish/veche-bench",
+    "license": "CC-BY-4.0",
+    "scope": "HUMAN_VOLUNTEERS_READING_PREPARED_SCRIPTS_NOT_SPONTANEOUS"
+  }
+]
