@@ -172,7 +172,7 @@ class AndroidUi:
         if field is None:
             raise AssertionError("Document filename field missing")
         current = field.get("text", "")
-        if not re.fullmatch(r"transcript\.(txt|json|srt)", current):
+        if not re.fullmatch(r"[^/]+\.(txt|json|srt)", current) or not current.endswith("." + format):
             raise AssertionError("Unexpected initial document filename")
         self.tap_node(field)
         self.shell("input", "keyevent", "KEYCODE_MOVE_END")
@@ -250,7 +250,21 @@ def recorded_wav_seconds(ui):
     return max(0, sizes[0] - 44) / 32000
 
 
+def wait_for_transcript(ui, what, timeout=120):
+    """Recognition opens the transcript screen; its export row holds the JSON button."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        root, button = ui.find(label="JSON", exact=True, timeout=0)
+        if button is not None:
+            return
+        ui.scroll(root, True)
+        time.sleep(0.5)
+    raise AssertionError(what + " timed out")
+
+
 def run(ui):
+    """Current UI (0.3.x): home «Записать» / «Открыть аудиофайл» → card «Аудио готово» → «Распознать» → transcript
+    screen with «Экспорт» TXT/JSON/SRT, «Назад», «Удалить»."""
     checks = ui.checks
     # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
@@ -262,14 +276,15 @@ def run(ui):
     ui.shell("pm", "revoke", PACKAGE, "android.permission.RECORD_AUDIO")
     ui.shell("pm", "clear-permission-flags", PACKAGE, "android.permission.RECORD_AUDIO", "user-set", "user-fixed")
     ui.launch()
-    ui.visible("Нейро-стенографист")
+    ui.visible("Нейростенограф", exact=True)
+    ui.visible("Без интернета", exact=True)
     ui.screenshot("initial")
-    ui.tap(label="Записать разговор")
+    ui.tap(label="Записать")
     ui.tap(resource_suffix="permission_deny_button")
     ui.visible("Разрешение микрофона отклонено")
     checks.append("real_permission_dialog_denied")
 
-    ui.tap(label="Записать разговор")
+    ui.tap(label="Записать")
     # Capture starts when the permission is granted; time from here bounds the WAV length.
     recording_started = time.monotonic()
     ui.tap(resource_suffix="permission_allow_foreground_only_button")
@@ -279,7 +294,7 @@ def run(ui):
         ui.tap_node(notification)
     ui.visible("Остановить запись")
     checks.append("foreground_permission_starts_recording")
-    ui.visible("● Запись:")
+    ui.visible("Идёт запись", exact=True)
     checks.append("recording_status_with_timer_is_visible")
     ui.shell("settings", "put", "system", "accelerometer_rotation", "0")
     ui.shell("settings", "put", "system", "user_rotation", "1")
@@ -302,11 +317,10 @@ def run(ui):
         raise AssertionError("Foreground service lost after the screen was turned off")
     checks.append("recording_service_survives_screen_off")
     ui.launch()
-    ui.visible("Остановить запись")
     ui.tap(label="Остановить запись")
     recording_wall_s = time.monotonic() - recording_started
-    ui.visible("Записать разговор")
     ui.visible("WAV сохранён")
+    ui.visible("Аудио готово", exact=True)
     wav_seconds = recorded_wav_seconds(ui)
     # 16 kHz mono PCM16 with no gaps: the file covers (almost) the whole wall time.
     if wav_seconds < recording_wall_s * 0.8 or wav_seconds > recording_wall_s + 2:
@@ -319,19 +333,14 @@ def run(ui):
         raise AssertionError("Foreground service outlived the recording")
     checks.append("background_recording_continues_and_finalizes")
     ui.shell("settings", "put", "system", "user_rotation", "0")
-    ui.tap(label="Распознать офлайн")
+    ui.tap(label="Распознать")
     # Actual native work runs in the app, never via remote ASR.
-    deadline = time.monotonic() + 120
-    while time.monotonic() < deadline:
-        root, button = ui.find(label="JSON", timeout=0)
-        if button is not None:
-            break
-        ui.scroll(root, True)
-        time.sleep(0.5)
-    else:
-        raise AssertionError("Recorded-input transcription/export UI timed out")
+    wait_for_transcript(ui, "Recorded-input transcription")
     ui.screenshot("recorded-transcript")
     checks.append("recorded_input_reaches_real_transcript_export_controls")
+    ui.tap(description="Назад")
+    ui.visible("Стенограммы", exact=True)
+    checks.append("transcript_saved_in_history_and_back_returns_home")
 
     # Public checksum-verified fixture only; never an owner's recording. It is
     # pushed transiently, not included in the collected UI artifact.
@@ -340,21 +349,13 @@ def run(ui):
         raise AssertionError("Unexpected public UI import fixture")
     ui.command("push", str(fixture), "/sdcard/Download/neuro-qa-public.wav")
     ui.shell("am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", "file:///sdcard/Download/neuro-qa-public.wav")
-    ui.tap(label="Импортировать аудио")
+    ui.tap(label="Открыть аудиофайл")
     ui.downloads()
     ui.tap(label="neuro-qa-public.wav", exact=True)
     ui.visible("Аудио проверено")
     checks.append("public_wav_import_through_system_document_picker")
-    ui.tap(label="Распознать офлайн")
-    deadline = time.monotonic() + 120
-    while time.monotonic() < deadline:
-        root, node = ui.find(label="JSON", exact=True, timeout=0)
-        if node is not None:
-            break
-        ui.scroll(root, True)
-        time.sleep(0.5)
-    else:
-        raise AssertionError("Public Russian UI inference timed out")
+    ui.tap(label="Распознать")
+    wait_for_transcript(ui, "Public Russian UI inference")
     ui.tap(label="TXT", exact=True)
     _, field = ui.find(class_name="android.widget.EditText")
     if field is None:
@@ -364,7 +365,7 @@ def run(ui):
         _, field = ui.find(class_name="android.widget.EditText", timeout=0)
         if field is None:
             break
-    ui.visible("JSON")
+    ui.visible("JSON", exact=True)
     checks.append("cancelled_system_export_keeps_transcript_available")
     exports = {format: ui.save_document(format, rotate=format == "json") for format in ["txt", "json", "srt"]}
     # Candidate validation can replace the AAR after initial provisioning. Compare
@@ -374,26 +375,29 @@ def run(ui):
     export_evidence = verify_saved_exports(exports, runtime, ui.directory)
     checks.append("real_txt_json_srt_saved_and_read_from_documents_provider")
     checks.append("pending_json_export_survives_picker_rotation")
-    ui.tap(label="Удалить локальное аудио и результат")
-    ui.visible("WAV не выбран")
+    # Deleting the transcript removes it from the app, never the provider-owned exports.
+    ui.tap(description="Удалить")
+    ui.visible("Удалить стенограмму?", exact=True)
+    ui.tap(label="Удалить")
+    ui.visible("Стенограмма удалена")
     for format, body in exports.items():
         if ui.command("exec-out", "cat", "/sdcard/Download/neuro-qa-ui." + format) != body:
-            raise AssertionError("App cleanup modified provider-owned exports")
-    checks.append("ui_audio_cleanup_clears_source")
+            raise AssertionError("Transcript deletion modified provider-owned exports")
+    checks.append("transcript_delete_keeps_exported_documents")
 
-    ui.tap(label="Записать разговор")
+    ui.tap(label="Записать")
     ui.visible("Остановить запись")
     prior_pid = ui.shell("pidof", PACKAGE).strip()
     ui.shell("pm", "revoke", PACKAGE, "android.permission.RECORD_AUDIO")
     ui.launch()
-    ui.visible("Записать разговор")
-    ui.visible("WAV не выбран")
+    ui.visible("Записать", exact=True)
+    _, phantom = ui.find(label="Остановить запись", exact=True, timeout=2)
+    if phantom is not None:
+        raise AssertionError("Recording UI survived permission revocation")
     next_pid = ui.shell("pidof", PACKAGE).strip()
     if not prior_pid or not next_pid or prior_pid == next_pid:
         raise AssertionError("Expected Android permission-revocation process restart")
     checks.append("permission_revocation_restarts_without_phantom_recording")
-    ui.tap(label="Удалить локальное аудио и результат")
-    ui.visible("Локальные аудиокопии и результат очищены")
     ui.screenshot("final-clean")
     logcat = ui.shell("logcat", "-d", "-b", "all")
     dropbox = ui.shell("dumpsys", "dropbox", "--print", "data_app_anr", "data_app_crash", "data_app_native_crash")
