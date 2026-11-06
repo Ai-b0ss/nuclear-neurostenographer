@@ -1,0 +1,254 @@
+{
+ "scope": "HOST_C2_INT8_EXTERNAL_NOT_TUNED_ON",
+ "params": {
+  "onset": 0.45,
+  "offset": 0.3,
+  "ov_onset": 0.45,
+  "pad_on": 0.05,
+  "pad_off": 0.02,
+  "min_on": 0.24,
+  "min_off": 0.4
+ },
+ "files": [
+  {
+   "name": "veche-2-one-to-one",
+   "kind": "SCRIPTED_HUMAN_RUSSIAN_MEETING_WITH_OVERLAP_NOT_SPONTANEOUS",
+   "0.0": {
+    "raw": {
+     "total": 5214,
+     "miss": 385,
+     "fa": 42,
+     "conf": 9,
+     "total_ov": 300,
+     "err_ov": 30,
+     "n_ref": 2,
+     "n_hyp": 2
+    },
+    "pp": {
+     "total": 5214,
+     "miss": 176,
+     "fa": 136,
+     "conf": 15,
+     "total_ov": 300,
+     "err_ov": 23,
+     "n_ref": 2,
+     "n_hyp": 2
+    }
+   },
+   "0.25": {
+    "raw": {
+     "total": 4206,
+     "miss": 282,
+     "fa": 0,
+     "conf": 0,
+     "total_ov": 142,
+     "err_ov": 0,
+     "n_ref": 2,
+     "n_hyp": 2
+    },
+    "pp": {
+     "total": 4206,
+     "miss": 113,
+     "fa": 0,
+     "conf": 0,
+     "total_ov": 142,
+     "err_ov": 0,
+     "n_ref": 2,
+     "n_hyp": 2
+    }
+   }
+  },
+  {
+   "name": "veche-3-auth-incident",
+   "kind": "SCRIPTED_HUMAN_RUSSIAN_MEETING_WITH_OVERLAP_NOT_SPONTANEOUS",
+   "0.0": {
+    "raw": {
+     "total": 5598,
+     "miss": 387,
+     "fa": 48,
+     "conf": 0,
+     "total_ov": 154,
+     "err_ov": 11,
+     "n_ref": 3,
+     "n_hyp": 3
+    },
+    "pp": {
+     "total": 5598,
+     "miss": 185,
+     "fa": 127,
+     "conf": 0,
+     "total_ov": 154,
+     "err_ov": 4,
+     "n_ref": 3,
+     "n_hyp": 3
+    }
+   },
+   "0.25": {
+    "raw": {
+     "total": 4794,
+     "miss": 281,
+     "fa": 0,
+     "conf": 0,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    },
+    "pp": {
+     "total": 4794,
+     "miss": 106,
+     "fa": 0,
+     "conf": 0,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    }
+   }
+  },
+  {
+   "name": "syn3-clean",
+   "kind": "SYNTHETIC_TTS_DIALOGUE",
+   "0.0": {
+    "raw": {
+     "total": 3351,
+     "miss": 1242,
+     "fa": 0,
+     "conf": 47,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    },
+    "pp": {
+     "total": 3351,
+     "miss": 1061,
+     "fa": 0,
+     "conf": 54,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    }
+   },
+   "0.25": {
+    "raw": {
+     "total": 2901,
+     "miss": 905,
+     "fa": 0,
+     "conf": 22,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    },
+    "pp": {
+     "total": 2901,
+     "miss": 771,
+     "fa": 0,
+     "conf": 29,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    }
+   }
+  },
+  {
+   "name": "syn3-brown",
+   "kind": "SYNTHETIC_TTS_DIALOGUE",
+   "0.0": {
+    "raw": {
+     "total": 3778,
+     "miss": 1561,
+     "fa": 0,
+     "conf": 24,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    },
+    "pp": {
+     "total": 3778,
+     "miss": 1422,
+     "fa": 0,
+     "conf": 30,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    }
+   },
+   "0.25": {
+    "raw": {
+     "total": 3378,
+     "miss": 1221,
+     "fa": 0,
+     "conf": 0,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    },
+    "pp": {
+     "total": 3378,
+     "miss": 1113,
+     "fa": 0,
+     "conf": 5,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 3,
+     "n_hyp": 3
+    }
+   }
+  },
+  {
+   "name": "syn4-noise",
+   "kind": "SYNTHETIC_TTS_DIALOGUE",
+   "0.0": {
+    "raw": {
+     "total": 5732,
+     "miss": 2510,
+     "fa": 29,
+     "conf": 89,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 4,
+     "n_hyp": 4
+    },
+    "pp": {
+     "total": 5732,
+     "miss": 2427,
+     "fa": 42,
+     "conf": 84,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 4,
+     "n_hyp": 4
+    }
+   },
+   "0.25": {
+    "raw": {
+     "total": 5132,
+     "miss": 1999,
+     "fa": 28,
+     "conf": 64,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 4,
+     "n_hyp": 4
+    },
+    "pp": {
+     "total": 5132,
+     "miss": 1918,
+     "fa": 42,
+     "conf": 59,
+     "total_ov": 0,
+     "err_ov": 0,
+     "n_ref": 4,
+     "n_hyp": 4
+    }
+   }
+  }
+ ]
+}

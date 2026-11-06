@@ -92,7 +92,8 @@ object NemotronDiarization {
                     }
                 } finally { inputs.values.forEach { it.close() } }
             }
-            val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled)
+            val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled,
+                NemotronPostprocess.PRODUCT)
             val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
             return DiarizationOutput(turns, (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000,
                 DiarizationTimeline.speechWindows(raw, audio.durationMs))

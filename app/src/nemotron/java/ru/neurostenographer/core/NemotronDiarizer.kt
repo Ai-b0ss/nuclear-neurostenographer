@@ -278,10 +278,107 @@ class NemotronSpeakerCache(private val silence: FloatArray) {
     }
 }
 
+/**
+ * Turns from per-frame C2 speaker probabilities, after the hysteresis/padding/duration post-processing of
+ * docs/C2_POSTPROCESS_2026-11-06.md (team notebook, section 9). Thresholds are probabilities; seconds are seconds.
+ * [RAW] reproduces the original decision: a frame is speech when p > 0.5, no smoothing (identical turns at the
+ * millisecond resolution DiarizationTimeline.canonicalize keeps).
+ */
+data class NemotronPostprocess(
+    val onset: Float = 0.5f,
+    val offset: Float = 0.5f,
+    /** Lower onset for a second voice while another speaker is already confidently active. */
+    val overlapOnset: Float = onset,
+    val padOnSeconds: Float = 0f,
+    val padOffSeconds: Float = 0f,
+    val minOnSeconds: Float = 0f,
+    val minOffSeconds: Float = 0f,
+) {
+    init {
+        require(listOf(onset, offset, overlapOnset).all { it > 0f && it < 1f }) { "Thresholds must be in (0, 1)" }
+        require(listOf(padOnSeconds, padOffSeconds, minOnSeconds, minOffSeconds).all { it >= 0f }) { "Negative duration" }
+    }
+
+    companion object {
+        val RAW = NemotronPostprocess()
+
+        /** Tuned on 27 dev recordings, checked once on 35 speaker-disjoint test recordings
+         * (docs/evidence/c2-postprocess-20261106/result.json): test DER 8.59% -> 5.80% (collar 0). */
+        val PRODUCT = NemotronPostprocess(onset = 0.45f, offset = 0.3f, overlapOnset = 0.45f,
+            padOnSeconds = 0.05f, padOffSeconds = 0.02f, minOnSeconds = 0.24f, minOffSeconds = 0.4f)
+    }
+}
+
+/** Flattened [frames, SPEAKERS] logits at 10 ms per frame. */
+class NemotronFrameLogits(val logits: FloatArray, val frames: Int) {
+    val speakers get() = NemotronConfig.SPEAKERS
+}
+
 object NemotronDiarizer {
-    /** The offline chunk loop. Frames count as speech when the logit is positive, the same as probability > 0.5. */
+    const val FRAME_SECONDS = 0.01f
+
     fun diarize(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
-                checkCancelled: () -> Unit = {}): List<ClusterTurn> {
+                checkCancelled: () -> Unit = {}, postprocess: NemotronPostprocess = NemotronPostprocess.RAW): List<ClusterTurn> =
+        binarize(frameLogits(wave, filters, hann, silence, runner, checkCancelled), postprocess)
+
+    private fun logit(p: Float): Float = if (p == 0.5f) 0f else ln(p / (1f - p))
+
+    /** Same algorithm as tools/c2pp/postprocess.py `binarize`: thresholds in logit space, times in integer ms. */
+    fun binarize(frame: NemotronFrameLogits, pp: NemotronPostprocess = NemotronPostprocess.RAW): List<ClusterTurn> {
+        val frames = frame.frames
+        val speakers = frame.speakers
+        val l = frame.logits
+        val on = logit(pp.onset)
+        val overlapOn = logit(pp.overlapOnset)
+        val low = logit(minOf(pp.offset, pp.onset, pp.overlapOnset))
+        val confident = IntArray(frames)
+        for (t in 0 until frames) for (s in 0 until speakers) if (l[t * speakers + s] > on) confident[t]++
+        // Integer milliseconds, so the merge/min-duration comparisons cannot flip on float rounding.
+        fun ms(seconds: Float) = Math.round(seconds * 1000.0).toInt()
+        val frameMs = ms(FRAME_SECONDS)
+        val end = frames * frameMs
+        val padOn = ms(pp.padOnSeconds); val padOff = ms(pp.padOffSeconds)
+        val minOff = ms(pp.minOffSeconds); val minOn = max(ms(pp.minOnSeconds), 1)
+        val turns = mutableListOf<ClusterTurn>()
+        for (s in 0 until speakers) {
+            val merged = mutableListOf<IntArray>()
+            var runStart = -1
+            var runHasOnset = false
+            for (t in 0..frames) {
+                var isLow = false
+                var isHigh = false
+                if (t < frames) {
+                    val v = l[t * speakers + s]
+                    val main = v > on
+                    val others = confident[t] - if (main) 1 else 0
+                    isHigh = if (others > 0) v > overlapOn else main
+                    isLow = v > low || isHigh
+                }
+                if (isLow) {
+                    if (runStart < 0) runStart = t
+                    if (isHigh) runHasOnset = true
+                    continue
+                }
+                if (runStart >= 0) {
+                    if (runHasOnset) {
+                        val a = max(0, runStart * frameMs - padOn)
+                        val b = min(end, t * frameMs + padOff)
+                        val last = merged.lastOrNull()
+                        if (last != null && a - last[1] <= minOff) last[1] = max(last[1], b)
+                        else merged += intArrayOf(a, b)
+                    }
+                    runStart = -1
+                    runHasOnset = false
+                }
+            }
+            for (seg in merged) if (seg[1] - seg[0] >= minOn) turns += ClusterTurn(seg[0] / 1000f, seg[1] / 1000f, s)
+        }
+        return turns.sortedWith(compareBy<ClusterTurn> { it.startSeconds }.thenBy { it.cluster })
+    }
+
+    /** The offline chunk loop; returns raw logits for every 10 ms frame (positive logit = probability > 0.5). */
+    fun frameLogits(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
+                    checkCancelled: () -> Unit = {}): NemotronFrameLogits {
         val mel = NemotronMel(wave, filters, hann)
         val factor = NemotronConfig.SUBSAMPLING
         val melFrames = mel.frames
@@ -289,8 +386,7 @@ object NemotronDiarizer {
         val valid = max(melFrames - 1, 0)
         val cache = NemotronSpeakerCache(silence)
         val speakers = NemotronConfig.SPEAKERS
-        val opened = IntArray(speakers) { -1 }
-        val turns = mutableListOf<ClusterTurn>()
+        val all = FloatArray(melFrames * speakers)
         var written = 0
         var start = 0
         while (start < embeddings) {
@@ -307,19 +403,11 @@ object NemotronDiarizer {
             val from = contextFrames * factor
             val until = min((contextFrames + chunkFrames) * factor, from + (melFrames - written))
             for (row in from until until) {
-                for (s in 0 until speakers) {
-                    val active = step.logits[row * speakers + s] > 0f
-                    if (active && opened[s] < 0) opened[s] = written
-                    if (!active && opened[s] >= 0) {
-                        turns += ClusterTurn(opened[s] * 0.01f, written * 0.01f, s)
-                        opened[s] = -1
-                    }
-                }
+                System.arraycopy(step.logits, row * speakers, all, written * speakers, speakers)
                 written++
             }
             start = end
         }
-        for (s in 0 until speakers) if (opened[s] >= 0) turns += ClusterTurn(opened[s] * 0.01f, written * 0.01f, s)
-        return turns.sortedWith(compareBy<ClusterTurn> { it.startSeconds }.thenBy { it.cluster })
+        return NemotronFrameLogits(if (written == melFrames) all else all.copyOf(written * speakers), written)
     }
 }
