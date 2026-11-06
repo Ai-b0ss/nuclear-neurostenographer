@@ -11,10 +11,13 @@ import java.util.Locale
  * A variant is lowercase words separated by spaces; a trailing `*` on the last word is a stem that also matches up to
  * [MAX_SUFFIX] more Cyrillic letters (Russian endings), which are kept after a hyphen: «свифте» → «Swift-е».
  * `ambiguous` terms also mean an ordinary Russian word («питон», «руби») and are never pre-selected.
+ * A canonical form ending in a Cyrillic letter takes the ending without a hyphen («хокотона» → «хакатона», «твеллы» → «ТВЭЛы»);
+ * a canonical ending in `*` is itself a stem: «диаризац*» + «ии» → «диаризации».
  */
 data class Term(val canonical: String, val variants: List<String>, val ambiguous: Boolean = false) {
     init {
         require(canonical.isNotBlank() && canonical.none { it == '\n' } && variants.isNotEmpty())
+        require(!canonical.dropLast(1).contains('*') && canonical.removeSuffix("*").isNotBlank())
         require(variants.all { v -> v.isNotBlank() && v == v.lowercase(Locale.ROOT) && !v.dropLast(1).contains('*') })
     }
 }
@@ -69,7 +72,11 @@ object TermDictionary {
                     } ?: continue
                     val start = words[i].range.first
                     val end = words[i + n - 1].range.last + 1
-                    val replacement = p.term.canonical + if (suffix.isEmpty()) "" else "-" + suffix.lowercase(Locale.ROOT)
+                    // A lowercase canonical keeps the capital the ASR gave it at a sentence start: «Хокотон» → «Хакатон».
+                    val base = p.term.canonical.removeSuffix("*").let { c ->
+                        if (c.first().isLowerCase() && words[i].value.first().isUpperCase()) c.replaceFirstChar { it.uppercaseChar() } else c }
+                    val joiner = if (CYRILLIC.matches(norm(base.last().toString()))) "" else "-"
+                    val replacement = base + if (suffix.isEmpty()) "" else joiner + suffix.lowercase(Locale.ROOT)
                     if (text.substring(start, end) != replacement)
                         out += TermEdit(index, start, end, text.substring(start, end), replacement, p.term.ambiguous)
                     consumed = n

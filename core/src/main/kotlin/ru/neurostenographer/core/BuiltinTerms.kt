@@ -58,5 +58,16 @@ object BuiltinTerms {
         Term("machine learning", listOf("машин лернинг*")),
         Term("deep learning", listOf("дип лернинг*")),
         Term("open source", listOf("опен сорс*", "оупен сорс*", "опенсорс*")),
+        // Hackathon theme (Nuclear IT Hack, НИЯУ МИФИ / Росатом). Variants are spellings A3 actually produced on a TTS probe
+        // (docs/TERM_DICTIONARY_B0_2026-11-05.md, «Тема хакатона»), none of them an ordinary Russian word. Terms A3 mangles
+        // beyond a safe rewrite (ВВЭР → «ВР», БН-800 → «БМ80», «Nuclear IT Hack» lost) are left out.
+        Term("НИЯУ МИФИ", listOf("не яу мефи", "не яу мифи", "нияу мефи", "ния у мифи", "ния у мефи")),
+        Term("МИФИ", listOf("мефи")),
+        Term("МАГАТЭ", listOf("магаты", "магате", "магатэ")),
+        Term("ТВЭЛ*", listOf("твел*", "твелл*")),
+        Term("КИУМ", listOf("киум")),
+        Term("хакатон*", listOf("хокотон*", "хокатон*", "хакотон*")),
+        Term("диаризац*", listOf("деарезац*", "диарезац*", "деаризац*", "диоризац*")),
+        Term("Hex.Team", listOf("хека стим", "хекс тим*", "хекстим*")),
     )
 }
