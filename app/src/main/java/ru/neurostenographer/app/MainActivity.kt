@@ -344,9 +344,9 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
     val counts = segments.groupingBy { it.speakerId }.eachCount()
     val needle = query.trim()
     val shown = segments.withIndex().filter { (_, it) -> needle.isEmpty() ||
-        it.text.contains(needle, ignoreCase = true) || speakerName(it.speakerId, names).contains(needle, ignoreCase = true)
+        it.text.contains(needle, ignoreCase = true) || TranscriptExport.segmentSpeaker(it, names).contains(needle, ignoreCase = true)
     }
-    val hits = if (needle.isEmpty()) 0 else shown.sumOf { (_, it) -> occurrences(it.text, needle) + occurrences(speakerName(it.speakerId, names), needle) }
+    val hits = if (needle.isEmpty()) 0 else shown.sumOf { (_, it) -> occurrences(it.text, needle) + occurrences(TranscriptExport.segmentSpeaker(it, names), needle) }
     Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
         TopAppBar(title = { Text(item.title, maxLines = 1, overflow = TextOverflow.Ellipsis) },
             navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } },
@@ -481,7 +481,7 @@ internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needl
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val id = segment.speakerId
-                Text(highlighted(speakerName(id, names), needle, Color(0xFFFFD54F).copy(alpha = 0.55f)), color = color, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold,
+                Text(highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, Color(0xFFFFD54F).copy(alpha = 0.55f)), color = color, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold,
                     modifier = if (id != null) Modifier.clip(RoundedCornerShape(4.dp)).clickable { onSpeaker(id) } else Modifier)
                 Spacer(Modifier.width(8.dp))
                 Text("${clock(segment.startMs)}–${clock(segment.endMs)}", style = MaterialTheme.typography.labelSmall,
