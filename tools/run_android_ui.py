@@ -254,7 +254,12 @@ def wait_for_transcript(ui, what, timeout=120):
     """Recognition opens the transcript screen; its export row holds the JSON button."""
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        root, button = ui.find(label="JSON", exact=True, timeout=0)
+        try:
+            root, button = ui.find(label="JSON", exact=True, timeout=0)
+        except ValueError:
+            # uiautomator cannot dump while the progress bar keeps the UI from going idle; retry.
+            time.sleep(1)
+            continue
         if button is not None:
             return
         ui.scroll(root, True)
