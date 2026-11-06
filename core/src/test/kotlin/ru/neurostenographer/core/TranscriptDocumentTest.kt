@@ -14,6 +14,21 @@ fun testTranscriptDocument() {
         check(json.contains("\"audio_duration_ms\": 3601000"))
         check(json.contains("ошибка\\tJNI") && json.contains("\\\"мир\\\"\\nда"))
         check(json.contains("\"speaker_id\": null") && json.contains("\"overlapping_speech\": true"))
+        // The public judge JSON must have exactly the slide's fields, with raw ASR text.
+        val judge = document.export("json-contest", names)
+        check(judge.contains("\"transcript\": [") && !judge.contains("\"segments\"") &&
+            !judge.contains("\"provenance\"") && !judge.contains("\"speaker_name\"") &&
+            !judge.contains("\"text_edited\""))
+        check(judge.contains("\"speaker_id\": \"speaker_1\", \"start_ms\": 123, \"end_ms\": 456"))
+        check(judge.contains("\"speaker_id\": \"unknown\", \"start_ms\": 3600001, \"end_ms\": 3600999"))
+        check(judge.contains("\"text\": \"Привет \\\"мир\\\"\\nда\""))
+        val judgeTwoSpeakers = TranscriptExport.contestJson(listOf(
+            TranscriptSegment(0, 100, "speaker-original-B", "раз"),
+            TranscriptSegment(100, 200, "speaker-original-A", "два"),
+            TranscriptSegment(200, 300, "speaker-original-B", "три")))
+        check(Regex("\"speaker_id\": \"speaker_1\"").findAll(judgeTwoSpeakers).count() == 2)
+        check(Regex("\"speaker_id\": \"speaker_2\"").findAll(judgeTwoSpeakers).count() == 1)
+        check(TranscriptExport.contestJson(emptyList()).contains("\"transcript\": ["))
         check(document.export("txt").contains("[00:00:00.123–00:00:00.456]"))
         val txt = document.export("txt")
         check(txt.startsWith("Стенограмма · 1:00:01 · говорящих: 1\n") && !txt.contains("failed_worker_unknown_speakers"))
@@ -56,6 +71,8 @@ private fun writeExportSamples() {
     check(json.contains("\"text\": \"Тогда первый вопрос про котлин и свифте.\", \"text_edited\": \"Тогда первый вопрос про Kotlin и Swift-е.\"") &&
         json.split("text_edited").size == 2)
     check(document.export("txt", names, edits).contains("Иван: Тогда первый вопрос про Kotlin и Swift-е."))
+    java.io.File("build/export-samples/contest").apply { mkdirs() }
+    java.io.File("build/export-samples/contest/dialogue.json").writeText(document.export("json-contest", names, edits), Charsets.UTF_8)
     for ((name, n, e) in listOf(Triple("plain", emptyMap(), emptyList()), Triple("named", names, emptyList()), Triple("edited", names, edits))) {
         val dir = java.io.File("build/export-samples/$name").apply { mkdirs() }
         for (format in listOf("json", "srt", "txt")) java.io.File(dir, "dialogue.$format").writeText(document.export(format, n, e), Charsets.UTF_8)
