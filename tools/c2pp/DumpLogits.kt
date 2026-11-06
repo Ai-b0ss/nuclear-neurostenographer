@@ -94,6 +94,14 @@ fun main(args: Array<String>) {
                     check(live == offline) { "Live finalization differs from file import on $name" }
                     extra += " live=EQUAL(${live.size} turns, $reads block reads)"
                 }
+                if (!saved && "product" in passes) {
+                    // Exactly what the app uses: PRODUCT post-processing + guarded warm second pass.
+                    val audio = wav.inputStream().use { PcmWav.read(it) }
+                    val product = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, {},
+                        NemotronPostprocess.PRODUCT, warmSecondPass = true)
+                    File(out, "$name.product.tsv").writeText(tsv(product))
+                    extra += " product_speakers=${product.map { it.cluster }.toSet().size}"
+                }
                 if (!saved && "rev" in passes) {
                     val audio = wav.inputStream().use { PcmWav.read(it) }
                     val t1 = System.nanoTime()

@@ -333,9 +333,22 @@ object NemotronDiarizer {
 
     fun diarize(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
                 checkCancelled: () -> Unit = {}, postprocess: NemotronPostprocess = NemotronPostprocess.RAW,
-                warmSecondPass: Boolean = false): List<ClusterTurn> =
-        binarize(if (warmSecondPass) warmFrameLogits(wave, filters, hann, silence, runner, checkCancelled)
-                 else frameLogits(wave, filters, hann, silence, runner, checkCancelled), postprocess)
+                warmSecondPass: Boolean = false): List<ClusterTurn> {
+        val mel = { NemotronMel(wave, filters, hann) }
+        return if (warmSecondPass) warmGuarded(mel, silence, runner, checkCancelled, postprocess)
+               else binarize(frameLogits(wave, filters, hann, silence, runner, checkCancelled), postprocess)
+    }
+
+    private fun speakerCount(turns: List<ClusterTurn>) = turns.mapTo(HashSet()) { it.cluster }.size
+
+    /**
+     * Warm second-pass turns, unless they have fewer speakers than the first pass. On short dialogues the warm
+     * cache can absorb a second voice into the first slot (aba.wav, 13 s: A-B-A became A-A-A); falling back keeps
+     * the first pass there. Host corpus (docs/C2_POSTPROCESS_2026-11-06.md): dev unchanged, test DER 4.96 -> 5.01 %
+     * (one fallback, rec_0517, where warm had lost a speaker), speaker count 91 -> 94 %.
+     */
+    fun chooseWarm(single: List<ClusterTurn>, warm: List<ClusterTurn>): List<ClusterTurn> =
+        if (speakerCount(warm) >= speakerCount(single)) warm else single
 
     private fun logit(p: Float): Float = if (p == 0.5f) 0f else ln(p / (1f - p))
 
@@ -410,8 +423,16 @@ object NemotronDiarizer {
                        runner: NemotronChunkRunner, checkCancelled: () -> Unit = {},
                        postprocess: NemotronPostprocess = NemotronPostprocess.RAW, warmSecondPass: Boolean = false): List<ClusterTurn> {
         val mel = { NemotronMel(FloatArray(0), filters, hann, sampleCount, true, sampleAt) }
-        return binarize(if (warmSecondPass) warm(mel, silence, runner, checkCancelled)
-                        else frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence)).first, postprocess)
+        return if (warmSecondPass) warmGuarded(mel, silence, runner, checkCancelled, postprocess)
+               else binarize(frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence)).first, postprocess)
+    }
+
+    private fun warmGuarded(mel: () -> NemotronMel, silence: FloatArray, runner: NemotronChunkRunner,
+                            checkCancelled: () -> Unit, postprocess: NemotronPostprocess): List<ClusterTurn> {
+        val first = frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence))
+        val single = binarize(first.first, postprocess)
+        val warm = binarize(frameLogitsWithCache(mel, runner, checkCancelled, first.second.warmCopy()).first, postprocess)
+        return chooseWarm(single, warm)
     }
 
     private fun warm(mel: () -> NemotronMel, silence: FloatArray, runner: NemotronChunkRunner,
