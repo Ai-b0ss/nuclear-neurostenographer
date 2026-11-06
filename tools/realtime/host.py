@@ -1,5 +1,6 @@
 """Reuse pinned existing JVM/ORT inputs; all generated files stay in this worktree."""
 import hashlib
+import argparse
 import json
 import os
 from pathlib import Path
@@ -9,6 +10,13 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--out', type=Path, default=ROOT / 'docs/evidence/realtime-honor-20261105/host-native-c2')
+    parser.add_argument('--fixture', type=Path, default=Path('C:/Users/user/Documents/nuclear-neurostenographer/.local/synthetic-ru/syn3-clean.wav'))
+    parser.add_argument('--diagnostic', action='store_true')
+    args = parser.parse_args()
+    if args.out.exists():
+        raise SystemExit('Refusing to overwrite evidence: ' + str(args.out))
     harness = Path('K:/nn-bench/harness')
     jdk = Path('K:/nn-c2-android/.local/toolchain/jdk/jdk-17.0.21+9')
     java = str(jdk / 'bin/java.exe')
@@ -31,15 +39,16 @@ def main():
     sources += [ROOT / 'tools/realtime/HostStreaming.kt']
     subprocess.run([java, '-cp', str(kotlin / '*'), 'org.jetbrains.kotlin.cli.jvm.K2JVMCompiler', '-no-stdlib', '-no-reflect',
                     '-jvm-target', '17', '-classpath', cp, '-d', str(target), *map(str, sources)], check=True)
-    out = ROOT / 'docs/evidence/realtime-honor-20261105/host-native-c2'
-    out.mkdir(exist_ok=True)
-    fixture = Path('C:/Users/user/Documents/nuclear-neurostenographer/.local/synthetic-ru/syn3-clean.wav')
+    out = args.out
+    out.mkdir(parents=True)
+    fixture = args.fixture
     (out / 'inputs.json').write_text(json.dumps({'scope': 'WINDOWS_NATIVE_C2_NOT_PHONE', 'model_pins': pins,
         'ort_jar_sha256': hashlib.sha256(ort.read_bytes()).hexdigest(), 'fixture_sha256': hashlib.sha256(fixture.read_bytes()).hexdigest(),
         'source_hashes': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}, indent=2), encoding='utf-8')
     tmp = ROOT / '.local/tmp/host-ort'; tmp.mkdir(exist_ok=True)
     subprocess.run([java, '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-cp', os.pathsep.join([str(target), cp]),
-                    'ru.neurostenographer.tools.HostStreamingKt', str(model), str(fixture), str(out)], check=True)
+                    'ru.neurostenographer.tools.HostStreamingKt', str(model), str(fixture), str(out),
+                    *(['diagnostic'] if args.diagnostic else [])], check=True)
 
 
 if __name__ == '__main__':

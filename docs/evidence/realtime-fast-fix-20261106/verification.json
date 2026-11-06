@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "checks": {
+    "repeat_exact_fast": true,
+    "repeat_exact_fallback": true,
+    "repeat_exact_incremental-offline": true,
+    "repeat_exact_original-offline": true,
+    "repeat_exact_short-right40": true,
+    "repeat_exact_long-right6": true,
+    "archived_exact_fast": true,
+    "archived_exact_fallback": true,
+    "archived_exact_incremental-offline": true,
+    "archived_exact_original-offline": true,
+    "foreign_task_unchanged": true,
+    "existing_apk_unchanged": true,
+    "overwrite_refused_before_inference": true
+  },
+  "quality_gate": "FAIL_NO_GO_FAST",
+  "production_sources_changed": false
+}

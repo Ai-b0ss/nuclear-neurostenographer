@@ -1,0 +1,144 @@
+{
+  "scope": "HOST_C2_ONLY_COARSE_TTS_NOT_HUMAN_GOLD",
+  "reference_sha256": "04145571792cfb71c19ee15302387f4e0e5444814a87f27a1d04997bd8def41c",
+  "results": {
+    "fallback": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.4092166796570538,
+        "miss_ms": 20010,
+        "false_alarm_ms": 361,
+        "confusion_ms": 630,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "1",
+          "1": "2",
+          "2": "3",
+          "3": "4"
+        }
+      },
+      "turns_sha256": "ede7b0a4a54ba0f2cec4c77f58f707fabe0c3b5e478be6c308d5aa308d611d98"
+    },
+    "fast": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.40958690568978956,
+        "miss_ms": 20020,
+        "false_alarm_ms": 380,
+        "confusion_ms": 620,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "1",
+          "1": "2",
+          "2": "3",
+          "3": "4"
+        }
+      },
+      "turns_sha256": "de0f5607b4e8c45dfc1b41382d37a436b716d1fff997fb227bdd18b4e7259ab2"
+    },
+    "incremental-offline": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.4074434918160561,
+        "miss_ms": 19990,
+        "false_alarm_ms": 280,
+        "confusion_ms": 640,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "1",
+          "1": "2",
+          "2": "3",
+          "3": "4"
+        }
+      },
+      "turns_sha256": "0e4e05ac96f7de930dd120724b972bd124d295d6e743a4dbd9d21ad816db1af0"
+    },
+    "long-right6": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.40943102104442713,
+        "miss_ms": 20012,
+        "false_alarm_ms": 370,
+        "confusion_ms": 630,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "1",
+          "1": "2",
+          "2": "3",
+          "3": "4"
+        }
+      },
+      "turns_sha256": "12589791da46e8a03aa749a52c19827f22bff7a913e4873986f55529b54db651"
+    },
+    "original-offline": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.4074434918160561,
+        "miss_ms": 19990,
+        "false_alarm_ms": 280,
+        "confusion_ms": 640,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "1",
+          "1": "2",
+          "2": "3",
+          "3": "4"
+        }
+      },
+      "turns_sha256": "c235cee83196f0053c1faeceb8c0a43fdbc731229b0e704921d7b4fc60b20160"
+    },
+    "short-right40": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.4092361652377241,
+        "miss_ms": 20021,
+        "false_alarm_ms": 371,
+        "confusion_ms": 610,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "1",
+          "1": "2",
+          "2": "3",
+          "3": "4"
+        }
+      },
+      "turns_sha256": "e2323e1ca6b25148a8ef4fbda3ea62f790c31d9704e2daa5971363421e1e9937"
+    }
+  }
+}
