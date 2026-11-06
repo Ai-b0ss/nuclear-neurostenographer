@@ -11,6 +11,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.*
+import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
 import ru.neurostenographer.core.*
@@ -30,9 +31,8 @@ class SolHighAcceptanceTest {
     private fun onMain(action: () -> Unit) = instrumentation.runOnMainSync(action)
 
     @Before fun isolatedPackageOnly() {
-        check(context.packageName == "ru.neurostenographer.app.solhigh") {
-            "Refusing to run acceptance against any other package"
-        }
+        // Skipped (not failed) in any other package, e.g. the generic emulator suite; never runs against it.
+        assumeTrue("Physical .solhigh acceptance only", context.packageName == "ru.neurostenographer.app.solhigh")
         check(BuildConfig.ASR_A3 && BuildConfig.NEMOTRON_PROTOTYPE)
     }
 
