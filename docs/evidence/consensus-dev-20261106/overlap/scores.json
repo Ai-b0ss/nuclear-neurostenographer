@@ -1,0 +1,93 @@
+{
+  "preview": {
+    "speakers": 2,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.36492890995260663,
+      "miss_ms": 3080,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 8440,
+      "scored_wall_ms": 4470,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2"
+      }
+    }
+  },
+  "final": {
+    "speakers": 2,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.36611374407582936,
+      "miss_ms": 3090,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 8440,
+      "scored_wall_ms": 4470,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2"
+      }
+    }
+  },
+  "preview-first": {
+    "speakers": 2,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.36492890995260663,
+      "miss_ms": 3080,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 8440,
+      "scored_wall_ms": 4470,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2"
+      }
+    }
+  },
+  "final-first": {
+    "speakers": 2,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.36611374407582936,
+      "miss_ms": 3090,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 8440,
+      "scored_wall_ms": 4470,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2"
+      }
+    }
+  },
+  "union": {
+    "speakers": 2,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.36492890995260663,
+      "miss_ms": 3080,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 8440,
+      "scored_wall_ms": 4470,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2"
+      }
+    }
+  },
+  "reference_speakers": 2
+}

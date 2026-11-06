@@ -81,6 +81,19 @@ fun main(args: Array<String>) {
                     check(warm.frames == frame.frames)
                     save("warm", warm); extra += " warm_ms=${(System.nanoTime() - t1) / 1_000_000}"
                 }
+                if (!saved && "live" in passes) {
+                    // Live-mode finalization reads the journal in blocks; it must equal the file-import path.
+                    val audio = wav.inputStream().use { PcmWav.read(it) }
+                    val offline = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, {},
+                        NemotronPostprocess.PRODUCT, warmSecondPass = true)
+                    var reads = 0
+                    val blocks = ru.neurostenographer.app.JournalBlocks(audio.samples.size.toLong(), { start, count ->
+                        reads++; audio.samples.copyOfRange(start.toInt(), start.toInt() + count) })
+                    val live = NemotronDiarizer.diarizeSamples(audio.samples.size, blocks::at, filters, hann, silence, runner, {},
+                        NemotronPostprocess.PRODUCT, warmSecondPass = true)
+                    check(live == offline) { "Live finalization differs from file import on $name" }
+                    extra += " live=EQUAL(${live.size} turns, $reads block reads)"
+                }
                 if (!saved && "rev" in passes) {
                     val audio = wav.inputStream().use { PcmWav.read(it) }
                     val t1 = System.nanoTime()

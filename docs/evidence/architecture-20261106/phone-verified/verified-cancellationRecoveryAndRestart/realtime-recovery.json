@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "scope": "AUTHORED_TORN_HEADER_RECOVERY_AND_CANCEL_BEFORE_INFERENCE",
+  "samples_recovered": 3072,
+  "restart_microphone_test": "separate microphoneCaptureOnlyAndRestart"
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+  "clip": "rec_0300",
+  "pause": "500",
+  "fallback": false,
+  "consensus_experimental": true,
+  "chunk72_after_three_experimental": true,
+  "paced": true,
+  "wall_s": 84.293,
+  "utc": "2026-11-06T07:57:21.304004+00:00",
+  "adb_exit": 0,
+  "screen_switched_off": false,
+  "screen_restored": false
+}

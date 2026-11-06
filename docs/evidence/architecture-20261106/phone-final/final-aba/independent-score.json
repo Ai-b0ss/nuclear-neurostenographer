@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 1,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 1,
+    "reference_words": 17,
+    "rate": 0.058823529411764705,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "SCORED",
+    "errors": 1,
+    "reference_words": 17,
+    "rate": 0.058823529411764705,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 1,
+    "mapping": [
+      {
+        "reference": "1",
+        "hypothesis": "Speaker 1"
+      },
+      {
+        "reference": "2",
+        "hypothesis": "Speaker 2"
+      }
+    ]
+  },
+  "der": {
+    "status": "SCORED",
+    "rate": 0.3796984924623116,
+    "miss_ms": 3778,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "reference_speaker_ms": 9950,
+    "scored_wall_ms": 10200,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "Speaker 1": "1",
+      "Speaker 2": "2"
+    }
+  },
+  "reference": {
+    "recording_id": "aba",
+    "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 25 (audio rewritten as 16-bit PCM WAV)",
+    "license": "MIT (dataset card)",
+    "kind": "DERIVED_SYNTHETIC_TTS_DEVELOPMENT_PROBE",
+    "audio_sha256": "300e7ef28c6caf93395af9be07fd3df0a850cbe6797c8416bd57489aaec143a7"
+  },
+  "scope": "SYNTHETIC_TTS_NOT_NATURAL_HUMAN_ANNOTATIONS",
+  "export_sha256": "99b83c136bd23cbaf70a8b01cfa0803c20246194808bb34c41edcb548925603e"
+}

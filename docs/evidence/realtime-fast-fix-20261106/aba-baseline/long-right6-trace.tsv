@@ -1,0 +1,3 @@
+mel_frames	mel_length	context_frames	history_positive_rows_per_slot	new_positive_rows_per_slot
+1008	1008	0	0,0,0,0,0,0,0,0	291,124,0,0,0,0,0,0
+336	335	120	245,85,0,0,0,0,0,0	239,0,0,0,0,0,0,0

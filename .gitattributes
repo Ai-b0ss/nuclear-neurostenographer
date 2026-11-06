@@ -7,3 +7,10 @@ docs/licenses/dialogs-OpenRAIL.md -text
 docs/licenses/asio-* -text
 docs/evidence/round11-recovery10-* -text whitespace=cr-at-eol
 docs/evidence/late11-*.json -text
+
+# Realtime evidence hashes describe the actual device/host bytes, including line endings.
+# Raw Gradle logs may contain trailing spaces; preserve them instead of editing evidence.
+docs/evidence/realtime-honor-20261105/** -text whitespace=-blank-at-eol
+# Revision manifests contain SHA-256 values over exact on-device UTF-8 bytes.
+docs/evidence/snapshot-phone-20261106/** -text whitespace=-blank-at-eol
+app/src/realtime/assets/silero-LICENSE.txt -text

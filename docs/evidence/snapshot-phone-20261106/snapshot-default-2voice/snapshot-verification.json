@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "PHYSICAL_ANDROID_ATOMIC_TRIPLE_EXPORT_VERIFIED",
+  "source": "test-rec_0150-2bec2421-c943-4910-ac61-5da1df9eae7e",
+  "revision": 33,
+  "state": "FINAL",
+  "audio_ms": 60000,
+  "manifest_sha256": "91aaf06e29bc296a982330b500013c2ad695a51f7c14836d9b03570dac7ff531",
+  "consistency": "THREE_FORMATS_AND_LEGACY_HASH_IDENTICAL"
+}

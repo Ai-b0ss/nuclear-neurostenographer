@@ -1,0 +1,197 @@
+{
+  "source_audio_sha256": "1a248421ee4725e56bbc3c5e49d37f5f346fcf97a249b0809be3b0cfe15273b8",
+  "reference_sha256": "3a064a5c430415ca714c37220495f25dc630ab2f56ba886bc77bd842e95032ee",
+  "hypothesis_sha256": "fe9f680cf5b2371772824075a0dc6577b19d3cb92adfd90da1547912eb711c3a",
+  "scope": "COARSE_TTS_REFERENCE_PCM_ENERGY_ONLY_NOT_SPEECH_GOLD",
+  "collar_radius_ms": 250,
+  "threshold_dbfs": {
+    "quiet": -45.0,
+    "energetic": -35.0
+  },
+  "score": {
+    "status": "SCORED",
+    "rate": 0.06703312392918333,
+    "miss_ms": 2817,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "reference_speaker_ms": 42024,
+    "scored_wall_ms": 45173,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "0": "speaker_1",
+      "1": "speaker_2"
+    }
+  },
+  "totals": {
+    "reference_ms": 42024,
+    "missed_ms": 2817,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "scored_ms": 45173,
+    "excluded_ms": 13597,
+    "missed_quiet45_ms": 1597,
+    "missed_quiet35_ms": 2817,
+    "missed_loud35_ms": 0
+  },
+  "per_reference": [
+    {
+      "reference_index": 0,
+      "speaker": "speaker_1",
+      "start_ms": 224,
+      "end_ms": 3936,
+      "scored_ms": 3212,
+      "missed_ms": 289,
+      "missed_pcm_quiet45_ms": 50
+    },
+    {
+      "reference_index": 1,
+      "speaker": "speaker_2",
+      "start_ms": 5374,
+      "end_ms": 9918,
+      "scored_ms": 4044,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 2,
+      "speaker": "speaker_1",
+      "start_ms": 10241,
+      "end_ms": 12897,
+      "scored_ms": 2156,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 3,
+      "speaker": "speaker_2",
+      "start_ms": 14321,
+      "end_ms": 18897,
+      "scored_ms": 4076,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 4,
+      "speaker": "speaker_1",
+      "start_ms": 19092,
+      "end_ms": 21046,
+      "scored_ms": 1276,
+      "missed_ms": 188,
+      "missed_pcm_quiet45_ms": 178
+    },
+    {
+      "reference_index": 5,
+      "speaker": "speaker_2",
+      "start_ms": 20868,
+      "end_ms": 24676,
+      "scored_ms": 3130,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 6,
+      "speaker": "speaker_1",
+      "start_ms": 24744,
+      "end_ms": 28168,
+      "scored_ms": 2924,
+      "missed_ms": 340,
+      "missed_pcm_quiet45_ms": 129
+    },
+    {
+      "reference_index": 7,
+      "speaker": "speaker_2",
+      "start_ms": 28419,
+      "end_ms": 30435,
+      "scored_ms": 1516,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 8,
+      "speaker": "speaker_1",
+      "start_ms": 31541,
+      "end_ms": 36085,
+      "scored_ms": 4044,
+      "missed_ms": 990,
+      "missed_pcm_quiet45_ms": 520
+    },
+    {
+      "reference_index": 9,
+      "speaker": "speaker_2",
+      "start_ms": 36756,
+      "end_ms": 39956,
+      "scored_ms": 2700,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 10,
+      "speaker": "speaker_1",
+      "start_ms": 40118,
+      "end_ms": 43400,
+      "scored_ms": 2782,
+      "missed_ms": 620,
+      "missed_pcm_quiet45_ms": 330
+    },
+    {
+      "reference_index": 11,
+      "speaker": "speaker_2",
+      "start_ms": 43448,
+      "end_ms": 44376,
+      "scored_ms": 428,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 12,
+      "speaker": "speaker_1",
+      "start_ms": 45682,
+      "end_ms": 47794,
+      "scored_ms": 1494,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 13,
+      "speaker": "speaker_2",
+      "start_ms": 47676,
+      "end_ms": 49884,
+      "scored_ms": 1090,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 14,
+      "speaker": "speaker_1",
+      "start_ms": 48668,
+      "end_ms": 51548,
+      "scored_ms": 1880,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 15,
+      "speaker": "speaker_2",
+      "start_ms": 51578,
+      "end_ms": 52346,
+      "scored_ms": 268,
+      "missed_ms": 0,
+      "missed_pcm_quiet45_ms": 0
+    },
+    {
+      "reference_index": 16,
+      "speaker": "speaker_1",
+      "start_ms": 53266,
+      "end_ms": 58770,
+      "scored_ms": 5004,
+      "missed_ms": 390,
+      "missed_pcm_quiet45_ms": 390
+    }
+  ],
+  "caveats": [
+    "PCM energy alone does not prove human speech, silence or voice identity.",
+    "Reference labels are coarse TTS clip intervals; high reference misses may be annotation artifacts.",
+    "Predicted turns reflect saved raw C2 output; ASR/VAD evidence is not inferred from them."
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "elapsed_s": 0.441,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4358\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "",
+    "cpu": ""
+  },
+  {
+    "elapsed_s": 5.924,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4358\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              831688 kB\r\nPss:              758329 kB\r\nShared_Clean:      72916 kB\r\nShared_Dirty:      11268 kB\r\nPrivate_Clean:     19784 kB\r\nPrivate_Dirty:    727720 kB\r\nReferenced:       831624 kB\r\nAnonymous:        738388 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:              13280 kB\r\nSwapPss:             265 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:00:05 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 11.493,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4358\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              984332 kB\r\nPss:              912895 kB\r\nShared_Clean:      73128 kB\r\nShared_Dirty:       8356 kB\r\nPrivate_Clean:     20012 kB\r\nPrivate_Dirty:    882836 kB\r\nReferenced:       884388 kB\r\nAnonymous:        890736 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:              16796 kB\r\nSwapPss:             333 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:00:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 17.141,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              983556 kB\r\nPss:              911752 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8848 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    881232 kB\r\nReferenced:       900588 kB\r\nAnonymous:        889512 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:              15608 kB\r\nSwapPss:             308 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:00:29 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 22.681,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              955532 kB\r\nPss:              883757 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8788 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    853268 kB\r\nReferenced:       820728 kB\r\nAnonymous:        861488 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:              45612 kB\r\nSwapPss:           30226 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:00:34 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 28.219,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              851572 kB\r\nPss:              779831 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8696 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    749400 kB\r\nReferenced:       433704 kB\r\nAnonymous:        757528 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             158232 kB\r\nSwapPss:          142619 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:00:39 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 33.809,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              904952 kB\r\nPss:              833208 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8704 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    802772 kB\r\nReferenced:       765716 kB\r\nAnonymous:        810908 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             129332 kB\r\nSwapPss:          113727 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:01:00 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 39.346,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              902024 kB\r\nPss:              830278 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8708 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    799840 kB\r\nReferenced:       762988 kB\r\nAnonymous:        807980 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             128912 kB\r\nSwapPss:          113311 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:01:11 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 44.875,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 4000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              915112 kB\r\nPss:              843357 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8720 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    812916 kB\r\nReferenced:       778664 kB\r\nAnonymous:        821068 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             128444 kB\r\nSwapPss:          112874 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:01:22 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 50.424,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 5000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              915356 kB\r\nPss:              843592 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8732 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    813148 kB\r\nReferenced:       779020 kB\r\nAnonymous:        821304 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             127920 kB\r\nSwapPss:          112362 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:01:44 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 55.992,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 5000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              916680 kB\r\nPss:              844864 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8836 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    814368 kB\r\nReferenced:       784084 kB\r\nAnonymous:        822512 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             127420 kB\r\nSwapPss:          111877 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:02:06 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 61.638,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 5000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              919940 kB\r\nPss:              848104 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8876 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    817588 kB\r\nReferenced:       787484 kB\r\nAnonymous:        825716 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             126812 kB\r\nSwapPss:          111269 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:02:25 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 67.203,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 5000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              931956 kB\r\nPss:              860092 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8924 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    829556 kB\r\nReferenced:       799620 kB\r\nAnonymous:        837688 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             126496 kB\r\nSwapPss:          110957 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:02:46 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 72.761,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 5000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4331\r\n  temperature: 400\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              962896 kB\r\nPss:              891012 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       8960 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    860460 kB\r\nReferenced:       830704 kB\r\nAnonymous:        868592 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             126460 kB\r\nSwapPss:          110921 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:03:05 ru.neurostenographer.app.realtime"
+  },
+  {
+    "elapsed_s": 78.293,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 6000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4328\r\n  temperature: 410\r\n  technology: Li-poly\r\n",
+    "meminfo": "12c00000-7fc9b88000 ---p 00000000 00:00 0                                [rollup]\r\nRss:              967816 kB\r\nPss:              895887 kB\r\nShared_Clean:      73280 kB\r\nShared_Dirty:       9004 kB\r\nPrivate_Clean:     20196 kB\r\nPrivate_Dirty:    865336 kB\r\nReferenced:       835624 kB\r\nAnonymous:        873492 kB\r\nLazyFree:              0 kB\r\nAnonHugePages:         0 kB\r\nShmemPmdMapped:        0 kB\r\nShared_Hugetlb:        0 kB\r\nPrivate_Hugetlb:       0 kB\r\nSwap:             126400 kB\r\nSwapPss:          110865 kB\r\nLocked:                0 kB\r\n",
+    "cpu": " 1020  vi 00:03:26 ru.neurostenographer.app.realtime"
+  }
+]

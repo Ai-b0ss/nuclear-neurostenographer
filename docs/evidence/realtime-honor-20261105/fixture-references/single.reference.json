@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "recording_id": "single",
+  "audio_sha256": "ffa83fe2a3047b103280d990ae72490160b785b0a7fbf54e243b2d37428edaa1",
+  "audio_duration_ms": 5470,
+  "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 25 (audio rewritten as 16-bit PCM WAV)",
+  "license": "MIT (dataset card)",
+  "kind": "DERIVED_SYNTHETIC_TTS_DEVELOPMENT_PROBE",
+  "text_segments": [
+    {
+      "start_ms": 0,
+      "end_ms": 5470,
+      "speaker_id": "1",
+      "text": "могу я послушать равные среди первых по радио в спальне"
+    }
+  ],
+  "diarization": [
+    {
+      "start_ms": 0,
+      "end_ms": 5470,
+      "speaker_id": "1"
+    }
+  ],
+  "meta": {
+    "num_speakers": 3,
+    "difficulty": "medium",
+    "has_overlaps": true,
+    "has_simultaneous": false,
+    "has_noise": false,
+    "noise_type": null,
+    "snr": null
+  },
+  "derivation": "source turn 5 unchanged PCM",
+  "source_audio_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9"
+}

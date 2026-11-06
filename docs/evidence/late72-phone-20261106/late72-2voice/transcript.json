@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 60000,
+  "warnings": ["Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/dual-pass-preview-first-final-fill-experimental/fast-chunk72-after3-experimental", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 664, "end_ms": 3544, "speaker_id": "Speaker 1", "text": "Собственно говоря, я абсолютно уверена в этом.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 3896, "end_ms": 11816, "speaker_id": "Speaker 2", "text": "Но зачем морем, когда массадовцы без проблем шаствуют через сухопутную границу? Петра позабавило бы это обстоятельство, если бы не расстроило", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 11816, "end_ms": 15896, "speaker_id": null, "text": "перспектива противоборства Джанки в будущем с её строптивой связной.", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 16152, "end_ms": 21152, "speaker_id": "Speaker 1", "text": "«Вовсе нет»,— ответила она.«Мне и самой хотелось, чтобы ты остался».", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 21752, "end_ms": 25472, "speaker_id": "Speaker 2", "text": "И люди из моей группы в Багдаде тоже склонялись к такому же мнению.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 25672, "end_ms": 27512, "speaker_id": "Speaker 1", "text": "Через какое-то время туман начал", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 27552, "end_ms": 31632, "speaker_id": null, "text": "рассеиваться сквозь его клочья он заметил чеку Джекина, глубоко", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 31632, "end_ms": 34384, "speaker_id": "Speaker 2", "text": "задумавшись. Знал я одного.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 35008, "end_ms": 35088, "speaker_id": null, "text": "—", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 35088, "end_ms": 36328, "speaker_id": "Speaker 2", "text": "Да и дочь его помню.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 36688, "end_ms": 42248, "speaker_id": "Speaker 1", "text": "Пай кивнул, и они постарались устроиться как можно теплее под сомнительным прикрытием доки.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 42368, "end_ms": 45128, "speaker_id": "Speaker 2", "text": "Хатима испуганно выглядывала из-за её плеча.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 45448, "end_ms": 49648, "speaker_id": "Speaker 1", "text": "Очистив лицо, Кизуар поднялась и вернулась обратно в спальню.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 49848, "end_ms": 52848, "speaker_id": "Speaker 2", "text": "Тебе так принципиально знать, кто тобой заинтересовался?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 53208, "end_ms": 59088, "speaker_id": "Speaker 1", "text": "Существовала твёрдая и какая твёрдая физиологическая причина его неподвижности.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 59328, "end_ms": 60000, "speaker_id": "Speaker 2", "text": "Девушка с кри", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

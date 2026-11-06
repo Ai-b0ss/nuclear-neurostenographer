@@ -1,0 +1,7 @@
+{
+  "sha256": "334356526116af957a570bba68f8108363a03dc874ef3216a32e429aa0e15a84",
+  "installed_sha256": "334356526116af957a570bba68f8108363a03dc874ef3216a32e429aa0e15a84",
+  "bytes": 524103,
+  "package": "ru.neurostenographer.app.realtime.test",
+  "badging": "package: name='ru.neurostenographer.app.realtime.test' versionCode='' versionName='' platformBuildVersionName='15' platformBuildVersionCode='35' compileSdkVersion='35' compileSdkVersionCodename='15'\nsdkVersion:'26'\ntargetSdkVersion:'35'\nuses-permission: name='android.permission.REORDER_TASKS'\napplication: label='' icon=''\napplication-debuggable\nuses-library:'android.test.runner'\nfeature-group: label=''\n  uses-feature: name='android.hardware.faketouch'\n  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'\nother-activities\nsupports-screens: 'small' 'normal' 'large' 'xlarge'\nsupports-any-density: 'true'\nlocales: '--_--'\ndensities: '160'\n"
+}

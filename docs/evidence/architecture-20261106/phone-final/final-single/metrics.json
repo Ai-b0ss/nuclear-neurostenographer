@@ -1,0 +1,122 @@
+{
+  "state": "COMPLETE",
+  "failure": null,
+  "invocation": "final-single",
+  "c2_state": "ACTIVE",
+  "scope": "PACED_DEVICE_STREAM",
+  "sdk": 29,
+  "samples": 87520,
+  "audio_ms": 5470,
+  "elapsed_ms": 10022,
+  "native_load_ms": 6850,
+  "asr_ms": 1237,
+  "c2_ms": 1378,
+  "vad_ms": 135,
+  "compute_rtf": 0.5027422303473492,
+  "finalization_ms": 546,
+  "finalization_state": "COMPLETE",
+  "revised_frames": 0,
+  "cpu_ms": 18126,
+  "sampled_pss_kb": 907767,
+  "battery_temperature_tenths_c": 390,
+  "battery_level": 100,
+  "thermal_status": 0,
+  "max_lag_ms": 5438,
+  "queue_peak": 1,
+  "fallback": false,
+  "silence_ms": 500,
+  "max_phrase_ms": 15000,
+  "disk_recovery_reads": 0,
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "recognizer_loads": 1,
+  "phrases": [
+    {
+      "start_sample": 17280,
+      "end_sample": 76928,
+      "ready_sample": 81920,
+      "decode_ms": 958,
+      "display_at_ms": 8541,
+      "latency_from_audio_end_ms": 3733,
+      "words": 9,
+      "untimed": false
+    },
+    {
+      "start_sample": 80256,
+      "end_sample": 87520,
+      "ready_sample": 87520,
+      "decode_ms": 279,
+      "display_at_ms": 8885,
+      "latency_from_audio_end_ms": 3415,
+      "words": 1,
+      "untimed": false
+    }
+  ],
+  "diarization_steps": [
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 3600,
+      "captured_prefix_samples": 65536,
+      "context_frames": 45,
+      "process_ms": 422,
+      "at_ms": 7492
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 5470,
+      "captured_prefix_samples": 87520,
+      "context_frames": 69,
+      "process_ms": 410,
+      "at_ms": 9345
+    }
+  ],
+  "capture_failure": null,
+  "loading_stages": [
+    {
+      "stage": "verify_install_a3",
+      "elapsed_ms": 120
+    },
+    {
+      "stage": "load_silero",
+      "elapsed_ms": 626
+    },
+    {
+      "stage": "load_a3",
+      "elapsed_ms": 719
+    },
+    {
+      "stage": "verify_install_c2",
+      "elapsed_ms": 4306
+    },
+    {
+      "stage": "load_c2",
+      "elapsed_ms": 4516
+    },
+    {
+      "stage": "ready",
+      "elapsed_ms": 6960
+    }
+  ],
+  "diarization_turns": [
+    {
+      "start_ms": 1160,
+      "end_ms": 4600,
+      "speaker_id": "Speaker 1"
+    },
+    {
+      "start_ms": 5040,
+      "end_ms": 5470,
+      "speaker_id": "Speaker 1"
+    }
+  ],
+  "test_status": "PASS",
+  "producer_elapsed_ms": 5470,
+  "max_feed_lateness_ms": 0,
+  "pacing_valid": true,
+  "clip": "single",
+  "fixture_sha256": "ffa83fe2a3047b103280d990ae72490160b785b0a7fbf54e243b2d37428edaa1",
+  "captured_wav_sha256": "ffa83fe2a3047b103280d990ae72490160b785b0a7fbf54e243b2d37428edaa1",
+  "pcm_exact": true,
+  "input_samples": 87520
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 3,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_words": 52,
+    "rate": 0.057692307692307696,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "SCORED",
+    "errors": 3,
+    "reference_words": 52,
+    "rate": 0.057692307692307696,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 3,
+    "mapping": [
+      {
+        "reference": "1",
+        "hypothesis": "Speaker 1"
+      },
+      {
+        "reference": "2",
+        "hypothesis": "Speaker 2"
+      },
+      {
+        "reference": "3",
+        "hypothesis": "Speaker 3"
+      }
+    ]
+  },
+  "der": {
+    "status": "SCORED",
+    "rate": 0.31947460957699864,
+    "miss_ms": 9037,
+    "false_alarm_ms": 0,
+    "confusion_ms": 230,
+    "reference_speaker_ms": 29007,
+    "scored_wall_ms": 29007,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "Speaker 1": "1",
+      "Speaker 2": "2",
+      "Speaker 3": "3"
+    }
+  },
+  "reference": {
+    "recording_id": "syn3-clean",
+    "annotation_source": "https://huggingface.co/datasets/ivkond/synthetic-speech-diarization-ru/tree/3fa8404cfde61d2e3a3369000ce771747821e844 train-00000-of-00030.parquet row 25 (audio rewritten as 16-bit PCM WAV)",
+    "license": "MIT (dataset card)",
+    "kind": "SYNTHETIC_TTS_DIALOGUE",
+    "audio_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9"
+  },
+  "scope": "SYNTHETIC_TTS_NOT_NATURAL_HUMAN_ANNOTATIONS",
+  "export_sha256": "19b3e5c208529e1d3ce0c2be992f4e35f56b673d290d75883d3adef94e1558cd"
+}

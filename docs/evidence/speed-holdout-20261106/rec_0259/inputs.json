@@ -1,0 +1,33 @@
+{
+  "scope": "WINDOWS_NATIVE_C2_NOT_PHONE",
+  "model_pins": {
+    "model.int8.ir9.onnx": "c465504c2f3a29242e1b3d894187ae5962be7320bed71a2ae203950285ee6025",
+    "mel_filters.bin": "bce5ec5f194a5913f6508cee5a85512e7bad2352db8fc28f5c6ff75af8b09137",
+    "hann400.bin": "c427e2029118cf789649e5a4d439b6115d0dd0cbf95dcd22f65e3c848add8c5b",
+    "silence_embeds.bin": "d4417b3c0eabdf7c47032fac2b5b5a7ee83d819a6ddda8fd8eaf74e2b5cc4ac7"
+  },
+  "ort_jar_sha256": "a4e57e18a04b6c1b5b0e2885af1d8557873d4ca04bfcebf79743966c4c8eb20f",
+  "fixture_sha256": "204167065eeb6025b9c62902b943521182debc723155940f84ecca078e4c697e",
+  "source_hashes": {
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AudioSnapshot.kt": "4e584c4c48ea05204c982f0d220e2ce196f594b06b4db722121e2e0d9c5bfddf",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BoundedWavRecorder.kt": "a0f941c9ac9c8363a11453fbec39bde80e15e8c5eb95dea1795354bd1ee15985",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BuiltinTerms.kt": "b8741f051ca8f8ccc7473dd2404c0e7c0d52a5a4fe429c1df3f013d5153405ed",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DecodeBudget.kt": "ef3eedf813eef50312d9057102a19a16ae7c8c20367eaa7b4e8bc90bd8f9a911",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DecodedPcmTimeline.kt": "9c3e6259cdc856bfb18265ac8a541c85b6d46444a9005a170acdae7d5a683334",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationReply.kt": "bc3a30566e48a09a4a4c3c9aa463b97f33fad961787e39668b2a1c69eac1b2e0",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationTimeline.kt": "481f9508f4ee11b9e80981cf3829e0a0e62c1c1e4fa3674dea3bda781c7017a8",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\Pcm16WavWriter.kt": "62c5b9cf6afaea3eb732593f89a5e30b7f15cc566392f7173b44d0a54fb7396f",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\PcmWav.kt": "62f09af971cd18d4b269a67ea98e03330e2f559cfb42bfc2249c347786f8d9ad",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\QuietCuts.kt": "2b3f618c3ec67ad4ecba3e616430a987ebf807ca1885728cec26c47b494e6868",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\RealtimeCore.kt": "c007dd22748c20d83bc20e015f409eb7fca38097fc4a4d6f7e7cbcfe622750b7",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\RealtimeTranscript.kt": "ad19d83584a37724e96f76f212b41f2578880e2fc1e7601697afb7c68e3de523",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\SpeakerConsensus.kt": "8e477e89f411792d3c71450eaa0d9fd82608c176affbaa4ae553b6925d8a227c",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\SpeakerIdentity.kt": "e7a04608d190e2cd7a100684d6910af0377601881a9669303cb6fe215588050c",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TermDictionary.kt": "3fd9368e1074f5c6e18ae9c358edaa4caee38772efa5e04840e3f9690fd9681d",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TranscriptCore.kt": "5ffde286e4a909d3d624d690f2284535005dc46fd494f86f51aafa53397aecab",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VerifiedModelBundle.kt": "6c92fcef645c9cb6fed703c9bc30f0901dc4aa0dbc830f6d7972693c051091e1",
+    "app\\src\\nemotron\\java\\ru\\neurostenographer\\core\\NemotronDiarizer.kt": "1025977aed1fd6b7886f8d8bbb1f44d64caeab0211da48fc6434c1a2e71ee451",
+    "app\\src\\nemotron\\java\\ru\\neurostenographer\\core\\NemotronStreaming.kt": "c6764260b994c3b3478d7ff4b4ea3d8498f57fb3f8dac8bbcf09dd0b58b08c19",
+    "tools\\realtime\\HostStreaming.kt": "0a5e6a72ecbb0c83164d4b963c1c2b81abdfde37a70c2a6c80ed957943728eb0"
+  }
+}

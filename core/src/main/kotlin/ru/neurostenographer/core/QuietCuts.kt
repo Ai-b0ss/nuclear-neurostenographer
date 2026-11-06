@@ -4,6 +4,12 @@ package ru.neurostenographer.core
  * land inside a word. Input and output windows cover the same audio.
  */
 object QuietCuts {
+    /** Causal forced phrase boundary; searches only the supplied captured samples. */
+    fun phraseCut(samples: FloatArray, sampleRate: Int = 16000): Int {
+        require(samples.size >= sampleRate * 3)
+        return (quietest(samples, sampleRate, (samples.size * 1000L / sampleRate) - SEARCH_MS,
+            samples.size * 1000L / sampleRate) * sampleRate / 1000).toInt().coerceIn(1, samples.size)
+    }
     private const val MAX_WINDOW_MS = 20_000L
     private const val SEARCH_MS = 2_000L
     private const val FRAME_MS = 30L

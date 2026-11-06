@@ -1,0 +1,9 @@
+    mKeyguardOccluded=false mKeyguardOccludedChanged=false mPendingKeyguardOccluded=false
+    KeyguardServiceDelegate
+      showing=false
+      showingAndNotOccluded=true
+      secure=true
+      deviceHasKeyguard=true
+      KeyguardStateMonitor
+        mIsShowing=false
+        mSimSecure=false

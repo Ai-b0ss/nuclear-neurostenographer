@@ -60,6 +60,28 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent { StenoTheme { ApplicationScreen() } }
+        selectRealtimeFallback(intent)
+    }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        selectRealtimeFallback(intent)
+    }
+    override fun onResume() {
+        super.onResume()
+        if (BuildConfig.REALTIME) model.refreshHistory()
+    }
+    private fun selectRealtimeFallback(intent: Intent?) {
+        if (!BuildConfig.REALTIME || intent?.action != "ru.neurostenographer.REALTIME_BATCH") return
+        val uri = intent.data ?: return
+        if (uri.scheme != "file") return
+        val file = java.io.File(uri.path ?: return).canonicalFile
+        val root = java.io.File(filesDir, "realtime").canonicalFile
+        // Explicit own-file action only; exported activity cannot select another app's files.
+        if (file.name == "capture.wav" && file.parentFile?.parentFile == root &&
+            (java.io.File(file.parentFile, "capture-finalized.txt").isFile || java.io.File(file.parentFile, "recovered.txt").isFile)) {
+            model.select(android.net.Uri.fromFile(file))
+        }
     }
     override fun onStop() {
         // With the foreground service the recording survives; without it the system
@@ -134,7 +156,10 @@ class MainActivity : ComponentActivity() {
                     notice = "Выберите аудиофайл в системном окне."
                     importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream"))
                 },
-                onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open)
+                onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open,
+                onRealtime = if (BuildConfig.REALTIME) ({
+                    startActivity(Intent().setClassName(this@MainActivity, "ru.neurostenographer.app.RealtimeActivity"))
+                }) else null)
         }
     }
 }
@@ -154,7 +179,7 @@ private val DarkColors = darkColorScheme(
 )
 
 @Composable
-private fun StenoTheme(content: @Composable () -> Unit) =
+internal fun StenoTheme(content: @Composable () -> Unit) =
     MaterialTheme(colorScheme = if (isSystemInDarkTheme()) DarkColors else LightColors, content = content)
 
 private val SpeakerColors = listOf(Color(0xFF3F51D9), Color(0xFFE0631C), Color(0xFF0E9F6E), Color(0xFFB0329E),
@@ -164,7 +189,7 @@ private fun speakerIndex(id: String?) = id?.substringAfterLast(' ')?.toIntOrNull
 private fun speakerColor(id: String?) = speakerIndex(id)?.let { SpeakerColors[(it - 1).mod(SpeakerColors.size)] } ?: Color(0xFF8A8D9C)
 private fun speakerName(id: String?, names: Map<String, String> = emptyMap()) = TranscriptExport.displaySpeaker(id, names)
 
-private fun clock(ms: Long): String {
+internal fun clock(ms: Long): String {
     val s = ms / 1000
     return if (s >= 3600) "%d:%02d:%02d".format(s / 3600, s / 60 % 60, s % 60) else "%02d:%02d".format(s / 60, s % 60)
 }
@@ -174,7 +199,8 @@ private fun date(ms: Long) = SimpleDateFormat("d MMMM, HH:mm", Locale("ru")).for
 
 @Composable
 private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
-                       onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit) {
+                       onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit,
+                       onRealtime: (() -> Unit)? = null) {
     val elapsed by produceState(0L, recording) {
         if (!recording) value = 0L else {
             val started = SystemClock.elapsedRealtime()
@@ -234,6 +260,10 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
                 }
             } else if (state.message.isNotBlank()) item {
                 Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
+            }
+            if (onRealtime != null) item {
+                OutlinedButton(onClick = onRealtime, enabled = !state.busy && !recording && state.modelReady,
+                    modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Живая расшифровка · текст во время записи") }
             }
             if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error) }
             if (state.source != null && !recording && !state.busy) item {
@@ -442,7 +472,7 @@ private fun highlighted(text: String, needle: String, mark: Color): AnnotatedStr
 }
 
 @Composable
-private fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
+internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
                   onSpeaker: (String) -> Unit) {
     val color = speakerColor(segment.speakerId)
     Row(Modifier.fillMaxWidth()) {

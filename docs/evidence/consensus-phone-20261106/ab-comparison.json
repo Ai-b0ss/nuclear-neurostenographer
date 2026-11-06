@@ -1,0 +1,79 @@
+{
+  "scope": "PHYSICAL_HONOR_ARM64_PACED_RTTM_SYNTHETIC_AUDIOBOOK",
+  "words_reference": "NOT_SCORED_NO_WORD_GOLD",
+  "case_results": [
+    {
+      "clip": "rec_0150",
+      "baseline_run": "rttm-2voice",
+      "candidate_run": "consensus-2voice",
+      "audio_sha256": "f611751fc23d34131d53816be074acb067bf1659c80b55e553c66756601e4f29",
+      "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+      "token_count": 132,
+      "normalized_token_sha256": "d57d40378770a53395387596d96e504bd16dd27d50492fb8b3ba0ef5b217d21a",
+      "words_preserved": true,
+      "exports_consistent": true,
+      "speaker_count": 2,
+      "before_der": 0.051701225173399354,
+      "after_der": 0.05002639675228924,
+      "relative_der_improvement": 0.03239436619718301,
+      "baseline_compute_rtf": 1.0298,
+      "experimental_compute_rtf": 1.02915,
+      "experimental_finalization_ms": 9946,
+      "experimental_disagreement_ms": 330,
+      "experimental_offline_fill_ms": 200
+    },
+    {
+      "clip": "rec_0300",
+      "baseline_run": "rttm-3voice-r2",
+      "candidate_run": "consensus-3voice",
+      "audio_sha256": "094fd25e55ea16929a42571a879c9665b5b812b52fda9e4b5a8e1678583a1a09",
+      "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+      "token_count": 145,
+      "normalized_token_sha256": "605c4bcf0b1467fcac66414ab763004385b7323f56327e4e8eb01649881e990e",
+      "words_preserved": true,
+      "exports_consistent": true,
+      "speaker_count": 3,
+      "before_der": 0.06101379201014585,
+      "after_der": 0.06061746987951807,
+      "relative_der_improvement": 0.006495615459564839,
+      "baseline_compute_rtf": 1.0321833333333332,
+      "experimental_compute_rtf": 1.0269666666666666,
+      "experimental_finalization_ms": 9922,
+      "experimental_disagreement_ms": 50,
+      "experimental_offline_fill_ms": 20
+    },
+    {
+      "clip": "rec_0437",
+      "baseline_run": "rttm-4voice",
+      "candidate_run": "consensus-4voice",
+      "audio_sha256": "514248b54b904c998ff848f5c681755568995db654df5d8b1fe00be7b8987979",
+      "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+      "token_count": 128,
+      "normalized_token_sha256": "b12623fef16d1ad596950b2d86cb44492f94221052181829e3744472eb037bc7",
+      "words_preserved": true,
+      "exports_consistent": true,
+      "speaker_count": 4,
+      "before_der": 0.13767322783518543,
+      "after_der": 0.0849117859859377,
+      "relative_der_improvement": 0.3832367605444011,
+      "baseline_compute_rtf": 1.02385,
+      "experimental_compute_rtf": 1.016,
+      "experimental_finalization_ms": 9934,
+      "experimental_disagreement_ms": 3590,
+      "experimental_offline_fill_ms": 180
+    }
+  ],
+  "default_mode_regression": {
+    "pass_status": "PASS",
+    "before_der": 0.13767322783518543,
+    "after_der": 0.13767322783518543,
+    "same_text": true,
+    "source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/global-offline-final"
+  },
+  "project_gate": "EXPERIMENT_ONLY_NOT_PRODUCTION_READY",
+  "caveats": [
+    "Six recording host holdout relative DER improvement was only 2.18%, below 15% target",
+    "Device compute RTF above 1 on all three 60-second trials",
+    "No natural multi-speaker dialogue with independent word-time gold"
+  ]
+}

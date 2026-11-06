@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "scope": "PHYSICAL_C2_ORIGINAL_OFFLINE_VS_INCREMENTAL_OFFLINE_CONFIG",
+  "fixture_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+  "turns": 13,
+  "exact_turn_parity": true
+}

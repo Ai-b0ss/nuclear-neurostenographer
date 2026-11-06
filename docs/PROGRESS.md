@@ -26,6 +26,13 @@
   Новый CI **NOT_RUN** без push. Raw evidence/APK/audio сохранены только в `.local`.
 - [Полный отчёт с hashes, ошибками ранних проверок и командами](HONOR_ACCEPTANCE_2026-11-06.md),
   [публичный агрегат](evidence/honor-acceptance-20261106/summary.json).
+## 2026-11-05 — отдельный realtime prototype, NOT_READY
+
+- Ветка `feature/realtime-honor-20261105`, отдельный пакет `.realtime`; основной APK и `.c2candidate` не заменялись, их SHA-256 до/после совпали.
+- Реализованы независимый WAV/ring capture, Silero VAD, постоянный A3, stateful C2 FAST/FALLBACK, bounded ASR-priority worker, честная отложенная атрибуция, восстановление WAV и явный batch fallback. Финальные core/debug/instrumentation/lint и realtime-disabled product build PASS.
+- HONOR, одна и та же синтетика 33,5 с, проверенный pacing: compute RTF 0,674 FAST / 0,488 FALLBACK; WER 3/52 в обоих; FAST выделил 2/3 голоса, FALLBACK 3/3 с неизвестными словами, строгая cpWER NOT_SCORED. Отдельные первые зависания и UiAutomation crash сохранены как проблемы, не скрыты.
+- Windows native C2: точная offline parity; ускоренные 20/60 мин с bounded cache и causal reads PASS, **не Android и не ASR**. Физический mic/HOME/screen-off сохранил 19,94 с, но общий тест FAIL из-за UiAutomation; исправленный harness ещё не установлен.
+- После screen-off HONOR защищён PIN; следующая установка требует обычной разблокировки владельцем. Финальный APK собран, но на нём телефонные проверки NOT_RUN. Подробные команды, хэши, логи, измерения и дальнейшие шаги: [REALTIME_HONOR_2026-11-05.md](REALTIME_HONOR_2026-11-05.md).
 
 ## 2026-11-05 — 0.3.2 и 0.3.3 в main
 

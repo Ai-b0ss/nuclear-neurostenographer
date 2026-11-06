@@ -1,0 +1,99 @@
+{
+  "state": "COMPLETE",
+  "failure": null,
+  "invocation": "verified-silence",
+  "c2_state": "ACTIVE",
+  "scope": "PACED_DEVICE_STREAM",
+  "sdk": 29,
+  "samples": 128000,
+  "audio_ms": 8000,
+  "elapsed_ms": 9882,
+  "native_load_ms": 6727,
+  "asr_ms": 0,
+  "c2_ms": 2434,
+  "vad_ms": 207,
+  "compute_rtf": 0.330125,
+  "finalization_ms": 795,
+  "finalization_state": "COMPLETE",
+  "revised_frames": 0,
+  "cpu_ms": 16458,
+  "sampled_pss_kb": 922609,
+  "battery_temperature_tenths_c": 400,
+  "battery_level": 100,
+  "thermal_status": 0,
+  "max_lag_ms": 6752,
+  "queue_peak": 0,
+  "fallback": false,
+  "silence_ms": 500,
+  "max_phrase_ms": 15000,
+  "disk_recovery_reads": 0,
+  "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8",
+  "recognizer_loads": 1,
+  "phrases": [],
+  "diarization_steps": [
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 3600,
+      "captured_prefix_samples": 65536,
+      "context_frames": 45,
+      "process_ms": 434,
+      "at_ms": 7315
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 7200,
+      "captured_prefix_samples": 123392,
+      "context_frames": 90,
+      "process_ms": 636,
+      "at_ms": 8341
+    },
+    {
+      "chunk": 45,
+      "right_context": 6,
+      "committed_ms": 8000,
+      "captured_prefix_samples": 128000,
+      "context_frames": 101,
+      "process_ms": 569,
+      "at_ms": 8962
+    }
+  ],
+  "capture_failure": null,
+  "loading_stages": [
+    {
+      "stage": "verify_install_a3",
+      "elapsed_ms": 50
+    },
+    {
+      "stage": "load_silero",
+      "elapsed_ms": 558
+    },
+    {
+      "stage": "load_a3",
+      "elapsed_ms": 652
+    },
+    {
+      "stage": "verify_install_c2",
+      "elapsed_ms": 4143
+    },
+    {
+      "stage": "load_c2",
+      "elapsed_ms": 4342
+    },
+    {
+      "stage": "ready",
+      "elapsed_ms": 6767
+    }
+  ],
+  "diarization_turns": [],
+  "test_status": "PASS",
+  "producer_elapsed_ms": 8000,
+  "max_feed_lateness_ms": 0,
+  "pacing_valid": true,
+  "clip": "silence",
+  "fixture_sha256": "190415015d40eef0cd797e1b59ffe00846b01873050b12d44b3a216de3faa2a9",
+  "captured_wav_sha256": "190415015d40eef0cd797e1b59ffe00846b01873050b12d44b3a216de3faa2a9",
+  "pcm_exact": true,
+  "input_samples": 128000
+}

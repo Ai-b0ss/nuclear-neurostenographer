@@ -1,0 +1,44 @@
+[
+  {
+    "name": "syn3-clean",
+    "sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+    "bytes": 1072282,
+    "scope": "EXISTING_MIT_SYNTHETIC_RUSSIAN_FIXTURE"
+  },
+  {
+    "name": "syn3-brown",
+    "sha256": "942bfdf41cb3df235768273a739a24b821f008ce5377f67362a783763bb05ca9",
+    "bytes": 1209016,
+    "scope": "EXISTING_MIT_SYNTHETIC_RUSSIAN_FIXTURE"
+  },
+  {
+    "name": "syn4-noise",
+    "sha256": "939648072d210ef99b1d6b1866110997852a53239d63989b78cbb2b267a70d49",
+    "bytes": 1834428,
+    "scope": "EXISTING_MIT_SYNTHETIC_RUSSIAN_FIXTURE"
+  },
+  {
+    "name": "silence",
+    "sha256": "190415015d40eef0cd797e1b59ffe00846b01873050b12d44b3a216de3faa2a9",
+    "bytes": 256044,
+    "scope": "AUTHORED_SILENCE"
+  },
+  {
+    "name": "single",
+    "sha256": "ffa83fe2a3047b103280d990ae72490160b785b0a7fbf54e243b2d37428edaa1",
+    "bytes": 175084,
+    "scope": "EXISTING_MIT_SYNTHETIC_RUSSIAN_FIXTURE"
+  },
+  {
+    "name": "aba",
+    "sha256": "300e7ef28c6caf93395af9be07fd3df0a850cbe6797c8416bd57489aaec143a7",
+    "bytes": 414444,
+    "scope": "EXISTING_MIT_SYNTHETIC_RUSSIAN_FIXTURE"
+  },
+  {
+    "name": "overlap",
+    "sha256": "0cf28d979cb5a800699aeaf9e74a21feeeef2d5e89e672fd4f03e9c03fdc0319",
+    "bytes": 175404,
+    "scope": "EXISTING_MIT_SYNTHETIC_RUSSIAN_FIXTURE"
+  }
+]

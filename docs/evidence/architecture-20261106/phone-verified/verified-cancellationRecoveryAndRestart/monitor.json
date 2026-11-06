@@ -1,0 +1,8 @@
+[
+  {
+    "elapsed_s": 0.45,
+    "battery": "Current Battery Service state:\r\n  AC powered: true\r\n  USB powered: false\r\n  Wireless powered: false\r\n  Max charging current: 0\r\n  Max charging voltage: 0\r\n  Charge counter: 7000\r\n  status: 5\r\n  health: 2\r\n  present: true\r\n  level: 100\r\n  scale: 100\r\n  voltage: 4395\r\n  temperature: 370\r\n  technology: Li-poly\r\n",
+    "meminfo": "",
+    "cpu": ""
+  }
+]

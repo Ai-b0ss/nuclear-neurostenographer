@@ -1,0 +1,20 @@
+[
+  {
+    "baseline": "baseline-syn3",
+    "candidate": "verified-syn3-clean",
+    "tokens": 55,
+    "identical_recognized_token_sequence": true
+  },
+  {
+    "baseline": "baseline-aba-r2",
+    "candidate": "verified-aba",
+    "tokens": 18,
+    "identical_recognized_token_sequence": true
+  },
+  {
+    "baseline": "baseline-syn4",
+    "candidate": "verified-syn4-noise",
+    "tokens": 74,
+    "identical_recognized_token_sequence": true
+  }
+]

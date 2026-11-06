@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 5470,
+  "warnings": ["Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/global-offline-final", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 1200, "end_ms": 5470, "speaker_id": "Speaker 1", "text": "Могу я послушать«Равные среди первых» по радио в спальне? Скажи.", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}
