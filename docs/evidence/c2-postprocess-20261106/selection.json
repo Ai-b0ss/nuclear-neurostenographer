@@ -1,0 +1,384 @@
+{
+ "seed": "NN-C2-POSTPROCESS-20261106-V1",
+ "dataset": "https://huggingface.co/datasets/mexus/ru-book-mix-10h",
+ "license": "CC-BY-4.0",
+ "scope": "SYNTHETIC_RUSSIAN_AUDIOBOOK_MIX_NOT_NATURAL_CONVERSATION",
+ "manifest_sha256": "2f1e26fe123afe43e76b96cd49fd62e75bdb94c2f056c1fc7fa43c981de46a6c",
+ "rule": "sha256(seed+file_id) order; dev first, speakers of frozen test excluded; test speakers disjoint from dev",
+ "dev": [
+  {
+   "file_id": "rec_0193",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0138
+  },
+  {
+   "file_id": "rec_0068",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0706
+  },
+  {
+   "file_id": "rec_0194",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.117
+  },
+  {
+   "file_id": "rec_0249",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.1001
+  },
+  {
+   "file_id": "rec_0076",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.2057
+  },
+  {
+   "file_id": "rec_0067",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0122
+  },
+  {
+   "file_id": "rec_0209",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.1208
+  },
+  {
+   "file_id": "rec_0216",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0573
+  },
+  {
+   "file_id": "rec_0205",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.113
+  },
+  {
+   "file_id": "rec_0128",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0406",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0308",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0374",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.1206
+  },
+  {
+   "file_id": "rec_0343",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0827
+  },
+  {
+   "file_id": "rec_0424",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0288",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 3,
+   "overlap2": 0.1063
+  },
+  {
+   "file_id": "rec_0402",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0621
+  },
+  {
+   "file_id": "rec_0415",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0953
+  },
+  {
+   "file_id": "rec_0274",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0447
+  },
+  {
+   "file_id": "rec_0400",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0387
+  },
+  {
+   "file_id": "rec_0497",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0278
+  },
+  {
+   "file_id": "rec_0534",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0442",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0153
+  },
+  {
+   "file_id": "rec_0448",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0169
+  },
+  {
+   "file_id": "rec_0513",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.014
+  },
+  {
+   "file_id": "rec_0518",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0891
+  },
+  {
+   "file_id": "rec_0471",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0457
+  }
+ ],
+ "test": [
+  {
+   "file_id": "rec_0259",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0344
+  },
+  {
+   "file_id": "rec_0129",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0531
+  },
+  {
+   "file_id": "rec_0388",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0345",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.1392
+  },
+  {
+   "file_id": "rec_0528",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0541
+  },
+  {
+   "file_id": "rec_0514",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0152",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0402
+  },
+  {
+   "file_id": "rec_0092",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0074",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0667
+  },
+  {
+   "file_id": "rec_0105",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0439
+  },
+  {
+   "file_id": "rec_0120",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0086",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0018
+  },
+  {
+   "file_id": "rec_0121",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0123",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0072",
+   "shard": "data/shard-0000.tar",
+   "n_speakers": 2,
+   "overlap2": 0.0468
+  },
+  {
+   "file_id": "rec_0243",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 2,
+   "overlap2": 0.097
+  },
+  {
+   "file_id": "rec_0334",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0305",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0275
+  },
+  {
+   "file_id": "rec_0298",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 3,
+   "overlap2": 0.1277
+  },
+  {
+   "file_id": "rec_0380",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0281",
+   "shard": "data/shard-0001.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0322",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0211
+  },
+  {
+   "file_id": "rec_0371",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0781
+  },
+  {
+   "file_id": "rec_0319",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0384",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.1162
+  },
+  {
+   "file_id": "rec_0376",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 3,
+   "overlap2": 0.0379
+  },
+  {
+   "file_id": "rec_0477",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0508",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0495",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0439",
+   "shard": "data/shard-0002.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0356
+  },
+  {
+   "file_id": "rec_0507",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.047
+  },
+  {
+   "file_id": "rec_0517",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0486",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0450",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0
+  },
+  {
+   "file_id": "rec_0472",
+   "shard": "data/shard-0003.tar",
+   "n_speakers": 4,
+   "overlap2": 0.0268
+  }
+ ]
+}
