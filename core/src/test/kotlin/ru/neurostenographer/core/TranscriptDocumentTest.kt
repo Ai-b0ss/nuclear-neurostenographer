@@ -15,7 +15,7 @@ fun testTranscriptDocument() {
         check(json.contains("ошибка\\tJNI") && json.contains("\\\"мир\\\"\\nда"))
         check(json.contains("\"speaker_id\": null") && json.contains("\"overlapping_speech\": true"))
         // The public judge JSON must have exactly the slide's fields, with raw ASR text.
-        val judge = document.export("json-contest", names)
+        val judge = document.export("json-contest")
         check(judge.contains("\"transcript\": [") && !judge.contains("\"segments\"") &&
             !judge.contains("\"provenance\"") && !judge.contains("\"speaker_name\"") &&
             !judge.contains("\"text_edited\""))
