@@ -1,0 +1,18 @@
+{
+  "scope": "POSTHOC_COARSE_TTS_ENCODER_DIAGNOSTIC_NOT_INFERENCE_NOT_SPEAKER_EMBEDDING_MODEL",
+  "same_speaker": {
+    "count": 21605,
+    "mean": 0.5722450613975525,
+    "p05": 0.319868803024292,
+    "p50": 0.5506325960159302,
+    "p95": 0.8754521012306213
+  },
+  "different_speaker": {
+    "count": 40171,
+    "mean": 0.5230589509010315,
+    "p05": 0.23822417855262756,
+    "p50": 0.5074430108070374,
+    "p95": 0.8639765977859497
+  },
+  "conclusion": "No validated global identity threshold: overlapping within/between-speaker cosine distributions require a separate calibrated speaker embedding model and independent evaluation."
+}

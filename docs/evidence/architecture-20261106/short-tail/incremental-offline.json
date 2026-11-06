@@ -1,0 +1,1 @@
+{"status":"PASS","scope":"WINDOWS_NATIVE_C2_ACCELERATED_SYNTHETIC_REPLAY_NOT_ANDROID","audio_samples":64127,"audio_ms":4007,"process_ms":113,"calls":1,"max_context_frames":51,"max_read_samples":64127,"revised_frames":0,"heap_used_bytes":4275848,"timeline_capacity_bytes":360001,"turns":1,"speakers":1,"causal_reads":true,"calls_before_switch":0}

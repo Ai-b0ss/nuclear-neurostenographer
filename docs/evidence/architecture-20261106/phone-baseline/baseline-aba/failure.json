@@ -1,0 +1,4 @@
+{
+  "status": "FAIL",
+  "reason": "Fixture missing; NoSuchElementException before session creation. Collector rejected stale prior pointer. Corrected by hash-verified fixture transfer; see baseline-aba-r2."
+}

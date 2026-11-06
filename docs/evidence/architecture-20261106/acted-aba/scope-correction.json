@@ -1,0 +1,4 @@
+{
+  "scope": "ACTED_COMPOSED_RUSSIAN_NOT_SYNTHETIC_NOT_NATURAL_DIALOGUE",
+  "note": "Generic harness scope string says SYNTHETIC; this explicitly corrects that label for this directory only. Input is licensed acted speech, 44.1k resampled by production PcmWav to 16k. DER NOT_SCORED because reference expressly lacks speech boundaries."
+}

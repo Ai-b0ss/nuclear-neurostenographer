@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.RealtimeDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+ru.neurostenographer.app.RealtimeDeviceTest:
+INSTRUMENTATION_STATUS: test=c2OfflineParity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.RealtimeDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Parameterizing C2 must preserve offline intervals expected:<[SpeakerTurn(startMs=260, endMs=1270, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=3220, endMs=4530, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=4720, endMs=5110, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=7160, endMs=8900, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=9520, endMs=10590, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=10630, endMs=10640, speakerId=Speaker 3, attributionEligible=false), SpeakerTurn(startMs=10730, endMs=13710, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=15880, endMs=18100, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=19690, endMs=23140, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=23580, endMs=24000, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=24240, endMs=26380, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=26480, endMs=29230, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=31160, endMs=32780, speakerId=Speaker 2, attributionEligible=true)]> but was:<[SpeakerTurn(startMs=260, endMs=1270, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=3220, endMs=4530, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=4720, endMs=5110, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=7160, endMs=8900, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=9520, endMs=10590, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=10630, endMs=10640, speakerId=Speaker 3, attributionEligible=false), SpeakerTurn(startMs=10730, endMs=13710, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=15880, endMs=18100, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=19690, endMs=23140, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=23580, endMs=24000, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=24250, endMs=26380, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=26470, endMs=29230, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=31160, endMs=32780, speakerId=Speaker 2, attributionEligible=true)]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at ru.neurostenographer.app.RealtimeDeviceTest.c2OfflineParity(RealtimeDeviceTest.kt:145)
+
+INSTRUMENTATION_STATUS: stream=
+Error in c2OfflineParity(ru.neurostenographer.app.RealtimeDeviceTest):
+java.lang.AssertionError: Parameterizing C2 must preserve offline intervals expected:<[SpeakerTurn(startMs=260, endMs=1270, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=3220, endMs=4530, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=4720, endMs=5110, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=7160, endMs=8900, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=9520, endMs=10590, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=10630, endMs=10640, speakerId=Speaker 3, attributionEligible=false), SpeakerTurn(startMs=10730, endMs=13710, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=15880, endMs=18100, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=19690, endMs=23140, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=23580, endMs=24000, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=24240, endMs=26380, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=26480, endMs=29230, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=31160, endMs=32780, speakerId=Speaker 2, attributionEligible=true)]> but was:<[SpeakerTurn(startMs=260, endMs=1270, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=3220, endMs=4530, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=4720, endMs=5110, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=7160, endMs=8900, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=9520, endMs=10590, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=10630, endMs=10640, speakerId=Speaker 3, attributionEligible=false), SpeakerTurn(startMs=10730, endMs=13710, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=15880, endMs=18100, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=19690, endMs=23140, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=23580, endMs=24000, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=24250, endMs=26380, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=26470, endMs=29230, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=31160, endMs=32780, speakerId=Speaker 2, attributionEligible=true)]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at ru.neurostenographer.app.RealtimeDeviceTest.c2OfflineParity(RealtimeDeviceTest.kt:145)
+
+INSTRUMENTATION_STATUS: test=c2OfflineParity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 21,588
+There was 1 failure:
+1) c2OfflineParity(ru.neurostenographer.app.RealtimeDeviceTest)
+java.lang.AssertionError: Parameterizing C2 must preserve offline intervals expected:<[SpeakerTurn(startMs=260, endMs=1270, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=3220, endMs=4530, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=4720, endMs=5110, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=7160, endMs=8900, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=9520, endMs=10590, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=10630, endMs=10640, speakerId=Speaker 3, attributionEligible=false), SpeakerTurn(startMs=10730, endMs=13710, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=15880, endMs=18100, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=19690, endMs=23140, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=23580, endMs=24000, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=24240, endMs=26380, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=26480, endMs=29230, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=31160, endMs=32780, speakerId=Speaker 2, attributionEligible=true)]> but was:<[SpeakerTurn(startMs=260, endMs=1270, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=3220, endMs=4530, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=4720, endMs=5110, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=7160, endMs=8900, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=9520, endMs=10590, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=10630, endMs=10640, speakerId=Speaker 3, attributionEligible=false), SpeakerTurn(startMs=10730, endMs=13710, speakerId=Speaker 3, attributionEligible=true), SpeakerTurn(startMs=15880, endMs=18100, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=19690, endMs=23140, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=23580, endMs=24000, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=24250, endMs=26380, speakerId=Speaker 1, attributionEligible=true), SpeakerTurn(startMs=26470, endMs=29230, speakerId=Speaker 2, attributionEligible=true), SpeakerTurn(startMs=31160, endMs=32780, speakerId=Speaker 2, attributionEligible=true)]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at ru.neurostenographer.app.RealtimeDeviceTest.c2OfflineParity(RealtimeDeviceTest.kt:145)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "PHYSICAL_ACCELERATED_ONE_HOUR_PCM_JOURNAL_NO_MODEL_NO_PACING",
+  "samples": 57600000,
+  "wav_bytes": 115200044,
+  "pss_before_kb": 77583,
+  "pss_after_kb": 77593,
+  "elapsed_ms": 5106,
+  "disk_reads": 2
+}
