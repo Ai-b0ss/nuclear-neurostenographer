@@ -48,9 +48,9 @@ class RealtimeActivity : ComponentActivity() {
             }
             Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("Realtime · эксперимент", style = MaterialTheme.typography.headlineSmall)
-                Text("WAV сохраняется отдельно. Текст появляется после фразы; говорящие уточняются позже. Перекрытия и неизвестные сохраняются.")
+                Text("WAV сохраняется отдельно. Текст появляется после фразы; метки говорящих предварительные. После остановки выполняется полное уточнение говорящих. Перекрытия и неизвестные сохраняются.")
                 Text("${state.status} · ${state.audioMs / 1000} с")
-                val running = state.status in listOf("LOADING", "RUNNING", "CAPTURE_ONLY")
+                val running = state.status in listOf("LOADING", "RUNNING", "FINALIZING", "CAPTURE_ONLY")
                 Button(enabled = !running, onClick = {
                     if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
                     else permission.launch(Manifest.permission.RECORD_AUDIO)

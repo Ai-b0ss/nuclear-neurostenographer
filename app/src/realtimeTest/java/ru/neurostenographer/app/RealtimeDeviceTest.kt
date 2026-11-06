@@ -100,6 +100,34 @@ class RealtimeDeviceTest {
         }
     }
 
+    @Test fun hourJournalBounded() {
+        val root = directory("hour-journal")
+        val before = android.os.Debug.getPss()
+        val started = System.nanoTime()
+        val journal = RealtimeJournal(File(root, "capture.wav"))
+        try {
+            val frame = ShortArray(512) { (it - 256).toShort() }
+            val total = 3600L * 16000
+            var at = 0L
+            while (at < total) {
+                val count = minOf(512L, total - at).toInt()
+                journal.append(frame, count); at += count
+            }
+            journal.finish()
+            assertEquals(total, journal.samples)
+            assertEquals(44 + total * 2, journal.file.length())
+            for (offset in listOf(0L, 1800L * 16000, total - 512)) {
+                val read = journal.read(offset, 512)
+                for (i in read.indices) assertEquals(frame[i] / 32768f, read[i], 0f)
+            }
+            File(context.filesDir, "realtime-hour-journal.json").writeText(JSONObject()
+                .put("status", "PASS").put("scope", "PHYSICAL_ACCELERATED_ONE_HOUR_PCM_JOURNAL_NO_MODEL_NO_PACING")
+                .put("samples", total).put("wav_bytes", journal.file.length()).put("pss_before_kb", before)
+                .put("pss_after_kb", android.os.Debug.getPss()).put("elapsed_ms", (System.nanoTime() - started) / 1000000)
+                .put("disk_reads", journal.diskReads).toString(2))
+        } finally { journal.close() }
+    }
+
     @Test fun c2OfflineParity() {
         val activity = ins.startActivitySync(Intent(context, RealtimeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         holdForeground()

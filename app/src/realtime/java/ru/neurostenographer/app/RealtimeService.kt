@@ -50,7 +50,7 @@ class RealtimeService : Service() {
             // lifetime as live recording, including on the locked HONOR. No microphone.
             if (wake == null) wake = (getSystemService(POWER_SERVICE) as PowerManager)
                 .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "neurostenographer:realtime-benchmark")
-                .also { it.acquire(65 * 60 * 1000L) }
+                .also { it.acquire(125 * 60 * 1000L) }
             return START_NOT_STICKY
         }
         if (capture != null) return START_NOT_STICKY
@@ -66,7 +66,7 @@ class RealtimeService : Service() {
             }; inference = session
             val mic = RealtimeCapture(this, input, duration); capture = mic
             wake = (getSystemService(POWER_SERVICE) as PowerManager).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                "neurostenographer:realtime").also { it.acquire(65 * 60 * 1000L) }
+                "neurostenographer:realtime").also { it.acquire(125 * 60 * 1000L) }
             captureActive = true
             mic.start(); session?.start()
             view.value = RealtimeView(if (captureOnly) "CAPTURE_ONLY" else "LOADING", null, dir.absolutePath, 0)
@@ -87,7 +87,7 @@ class RealtimeService : Service() {
                     view.value = view.value.copy(status = "CAPTURE_ONLY_COMPLETE")
                     input.close(); stopSelf(); return@Thread
                 }
-                session.join(5 * 60 * 1000L)
+                session.join(65 * 60 * 1000L)
                 if (!session.isRunning) { input.close(); stopSelf() }
                 // A still-running native call retains journal ownership and foreground service.
                 else {

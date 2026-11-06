@@ -28,6 +28,8 @@ fun main(args: Array<String>) {
             var emittedEmbeddings = 0
             var chronological = true
             var emitted = BooleanArray(0)
+            var captureEmbeddings = true
+            val embeddingRows = mutableListOf<FloatArray>()
             val runner = NemotronChunkRunner { mel, frames, length, history, contextFrames ->
                 val inputs = linkedMapOf<String, OnnxTensor>()
                 try {
@@ -51,6 +53,8 @@ fun main(args: Array<String>) {
                         // Diagnostic comparison only: never feed labels or revised logits to inference.
                         if (chronological) emitted += BooleanArray(commit * 64) { step.logits[from * 8 + it] > 0 }
                         emittedEmbeddings += commit
+                        if (captureEmbeddings) for (row in contextFrames until contextFrames + commit)
+                            embeddingRows += step.embeds.copyOfRange(row * 512, (row + 1) * 512)
                         step
                     }
                 } finally { inputs.values.forEach { it.close() } }
@@ -60,10 +64,18 @@ fun main(args: Array<String>) {
             }
             val baseline = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner)
             write("original-offline", baseline)
-            fun run(name: String, config: NemotronChunkConfig, duration: Long = audio.samples.size.toLong(), adaptive: Boolean = false): List<ClusterTurn> {
+            captureEmbeddings = false
+            File(out, "encoder-embeddings.bin").outputStream().use { file ->
+                for (row in embeddingRows) {
+                    val bytes = ByteBuffer.allocate(512 * 4).order(ByteOrder.LITTLE_ENDIAN)
+                    row.forEach { bytes.putFloat(it) }; file.write(bytes.array())
+                }
+            }
+            embeddingRows.clear()
+            fun run(name: String, config: NemotronChunkConfig, duration: Long = audio.samples.size.toLong(), adaptive: Boolean = false, revise: Boolean = false): List<ClusterTurn> {
                 trace.clear()
                 activeConfig = config; emittedEmbeddings = 0; chronological = true; emitted = BooleanArray(0)
-                val stream = NemotronStreaming(filters, hann, silence, runner, config)
+                val stream = NemotronStreaming(filters, hann, silence, runner, config, revise)
                 var available = 0L; var maxContext = 0; var maxRead = 0; var callsBeforeSwitch = 0
                 val began = System.nanoTime()
                 val os = ManagementFactory.getOperatingSystemMXBean() as com.sun.management.OperatingSystemMXBean
@@ -100,9 +112,13 @@ fun main(args: Array<String>) {
                 val time = (System.nanoTime() - began) / 1_000_000
                 File(out, "$name-trace.tsv").writeText("mel_frames\tmel_length\tcontext_frames\thistory_positive_rows_per_slot\tcommitted_positive_rows_per_slot\tright_positive_rows_per_slot\thistory_bits_different_from_emitted_or_minus1_after_compression\n" + trace)
                 File(out, "$name-cost.json").writeText("""{"cpu_ms":${(os.processCpuTime - cpuStart) / 1_000_000},"compute_rtf":${time.toDouble() / (duration / 16.0)},"first_ready_audio_ms":${((config.chunk + config.right) * 1280 + 256) / 16},"pss":"NOT_APPLICABLE_WINDOWS","device_latency":"NOT_RUN"}""")
-                File(out, "$name.json").writeText("""{"status":"PASS","scope":"WINDOWS_NATIVE_C2_ACCELERATED_SYNTHETIC_REPLAY_NOT_ANDROID","audio_samples":$duration,"audio_ms":${duration / 16},"process_ms":$time,"calls":${stream.calls},"max_context_frames":$maxContext,"max_read_samples":$maxRead,"turns":${turns.size},"speakers":${turns.map { it.cluster }.distinct().size},"causal_reads":true,"calls_before_switch":$callsBeforeSwitch}""")
+                File(out, "$name.json").writeText("""{"status":"PASS","scope":"WINDOWS_NATIVE_C2_ACCELERATED_SYNTHETIC_REPLAY_NOT_ANDROID","audio_samples":$duration,"audio_ms":${duration / 16},"process_ms":$time,"calls":${stream.calls},"max_context_frames":$maxContext,"max_read_samples":$maxRead,"revised_frames":${stream.revisedFrames},"heap_used_bytes":${Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()},"timeline_capacity_bytes":360001,"turns":${turns.size},"speakers":${turns.map { it.cluster }.distinct().size},"causal_reads":true,"calls_before_switch":$callsBeforeSwitch}""")
                 println("$name: calls=${stream.calls} context=$maxContext wall_ms=$time")
                 return turns
+            }
+            if (args.getOrNull(3) == "final-hour") {
+                run("selected-final-60min", NemotronChunkConfig.OFFLINE, 60 * 60 * 16000L)
+                return
             }
             val offline = run("incremental-offline", NemotronChunkConfig.OFFLINE)
             check(DiarizationTimeline.canonicalize(offline, audio.durationMs) == DiarizationTimeline.canonicalize(baseline, audio.durationMs)) {
@@ -110,7 +126,13 @@ fun main(args: Array<String>) {
             }
             run("fast", NemotronChunkConfig.FAST)
             run("fallback", NemotronChunkConfig.FALLBACK)
-            if (args.getOrNull(3) == "diagnostic") {
+            run("revised-fast", NemotronChunkConfig.FAST, revise = true)
+            run("revised-offline", NemotronChunkConfig.OFFLINE, revise = true)
+            if (args.getOrNull(3) == "hour") {
+                run("baseline-fast-60min", NemotronChunkConfig.FAST, 60 * 60 * 16000L)
+                run("revised-fast-60min", NemotronChunkConfig.FAST, 60 * 60 * 16000L, revise = true)
+                run("final-offline-60min", NemotronChunkConfig.OFFLINE, 60 * 60 * 16000L, revise = true)
+            } else if (args.getOrNull(3) == "diagnostic") {
                 run("short-right40", NemotronChunkConfig(45, 40, 264, 222))
                 run("long-right6", NemotronChunkConfig(120, 6, 264, 222))
             } else {

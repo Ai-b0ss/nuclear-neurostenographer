@@ -11,12 +11,15 @@ data class NemotronChunkConfig(val chunk: Int, val right: Int, val fifo: Int, va
     }
 }
 
-/** Persistent session cache; each captured frame is committed exactly once.
+/** Persistent session cache; new acoustic frames advance once, while provisional labels
+ * can be replaced for exactly time-mapped history. Compressed cache rows are never
+ * treated as chronological audio; only their FIFO remains revisable.
  * Mel uses only already captured PCM and waits for centered STFT's 256-sample lookahead.
  * Zero padding and the export's zero trailing mel frame are allowed only at EOF. */
 class NemotronStreaming(private val filters: FloatArray, private val hann: FloatArray,
     silence: FloatArray, private val runner: NemotronChunkRunner,
-    initial: NemotronChunkConfig = NemotronChunkConfig.FAST) {
+    initial: NemotronChunkConfig = NemotronChunkConfig.FAST,
+    private val reviseHistory: Boolean = initial != NemotronChunkConfig.OFFLINE) {
     private val cache = NemotronSpeakerCache(silence, initial.fifo, initial.update)
     var config = initial
         set(value) {
@@ -25,8 +28,10 @@ class NemotronStreaming(private val filters: FloatArray, private val hann: Float
         }
     private var start = 0
     private var written = 0
-    private val opened = IntArray(8) { -1 }
-    private val turns = mutableListOf<ClusterTurn>()
+    // One byte per 10-ms frame, bounded to one hour. All eight overlap bits survive.
+    private val masks = ByteArray(360001)
+    var revisedFrames = 0L
+        private set
     var calls = 0
         private set
     val committedSamples get() = written * 160L
@@ -59,30 +64,46 @@ class NemotronStreaming(private val filters: FloatArray, private val hann: Float
         require(result.logits.size == result.logitFrames * 8 && result.embeds.size == result.embedFrames * 512 &&
             result.logitFrames >= (context + count) * 8 && result.embedFrames >= context + count &&
             result.logits.all { it.isFinite() } && result.embeds.all { it.isFinite() }) { "Malformed C2 step" }
-        cache.update(result, count)
-        val until = minOf((context + count) * 8, context * 8 + melFrames - written)
-        for (row in context * 8 until until) {
-            for (s in 0..7) {
-                val active = result.logits[row * 8 + s] > 0f
-                if (active && opened[s] < 0) opened[s] = written
-                if (!active && opened[s] >= 0) {
-                    if (written > opened[s]) turns += ClusterTurn(opened[s] * 0.01f, written * 0.01f, s)
-                    opened[s] = -1
-                }
+        // Before compression the entire cache is chronological. Afterwards only the FIFO
+        // has an exact time mapping; compressed representative rows are NOT a timeline.
+        val historyCount = if (cache.chronological) context else cache.fifoFrames
+        val historyStart = if (cache.chronological) 0 else context - historyCount
+        if (reviseHistory) for (r in 0 until historyCount * 8) {
+            val target = written - historyCount * 8 + r
+            if (target >= 0) {
+                val mask = mask(result, historyStart * 8 + r)
+                if (masks[target] != mask) revisedFrames++
+                masks[target] = mask
             }
-            written++
         }
+        val until = minOf((context + count) * 8, context * 8 + melFrames - written)
+        for (row in context * 8 until until) masks[written++] = mask(result, row)
+        cache.update(result, count)
         start = end; calls++
         return snapshot(available)
     }
 
+    private fun mask(result: NemotronStep, row: Int): Byte {
+        var bits = 0
+        for (s in 0..7) if (result.logits[row * 8 + s] > 0f) bits = bits or (1 shl s)
+        return bits.toByte()
+    }
+
     fun snapshot(available: Long): List<ClusterTurn> {
         val duration = available / 16000f
-        return (turns + opened.indices.mapNotNull { s ->
-            if (opened[s] >= 0 && written > opened[s]) ClusterTurn(opened[s] * 0.01f, written * 0.01f, s) else null
-        }).mapNotNull { t ->
-            val end = minOf(t.endSeconds, duration)
-            if (end > t.startSeconds) t.copy(endSeconds = end) else null
-        }.sortedWith(compareBy<ClusterTurn> { it.startSeconds }.thenBy { it.cluster })
+        val turns = mutableListOf<ClusterTurn>()
+        for (s in 0..7) {
+            var opened = -1
+            for (f in 0..written) {
+                val active = f < written && (masks[f].toInt() and (1 shl s)) != 0
+                if (active && opened < 0) opened = f
+                if (!active && opened >= 0) {
+                    val end = minOf(f * 0.01f, duration)
+                    if (end > opened * 0.01f) turns += ClusterTurn(opened * 0.01f, end, s)
+                    opened = -1
+                }
+            }
+        }
+        return turns.sortedWith(compareBy<ClusterTurn> { it.startSeconds }.thenBy { it.cluster })
     }
 }

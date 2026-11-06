@@ -159,6 +159,7 @@ class NemotronSpeakerCache(private val silence: FloatArray,
     var fifoFrames = 0
         private set
     private var compressed = false
+    val chronological get() = !compressed
 
     init { require(silence.size == hidden && fifoCapacity in 1..512 && updatePeriod in 1..512) }
 

@@ -194,7 +194,7 @@ def main():
                         raise SystemExit('Missing expected export')
                     continue
                 (folder / name).write_bytes(data)
-        for method_name, artifact in [('c2OfflineParity', 'realtime-parity.json'), ('microphoneCaptureOnlyAndRestart', 'realtime-microphone.json'),
+        for method_name, artifact in [('hourJournalBounded', 'realtime-hour-journal.json'), ('c2OfflineParity', 'realtime-parity.json'), ('microphoneCaptureOnlyAndRestart', 'realtime-microphone.json'),
                                       ('cancellationRecoveryAndRestart', 'realtime-recovery.json'), ('foregroundMicrophoneScreenOff', 'realtime-microphone-screenoff.json'),
                                       ('damagedC2KeepsAsrAlive', 'realtime-c2-fallback.json')]:
             if a.method == method_name and passed:

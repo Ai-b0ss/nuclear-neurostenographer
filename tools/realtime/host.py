@@ -14,6 +14,8 @@ def main():
     parser.add_argument('--out', type=Path, default=ROOT / 'docs/evidence/realtime-honor-20261105/host-native-c2')
     parser.add_argument('--fixture', type=Path, default=Path('C:/Users/user/Documents/nuclear-neurostenographer/.local/synthetic-ru/syn3-clean.wav'))
     parser.add_argument('--diagnostic', action='store_true')
+    parser.add_argument('--hour', action='store_true')
+    parser.add_argument('--final-hour', action='store_true')
     args = parser.parse_args()
     if args.out.exists():
         raise SystemExit('Refusing to overwrite evidence: ' + str(args.out))
@@ -31,7 +33,7 @@ def main():
     for name, digest in pins.items():
         if hashlib.sha256((model / name).read_bytes()).hexdigest() != digest:
             raise SystemExit('Existing C2 model pin mismatch: ' + name)
-    target = ROOT / '.local/realtime-host.jar'
+    target = ROOT / ('.local/realtime-host-' + args.out.name + '.jar')
     kotlin = harness / 'kotlin'
     cp = os.pathsep.join([str(kotlin / 'kotlin-stdlib.jar'), str(ort)])
     sources = list((ROOT / 'core/src/main/kotlin/ru/neurostenographer/core').glob('*.kt'))
@@ -48,7 +50,7 @@ def main():
     tmp = ROOT / '.local/tmp/host-ort'; tmp.mkdir(exist_ok=True)
     subprocess.run([java, '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-cp', os.pathsep.join([str(target), cp]),
                     'ru.neurostenographer.tools.HostStreamingKt', str(model), str(fixture), str(out),
-                    *(['diagnostic'] if args.diagnostic else [])], check=True)
+                    *(['final-hour'] if args.final_hour else ['hour'] if args.hour else ['diagnostic'] if args.diagnostic else [])], check=True)
 
 
 if __name__ == '__main__':

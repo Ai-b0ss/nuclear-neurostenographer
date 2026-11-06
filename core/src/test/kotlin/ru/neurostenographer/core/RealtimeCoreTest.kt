@@ -2,6 +2,7 @@ package ru.neurostenographer.core
 
 fun testRealtimeCore() {
     testRealtimeChunkBoundaries()
+    testRevisableAttribution()
     val directory = java.nio.file.Files.createTempDirectory("realtime-journal").toFile()
     try {
         val sessionDir = java.io.File(directory, "realtime/session").apply { mkdirs() }
@@ -47,7 +48,7 @@ fun testRealtimeCore() {
         val turns = listOf(SpeakerTurn(0, startMs + 2000, "A"))
         val snapshot = history.snapshot(turns, startMs + 2000)
         check(snapshot.sumOf { it.text.split(' ').size } == i + 1)
-        check(history.pendingWords <= 1 && history.stableEntries == i)
+        check(history.pendingWords == i + 1 && history.stableEntries == 0)
         val immediate = history.snapshot(turns, startMs + 2000, initialUnknown = true)
         check(immediate.last().speakerId == null)
         check(immediate.dropLast(1).all { it.speakerId == "A" })

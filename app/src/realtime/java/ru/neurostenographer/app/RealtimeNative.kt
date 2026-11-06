@@ -23,6 +23,7 @@ class RealtimeNative(context: Context, c2Config: NemotronChunkConfig,
     private var session: OrtSession? = null
     lateinit var diarizer: NemotronStreaming
         private set
+    private var finalizer: (() -> NemotronStreaming)? = null
     val hasDiarizer get() = ::diarizer.isInitialized
     var diarizationFailure: String? = null
         private set
@@ -76,13 +77,26 @@ class RealtimeNative(context: Context, c2Config: NemotronChunkConfig,
                     }
                 } finally { inputs.values.forEach { it.close() } }
             }
-            diarizer = NemotronStreaming(floats("mel_filters.bin"), floats("hann400.bin"), floats("silence_embeds.bin"), runner, c2Config)
+            val filters = floats("mel_filters.bin"); val hann = floats("hann400.bin"); val silence = floats("silence_embeds.bin")
+            diarizer = NemotronStreaming(filters, hann, silence, runner, c2Config)
+            finalizer = { NemotronStreaming(filters, hann, silence, runner, NemotronChunkConfig.OFFLINE, reviseHistory = false) }
             } catch (e: Exception) {
                 diarizationFailure = "${e.javaClass.simpleName}: ${e.message}"
                 session?.close(); session = null; options?.close(); options = null
             }
             stage("ready")
         } catch (e: Throwable) { close(); throw e }
+    }
+    /** Reuse the loaded ORT graph, but never contaminate the full-context pass with FAST cache. */
+    fun finalizeSpeakers(samples: Long, read: (Long, Int) -> FloatArray,
+                         checkpoint: () -> Unit): List<ClusterTurn> {
+        val final = requireNotNull(finalizer).invoke()
+        while (final.canStep(samples, true)) {
+            checkpoint()
+            final.step(samples, true, read)
+        }
+        checkpoint()
+        return final.snapshot(samples)
     }
     fun speech(frame: FloatArray): Boolean = requireNotNull(vad).compute(frame) >= 0.5f
     fun decode(samples: FloatArray, span: SampleSpan): Pair<List<RecognizedWord>, RecognizedChunk?> {

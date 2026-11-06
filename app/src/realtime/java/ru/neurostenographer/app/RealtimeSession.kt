@@ -34,6 +34,9 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
     private var nativeMs = 0L
     private var asrMs = 0L
     private var c2Ms = 0L
+    private var finalizationMs = 0L
+    private var finalizationState = "PENDING"
+    private var revisedFrames = 0L
     private var vadNs = 0L
     private val vadMs get() = vadNs / 1_000_000
     private var maxLagMs = 0L
@@ -71,8 +74,10 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
         val doc = TranscriptDocument(segments, duration, TranscriptProvenance(
             AsrModelSpec.ACTIVE.id, AsrModelStore.REVISION,
             if (untimedChunks == 0) "asr_token_timestamps" else "asr_token_timestamps_and_input_windows",
-            if (c2State == "ACTIVE") "${NemotronBackend.REVISION}/incremental-session-local" else "c2_unavailable_or_partial_unknown_speakers",
-            BuildConfig.SHERPA_RUNTIME_SHA256), warnings.toList())
+            if (finalizationState == "COMPLETE") "${NemotronBackend.REVISION}/global-offline-final"
+            else if (c2State == "ACTIVE") "${NemotronBackend.REVISION}/revisable-provisional" else "c2_unavailable_or_partial_unknown_speakers",
+            BuildConfig.SHERPA_RUNTIME_SHA256), warnings.toList() +
+                if (finalizationState == "COMPLETE") emptyList() else listOf("Метки говорящих предварительные; финальное уточнение ещё не завершено."))
         document = doc
         atomic("transcript.json", doc.export("json"))
         // Keep all three formats from the same document/checkpoint.
@@ -98,6 +103,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             .put("sdk", Build.VERSION.SDK_INT).put("samples", journal.samples).put("audio_ms", audioMs)
             .put("elapsed_ms", elapsedMs()).put("native_load_ms", nativeMs).put("asr_ms", asrMs).put("c2_ms", c2Ms).put("vad_ms", vadMs)
             .put("compute_rtf", if (audioMs > 0) (asrMs + c2Ms + vadMs).toDouble() / audioMs else JSONObject.NULL)
+            .put("finalization_ms", finalizationMs).put("finalization_state", finalizationState).put("revised_frames", revisedFrames)
             .put("cpu_ms", Process.getElapsedCpuTime() - cpuStart).put("sampled_pss_kb", highPss)
             .put("battery_temperature_tenths_c", battery?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1))
             .put("battery_level", battery?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)).put("thermal_status", thermal())
@@ -166,6 +172,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                         try {
                             raw = native.diarizer.step(cursor, eof, journal::read)
                             committedMs = minOf(native.diarizer.committedSamples / 16, cursor / 16)
+                            revisedFrames = native.diarizer.revisedFrames
                         } catch (e: Exception) {
                             diarFailed = true; raw = emptyList(); committedMs = 0
                             c2State = "FAILED"
@@ -180,8 +187,28 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                     if (eof && queue.size == 0 && (diarFailed || !native.diarizer.canStep(cursor, true))) break
                     if (!progressed) Thread.sleep(8)
                 }
+                if (!cancelled.get() && native.hasDiarizer && journal.samples > 0) {
+                    state = "FINALIZING"; finalizationState = "RUNNING"; publish(); saveMetrics()
+                    val began = System.nanoTime()
+                    try {
+                        val final = native.finalizeSpeakers(journal.samples, journal::read) {
+                            check(!cancelled.get()) { "Finalization cancelled" }
+                            highPss = maxOf(highPss, Debug.getPss())
+                        }
+                        raw = SpeakerIdentity.align(final, raw)
+                        committedMs = journal.samples / 16
+                        finalizationState = "COMPLETE"; c2State = "ACTIVE"; diarFailed = false
+                    } catch (e: Exception) {
+                        finalizationState = if (cancelled.get()) "CANCELLED" else "FAILED"
+                        warnings += "Финальное уточнение не завершено: ${e.javaClass.simpleName}. Сохранены слова и предварительная атрибуция."
+                    } finally {
+                        finalizationMs = (System.nanoTime() - began) / 1_000_000
+                        c2Ms += finalizationMs
+                    }
+                }
                 state = if (cancelled.get()) "CANCELLED" else if (journal.failure != null) "CAPTURE_INTERRUPTED" else "COMPLETE"
                 if (diarFailed && state == "COMPLETE") state = "COMPLETE_UNKNOWN_SPEAKERS"
+                if (state == "COMPLETE" && finalizationState != "COMPLETE") state = "COMPLETE_PROVISIONAL"
                 publish(); saveMetrics()
                 if (state == "COMPLETE") document?.let { TranscriptHistory(context.filesDir).save("Realtime ${directory.name}", it) }
             }
