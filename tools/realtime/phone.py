@@ -198,7 +198,42 @@ def main():
                         raise SystemExit('Missing expected export')
                     continue
                 (folder / name).write_bytes(data)
-        for method_name, artifact in [('hourJournalBounded', 'realtime-hour-journal.json'), ('c2OfflineParity', 'realtime-parity.json'), ('microphoneCaptureOnlyAndRestart', 'realtime-microphone.json'),
+            if passed:
+                # An atomic revision pointer is authoritative for cross-format consistency.
+                manifest_data = call('exec-out', 'run-as', PACKAGE, 'cat',
+                    f'files/realtime/{pointer}/transcript-current.json').stdout
+                manifest = json.loads(manifest_data)
+                revision = manifest['revision']
+                if not isinstance(revision, int) or not 1 <= revision <= 9_999_999_999:
+                    raise SystemExit('Invalid snapshot revision number')
+                if manifest['state'] != 'FINAL':
+                    raise SystemExit('Expected final published snapshot')
+                version = f'v{revision:010d}'
+                base = f'files/realtime/{pointer}/transcript-versions/{version}'
+                snapshot_data = call('exec-out', 'run-as', PACKAGE, 'cat',
+                    base + '/snapshot.json').stdout
+                if hashlib.sha256(snapshot_data).hexdigest() != manifest['snapshot_sha256']:
+                    raise SystemExit('Atomic transcript manifest hash mismatch')
+                snapshot = json.loads(snapshot_data)
+                if (snapshot['revision'], snapshot['state'], snapshot['audio_ms']) != (
+                    revision, manifest['state'], manifest['audio_ms']):
+                    raise SystemExit('Transcript pointer disagrees with version manifest')
+                version_dir = folder / 'transcript-versioned'
+                version_dir.mkdir()
+                (folder / 'transcript-current.json').write_bytes(manifest_data)
+                (version_dir / 'snapshot.json').write_bytes(snapshot_data)
+                for fmt in ('json', 'txt', 'srt'):
+                    filename = f'transcript.{fmt}'
+                    payload = call('exec-out', 'run-as', PACKAGE, 'cat',
+                        base + '/' + filename).stdout
+                    expected = snapshot[f'{fmt}_sha256']
+                    if hashlib.sha256(payload).hexdigest() != expected:
+                        raise SystemExit(f'Hash mismatch in versioned transcript {fmt}')
+                    if hashlib.sha256((folder / filename).read_bytes()).hexdigest() != expected:
+                        raise SystemExit(f'Legacy export differs from authoritative snapshot: {fmt}')
+                    (version_dir / filename).write_bytes(payload)
+        for method_name, artifact in [('transcriptSnapshotCrashRecovery', 'realtime-snapshot-recovery.json'),
+                                      ('hourJournalBounded', 'realtime-hour-journal.json'), ('c2OfflineParity', 'realtime-parity.json'), ('microphoneCaptureOnlyAndRestart', 'realtime-microphone.json'),
                                       ('cancellationRecoveryAndRestart', 'realtime-recovery.json'), ('foregroundMicrophoneScreenOff', 'realtime-microphone-screenoff.json'),
                                       ('damagedC2KeepsAsrAlive', 'realtime-c2-fallback.json')]:
             if a.method == method_name and passed:

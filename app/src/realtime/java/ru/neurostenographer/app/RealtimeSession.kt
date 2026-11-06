@@ -56,6 +56,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
     @Volatile var document: TranscriptDocument? = null
         private set
     val directory: File = requireNotNull(journal.file.parentFile)
+    private val snapshots = TranscriptSnapshotStore(directory)
+    private var lastTranscriptRevision = 0L
     private val worker = Thread({ run() }, "RealtimeInference")
     fun start() { check(state == "CREATED"); state = "LOADING"; worker.start() }
     fun cancel() { cancelled.set(true) }
@@ -86,9 +88,12 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings.toList() +
                 if (finalizationState == "COMPLETE") emptyList() else listOf("Метки говорящих предварительные; финальное уточнение ещё не завершено."))
         document = doc
-        atomic("transcript.json", doc.export("json"))
-        // Keep all three formats from the same document/checkpoint.
-        atomic("transcript.txt", doc.export("txt")); atomic("transcript.srt", doc.export("srt"))
+        // All formats are first persisted under one immutable revision directory.
+        // The authoritative pointer changes only after all three files are durable.
+        // Root-level export files are compatibility mirrors, NOT a crash-safe group.
+        val published = snapshots.publish(doc.export("json"), doc.export("txt"), doc.export("srt"),
+            duration, finalizationState == "COMPLETE")
+        lastTranscriptRevision = published.number
         update(state, doc)
     }
     private fun thermal(): Int {
@@ -111,6 +116,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             .put("elapsed_ms", elapsedMs()).put("native_load_ms", nativeMs).put("asr_ms", asrMs).put("c2_ms", c2Ms).put("vad_ms", vadMs)
             .put("compute_rtf", if (audioMs > 0) (asrMs + c2Ms + vadMs).toDouble() / audioMs else JSONObject.NULL)
             .put("finalization_ms", finalizationMs).put("finalization_state", finalizationState).put("revised_frames", revisedFrames)
+            .put("transcript_revision", lastTranscriptRevision)
+            .put("transcript_manifest", "transcript-current.json")
             .put("consensus_experimental", options.consensusExperimental)
             .put("c2_chunk72_after3_experimental", options.c2Chunk72AfterThreeExperimental)
             .put("speaker_disagreement_ms", speakerDisagreementMs).put("speaker_offline_fill_ms", speakerOfflineFillMs)

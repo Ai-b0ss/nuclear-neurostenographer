@@ -87,6 +87,16 @@ class RealtimeDeviceTest {
             val saved = journal.file.inputStream().use { PcmWav.read(it) }
             assertArrayEquals("PCM persisted without gaps/duplication", audio.samples, saved.samples, 0f)
             assertNotNull(session.document)
+            // Crash-consistent multi-file export: one revision/manifest and valid hashes.
+            val published = requireNotNull(TranscriptSnapshotStore(root).current())
+            assertEquals("FINAL", published.state)
+            assertEquals(journal.samples / 16, published.audioMs)
+            assertTrue(File(root, "transcript-current.json").isFile)
+            for (format in listOf("json", "txt", "srt")) {
+                val canonical = File(published.json.parentFile, "transcript.$format")
+                val legacy = File(root, "transcript.$format")
+                assertEquals("Canonical/legacy mismatch: $format", sha(canonical), sha(legacy))
+            }
             if (clip == "silence") assertTrue(session.document!!.segments.isEmpty())
             else assertTrue("Real ASR produced no text", session.document!!.segments.isNotEmpty())
             val report = JSONObject(File(root, "metrics.json").readText()).put("test_status", "PASS")
@@ -104,6 +114,53 @@ class RealtimeDeviceTest {
             releaseForeground()
             ins.runOnMainSync { activity.finish() }
         }
+    }
+
+    @Test fun transcriptSnapshotCrashRecovery() {
+        // Uses only internally generated test text; no microphone or external audio.
+        val stages = listOf("after-json", "after-txt", "after-srt", "after-snapshot",
+            "after-directory", "after-pointer", "after-compat-json", "after-compat-txt")
+        val cases = JSONArray()
+        for (stage in stages) {
+            val own = directory("snapshot-crash")
+            val first = TranscriptSnapshotStore(own).publish(
+                """{"text":"old"}""", "old", "old", 1000, false)
+            assertEquals(1L, first.number)
+            val aborted = TranscriptSnapshotStore(own) { at ->
+                if (at == stage) throw IllegalStateException("Simulated process death")
+            }
+            assertTrue("Crash injection was ignored: $stage",
+                runCatching { aborted.publish("""{"text":"new"}""", "new", "new", 2000, true) }.isFailure)
+            val reopened = TranscriptSnapshotStore(own)
+            val latest = requireNotNull(reopened.current())
+            val pointerCommitted = stage == "after-pointer" || stage.startsWith("after-compat-")
+            assertEquals("Wrong authoritative snapshot after $stage",
+                if (pointerCommitted) 2L else 1L, latest.number)
+            assertEquals(if (pointerCommitted) "FINAL" else "PROVISIONAL", latest.state)
+            assertEquals(if (pointerCommitted) "new" else "old", latest.txt.readText())
+            assertEquals(if (pointerCommitted) "new" else "old", latest.srt.readText())
+            val fresh = reopened.publish("""{"text":"restarted"}""", "restart", "restart", 3000, true)
+            assertTrue("Pending revision caused collision", fresh.number >= 3L)
+            assertEquals(fresh.number, reopened.current()!!.number)
+            cases.put(JSONObject().put("stage", stage).put("pass", true)
+                .put("original_revision", latest.number)
+                .put("restarted_revision", fresh.number))
+        }
+        val performance = directory("snapshot-retention")
+        val store = TranscriptSnapshotStore(performance)
+        repeat(128) { index ->
+            store.publish("""{"index":$index}""", "таймкод $index", "таймкод $index", 1000L+index, false)
+        }
+        assertEquals(128L, store.current()?.number)
+        assertEquals(3, File(performance, "transcript-versions").listFiles()!!
+            .count { it.isDirectory && it.name.startsWith("v") })
+        File(context.filesDir, "realtime-snapshot-recovery.json").writeText(JSONObject()
+            .put("status", "PASS")
+            .put("scope", "PHYSICAL_ANDROID_ATOMIC_POINTER_AND_CRASH_INJECTION_NO_ASR")
+            .put("crash_cases", cases)
+            .put("retention_revisions", 3)
+            .put("stress_publications", 128)
+            .put("last_revision", store.current()!!.number).toString(2))
     }
 
     @Test fun hourJournalBounded() {

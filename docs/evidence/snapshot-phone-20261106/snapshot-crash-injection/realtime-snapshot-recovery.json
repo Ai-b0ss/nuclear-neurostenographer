@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "scope": "PHYSICAL_ANDROID_ATOMIC_POINTER_AND_CRASH_INJECTION_NO_ASR",
+  "crash_cases": [
+    {
+      "stage": "after-json",
+      "pass": true,
+      "original_revision": 1,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-txt",
+      "pass": true,
+      "original_revision": 1,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-srt",
+      "pass": true,
+      "original_revision": 1,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-snapshot",
+      "pass": true,
+      "original_revision": 1,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-directory",
+      "pass": true,
+      "original_revision": 1,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-pointer",
+      "pass": true,
+      "original_revision": 2,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-compat-json",
+      "pass": true,
+      "original_revision": 2,
+      "restarted_revision": 3
+    },
+    {
+      "stage": "after-compat-txt",
+      "pass": true,
+      "original_revision": 2,
+      "restarted_revision": 3
+    }
+  ],
+  "retention_revisions": 3,
+  "stress_publications": 128,
+  "last_revision": 128
+}
