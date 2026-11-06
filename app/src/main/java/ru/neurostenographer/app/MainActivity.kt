@@ -354,8 +354,7 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                 }
             }
             item {
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp),
-                    itemVerticalAlignment = Alignment.CenterVertically) {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text("Экспорт", style = MaterialTheme.typography.labelLarge)
                     for (f in listOf("json-contest", "txt", "json", "srt")) OutlinedButton(onClick = { onExport(f) }, enabled = !state.busy,
                         contentPadding = PaddingValues(horizontal = 12.dp)) {
