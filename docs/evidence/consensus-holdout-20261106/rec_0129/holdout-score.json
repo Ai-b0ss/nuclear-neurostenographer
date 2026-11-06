@@ -1,0 +1,87 @@
+{
+  "recording": "rec_0129",
+  "speakers": 2,
+  "selection_sha256": "57acc213235ceaff884b92e1ba2dcf723d5842dd003cb40d05d310752729fafd",
+  "candidate_source_sha256": "817d2ae79a0a1a6c83dc7dbfbdcbae4b7d73a7a9b68fc2e5c3e594fda3f04730",
+  "fixture_sha256": "8da2f6ca86f7b948d0785dec7d6ad1bf34949c864306b2f434b188c722d44d1b",
+  "rttm_sha256": "eb34ffb3fce5232e93c4bb7b1974d7f9e79efc5a4ba6f3a7a509fa9e8118552f",
+  "flac_sha256": "5cc3319de832dec8ceec1b1ec781c4058a19a0712b9ee1c96d54dc06f71fec50",
+  "collar_radius_ms": 250,
+  "scope": "HOST_ONLY_RUSSIAN_AUDIOBOOK_SYNTHETIC_RTTM_HOLDOUT",
+  "wer": "NOT_SCORED_NO_TEXT_REFERENCE",
+  "results": {
+    "original-fast": {
+      "predicted_speakers": 2,
+      "der": {
+        "status": "SCORED",
+        "rate": 0.10387880805726653,
+        "miss_ms": 5616,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 54063,
+        "scored_wall_ms": 51824,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1"
+        }
+      }
+    },
+    "revised-fast": {
+      "predicted_speakers": 2,
+      "der": {
+        "status": "SCORED",
+        "rate": 0.10961285907182361,
+        "miss_ms": 5926,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 54063,
+        "scored_wall_ms": 51824,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1"
+        }
+      }
+    },
+    "production-final": {
+      "predicted_speakers": 2,
+      "der": {
+        "status": "SCORED",
+        "rate": 0.10757819580859368,
+        "miss_ms": 5816,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 54063,
+        "scored_wall_ms": 51824,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1"
+        }
+      }
+    },
+    "preview-first-candidate": {
+      "predicted_speakers": 2,
+      "der": {
+        "status": "SCORED",
+        "rate": 0.10757819580859368,
+        "miss_ms": 5816,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 54063,
+        "scored_wall_ms": 51824,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1"
+        }
+      }
+    }
+  },
+  "policy": "PREVIEW_FIRST_WITH_FINAL_FILL"
+}

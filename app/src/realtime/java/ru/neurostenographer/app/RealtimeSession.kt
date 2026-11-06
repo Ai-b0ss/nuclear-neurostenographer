@@ -15,7 +15,8 @@ import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
 
 data class RealtimeOptions(val silenceMs: Int = 500, val fallback: Boolean = false,
-    val adaptive: Boolean = true, val paced: Boolean = true, val invocation: String? = null)
+    val adaptive: Boolean = true, val paced: Boolean = true, val invocation: String? = null,
+    val consensusExperimental: Boolean = false)
 
 /** One worker owns VAD, recognizer, C2 and cache. Capture only appends to the journal.
  * Under pressure, ASR metadata is drained before more VAD/C2 and PCM stays on disk. */
@@ -35,6 +36,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
     private var asrMs = 0L
     private var c2Ms = 0L
     private var finalizationMs = 0L
+    private var speakerDisagreementMs = 0L
+    private var speakerOfflineFillMs = 0L
     private var finalizationState = "PENDING"
     private var revisedFrames = 0L
     private var vadNs = 0L
@@ -74,7 +77,9 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
         val doc = TranscriptDocument(segments, duration, TranscriptProvenance(
             AsrModelSpec.ACTIVE.id, AsrModelStore.REVISION,
             if (untimedChunks == 0) "asr_token_timestamps" else "asr_token_timestamps_and_input_windows",
-            if (finalizationState == "COMPLETE") "${NemotronBackend.REVISION}/global-offline-final"
+            if (finalizationState == "COMPLETE") "${NemotronBackend.REVISION}/" +
+                (if (options.consensusExperimental) "dual-pass-preview-first-final-fill-experimental"
+                 else "global-offline-final")
             else if (c2State == "ACTIVE") "${NemotronBackend.REVISION}/revisable-provisional" else "c2_unavailable_or_partial_unknown_speakers",
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings.toList() +
                 if (finalizationState == "COMPLETE") emptyList() else listOf("Метки говорящих предварительные; финальное уточнение ещё не завершено."))
@@ -104,6 +109,8 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             .put("elapsed_ms", elapsedMs()).put("native_load_ms", nativeMs).put("asr_ms", asrMs).put("c2_ms", c2Ms).put("vad_ms", vadMs)
             .put("compute_rtf", if (audioMs > 0) (asrMs + c2Ms + vadMs).toDouble() / audioMs else JSONObject.NULL)
             .put("finalization_ms", finalizationMs).put("finalization_state", finalizationState).put("revised_frames", revisedFrames)
+            .put("consensus_experimental", options.consensusExperimental)
+            .put("speaker_disagreement_ms", speakerDisagreementMs).put("speaker_offline_fill_ms", speakerOfflineFillMs)
             .put("cpu_ms", Process.getElapsedCpuTime() - cpuStart).put("sampled_pss_kb", highPss)
             .put("battery_temperature_tenths_c", battery?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1))
             .put("battery_level", battery?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)).put("thermal_status", thermal())
@@ -195,7 +202,13 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                             check(!cancelled.get()) { "Finalization cancelled" }
                             highPss = maxOf(highPss, Debug.getPss())
                         }
-                        raw = SpeakerIdentity.align(final, raw)
+                        val aligned = SpeakerIdentity.align(final, raw)
+                        if (options.consensusExperimental) {
+                            val consensus = SpeakerConsensus.previewFirst(raw, aligned)
+                            raw = consensus.turns
+                            speakerDisagreementMs = consensus.disagreementMs
+                            speakerOfflineFillMs = consensus.offlineFillMs
+                        } else raw = aligned
                         committedMs = journal.samples / 16
                         finalizationState = "COMPLETE"; c2State = "ACTIVE"; diarFailed = false
                     } catch (e: Exception) {

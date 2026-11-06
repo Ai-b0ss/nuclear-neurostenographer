@@ -1,0 +1,216 @@
+{
+  "dataset_url": "https://huggingface.co/datasets/mexus/ru-book-mix-10h",
+  "license": "CC-BY-4.0",
+  "attribution": "mexus; its5Q/biggest-ru-book; bilguun/musan-noise",
+  "evaluation_only": true,
+  "not_training": true,
+  "files": [
+    {
+      "name": "rec_0150",
+      "reference_speakers": 2,
+      "reference_rttm_sha256": "76f016f51a5f4fd20e3e38c2729cb77dfedf9076cf1ecaa691005e26abbedeb9",
+      "source_flac_sha256": "65a0486e9b953970866d05ecf8862d7e8af33d601e9d01cca65420e4eec191e4",
+      "audio_wav_sha256": "f611751fc23d34131d53816be074acb067bf1659c80b55e553c66756601e4f29",
+      "clip_duration_ms": 60000,
+      "results": {
+        "fast": {
+          "speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.05581547759916987,
+            "miss_ms": 3066,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54931,
+            "scored_wall_ms": 49210,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "incremental-offline": {
+          "speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.048242340390671934,
+            "miss_ms": 2650,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54931,
+            "scored_wall_ms": 49210,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        },
+        "revised-fast": {
+          "speakers": 2,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.04895232200396862,
+            "miss_ms": 2689,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 54931,
+            "scored_wall_ms": 49210,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1"
+            }
+          }
+        }
+      },
+      "scope": "HOST_NATIVE_NEMOTRON_C2_RTTM_NOT_PHONE_NOT_NATURAL_CONVERSATION",
+      "wer": "NOT_SCORED_NO_WORD_GOLD"
+    },
+    {
+      "name": "rec_0300",
+      "reference_speakers": 3,
+      "reference_rttm_sha256": "cb7418b4cef36472efba3fe82f96f09030fcb6d9267dcc582acc62b04f66b6ff",
+      "source_flac_sha256": "157417a23b6f17245ce6d2152b9945e2cee22c1130e7c7c0c4c51f9d632b6585",
+      "audio_wav_sha256": "094fd25e55ea16929a42571a879c9665b5b812b52fda9e4b5a8e1678583a1a09",
+      "clip_duration_ms": 60000,
+      "results": {
+        "fast": {
+          "speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.1943761889663919,
+            "miss_ms": 3798,
+            "false_alarm_ms": 110,
+            "confusion_ms": 5901,
+            "reference_speaker_ms": 50464,
+            "scored_wall_ms": 49640,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "incremental-offline": {
+          "speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.06099397590361446,
+            "miss_ms": 3078,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 50464,
+            "scored_wall_ms": 49640,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        },
+        "revised-fast": {
+          "speakers": 3,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.06081563094483196,
+            "miss_ms": 3069,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 50464,
+            "scored_wall_ms": 49640,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2"
+            }
+          }
+        }
+      },
+      "scope": "HOST_NATIVE_NEMOTRON_C2_RTTM_NOT_PHONE_NOT_NATURAL_CONVERSATION",
+      "wer": "NOT_SCORED_NO_WORD_GOLD"
+    },
+    {
+      "name": "rec_0437",
+      "reference_speakers": 4,
+      "reference_rttm_sha256": "1a43cc78aaac757acdfae9d14b16b89a6251d1859c5b63d7dc392a0b3d0bc422",
+      "source_flac_sha256": "caf998d08aab77e7610b138df7180daa254baf583ff0998359da99f2b1f0f2d2",
+      "audio_wav_sha256": "514248b54b904c998ff848f5c681755568995db654df5d8b1fe00be7b8987979",
+      "clip_duration_ms": 60000,
+      "results": {
+        "fast": {
+          "speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.2517485112145892,
+            "miss_ms": 8291,
+            "false_alarm_ms": 0,
+            "confusion_ms": 5279,
+            "reference_speaker_ms": 53903,
+            "scored_wall_ms": 48419,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        },
+        "incremental-offline": {
+          "speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.13767322783518543,
+            "miss_ms": 4608,
+            "false_alarm_ms": 0,
+            "confusion_ms": 2813,
+            "reference_speaker_ms": 53903,
+            "scored_wall_ms": 48419,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "3": "spk2",
+              "2": "spk3"
+            }
+          }
+        },
+        "revised-fast": {
+          "speakers": 4,
+          "der": {
+            "status": "SCORED",
+            "rate": 0.08661855555349424,
+            "miss_ms": 4669,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "reference_speaker_ms": 53903,
+            "scored_wall_ms": 48419,
+            "collar_radius_ms": 250,
+            "skip_reference_overlap": false,
+            "hypothesis_to_reference": {
+              "0": "spk0",
+              "1": "spk1",
+              "2": "spk2",
+              "3": "spk3"
+            }
+          }
+        }
+      },
+      "scope": "HOST_NATIVE_NEMOTRON_C2_RTTM_NOT_PHONE_NOT_NATURAL_CONVERSATION",
+      "wer": "NOT_SCORED_NO_WORD_GOLD"
+    }
+  ]
+}

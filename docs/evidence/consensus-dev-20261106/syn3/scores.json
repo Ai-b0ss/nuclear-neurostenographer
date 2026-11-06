@@ -1,0 +1,98 @@
+{
+  "preview": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.3211983314372393,
+      "miss_ms": 9097,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    }
+  },
+  "final": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.31947460957699864,
+      "miss_ms": 9047,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    }
+  },
+  "preview-first": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.3191298652049505,
+      "miss_ms": 9037,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    }
+  },
+  "final-first": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.3191298652049505,
+      "miss_ms": 9037,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    }
+  },
+  "union": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.3191298652049505,
+      "miss_ms": 9037,
+      "false_alarm_ms": 0,
+      "confusion_ms": 220,
+      "reference_speaker_ms": 29007,
+      "scored_wall_ms": 29007,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "1",
+        "1": "2",
+        "2": "3"
+      }
+    }
+  },
+  "reference_speakers": 3
+}

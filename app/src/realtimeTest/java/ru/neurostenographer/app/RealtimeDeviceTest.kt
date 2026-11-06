@@ -38,7 +38,9 @@ class RealtimeDeviceTest {
         val activity = ins.startActivitySync(Intent(context, RealtimeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         holdForeground()
         val clip = args.getString("clip") ?: "syn3-clean"
-        require(clip in listOf("syn3-clean", "syn3-brown", "syn4-noise", "silence", "overlap", "aba", "single"))
+        require(clip in listOf("syn3-clean", "syn3-brown", "syn4-noise", "silence", "overlap", "aba", "single",
+            // Public synthetic audiobook RTTM evaluation; clips are pushed externally, never bundled.
+            "rec_0150", "rec_0300", "rec_0437"))
         val input = context.getExternalFilesDirs(null).filterNotNull().map { File(it, "realtime-fixtures/$clip.wav") }.first { it.isFile }
         val audio = input.inputStream().use { PcmWav.read(it) }
         val paced = args.getString("paced", "true") == "true"
@@ -49,7 +51,8 @@ class RealtimeDeviceTest {
         val journal = RealtimeJournal(File(root, "capture.wav"))
         val sourceHash = sha(input)
         val session = RealtimeSession(context, journal, RealtimeOptions(pause, fallback, adaptive = false, paced = paced,
-            invocation = args.getString("invocation")))
+            invocation = args.getString("invocation"),
+            consensusExperimental = args.getString("consensus", "false") == "true"))
         var maxFeedLatenessMs = 0L
         var producerElapsedMs = 0L
         val producer = Thread {

@@ -1,0 +1,136 @@
+{
+  "scope": "DEV_ONLY_NOT_INDEPENDENT_HOLDOUT",
+  "policy": "Reference-blind permutation temporal consensus 10ms/TSV intervals",
+  "cases": [
+    {
+      "fixture": "syn3",
+      "source_preview_sha256": "032e497b1aaeb09cb2344bf7ace196e3a8989ae88de75c5b52f8afc17f9baab3",
+      "source_final_sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8",
+      "reference_sha256": "b6c5bc091754729017e5c5285cd1240251656144438d1a794c70b8c361ef13c4",
+      "scores": {
+        "preview": 32.12,
+        "final": 31.947,
+        "preview-first": 31.913,
+        "final-first": 31.913,
+        "union": 31.913
+      }
+    },
+    {
+      "fixture": "syn4",
+      "source_preview_sha256": "f03549437645982640868428b7396b5eb67c6adc7d0dcf8f41810f5a4324b6d6",
+      "source_final_sha256": "0e4e05ac96f7de930dd120724b972bd124d295d6e743a4dbd9d21ad816db1af0",
+      "reference_sha256": "04145571792cfb71c19ee15302387f4e0e5444814a87f27a1d04997bd8def41c",
+      "scores": {
+        "preview": 40.744,
+        "final": 40.744,
+        "preview-first": 40.723,
+        "final-first": 40.703,
+        "union": 40.723
+      }
+    },
+    {
+      "fixture": "aba",
+      "source_preview_sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986",
+      "source_final_sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986",
+      "reference_sha256": "8dd17788236027a986c1a13005cbf8f2a3aba22b291c5a81852299c60b9ba6bd",
+      "scores": {
+        "preview": 45.176,
+        "final": 45.176,
+        "preview-first": 45.176,
+        "final-first": 45.176,
+        "union": 45.176
+      }
+    },
+    {
+      "fixture": "overlap",
+      "source_preview_sha256": "97119a3248ed3f66adff2f4568b2f990eca5a4af7587916ba8f8fd7ea582e9aa",
+      "source_final_sha256": "ddb60ad4ea70d6bc8ccbefca7dfafc0502cc89258a9a75219d09945c35f7bfd5",
+      "reference_sha256": "7bed93b2ec247e6ae26c2761c876e7db5c39867ce55ad532fb1a7c947a5b9729",
+      "scores": {
+        "preview": 36.493,
+        "final": 36.611,
+        "preview-first": 36.493,
+        "final-first": 36.611,
+        "union": 36.493
+      }
+    },
+    {
+      "fixture": "abab",
+      "source_preview_sha256": "ee85220a5d78481ea4b9bc595a3b2749f360115a8e9175b054ebc926a4a0de6f",
+      "source_final_sha256": "ee85220a5d78481ea4b9bc595a3b2749f360115a8e9175b054ebc926a4a0de6f",
+      "reference_sha256": "b3175a5fe99bd709f819d2a984acfae9eeaf937502122ba5f85c85db67613c88",
+      "scores": {
+        "preview": 46.36,
+        "final": 46.36,
+        "preview-first": 46.36,
+        "final-first": 46.36,
+        "union": 46.36
+      }
+    },
+    {
+      "fixture": "return-pause",
+      "source_preview_sha256": "af0a6c42c71868295aba3b9c1159bcee3ff20324d7f022850401d1dee576e046",
+      "source_final_sha256": "067406c6844a7d7158420b66571c5715715e26681ffb9feb67de07f7771a6dc6",
+      "reference_sha256": "5cdf41052091b298a2780dd22c2c4a102e98d54f7057ce96ff616a5585f8996a",
+      "scores": {
+        "preview": 49.729,
+        "final": 38.0,
+        "preview-first": 37.899,
+        "final-first": 37.899,
+        "union": 37.899
+      }
+    },
+    {
+      "fixture": "short-tail",
+      "source_preview_sha256": "740868c7c7d3fed719404a2d96ccdc2b718543ed22aa9e981e3ca6edc4ff350a",
+      "source_final_sha256": "740868c7c7d3fed719404a2d96ccdc2b718543ed22aa9e981e3ca6edc4ff350a",
+      "reference_sha256": "8069b0c4be62c5f57abfc6a58fbb188d16c51af3b6468948a129ae4af8e64d82",
+      "scores": {
+        "preview": 75.0,
+        "final": 75.0,
+        "preview-first": 75.0,
+        "final-first": 75.0,
+        "union": 75.0
+      }
+    },
+    {
+      "fixture": "rttm-2",
+      "source_preview_sha256": "d5435a89d405eec2d3a6909b3b7e4acc350b6ce387e2e8d4c60341931fb405d7",
+      "source_final_sha256": "22e60ee52d42aceb94ea8465c47081572cd175e184793202a3612230661d44ba",
+      "reference_sha256": "7d8aae7f13a4cda04ad185cf92198fcf9fb5a5b434d44774a4a704e82b0df487",
+      "scores": {
+        "preview": 4.895,
+        "final": 4.824,
+        "preview-first": 4.404,
+        "final-first": 4.404,
+        "union": 4.404
+      }
+    },
+    {
+      "fixture": "rttm-3",
+      "source_preview_sha256": "49076673dd76f23aa1e900b16b48679164a6994bc9ce8b99faa511455c2e8dd4",
+      "source_final_sha256": "6565e3a0c3860e8fbed033940121e871f1cb08feefe93a4f899618040c32d15f",
+      "reference_sha256": "7d1193d3d8eab407ba110b3fc3ea5e0b69771307804e4ef52927fd9057f81392",
+      "scores": {
+        "preview": 6.082,
+        "final": 6.099,
+        "preview-first": 6.062,
+        "final-first": 6.062,
+        "union": 6.062
+      }
+    },
+    {
+      "fixture": "rttm-4",
+      "source_preview_sha256": "d20e4207ead444d4330a0bd4bbf6006a2a99b5da4e98be5ad434f36e951ae446",
+      "source_final_sha256": "6987d7d86a0f0e61090dd3a339c1608e8049579650c824095db8dc7089efb199",
+      "reference_sha256": "f3f22f3cf7e651fbaee664ebb93ad563248e78afd77ea10207556d874ce12919",
+      "scores": {
+        "preview": 8.662,
+        "final": 13.767,
+        "preview-first": 8.571,
+        "final-first": 13.767,
+        "union": 13.732
+      }
+    }
+  ]
+}

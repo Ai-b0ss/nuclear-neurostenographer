@@ -60,7 +60,7 @@ def analyze(folder, references):
                      export_sha256=hashlib.sha256((folder / 'transcript.json').read_bytes()).hexdigest())
         (folder / 'independent-score.json').write_text(json.dumps(score, ensure_ascii=False, indent=2), encoding='utf-8')
         row['wer'] = score['wer']; row['cpwer'] = score['cpwer']; row['der'] = score['der']
-        row['reference_speakers'] = len({s['speaker_id'] for s in ref['text_segments']})
+        row['reference_speakers'] = len({s['speaker_id'] for s in ref.get('diarization', ref.get('text_segments', []))})
     row['timing_validity'] = 'PACED_CONFIRMED' if metrics.get('pacing_valid') is True else 'UNVERIFIED'
     return row
 

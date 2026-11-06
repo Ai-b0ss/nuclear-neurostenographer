@@ -3,6 +3,7 @@ package ru.neurostenographer.core
 fun testRealtimeCore() {
     testRealtimeChunkBoundaries()
     testRevisableAttribution()
+    testSpeakerConsensus()
     val directory = java.nio.file.Files.createTempDirectory("realtime-journal").toFile()
     try {
         val sessionDir = java.io.File(directory, "realtime/session").apply { mkdirs() }

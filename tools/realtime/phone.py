@@ -32,6 +32,7 @@ def main():
     run.add_argument('--clip', default='syn3-clean')
     run.add_argument('--pause', choices=['300', '500'], default='500')
     run.add_argument('--fallback', action='store_true')
+    run.add_argument('--consensus-experimental', action='store_true')
     run.add_argument('--unpaced', action='store_true')
     run.add_argument('--label', required=True)
     run.add_argument('--mic-seconds', type=int, default=20)
@@ -116,7 +117,8 @@ def main():
                    '-e', 'invocation', a.label,
                    '-e', 'micSeconds', str(a.mic_seconds),
                    '-e', 'clip', a.clip, '-e', 'pause', a.pause, '-e', 'paced', str(not a.unpaced).lower(),
-                   '-e', 'fallback', str(a.fallback).lower(), PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner']
+                   '-e', 'fallback', str(a.fallback).lower(), '-e', 'consensus', str(a.consensus_experimental).lower(),
+                   PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner']
         since = call('shell', 'date', '+%m-%d %H:%M:%S.000').stdout.decode().strip()
         initial_power = call('shell', 'dumpsys', 'power').stdout.decode('utf-8', 'replace')
         was_awake = 'mWakefulness=Awake' in initial_power
@@ -175,7 +177,7 @@ def main():
         passed = bool(re.search(r'OK \([1-9]\d* tests?\)', output)) and not any(x in output for x in ['FAILURES!!!', 'INSTRUMENTATION_FAILED', 'Process crashed'])
         if a.method == 'importedRussianStreaming':
             pointer = call('exec-out', 'run-as', PACKAGE, 'cat', 'files/realtime-last-synthetic.txt').stdout.decode().strip()
-            if not re.fullmatch(r'test-(syn3-clean|syn3-brown|syn4-noise|silence|overlap|aba|single)-[0-9a-f-]+', pointer):
+            if not re.fullmatch(r'test-(syn3-clean|syn3-brown|syn4-noise|silence|overlap|aba|single|rec_0150|rec_0300|rec_0437)-[0-9a-f-]+', pointer):
                 raise SystemExit('Invalid synthetic pointer; no files read')
             for name in ['metrics.json', 'transcript.json', 'transcript.txt', 'transcript.srt']:
                 data = call('exec-out', 'run-as', PACKAGE, 'cat', f'files/realtime/{pointer}/{name}').stdout
@@ -205,7 +207,7 @@ def main():
         relevant = '\n'.join(line for line in logs.splitlines() if PACKAGE in line or 'RealtimeInference' in line)
         (folder / 'app-logcat.txt').write_text(relevant.replace(a.serial, '[REDACTED_SERIAL]'), encoding='utf-8')
         record = {'status': 'PASS' if passed else 'FAIL', 'method': method, 'clip': a.clip,
-                  'pause': a.pause, 'fallback': a.fallback, 'paced': not a.unpaced, 'wall_s': round(time.monotonic() - started, 3),
+                  'pause': a.pause, 'fallback': a.fallback, 'consensus_experimental': a.consensus_experimental, 'paced': not a.unpaced, 'wall_s': round(time.monotonic() - started, 3),
                   'utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'adb_exit': process.returncode}
         record.update(screen_switched_off=switched_off, screen_restored=switched_off and was_awake)
         (folder / 'run.json').write_text(json.dumps(record, indent=2), encoding='utf-8')

@@ -70,8 +70,8 @@ def verify(directory, prefix="dialogue"):
         require(any(body == label + suffix for label in labels), 'Export consistency check failed')
         require(body in txt, 'Export consistency check failed')
         interval = re.escape(body)
-        match = re.search(r"\[([^\]\n]+)–([^\]\n]+)\] " + interval, txt)
-        require(match and list(map(milliseconds, match.groups())) == [start, end], 'Export consistency check failed')
+        matches = re.finditer(r"\[([^\]\n]+)–([^\]\n]+)\] " + interval, txt)
+        require(any(list(map(milliseconds, m.groups())) == [start, end] for m in matches), 'Export consistency check failed')
     return {"status": "PASS", "segments": len(segments), "audio_ms": data["audio_duration_ms"],
             "formats": ["json", "srt", "txt"], "checks": ["UTF8", "milliseconds", "duration_bounds",
             "cue_order", "same_text_speaker_and_intervals", "provenance_and_warnings"],
