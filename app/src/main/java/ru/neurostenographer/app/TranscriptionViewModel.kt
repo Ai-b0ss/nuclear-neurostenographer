@@ -56,6 +56,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private var pendingExport: Pair<String, String>? = null
 
     fun select(uri: Uri) = work {
+        // Make the otherwise slow provider copy/RIFF validation visible immediately.
+        mutable.value = mutable.value.copy(message = "Импорт аудиофайла: проверка формата…", progress = null)
         var staged: File? = null
         try {
             val snapshot = withContext(Dispatchers.IO) {
