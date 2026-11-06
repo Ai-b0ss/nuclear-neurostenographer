@@ -88,6 +88,7 @@ class MainActivity : ComponentActivity() {
         }
         val exportTxt = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain"), model::finishExport)
         val exportJson = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json"), model::finishExport)
+        val exportContest = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json"), model::finishExport)
         val exportSrt = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-subrip"), model::finishExport)
         val notifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
         val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
@@ -123,6 +124,7 @@ class MainActivity : ComponentActivity() {
                     model.prepareExport(format)
                     val name = TranscriptExport.fileBase(current.title)
                     when (format) {
+                        "json-contest" -> exportContest.launch("$name.contest.json")
                         "json" -> exportJson.launch("$name.json")
                         "srt" -> exportSrt.launch("$name.srt")
                         else -> exportTxt.launch("$name.txt")
@@ -352,10 +354,13 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                 }
             }
             item {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp),
+                    itemVerticalAlignment = Alignment.CenterVertically) {
                     Text("Экспорт", style = MaterialTheme.typography.labelLarge)
-                    for (f in listOf("txt", "json", "srt")) OutlinedButton(onClick = { onExport(f) }, enabled = !state.busy,
-                        contentPadding = PaddingValues(horizontal = 14.dp)) { Text(f.uppercase()) }
+                    for (f in listOf("json-contest", "txt", "json", "srt")) OutlinedButton(onClick = { onExport(f) }, enabled = !state.busy,
+                        contentPadding = PaddingValues(horizontal = 12.dp)) {
+                        Text(if (f == "json-contest") "JSON для жюри" else f.uppercase())
+                    }
                 }
             }
             if (segments.isNotEmpty()) item {
