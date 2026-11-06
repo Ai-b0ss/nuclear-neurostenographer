@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 58770,
+  "warnings": ["Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/global-offline-final-warm-postprocessed", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 136, "end_ms": 3696, "speaker_id": "Speaker 1", "text": "Илья, привет. Давай начнём. Расскажи, чем занимался на прошлой", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 3696, "end_ms": 4136, "speaker_id": null, "text": "неделе.", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 5328, "end_ms": 9888, "speaker_id": "Speaker 2", "text": "Привет, Алексей. В основном работал над задачей по логированию, частично трогал старый сервис.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 10288, "end_ms": 12808, "speaker_id": "Speaker 1", "text": "О'кей, по логированию какой статус сейчас?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 14184, "end_ms": 18944, "speaker_id": "Speaker 2", "text": "Основной кот написал, но долго разбирался с существующей архитектурой, там много неочевидного.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 19064, "end_ms": 20504, "speaker_id": "Speaker 1", "text": "Что именно вызвало сложности?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 20794, "end_ms": 24794, "speaker_id": "Speaker 2", "text": "Связи между модулями плюс требования в Тикете оказались не совсем полными.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 24874, "end_ms": 28314, "speaker_id": "Speaker 1", "text": "Понял. Ты уточнял это заранее или уже в процессе?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 28394, "end_ms": 30632, "speaker_id": "Speaker 2", "text": "Уже в процессе, да? Наверное, поздновато.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 31544, "end_ms": 36144, "speaker_id": "Speaker 1", "text": "Такое бывает. По срокам ты успеваешь закрыть задачу в этом спринте?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 36664, "end_ms": 40024, "speaker_id": "Speaker 2", "text": "Честно, нет, я бы предложил перенести часть на следующий спринг.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 40264, "end_ms": 43064, "speaker_id": "Speaker 1", "text": "Согласен. Тогда фиксируем перенос второй части задания.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 43408, "end_ms": 44168, "speaker_id": "Speaker 2", "text": "Ок, спасибо.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 45688, "end_ms": 47448, "speaker_id": "Speaker 1", "text": "А первую часть сможешь довести до", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 47448, "end_ms": 47768, "speaker_id": null, "text": "конца?", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 47848, "end_ms": 48568, "speaker_id": "Speaker 2", "text": "Да, думаю, да, я", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 48568, "end_ms": 49848, "speaker_id": null, "text": "смогу. Дедлайн тогда оставим", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 49848, "end_ms": 51488, "speaker_id": "Speaker 1", "text": "до 15 марта подходит?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 51728, "end_ms": 52368, "speaker_id": "Speaker 2", "text": "Да, нормально.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 53272, "end_ms": 58770, "speaker_id": "Speaker 1", "text": "Хорошо, э-э-э. Про второй сервис, ты его только читал или что-то менял?", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

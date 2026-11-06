@@ -1,0 +1,9 @@
+== LIVE (0.3.9 code): transcript after finalization
+syn3-clean             WER 3/52 (5.8%)  cpWER 3/52  speakers 3/3  segments 7  | state COMPLETE latency p50 1407 max 2120 ms  final 12340 ms
+syn4-noise             WER 14/76 (18.4%)  cpWER NOT_SCORED  speakers 4/4  segments 13  | state COMPLETE latency p50 1155 max 1921 ms  final 21705 ms
+veche-2-one-to-one     WER 15/137 (10.9%)  cpWER NOT_SCORED  speakers 2/2  segments 20  | state COMPLETE latency p50 2117 max 3341 ms  final 23308 ms
+veche-3-auth-incident  WER 16/123 (13.0%)  cpWER NOT_SCORED  speakers 3/3  segments 16  | state COMPLETE latency p50 1641 max 2634 ms  final 23500 ms
+aba                    WER 1/17 (5.9%)  cpWER 9/17  speakers 1/2  segments 3  | state COMPLETE latency p50 1099 max 1432 ms  final 3592 ms
+overlap                segments 3  | state COMPLETE latency p50 1450 max 1450 ms  final 1557 ms
+silence                segments 0  | state COMPLETE latency p50 None max None ms  final 2212 ms
+
