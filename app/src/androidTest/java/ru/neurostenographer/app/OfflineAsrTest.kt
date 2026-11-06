@@ -28,6 +28,7 @@ class OfflineAsrTest {
         instrumentation.context.assets.open("gigaam-v3.zip").use { store.install(it) }
         val source = File.createTempFile("public-fixture-", ".wav", context.cacheDir)
         val destination = File.createTempFile("transcript-", ".json", context.cacheDir)
+        val next = File.createTempFile("public-fixture-next-", ".wav", context.cacheDir)
         val owner = ViewModelStore()
         lateinit var model: TranscriptionViewModel
         fun idle() {
@@ -56,9 +57,13 @@ class OfflineAsrTest {
                 instrumentation.runOnMainSync { model.prepareExport(format) }
                 if (format == "json") {
                     // Document chooser may return after input changes: keep the original export.
-                    instrumentation.runOnMainSync { model.select(selected) }
+                    // Since 0.3.0 the validated snapshot is deleted once the transcript is saved, so the
+                    // "new input" is a fresh copy of the public fixture, not the old snapshot URI.
+                    assertFalse("Snapshot must be discarded after transcription", File(selected.path!!).exists())
+                    instrumentation.context.assets.open("example.wav").use { input -> next.outputStream().use { input.copyTo(it) } }
+                    instrumentation.runOnMainSync { model.select(Uri.fromFile(next)) }
                     idle()
-                    assertNull(model.state.value.document)
+                    assertNull(model.state.value.message, model.state.value.document)
                 }
                 instrumentation.runOnMainSync { model.finishExport(Uri.fromFile(destination)) }
                 idle()
@@ -78,7 +83,7 @@ class OfflineAsrTest {
         } finally {
             runCatching { model.state.value.source?.path?.let { File(it).delete() } }
             instrumentation.runOnMainSync { owner.clear() }
-            source.delete(); destination.delete()
+            source.delete(); destination.delete(); next.delete()
         }
     }
 
