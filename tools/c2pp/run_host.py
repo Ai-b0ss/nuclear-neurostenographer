@@ -40,7 +40,7 @@ def main():
             raise SystemExit('C2 model pin mismatch: ' + name)
     sources = sorted((ROOT / 'core/src/main/kotlin/ru/neurostenographer/core').glob('*.kt'))
     sources += sorted((ROOT / 'app/src/nemotron/java/ru/neurostenographer/core').glob('*.kt'))
-    sources += [ROOT / 'tools/c2pp/DumpLogits.kt']
+    sources += [ROOT / 'tools/c2pp/DumpLogits.kt', ROOT / 'app/src/realtime/java/ru/neurostenographer/app/JournalBlocks.kt']
     kotlin = HARNESS / 'kotlin'
     cp = os.pathsep.join([str(kotlin / 'kotlin-stdlib.jar'), str(ort)])
     a.work.mkdir(parents=True, exist_ok=True)
