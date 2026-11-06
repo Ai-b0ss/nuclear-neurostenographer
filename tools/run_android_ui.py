@@ -159,7 +159,16 @@ class AndroidUi:
         self.tap_node(node)
         # The drawer can coexist in the tree with a toolbar and breadcrumb also
         # named Downloads. Select its observed Android title resource explicitly.
-        self.tap(label="Downloads", resource_suffix="android:id/title", exact=True)
+        # A tap during the drawer's opening animation can be lost: retry until the drawer is gone.
+        for _ in range(4):
+            time.sleep(0.7)
+            self.tap(label="Downloads", resource_suffix="android:id/title", exact=True)
+            time.sleep(1)
+            _, drawer = self.find(label="Open from", exact=True, timeout=0)
+            _, save_drawer = self.find(label="Save to", exact=True, timeout=0)
+            if drawer is None and save_drawer is None:
+                return
+        raise AssertionError("Document picker stayed on its root drawer")
 
     def save_document(self, format, rotate=False):
         self.tap(label=format.upper(), exact=True)
@@ -367,7 +376,13 @@ def run(ui):
         raise AssertionError("Cancellation test did not open document picker")
     for _ in range(2):
         ui.shell("input", "keyevent", "KEYCODE_BACK")
-        _, field = ui.find(class_name="android.widget.EditText", timeout=0)
+        # The picker closes with an animation: a second BACK sent too early would close the transcript screen.
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline:
+            _, field = ui.find(class_name="android.widget.EditText", timeout=0)
+            if field is None:
+                break
+            time.sleep(0.5)
         if field is None:
             break
     ui.visible("JSON", exact=True)
