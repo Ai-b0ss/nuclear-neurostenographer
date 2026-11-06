@@ -47,7 +47,11 @@ val solHighAcceptance = providers.gradleProperty("solHighAcceptance").orNull == 
 check(!solHighAcceptance || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
     "Sol High acceptance requires the A3+C2 product configuration"
 }
-val realtime = providers.gradleProperty("realtime").orNull == "true"
+// Live transcription is part of the product (A3 + C2) unless -Prealtime=false; -PrealtimeSideBySide=true keeps the
+// former separate ".realtime" test package.
+val realtimeSideBySide = providers.gradleProperty("realtimeSideBySide").orNull == "true"
+val realtime = providers.gradleProperty("realtime").orNull?.toBoolean()
+    ?: (realtimeSideBySide || (nemotronProduct && asrA3 && !solHighAcceptance && !c2Candidate && !nemotronPrototype))
 check(!realtime || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
     "Realtime requires A3 + product C2 and its own application ID"
 }
@@ -125,8 +129,13 @@ android {
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
     if (realtime) {
-        defaultConfig.applicationIdSuffix = ".realtime"
-        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф realtime (эксперимент)"
+        if (realtimeSideBySide) {
+            defaultConfig.applicationIdSuffix = ".realtime"
+            defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф realtime (эксперимент)"
+        }
+        check(rootProject.file(".local/realtimeAssets/silero_vad.onnx").isFile) {
+            "Live mode needs .local/realtimeAssets/silero_vad.onnx (SHA-256 9e2449e1…1fd6), or build with -Prealtime=false"
+        }
         sourceSets.getByName("main").apply {
             java.srcDir("src/realtime/java")
             assets.srcDir("src/realtime/assets")

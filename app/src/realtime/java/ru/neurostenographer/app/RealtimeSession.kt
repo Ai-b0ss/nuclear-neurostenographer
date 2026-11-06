@@ -241,7 +241,13 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                 if (diarFailed && state == "COMPLETE") state = "COMPLETE_UNKNOWN_SPEAKERS"
                 if (state == "COMPLETE" && finalizationState != "COMPLETE") state = "COMPLETE_PROVISIONAL"
                 publish(); saveMetrics()
-                if (state == "COMPLETE") document?.let { TranscriptHistory(context.filesDir).save("Realtime ${directory.name}", it) }
+                // Every finished session goes to the shared history (speakers may be provisional or unknown: the
+                // document's provenance and warnings say so). The title is what the history list shows.
+                if (state.startsWith("COMPLETE")) document?.let {
+                    val title = "Живая запись " + java.text.SimpleDateFormat("d MMMM HH:mm", java.util.Locale("ru"))
+                        .format(java.util.Date(directory.name.toLongOrNull() ?: System.currentTimeMillis()))
+                    TranscriptHistory(context.filesDir).save(title, it)
+                }
             }
         } catch (e: Throwable) {
             failure = if (cancelled.get()) null else "${e.javaClass.simpleName}: ${e.message}"

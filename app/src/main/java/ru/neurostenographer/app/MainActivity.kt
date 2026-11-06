@@ -179,7 +179,7 @@ private val DarkColors = darkColorScheme(
 )
 
 @Composable
-private fun StenoTheme(content: @Composable () -> Unit) =
+internal fun StenoTheme(content: @Composable () -> Unit) =
     MaterialTheme(colorScheme = if (isSystemInDarkTheme()) DarkColors else LightColors, content = content)
 
 private val SpeakerColors = listOf(Color(0xFF3F51D9), Color(0xFFE0631C), Color(0xFF0E9F6E), Color(0xFFB0329E),
@@ -189,7 +189,7 @@ private fun speakerIndex(id: String?) = id?.substringAfterLast(' ')?.toIntOrNull
 private fun speakerColor(id: String?) = speakerIndex(id)?.let { SpeakerColors[(it - 1).mod(SpeakerColors.size)] } ?: Color(0xFF8A8D9C)
 private fun speakerName(id: String?, names: Map<String, String> = emptyMap()) = TranscriptExport.displaySpeaker(id, names)
 
-private fun clock(ms: Long): String {
+internal fun clock(ms: Long): String {
     val s = ms / 1000
     return if (s >= 3600) "%d:%02d:%02d".format(s / 3600, s / 60 % 60, s % 60) else "%02d:%02d".format(s / 60, s % 60)
 }
@@ -263,7 +263,7 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
             }
             if (onRealtime != null) item {
                 OutlinedButton(onClick = onRealtime, enabled = !state.busy && !recording && state.modelReady,
-                    modifier = Modifier.fillMaxWidth()) { Text("Realtime · эксперимент") }
+                    modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Живая расшифровка · текст во время записи") }
             }
             if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error) }
             if (state.source != null && !recording && !state.busy) item {
@@ -472,7 +472,7 @@ private fun highlighted(text: String, needle: String, mark: Color): AnnotatedStr
 }
 
 @Composable
-private fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
+internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
                   onSpeaker: (String) -> Unit) {
     val color = speakerColor(segment.speakerId)
     Row(Modifier.fillMaxWidth()) {
