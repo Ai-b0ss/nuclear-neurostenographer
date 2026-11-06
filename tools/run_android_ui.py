@@ -78,6 +78,19 @@ class AndroidUi:
                 return root, None
             time.sleep(0.3)
 
+    def picker_field(self, timeout=12):
+        """The document picker's file-name field. The app's own transcript search box is an EditText too."""
+        deadline = time.monotonic() + timeout
+        while True:
+            root = self.tree()
+            found = [n for n in root.iter("node") if n.get("class") == "android.widget.EditText"
+                     and n.get("package") == "com.android.documentsui"]
+            if len(found) > 1:
+                raise AssertionError("Ambiguous document picker field")
+            if found or time.monotonic() >= deadline:
+                return root, (found[0] if found else None)
+            time.sleep(0.3)
+
     def scroll(self, root, down):
         candidates = [n for n in root.iter("node") if n.get("scrollable") == "true"]
         if not candidates:
@@ -177,7 +190,7 @@ class AndroidUi:
             self.rotate_picker(1)
             self.screenshot("picker-rotated", landscape=True)
             self.rotate_picker(0)
-        root, field = self.find(class_name="android.widget.EditText")
+        root, field = self.picker_field()
         if field is None:
             raise AssertionError("Document filename field missing")
         current = field.get("text", "")
@@ -371,7 +384,7 @@ def run(ui):
     ui.tap(label="Распознать")
     wait_for_transcript(ui, "Public Russian UI inference")
     ui.tap(label="TXT", exact=True)
-    _, field = ui.find(class_name="android.widget.EditText")
+    _, field = ui.picker_field()
     if field is None:
         raise AssertionError("Cancellation test did not open document picker")
     for _ in range(2):
@@ -379,7 +392,7 @@ def run(ui):
         # The picker closes with an animation: a second BACK sent too early would close the transcript screen.
         deadline = time.monotonic() + 5
         while time.monotonic() < deadline:
-            _, field = ui.find(class_name="android.widget.EditText", timeout=0)
+            _, field = ui.picker_field(timeout=0)
             if field is None:
                 break
             time.sleep(0.5)
