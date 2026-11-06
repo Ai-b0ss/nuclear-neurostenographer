@@ -43,7 +43,8 @@ class RealtimePhrases(val silenceMs: Int = 500, val maxPhraseMs: Int = 15000) {
     private var lastSpeech = 0L
     private var speechSamples = 0L
     private var lastEnd = 0L
-    init { require(silenceMs in listOf(300, 500) && maxPhraseMs in 10000..15000) }
+    // Shorter phrases bound live text latency for long monologues; the quiet-cut window stays 2 s.
+    init { require(silenceMs in 300..500 && maxPhraseMs in 6000..15000) }
     val consumed get() = cursor
 
     fun accept(count: Int, speech: Boolean, quietCut: (Long, Int) -> Int): List<SampleSpan> {
