@@ -40,6 +40,12 @@ class ErrorAtlasTest(unittest.TestCase):
             self.assertGreater(result["totals"]["missed_quiet45_ms"],0)
             self.assertTrue((d/"out/frames.csv").is_file())
             self.assertEqual(result["totals"]["confusion_ms"],0)
+            self.assertTrue(result["scope"].startswith("SYNTHETIC/"))
+            human={**ref,"kind":"HUMAN_SCRIPTED_MEETING"}
+            refpath.write_text(json.dumps(human),encoding="utf-8")
+            human_result=audit(wav,refpath,turns,d/"human")
+            self.assertTrue(human_result["scope"].startswith("HUMAN_SCRIPTED_MEETING/"))
+            self.assertFalse(any("coarse TTS" in s for s in human_result["caveats"]))
             refpath.write_text(json.dumps({**ref, "audio_sha256": "0"*64}),encoding="utf-8")
             with self.assertRaisesRegex(ValueError,"SHA-256"):audit(wav,refpath,turns,d/"no")
 

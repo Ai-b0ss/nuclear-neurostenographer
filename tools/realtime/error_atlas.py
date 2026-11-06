@@ -170,12 +170,12 @@ def audit(wav, reference_path, tsv, out):
     summary = dict(source_audio_sha256=ref["audio_sha256"],
                    reference_sha256=hashlib.sha256(reference_path.read_bytes()).hexdigest(),
                    hypothesis_sha256=hashlib.sha256(tsv.read_bytes()).hexdigest(),
-                   scope="COARSE_TTS_REFERENCE_PCM_ENERGY_ONLY_NOT_SPEECH_GOLD",
+                   scope=ref.get("kind", "UNSPECIFIED_CORPUS_REFERENCE") + "/PCM_ENERGY_ONLY_NOT_SPEECH_GOLD",
                    collar_radius_ms=250, threshold_dbfs=dict(quiet=LOW_DB, energetic=HIGH_DB),
                    score=score, totals=totals,
                    per_reference=per_reference(reference, events),
                    caveats=["PCM energy alone does not prove human speech, silence or voice identity.",
-                            "Reference labels are coarse TTS clip intervals; high reference misses may be annotation artifacts.",
+                            "Ground-truth timestamps are corpus annotations; inspect boundary precision and overlap before interpreting misses.",
                             "Predicted turns reflect saved raw C2 output; ASR/VAD evidence is not inferred from them."])
     (out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(dict(label=tsv.stem, der=round(score["rate"], 5),
