@@ -572,14 +572,10 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                             Surface(shape = RoundedCornerShape(50), color = speakerColor(id).copy(alpha = 0.14f),
                                 modifier = Modifier.clip(RoundedCornerShape(50))
                                     .clickable(enabled = id != null && !state.busy) { naming = id }) {
-                                Row(Modifier.padding(horizontal = 12.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Row(Modifier.padding(horizontal = 10.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                                     Box(Modifier.size(10.dp).background(speakerColor(id), CircleShape))
                                     Spacer(Modifier.width(8.dp))
                                     Text("${speakerName(id, names)} · $n", style = MaterialTheme.typography.labelLarge)
-                                    if (id != null) {
-                                        Spacer(Modifier.width(6.dp))
-                                        Icon(Icons.Filled.Edit, null, Modifier.size(12.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                                    }
                                 }
                             }
                         }
