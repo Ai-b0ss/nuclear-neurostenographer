@@ -17,6 +17,8 @@ fun testTopicTitle() {
     check("ошибк" in title.lowercase() || "логи" in title.lowercase()) { title }
     check(!title.lowercase().contains("давайте") && !title.lowercase().contains("нужно")) { title }
     check(title.split(", ").size <= 3) { title }
+    // Greetings are not topics.
+    check(TopicTitle.suggest(listOf(seg("Здорово, здорово! Привет, привет. Как дела? Привет, чего не спишь, привет"))) == null)
     // Same input, same title.
     check(TopicTitle.suggest(listOf(seg("сервер сервер сервер логи логи ошибка ошибка ошибка ошибка"))) ==
         TopicTitle.suggest(listOf(seg("сервер сервер сервер логи логи ошибка ошибка ошибка ошибка"))))
