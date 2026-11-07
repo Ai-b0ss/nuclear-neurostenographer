@@ -1,0 +1,128 @@
+[
+  {
+    "pkg": "realtime",
+    "test": "live syn3-clean",
+    "ok": true,
+    "seconds": 67,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live syn4-noise",
+    "ok": true,
+    "seconds": 96,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live veche-2-one-to-one",
+    "ok": true,
+    "seconds": 98,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live veche-3-auth-incident",
+    "ok": true,
+    "seconds": 99,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live aba",
+    "ok": true,
+    "seconds": 30,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live overlap",
+    "ok": true,
+    "seconds": 21,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live silence",
+    "ok": true,
+    "seconds": 24,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live c2OfflineParity",
+    "ok": true,
+    "seconds": 45,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live damagedC2KeepsAsrAlive",
+    "ok": true,
+    "seconds": 14,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live transcriptSnapshotCrashRecovery",
+    "ok": true,
+    "seconds": 11,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live hourJournalBounded",
+    "ok": true,
+    "seconds": 9,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live cancellationRecoveryAndRestart",
+    "ok": true,
+    "seconds": 4,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live recoveryKeepsCompletedAndShortInterruptedAudio",
+    "ok": true,
+    "seconds": 4,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live microphoneCaptureOnlyAndRestart",
+    "ok": true,
+    "seconds": 9,
+    "note": ""
+  },
+  {
+    "pkg": "solhigh",
+    "test": "import fixturePipelineAndExports",
+    "ok": true,
+    "seconds": 130,
+    "note": ""
+  },
+  {
+    "pkg": "solhigh",
+    "test": "import failedC2ReplacementKeepsVerifiedModel",
+    "ok": true,
+    "seconds": 7,
+    "note": ""
+  },
+  {
+    "pkg": "solhigh",
+    "test": "lifecycle HonorLifecycleAcceptanceTest (3 tests)",
+    "ok": false,
+    "seconds": 2005,
+    "note": ""
+  },
+  {
+    "pkg": "realtime",
+    "test": "live foregroundMicrophoneScreenOff (host screen-off)",
+    "ok": false,
+    "seconds": 24,
+    "note": ""
+  }
+]

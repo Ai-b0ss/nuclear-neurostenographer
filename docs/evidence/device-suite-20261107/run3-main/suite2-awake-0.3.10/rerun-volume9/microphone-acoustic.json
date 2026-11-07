@@ -1,0 +1,8 @@
+{
+  "probe_keywords_matched": 5,
+  "segments": 3,
+  "audio_ms": 19940,
+  "status": "PASS",
+  "human_accuracy": "NOT_SCORED",
+  "device_scope": "physical_ARM64_QA"
+}

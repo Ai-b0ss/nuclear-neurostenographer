@@ -1,0 +1,6 @@
+--------- beginning of main
+--------- beginning of system
+11-07 16:44:44.723 11513 11538 I TestRunner: run started: 1 tests
+11-07 16:44:44.726 11513 11538 I TestRunner: started: foregroundMicrophoneScreenOff(ru.neurostenographer.app.RealtimeDeviceTest)
+11-07 16:45:05.590 11513 11538 I TestRunner: finished: foregroundMicrophoneScreenOff(ru.neurostenographer.app.RealtimeDeviceTest)
+11-07 16:45:05.599 11513 11538 I TestRunner: run finished: 1 tests, 0 failed, 0 ignored
