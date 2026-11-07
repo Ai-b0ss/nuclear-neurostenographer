@@ -19,6 +19,15 @@ fun testTermDictionary() {
     check(one("руби дрова").single().ambiguous)
     check(one("он шёл домой, шел дождь, растёт трава").isEmpty())
     check(one("котлинская котлинскаяяяя").map { it.original } == listOf("котлинская"))
+    // Hackathon theme: A3 spellings from the TTS probe; Cyrillic canonical forms take endings without a hyphen.
+    val probe = "Хокотон проводит не яу Мефи. Студенты МЕФИ. Инспекторы Магаты. Каждый твелл и Твел. " +
+        "Киум вырос. Нейросеть для деарезации говорящих. Чекпоинт Хокатона. Команда Хека Стим."
+    check(one(probe).map { it.original to it.replacement } == listOf("Хокотон" to "Хакатон", "не яу Мефи" to "НИЯУ МИФИ",
+        "МЕФИ" to "МИФИ", "Магаты" to "МАГАТЭ", "твелл" to "ТВЭЛ", "Твел" to "ТВЭЛ", "Киум" to "КИУМ",
+        "деарезации" to "диаризации", "Хокатона" to "Хакатона", "Хека Стим" to "Hex.Team")) { one(probe).toString() }
+    check(one("твеллы").single().replacement == "ТВЭЛы")
+    check(one("Хакатон проводит НИЯУ МИФИ, ТВЭЛ, МАГАТЭ, КИУМ, диаризация, твэлы").isEmpty())
+    try { Term("a*b", listOf("x")); error("Inner * accepted") } catch (_: IllegalArgumentException) { }
     // Already canonical: nothing to do.
     check(one("Пишу на Kotlin и JavaScript").isEmpty())
 
