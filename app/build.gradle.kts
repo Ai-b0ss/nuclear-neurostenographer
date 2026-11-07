@@ -66,8 +66,8 @@ android {
         applicationId = "ru.neurostenographer.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 16
-        versionName = "0.3.13-contest"
+        versionCode = 17
+        versionName = "0.3.14-contest"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")

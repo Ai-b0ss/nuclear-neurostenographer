@@ -2,7 +2,9 @@
 
 Офлайн-приложение для Android: расшифровывает запись разговора на русском, само определяет говорящих и выдаёт диалог с временными метками — «кто, когда, что сказал». Работает без интернета (в манифесте нет разрешения INTERNET), модели внутри APK. Проект для Nuclear IT Hack (НИЯУ МИФИ, ноябрь 2026).
 
-**Текущий выпуск: [v0.3.13-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases)** (предыдущий — [v0.3.12-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.12-contest)). Подписанный APK, arm64-v8a + x86_64. Проверяется на физическом HONOR 10X Lite (Kirin 710, Android 10).
+**Текущий выпуск: [v0.3.14-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases)** (предыдущий — [v0.3.13-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.13-contest))
+
+> **Формат вывода для жюри.** Кнопка «JSON» (с 0.3.14) сохраняет файл строго по слайду организаторов: `{"transcript":[{"speaker_id","start_ms","end_ms","text"}]}`, исходный текст распознавания без правок. 0.3.4–0.3.13 экспортировали другой JSON. Расширенный формат — «JSON расш.». Требования, комплект сдачи и что не сделано: [CONTEST_REQUIREMENTS](docs/CONTEST_REQUIREMENTS_2026-11-07.md), [SUBMISSION_CHECKLIST](docs/SUBMISSION_CHECKLIST.md).. Подписанный APK, arm64-v8a + x86_64. Проверяется на физическом HONOR 10X Lite (Kirin 710, Android 10).
 
 > 0.3.4–0.3.6 собраны без `-PasrA3=true` и не работают — не устанавливайте их. 0.3.7–0.3.9 на коротких диалогах склеивают двух говорящих в одного (исправлено в 0.3.10, см. ниже).
 
