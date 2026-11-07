@@ -1,0 +1,78 @@
+{
+  "scope": "physical_phone_fixture_pipeline_no_ui_no_microphone",
+  "sdk": 29,
+  "abi": "arm64-v8a",
+  "human_accuracy": "NOT_SCORED",
+  "cases": [
+    {
+      "fixture": "aba.wav",
+      "input_sha256": "300e7ef28c6caf93395af9be07fd3df0a850cbe6797c8416bd57489aaec143a7",
+      "audio_ms": 12950,
+      "wall_ms": 27063,
+      "expected_fixture_speakers": 2,
+      "observed_speakers": 2,
+      "speaker_count_gate": "PASS",
+      "segments": 3,
+      "main_process_peak_pss_kib": 1066856,
+      "speaker_source": "nemotron3-diarization-onnx-4a911fc3\/int8-ir9",
+      "details": "ASR вернул 3 фрагментов. Аудио: 12950 мс; загрузка 4306 мс; обработка 2235 мс. Диаризация C2: 2 кластеров, 13452 мс. ",
+      "timestamp_source": "asr_token_timestamps"
+    },
+    {
+      "fixture": "syn3-clean.wav",
+      "input_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+      "audio_ms": 33507,
+      "wall_ms": 28306,
+      "expected_fixture_speakers": 3,
+      "observed_speakers": 3,
+      "speaker_count_gate": "PASS",
+      "segments": 7,
+      "main_process_peak_pss_kib": 1089070,
+      "speaker_source": "nemotron3-diarization-onnx-4a911fc3\/int8-ir9",
+      "details": "ASR вернул 7 фрагментов. Аудио: 33507 мс; загрузка 3929 мс; обработка 6423 мс. Диаризация C2: 3 кластеров, 12775 мс. ",
+      "timestamp_source": "asr_token_timestamps"
+    },
+    {
+      "fixture": "syn4-noise.wav",
+      "input_sha256": "939648072d210ef99b1d6b1866110997852a53239d63989b78cbb2b267a70d49",
+      "audio_ms": 57324,
+      "wall_ms": 40627,
+      "expected_fixture_speakers": 4,
+      "observed_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "segments": 13,
+      "main_process_peak_pss_kib": 1100237,
+      "speaker_source": "nemotron3-diarization-onnx-4a911fc3\/int8-ir9",
+      "details": "ASR вернул 13 фрагментов. Аудио: 57324 мс; загрузка 3793 мс; обработка 9149 мс. Диаризация C2: 4 кластеров, 22467 мс. ",
+      "timestamp_source": "asr_token_timestamps"
+    },
+    {
+      "fixture": "silence.wav",
+      "input_sha256": "190415015d40eef0cd797e1b59ffe00846b01873050b12d44b3a216de3faa2a9",
+      "audio_ms": 8000,
+      "wall_ms": 7043,
+      "expected_fixture_speakers": 0,
+      "observed_speakers": 0,
+      "speaker_count_gate": "PASS",
+      "segments": 0,
+      "main_process_peak_pss_kib": 706202,
+      "speaker_source": "nemotron3-diarization-onnx-4a911fc3\/int8-ir9",
+      "details": "Речевые окна не обнаружены; ASR не запускался. Аудио: 8000 мс; загрузка 0 мс; обработка 0 мс. Диаризация C2: 0 кластеров, 2121 мс. ",
+      "timestamp_source": "diarization_boundaries_and_input_windows"
+    },
+    {
+      "fixture": "acted-dev.wav",
+      "input_sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861",
+      "audio_ms": 19655,
+      "wall_ms": 19012,
+      "expected_fixture_speakers": 2,
+      "observed_speakers": 2,
+      "speaker_count_gate": "PASS",
+      "segments": 3,
+      "main_process_peak_pss_kib": 1098615,
+      "speaker_source": "nemotron3-diarization-onnx-4a911fc3\/int8-ir9",
+      "details": "ASR вернул 3 фрагментов. Аудио: 19655 мс; загрузка 3816 мс; обработка 4767 мс. Диаризация C2: 2 кластеров, 5466 мс. ",
+      "timestamp_source": "asr_token_timestamps"
+    }
+  ]
+}
