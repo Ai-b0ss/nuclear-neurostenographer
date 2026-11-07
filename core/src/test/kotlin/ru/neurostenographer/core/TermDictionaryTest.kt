@@ -34,6 +34,7 @@ fun testTermDictionary() {
             "шел-код" to "шелл-код")) { one("x").toString() }
     check(pairs("Реверс инжиниринг прошивки в Вайда про и Гидре.") == listOf("Реверс инжиниринг" to "Реверс-инжиниринг", "Вайда про" to "IDA Pro",
         "Гидре" to "Ghidra"))
+    check(pairs("Скад-система показывает параметры.") == listOf("Скад-система" to "SCADA-система"))
     check(one("Гидре").single().ambiguous && one("люкс").single().ambiguous && one("Фриду").single().ambiguous)
     // Acronyms: letter-name spellings and A3 misspellings; plain Latin acronyms are untouched.
     check(pairs("Двухфакторная аутентификация, twfa, по впн и эс эс эйч, сиви и сивиэсэс, овасп, сием, эдр.") ==
