@@ -31,7 +31,7 @@ Android instrumentation APK только собирается.
 Изменение контроллера в Git само по себе не заменяет запущенную копию: обновление выполняется отдельно после его тестов.
 Процесс работает только для этого репозитория и явного списка веток, без форков и произвольных команд из PR.
 
-Ярлык Neurostenographer local CI.lnk в автозагрузке текущего пользователя запускает local_ci_launcher.pyw через pythonw.
+Задача Планировщика Windows NeurostenographerLocalCI запускает local_ci_launcher.pyw через pythonw при входе текущего пользователя. Задача работает с ограниченными правами (Interactive/Limited), без системной учётной записи.
 Окно терминала не открывается. После входа в Windows контроллер запускается снова, если его не отключили командой stop.
 При выключенном ПК проверок нет.
 
@@ -48,10 +48,11 @@ python K:\nn-local-ci-20261107\controller.py --config K:\nn-local-ci-20261107\co
 ```
 
 stop отключает последующую автозагрузку и отменяет только текущий дочерний процесс контроллера.
-Для возобновления:
+После состояния stopped для возобновления:
 
 ```powershell
-pythonw K:\nn-local-ci-20261107\controller.py --config K:\nn-local-ci-20261107\config.json watch --resume
+Remove-Item K:\nn-local-ci-20261107\DISABLED,K:\nn-local-ci-20261107\STOP -ErrorAction SilentlyContinue
+Start-ScheduledTask -TaskName NeurostenographerLocalCI
 ```
 
 Для принудительного повторения сначала остановить watcher и дождаться stopped, затем:
