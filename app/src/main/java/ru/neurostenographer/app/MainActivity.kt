@@ -13,13 +13,18 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -36,10 +41,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.MoreVert
@@ -63,6 +70,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -169,7 +178,9 @@ class MainActivity : ComponentActivity() {
             if (ok && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) model.startRecording()
             else notice = if (ok) "Вернитесь в приложение и нажмите «Записать»." else "Разрешение микрофона отклонено."
         }
+        val haptic = LocalHapticFeedback.current
         val record = {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             if (recording) model.stopRecording()
             else if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.RECORD_AUDIO)
                 == PackageManager.PERMISSION_GRANTED) model.startRecording()
@@ -211,7 +222,7 @@ class MainActivity : ComponentActivity() {
                     }
                 })
         } else {
-            HomeScreen(state, recording, notice, onRecord = record,
+            MainTabs(state, recording, notice, onRecord = record,
                 onImport = {
                     notice = "Выберите аудиофайл в системном окне."
                     importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream"))
@@ -219,7 +230,20 @@ class MainActivity : ComponentActivity() {
                 onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open,
                 onRealtime = if (BuildConfig.REALTIME) ({
                     startActivity(Intent().setClassName(this@MainActivity, "ru.neurostenographer.app.RealtimeActivity"))
-                }) else null)
+                }) else null,
+                onShareMany = { ids ->
+                    val text = state.history.filter { it.id in ids }.joinToString("\n\n") { t ->
+                        "══ ${t.title} ══\n" + t.document.export("txt", t.speakerNames, t.termEdits)
+                    }
+                    // An intent travels through Binder (about 1 MB): do not crash on a huge selection.
+                    if (text.length > 200_000) android.widget.Toast.makeText(this@MainActivity,
+                        "Слишком много текста для отправки. Выберите меньше стенограмм.", android.widget.Toast.LENGTH_LONG).show()
+                    else runCatching {
+                        startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
+                            .putExtra(Intent.EXTRA_SUBJECT, "Стенограммы: ${ids.size}").putExtra(Intent.EXTRA_TEXT, text), "Поделиться стенограммами"))
+                    }
+                },
+                onDeleteMany = model::deleteMany)
         }
     }
 }
@@ -285,104 +309,106 @@ private fun plural(n: Int, one: String, few: String, many: String): String =
 
 // ---------- Home ----------
 
+/** Two sections: «Запись» (record / open a file) and «Стенограммы» (everything finished, with multi-select). */
 @Composable
-private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
-                       onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit,
-                       onRealtime: (() -> Unit)? = null) {
-    val listState = rememberLazyListState()
-    // An imported file is shown near the top; bring it into view even if the user
-    // was scrolling old transcripts before opening the system file picker.
-    LaunchedEffect(state.source, state.sourceDurationMs) {
-        if (state.source != null) listState.animateScrollToItem(0)
-    }
-    Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), state = listState,
-            contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 32.dp)) {
-            item {
-                Column(Modifier.padding(bottom = 8.dp)) {
-                    Text("Нейростенограф", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-                    Spacer(Modifier.height(4.dp))
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Filled.Lock, null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
-                        Spacer(Modifier.width(5.dp))
-                        Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
-                }
-            }
-            item {
-                val mode = when { recording -> 0; state.busy -> 1; else -> 2 }
-                Crossfade(targetState = mode, label = "hero") { m ->
-                    when (m) {
-                        0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
-                        1 -> Box(Modifier.padding(vertical = 8.dp)) { ProcessingCard(state, onCancel) }
-                        else -> Column {
-                            if (state.source != null) Box(Modifier.padding(vertical = 8.dp)) { PendingAudioCard(state, onTranscribe) }
-                            StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport, onRealtime = onRealtime)
-                        }
-                    }
-                }
-            }
-            if (!recording && !state.busy && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) item {
-                Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 12.dp))
-            }
-            if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(bottom = 12.dp)) }
-            item {
-                Row(Modifier.padding(top = 20.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text("Стенограммы", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-                    if (state.history.isNotEmpty()) {
-                        Spacer(Modifier.width(8.dp))
-                        Text("${state.history.size}", style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
-                }
-            }
-            if (state.history.isEmpty()) item {
-                Text("Здесь появятся готовые расшифровки. Они хранятся только на телефоне.",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(vertical = 12.dp))
-            }
-            items(state.history, key = { it.id }) { item -> HistoryRow(item, enabled = !state.busy, onOpen = onOpen) }
+private fun MainTabs(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
+                     onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit,
+                     onRealtime: (() -> Unit)?, onShareMany: (Set<String>) -> Unit, onDeleteMany: (Set<String>) -> Unit) {
+    var tab by rememberSaveable { mutableIntStateOf(0) }
+    Scaffold(containerColor = MaterialTheme.colorScheme.background, bottomBar = {
+        NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
+            NavigationBarItem(selected = tab == 0, onClick = { tab = 0 }, icon = { MicGlyph(LocalContentColor.current, 24.dp) },
+                label = { Text("Запись") })
+            NavigationBarItem(selected = tab == 1, onClick = { tab = 1 },
+                icon = { Icon(Icons.AutoMirrored.Filled.List, null) }, label = { Text("Стенограммы") })
+        }
+    }) { padding ->
+        Box(Modifier.fillMaxSize().padding(padding)) {
+            if (tab == 0) HomeTab(state, recording, notice, onRecord, onImport, onTranscribe, onCancel, onRealtime)
+            else TranscriptsTab(state, onOpen, onShareMany, onDeleteMany)
         }
     }
 }
 
-/** No card: the record button is the page. Everything else is a quiet text action. */
 @Composable
-private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit, onRealtime: (() -> Unit)?) {
+private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
+                    onTranscribe: () -> Unit, onCancel: () -> Unit, onRealtime: (() -> Unit)?) {
+    var menu by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
+        Box(Modifier.fillMaxWidth().padding(top = 20.dp)) {
+            Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Нейростенограф", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                Spacer(Modifier.height(4.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Filled.Lock, null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
+                    Spacer(Modifier.width(5.dp))
+                    Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+            // Rarely needed extras live in a menu, not on the main screen.
+            if (onRealtime != null) Box(Modifier.align(Alignment.TopEnd)) {
+                IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, "Ещё") }
+                DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                    DropdownMenuItem(text = { Text("Живая расшифровка") }, enabled = state.modelReady && !state.busy && !recording,
+                        onClick = { menu = false; onRealtime() })
+                }
+            }
+        }
+        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            val mode = when { recording -> 0; state.busy -> 1; else -> 2 }
+            Crossfade(targetState = mode, label = "hero") { m ->
+                when (m) {
+                    0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
+                    1 -> ProcessingCard(state, onCancel)
+                    else -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        if (state.source != null) Box(Modifier.padding(bottom = 16.dp)) { PendingAudioCard(state, onTranscribe) }
+                        StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport)
+                    }
+                }
+            }
+            if (!recording && !state.busy && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) {
+                Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center, modifier = Modifier.padding(top = 16.dp))
+            }
+            if (notice.isNotEmpty()) Text(notice, color = MaterialTheme.colorScheme.error, textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 12.dp))
+        }
+    }
+}
+
+/** No card and no halo: the record button is the page. */
+@Composable
+private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit) {
     val primary = MaterialTheme.colorScheme.primary
     val interaction = remember { MutableInteractionSource() }
     val pressed by interaction.collectIsPressedAsState()
     val scale by animateFloatAsState(if (pressed) 0.93f else 1f, tween(120), label = "press")
-    Column(Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Column(Modifier.graphicsLayer { scaleX = scale; scaleY = scale }.clip(RoundedCornerShape(28.dp))
-            .clickable(interactionSource = interaction, indication = LocalIndication.current, enabled = ready, onClick = onRecord).padding(12.dp),
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        // Whole block is the button; feedback is the press-scale, not a ripple rectangle.
+        Column(Modifier.graphicsLayer { scaleX = scale; scaleY = scale }
+            .clickable(interactionSource = interaction, indication = null, enabled = ready, onClick = onRecord).padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(Modifier.size(176.dp).alpha(if (ready) 1f else 0.4f), contentAlignment = Alignment.Center) {
-                Box(Modifier.fillMaxSize().background(primary.copy(alpha = 0.10f), CircleShape))
-                Box(Modifier.size(132.dp).background(primary, CircleShape), contentAlignment = Alignment.Center) {
-                    MicGlyph(MaterialTheme.colorScheme.onPrimary, 56.dp)
-                }
+            Box(Modifier.size(136.dp).alpha(if (ready) 1f else 0.4f).background(primary, CircleShape), contentAlignment = Alignment.Center) {
+                MicGlyph(MaterialTheme.colorScheme.onPrimary, 58.dp)
             }
-            Spacer(Modifier.height(8.dp))
-            Text("Записать", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.height(14.dp))
+            Text("Записать", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.align(Alignment.CenterHorizontally))
         }
         Spacer(Modifier.height(6.dp))
         Text("Остановите запись — расшифровка начнётся сама", style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(24.dp))
         FilledTonalButton(onClick = onImport, enabled = ready, shape = RoundedCornerShape(50),
             contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) {
             Icon(Icons.Filled.Add, null, Modifier.size(20.dp))
             Spacer(Modifier.width(8.dp))
             Text("Открыть аудиофайл")
         }
-        Spacer(Modifier.height(6.dp))
+        Spacer(Modifier.height(8.dp))
         Text("WAV, MP3, M4A · до 20 мин · или «Поделиться» из мессенджера", style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-        if (onRealtime != null) TextButton(onClick = onRealtime, enabled = ready, modifier = Modifier.padding(top = 4.dp)) {
-            Text("Живая расшифровка")
-        }
     }
 }
 
@@ -444,6 +470,7 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
     Card(shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer)) {
         Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { WaveBars(MaterialTheme.colorScheme.primary) }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(if (state.stage > 0) "Идёт расшифровка" else "Подождите", style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
@@ -460,10 +487,23 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
     }
 }
 
+/** Calm equaliser while the phone works. Bars scale as layers: no recomposition, no re-recording per frame. */
+@Composable
+private fun WaveBars(color: Color) {
+    val transition = rememberInfiniteTransition(label = "wave")
+    Row(Modifier.height(40.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+        for (i in 0 until 9) {
+            val level by transition.animateFloat(0.2f, 1f, infiniteRepeatable(tween(520 + i * 80, easing = FastOutSlowInEasing),
+                RepeatMode.Reverse), label = "bar$i")
+            Box(Modifier.width(6.dp).height(40.dp).graphicsLayer { scaleY = level }.background(color, RoundedCornerShape(3.dp)))
+        }
+    }
+}
+
 @Composable
 private fun Steps(stage: Int) {
     Row(Modifier.fillMaxWidth()) {
-        listOf("Подготовка", "Говорящие", "Речь").forEachIndexed { index, label ->
+        listOf("Подготовка", "Кто говорит", "Текст").forEachIndexed { index, label ->
             val n = index + 1
             val reached = stage >= n
             Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -499,28 +539,144 @@ private fun PendingAudioCard(state: ScreenState, onTranscribe: () -> Unit) {
     }
 }
 
+private fun dayLabel(ms: Long): String {
+    val day = 24L * 60 * 60 * 1000
+    val zone = java.util.TimeZone.getDefault()
+    fun start(t: Long) = (t + zone.getOffset(t)).floorDiv(day)
+    val diff = start(System.currentTimeMillis()) - start(ms)
+    return when (diff) {
+        0L -> "Сегодня"
+        1L -> "Вчера"
+        else -> SimpleDateFormat("d MMMM", Locale("ru")).format(Date(ms))
+    }
+}
+
+/** The list of finished transcripts. Long-press selects; with a selection the bar offers share and delete for all of them. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HistoryRow(item: SavedTranscript, enabled: Boolean, onOpen: (String) -> Unit) {
-    // SimpleDateFormat and the speaker scan are costly: do them once per row, not on every scroll frame.
-    val whenText = remember(item.id, item.createdMs) { "${date(item.createdMs)} · ${clock(item.document.audioMs)}" }
-    val speakers = remember(item.id) { item.speakers.take(6) }
-    Column(Modifier.fillMaxWidth()) {
-        Column(Modifier.fillMaxWidth().clickable(enabled = enabled) { onOpen(item.id) }.padding(vertical = 14.dp)) {
-            Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, maxLines = 1,
-                overflow = TextOverflow.Ellipsis)
-            Spacer(Modifier.height(4.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                speakers.forEach { id ->
-                    Box(Modifier.size(9.dp).background(speakerColor(id), CircleShape))
-                    Spacer(Modifier.width(4.dp))
+private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShareMany: (Set<String>) -> Unit,
+                           onDeleteMany: (Set<String>) -> Unit) {
+    var selected by remember { mutableStateOf(setOf<String>()) }
+    var searching by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf("") }
+    var confirm by remember { mutableStateOf(false) }
+    val ids = remember(state.history) { state.history.map { it.id }.toSet() }
+    // A deleted transcript cannot stay selected.
+    val chosen = selected.intersect(ids)
+    val selecting = chosen.isNotEmpty()
+    BackHandler(selecting || searching) {
+        if (selecting) selected = emptySet() else { searching = false; query = "" }
+    }
+    val needle = query.trim()
+    val shown = remember(state.history, needle) {
+        if (needle.isEmpty()) state.history
+        else state.history.filter { t -> t.title.contains(needle, ignoreCase = true) ||
+            t.document.segments.any { it.text.contains(needle, ignoreCase = true) } }
+    }
+    val groups = remember(shown) { shown.groupBy { dayLabel(it.createdMs) } }
+    val haptic = LocalHapticFeedback.current
+    Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
+        if (selecting) TopAppBar(
+            title = { Text("Выбрано: ${chosen.size}", fontWeight = FontWeight.SemiBold) },
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+            navigationIcon = { IconButton(onClick = { selected = emptySet() }) { Icon(Icons.Filled.Close, "Снять выделение") } },
+            actions = {
+                IconButton(onClick = { selected = shown.map { it.id }.toSet() }) { Icon(Icons.Filled.Done, "Выбрать все") }
+                IconButton(onClick = { onShareMany(chosen) }) { Icon(Icons.Filled.Share, "Поделиться выбранными") }
+                IconButton(onClick = { confirm = true }) { Icon(Icons.Filled.Delete, "Удалить выбранные") }
+            })
+        else TopAppBar(
+            title = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Стенограммы", fontWeight = FontWeight.Bold)
+                    if (state.history.isNotEmpty()) {
+                        Spacer(Modifier.width(8.dp))
+                        Text("${state.history.size}", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.titleMedium)
+                    }
                 }
-                if (speakers.isNotEmpty()) Spacer(Modifier.width(4.dp))
-                Text(whenText, style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+            },
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+            actions = {
+                if (state.history.isNotEmpty()) IconButton(onClick = { searching = !searching; if (!searching) query = "" }) {
+                    Icon(Icons.Filled.Search, "Поиск")
+                }
+            })
+    }) { padding ->
+        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp)) {
+            if (searching) item {
+                OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().padding(bottom = 8.dp), singleLine = true,
+                    placeholder = { Text("Поиск по названию и тексту") }, leadingIcon = { Icon(Icons.Filled.Search, null) },
+                    trailingIcon = if (query.isEmpty()) null else ({
+                        IconButton(onClick = { query = "" }) { Icon(Icons.Filled.Close, "Очистить поиск") }
+                    }), shape = RoundedCornerShape(50))
             }
-            item.document.segments.firstOrNull()?.let {
-                Text(it.text, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(top = 6.dp))
+            if (state.message.isNotBlank() && state.message != TranscriptionViewModel.READY && !state.busy) item {
+                Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 8.dp))
+            }
+            if (shown.isEmpty()) item {
+                Text(if (state.history.isEmpty()) "Здесь появятся готовые расшифровки. Они хранятся только на телефоне."
+                    else "Ничего не найдено.", color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(vertical = 16.dp))
+            }
+            groups.forEach { (label, list) ->
+                item(key = "day:$label") {
+                    Text(label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 14.dp, bottom = 2.dp))
+                }
+                items(list, key = { it.id }) { t ->
+                    HistoryRow(t, enabled = !state.busy, selecting = selecting, selected = t.id in chosen,
+                        onClick = { if (selecting) selected = if (t.id in chosen) chosen - t.id else chosen + t.id else onOpen(t.id) },
+                        onLongClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            selected = if (t.id in chosen) chosen - t.id else chosen + t.id
+                        })
+                }
+            }
+        }
+    }
+    if (confirm) AlertDialog(onDismissRequest = { confirm = false },
+        title = { Text("Удалить ${plural(chosen.size, "стенограмму", "стенограммы", "стенограмм")}?") },
+        text = { Text("Они будут удалены с телефона. Экспортированные файлы останутся.") },
+        confirmButton = { TextButton(onClick = { confirm = false; onDeleteMany(chosen); selected = emptySet() }) { Text("Удалить") } },
+        dismissButton = { TextButton(onClick = { confirm = false }) { Text("Отмена") } })
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun HistoryRow(item: SavedTranscript, enabled: Boolean, selecting: Boolean, selected: Boolean,
+                       onClick: () -> Unit, onLongClick: () -> Unit) {
+    // SimpleDateFormat and the speaker scan are costly: do them once per row, not on every scroll frame.
+    val whenText = remember(item.id, item.createdMs) { "${SimpleDateFormat("HH:mm", Locale("ru")).format(Date(item.createdMs))} · ${clock(item.document.audioMs)}" }
+    val speakers = remember(item.id) { item.speakers.take(6) }
+    val primary = MaterialTheme.colorScheme.primary
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.fillMaxWidth().background(if (selected) primary.copy(alpha = 0.10f) else Color.Transparent)
+            .combinedClickable(enabled = enabled, onClick = onClick, onLongClick = onLongClick).padding(vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            if (selecting) {
+                Box(Modifier.padding(start = 4.dp, end = 14.dp).size(24.dp)
+                    .background(if (selected) primary else Color.Transparent, CircleShape)
+                    .border(2.dp, if (selected) primary else MaterialTheme.colorScheme.outline, CircleShape), contentAlignment = Alignment.Center) {
+                    if (selected) Icon(Icons.Filled.Check, null, Modifier.size(16.dp), tint = MaterialTheme.colorScheme.onPrimary)
+                }
+            }
+            Column(Modifier.weight(1f)) {
+                Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
+                Spacer(Modifier.height(4.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    speakers.forEach { id ->
+                        Box(Modifier.size(9.dp).background(speakerColor(id), CircleShape))
+                        Spacer(Modifier.width(4.dp))
+                    }
+                    if (speakers.isNotEmpty()) Spacer(Modifier.width(4.dp))
+                    Text(whenText, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                item.document.segments.firstOrNull()?.let {
+                    Text(it.text, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(top = 6.dp))
+                }
             }
         }
         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f))

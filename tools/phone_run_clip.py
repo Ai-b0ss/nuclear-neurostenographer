@@ -69,7 +69,8 @@ def scroll_to(ui, label, direction="down", tries=8, exact=True):
 def status_line(ui):
     texts = ui.texts()
     for text in texts:
-        if DONE.match(text) or text.startswith(("Аудио проверено", "Диаризация", "Распознавание", "WAV сохранён", "Запись сохранена", "Чтение")):
+        if DONE.match(text) or text.startswith(("Аудио проверено", "Диаризация", "Распознавание", "WAV сохранён", "Запись сохранена", "Чтение",
+                                  "Определяю", "Расшифровываю", "Готовлю", "Открываю")):
             return text
     return ""
 
