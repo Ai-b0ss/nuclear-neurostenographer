@@ -1,0 +1,11 @@
+status=NOT_RUN
+reason=Shared real DataHive overlap fragments and independent manual annotations are not yet available.
+synthetic_baseline=NOT_RUN
+automatic_enrollment=DISABLED
+manual_fixture_validation_on_shared_data=NOT_RUN
+host_quality=NOT_RUN
+host_rtf=NOT_RUN
+host_pss=NOT_MEASURED
+honor_quality_rtf_pss=NOT_RUN
+decision=NOT_RUN
+unit_test_only=PASS: test_manual.py 6 tests; test_overlap.py 6 tests; no model inference and no accuracy measurements.

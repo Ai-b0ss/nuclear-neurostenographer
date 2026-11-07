@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "NOT_RUN",
+  "candidate": {
+    "name": "VoxLock v2 INT8 + same pinned A3/C2 + mandatory manual 3s enrollment",
+    "wer": {
+      "status": "NOT_RUN",
+      "errors": null,
+      "reference_words": null,
+      "rate": null
+    }
+  },
+  "fixtures": {
+    "status": "NOT_AVAILABLE_MANUAL_ANNOTATION_IN_PROGRESS",
+    "adapted_manifest_sha256": null,
+    "cases": []
+  },
+  "baseline": {
+    "name": "same pinned A3+C2 on identical real fragments",
+    "wer": {
+      "status": "NOT_RUN",
+      "errors": null,
+      "reference_words": null,
+      "rate": null
+    }
+  },
+  "recovered_correct_words": null,
+  "unknown_words_before": null,
+  "unknown_words_after": null,
+  "host": {
+    "status": "NOT_RUN",
+    "rtf_status": "NOT_RUN",
+    "baseline_rtf": null,
+    "candidate_rtf": null,
+    "pss_status": "NOT_MEASURED",
+    "pss": null
+  },
+  "honor": {
+    "status": "NOT_RUN",
+    "rtf_status": "NOT_RUN",
+    "baseline_rtf": null,
+    "candidate_rtf": null,
+    "pss_status": "NOT_RUN",
+    "pss": null
+  },
+  "decision": "NOT_RUN"
+}

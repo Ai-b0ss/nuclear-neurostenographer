@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "kind": "REAL_DATAHIVE_MANUAL_OVERLAP",
+  "status": "NOT_RUN",
+  "reason": "Shared real DataHive overlap fragments and independent manual word/speaker annotations are not yet available",
+  "enrollment_mode": "manual",
+  "adapted_manifest_sha256": null,
+  "cases": []
+}
