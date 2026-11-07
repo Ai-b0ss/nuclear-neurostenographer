@@ -1,60 +1,37 @@
-# Architecture and non-functional constraints
+# Архитектура приложения
 
-> **Обновлено 04.11.2026:** HONOR ARM64 проверен, подписанный RC1 доступен в приватном репозитории; полный gate ещё не пройден. Статус и ограничения: [RELEASE_READINESS_2026-11-04.md](RELEASE_READINESS_2026-11-04.md). Более старые результаты ниже являются историей отдельных испытаний, а не актуальным статусом релиза.
+Актуализировано 08.11.2026 для ветки fix/checkpoint-20261107. Опубликованный релиз 0.3.14 и экспериментальная ветка — разные состояния; незавершённые проверки перечислены в [списке сдачи](SUBMISSION_CHECKLIST.md).
 
-## Mandatory functionality
-1. Android application.
-2. Audio transcription **on device**, without cloud ASR.
-3. Automatic speaker diarization: same speaker retains ID on later utterances.
-4. Structured transcript with speaker IDs and time ranges.
+## Основной конкурсный путь
 
-Online streaming, personal name identification and word-level timestamps are optional extensions, not contest requirements.
+Локальная запись или импорт → копия аудио в приватной папке приложения → PCM16/16 кГц mono → Nemotron C2 (говорящие и интервалы активности) → объединённые речевые окна GigaAM v3 **e2e RNN-T INT8, A3** → привязка слов к говорящим → просмотр и сохранение стенограммы → TXT/SRT/конкурсный JSON или отдельный расширенный JSON.
 
-## Target on-device pipeline
+A3 выдаёт русский текст, регистр и пунктуацию. Это не CTC-модель из первых прототипов. Nemotron C2 заменил первоначальную схему pyannote + ERes2Net. Рантайм — закреплённый no-TTS sherpa-onnx 1.12.20 / ONNX Runtime 1.17.1; подпись и содержимое AAR/JNI проверяются при сборке и проверке APK. Продуктовые сборки включают модели; обработка не требует сетевого API. Обычная сборка без продуктовых флагов не доказывает наличие всех весов.
 
-Current pipeline is `local audio -> bounded PCM16 mono/resampling -> optional full-recording diarization -> GigaAM v3 CTC speech/input windows -> conservative fusion -> UI/export`. Pinned pyannote + ERes2Net supplies speech windows/global cluster IDs through a strictly validated private-worker reply. Failure falls back to unknown speakers. Round 9 Android x86_64 tests verify Russian ASR, A-B-A, actual worker lifecycle and import/export paths; physical ARM64 remains unverified. See DIARIZATION.md for original native overlap failure and the no-TTS candidate's unknown-identity guard. Native resources are released in `finally`; ViewModel retains operations across rotation. ASR cancellation is cooperative between blocking JNI steps. Diarization cancellation unbinds the service, which terminates its guarded dedicated process; the caller observes death and blocks another request while prior exit is unknown. Model installation selects a directory only after all hashes pass. Platform codec support varies by device; word alignment remains unimplemented. See [audio import and privacy](AUDIO_IMPORT.md).
+Модели и их SHA задаются AsrModelSpec, конфигурацией C2, средствами provisioning и tools/runtime/runtime.properties. ARM64 и x86_64 входят в продуктовый комплект. Исторические измерения и ревизии: [PROGRESS](PROGRESS.md), [итоги доработок](CHECKPOINT_AFTER_CALL_2026-11-07.md).
 
-The diagram below is the original target. Silero VAD, RNN-T and word timestamps are not implemented; the paragraph above describes the code. Adjacent reliable fragments of one speaker are merged into replies of up to 60 seconds.
+## Привязка текста и перекрытия
 
-```
-Recorded/imported audio -> decoder -> PCM16 mono -> 16 kHz -> samples
-                                            |
-              +-----------------------------+-----------------------------+
-              |                                                           |
-       ASR segmentation + recognition                          Full-audio diarization
-       Silero VAD + GigaAM v3 CTC/RNNT                     pyannote segmentation + embeddings
-              |                                                           |
-       word timestamps if available                               speaker turns/RTTM
-              |                                                           |
-              +-----------------> TranscriptFusion <---------------------+
-                                     |
-                            JSON / SRT / TXT + UI
-```
+Таймкоды токенов A3 и активность C2 имеют общую временную шкалу. Слова объединяются в реплики. Два активных голоса не означают, что модель восстановила оба текста. Для неустановленного автора в этой ветке сохраняется unknown; назначение всей смеси первому активному голосу удалено.
 
-Important: run diarization on the **entire conversation or globally reconciled windows**, not independently isolated VAD chunks; otherwise speaker labels may change with each chunk.
+Официальный JSON содержит только transcript с speaker_id (string), start_ms/end_ms (integer), text (string). Расширенный экспорт отдельно хранит происхождение и предупреждения. Совместимость literal unknown с закрытым парсером экспертов не подтверждена.
 
-Imported WAVs are copied into bounded app-private cache snapshots and validated before replacing the selected source. A bad/short/oversized/cancelled import removes its staged copy and keeps the previous result. This avoids relying on document-provider access or mutable source bytes during subsequent inference. A successful `TranscriptDocument` owns the output intervals, audio duration, model/timestamp/speaker provenance and warnings. Export captures its UTF-8 body before opening the document chooser; selecting a new source cannot silently change that pending export. JSON retains metadata even when no text was recognized; TXT/UI retain milliseconds and SRT uses the same chunk boundaries. No provider URI or private path is exported. Cache eviction and process death can require reimport; transcript history persistence is not implemented.
+## Английский и длинные файлы в этой ветке
 
-`TranscriptFusion.attributeWords` requires genuine timestamps for each recognized word. When ASR only gives timestamps for entire chunks, use `attributeChunks`, which refuses to invent speaker identity if a chunk crosses two speakers. Do not interpolate word times and present them as model evidence.
+При -PenglishAuto=true встроенный Whisper Tiny INT8 сначала определяет язык выбранного участка речи. Английский распознаётся им, остальные языки идут в русский A3. Модели освобождаются последовательно. Русская живая предварительная расшифровка не переведена на этот маршрутизатор. Это не автоматическое распознавание полноценно смешанной речи. provisioning: tools/provision_english.py.
 
-Round 10 pins the default no-TTS runtime in a shared provisioning/Gradle lock.
-PreBuild verifies actual AAR bytes; generated BuildConfig identifies that AAR in
-JSON document provenance and instrumented inference metadata. APK checks compare
-packaged native bytes against the selected input, so a filename or stale sidecar
-cannot establish runtime identity. Upstream and new native candidates are explicit
-regression/validation modes. This metadata does not establish model accuracy.
+PcmFileAudio читает ограниченный диапазон с диска и сохраняет глобальные позиции ресэмплинга. Валидация WAV не создаёт FloatArray всей записи. Для записи/импорта предусмотрены пределы 8 часов и 5 ГБ входного файла, но полный реальный 8-часовой прогон не выполнен. Обычный RIFF имеет собственное ограничение размера декодированных данных.
 
-## Engineering constraints
-- Audio samples and diarization must share a time origin. Resampling changes the sample index, not the timeline in seconds.
-- 16 kHz mono float32 is a common runtime input; input MP3/M4A/OGG should be decoded and resampled on device.
-- Approximate word alignment should be clearly identified as approximate.
-- Reuse a single diarization configuration for the entire session; tune clustering threshold on held-out audio.
-- Preserve unknown speaker and overlapping-voice states.
-- Consider limited memory and thermal throttling on midrange Android devices.
-- Never display fixture/demo transcription as real inference output.
+Файлы длиннее 20 минут обрабатываются последовательно блоками до пяти минут. Глобальные таймкоды сохраняются, сквозные личности между блоками отсутствуют; говорящий остаётся неизвестным. Это сохранение текста при ограниченной памяти, не полная диаризация многочасового разговора. Четыре слота C2 не означают поддержку 20 разных участников.
 
-## Quality gates
-- Build and launch APK on emulator.
-- Use an offline smartphone in flight mode to record, process and export a multi-speaker conversation.
-- Verify A-B-A, two speakers, interruptions, noisy audio and silent segments.
-- Measure WER, DER (explicit collar and overlap setting), cpWER, RTF, peak RAM and APK size.
+## Живая расшифровка и интерфейс
+
+Отдельный realtime-путь использует VAD и распознаёт законченную фразу; C2 работает в фоне. Предварительные номера говорящих могут измениться при итоговом уточнении по записи. Результат сохраняется в общей истории. Главное окно содержит запись и раздел стенограмм с поиском/массовыми действиями; предварительная живая расшифровка доступна отдельно.
+
+Тяжёлая работа выполняется вне UI-потока. Отмена кооперативна между блокирующими вызовами JNI; мгновенное прекращение отдельного native-вызова не гарантировано. ViewModel сохраняет операцию при повороте. Экспорт фиксирует документ до открытия выбора места сохранения. Удаление копии импорта не удаляет исходный файл пользователя.
+
+## Проверка и ограничения
+
+Локальный Windows CI выполняет Python/core проверки, lint, сборки APK, экспорт, ABI, ELF 16 КБ и сравнение JNI с закреплённым AAR. Он не запускает фактическое распознавание на телефоне или эмуляторе. Отдельно нужны реальные русские/английские записи, MP3, длинный файл, отмена/возврат из фона и экспорт точного финального APK.
+
+FDDT, VoxLock и DiCoW не включены в продуктовый путь. Успех на синтетике и скорость Colab не являются подтверждением качества или скорости Android. Проверка и распределение работ: [разбор экспорта](CHAT_EXPORT_REVIEW_2026-11-08.md).
