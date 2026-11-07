@@ -113,7 +113,7 @@ class RealtimeActivity : ComponentActivity() {
                         }
                         if (complete) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории") }
-                            OutlinedButton(onClick = { exportText = state.document!!.export("json"); export.launch("live.json") },
+                            OutlinedButton(onClick = { exportText = state.document!!.export("json-contest"); export.launch("live.json") },
                                 enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON") }
                         }
                         batchFallback(state)

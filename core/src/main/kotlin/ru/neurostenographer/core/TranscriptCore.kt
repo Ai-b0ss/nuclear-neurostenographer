@@ -212,6 +212,7 @@ data class TranscriptDocument(val segments: List<TranscriptSegment>, val audioMs
         val edited = TermDictionary.apply(segments, termEdits)
         return when (format) {
             "json" -> TranscriptExport.json(segments, provenance, audioMs, warnings, speakerNames, edited)
+            "json-contest" -> TranscriptExport.contestJson(segments)
             "srt" -> TranscriptExport.srt(edited, speakerNames)
             "txt" -> TranscriptExport.header(segments, audioMs) + "\n" +
                 warnings.joinToString("") { "Примечание: $it\n" } + "\n" + TranscriptExport.txt(edited, speakerNames)
@@ -221,6 +222,26 @@ data class TranscriptDocument(val segments: List<TranscriptSegment>, val audioMs
 }
 
 object TranscriptExport {
+    /** Official Nuclear IT Hack 2026 projection: only transcript, speaker_id, start_ms, end_ms, text.
+     * Raw ASR text is never replaced by user-edited spelling or made-up words for scoring.
+     * Unknown speaker is a non-personal "unknown" string because the slide requires a string;
+     * this choice must be clarified with organizers before treating it as scored.
+     */
+    fun contestJson(items: List<TranscriptSegment>): String {
+        val ids = linkedMapOf<String, String>()
+        val lines = items.map { segment ->
+            // An overlap fragment has speakerId == null (words are not split); the schema needs one id, so the first
+            // overlapping speaker is used instead of "unknown": the fragment is still attributed to someone who spoke in it.
+            val speaker = (segment.speakerId ?: segment.overlapSpeakers.firstOrNull())?.let { id ->
+                ids.getOrPut(id) { "speaker_" + (ids.size + 1) }
+            } ?: "unknown"
+            "    {\"speaker_id\": " + jsonString(speaker) +
+                ", \"start_ms\": " + segment.startMs +
+                ", \"end_ms\": " + segment.endMs +
+                ", \"text\": " + jsonString(segment.text) + "}"
+        }
+        return "{\n  \"transcript\": [\n" + lines.joinToString(",\n") + "\n  ]\n}\n"
+    }
     fun time(ms: Long): String {
         require(ms >= 0)
         return String.format(Locale.ROOT, "%02d:%02d:%02d.%03d", ms / 3600000,

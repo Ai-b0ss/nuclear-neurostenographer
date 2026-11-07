@@ -79,14 +79,16 @@ class UiSelectorTests(unittest.TestCase):
             "provenance": {"timestamp_source": "diarization_boundaries_and_input_windows", "runtime_sha256": pin},
             "segments": [{"start_ms": 100, "end_ms": 900, "speaker_id": "Speaker 1", "text": phrase,
                           "overlapping_speech": False, "attribution_reliable": True}]}
+        contest = {"transcript": [{"speaker_id": "speaker_1", "start_ms": 100, "end_ms": 900, "text": phrase}]}
         exports = {"json": json.dumps(document).encode(),
+            "contest": json.dumps(contest, ensure_ascii=False).encode(),
             "txt": ("[00:00:00.100–00:00:00.900] Говорящий 1: " + phrase).encode(),
             "srt": ("1\n00:00:00,100 --> 00:00:00,900\nГоворящий 1: " + phrase).encode()}
         with tempfile.TemporaryDirectory(dir=ROOT / ".local") as tmp:
             root = Path(tmp)
             for format, body in exports.items():
-                (root / ("neuro-qa-ui." + format)).write_bytes(body)
-            self.assertEqual(set(verify_saved_exports(exports, pin, root)), {"json", "txt", "srt"})
+                (root / ("neuro-qa-ui." + ("contest.json" if format == "contest" else format))).write_bytes(body)
+            self.assertEqual(set(verify_saved_exports(exports, pin, root)), {"json", "contest", "txt", "srt"})
             with self.assertRaises(AssertionError):
                 verify_saved_exports(exports, "b" * 64, root)
             for format in ["txt", "srt"]:
