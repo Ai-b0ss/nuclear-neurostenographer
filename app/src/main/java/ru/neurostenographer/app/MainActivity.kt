@@ -294,8 +294,6 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
                         Icon(Icons.Filled.Lock, null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
                         Spacer(Modifier.width(5.dp))
                         Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text("  ·  кто и что сказал, с временем", style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
