@@ -112,7 +112,7 @@ def main():
         message = status_line(ui)
         if DONE.match(message):
             break
-        if ui.find(label="JSON", timeout=1, exact=True)[1] is not None:  # transcript screen: details are at its end
+        if ui.find(label="Экспорт", timeout=1, exact=True)[1] is not None:  # transcript screen: details are at its end
             for _ in range(40):
                 message = status_line(ui)
                 if DONE.match(message):
@@ -125,7 +125,9 @@ def main():
     if timings is None:
         print(json.dumps({"status": "FAIL", "message": message}, ensure_ascii=False))
         return 1
-    ui.tap_node(scroll_to(ui, "JSON расш.", direction="up", tries=40))  # export buttons sit at the top of the transcript
+    ui.tap_node(scroll_to(ui, "Экспорт", direction="up", tries=40))  # the export menu button sits at the top of the transcript
+    time.sleep(1)
+    ui.tap_node(ui.find(label="JSON расш.", timeout=3, exact=True)[1])
     time.sleep(3)
     ui.tap_node(scroll_to(ui, "СОХР."))
     time.sleep(3)

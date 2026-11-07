@@ -191,6 +191,8 @@ class AndroidUi:
 
     def save_document(self, format, rotate=False, label=None, name=None):
         # Since 0.3.14 «JSON» is the official contest format and «JSON расш.» the extended one.
+        # Since 0.4.1 the formats sit in the «Экспорт» menu.
+        self.tap(label="Экспорт", exact=True)
         self.tap(label=label or format.upper(), exact=True)
         self.downloads()
         if rotate:
@@ -297,7 +299,7 @@ def wait_for_transcript(ui, what, timeout=120):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         try:
-            root, button = ui.find(label="JSON", exact=True, timeout=0)
+            root, button = ui.find(label="Экспорт", exact=True, timeout=0)
         except ValueError:
             # uiautomator cannot dump while the progress bar keeps the UI from going idle; retry.
             time.sleep(1)
@@ -310,8 +312,8 @@ def wait_for_transcript(ui, what, timeout=120):
 
 
 def run(ui):
-    """Current UI (0.4.x): home «Записать» / «Открыть аудиофайл» → recognition starts by itself (the «Распознать» button
-    only appears after a failure or cancel) → transcript screen with «Экспорт» TXT/JSON/SRT, «Назад», «Удалить»."""
+    """Current UI (0.4.1): home «Записать» / «Открыть аудиофайл» → recognition starts by itself (the «Распознать» button
+    only appears after a failure or cancel) → transcript screen with «Экспорт» menu (TXT/JSON/SRT), «Назад», «Ещё» → «Удалить»."""
     checks = ui.checks
     # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
@@ -410,6 +412,7 @@ def run(ui):
     checks.append("public_wav_import_through_system_document_picker")
     # No «Распознать» tap: picking the file starts recognition.
     wait_for_transcript(ui, "Public Russian UI inference")
+    ui.tap(label="Экспорт", exact=True)
     ui.tap(label="TXT", exact=True)
     _, field = ui.picker_field()
     if field is None:
@@ -425,7 +428,7 @@ def run(ui):
             time.sleep(0.5)
         if field is None:
             break
-    ui.visible("JSON", exact=True)
+    ui.visible("Экспорт", exact=True)
     checks.append("cancelled_system_export_keeps_transcript_available")
     exports = {"txt": ui.save_document("txt"),
                "json": ui.save_document("json", rotate=True, label="JSON расш.", name="neuro-qa-ui.json"),
@@ -439,7 +442,8 @@ def run(ui):
     checks.append("real_txt_json_srt_saved_and_read_from_documents_provider")
     checks.append("pending_json_export_survives_picker_rotation")
     # Deleting the transcript removes it from the app, never the provider-owned exports.
-    ui.tap(description="Удалить")
+    ui.tap(description="Ещё")
+    ui.tap(label="Удалить", exact=True)
     ui.visible("Удалить стенограмму?", exact=True)
     ui.tap(label="Удалить")
     ui.visible("Стенограмма удалена")

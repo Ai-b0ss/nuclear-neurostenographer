@@ -32,6 +32,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
@@ -41,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -213,8 +215,6 @@ class MainActivity : ComponentActivity() {
 // ---------- Theme ----------
 
 private val Indigo = Color(0xFF3F51D9)
-private val Violet = Color(0xFF7A4DD8)
-private val BrandBrush = Brush.linearGradient(listOf(Indigo, Violet))
 private val LightColors = lightColorScheme(
     primary = Indigo, onPrimary = Color.White, primaryContainer = Color(0xFFE0E4FF), onPrimaryContainer = Color(0xFF0F1A6B),
     secondary = Color(0xFF5B5F72), background = Color(0xFFF6F6FC), surface = Color.White,
@@ -238,10 +238,6 @@ private val SpeakerColors = listOf(Color(0xFF3F51D9), Color(0xFFE0631C), Color(0
 private fun speakerIndex(id: String?) = id?.substringAfterLast(' ')?.toIntOrNull()
 private fun speakerColor(id: String?) = speakerIndex(id)?.let { SpeakerColors[(it - 1).mod(SpeakerColors.size)] } ?: Color(0xFF8A8D9C)
 private fun speakerName(id: String?, names: Map<String, String> = emptyMap()) = TranscriptExport.displaySpeaker(id, names)
-/** One character for the round avatar: the first letter of the given name, else the speaker number. */
-private fun avatarText(id: String?, names: Map<String, String>): String =
-    id?.let { names[it] }?.trim()?.firstOrNull()?.uppercaseChar()?.toString() ?: speakerIndex(id)?.toString() ?: "?"
-
 internal fun clock(ms: Long): String {
     val s = ms / 1000
     return if (s >= 3600) "%d:%02d:%02d".format(s / 3600, s / 60 % 60, s % 60) else "%02d:%02d".format(s / 60, s % 60)
@@ -266,23 +262,14 @@ private fun MicGlyph(color: Color, box: Dp) {
     }
 }
 
-@Composable
-private fun Pill(text: String, icon: ImageVector? = null) = Surface(shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)) {
-    Row(Modifier.padding(horizontal = 10.dp, vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
-        if (icon != null) {
-            Icon(icon, null, Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.width(5.dp))
-        }
-        Text(text, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+/** Russian plural: 1 реплика, 2 реплики, 5 реплик. */
+private fun plural(n: Int, one: String, few: String, many: String): String =
+    "$n " + when {
+        n % 100 in 11..14 -> many
+        n % 10 == 1 -> one
+        n % 10 in 2..4 -> few
+        else -> many
     }
-}
-
-@Composable
-private fun Avatar(text: String, color: Color, box: Dp = 36.dp) {
-    Box(Modifier.size(box).background(color, CircleShape), contentAlignment = Alignment.Center) {
-        Text(text, color = Color.White, fontWeight = FontWeight.Bold, fontSize = (box.value * 0.42f).sp)
-    }
-}
 
 // ---------- Home ----------
 
@@ -296,90 +283,86 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
     LaunchedEffect(state.source, state.sourceDurationMs) {
         if (state.source != null) listState.animateScrollToItem(0)
     }
-    val glow = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
-        .background(Brush.verticalGradient(listOf(glow, Color.Transparent), endY = 1100f))) {
-        Scaffold(containerColor = Color.Transparent) { padding ->
-            LazyColumn(Modifier.fillMaxSize().padding(padding), state = listState, contentPadding = PaddingValues(20.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                item {
-                    Column {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(Modifier.size(46.dp).background(BrandBrush, RoundedCornerShape(15.dp)), contentAlignment = Alignment.Center) {
-                                MicGlyph(Color.White, 26.dp)
-                            }
-                            Spacer(Modifier.width(12.dp))
-                            Column {
-                                Text("Нейростенограф", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-                                Text("Кто и что сказал — с временем", style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            }
-                        }
-                        Spacer(Modifier.height(12.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Pill("Без интернета", Icons.Filled.Lock); Pill("Говорящие и время")
-                        }
+    Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
+        LazyColumn(Modifier.fillMaxSize().padding(padding), state = listState,
+            contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 32.dp)) {
+            item {
+                Column(Modifier.padding(bottom = 8.dp)) {
+                    Text("Нейростенограф", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                    Spacer(Modifier.height(4.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Filled.Lock, null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
+                        Spacer(Modifier.width(5.dp))
+                        Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("  ·  кто и что сказал, с временем", style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
-                when {
-                    recording -> item { RecordingHero(enabled = !state.busy, onStop = onRecord) }
-                    state.busy -> item { ProcessingCard(state, onCancel) }
-                    else -> {
-                        if (state.source != null) item { PendingAudioCard(state, onTranscribe) }
-                        item { StartCard(ready = state.modelReady, onRecord = onRecord, onImport = onImport) }
-                    }
-                }
-                if (!recording && !state.busy && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) item {
-                    Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
-                }
-                if (onRealtime != null) item {
-                    FilledTonalButton(onClick = onRealtime, enabled = !state.busy && !recording && state.modelReady,
-                        modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Живая расшифровка · текст во время записи") }
-                }
-                if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error) }
-                item {
-                    Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text("Стенограммы", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-                        if (state.history.isNotEmpty()) {
-                            Spacer(Modifier.width(8.dp))
-                            Text("${state.history.size}", style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
-                    }
-                }
-                if (state.history.isEmpty()) item { EmptyHistory() }
-                items(state.history, key = { it.id }) { item -> HistoryCard(item, enabled = !state.busy, onOpen = onOpen) }
             }
+            when {
+                recording -> item { RecordingHero(enabled = !state.busy, onStop = onRecord) }
+                state.busy -> item { Box(Modifier.padding(vertical = 8.dp)) { ProcessingCard(state, onCancel) } }
+                else -> {
+                    if (state.source != null) item { Box(Modifier.padding(vertical = 8.dp)) { PendingAudioCard(state, onTranscribe) } }
+                    item { StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport, onRealtime = onRealtime) }
+                }
+            }
+            if (!recording && !state.busy && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) item {
+                Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 12.dp))
+            }
+            if (notice.isNotEmpty()) item { Text(notice, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(bottom = 12.dp)) }
+            item {
+                Row(Modifier.padding(top = 20.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text("Стенограммы", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+                    if (state.history.isNotEmpty()) {
+                        Spacer(Modifier.width(8.dp))
+                        Text("${state.history.size}", style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+            }
+            if (state.history.isEmpty()) item {
+                Text("Здесь появятся готовые расшифровки. Они хранятся только на телефоне.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(vertical = 12.dp))
+            }
+            items(state.history, key = { it.id }) { item -> HistoryRow(item, enabled = !state.busy, onOpen = onOpen) }
         }
     }
 }
 
+/** No card: the record button is the page. Everything else is a quiet text action. */
 @Composable
-private fun StartCard(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit) {
-    Card(shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(3.dp)) {
-        Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable(enabled = ready, onClick = onRecord).padding(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(Modifier.size(112.dp).alpha(if (ready) 1f else 0.4f).background(BrandBrush, CircleShape), contentAlignment = Alignment.Center) {
-                    MicGlyph(Color.White, 52.dp)
+private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit, onRealtime: (() -> Unit)?) {
+    val primary = MaterialTheme.colorScheme.primary
+    Column(Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(Modifier.clip(RoundedCornerShape(28.dp)).clickable(enabled = ready, onClick = onRecord).padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(Modifier.size(176.dp).alpha(if (ready) 1f else 0.4f), contentAlignment = Alignment.Center) {
+                Box(Modifier.fillMaxSize().background(primary.copy(alpha = 0.10f), CircleShape))
+                Box(Modifier.size(132.dp).background(primary, CircleShape), contentAlignment = Alignment.Center) {
+                    MicGlyph(MaterialTheme.colorScheme.onPrimary, 56.dp)
                 }
-                Spacer(Modifier.height(12.dp))
-                Text("Записать", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-            }
-            Spacer(Modifier.height(4.dp))
-            Text("Остановите запись — расшифровка начнётся сама.", style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-            Spacer(Modifier.height(20.dp))
-            OutlinedButton(onClick = onImport, enabled = ready, shape = RoundedCornerShape(16.dp),
-                modifier = Modifier.fillMaxWidth().height(52.dp)) {
-                Icon(Icons.Filled.Add, null, Modifier.size(20.dp))
-                Spacer(Modifier.width(8.dp))
-                Text("Открыть аудиофайл")
             }
             Spacer(Modifier.height(8.dp))
-            Text("WAV, MP3, M4A… до 20 мин. Аудио из мессенджера можно отправить сюда через «Поделиться».",
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+            Text("Записать", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        }
+        Spacer(Modifier.height(6.dp))
+        Text("Остановите запись — расшифровка начнётся сама", style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+        Spacer(Modifier.height(20.dp))
+        FilledTonalButton(onClick = onImport, enabled = ready, shape = RoundedCornerShape(50),
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) {
+            Icon(Icons.Filled.Add, null, Modifier.size(20.dp))
+            Spacer(Modifier.width(8.dp))
+            Text("Открыть аудиофайл")
+        }
+        Spacer(Modifier.height(6.dp))
+        Text("WAV, MP3, M4A · до 20 мин · или «Поделиться» из мессенджера", style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+        if (onRealtime != null) TextButton(onClick = onRealtime, enabled = ready, modifier = Modifier.padding(top = 4.dp)) {
+            Text("Живая расшифровка")
         }
     }
 }
@@ -491,40 +474,27 @@ private fun PendingAudioCard(state: ScreenState, onTranscribe: () -> Unit) {
 }
 
 @Composable
-private fun HistoryCard(item: SavedTranscript, enabled: Boolean, onOpen: (String) -> Unit) {
-    Card(Modifier.fillMaxWidth().clickable(enabled = enabled) { onOpen(item.id) }, shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(1.dp)) {
-        Row(Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-            val shown = item.speakers.take(3)
-            Box(Modifier.width((36 + 14 * (maxOf(shown.size, 1) - 1)).dp).height(36.dp)) {
-                if (shown.isEmpty()) Avatar("?", speakerColor(null))
-                shown.forEachIndexed { i, id ->
-                    Box(Modifier.offset(x = (i * 14).dp)) { Avatar(avatarText(id, item.speakerNames), speakerColor(id)) }
+private fun HistoryRow(item: SavedTranscript, enabled: Boolean, onOpen: (String) -> Unit) {
+    Column(Modifier.fillMaxWidth()) {
+        Column(Modifier.fillMaxWidth().clickable(enabled = enabled) { onOpen(item.id) }.padding(vertical = 14.dp)) {
+            Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, maxLines = 1,
+                overflow = TextOverflow.Ellipsis)
+            Spacer(Modifier.height(4.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                item.speakers.take(6).forEach { id ->
+                    Box(Modifier.size(9.dp).background(speakerColor(id), CircleShape))
+                    Spacer(Modifier.width(4.dp))
                 }
+                if (item.speakers.isNotEmpty()) Spacer(Modifier.width(4.dp))
+                Text("${date(item.createdMs)} · ${clock(item.document.audioMs)}", style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(item.title, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                Text("${date(item.createdMs)} · ${clock(item.document.audioMs)} · говорящих: ${item.speakers.size}",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                item.document.segments.firstOrNull()?.let {
-                    Text(it.text, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                }
+            item.document.segments.firstOrNull()?.let {
+                Text(it.text, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(top = 6.dp))
             }
         }
-    }
-}
-
-@Composable
-private fun EmptyHistory() {
-    Card(shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f))) {
-        Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(44.dp).background(MaterialTheme.colorScheme.primaryContainer, CircleShape), contentAlignment = Alignment.Center) {
-                MicGlyph(MaterialTheme.colorScheme.primary, 24.dp)
-            }
-            Spacer(Modifier.width(14.dp))
-            Text("Здесь появятся готовые расшифровки. Они хранятся только на телефоне.",
-                color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
-        }
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f))
     }
 }
 
@@ -541,6 +511,9 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
     var confirmDelete by remember { mutableStateOf(false) }
     var naming by remember { mutableStateOf<String?>(null) }
     var reviewingTerms by remember { mutableStateOf(false) }
+    var searching by remember(item.id) { mutableStateOf(false) }
+    var menuOpen by remember { mutableStateOf(false) }
+    var exportOpen by remember { mutableStateOf(false) }
     var query by remember(item.id) { mutableStateOf("") }
     val names = item.speakerNames
     val segments = item.shownSegments
@@ -551,41 +524,63 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
         it.text.contains(needle, ignoreCase = true) || TranscriptExport.segmentSpeaker(it, names).contains(needle, ignoreCase = true)
     }
     val hits = if (needle.isEmpty()) 0 else shown.sumOf { (_, it) -> occurrences(it.text, needle) + occurrences(TranscriptExport.segmentSpeaker(it, names), needle) }
+    val termsLabel = when {
+        suggestions.isNotEmpty() -> "Исправить термины (${suggestions.size})"
+        item.termEdits.isNotEmpty() -> "Термины исправлены (${item.termEdits.size})"
+        else -> "Словарь терминов"
+    }
     Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
         TopAppBar(title = { Text(item.title, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.SemiBold) },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
             navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } },
             actions = {
+                if (segments.isNotEmpty()) IconButton(onClick = { searching = !searching; if (!searching) query = "" }) {
+                    Icon(Icons.Filled.Search, "Поиск")
+                }
                 IconButton(onClick = onShare, enabled = !state.busy) { Icon(Icons.Filled.Share, "Поделиться") }
-                IconButton(onClick = { renaming = true }) { Icon(Icons.Filled.Edit, "Переименовать") }
-                IconButton(onClick = { confirmDelete = true }) { Icon(Icons.Filled.Delete, "Удалить") }
+                Box {
+                    IconButton(onClick = { menuOpen = true }) { Icon(Icons.Filled.MoreVert, "Ещё") }
+                    DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                        DropdownMenuItem(text = { Text("Переименовать") }, onClick = { menuOpen = false; renaming = true })
+                        DropdownMenuItem(text = { Text(termsLabel) }, enabled = segments.isNotEmpty() && !state.busy,
+                            onClick = { menuOpen = false; reviewingTerms = true })
+                        DropdownMenuItem(text = { Text("Удалить") }, onClick = { menuOpen = false; confirmDelete = true })
+                    }
+                }
             })
     }) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 4.dp, bottom = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item {
-                Card(shape = RoundedCornerShape(24.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(1.dp)) {
-                    Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(28.dp)) {
-                            Stat(clock(item.document.audioMs), "длительность")
-                            Stat("${segments.size}", "реплик")
-                            Stat("${counts.keys.count { it != null }}", "говорящих")
+                Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("${clock(item.document.audioMs)} · ${plural(segments.size, "реплика", "реплики", "реплик")}",
+                                style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                            Text(date(item.createdMs), style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
-                        Text(date(item.createdMs), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            counts.entries.sortedBy { speakerIndex(it.key) ?: Int.MAX_VALUE }.forEach { (id, n) ->
-                                Surface(shape = RoundedCornerShape(50), color = speakerColor(id).copy(alpha = 0.14f),
-                                    modifier = Modifier.clip(RoundedCornerShape(50))
-                                        .clickable(enabled = id != null && !state.busy) { naming = id }) {
-                                    Row(Modifier.padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 5.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Avatar(avatarText(id, names), speakerColor(id), box = 22.dp)
-                                        Spacer(Modifier.width(7.dp))
-                                        Text("${speakerName(id, names)} · $n", style = MaterialTheme.typography.labelMedium)
-                                        if (id != null) {
-                                            Spacer(Modifier.width(4.dp))
-                                            Icon(Icons.Filled.Edit, null, Modifier.size(12.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                                        }
+                        Box {
+                            FilledTonalButton(onClick = { exportOpen = true }, enabled = !state.busy) { Text("Экспорт") }
+                            DropdownMenu(expanded = exportOpen, onDismissRequest = { exportOpen = false }) {
+                                for (f in listOf("json-contest", "txt", "json", "srt")) DropdownMenuItem(
+                                    text = { Text(when (f) { "json-contest" -> "JSON"; "json" -> "JSON расш."; else -> f.uppercase() }) },
+                                    onClick = { exportOpen = false; onExport(f) })
+                            }
+                        }
+                    }
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        counts.entries.sortedBy { speakerIndex(it.key) ?: Int.MAX_VALUE }.forEach { (id, n) ->
+                            Surface(shape = RoundedCornerShape(50), color = speakerColor(id).copy(alpha = 0.14f),
+                                modifier = Modifier.clip(RoundedCornerShape(50))
+                                    .clickable(enabled = id != null && !state.busy) { naming = id }) {
+                                Row(Modifier.padding(horizontal = 12.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
+                                    Box(Modifier.size(10.dp).background(speakerColor(id), CircleShape))
+                                    Spacer(Modifier.width(8.dp))
+                                    Text("${speakerName(id, names)} · $n", style = MaterialTheme.typography.labelLarge)
+                                    if (id != null) {
+                                        Spacer(Modifier.width(6.dp))
+                                        Icon(Icons.Filled.Edit, null, Modifier.size(12.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
                                 }
                             }
@@ -593,29 +588,10 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                     }
                 }
             }
-            item {
-                Card(shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(1.dp)) {
-                    FlowRow(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text("Экспорт", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(top = 10.dp))
-                        for (f in listOf("json-contest", "txt", "json", "srt")) OutlinedButton(onClick = { onExport(f) }, enabled = !state.busy,
-                            shape = RoundedCornerShape(50), contentPadding = PaddingValues(horizontal = 14.dp)) {
-                            Text(when (f) { "json-contest" -> "JSON"; "json" -> "JSON расш."; else -> f.uppercase() })
-                        }
-                    }
-                }
+            if (suggestions.isNotEmpty()) item {
+                FilledTonalButton(onClick = { reviewingTerms = true }, enabled = !state.busy) { Text(termsLabel) }
             }
-            if (segments.isNotEmpty()) item {
-                val label = when {
-                    suggestions.isNotEmpty() -> "Исправить термины (${suggestions.size})"
-                    item.termEdits.isNotEmpty() -> "Термины исправлены (${item.termEdits.size})"
-                    else -> "Словарь терминов"
-                }
-                FilledTonalButton(onClick = { reviewingTerms = true }, enabled = !state.busy,
-                    contentPadding = PaddingValues(horizontal = 16.dp)) { Text(label) }
-            }
-            if (segments.isNotEmpty()) item {
+            if (segments.isNotEmpty() && (searching || query.isNotEmpty())) item {
                 OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true,
                     placeholder = { Text("Поиск по тексту и именам") },
                     leadingIcon = { Icon(Icons.Filled.Search, null) },
@@ -630,7 +606,7 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
             items(shown) { (index, it) -> Reply(it, names, needle, edited = index in editedIndexes,
                 onSpeaker = { id -> if (!state.busy) naming = id }) }
             item {
-                Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.height(4.dp))
                 Text("Время — границы реплик, не отдельных слов. Нажмите на говорящего, чтобы указать имя.",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 if (state.details.isNotBlank() && state.history.firstOrNull()?.id == item.id) Text(state.details,
@@ -672,14 +648,6 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
         dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text("Отмена") } })
 }
 
-@Composable
-private fun Stat(value: String, label: String) {
-    Column {
-        Text(value, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-        Text(label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    }
-}
-
 private fun occurrences(text: String, needle: String): Int {
     var count = 0
     var at = text.indexOf(needle, ignoreCase = true)
@@ -697,33 +665,30 @@ private fun highlighted(text: String, needle: String, mark: Color): AnnotatedStr
     }
 }
 
-/** One utterance as a chat bubble: round speaker avatar, name and time on top, text below. */
+/** One utterance: a thin speaker-coloured line, name and time on top, the text below. No boxes. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
                   onSpeaker: (String) -> Unit) {
     val color = speakerColor(segment.speakerId)
     val mark = Color(0xFFFFD54F).copy(alpha = 0.55f)
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        Avatar(avatarText(segment.speakerId, names), color)
-        Surface(Modifier.weight(1f), shape = RoundedCornerShape(topStart = 4.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 18.dp),
-            color = color.copy(alpha = 0.10f)) {
-            Column(Modifier.padding(horizontal = 14.dp, vertical = 10.dp)) {
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    val id = segment.speakerId
-                    Text(highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, mark), color = color,
-                        style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold,
-                        modifier = if (id != null) Modifier.clip(RoundedCornerShape(4.dp)).clickable { onSpeaker(id) } else Modifier)
-                    Text("${clock(segment.startMs)}–${clock(segment.endMs)}", style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    if (segment.overlappingSpeech) Text("перекрытие", style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    if (edited) Text("правка", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
-                }
-                Spacer(Modifier.height(2.dp))
-                Text(highlighted(segment.text, needle, mark), style = MaterialTheme.typography.bodyLarge)
-            }
+    val bar = with(androidx.compose.ui.platform.LocalDensity.current) { 3.dp.toPx() }
+    Column(Modifier.fillMaxWidth().drawBehind {
+        drawRoundRect(color, size = Size(bar, size.height), cornerRadius = CornerRadius(bar / 2))
+    }.padding(start = 16.dp)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            val id = segment.speakerId
+            Text(highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, mark), color = color,
+                style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
+                modifier = if (id != null) Modifier.clip(RoundedCornerShape(4.dp)).clickable { onSpeaker(id) } else Modifier)
+            Text("${clock(segment.startMs)}–${clock(segment.endMs)}", style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (segment.overlappingSpeech) Text("перекрытие", style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (edited) Text("правка", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
         }
+        Spacer(Modifier.height(3.dp))
+        Text(highlighted(segment.text, needle, mark), style = MaterialTheme.typography.bodyLarge)
     }
 }
 
