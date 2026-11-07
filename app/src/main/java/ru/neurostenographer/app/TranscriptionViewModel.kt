@@ -90,7 +90,10 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         mutable.value = mutable.value.copy(busy = true)
         operation = viewModelScope.launch {
             try { block() }
-            catch (_: CancellationException) { mutable.value = mutable.value.copy(message = "Операция отменена.") }
+            catch (_: CancellationException) {
+                mutable.value = mutable.value.copy(message = if (mutable.value.source != null)
+                    "Расшифровка остановлена. Аудио можно расшифровать снова или удалить." else "Операция отменена.")
+            }
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
@@ -306,7 +309,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 (if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
                     "Диаризация ${backendUsed?.uppercase()}: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс. ") +
                 (warning ?: "")
-        val title = (mutable.value.sourceName ?: "Стенограмма").replace(Regex("\\.(wav|mp3|m4a|ogg|opus|flac|aac|amr|3gp|webm)$", RegexOption.IGNORE_CASE), "")
+        val named = (mutable.value.sourceName ?: "Стенограмма").replace(Regex("\\.(wav|mp3|m4a|ogg|opus|flac|aac|amr|3gp|webm)$", RegexOption.IGNORE_CASE), "")
+        // A recording that only has a date for a name gets its topic (most repeated meaningful words) in front of it.
+        // A file the user named themselves keeps its name.
+        val topic = if (named.startsWith("Запись ") || named == "Аудиофайл") TopicTitle.suggest(document.segments) else null
+        val title = if (topic != null) topic + " · " + named.removePrefix("Запись ") else named
         val saved = withContext(Dispatchers.IO) { history.save(title, document) }
         // The transcript is kept; the audio copy is not needed any more.
         discardSnapshot(mutable.value.source)
@@ -505,6 +512,20 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     }
 
     fun cancel() { operation?.cancel() }
+
+    /** Drops audio that was not recognised (cancelled or failed). Only app-owned copies are deleted, never a user's file. */
+    fun discardSource() {
+        if (mutable.value.busy || recording.value) return
+        val uri = mutable.value.source
+        if (uri?.scheme == "file") {
+            val file = File(uri.path ?: "")
+            val app = getApplication<Application>()
+            val ownedCopy = file.parentFile == File(app.cacheDir, "audio-input") ||
+                (file.parentFile == app.filesDir && file.name.matches(Regex("recording_\\d+\\.wav")))
+            if (ownedCopy) file.delete()
+        }
+        mutable.value = mutable.value.copy(source = null, sourceName = null, sourceDurationMs = null, message = READY)
+    }
 
     /** Explicit user action: delete only app-generated local audio, including abandoned imports.
      * Exported documents belong to their chosen provider and cannot be erased here.
