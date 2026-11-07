@@ -12,7 +12,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -383,7 +386,9 @@ private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, 
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             val mode = when { recording -> 0; state.busy || preparing -> 1; else -> 2 }
-            Crossfade(targetState = mode, label = "hero") { m ->
+            // Old card fades out first, the new one fades in after it: never two different cards on top of each other.
+            AnimatedContent(targetState = mode, transitionSpec = { fadeIn(tween(160, delayMillis = 100)) togetherWith fadeOut(tween(100)) },
+                label = "hero") { m ->
                 when (m) {
                     0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
                     1 -> ProcessingCard(state, onCancel)
