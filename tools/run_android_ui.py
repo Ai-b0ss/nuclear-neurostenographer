@@ -189,8 +189,9 @@ class AndroidUi:
                 return
         raise AssertionError("Document picker stayed on its root drawer")
 
-    def save_document(self, format, rotate=False):
-        self.tap(label=format.upper(), exact=True)
+    def save_document(self, format, rotate=False, label=None, name=None):
+        # Since 0.3.14 «JSON» is the official contest format and «JSON расш.» the extended one.
+        self.tap(label=label or format.upper(), exact=True)
         self.downloads()
         if rotate:
             self.rotate_picker(1)
@@ -205,7 +206,7 @@ class AndroidUi:
         self.tap_node(field)
         self.shell("input", "keyevent", "KEYCODE_MOVE_END")
         self.shell("input", "keyevent", *(["KEYCODE_DEL"] * len(current)))
-        name = "neuro-qa-ui." + format
+        name = name or "neuro-qa-ui." + format
         self.shell("input", "text", name)
         _, renamed = self.find(label=name, class_name="android.widget.EditText", exact=True)
         if renamed is None:
@@ -259,6 +260,9 @@ def verify_saved_exports(exports, expected_runtime, directory):
     if " --> " not in exports["srt"].decode("utf-8"):
         raise AssertionError("Saved SRT cues missing")
     verify_transcript_files(directory, prefix="neuro-qa-ui")
+    # The plain «JSON» button saves the official four-field format; check it against the extended export.
+    from verify_contest_json import verify as verify_contest
+    verify_contest(Path(directory) / "neuro-qa-ui.contest.json", Path(directory) / "neuro-qa-ui.json")
     return {format: {"bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()} for format, body in exports.items()}
 
 
@@ -416,7 +420,10 @@ def run(ui):
             break
     ui.visible("JSON", exact=True)
     checks.append("cancelled_system_export_keeps_transcript_available")
-    exports = {format: ui.save_document(format, rotate=format == "json") for format in ["txt", "json", "srt"]}
+    exports = {"txt": ui.save_document("txt"),
+               "json": ui.save_document("json", rotate=True, label="JSON расш.", name="neuro-qa-ui.json"),
+               "srt": ui.save_document("srt"),
+               "contest": ui.save_document("json", label="JSON", name="neuro-qa-ui.contest.json")}
     # Candidate validation can replace the AAR after initial provisioning. Compare
     # exported BuildConfig identity with actual build-input bytes, not stale
     # provisioning metadata from the upstream bootstrap runtime.

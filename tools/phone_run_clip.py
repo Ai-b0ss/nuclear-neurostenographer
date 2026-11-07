@@ -87,7 +87,7 @@ def main():
     run = lambda *a, **k: subprocess.run([adb, "-s", args.serial, *a], capture_output=True, text=True, check=True, **k)
     name = args.clip.name
     stem = Path(name).stem
-    run("shell", f"mkdir -p {FOLDER} && rm -f {FOLDER}/transcript.json '{FOLDER}/{stem}.json'")
+    run("shell", f"mkdir -p {FOLDER} && rm -f {FOLDER}/transcript.json '{FOLDER}/{stem}.json' '{FOLDER}/{stem}.full.json'")
     run("shell", "am", "force-stop", args.package)  # start on the home screen, not on a transcript left open
     run("push", str(args.clip), f"{FOLDER}/{name}")
     run("shell", "am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", f"file://{FOLDER}/{name}")
@@ -125,13 +125,13 @@ def main():
     if timings is None:
         print(json.dumps({"status": "FAIL", "message": message}, ensure_ascii=False))
         return 1
-    ui.tap_node(scroll_to(ui, "JSON", direction="up", tries=40))  # export buttons sit at the top of the transcript
+    ui.tap_node(scroll_to(ui, "JSON расш.", direction="up", tries=40))  # export buttons sit at the top of the transcript
     time.sleep(3)
     ui.tap_node(scroll_to(ui, "СОХР."))
     time.sleep(3)
     args.out_dir.mkdir(parents=True, exist_ok=True)
     target = args.out_dir / f"{Path(name).stem}.phone.json"
-    run("pull", f"{FOLDER}/{stem}.json", str(target))  # the app names the export after the audio file
+    run("pull", f"{FOLDER}/{stem}.full.json", str(target))  # the app names the export after the audio file
     result = {"status": "OK", "package": args.package, "clip": name, "export": str(target), "wall_s": round(time.monotonic() - started, 1), **timings}
     (args.out_dir / f"{Path(name).stem}.timings.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False))
