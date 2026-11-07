@@ -318,6 +318,10 @@ def run(ui):
     # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
     ui.shell("settings", "put", "global", "hide_error_dialogs", "1")
+    # The record screen has an endless pulse animation; like any endless animation it keeps uiautomator from
+    # going idle. Disposable emulator only: animations off, as for any UI test.
+    for scale in ("animator_duration_scale", "window_animation_scale", "transition_animation_scale"):
+        ui.shell("settings", "put", "global", scale, "0")
     dismiss_foreign_anr_dialog(ui)
     ui.shell("logcat", "-c")
     ui.started_at = ui.shell("date", "+%Y-%m-%dT%H:%M:%S").strip().replace("T", " ")

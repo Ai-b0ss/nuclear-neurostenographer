@@ -12,7 +12,17 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -49,6 +59,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalView
@@ -297,12 +308,17 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
                     }
                 }
             }
-            when {
-                recording -> item { RecordingHero(enabled = !state.busy, onStop = onRecord) }
-                state.busy -> item { Box(Modifier.padding(vertical = 8.dp)) { ProcessingCard(state, onCancel) } }
-                else -> {
-                    if (state.source != null) item { Box(Modifier.padding(vertical = 8.dp)) { PendingAudioCard(state, onTranscribe) } }
-                    item { StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport, onRealtime = onRealtime) }
+            item {
+                val mode = when { recording -> 0; state.busy -> 1; else -> 2 }
+                Crossfade(targetState = mode, label = "hero") { m ->
+                    when (m) {
+                        0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
+                        1 -> Box(Modifier.padding(vertical = 8.dp)) { ProcessingCard(state, onCancel) }
+                        else -> Column {
+                            if (state.source != null) Box(Modifier.padding(vertical = 8.dp)) { PendingAudioCard(state, onTranscribe) }
+                            StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport, onRealtime = onRealtime)
+                        }
+                    }
                 }
             }
             if (!recording && !state.busy && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) item {
@@ -334,8 +350,12 @@ private fun HomeScreen(state: ScreenState, recording: Boolean, notice: String, o
 @Composable
 private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit, onRealtime: (() -> Unit)?) {
     val primary = MaterialTheme.colorScheme.primary
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val scale by animateFloatAsState(if (pressed) 0.93f else 1f, tween(120), label = "press")
     Column(Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Column(Modifier.clip(RoundedCornerShape(28.dp)).clickable(enabled = ready, onClick = onRecord).padding(12.dp),
+        Column(Modifier.graphicsLayer { scaleX = scale; scaleY = scale }.clip(RoundedCornerShape(28.dp))
+            .clickable(interactionSource = interaction, indication = LocalIndication.current, enabled = ready, onClick = onRecord).padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Box(Modifier.size(176.dp).alpha(if (ready) 1f else 0.4f), contentAlignment = Alignment.Center) {
                 Box(Modifier.fillMaxSize().background(primary.copy(alpha = 0.10f), CircleShape))
@@ -367,12 +387,13 @@ private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Uni
 
 @Composable
 private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
-    // Own timer: only this card is redrawn while recording, not the whole list.
-    val elapsed by produceState(0L) {
+    // The timer text changes once per second. The rings animate in the draw phase only: no recomposition per frame.
+    val seconds by produceState(0L) {
         val started = SystemClock.elapsedRealtime()
-        while (true) { value = SystemClock.elapsedRealtime() - started; delay(100) }
+        while (true) { value = (SystemClock.elapsedRealtime() - started) / 1000; delay(250) }
     }
-    val phase = (elapsed % 2000L) / 2000f
+    val pulse = rememberInfiniteTransition(label = "pulse")
+    val phase by pulse.animateFloat(0f, 1f, infiniteRepeatable(tween(2000, easing = LinearEasing)), label = "phase")
     val red = MaterialTheme.colorScheme.error
     Card(shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(3.dp)) {
@@ -384,8 +405,9 @@ private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
             }
             Box(Modifier.size(190.dp), contentAlignment = Alignment.Center) {
                 Canvas(Modifier.fillMaxSize()) {
+                    val now = phase
                     for (k in 0..1) {
-                        val q = (phase + k * 0.5f) % 1f
+                        val q = (now + k * 0.5f) % 1f
                         drawCircle(red.copy(alpha = (1f - q) * 0.30f), radius = size.minDimension / 2 * (0.52f + 0.48f * q))
                     }
                 }
@@ -395,7 +417,7 @@ private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
                     Box(Modifier.size(30.dp).background(Color.White, RoundedCornerShape(7.dp)))
                 }
             }
-            Text(clock(elapsed), fontSize = 48.sp, fontWeight = FontWeight.Light)
+            Text(clock(seconds * 1000), fontSize = 48.sp, fontWeight = FontWeight.Light)
             Text("Максимум ${PcmWav.MAX_LABEL}. " + if (RecordingService.active) "Можно свернуть приложение." else "Не сворачивайте приложение.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(14.dp))
@@ -473,18 +495,21 @@ private fun PendingAudioCard(state: ScreenState, onTranscribe: () -> Unit) {
 
 @Composable
 private fun HistoryRow(item: SavedTranscript, enabled: Boolean, onOpen: (String) -> Unit) {
+    // SimpleDateFormat and the speaker scan are costly: do them once per row, not on every scroll frame.
+    val whenText = remember(item.id, item.createdMs) { "${date(item.createdMs)} · ${clock(item.document.audioMs)}" }
+    val speakers = remember(item.id) { item.speakers.take(6) }
     Column(Modifier.fillMaxWidth()) {
         Column(Modifier.fillMaxWidth().clickable(enabled = enabled) { onOpen(item.id) }.padding(vertical = 14.dp)) {
             Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, maxLines = 1,
                 overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(4.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                item.speakers.take(6).forEach { id ->
+                speakers.forEach { id ->
                     Box(Modifier.size(9.dp).background(speakerColor(id), CircleShape))
                     Spacer(Modifier.width(4.dp))
                 }
-                if (item.speakers.isNotEmpty()) Spacer(Modifier.width(4.dp))
-                Text("${date(item.createdMs)} · ${clock(item.document.audioMs)}", style = MaterialTheme.typography.bodySmall,
+                if (speakers.isNotEmpty()) Spacer(Modifier.width(4.dp))
+                Text(whenText, style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             item.document.segments.firstOrNull()?.let {
@@ -514,14 +539,18 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
     var exportOpen by remember { mutableStateOf(false) }
     var query by remember(item.id) { mutableStateOf("") }
     val names = item.speakerNames
-    val segments = item.shownSegments
-    val editedIndexes = item.termEdits.map { it.segment }.toSet()
-    val counts = segments.groupingBy { it.speakerId }.eachCount()
+    val segments = remember(item) { item.shownSegments }
+    val editedIndexes = remember(item) { item.termEdits.map { it.segment }.toSet() }
+    val counts = remember(segments) { segments.groupingBy { it.speakerId }.eachCount() }
     val needle = query.trim()
-    val shown = segments.withIndex().filter { (_, it) -> needle.isEmpty() ||
-        it.text.contains(needle, ignoreCase = true) || TranscriptExport.segmentSpeaker(it, names).contains(needle, ignoreCase = true)
+    val shown = remember(segments, names, needle) {
+        segments.withIndex().filter { (_, it) -> needle.isEmpty() ||
+            it.text.contains(needle, ignoreCase = true) || TranscriptExport.segmentSpeaker(it, names).contains(needle, ignoreCase = true)
+        }
     }
-    val hits = if (needle.isEmpty()) 0 else shown.sumOf { (_, it) -> occurrences(it.text, needle) + occurrences(TranscriptExport.segmentSpeaker(it, names), needle) }
+    val hits = remember(shown, needle) {
+        if (needle.isEmpty()) 0 else shown.sumOf { (_, it) -> occurrences(it.text, needle) + occurrences(TranscriptExport.segmentSpeaker(it, names), needle) }
+    }
     val termsLabel = when {
         suggestions.isNotEmpty() -> "Исправить термины (${suggestions.size})"
         item.termEdits.isNotEmpty() -> "Термины исправлены (${item.termEdits.size})"
@@ -667,12 +696,14 @@ internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needl
     val color = speakerColor(segment.speakerId)
     val mark = Color(0xFFFFD54F).copy(alpha = 0.55f)
     val bar = with(androidx.compose.ui.platform.LocalDensity.current) { 3.dp.toPx() }
+    val speakerText = remember(segment, names, needle) { highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, mark) }
+    val bodyText = remember(segment.text, needle) { highlighted(segment.text, needle, mark) }
     Column(Modifier.fillMaxWidth().drawBehind {
         drawRoundRect(color, size = Size(bar, size.height), cornerRadius = CornerRadius(bar / 2))
     }.padding(start = 16.dp)) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             val id = segment.speakerId
-            Text(highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, mark), color = color,
+            Text(speakerText, color = color,
                 style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
                 modifier = if (id != null) Modifier.clip(RoundedCornerShape(4.dp)).clickable { onSpeaker(id) } else Modifier)
             Text("${clock(segment.startMs)}–${clock(segment.endMs)}", style = MaterialTheme.typography.labelMedium,
@@ -682,7 +713,7 @@ internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needl
             if (edited) Text("правка", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
         }
         Spacer(Modifier.height(3.dp))
-        Text(highlighted(segment.text, needle, mark), style = MaterialTheme.typography.bodyLarge)
+        Text(bodyText, style = MaterialTheme.typography.bodyLarge)
     }
 }
 
