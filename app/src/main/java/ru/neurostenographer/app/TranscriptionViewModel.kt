@@ -343,7 +343,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 (if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
                     "Диаризация ${backendUsed?.uppercase()}: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс. ") +
                 (warning ?: "")
-        val title = (mutable.value.sourceName ?: "Стенограмма").replace(Regex("\\.(wav|mp3|m4a|ogg|opus|flac|aac|amr|3gp|webm)$", RegexOption.IGNORE_CASE), "")
+        val named = (mutable.value.sourceName ?: "Стенограмма").replace(Regex("\\.(wav|mp3|m4a|ogg|opus|flac|aac|amr|3gp|webm)$", RegexOption.IGNORE_CASE), "")
+        // A recording that only has a date for a name gets its topic (most repeated meaningful words) in front of it.
+        // A file the user named themselves keeps its name.
+        val topic = if (named.startsWith("Запись ") || named == "Аудиофайл") TopicTitle.suggest(document.segments) else null
+        val title = if (topic != null) topic + " · " + named.removePrefix("Запись ") else named
         val saved = withContext(Dispatchers.IO) { history.save(title, document) }
         // The transcript is kept; the audio copy is not needed any more.
         discardSnapshot(mutable.value.source)

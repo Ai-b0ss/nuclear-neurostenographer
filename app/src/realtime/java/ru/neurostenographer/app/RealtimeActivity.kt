@@ -8,7 +8,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -16,8 +22,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import ru.neurostenographer.core.TopicTitle
+import ru.neurostenographer.core.TranscriptExport
 import androidx.core.content.ContextCompat
 import java.io.File
 
@@ -53,6 +65,7 @@ class RealtimeActivity : ComponentActivity() {
         super.onStop()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun LiveScreen() {
         val state by RealtimeService.view.collectAsState()
@@ -75,57 +88,78 @@ class RealtimeActivity : ComponentActivity() {
         val complete = status.startsWith("COMPLETE")
         val segments = state.document?.segments.orEmpty()
         val list = rememberLazyListState()
+        // Stop answers at once: the service needs a moment to report FINALIZING, the screen must not look frozen meanwhile.
+        var stopping by remember { mutableStateOf(false) }
+        LaunchedEffect(status) { stopping = false }
         LaunchedEffect(segments.size) { if (segments.isNotEmpty()) list.animateScrollToItem(segments.size - 1) }
         // After a session ends, the next one should start without a model-loading wait as well.
         LaunchedEffect(busy) { if (!busy) RealtimePreload.start(this@RealtimeActivity) }
+        val red = MaterialTheme.colorScheme.error
 
-        Scaffold { padding ->
-            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    TextButton(onClick = { finish() }, enabled = !busy) { Text("← Назад") }
-                    Spacer(Modifier.width(4.dp))
-                    Text("Живая расшифровка", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
+            TopAppBar(title = { Text("Живая расшифровка", fontWeight = FontWeight.SemiBold) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                navigationIcon = { IconButton(onClick = { finish() }, enabled = !busy) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } })
+        }) { padding ->
+            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(clock(state.audioMs), fontSize = 44.sp, fontWeight = FontWeight.Light,
+                    color = if (recording) red else MaterialTheme.colorScheme.onSurface)
+                Text(if (stopping) "Останавливаю…" else statusText(status), style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                if (status == "LOADING" || status == "FINALIZING" || stopping) {
+                    Spacer(Modifier.height(8.dp))
+                    LinearProgressIndicator(Modifier.fillMaxWidth(0.6f).clip(RoundedCornerShape(50)))
                 }
-                Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(1.dp)) {
-                    Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(clock(state.audioMs), style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold,
-                                color = if (recording) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface)
-                            Spacer(Modifier.width(12.dp))
-                            Text(statusText(status), style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Spacer(Modifier.height(14.dp))
+                if (!busy) {
+                    Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable {
+                        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
+                        else permission.launch(Manifest.permission.RECORD_AUDIO)
+                    }.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Box(Modifier.size(84.dp).background(MaterialTheme.colorScheme.primary, CircleShape), contentAlignment = Alignment.Center) {
+                            MicGlyph(MaterialTheme.colorScheme.onPrimary, 36.dp)
                         }
-                        if (status == "LOADING" || status == "FINALIZING") LinearProgressIndicator(Modifier.fillMaxWidth())
-                        if (!busy) Button(onClick = {
-                            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
-                            else permission.launch(Manifest.permission.RECORD_AUDIO)
-                        }, modifier = Modifier.fillMaxWidth().height(56.dp)) {
-                            Text(if (complete) "Новая запись" else "Начать запись", style = MaterialTheme.typography.titleMedium)
+                        Spacer(Modifier.height(8.dp))
+                        Text(if (complete) "Новая запись" else "Начать запись", style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold)
+                    }
+                } else if (recording) {
+                    Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable(enabled = !stopping) {
+                        stopping = true
+                        service("STOP")
+                    }.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Box(Modifier.size(84.dp).background(red, CircleShape), contentAlignment = Alignment.Center) {
+                            Box(Modifier.size(26.dp).background(Color.White, RoundedCornerShape(6.dp)))
                         }
-                        if (recording) Button(onClick = { service("STOP") }, modifier = Modifier.fillMaxWidth().height(56.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)) {
-                            Text("Остановить", style = MaterialTheme.typography.titleMedium)
-                        }
-                        if (status == "FINALIZING") TextButton(onClick = { service("CANCEL") }) {
-                            Text("Пропустить уточнение (запись и текст сохранятся)")
-                        }
-                        if (complete) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории") }
-                            OutlinedButton(onClick = { exportText = state.document!!.export("json-contest"); export.launch("live.json") },
-                                enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON") }
-                        }
-                        batchFallback(state)
+                        Spacer(Modifier.height(8.dp))
+                        Text("Остановить", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = red)
                     }
                 }
+                if (status == "FINALIZING") TextButton(onClick = { service("CANCEL") }) {
+                    Text("Пропустить уточнение (запись и текст сохранятся)", textAlign = TextAlign.Center)
+                }
+                if (complete) Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории") }
+                    OutlinedButton(onClick = {
+                        val doc = state.document!!
+                        exportText = doc.export("json-contest")
+                        // The file is named after what was said, not «live»: topic words + date, like the saved transcript.
+                        val topic = TopicTitle.suggest(doc.segments)
+                        val stamp = java.text.SimpleDateFormat("yyyy-MM-dd HH-mm", java.util.Locale("ru")).format(java.util.Date())
+                        export.launch(TranscriptExport.fileBase((topic ?: "Живая запись") + " " + stamp) + ".json")
+                    }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON") }
+                }
+                batchFallback(state)
+                Spacer(Modifier.height(10.dp))
                 if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
-                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                 if (segments.isEmpty()) Text(
                     if (recording) "Говорите — текст появится после каждой фразы (обычно через 1–2 с)."
                     else "Распознавание и разделение говорящих идут на телефоне, без интернета.",
-                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                LazyColumn(state = list, modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                Spacer(Modifier.height(10.dp))
+                LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(18.dp),
+                    contentPadding = PaddingValues(bottom = 24.dp)) {
                     items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
                 }
             }

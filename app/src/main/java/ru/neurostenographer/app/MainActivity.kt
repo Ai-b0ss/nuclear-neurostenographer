@@ -310,7 +310,7 @@ private fun date(ms: Long) = SimpleDateFormat("d MMMM, HH:mm", Locale("ru")).for
 
 /** A microphone drawn from primitives, so the app needs no extended icon set. */
 @Composable
-private fun MicGlyph(color: Color, box: Dp) {
+internal fun MicGlyph(color: Color, box: Dp) {
     Canvas(Modifier.size(box)) {
         val w = this.size.width
         val h = this.size.height
@@ -519,7 +519,7 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
             if (p != null) LinearProgressIndicator(progress = { p }, Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
             else LinearProgressIndicator(Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
             Text("Экран не погаснет, пока идёт обработка. Всё считается на телефоне.", style = MaterialTheme.typography.bodySmall)
-            TextButton(onClick = onCancel, modifier = Modifier.align(Alignment.End)) { Text("Отменить") }
+            TextButton(onClick = onCancel, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text("Отменить") }
         }
     }
 }
