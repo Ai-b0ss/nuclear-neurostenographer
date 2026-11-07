@@ -1,0 +1,45 @@
+DiCoP issue10 research preflight
+Model download: NO
+Training: NO
+Inference: NO
+Russian WER/HONOR quality claim: NO
+
+[upstream pin]
+$ git ls-remote https://github.com/BUTSpeechFIT/DiCoP.git HEAD refs/heads/main refs/heads/master
+b9ccee411877f5e8da42e56ed27e693829f80ce1 HEAD
+b9ccee411877f5e8da42e56ed27e693829f80ce1 refs/heads/main
+Pinned source review: README.md, infer.py, utils/audio.py, utils/rttm.py, utils/inference.py at this commit.
+Checkpoint card reviewed without downloading weights: BUT-FIT/DiCoP_v0.1; base nvidia/parakeet-tdt-0.6b-v2; language en; 618M.
+
+[unit tests, repository root]
+$ python -m unittest -v tools/dicop/test_dicop.py
+Ran 8 tests in 0.197s
+OK
+Coverage: RTTM UTF-8 percent escaping, control/whitespace escaping, start+duration formatting, interval rejection, deterministic ordering, C2 unknown exclusion, reference/C2 audio+RTTM layout, English checkpoint and Russian-v3 base-model gates.
+
+[converter CLI smoke on temporary local PCM16 fixture]
+$ python tools/dicop/convert_c2.py --manifest <tmp>/manifest.json --corpus <tmp>/corpus --mode reference --output <tmp>/out
+Prepared 1 sessions in <tmp>/out; inference NOT_RUN
+Assertions: audio/demo.wav exists; demo.rttm exact bytes; fixture audio SHA-256 matches source; temporary directory removed.
+converter CLI fixture: OK; inference NOT_RUN
+
+[preflight negative-path smoke]
+$ python tools/dicop/preflight.py --upstream . --checkpoint BUT-FIT/DiCoP_v0.1
+exit 2 (expected): current repository is not the pinned upstream and English checkpoint is blocked for Russian quality evidence.
+No model load or download was attempted.
+
+[evidence validation]
+$ python -c "json.load(...)"  # score.json, fixture-manifest.json, metrics.schema.json
+JSON evidence checks: OK
+$ Draft202012Validator.check_schema(...); Draft202012Validator(schema).validate(score)
+metrics.schema.json + score.json: valid
+Assertions: decision REJECT; WER/cpWER/tcpWER/DER NOT_RUN; HONOR NOT_RUN; converted_cases 0; fixture cases [].
+
+[static and diff checks]
+$ python -m compileall -q tools/dicop
+exit 0
+$ git diff --check
+exit 0
+
+Final status: NOT_RUN (missing Russian-proven checkpoint; common C2 fragments not ready).
+Decision: REJECT for hackathon; research only.

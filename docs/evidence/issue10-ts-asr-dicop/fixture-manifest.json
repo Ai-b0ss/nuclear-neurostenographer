@@ -1,0 +1,31 @@
+{
+ "schema_version": 1,
+ "status": "NOT_READY",
+ "reason": "общие C2 turns/reference fragments ещё не подготовлены",
+ "source_manifest": "docs/evidence/c2-same-tracks/manifest.json",
+ "converter": "tools/dicop/convert_c2.py",
+ "modes": {
+  "reference": "{case}.ref.json#diarization",
+  "c2": "{case}.tsv с колонками start_ms, end_ms, cluster; cluster -1 исключается и учитывается отдельно"
+ },
+ "audio_layout": "audio/{session}.wav",
+ "rttm_layout": "rttm/{session}.rttm",
+ "audio_requirements": "16 kHz, mono, PCM16 WAV; SHA-256 и длительность должны совпасть с frozen C2 manifest/reference",
+ "rttm_format": "SPEAKER {session} 1 {start_seconds:.3f} {duration_seconds:.3f} <NA> <NA> {speaker} <NA> <NA>",
+ "token_encoding": "UTF-8 percent-encoding для символов вне [A-Za-z0-9_.~-]; одинаковый escaped session в RTTM и имени WAV",
+ "upstream": {
+  "repository": "https://github.com/BUTSpeechFIT/DiCoP",
+  "commit": "b9ccee411877f5e8da42e56ed27e693829f80ce1"
+ },
+ "checkpoint": {
+  "id": "BUT-FIT/DiCoP_v0.1",
+  "base_model": "nvidia/parakeet-tdt-0.6b-v2",
+  "russian_proven": false,
+  "downloaded": false
+ },
+ "cases": [],
+ "inference": {
+  "status": "NOT_RUN",
+  "reason": "missing Russian-proven checkpoint"
+ }
+}

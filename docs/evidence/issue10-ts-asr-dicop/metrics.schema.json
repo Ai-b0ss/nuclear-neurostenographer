@@ -1,0 +1,70 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://neurostenographer.local/schemas/ts-asr-metrics.schema.json",
+ "title": "Общий формат метрик TS-ASR research evidence",
+ "type": "object",
+ "required": ["schema_version", "experiment", "status", "decision", "scope", "metrics", "runs"],
+ "properties": {
+  "$schema": {"type": "string"},
+  "schema_version": {"const": 1},
+  "experiment": {"type": "string", "minLength": 1},
+  "status": {"enum": ["OK", "PARTIAL", "NOT_RUN", "FAILED"]},
+  "decision": {"enum": ["ACCEPT", "REJECT", "INCONCLUSIVE"]},
+  "scope": {"type": "string", "minLength": 1},
+  "reason": {"type": "string", "minLength": 1},
+  "upstream": {"type": "object"},
+  "checkpoint": {"type": "object"},
+  "fixtures": {"type": "object"},
+  "metrics": {
+   "type": "object",
+   "description": "Ключи — имена метрик; одинаковый объект результата используется для WER, cpWER, tcpWER, DER и других метрик.",
+   "additionalProperties": {"$ref": "#/$defs/metric"}
+  },
+  "runs": {
+   "type": "object",
+   "description": "Ключи — платформы или наборы, например HOST, HONOR; значения описывают выполнение, а не числовую метрику.",
+   "additionalProperties": {"$ref": "#/$defs/run"}
+  }
+ },
+ "additionalProperties": true,
+ "$defs": {
+  "metric": {
+   "type": "object",
+   "required": ["status", "value", "unit", "reason"],
+   "properties": {
+    "status": {"enum": ["SCORED", "NOT_RUN", "NOT_SCORED", "FAILED"]},
+    "value": {"type": ["number", "null"]},
+    "unit": {"enum": ["ratio", "percent", "milliseconds", "seconds", "count", "none"]},
+    "reason": {"type": ["string", "null"]},
+    "errors": {"type": ["integer", "null"], "minimum": 0},
+    "reference_words": {"type": ["integer", "null"], "minimum": 0}
+   },
+   "additionalProperties": true,
+   "allOf": [
+    {
+     "if": {"properties": {"status": {"const": "SCORED"}}},
+     "then": {
+      "properties": {"value": {"type": "number"}, "reason": {"type": "null"}}
+     }
+    },
+    {
+     "if": {"properties": {"status": {"enum": ["NOT_RUN", "NOT_SCORED", "FAILED"]}}},
+     "then": {
+      "properties": {"value": {"type": "null"}, "reason": {"type": "string", "minLength": 1}}
+     }
+    }
+   ]
+  },
+  "run": {
+   "type": "object",
+   "required": ["status", "reason"],
+   "properties": {
+    "status": {"enum": ["OK", "PARTIAL", "NOT_RUN", "FAILED"]},
+    "reason": {"type": ["string", "null"]},
+    "records": {"type": ["integer", "null"], "minimum": 0},
+    "device": {"type": ["string", "null"]}
+   },
+   "additionalProperties": true
+  }
+ }
+}

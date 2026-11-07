@@ -1,0 +1,83 @@
+{
+ "$schema": "./metrics.schema.json",
+ "schema_version": 1,
+ "experiment": "issue10-ts-asr-dicop",
+ "status": "NOT_RUN",
+ "decision": "REJECT",
+ "scope": "research only; не кандидат для хакатона",
+ "reason": "missing Russian-proven checkpoint",
+ "upstream": {
+  "repository": "https://github.com/BUTSpeechFIT/DiCoP",
+  "commit": "b9ccee411877f5e8da42e56ed27e693829f80ce1",
+  "infer_contract": "RTTM + audio directory -> STM"
+ },
+ "checkpoint": {
+  "id": "BUT-FIT/DiCoP_v0.1",
+  "base_model": "nvidia/parakeet-tdt-0.6b-v2",
+  "not_base_model": "nvidia/parakeet-tdt-0.6b-v3",
+  "parameters": 618000000,
+  "language": "en",
+  "russian_proven": false,
+  "downloaded": false,
+  "trained": false,
+  "inference_run": false
+ },
+ "fixtures": {
+  "status": "NOT_READY",
+  "reason": "общие C2 turns/reference fragments ещё не подготовлены",
+  "converted_cases": 0
+ },
+ "metrics": {
+  "wer": {
+   "status": "NOT_RUN",
+   "value": null,
+   "unit": "ratio",
+   "reason": "missing Russian-proven checkpoint",
+   "errors": null,
+   "reference_words": null
+  },
+  "cpwer": {
+   "status": "NOT_RUN",
+   "value": null,
+   "unit": "ratio",
+   "reason": "missing Russian-proven checkpoint",
+   "errors": null,
+   "reference_words": null
+  },
+  "tcpwer": {
+   "status": "NOT_RUN",
+   "value": null,
+   "unit": "ratio",
+   "reason": "missing Russian-proven checkpoint",
+   "errors": null,
+   "reference_words": null
+  },
+  "der": {
+   "status": "NOT_RUN",
+   "value": null,
+   "unit": "ratio",
+   "reason": "missing Russian-proven checkpoint",
+   "errors": null,
+   "reference_words": null
+  }
+ },
+ "runs": {
+  "HOST": {
+   "status": "NOT_RUN",
+   "reason": "missing Russian-proven checkpoint; общие C2 turns/reference fragments ещё не подготовлены",
+   "records": null,
+   "device": null
+  },
+  "HONOR": {
+   "status": "NOT_RUN",
+   "reason": "missing Russian-proven checkpoint; общие C2 turns/reference fragments ещё не подготовлены",
+   "records": null,
+   "device": "HONOR DNN-LX9"
+  }
+ },
+ "limitations": [
+  "Результаты DiCoP_v0.1 на английских AMI/NOTSOFAR/LibriMix нельзя переносить на русскую речь.",
+  "Вывод English-only checkpoint не считается измерением Russian WER или качества на HONOR.",
+  "Preflight и конвертер проверяют только исследовательский контракт данных; inference и обучение не выполнялись."
+ ]
+}
