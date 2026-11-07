@@ -92,9 +92,23 @@
   }
  ],
  "not_run": [
-  "foregroundMicrophoneScreenOff: skipped at the owner's request (no screen-off/lock at night)"
+  "foregroundMicrophoneScreenOff: skipped at the owner's request (no screen-off/lock at night)",
+  "HonorLifecycleAcceptanceTest#grantedMicrophoneProduces16kWavAndCanRestart: plays audio through the speaker; not run at night at the owner's request (passed in run 1 on 0.3.9)"
  ],
  "notes": [
-  "HonorLifecycleAcceptanceTest FAIL after 707 s: the OS cgroup freezer froze .solhigh during the test (watchdog log 06:11); in run 1 on 0.3.9 it passed in 100 s. Not re-run at night because it plays audio through the speaker."
+  "HonorLifecycleAcceptanceTest FAIL after 707 s: the OS cgroup freezer froze .solhigh during the test (watchdog log 06:11); in run 1 on 0.3.9 it passed in 100 s. Not re-run at night because it plays audio through the speaker.",
+  "Silent re-run with a freezer watchdog (06:26, 06:27 unfrozen by bringing the QA app to the foreground): both silent lifecycle subtests PASS."
+ ],
+ "rerun_silent": [
+  {
+   "test": "HonorLifecycleAcceptanceTest#replacingC2DuringActiveWorkerRetainsItsModelAndCompletes",
+   "ok": true,
+   "seconds": 60
+  },
+  {
+   "test": "HonorLifecycleAcceptanceTest#c2WorkerDeathCancellationAndRecoveryAreExplicit",
+   "ok": true,
+   "seconds": 15
+  }
  ]
 }
