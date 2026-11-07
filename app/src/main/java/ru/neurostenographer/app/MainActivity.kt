@@ -396,7 +396,7 @@ private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
     val phase by pulse.animateFloat(0f, 1f, infiniteRepeatable(tween(2000, easing = LinearEasing)), label = "phase")
     val red = MaterialTheme.colorScheme.error
     Card(shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(3.dp)) {
+        elevation = CardDefaults.cardElevation(0.dp)) {
         Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(10.dp).background(red, CircleShape))
@@ -404,7 +404,7 @@ private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
                 Text("Идёт запись", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             }
             Box(Modifier.size(190.dp), contentAlignment = Alignment.Center) {
-                Canvas(Modifier.fillMaxSize()) {
+                Canvas(Modifier.fillMaxSize().graphicsLayer { }) {
                     val now = phase
                     for (k in 0..1) {
                         val q = (now + k * 0.5f) % 1f
