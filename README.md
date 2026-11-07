@@ -1,59 +1,65 @@
-# Nuclear Neurostenographer
+# Нейро-стенографист (Nuclear Neurostenographer)
 
-**Текущий статус (05.11.2026): [v0.3.3-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.3-contest)** — подписанный APK (arm64 + x86_64), модели внутри: GigaAM v3 e2e RNN-T int8 с пунктуацией (A3) + диаризация Nemotron C2, полностью офлайн. Проверено на физическом HONOR 10X Lite.
-- 0.3.2: окна ASR по сплошной речи, слова раскладываются по говорящим по меткам времени токенов A3. 29 размеченных дорожек: WER 20,9 % → 16,8 %, cpWER-U 24,7 % → 23,8 % (не хуже). Подробно: [docs/ASR_WORD_ATTRIBUTION_2026-11-05.md](docs/ASR_WORD_ATTRIBUTION_2026-11-05.md).
-- 0.3.3: обратимый словарь написания терминов (B0), правки только с согласия пользователя. Подробно: [docs/TERM_DICTIONARY_B0_2026-11-05.md](docs/TERM_DICTIONARY_B0_2026-11-05.md).
-- Открыто: повторная запись через микрофон на 0.3.2+; натуральная речь с ручной разметкой (issue #5); выравнивание страниц 16 КБ для ORT Java (C2) не решено.
-- Всё ниже — история испытаний, а не текущий статус.
+Офлайн-приложение для Android: расшифровывает запись разговора на русском, само определяет говорящих и выдаёт диалог с временными метками — «кто, когда, что сказал». Работает без интернета (в манифесте нет разрешения INTERNET), модели внутри APK. Проект для Nuclear IT Hack (НИЯУ МИФИ, ноябрь 2026).
 
-[![Integration branch Android CI](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml/badge.svg?branch=feature%2Flong-recordings)](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/workflows/android.yml?query=branch%3Afeature%2Flong-recordings)
+**Текущий выпуск: [v0.3.10-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases)** (предыдущий — [v0.3.9-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.9-contest)). Подписанный APK, arm64-v8a + x86_64. Проверяется на физическом HONOR 10X Lite (Kirin 710, Android 10).
 
-**Nuclear IT Hack (MEPhI, November 2026)**. Offline Android application for transcribing recorded conversations with speaker attribution and timestamps.
+> 0.3.4–0.3.6 собраны без `-PasrA3=true` и не работают — не устанавливайте их. 0.3.7–0.3.9 на коротких диалогах склеивают двух говорящих в одного (исправлено в 0.3.10, см. ниже).
 
-**Status 4 Nov 2026 (integration/c2-honor-20261104):** signed release 0.2.0-contest with Nemotron C2 diarization (C0 fallback) was installed and run offline on a physical HONOR 10X Lite (ARM64): 3-speaker synthetic track WER/cpWER 9.62%, 20-minute file completes (wall RTF ~0.57, ~650 MiB PSS). Full gate not passed; prerelease only. Details: [acceptance](docs/ACCEPTANCE_2026-11-04.md), [C2 phone results](docs/C2_PHYSICAL_HONOR_2026-11-04.md). Statements below that say ARM64 was never verified are historical.
+**Сводка метрик к чек-пойнту 07.11:** [docs/CHECKPOINT_2026-11-07.md](docs/CHECKPOINT_2026-11-07.md) — что измерено на ПК, что на телефоне, что не проверено.
 
-Status: **experimental, NOT_READY**. The default clustering threshold is 0.8. On the three-utterance acted Russian development probe, D/M/D recurrence passes with WER and cpWER each 1/41 (2.44%); legacy 0.9 merged the voices (cpWER 60.98%). This probe was used during threshold selection and is not an untouched holdout or corpus accuracy result. A separate four-clip acted holdout from the same dataset, run only at 0.8, gives WER and cpWER 2/92 (2.17%) with M-D-M-D recurrence passing. Android x86_64 recording/import/export flows execute; DER, physical ARM64/spoken microphone acceptance, overlap quality and distribution review remain open. See [scope and evidence](docs/PROGRESS.md).
+## Что умеет
 
-### Architecture
-- User WAV imports are validated bounded local snapshots; failed replacement keeps the previous input/result. Export captures one inference document, so a returning document picker cannot export a later input by mistake. UI/TXT/SRT show exact chunk milliseconds; JSON also retains duration, provenance and warnings. Word alignment is not implemented.
-- Android / Kotlin / Jetpack Compose: local WAV recorder, file import and transcript UI.
-- Core: backend-independent alignment of time-stamped words/chunks to speaker turns; uncertainty and overlap flags; JSON/SRT/TXT.
-- Inference: sherpa-onnx 1.12.20 / Russian GigaAM v3 INT8 CTC, CPU. Full-recording segmentation, ERes2Net embeddings and global clustering; worker failure falls back to unknown speakers. No remote ASR.
+- **Импорт файла** (WAV/MP3/M4A/OGG/FLAC… — что декодирует телефон, до 20 мин) или **запись с микрофона** → стенограмма с говорящими и временем реплик.
+- **Живая расшифровка** (кнопка «Живая расшифровка», с 0.3.8): текст появляется во время разговора, в среднем через ~1,4 с после конца фразы (HONOR). После «Стоп» говорящие пересчитываются тем же алгоритмом, что при импорте файла.
+- **Перекрытия речи** (0.3.10): если двое говорят одновременно, реплика подписывается «Говорящий 1 + Говорящий 2» и помечается «перекрытие»; слова между ними не делятся — честно, без выдуманной атрибуции.
+- **Экспорт TXT / SRT / JSON** с миллисекундами; имена говорящих можно задать вручную; поиск по стенограмме.
+- **Словарь терминов** (B0): предлагает правильное написание терминов, применяется только с согласия пользователя, исходный текст распознавания сохраняется.
 
-### Build
-GitHub Actions builds the debug APK on GitHub-hosted runners. Android SDK is **not** required on the developer PC for cloud builds; a repository-local JDK 17 / Gradle 8.9 / SDK 35 toolchain under `.local` also works (`tools/build_local_apk.py`). Core tests run on JDK 17.
+## Как устроено
 
-Before Gradle, run `python tools/provision_asr.py` (Python 3.11+, standard library). This selects the Android-tested **no-TTS runtime** pinned in `tools/runtime/runtime.properties`, using a verified local cache or existing GitHub CLI authentication for the exact source-build artifact. An unavailable artifact fails explicitly; it never falls back to the full GPL/TTS AAR. An exact local file can be supplied with `--runtime-file`. Then `gradle :core:runCoreTests :app:assembleDebug` with JDK 17 / Gradle 8.9 / Android SDK 35. Gradle rejects unapproved runtime bytes. No model weights are bundled in the APK.
+| Этап | Модель / алгоритм | Лицензия |
+|---|---|---|
+| Распознавание (ASR) | GigaAM v3 e2e RNN-T int8 с пунктуацией («A3»), sherpa-onnx 1.12.20 (сборка без TTS) | MIT / Apache-2.0 |
+| Диаризация (кто говорит) | NVIDIA Nemotron 3 Diarization (Sortformer-стриминг), ONNX int8 («C2»), ONNX Runtime | OpenMDW-1.1 / MIT |
+| Постобработка C2 | гистерезис порогов, расширение, мин. длительности (0.3.7) + второй проход с прогретой памятью голосов, если он не теряет говорящих (0.3.7, страховка 0.3.10) | — |
+| Слова → говорящие | метки времени токенов A3 сопоставляются с репликами C2 (`TranscriptFusion`) | — |
+| Живой режим | Silero VAD → A3 по фразам, C2 в отдельном потоке, финализация после «Стоп» | MIT |
 
-### Offline model installation and use
-**Fastest path (team kit, needs only Python and adb):** `python tools/build_local_apk.py` builds the debug APK with the repository-local toolchain (or use the owner-triggered `build-apk-kit.yml`), `python tools/offline_kit.py assemble --apk app/build/outputs/apk/debug/app-debug.apk` builds the kit (APK + both model ZIPs + SHA-256 sums), and `python phone_kit.py install` from the kit folder installs everything over USB without using the document picker. Details: [docs/OFFLINE_KIT.md](docs/OFFLINE_KIT.md); the physical-phone acceptance procedure is [docs/PHONE_ACCEPTANCE.md](docs/PHONE_ACCEPTANCE.md) (not yet run). The signed APK is available in a private prerelease; GigaAM/C0 weights are distributed separately. Manual route:
+Подробно: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [постобработка C2](docs/C2_POSTPROCESS_2026-11-06.md), [задержка живого режима](docs/LIVE_LATENCY_2026-11-07.md), [слова по говорящим](docs/ASR_WORD_ATTRIBUTION_2026-11-05.md).
 
-1. On a networked PC run `python tools/provision_asr.py --model`. It creates `.local/gigaam-v3.zip` (~225 MB), using an immutable Hugging Face revision and SHA-256 for every file.
-2. Transfer the ZIP to the phone using USB/local storage. In the app choose **Установить модель ZIP**. Only the pinned model/tokens/MIT license are accepted. Allow at least 500 MB free for import/replacement.
-3. Record audio or import **PCM16 WAV**, mono/stereo, 8–48 kHz, 0.1 s–20 min. Generated MP3/AAC/Vorbis/Opus/FLAC imports pass on Android x86_64/API 33; codec availability varies by device and AMR remains untested. See [codec limits](docs/AUDIO_IMPORT.md). Press **Распознать офлайн**. Airplane mode is supported by design; physical-device verification is pending.
-4. Export TXT/JSON/SRT from actual output. **Intervals are input windows up to 20 seconds, merged into same-speaker replies of up to 60 seconds, not word times**; forced cuts move to the nearest quiet moment but may still cut words. Without the optional diarization bundle, speakers remain `null`. Run `python tools/provision_diarization.py`, transfer `.local/diarization.zip` (~46 MB) and install it with the speaker-model ZIP button to enable experimental inferred turns. With it, timing uses detected speech boundaries and 20-second limits. Voice cluster IDs are session-local; unknown/overlap and failure states are retained. Do not use this as an independent diarization benchmark.
+## Ключевые цифры
 
-The manual **Real offline Russian ASR (x86_64)** workflow provisions a checksum-verified public upstream WAV and model outside Git, disables emulator Wi-Fi/data and runs genuine JNI inference, repetition/silence/invalid-ZIP tests. Current run status is in PROGRESS.md. No physical ARM64 claim **for this historical workflow**; current signed RC1 has ARM64 results above.
+| Что | Значение | Где измерено |
+|---|---|---|
+| DER диаризации, 35 отложенных записей ru-book-mix (collar 0) | 8,59 % → 5,80 % (постобработка) → 5,01 % (прогретый проход со страховкой) | ПК, тот же int8-граф |
+| Путаница говорящих (там же) | 1,25 % → 0,87 % | ПК |
+| DER на Veche (люди читают сценарий совещания), 2 записи | 8,4 / 7,8 % → 6,3 / 5,6 % | ПК |
+| Задержка текста в живом режиме, p50 / p95 | 1,4 / 2,9 с, первая фраза 0,6 с | HONOR, синтетика 33 с в темпе речи |
+| WER, 29 размеченных дорожек (A3 + C2, 0.3.2) | 16,8 % | ПК |
+| WER живого режима на телефоне | syn3 5,8 %, Veche 10,9 / 13,0 %, syn4 (шум) 18,4 % | HONOR |
+| Скорость, 20-минутная запись | RTF 0,45 (0.3.2) | HONOR |
 
-**Private prerelease exists; full distribution/licence review remains open** pending distribution/notices review and device acceptance. The standard build now uses the pinned no-TTS runtime for ARM64/x86_64, verified on the emulator. The full upstream GPL/TTS AAR is an explicit regression option. JSON exports identify the actual runtime hash; CI compares packaged JNI bytes with the selected AAR. See [runtime provenance and instructions](docs/RUNTIME_LICENSES.md). Main-branch APKs still contain only the UI/demo baseline. Integration continues on `feature/long-recordings` (draft PR #9), without merging main.
+Все оговорки и что не проверено — в [сводке к чек-пойнту](docs/CHECKPOINT_2026-11-07.md). Журнал работ — [docs/PROGRESS.md](docs/PROGRESS.md).
 
-### Reproducible metrics and performance
+## Сборка
 
-Run `python tools/test_score_transcript.py` for checked WER/cpWER/DER arithmetic
-tests. [Scoring format and conventions](docs/BENCHMARKS.md) document reference
-provenance, collars, overlap, unknown speakers and missing ground truth. The public
-Russian WAV has no full independent annotations: its metrics remain **NOT_SCORED**.
-The separate [three-utterance acted Russian probe](docs/RUSSIAN_EVALUATION.md)
-has external scripted references: default 0.8 gives WER/cpWER 2.44% and A-B-A PASS;
-legacy 0.9 gives cpWER 60.98%. DER remains NOT_SCORED. Used during threshold
-selection, this development probe does not establish
-natural-dialogue accuracy or contest readiness.
-Round 4 reduces WAV import allocation with exact PCM parity; host allocation
-evidence is not Android peak RAM or ASR speed. Cloud tests retain public-fixture
-JSON and memory snapshots on failure. Emulator snapshots and timing are not
-physical-phone peak RAM, thermal or power measurements.
+Модели и подписывающий ключ в Git не хранятся. Продуктовый APK собирается локально:
 
-### Security
-No INTERNET permission. The local-audio cleanup button deletes app recordings and cached inputs; exported documents need separate deletion. This is ordinary deletion, not forensic erasure. A document provider may independently use cloud storage. See [privacy and codec limits](docs/AUDIO_IMPORT.md). Do not upload user audio, weights, secrets or private meeting recordings to this public repository.
+```bash
+bash tools/build_product_apk.sh
+```
 
-See [issues](https://github.com/Ai-b0ss/nuclear-neurostenographer/issues) for integration work.
+Скрипт проверяет наличие закреплённых по SHA-256 файлов (`app/libs/sherpa-onnx-1.12.20.aar`, `.local/productAssets/gigaam-v3-e2e-rnnt.zip`, `.local/productAssets/nemotron.zip`, `.local/realtimeAssets/silero_vad.onnx`) и вызывает Gradle с флагами `-PnemotronProduct=true -PasrA3=true`. **Без `-PasrA3=true` APK не работает** (так были сломаны 0.3.4–0.3.6): перед публикацией проверяйте в сгенерированном `BuildConfig` `ASR_A3 = true` и `REALTIME = true`.
+
+Юнит-тесты ядра (16 групп, JDK 17): `gradle :core:runCoreTests`. Проверки на телефоне — инструментальные тесты в отдельных пакетах `.realtime` и `.solhigh`, чтобы не трогать установленное приложение: [docs/PHONE_ACCEPTANCE.md](docs/PHONE_ACCEPTANCE.md).
+
+GitHub Actions собирает отладочный APK без моделей. Эмуляторный workflow «Real offline Russian ASR (x86_64)» (инструментальные тесты, UI-сценарий записи/импорта/экспорта, установка комплекта моделей) с 0.3.10 снова зелёный на API 34 и 35 ([прогон](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/42318026836)); API 33 падает на таймауте загрузки эмулятора раннера.
+
+## Приватность
+
+Нет разрешения INTERNET; звук и стенограммы хранятся только в памяти приложения. Не загружайте в этот публичный репозиторий записи, веса моделей и ключи.
+
+## История
+
+До 0.3.3 проект прошёл путь от CTC-модели и pyannote + ERes2Net (C0) к A3 + Nemotron C2; эти этапы и все промежуточные измерения — в [docs/PROGRESS.md](docs/PROGRESS.md) и [docs/DECISION_REGISTER.md](docs/DECISION_REGISTER.md).

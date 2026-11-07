@@ -210,17 +210,18 @@ class RealtimeDeviceTest {
         try {
         val input = context.getExternalFilesDirs(null).filterNotNull().map { File(it, "realtime-fixtures/syn3-clean.wav") }.first { it.isFile }
         val audio = input.inputStream().use { PcmWav.read(it) }
-        val raw = RealtimeNative(context, NemotronChunkConfig.OFFLINE).use { native ->
-            while (native.diarizer.canStep(audio.samples.size.toLong(), true)) native.diarizer.step(audio.samples.size.toLong(), true) { start, n ->
+        // Live finalization (journal read in blocks) must give exactly the file-import speakers
+        // (NemotronDiarization: warm second pass + PRODUCT post-processing) on the same audio.
+        val raw = RealtimeNative(context, NemotronChunkConfig.FAST).use { native ->
+            native.finalizeSpeakers(audio.samples.size.toLong(), { start, n ->
                 audio.samples.copyOfRange(start.toInt(), start.toInt() + n)
-            }
-            native.diarizer.snapshot(audio.samples.size.toLong())
+            }) {}
         }
         val expected = NemotronDiarization.process(audio, requireNotNull(NemotronBackend.current(context.filesDir)))
         val actual = DiarizationTimeline.canonicalize(raw, audio.durationMs)
-        assertEquals("Parameterizing C2 must preserve offline intervals", expected.turns, actual)
+        assertEquals("Live finalization must equal file-import diarization", expected.turns, actual)
         File(context.filesDir, "realtime-parity.json").writeText(JSONObject().put("status", "PASS")
-            .put("scope", "PHYSICAL_C2_ORIGINAL_OFFLINE_VS_INCREMENTAL_OFFLINE_CONFIG")
+            .put("scope", "PHYSICAL_LIVE_FINALIZATION_VS_FILE_IMPORT_C2_WARM_POSTPROCESSED")
             .put("fixture_sha256", sha(input)).put("turns", actual.size).put("exact_turn_parity", true).toString(2))
         } finally { releaseForeground(); ins.runOnMainSync { activity.finish() } }
     }
