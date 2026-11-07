@@ -1,0 +1,78 @@
+{
+  "schema_version": "issue10-bss-sherpa/v1",
+  "issue": 10,
+  "date": "2026-11-07",
+  "candidate": "sherpa-onnx-uvr-mdxnet-voc-ft-negative-control",
+  "status": "PASS",
+  "decision": "HOST_NEGATIVE_CONTROL_PASS__A3_QUALITY_NOT_EVALUATED",
+  "scope": {
+    "host_research_only": true,
+    "production_runtime_changed": false,
+    "app_changed": false,
+    "core_changed": false,
+    "speaker_separation": false,
+    "domain": "MUSIC_VOCALS_NOT_MEETING_SPEAKER_SEPARATION"
+  },
+  "upstream_lock": {
+    "file": "tools/bss_sherpa/upstream-lock.json",
+    "sha256": "fe8f747e45f13cfdd2754b9cd4dd2d469e0f504ef01247be03fcf8868060181f",
+    "runtime": "sherpa-onnx 1.12.26 + sherpa-onnx-core 1.12.26, host only",
+    "source_commit": "174f8684fa9a0e188ba9b9f3ac04b17cfd44379b",
+    "model": "UVR-MDX-NET-Voc_FT.onnx",
+    "model_sha256": "e411182ce2c53541fefdcc99a8f46f2fe03978eb22038b9497c1d9d95a00fad4",
+    "weights_committed": false
+  },
+  "checks": {
+    "unit_tests": {
+      "status": "PASS",
+      "passed": 10,
+      "command": "python -m pytest -q tools/bss_sherpa/test_bss_sherpa.py"
+    },
+    "preflight": {
+      "status": "PASS",
+      "model_sha256_verified": true,
+      "runtime_versions_verified": true,
+      "source_separation_api": true
+    },
+    "host_synthetic_smoke": {
+      "status": "PASS",
+      "platform": "Windows-10-10.0.26200-SP0 AMD64",
+      "python": "3.11.9",
+      "threads": 2,
+      "input": "1.000 s deterministic numeric tones, PCM16 stereo 44100 Hz; not speech",
+      "output_stems": [
+        "vocals",
+        "accompaniment"
+      ],
+      "frames_per_stem": 44100,
+      "elapsed_seconds": 10.840022,
+      "rtf_host_synthetic_only": 10.840022,
+      "manifest_validation": "PASS"
+    },
+    "datahive_a3": {
+      "status": "NOT_RUN",
+      "reason": "Shared real DataHive fragments and references are not ready."
+    },
+    "honor_android": {
+      "status": "NOT_RUN",
+      "reason": "Host-only research; no Android package or production runtime was changed."
+    },
+    "diff_check": {
+      "status": "PASS",
+      "app_core_runtime_diff": "EMPTY",
+      "git_diff_check": "PASS"
+    }
+  },
+  "metrics": {
+    "datahive_wer": null,
+    "a3_wer": null,
+    "honor_wer": null,
+    "speaker_wer": null,
+    "der": null
+  },
+  "quality_decision": {
+    "status": "NOT_RUN",
+    "value": null,
+    "reason": "A synthetic tone smoke proves only the host inference/track contract, not Russian overlap quality."
+  }
+}

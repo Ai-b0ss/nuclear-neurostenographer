@@ -1,0 +1,55 @@
+{
+  "schema_version": "issue10-bss-sherpa/v1",
+  "issue": 10,
+  "status": "PASS",
+  "decision": "SYNTHETIC_TECHNICAL_FIXTURE_ONLY__NO_QUALITY_CLAIM",
+  "fixtures": [
+    {
+      "id": "synthetic-tones-1s",
+      "kind": "GENERATED_NUMERIC_TONES_NOT_SPEECH",
+      "local_file": ".local/bss-sherpa/smoke-input.wav",
+      "committed": false,
+      "generator": "python -I tools/bss_sherpa/run.py make-fixture --output .local/bss-sherpa/smoke-input.wav",
+      "formula": "left=0.20*sin(2*pi*220*t)+0.10*sin(2*pi*330*t); right=0.15*sin(2*pi*330*t)+0.08*sin(2*pi*440*t); t=arange(44100)/44100, float32, PCM16",
+      "bytes": 176444,
+      "sha256": "ea1ec37e83998137f9deaa3efcd9a3ea3af6c0d1e3cf144788264058fbff0941",
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 44100,
+      "duration_seconds": 1.0
+    }
+  ],
+  "smoke_outputs": [
+    {
+      "name": "vocals",
+      "local_file": ".local/bss-sherpa/smoke-tracks/vocals.wav",
+      "committed": false,
+      "bytes": 176444,
+      "sha256": "7ef1ca6827d8c5292f61899d3f6d78dcd036e68bd5ab0e9d391978f156c90100",
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 44100
+    },
+    {
+      "name": "accompaniment",
+      "local_file": ".local/bss-sherpa/smoke-tracks/accompaniment.wav",
+      "committed": false,
+      "bytes": 176444,
+      "sha256": "d546a3ae57e0c4a81230b69968090c8bb66fca19a1bdd0cf459e42abfcce74e0",
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 44100
+    }
+  ],
+  "model": {
+    "local_file": ".local/bss-sherpa/UVR-MDX-NET-Voc_FT.onnx",
+    "committed": false,
+    "bytes": 66762795,
+    "sha256": "e411182ce2c53541fefdcc99a8f46f2fe03978eb22038b9497c1d9d95a00fad4"
+  },
+  "real_datahive": {
+    "status": "NOT_RUN",
+    "fixtures": [],
+    "reason": "Shared real DataHive fragments and references are not ready."
+  }
+}

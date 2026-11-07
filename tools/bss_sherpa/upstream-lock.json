@@ -1,0 +1,75 @@
+{
+  "schema_version": "issue10-bss-sherpa-lock/v1",
+  "candidate": "sherpa-onnx-uvr-mdxnet-voc-ft-negative-control",
+  "runtime": {
+    "package": "sherpa-onnx",
+    "version": "1.12.26",
+    "source_repository": "https://github.com/k2-fsa/sherpa-onnx",
+    "source_tag": "v1.12.26",
+    "source_commit": "174f8684fa9a0e188ba9b9f3ac04b17cfd44379b",
+    "api_example": "python-api-examples/offline-source-separation-uvr.py",
+    "api_example_sha256": "38a9bae1ed3ae0d7a48e09cffcd13a18c5b04434cbd4e9d97a6eafe72d8a04be",
+    "license": "Apache-2.0",
+    "license_url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/174f8684fa9a0e188ba9b9f3ac04b17cfd44379b/LICENSE",
+    "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "windows_python_311_x86_64_wheel": {
+      "filename": "sherpa_onnx-1.12.26-cp311-cp311-win_amd64.whl",
+      "url": "https://pypi.org/pypi/sherpa-onnx/1.12.26/json",
+      "sha256": "15b14d51f961029fc4a031874b4951b7458b17877f4bd2688abf3d36328c97cf"
+    },
+    "core_package": "sherpa-onnx-core",
+    "core_version": "1.12.26",
+    "windows_python_311_x86_64_core_wheel": {
+      "filename": "sherpa_onnx_core-1.12.26-py3-none-win_amd64.whl",
+      "url": "https://pypi.org/pypi/sherpa-onnx-core/1.12.26/json",
+      "sha256": "509ec6f8e50193a487f20ad488c49291a04b6a544934fbf84786a61b57ed17be"
+    },
+    "numpy": {
+      "version": "1.26.4",
+      "windows_python_311_x86_64_wheel_filename": "numpy-1.26.4-cp311-cp311-win_amd64.whl",
+      "windows_python_311_x86_64_wheel_sha256": "cd25bcecc4974d09257ffcd1f098ee778f7834c3ad767fe5db785be9a4aa9cb2"
+    },
+    "production_runtime_changed": false,
+    "production_runtime_reference": "app pinned sherpa-onnx 1.12.20; not used or replaced by this host research adapter"
+  },
+  "model": {
+    "filename": "UVR-MDX-NET-Voc_FT.onnx",
+    "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/source-separation-models/UVR-MDX-NET-Voc_FT.onnx",
+    "bytes": 66762795,
+    "sha256": "e411182ce2c53541fefdcc99a8f46f2fe03978eb22038b9497c1d9d95a00fad4",
+    "sample_rate": 44100,
+    "channels": 2,
+    "stems": [
+      "vocals",
+      "accompaniment"
+    ],
+    "metadata": {
+      "model_type": "UVR",
+      "model_name": "UVR-MDX-NET-Voc_FT",
+      "n_fft": 6144,
+      "hop_length": 1024,
+      "dim_f": 3072,
+      "dim_t": 256,
+      "dim_c": 4
+    },
+    "original_model_repository": "https://github.com/TRvlvr/model_repo/releases/tag/all_public_uvr_models",
+    "conversion_script": "scripts/uvr_mdx/add_meta_data_and_quantize.py at the pinned sherpa-onnx source commit",
+    "domain": "MUSIC_VOCALS_NOT_MEETING_SPEAKER_SEPARATION",
+    "weights_committed": false
+  },
+  "uvr_upstream": {
+    "repository": "https://github.com/Anjok07/ultimatevocalremovergui",
+    "commit": "a5f88453bfb2b38b05a965bcf67727243e0cbf19",
+    "license": "MIT",
+    "license_notice_url": "https://github.com/Anjok07/ultimatevocalremovergui/blob/a5f88453bfb2b38b05a965bcf67727243e0cbf19/README.md#license",
+    "readme_sha256": "393f5bc0c5152607b1b21b518309a8844cc9c7c1bb6c35d17797315e04dd3834",
+    "notice": "UVR README requires credit to UVR and its developers when using its models."
+  },
+  "capabilities": {
+    "uvr": true,
+    "spleeter": true,
+    "sepformer": false,
+    "mossformer2": false,
+    "speaker_separation": false
+  }
+}

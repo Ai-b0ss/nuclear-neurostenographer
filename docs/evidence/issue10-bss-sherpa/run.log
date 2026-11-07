@@ -1,0 +1,49 @@
+2026-11-07 issue10 bss sherpa host research run
+
+[SETUP]
+Model: UVR-MDX-NET-Voc_FT.onnx
+Bytes: 66762795
+SHA-256: e411182ce2c53541fefdcc99a8f46f2fe03978eb22038b9497c1d9d95a00fad4
+Host: Windows-10-10.0.26200-SP0 AMD64, Python 3.11.9
+Packages: numpy 1.26.4, sherpa-onnx-core 1.12.26, sherpa-onnx 1.12.26
+Weights and WAV files are under ignored .local/bss-sherpa; none committed.
+
+[FAILURES FIXED BEFORE FINAL SMOKE]
+1. Native config.validate() rejected the verified model in a Cyrillic Windows path.
+   Fix: pass an existing ASCII short path to native code; Python still verifies the original file bytes.
+2. Without mandatory sherpa-onnx-core 1.12.26, OfflineSourceSeparation constructor exited with Windows access violation.
+   Fix: install and preflight the matching core package; stale temporary output directories were removed.
+
+[UNIT]
+$ python -m pytest -q tools/bss_sherpa/test_bss_sherpa.py
+..........                                                               [100%]
+10 passed in 0.41s
+
+[PREFLIGHT]
+$ .local/bss-sherpa/venv/Scripts/python.exe -I tools/bss_sherpa/run.py preflight --model .local/bss-sherpa/UVR-MDX-NET-Voc_FT.onnx
+status=PASS decision=HOST_NEGATIVE_CONTROL_READY
+model bytes=66762795 sha256=e411182ce2c53541fefdcc99a8f46f2fe03978eb22038b9497c1d9d95a00fad4
+sherpa_onnx=1.12.26 sherpa_onnx_core=1.12.26 numpy=1.26.4 source_separation_api=True
+host_only=True production_runtime_changed=False
+
+[HOST SYNTHETIC SMOKE]
+Input: generated numeric tones, not speech; 44100 Hz stereo PCM16, 44100 frames.
+Input SHA-256: ea1ec37e83998137f9deaa3efcd9a3ea3af6c0d1e3cf144788264058fbff0941
+$ .local/bss-sherpa/venv/Scripts/python.exe -I tools/bss_sherpa/run.py separate --model .local/bss-sherpa/UVR-MDX-NET-Voc_FT.onnx --input .local/bss-sherpa/smoke-input.wav --output .local/bss-sherpa/smoke-tracks --threads 2
+status=PASS decision=A3_HANDOFF_READY_NOT_RUN
+tracks=vocals,accompaniment frames=44100 elapsed_seconds=10.840022
+vocals.wav sha256=7ef1ca6827d8c5292f61899d3f6d78dcd036e68bd5ab0e9d391978f156c90100
+accompaniment.wav sha256=d546a3ae57e0c4a81230b69968090c8bb66fca19a1bdd0cf459e42abfcce74e0
+
+[VALIDATE]
+$ .local/bss-sherpa/venv/Scripts/python.exe -I tools/bss_sherpa/run.py validate --tracks .local/bss-sherpa/smoke-tracks
+status=PASS decision=A3_HANDOFF_READY_NOT_RUN tracks=vocals,accompaniment frames=44100
+
+[NOT RUN]
+Shared real DataHive fragments: NOT_RUN (not ready).
+A3 / WER / speaker attribution: NOT_RUN, values=null.
+HONOR / Android: NOT_RUN, values=null. This is host-only evidence.
+
+[DIFF]
+git diff --check: PASS
+git diff --exit-code -- app core tools/runtime: EMPTY
