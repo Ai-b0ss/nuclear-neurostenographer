@@ -58,6 +58,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -404,12 +405,17 @@ private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
                 Text("Идёт запись", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             }
             Box(Modifier.size(190.dp), contentAlignment = Alignment.Center) {
-                Canvas(Modifier.fillMaxSize().graphicsLayer { }) {
-                    val now = phase
-                    for (k in 0..1) {
-                        val q = (now + k * 0.5f) % 1f
-                        drawCircle(red.copy(alpha = (1f - q) * 0.30f), radius = size.minDimension / 2 * (0.52f + 0.48f * q))
-                    }
+                // Two expanding rings. Only layer properties (scale, alpha) change per frame, so the render thread
+                // replays a cached display list: nothing is re-recorded and no offscreen buffer is needed.
+                for (k in 0..1) {
+                    Box(Modifier.size(190.dp).graphicsLayer {
+                        val q = (phase + k * 0.5f) % 1f
+                        val grow = 0.52f + 0.48f * q
+                        scaleX = grow
+                        scaleY = grow
+                        alpha = (1f - q) * 0.30f
+                        compositingStrategy = CompositingStrategy.ModulateAlpha
+                    }.background(red, CircleShape))
                 }
                 Box(Modifier.size(96.dp).background(red, CircleShape).clip(CircleShape)
                     .semantics { contentDescription = "Стоп" }.clickable(enabled = enabled, onClick = onStop),
