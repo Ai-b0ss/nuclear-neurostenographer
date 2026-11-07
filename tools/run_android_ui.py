@@ -214,8 +214,15 @@ class AndroidUi:
         if re.search(r"mInputShown\s*[=:]\s*true", keyboard):
             self.shell("input", "keyevent", "KEYCODE_BACK")
         self.tap(label="Save", exact=True)
-        self.visible(f"Экспорт {format} сохранён")
-        body = self.command("exec-out", "cat", "/sdcard/Download/" + name)
+        # 0.3.x shows «Экспорт … сохранён» on the home screen only; the transcript screen stays open,
+        # so the saved file itself is the evidence. The app writes it after the picker returns.
+        self.visible("Экспорт", exact=True)
+        deadline = time.monotonic() + 15
+        while True:
+            body = self.command("exec-out", "cat", "/sdcard/Download/" + name)
+            if (body and not body.startswith((b"cat:", b"error:", b"run-as:"))) or time.monotonic() >= deadline:
+                break
+            time.sleep(0.5)
         if not body or body.startswith((b"cat:", b"error:", b"run-as:")):
             raise AssertionError(f"Provider-saved {format} file missing or unreadable: {body[:160]!r}")
         (self.directory / name).write_bytes(body)
