@@ -187,22 +187,29 @@ class MainActivity : ComponentActivity() {
         }
         val haptic = LocalHapticFeedback.current
         val scope = rememberCoroutineScope()
-        val record = {
+        // Creating the recorder takes a few hundred ms on the UI thread. Show the recording card first, start a frame later.
+        var startingRecord by remember { mutableStateOf(false) }
+        val record: () -> Unit = {
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             if (recording) model.stopRecording()
             else if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.RECORD_AUDIO)
-                == PackageManager.PERMISSION_GRANTED) model.startRecording()
+                == PackageManager.PERMISSION_GRANTED) {
+                startingRecord = true
+                scope.launch { withFrameNanos { }; model.startRecording(); startingRecord = false }
+            }
             else permission.launch(Manifest.permission.RECORD_AUDIO)
         }
         // Recognition starts by itself once audio is ready (recorded, picked or shared). One automatic
         // attempt per file: after a failure or cancel the user sees "Распознать" and decides.
         var autoStarted by rememberSaveable { mutableStateOf("") }
+        // Audio is ready but recognition has not begun yet: keep showing progress instead of the start screen.
+        val preparing = state.source != null && state.modelReady && !state.busy && !recording && autoStarted != state.source.toString()
         LaunchedEffect(state.source, state.busy, recording, state.modelReady) {
             val source = state.source?.toString()
             if (source != null && !state.busy && !recording && state.modelReady && state.current == null && autoStarted != source) {
                 // Let the card transition play and the screen settle first: the heavy work starts a moment later,
-                // so «Стоп» answers at once and does not stutter. 0.4 s is nothing against minutes of recognition.
-                delay(400)
+                // so «Стоп» answers at once and does not stutter. 0.25 s is nothing against recognition time.
+                delay(250)
                 autoStarted = source
                 model.transcribe()
             }
@@ -233,7 +240,7 @@ class MainActivity : ComponentActivity() {
                     }
                 })
         } else {
-            MainTabs(state, recording, notice, onRecord = record,
+            MainTabs(state, recording || startingRecord, preparing, notice, onRecord = record,
                 onImport = {
                     notice = "Выберите аудиофайл в системном окне."
                     importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream"))
@@ -327,7 +334,7 @@ private fun plural(n: Int, one: String, few: String, many: String): String =
 
 /** Two sections: «Запись» (record / open a file) and «Стенограммы» (everything finished, with multi-select). */
 @Composable
-private fun MainTabs(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
+private fun MainTabs(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
                      onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit,
                      onRealtime: (() -> Unit)?, onShareMany: (Set<String>) -> Unit, onDeleteMany: (Set<String>) -> Unit) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
@@ -342,7 +349,7 @@ private fun MainTabs(state: ScreenState, recording: Boolean, notice: String, onR
         // Both sections stay composed: the first switch does not have to load and run its code for the first time
         // (a freshly installed app has no compiled code yet and a cold switch visibly stutters).
         Box(Modifier.fillMaxSize().padding(padding)) {
-            TabLayer(active = tab == 0) { HomeTab(state, recording, notice, onRecord, onImport, onTranscribe, onCancel, onRealtime) }
+            TabLayer(active = tab == 0) { HomeTab(state, recording, preparing, notice, onRecord, onImport, onTranscribe, onCancel, onRealtime) }
             TabLayer(active = tab == 1) { TranscriptsTab(state, tab == 1, onOpen, onShareMany, onDeleteMany) }
         }
     }
@@ -361,7 +368,7 @@ private fun TabLayer(active: Boolean, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
+private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
                     onTranscribe: () -> Unit, onCancel: () -> Unit, onRealtime: (() -> Unit)?) {
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
         Column(Modifier.fillMaxWidth().padding(top = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -375,7 +382,7 @@ private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRe
         }
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            val mode = when { recording -> 0; state.busy -> 1; else -> 2 }
+            val mode = when { recording -> 0; state.busy || preparing -> 1; else -> 2 }
             Crossfade(targetState = mode, label = "hero") { m ->
                 when (m) {
                     0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
@@ -386,7 +393,7 @@ private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRe
                     }
                 }
             }
-            if (!recording && !state.busy && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) {
+            if (!recording && !state.busy && !preparing && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) {
                 Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center, modifier = Modifier.padding(top = 16.dp))
             }
@@ -480,10 +487,8 @@ private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
             Text("Максимум ${PcmWav.MAX_LABEL}. " + if (RecordingService.active) "Можно свернуть приложение." else "Не сворачивайте приложение.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(14.dp))
-            Button(onClick = onStop, enabled = enabled, shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = red), modifier = Modifier.fillMaxWidth().height(52.dp)) {
-                Text("Остановить запись")
-            }
+            Text("Остановить запись", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = red,
+                modifier = Modifier.clip(RoundedCornerShape(12.dp)).clickable(enabled = enabled, onClick = onStop).padding(horizontal = 16.dp, vertical = 10.dp))
         }
     }
 }
@@ -612,7 +617,7 @@ private fun TranscriptsTab(state: ScreenState, active: Boolean, onOpen: (String)
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
             navigationIcon = { IconButton(onClick = { selectMode = false; selected = emptySet() }) { Icon(Icons.Filled.Close, "Отменить выбор") } },
             actions = {
-                IconButton(onClick = { selected = shown.map { it.id }.toSet() }) { Icon(Icons.Filled.Done, "Выбрать все") }
+                TextButton(onClick = { selected = shown.map { it.id }.toSet() }) { Text("Все") }
                 IconButton(onClick = { onShareMany(chosen) }, enabled = chosen.isNotEmpty()) { Icon(Icons.Filled.Share, "Поделиться выбранными") }
                 IconButton(onClick = { confirm = true }, enabled = chosen.isNotEmpty()) { Icon(Icons.Filled.Delete, "Удалить выбранные") }
             })
