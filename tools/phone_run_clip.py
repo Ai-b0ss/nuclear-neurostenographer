@@ -3,8 +3,8 @@
   python phone_run_clip.py SERIAL CLIP.wav --out-dir DIR [--wait-minutes 15]
 
 Steps, all through the real UI and the system document picker: the clip is pushed to
-/sdcard/Download/ns-acceptance (a folder this tool owns), imported with "Открыть аудиофайл", processed with
-"Распознать", exported with "JSON" (top of the transcript screen) into the same folder, pulled, and the timings shown by the app
+/sdcard/Download/ns-acceptance (a folder this tool owns), imported with "Открыть аудиофайл", processed (starts by itself)
+, exported with "JSON" (top of the transcript screen) into the same folder, pulled, and the timings shown by the app
 are parsed. Screenshots go to .local/phone-ui-private (git-ignored: pickers can show personal file names).
 Never run it against an emulator; it refuses serials of emulators. It never reads other files of the phone.
 """
@@ -69,7 +69,7 @@ def scroll_to(ui, label, direction="down", tries=8, exact=True):
 def status_line(ui):
     texts = ui.texts()
     for text in texts:
-        if DONE.match(text) or text.startswith(("Аудио проверено", "Диаризация", "Распознавание", "WAV сохранён", "Чтение")):
+        if DONE.match(text) or text.startswith(("Аудио проверено", "Диаризация", "Распознавание", "WAV сохранён", "Запись сохранена", "Чтение")):
             return text
     return ""
 
@@ -105,7 +105,7 @@ def main():
         time.sleep(3)
     ui.tap_node(scroll_to(ui, name))
     time.sleep(4)
-    ui.tap_node(scroll_to(ui, "Распознать"))
+    # Since 0.4.0 recognition starts by itself after the file is picked.
     started = time.monotonic()
     message = ""
     while time.monotonic() - started < args.wait_minutes * 60:

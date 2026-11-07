@@ -21,7 +21,9 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val sourceDurationMs: Long? = null, val document: TranscriptDocument? = null,
     val c2Supported: Boolean = false, val sourceName: String? = null, val progress: Float? = null,
     val history: List<SavedTranscript> = emptyList(), val current: SavedTranscript? = null,
-    val details: String = "", val userTerms: List<Term> = emptyList())
+    val details: String = "", val userTerms: List<Term> = emptyList(),
+    /** 0 = no recognition running, 1 = preparing, 2 = speakers, 3 = speech. Only drives the progress steps in the UI. */
+    val stage: Int = 0)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
@@ -72,7 +74,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             mutable.value = mutable.value.copy(source = Uri.fromFile(snapshot.file), sourceDurationMs = snapshot.durationMs,
                 sourceName = name, segments = emptyList(), document = null, current = null,
                 speakerSource = "not_run", timestampSource = "input_windows",
-                message = "Аудио проверено: ${snapshot.durationMs} мс. Нажмите «Распознать».")
+                message = "Аудио проверено: ${clock(snapshot.durationMs)}.")
             staged = null
         } finally { staged?.delete() }
     }
@@ -92,7 +94,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, progress = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, progress = null, stage = 0, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -256,7 +258,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
-            message = "Чтение WAV и проверка модели…")
+            message = "Чтение WAV и проверка модели…", stage = 1)
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val app = getApplication<Application>()
@@ -278,7 +280,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                     val c2 = NemotronBackend.current(app.filesDir)
                         ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
                     context.ensureActive()
-                    mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…")
+                    mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…", stage = 2)
                     speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2)
                     backendUsed = NemotronBackend.C2
                 } catch (e: CancellationException) { throw e }
@@ -290,7 +292,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 speakerStore.current()?.let { c0Model ->
                     try {
                         speakerStore.verify(c0Model) { context.ensureActive() }
-                        mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.")
+                        mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.", stage = 2)
                         speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
                         backendUsed = NemotronBackend.C0
                     } catch (e: CancellationException) { throw e }
@@ -301,7 +303,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 }
             }
             val asr = OfflineAsr.transcribe(audio, model, { context.ensureActive() }, { index, count ->
-                mutable.value = mutable.value.copy(progress = index.toFloat() / count,
+                mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
                     message = "Распознавание речи: фрагмент $index из $count")
             }, turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows)
             Triple(asr, speakers, backendUsed to warning)
@@ -406,7 +408,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             mutable.value = mutable.value.copy(source = Uri.fromFile(file), sourceName = "Запись $stamp", current = null,
                 sourceDurationMs = (file.length() - 44) * 1000 / 32000, segments = emptyList(), document = null,
                 speakerSource = "not_run", timestampSource = "input_windows",
-                message = "WAV сохранён. Можно распознать.")
+                message = "Запись сохранена.")
         } finally {
             // A timeout does not prove capture stopped. Keep ownership and block
             // imports/cleanup until a retry or the observer has joined the worker.

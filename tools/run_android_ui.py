@@ -310,8 +310,8 @@ def wait_for_transcript(ui, what, timeout=120):
 
 
 def run(ui):
-    """Current UI (0.3.x): home «Записать» / «Открыть аудиофайл» → card «Аудио готово» → «Распознать» → transcript
-    screen with «Экспорт» TXT/JSON/SRT, «Назад», «Удалить»."""
+    """Current UI (0.4.x): home «Записать» / «Открыть аудиофайл» → recognition starts by itself (the «Распознать» button
+    only appears after a failure or cancel) → transcript screen with «Экспорт» TXT/JSON/SRT, «Назад», «Удалить»."""
     checks = ui.checks
     # A slow CI emulator makes the system launcher (Quickstep) hit an ANR dialog that
     # covers our app. Disposable emulator only; this hides dialogs of other processes.
@@ -366,8 +366,17 @@ def run(ui):
     ui.launch()
     ui.tap(label="Остановить запись")
     recording_wall_s = time.monotonic() - recording_started
-    ui.visible("WAV сохранён")
-    ui.visible("Аудио готово", exact=True)
+    # Recognition now starts by itself; the stop button disappears once the WAV is finalized.
+    deadline = time.monotonic() + 60
+    while True:
+        try:
+            if ui.find(label="Остановить запись", exact=True, timeout=0)[1] is None:
+                break
+        except ValueError:
+            break  # uiautomator cannot dump while the progress bar runs: recognition has started, so Stop is gone
+        if time.monotonic() > deadline:
+            raise AssertionError("Recording did not finalize after Stop")
+        time.sleep(0.5)
     wav_seconds = recorded_wav_seconds(ui)
     # 16 kHz mono PCM16 with no gaps: the file covers (almost) the whole wall time.
     if wav_seconds < recording_wall_s * 0.8 or wav_seconds > recording_wall_s + 2:
@@ -380,8 +389,7 @@ def run(ui):
         raise AssertionError("Foreground service outlived the recording")
     checks.append("background_recording_continues_and_finalizes")
     ui.shell("settings", "put", "system", "user_rotation", "0")
-    ui.tap(label="Распознать")
-    # Actual native work runs in the app, never via remote ASR.
+    # Actual native work runs in the app, never via remote ASR; it started without a tap.
     wait_for_transcript(ui, "Recorded-input transcription")
     ui.screenshot("recorded-transcript")
     checks.append("recorded_input_reaches_real_transcript_export_controls")
@@ -399,9 +407,8 @@ def run(ui):
     ui.tap(label="Открыть аудиофайл")
     ui.downloads()
     ui.tap(label="neuro-qa-public.wav", exact=True)
-    ui.visible("Аудио проверено")
     checks.append("public_wav_import_through_system_document_picker")
-    ui.tap(label="Распознать")
+    # No «Распознать» tap: picking the file starts recognition.
     wait_for_transcript(ui, "Public Russian UI inference")
     ui.tap(label="TXT", exact=True)
     _, field = ui.picker_field()
