@@ -230,7 +230,9 @@ object TranscriptExport {
     fun contestJson(items: List<TranscriptSegment>): String {
         val ids = linkedMapOf<String, String>()
         val lines = items.map { segment ->
-            val speaker = segment.speakerId?.let { id ->
+            // An overlap fragment has speakerId == null (words are not split); the schema needs one id, so the first
+            // overlapping speaker is used instead of "unknown": the fragment is still attributed to someone who spoke in it.
+            val speaker = (segment.speakerId ?: segment.overlapSpeakers.firstOrNull())?.let { id ->
                 ids.getOrPut(id) { "speaker_" + (ids.size + 1) }
             } ?: "unknown"
             "    {\"speaker_id\": " + jsonString(speaker) +

@@ -28,6 +28,8 @@ def verify(contest_path: Path, original_path: Path) -> None:
         assert type(row["text"]) is str and row["text"] == src["text"] and bool(row["text"])
         assert row["start_ms"] == src["start_ms"] and row["end_ms"] == src["end_ms"]
         sid = src["speaker_id"]
+        if sid is None and src.get("overlap_speaker_ids"):
+            sid = src["overlap_speaker_ids"][0]
         if sid is None:
             assert row["speaker_id"] == "unknown"
         else:

@@ -146,8 +146,8 @@ class MainActivity : ComponentActivity() {
                     model.prepareExport(format)
                     val name = TranscriptExport.fileBase(current.title)
                     when (format) {
-                        "json-contest" -> exportContest.launch("$name.contest.json")
-                        "json" -> exportJson.launch("$name.json")
+                        "json-contest" -> exportContest.launch("$name.json")
+                        "json" -> exportJson.launch("$name.full.json")
                         "srt" -> exportSrt.launch("$name.srt")
                         else -> exportTxt.launch("$name.txt")
                     }
@@ -388,7 +388,7 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                     Text("Экспорт", style = MaterialTheme.typography.labelLarge)
                     for (f in listOf("json-contest", "txt", "json", "srt")) OutlinedButton(onClick = { onExport(f) }, enabled = !state.busy,
                         contentPadding = PaddingValues(horizontal = 12.dp)) {
-                        Text(if (f == "json-contest") "JSON для жюри" else f.uppercase())
+                        Text(when (f) { "json-contest" -> "JSON"; "json" -> "JSON расш."; else -> f.uppercase() })
                     }
                 }
             }

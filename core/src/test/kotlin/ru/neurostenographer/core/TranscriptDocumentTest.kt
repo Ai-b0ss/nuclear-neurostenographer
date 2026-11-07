@@ -29,6 +29,11 @@ fun testTranscriptDocument() {
         check(Regex("\"speaker_id\": \"speaker_1\"").findAll(judgeTwoSpeakers).count() == 2)
         check(Regex("\"speaker_id\": \"speaker_2\"").findAll(judgeTwoSpeakers).count() == 1)
         check(TranscriptExport.contestJson(emptyList()).contains("\"transcript\": ["))
+        val judgeOverlap = TranscriptExport.contestJson(listOf(
+            TranscriptSegment(0, 100, "A", "раз"),
+            TranscriptSegment(100, 300, null, "вместе", overlappingSpeech = true, overlapSpeakers = listOf("B", "A")),
+            TranscriptSegment(300, 400, "B", "два")))
+        check(judgeOverlap.contains("\"speaker_id\": \"speaker_2\", \"start_ms\": 100") && !judgeOverlap.contains("unknown")) { judgeOverlap }
         check(document.export("txt").contains("[00:00:00.123–00:00:00.456]"))
         val txt = document.export("txt")
         check(txt.startsWith("Стенограмма · 1:00:01 · говорящих: 1\n") && !txt.contains("failed_worker_unknown_speakers"))
