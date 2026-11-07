@@ -45,6 +45,25 @@ fun testTermDictionary() {
     check(pairs("Модбас, профинити, озернёт, кадисис, вихдель, юарт, джейтаг, фри ртос, ардуино.").map { it.second } ==
         listOf("Modbus", "PROFINET", "Ethernet", "CODESYS", "VHDL", "UART", "JTAG", "FreeRTOS", "Arduino")) { one("x").toString() }
     check(pairs("Для АСУ ТП и ПЛК нужен ФСТЭК, а ещё госсопках.").map { it.second } == listOf("ГосСОПКах"))
+    // Corporate slang and the Russian IT landscape (A3 output on the meeting probe).
+    val slang = listOf(
+        "Тиккет висит на опруве. Задеплеить на стейдж. Нужен ходфикс, бакфикс залили, старипоинтах, Копасите команды." to
+            listOf("Тикет", "апруве", "Задеплоить", "хотфикс", "багфикс", "сторипоинтах", "Капасити"),
+        "Истимейт по интеграции, приоритезация, вне скопа, фокап с релизом, постмартем, доунтайм, аллерт." to
+            listOf("Эстимейт", "приоритизация", "скоупа", "факап", "постмортем", "даунтайм", "алерт"),
+        "Иркаин требует локализации, ФСТЭК и СТЭК, ГосОПК, PDN, СМЭФ, ТСУ." to listOf("РКН", "СТЭК->ФСТЭК", "ГосСОПК", "ПДн", "СМЭВ", "ТСПУ"),
+        "Вместо Джиры Кайтент, Postgrass Pro, Astro Linux, Retos, Moefis, детхаус, ВК Тимс." to
+            listOf("Kaiten", "Postgres Pro", "Astra Linux", "РЕД ОС", "МойОфис", "Deckhouse", "VK Teams"),
+        "Проопрувил, пул или реквест, ван ту ван, темлид, фолло по встрече." to
+            listOf("Проапрувил", "пулл-реквест", "one-to-one", "тимлид", "фоллоуап"))
+    for ((text, want) in slang) {
+        val got = pairs(text).map { it.second }
+        val missing = want.filter { w -> !w.contains("->") && got.none { it == w } }
+        check(missing.isEmpty()) { "$text -> $got; missing $missing" }
+    }
+    check(pairs("Ядро системы, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, ГИС, минцифра сообщила.").isEmpty()) {
+        pairs("Ядро системы, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, ГИС, минцифра сообщила.").toString() }
+    check(one("доверенный пак").single().ambiguous && one("скопа").single().ambiguous)
     // Ordinary Russian words that sit close to terms are left alone.
     check(one("Шел дождь, рестораны открыты, мы шли, даст ответ, она сок пила, ромб и кан, график, насос и пентхаус.").isEmpty())
     // Stems never swallow a canonical form that merely starts with the variant: «пентест» stays «пентест».

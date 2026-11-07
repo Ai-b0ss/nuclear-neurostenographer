@@ -1,0 +1,108 @@
+{
+ "podlodka_run": "greedy.json",
+ "policies": {
+  "raw": {
+   "DEV": {
+    "wer_pct": 6.96,
+    "errors": 113,
+    "ref_words": 1623,
+    "term_errors": 17,
+    "term_occurrences": 31
+   },
+   "HOLDOUT": {
+    "wer_pct": 8.33,
+    "errors": 97,
+    "ref_words": 1165,
+    "term_errors": 9,
+    "term_occurrences": 16
+   }
+  },
+  "all": {
+   "DEV": {
+    "wer_pct": 6.47,
+    "errors": 105,
+    "ref_words": 1623,
+    "term_errors": 14,
+    "term_occurrences": 31,
+    "edits": {
+     "fix": 4,
+     "neutral": 2,
+     "harm": 0
+    }
+   },
+   "HOLDOUT": {
+    "wer_pct": 8.33,
+    "errors": 97,
+    "ref_words": 1165,
+    "term_errors": 9,
+    "term_occurrences": 16,
+    "edits": {
+     "fix": 0,
+     "neutral": 0,
+     "harm": 0
+    }
+   }
+  },
+  "safe": {
+   "DEV": {
+    "wer_pct": 6.59,
+    "errors": 107,
+    "ref_words": 1623,
+    "term_errors": 16,
+    "term_occurrences": 31
+   },
+   "HOLDOUT": {
+    "wer_pct": 8.33,
+    "errors": 97,
+    "ref_words": 1165,
+    "term_errors": 9,
+    "term_occurrences": 16
+   }
+  }
+ },
+ "edits": [
+  {
+   "group": "DEV",
+   "clip": "podlodka-train-03",
+   "edit": "свифте=>Swift-е",
+   "class": "fix"
+  },
+  {
+   "group": "DEV",
+   "clip": "podlodka-train-05",
+   "edit": "руби=>Ruby",
+   "class": "fix"
+  },
+  {
+   "group": "DEV",
+   "clip": "podlodka-train-05",
+   "edit": "питон=>Python",
+   "class": "fix"
+  },
+  {
+   "group": "DEV",
+   "clip": "podlodka-train-10",
+   "edit": "хаскелевские=>Haskell-евские",
+   "class": "fix"
+  },
+  {
+   "group": "DEV",
+   "clip": "podlodka-train-10",
+   "edit": "джаваскрипторам=>JavaScript-орам",
+   "class": "neutral"
+  },
+  {
+   "group": "DEV",
+   "clip": "podlodka-train-12",
+   "edit": "фортраны=>Fortran-ы",
+   "class": "neutral"
+  }
+ ],
+ "synthetic_dialogues": {
+  "tracks": 29,
+  "segments": 383,
+  "words": 1814,
+  "edits_proposed": 0,
+  "pairs": []
+ }
+}
