@@ -136,5 +136,7 @@ fun main() {
     testWavContainer()
     testDiarizationReply()
     testTopicTitle()
-    println("18 CORE TEST GROUPS PASSED")
+    testVoiceLevel()
+    testStreamingPcm16()
+    println("20 CORE TEST GROUPS PASSED")
 }

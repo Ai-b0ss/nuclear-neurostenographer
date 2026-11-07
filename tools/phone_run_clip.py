@@ -86,6 +86,7 @@ def main():
     adb, _ = find_adb(None)
     ui = PhoneUi(args.serial, Path(".local/phone-ui-private"), adb)
     run = lambda *a, **k: subprocess.run([adb, "-s", args.serial, *a], capture_output=True, text=True, check=True, **k)
+    log_since = run("shell", "date", "+%m-%d %H:%M:%S.000").stdout.strip()
     name = args.clip.name
     stem = Path(name).stem
     run("shell", f"mkdir -p {FOLDER} && rm -f {FOLDER}/transcript.json '{FOLDER}/{stem}.json' '{FOLDER}/{stem}.full.json'")
@@ -113,13 +114,11 @@ def main():
         message = status_line(ui)
         if DONE.match(message):
             break
-        if ui.find(label="Экспорт", timeout=1, exact=True)[1] is not None:  # transcript screen: details are at its end
-            for _ in range(40):
-                message = status_line(ui)
-                if DONE.match(message):
-                    break
-                swipe_largest(ui, True, fast=True)
-                time.sleep(0.5)
+        if ui.find(label="Сохранить JSON", timeout=1, exact=True)[1] is not None:
+            pid = run("shell", "pidof", args.package).stdout.strip().split()[0]
+            logs = run("logcat", "-d", "--pid=" + pid, "-T", log_since, "-v", "raw",
+                       "-s", "NeuroStenoMetrics:I", "*:S").stdout
+            message = next((line for line in reversed(logs.splitlines()) if parse_timings(line)), "")
             break
         time.sleep(5)
     timings = parse_timings(message)

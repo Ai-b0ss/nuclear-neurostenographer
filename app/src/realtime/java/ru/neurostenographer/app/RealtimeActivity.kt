@@ -86,6 +86,10 @@ class RealtimeActivity : ComponentActivity() {
         val recording = status in listOf("LOADING", "RUNNING", "CAPTURE_ONLY")
         val busy = recording || status == "FINALIZING"
         val complete = status.startsWith("COMPLETE")
+        val micLevel by produceState(0f, recording) {
+            while (recording) { value = RealtimeCapture.microphoneLevel; kotlinx.coroutines.delay(50) }
+            value = 0f
+        }
         val segments = state.document?.segments.orEmpty()
         val list = rememberLazyListState()
         // Stop answers at once: the service needs a moment to report FINALIZING, the screen must not look frozen meanwhile.
@@ -108,8 +112,6 @@ class RealtimeActivity : ComponentActivity() {
                         Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally) {
                             if (recording) {
-                                WaveBars(MaterialTheme.colorScheme.primary.copy(alpha = 0.7f))
-                                Spacer(Modifier.height(16.dp))
                                 Text("Говорите — текст появится здесь после каждой фразы (обычно через 1–2 с).",
                                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = TextAlign.Center)
@@ -124,6 +126,11 @@ class RealtimeActivity : ComponentActivity() {
                             items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
                         }
                     }
+                }
+                // Keep the actual microphone level visible even after live text begins.
+                if (recording) {
+                    Spacer(Modifier.height(8.dp))
+                    LinearProgressIndicator(progress = { micLevel }, modifier = Modifier.fillMaxWidth().height(8.dp))
                 }
                 Spacer(Modifier.height(10.dp))
                 if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
@@ -178,7 +185,7 @@ class RealtimeActivity : ComponentActivity() {
                         val topic = TopicTitle.suggest(doc.segments)
                         val stamp = java.text.SimpleDateFormat("yyyy-MM-dd HH-mm", java.util.Locale("ru")).format(java.util.Date())
                         export.launch(TranscriptExport.fileBase((topic ?: "Живая запись") + " " + stamp) + ".json")
-                    }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON", textAlign = TextAlign.Center) }
+                    }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Сохранить JSON", textAlign = TextAlign.Center) }
                 }
                 batchFallback(state)
                 Spacer(Modifier.height(8.dp))
@@ -194,7 +201,7 @@ class RealtimeActivity : ComponentActivity() {
         val finalized = File(captured.parentFile, "capture-finalized.txt").isFile || File(captured.parentFile, "recovered.txt").isFile
         if (!finalized) return
         if (state.audioMs > 20 * 60 * 1000) {
-            Text("Запись длиннее 20 минут сохранена; обычное распознавание файла ограничено 20 минутами.",
+            Text("Длинная запись сохранена. Откройте её для полной расшифровки.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             return
         }

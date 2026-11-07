@@ -22,20 +22,35 @@ class PcmFileAudio(val file: File, checkCancelled: () -> Unit = {}) {
         var samples = 0L
         var offset = -1L
         fileBytes = file.length()
+        require(fileBytes <= MAX_ENCODED_BYTES) { "Аудиофайл слишком большой (максимум 5 ГБ)" }
         RandomAccessFile(file, "r").use { input ->
             fun tag() = String(ByteArray(4).also(input::readFully), Charsets.US_ASCII)
             fun u16() = input.readUnsignedByte() or (input.readUnsignedByte() shl 8)
             fun u32() = (0..3).sumOf { input.readUnsignedByte().toLong() shl (8 * it) }
             require(input.length() == fileBytes) { "Аудиофайл изменился" }
-            require(tag() == "RIFF") { "Нужен PCM16 WAV (RIFF)" }
+            val container = tag()
+            require(container == "RIFF" || container == "RF64") { "Нужен PCM16 WAV (RIFF/RF64)" }
             val riff = u32()
-            require(riff >= 36 && riff + 8 == fileBytes && tag() == "WAVE") { "Повреждённый размер WAV RIFF" }
+            require(tag() == "WAVE") { "Нужен WAV" }
+            var rf64Data = -1L
+            if (container == "RF64") {
+                require(riff == 0xffffffffL && tag() == "ds64") { "Нет размера RF64" }
+                val dsSize = u32()
+                require(dsSize in 28..4096 && 20 + dsSize <= fileBytes) { "Неверный ds64" }
+                fun u64(): Long { val low = u32(); val high = u32(); require(high <= 1); return low or (high shl 32) }
+                require(u64() + 8 == fileBytes) { "Повреждённый размер RF64" }
+                rf64Data = u64()
+                u64() // sample count; actual frame count is validated from data/format.
+                require(u32() == 0L) { "Таблица дополнительных RF64 chunks не поддерживается" }
+                input.seek(20 + dsSize + dsSize % 2)
+            } else require(riff >= 36 && riff + 8 == fileBytes) { "Повреждённый размер WAV RIFF" }
             var formatSeen = false
             while (input.filePointer < fileBytes) {
                 checkCancelled()
                 require(fileBytes - input.filePointer >= 8) { "Обрезанный WAV chunk" }
                 val kind = tag()
-                val size = u32()
+                val declared = u32()
+                val size = if (kind == "data" && declared == 0xffffffffL && rf64Data >= 0) rf64Data else declared
                 val start = input.filePointer
                 val end = start + size + size % 2
                 require(end <= fileBytes) { "Повреждённый размер WAV chunk" }

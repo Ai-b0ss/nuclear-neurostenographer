@@ -15,7 +15,7 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 TOOLCHAIN=${TOOLCHAIN:-K:/nn-c2-android/.local/toolchain}
 KEYS=${KEYS:-K:/nn-release-keys}
-for f in app/libs/sherpa-onnx-1.12.20.aar .local/productAssets/gigaam-v3-e2e-rnnt.zip .local/productAssets/nemotron.zip .local/realtimeAssets/silero_vad.onnx; do
+for f in app/libs/sherpa-onnx-1.12.20.aar .local/productAssets/gigaam-v3-e2e-rnnt.zip .local/productAssets/nemotron.zip .local/realtimeAssets/silero_vad.onnx .local/englishAssets/whisper-tiny.zip; do
   [ -f "$ROOT/$f" ] || { echo "Missing $f (see header)"; exit 2; }
 done
 export JAVA_HOME=$TOOLCHAIN/jdk/jdk-17.0.21+9 ANDROID_HOME=$TOOLCHAIN/sdk GRADLE_USER_HOME=$TOOLCHAIN/gradle-home ANDROID_USER_HOME=$TOOLCHAIN/android-user
@@ -23,6 +23,6 @@ export ORG_GRADLE_PROJECT_releaseStorePassword="$(tr -d '\r\n' < "$KEYS/pw.txt")
 printf 'sdk.dir=%s\n' "$(echo "$ANDROID_HOME" | sed 's/:/\\:/')" > "$ROOT/local.properties"
 cd "$ROOT"
 "$TOOLCHAIN/gradle/gradle-8.9/bin/gradle" --no-daemon --offline :core:runCoreTests :app:assembleRelease \
-  -PnemotronProduct=true -PasrA3=true -PreleaseStore="$KEYS/nn-release.jks" -PreleaseKeyAlias=nn 2>&1 \
+  -PnemotronProduct=true -PasrA3=true -PenglishAuto=true -PreleaseStore="$KEYS/nn-release.jks" -PreleaseKeyAlias=nn 2>&1 \
   | grep -vE "^> Task .*(UP-TO-DATE|NO-SOURCE)$" | grep -vi password | tail -30
 ls -la app/build/outputs/apk/release/*.apk

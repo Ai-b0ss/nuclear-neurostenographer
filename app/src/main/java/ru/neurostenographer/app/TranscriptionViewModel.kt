@@ -309,6 +309,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 (if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
                     "Диаризация ${backendUsed?.uppercase()}: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс. ") +
                 (warning ?: "")
+        android.util.Log.i("NeuroStenoMetrics", details)
         val named = (mutable.value.sourceName ?: "Стенограмма").replace(Regex("\\.(wav|mp3|m4a|ogg|opus|flac|aac|amr|3gp|webm)$", RegexOption.IGNORE_CASE), "")
         // A recording that only has a date for a name gets its topic (most repeated meaningful words) in front of it.
         // A file the user named themselves keeps its name.
@@ -449,6 +450,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             mutable.value = mutable.value.copy(message = "Экспорт ${request.first} сохранён. Время — интервалы фрагментов, не слов.")
         }
     }
+
+    val recordingLevel: Float get() = recorder?.level ?: 0f
 
     fun startRecording() {
         if (mutable.value.busy || recording.value) return

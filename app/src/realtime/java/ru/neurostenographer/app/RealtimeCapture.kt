@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /** Only this thread reads/releases AudioRecord; inference cannot delay capture. */
 class RealtimeCapture(private val context: Context, val journal: RealtimeJournal, private val seconds: Int = 3600) {
+    companion object { @Volatile var microphoneLevel = 0f; private set }
     private val stopping = AtomicBoolean(false)
     private var audio: AudioRecord? = null
     private var worker: Thread? = null
@@ -62,6 +63,7 @@ class RealtimeCapture(private val context: Context, val journal: RealtimeJournal
                     if (count == 0) { Thread.sleep(2); continue }
                     val now = System.nanoTime()
                     maxReadGapMs = maxOf(maxReadGapMs, (now - last) / 1_000_000); last = now
+                    microphoneLevel = ru.neurostenographer.core.VoiceLevel.measure(samples, count)
                     journal.append(samples, count)
                     if (recorder.getTimestamp(stamp, AudioTimestamp.TIMEBASE_MONOTONIC) == AudioRecord.SUCCESS) {
                         hardwareFramePosition = stamp.framePosition; timestampSamples++
@@ -69,6 +71,7 @@ class RealtimeCapture(private val context: Context, val journal: RealtimeJournal
                 }
             } catch (e: Throwable) { journal.failure = "${e.javaClass.simpleName}: ${e.message}" }
             finally {
+                microphoneLevel = 0f
                 runCatching { manager.unregisterAudioRecordingCallback(callback) }
                 runCatching { recorder.stop() }.onFailure { journal.failure = "Microphone stop: ${it.message}" }
                 runCatching { recorder.release() }.onFailure { journal.failure = "Microphone release: ${it.message}" }

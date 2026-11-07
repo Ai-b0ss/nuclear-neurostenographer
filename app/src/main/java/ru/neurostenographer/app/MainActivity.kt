@@ -162,6 +162,10 @@ class MainActivity : ComponentActivity() {
     private fun ApplicationScreen() {
         val state by model.state.collectAsState()
         val recording by model.recording.collectAsState()
+        val microphoneLevel by produceState(0f, recording) {
+            while (recording) { value = model.recordingLevel; delay(50) }
+            value = 0f
+        }
         // A long recording must not stop because the screen timed out mid-processing.
         val view = LocalView.current
         DisposableEffect(view, state.busy, recording) {
@@ -244,7 +248,7 @@ class MainActivity : ComponentActivity() {
                     }
                 })
         } else {
-            MainTabs(state, recording || startingRecord, preparing, notice, onRecord = record,
+            MainTabs(state, recording || startingRecord, preparing, notice, microphoneLevel, onRecord = record,
                 onImport = {
                     notice = "Выберите аудиофайл в системном окне."
                     importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream"))
@@ -338,7 +342,7 @@ private fun plural(n: Int, one: String, few: String, many: String): String =
 
 /** Two sections: «Запись» (record / open a file) and «Стенограммы» (everything finished, with multi-select). */
 @Composable
-private fun MainTabs(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
+private fun MainTabs(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, microphoneLevel: Float, onRecord: () -> Unit, onImport: () -> Unit,
                      onTranscribe: () -> Unit, onCancel: () -> Unit, onDiscard: () -> Unit, onOpen: (String) -> Unit,
                      onRealtime: (() -> Unit)?, onShareMany: (Set<String>) -> Unit, onDeleteMany: (Set<String>) -> Unit) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
@@ -353,7 +357,7 @@ private fun MainTabs(state: ScreenState, recording: Boolean, preparing: Boolean,
         // Both sections stay composed: the first switch does not have to load and run its code for the first time
         // (a freshly installed app has no compiled code yet and a cold switch visibly stutters).
         Box(Modifier.fillMaxSize().padding(padding)) {
-            TabLayer(active = tab == 0) { HomeTab(state, recording, preparing, notice, onRecord, onImport, onTranscribe, onCancel, onDiscard, onRealtime) }
+            TabLayer(active = tab == 0) { HomeTab(state, recording, preparing, notice, microphoneLevel, onRecord, onImport, onTranscribe, onCancel, onDiscard, onRealtime) }
             TabLayer(active = tab == 1) { TranscriptsTab(state, tab == 1, onOpen, onShareMany, onDeleteMany) }
         }
     }
@@ -372,7 +376,7 @@ private fun TabLayer(active: Boolean, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
+private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, microphoneLevel: Float, onRecord: () -> Unit, onImport: () -> Unit,
                     onTranscribe: () -> Unit, onCancel: () -> Unit, onDiscard: () -> Unit, onRealtime: (() -> Unit)?) {
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
         Column(Modifier.fillMaxWidth().padding(top = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -391,7 +395,7 @@ private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, 
             AnimatedContent(targetState = mode, transitionSpec = { fadeIn(tween(160, delayMillis = 100)) togetherWith fadeOut(tween(100)) },
                 label = "hero") { m ->
                 when (m) {
-                    0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
+                    0 -> RecordingHero(enabled = !state.busy, level = microphoneLevel, onStop = onRecord)
                     1 -> ProcessingCard(state, onCancel)
                     else -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (state.source != null) Box(Modifier.padding(bottom = 16.dp)) { PendingAudioCard(state, onTranscribe, onDiscard) }
@@ -416,7 +420,7 @@ private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Uni
     val interaction = remember { MutableInteractionSource() }
     val pressed by interaction.collectIsPressedAsState()
     val scale by animateFloatAsState(if (pressed) 0.93f else 1f, tween(120), label = "press")
-    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         // Whole block is the button; feedback is the press-scale, not a ripple rectangle.
         Column(Modifier.graphicsLayer { scaleX = scale; scaleY = scale }
             .clickable(interactionSource = interaction, indication = null, enabled = ready, onClick = onRecord).padding(12.dp),
@@ -453,75 +457,56 @@ private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Uni
 }
 
 @Composable
-private fun RecordingHero(enabled: Boolean, onStop: () -> Unit) {
-    // The timer text changes once per second. The rings animate in the draw phase only: no recomposition per frame.
+private fun RecordingHero(enabled: Boolean, level: Float, onStop: () -> Unit) {
     val seconds by produceState(0L) {
         val started = SystemClock.elapsedRealtime()
         while (true) { value = (SystemClock.elapsedRealtime() - started) / 1000; delay(250) }
     }
-    val pulse = rememberInfiniteTransition(label = "pulse")
-    val phase by pulse.animateFloat(0f, 1f, infiniteRepeatable(tween(2000, easing = LinearEasing)), label = "phase")
     val red = MaterialTheme.colorScheme.error
-    Card(shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(0.dp)) {
-        Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(10.dp).background(red, CircleShape))
-                Spacer(Modifier.width(8.dp))
-                Text("Идёт запись", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+    Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Box(Modifier.width(190.dp).height(160.dp), contentAlignment = Alignment.Center) {
+            Canvas(Modifier.fillMaxSize().semantics { contentDescription = "Уровень микрофона" }) {
+                drawArc(red.copy(alpha = 0.16f), -90f, 360f, false,
+                    topLeft = Offset((size.width - size.height) / 2 + 3.dp.toPx(), 3.dp.toPx()),
+                    size = Size(size.height - 6.dp.toPx(), size.height - 6.dp.toPx()), style = Stroke(5.dp.toPx()))
+                drawArc(red, -90f, 360f * level.coerceIn(0f, 1f), false,
+                    topLeft = Offset((size.width - size.height) / 2 + 3.dp.toPx(), 3.dp.toPx()),
+                    size = Size(size.height - 6.dp.toPx(), size.height - 6.dp.toPx()),
+                    style = Stroke(5.dp.toPx(), cap = StrokeCap.Round))
             }
-            Box(Modifier.size(190.dp), contentAlignment = Alignment.Center) {
-                // Two expanding rings. Only layer properties (scale, alpha) change per frame, so the render thread
-                // replays a cached display list: nothing is re-recorded and no offscreen buffer is needed.
-                for (k in 0..1) {
-                    Box(Modifier.size(190.dp).graphicsLayer {
-                        val q = (phase + k * 0.5f) % 1f
-                        val grow = 0.52f + 0.48f * q
-                        scaleX = grow
-                        scaleY = grow
-                        alpha = (1f - q) * 0.30f
-                        compositingStrategy = CompositingStrategy.ModulateAlpha
-                    }.background(red, CircleShape))
-                }
-                Box(Modifier.size(96.dp).background(red, CircleShape).clip(CircleShape)
-                    .semantics { contentDescription = "Стоп" }.clickable(enabled = enabled, onClick = onStop),
-                    contentAlignment = Alignment.Center) {
-                    Box(Modifier.size(30.dp).background(Color.White, RoundedCornerShape(7.dp)))
-                }
+            Box(Modifier.size(136.dp).background(red, CircleShape).clip(CircleShape)
+                .semantics { contentDescription = "Стоп" }.clickable(enabled = enabled, onClick = onStop),
+                contentAlignment = Alignment.Center) {
+                Box(Modifier.size(34.dp).background(Color.White, RoundedCornerShape(7.dp)))
             }
-            Text(clock(seconds * 1000), fontSize = 48.sp, fontWeight = FontWeight.Light)
-            Text("Максимум ${PcmFileAudio.MAX_FILE_LABEL}. " + if (RecordingService.active) "Можно свернуть приложение." else "Не сворачивайте приложение.",
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Spacer(Modifier.height(14.dp))
-            Text("Остановить запись", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = red,
-                modifier = Modifier.clip(RoundedCornerShape(12.dp)).clickable(enabled = enabled, onClick = onStop).padding(horizontal = 16.dp, vertical = 10.dp))
         }
+        Spacer(Modifier.height(14.dp))
+        Text("Остановить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(24.dp))
+        Text(clock(seconds * 1000), fontSize = 48.sp, fontWeight = FontWeight.Light)
+        Text("Идёт запись", style = MaterialTheme.typography.titleMedium, color = red)
+        Spacer(Modifier.height(12.dp))
+        Text("Максимум ${PcmFileAudio.MAX_FILE_LABEL}. " + if (RecordingService.active) "Можно свернуть приложение." else "Не сворачивайте приложение.",
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
     }
 }
 
 @Composable
 private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
-    val elapsed by produceState(0L) {
-        val started = SystemClock.elapsedRealtime()
-        while (true) { value = SystemClock.elapsedRealtime() - started; delay(1000) }
-    }
-    Card(shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.onPrimaryContainer)) {
-        Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { WaveBars(MaterialTheme.colorScheme.primary) }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(if (state.stage > 0) "Идёт расшифровка" else "Подождите", style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
-                Text(clock(elapsed), style = MaterialTheme.typography.labelLarge)
-            }
-            if (state.stage > 0) Steps(state.stage)
-            Text(state.message, style = MaterialTheme.typography.bodyMedium)
-            val p = state.progress
-            if (p != null) LinearProgressIndicator(progress = { p }, Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
-            else LinearProgressIndicator(Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
-            Text("Экран не погаснет, пока идёт обработка. Всё считается на телефоне.", style = MaterialTheme.typography.bodySmall)
-            TextButton(onClick = onCancel, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text("Отменить") }
+    Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        Box(Modifier.height(160.dp), contentAlignment = Alignment.Center) {
+            FilledTonalButton(onClick = onCancel, shape = CircleShape, contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.size(136.dp)) { Icon(Icons.Filled.Close, "Отменить", Modifier.size(48.dp)) }
         }
+        Text("Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        Text("Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
+        if (state.stage > 0) Steps(state.stage)
+        Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+        val progress = state.progress
+        if (progress != null) LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
+        else LinearProgressIndicator(Modifier.fillMaxWidth())
+        Text("Всё обрабатывается на телефоне", style = MaterialTheme.typography.bodySmall)
     }
 }
 
@@ -809,6 +794,8 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                             }
                         }
                     }
+                    Button(onClick = { onExport("json-contest") }, enabled = !state.busy,
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("Сохранить JSON") }
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         counts.entries.sortedBy { speakerIndex(it.key) ?: Int.MAX_VALUE }.forEach { (id, n) ->
                             Surface(shape = RoundedCornerShape(50), color = speakerColor(id).copy(alpha = 0.14f),
@@ -841,13 +828,7 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
             if (segments.isEmpty()) item { Text("Речь не распознана.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
             items(shown) { (index, it) -> Reply(it, names, needle, edited = index in editedIndexes,
                 onSpeaker = { id -> if (!state.busy) naming = id }) }
-            item {
-                Spacer(Modifier.height(4.dp))
-                Text("Время — границы реплик, не отдельных слов. Нажмите на говорящего, чтобы указать имя.",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                if (state.details.isNotBlank() && state.history.firstOrNull()?.id == item.id) Text(state.details,
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
+
         }
     }
     if (renaming) {

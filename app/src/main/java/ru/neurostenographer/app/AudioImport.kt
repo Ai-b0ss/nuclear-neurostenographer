@@ -41,7 +41,7 @@ object AudioImport {
             checkCancelled()
             val riff = source.inputStream().use { input ->
                 val magic = ByteArray(4)
-                input.read(magic) == 4 && magic.contentEquals("RIFF".toByteArray(Charsets.US_ASCII))
+                input.read(magic) == 4 && (magic.contentEquals("RIFF".toByteArray(Charsets.US_ASCII)) || magic.contentEquals("RF64".toByteArray(Charsets.US_ASCII)))
             }
             // Strict WAV validation remains authoritative: do not bypass it via codec fallback.
             if (riff) return source.inputStream().use { AudioSnapshots.import(it, directory, checkCancelled) }
@@ -91,7 +91,8 @@ object AudioImport {
                 require(format.containsKey(MediaFormat.KEY_PCM_ENCODING)) { "Неизвестная разрядность PCM" }
                 val (rate, channels) = properties(format)
                 extractor.selectTrack(track)
-                val sink = Pcm16WavWriter(destination, rate, channels, PcmFileAudio.MAX_FILE_SECONDS).also { writer = it }
+                val normalizer = StreamingPcm16(rate, channels)
+                val sink = Pcm16WavWriter(destination, 16000, 1, PcmFileAudio.MAX_FILE_SECONDS).also { writer = it }
                 val clock = DecodedPcmTimeline(rate, channels, PcmFileAudio.MAX_FILE_SECONDS)
                 val capacity = if (format.containsKey(MediaFormat.KEY_MAX_INPUT_SIZE))
                     format.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE) else 1_048_576
@@ -109,9 +110,10 @@ object AudioImport {
                         MediaExtractor.SAMPLE_FLAG_PARTIAL_FRAME) == 0) { "Защищённый/неполный PCM пакет" }
                     clock.accept(count, extractor.sampleTime)
                     buffer.position(0); buffer.limit(count)
-                    sink.append(buffer, checkCancelled)
+                    sink.append(java.nio.ByteBuffer.wrap(normalizer.append(buffer)), checkCancelled)
                     extractor.advance()
                 }
+                sink.append(java.nio.ByteBuffer.wrap(normalizer.finish()), checkCancelled)
                 val duration = sink.finish()
                 PcmFileAudio(destination, checkCancelled)
                 checkCancelled()
@@ -127,6 +129,8 @@ object AudioImport {
             var inputDone = false
             var outputDone = false
             var timeline: DecodedPcmTimeline? = null
+            var normalizer: StreamingPcm16? = null
+            var sourceFormat: Pair<Int, Int>? = null
             val info = MediaCodec.BufferInfo()
             val deadline = SystemClock.elapsedRealtime() + budgetMs
             fun check() {
@@ -158,26 +162,30 @@ object AudioImport {
                 val index = codec.dequeueOutputBuffer(info, 10_000)
                 if (index == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
                     val (rate, channels) = properties(codec.outputFormat)
-                    writer?.let { require(it.sampleRate == rate && it.channels == channels) { "Формат меняется внутри записи" } }
+                    sourceFormat?.let { require(it == (rate to channels)) { "Формат меняется внутри записи" } }
                 } else if (index >= 0) {
                     try {
                         if (info.size > 0 && info.flags and MediaCodec.BUFFER_FLAG_CODEC_CONFIG == 0) {
                             val (rate, channels) = properties(codec.outputFormat)
-                            val sink = writer ?: Pcm16WavWriter(destination, rate, channels, PcmFileAudio.MAX_FILE_SECONDS).also { writer = it }
-                            require(sink.sampleRate == rate && sink.channels == channels) { "Формат меняется внутри записи" }
+                            val sink = writer ?: Pcm16WavWriter(destination, 16000, 1, PcmFileAudio.MAX_FILE_SECONDS).also { writer = it }
+                            sourceFormat?.let { require(it == (rate to channels)) { "Формат меняется внутри записи" } }
+                            sourceFormat = rate to channels
+                            val convert = normalizer ?: StreamingPcm16(rate, channels).also { normalizer = it }
                             val clock = timeline ?: DecodedPcmTimeline(rate, channels, PcmFileAudio.MAX_FILE_SECONDS).also { timeline = it }
                             clock.accept(info.size, info.presentationTimeUs)
                             val pcm = requireNotNull(codec.getOutputBuffer(index)).duplicate()
                             require(info.offset >= 0 && info.size <= pcm.capacity() - info.offset)
                             pcm.limit(info.offset + info.size); pcm.position(info.offset)
-                            sink.append(pcm, ::check)
+                            sink.append(java.nio.ByteBuffer.wrap(convert.append(pcm)), ::check)
                         }
                         outputDone = info.flags and MediaCodec.BUFFER_FLAG_END_OF_STREAM != 0
                     } finally { codec.releaseOutputBuffer(index, false) }
                 }
             }
             check()
-            val duration = requireNotNull(writer) { "Декодер не вернул аудио" }.finish()
+            val sink = requireNotNull(writer) { "Декодер не вернул аудио" }
+            sink.append(java.nio.ByteBuffer.wrap(requireNotNull(normalizer).finish()), ::check)
+            val duration = sink.finish()
             // Same validated PCM path used by recorded/WAV input and ASR.
             PcmFileAudio(destination, checkCancelled)
             checkCancelled()
