@@ -59,7 +59,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     fun select(uri: Uri) = work {
         // Make the otherwise slow provider copy/RIFF validation visible immediately.
-        mutable.value = mutable.value.copy(message = "Импорт аудиофайла: проверка формата…", progress = null)
+        mutable.value = mutable.value.copy(message = "Открываю аудиофайл…", progress = null)
         var staged: File? = null
         try {
             val snapshot = withContext(Dispatchers.IO) {
@@ -166,14 +166,14 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private fun prepareBundled() = work {
         val app = getApplication<Application>()
         if (store.current() == null && bundled(KIT_ASR_ZIP)) {
-            mutable.value = mutable.value.copy(message = "Первый запуск: подготовка модели распознавания (около минуты, один раз)…")
+            mutable.value = mutable.value.copy(message = "Первый запуск: готовлю приложение к работе (около минуты, один раз)…")
             withContext(Dispatchers.IO) {
                 val context = currentCoroutineContext()
                 app.assets.open(KIT_ASR_ZIP).use { store.install(it) { context.ensureActive() } }
             }
         }
         if (BuildConfig.NEMOTRON_PROTOTYPE && NemotronBackend.current(app.filesDir) == null && bundled("nemotron.zip")) {
-            mutable.value = mutable.value.copy(message = "Первый запуск: подготовка модели говорящих…")
+            mutable.value = mutable.value.copy(message = "Первый запуск: готовлю определение говорящих…")
             withContext(Dispatchers.IO) { app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) } }
         }
         mutable.value = mutable.value.copy(modelReady = store.current() != null,
@@ -201,6 +201,13 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val left = withContext(Dispatchers.IO) { history.list() }
         mutable.value = mutable.value.copy(history = left, current = mutable.value.current?.takeIf { it.id != id },
             message = "Стенограмма удалена.")
+    }
+
+    fun deleteMany(ids: Set<String>) = work {
+        withContext(Dispatchers.IO) { ids.forEach { history.delete(it) } }
+        val left = withContext(Dispatchers.IO) { history.list() }
+        mutable.value = mutable.value.copy(history = left, current = mutable.value.current?.takeIf { it.id !in ids },
+            message = if (ids.size == 1) "Стенограмма удалена." else "Удалено стенограмм: ${ids.size}.")
     }
 
     fun rename(id: String, title: String) = work {
@@ -258,7 +265,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
-            message = "Чтение WAV и проверка модели…", stage = 1)
+            message = "Готовлю запись…", stage = 1)
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
@@ -305,7 +312,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         discardSnapshot(mutable.value.source)
         mutable.value = mutable.value.copy(source = null, sourceName = null, segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
-            current = saved, history = listOf(saved) + mutable.value.history, details = details, message = details)
+            current = saved, history = listOf(saved) + mutable.value.history, details = details, message = READY)
     }
 
     private suspend fun recognizeBlock(audio: PcmAudio, model: File):
@@ -321,13 +328,13 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
         if (BuildConfig.NEMOTRON_PROTOTYPE) {
             try {
-                mutable.value = mutable.value.copy(message = "Проверка Nemotron C2 (полностью офлайн)…")
+                mutable.value = mutable.value.copy(message = "Готовлю определение говорящих…")
                 // The product APK carries a pinned ZIP. The research prototype can
                 // use C0 if the C2 ZIP is not bundled in its ordinary UI.
                 val c2 = NemotronBackend.current(app.filesDir)
                     ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
                 context.ensureActive()
-                mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…", stage = 2)
+                mutable.value = mutable.value.copy(message = "Определяю, кто говорит…", stage = 2)
                 speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2)
                 backendUsed = NemotronBackend.C2
             } catch (e: CancellationException) { throw e }
@@ -339,7 +346,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             speakerStore.current()?.let { c0Model ->
                 try {
                     speakerStore.verify(c0Model) { context.ensureActive() }
-                    mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.", stage = 2)
+                    mutable.value = mutable.value.copy(message = "Определяю, кто говорит…", stage = 2)
                     speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
                     backendUsed = NemotronBackend.C0
                 } catch (e: CancellationException) { throw e }
@@ -351,10 +358,10 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
         val progress: (Int, Int) -> Unit = { index, count ->
             mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
-                message = "Распознавание речи: фрагмент $index из $count")
+                message = "Расшифровываю речь: часть $index из $count")
         }
         val english = if (BuildConfig.ENGLISH_AUTO) {
-            mutable.value = mutable.value.copy(message = "Определение языка записи…", stage = 3)
+            mutable.value = mutable.value.copy(message = "Определяю язык записи…", stage = 3)
             val englishModel = EnglishModelStore.ensure(app) { context.ensureActive() }
             val language = WhisperEnglish.detect(audio, englishModel,
                 speakers?.windows ?: DiarizationTimeline.windows(emptyList(), audio.durationMs)) { context.ensureActive() }

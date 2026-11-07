@@ -1,0 +1,18 @@
+diff --git a/.github/workflows/offline-asr.yml b/.github/workflows/offline-asr.yml
+index daf21c6..6371ace 100644
+--- a/.github/workflows/offline-asr.yml
++++ b/.github/workflows/offline-asr.yml
+@@ -77,6 +77,13 @@ jobs:
+         run: |
+           (cd .local/candidate && sha256sum -c runtime-sha256.txt)
+           python3 tools/provision_asr.py --runtime-file .local/candidate/sherpa-onnx-1.12.20-no-tts-candidate.aar
++      - name: Free hosted-runner disk for the 4 GiB emulator
++        run: |
++          df -h .
++          # Android/Gradle does not use these preinstalled hosted-runner SDKs.
++          # Keep the 4 GiB device and the full API matrix unchanged.
++          sudo rm -rf /usr/share/dotnet /opt/ghc
++          df -h .
+       - uses: reactivecircus/android-emulator-runner@v2
+         with:
+           api-level: ${{ matrix.api }}
