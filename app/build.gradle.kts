@@ -42,6 +42,10 @@ check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduc
 val nemotronEnabled = nemotronPrototype || nemotronProduct
 // Separate test build with GigaAM v3 e2e RNNT (punctuation); never the RC1 applicationId.
 val asrA3 = providers.gradleProperty("asrA3").orNull == "true"
+val englishAuto = providers.gradleProperty("englishAuto").orNull == "true"
+if (englishAuto) check(rootProject.file(".local/englishAssets/whisper-tiny.zip").isFile) {
+    "English auto detection requires the pinned bundled .local/englishAssets/whisper-tiny.zip"
+}
 // Isolated physical-device acceptance; never replace the signed contest application.
 val solHighAcceptance = providers.gradleProperty("solHighAcceptance").orNull == "true"
 check(!solHighAcceptance || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
@@ -73,6 +77,7 @@ android {
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
         buildConfigField("boolean", "ASR_A3", asrA3.toString())
+        buildConfigField("boolean", "ENGLISH_AUTO", englishAuto.toString())
         buildConfigField("boolean", "REALTIME", realtime.toString())
         manifestPlaceholders["appLabel"] = "Нейростенограф"
     }
@@ -101,10 +106,16 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
+    if (englishAuto) sourceSets.getByName("main").assets.srcDir(rootProject.file(".local/englishAssets"))
+    if (providers.gradleProperty("checkpointQa").orNull == "true") {
+        defaultConfig.applicationIdSuffix = ".checkpoint"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф проверка"
+    }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
     // QA uses only its named fixtures, never stale models/audio from prior test runs.
     sourceSets.getByName("androidTest").assets.srcDir(rootProject.file(
         if (solHighAcceptance) ".local/solHighTestAssets" else ".local/androidTestAssets"))
+    if (englishAuto) sourceSets.getByName("androidTest").assets.srcDir(rootProject.file(".local/englishTestAssets"))
     // Separate opt-in evaluation class, not an implicit benchmark during UI QA.
     if (providers.gradleProperty("russianBenchmark").orNull == "true") {
         sourceSets.getByName("androidTest").java.srcDir("src/benchmarkTest/java")

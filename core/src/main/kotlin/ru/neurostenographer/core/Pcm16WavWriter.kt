@@ -19,8 +19,8 @@ class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: 
 
     init {
         require(sampleRate in 8000..48000 && channels in 1..2) { "Нужны 8–48 кГц и 1–2 канала" }
-        require(maxSeconds in 1..3600)
-        limit = sampleRate.toLong() * channels * 2 * maxSeconds
+        require(maxSeconds in 1..PcmFileAudio.MAX_FILE_SECONDS)
+        limit = minOf(sampleRate.toLong() * channels * 2 * maxSeconds, 0xffff_ffffL - 36)
         output = RandomAccessFile(file, "rw")
         try { output.setLength(0); output.write(ByteArray(44)) }
         catch (e: Throwable) { output.close(); file.delete(); throw e }
@@ -28,7 +28,7 @@ class Pcm16WavWriter(private val file: File, val sampleRate: Int, val channels: 
 
     fun append(pcm: ByteBuffer, checkCancelled: () -> Unit = {}) {
         check(!closed && !finished)
-        require(pcm.remaining().toLong() <= limit - bytes) { "Максимум ${PcmWav.MAX_LABEL} декодированного аудио" }
+        require(pcm.remaining().toLong() <= limit - bytes) { "Превышена допустимая длительность или размер PCM16 WAV" }
         val buffer = ByteArray(minOf(pcm.remaining(), 64 * 1024))
         while (pcm.hasRemaining()) {
             checkCancelled()

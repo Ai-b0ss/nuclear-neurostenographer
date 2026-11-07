@@ -60,7 +60,7 @@ fun testPcm16WavWriter() {
             it.append(ByteBuffer.wrap(ByteArray(6400)))
         }
         check(recoverable.length() == 6444L) // realtime may recover the actual PCM after a crash
-        check(runCatching { Pcm16WavWriter(File(root, "bad-limit.wav"), 16000, 1, 3601) }.isFailure)
+        check(runCatching { Pcm16WavWriter(File(root, "bad-limit.wav"), 16000, 1, PcmFileAudio.MAX_FILE_SECONDS + 1) }.isFailure)
         val limit = File(root, "limit.wav")
         Pcm16WavWriter(limit, 8000, 2).use { sink ->
             repeat(PcmWav.MAX_SECONDS) { sink.append(ByteBuffer.wrap(ByteArray(8000 * 4))) }
@@ -90,6 +90,9 @@ fun testPcm16WavWriter() {
         val maxClock = DecodedPcmTimeline(8000, 2)
         maxClock.accept(8000 * 4 * PcmWav.MAX_SECONDS, 0)
         check(runCatching { maxClock.accept(4, PcmWav.MAX_SECONDS * 1_000_000L) }.isFailure)
+        val longClock = DecodedPcmTimeline(8000, 2, PcmFileAudio.MAX_FILE_SECONDS)
+        repeat(8) { hour -> longClock.accept(8000 * 4 * 3600, hour * 3_600_000_000L) }
+        check(runCatching { longClock.accept(4, 8 * 3_600_000_000L) }.isFailure)
         println("PASS PCM16 writer: $cases roundtrips, exact bounds, partial/cancel/error cleanup")
     } finally {
         root.listFiles()?.forEach { it.delete() }; root.delete()

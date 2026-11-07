@@ -29,7 +29,7 @@ fun testAudioSnapshots() {
         val kept = root.listFiles()!!.toSet()
         fun rejected(input: InputStream, cancel: () -> Unit = {}) {
             var failed = false
-            try { input.use { AudioSnapshots.import(it, root, cancel) } }
+            try { input.use { AudioSnapshots.importBounded(it, root, 1_048_576, cancel) } }
             catch (_: Exception) { failed = true }
             check(failed)
             check(root.listFiles()!!.toSet() == kept) { "Failed import leaked a staged recording" }
@@ -38,7 +38,10 @@ fun testAudioSnapshots() {
         rejected(ByteArrayInputStream(byteArrayOf(1, 2, 3))) // MP3/unknown is not WAV
         rejected(pcmFixture().copyOf(100).inputStream()) // provider truncation
         rejected(pcmFixture(frames = 1599).inputStream()) // <100 ms
-        rejected(pcmFixture(frames = 16000 * (PcmWav.MAX_SECONDS + 1)).inputStream())
+        // Duration validation no longer expands a long input into a giant FloatArray.
+        val longer = AudioSnapshots.import(pcmFixture(frames = 16000 * (PcmWav.MAX_SECONDS + 1)).inputStream(), root)
+        check(longer.durationMs == (PcmWav.MAX_SECONDS + 1) * 1000L)
+        longer.file.delete()
         rejected(object : InputStream() {
             override fun read(): Int = error("Provider disconnected")
         })

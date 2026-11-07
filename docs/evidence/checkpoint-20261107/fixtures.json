@@ -1,0 +1,26 @@
+{
+  "english.mp3": {
+    "bytes": 54188,
+    "sha256": "e800695de6c626402a45f1165181b730114644e48da6d8bf44a199fb5fcf41a5"
+  },
+  "english.wav": {
+    "bytes": 212044,
+    "sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f"
+  },
+  "russian-aba.wav": {
+    "bytes": 414444,
+    "sha256": "300e7ef28c6caf93395af9be07fd3df0a850cbe6797c8416bd57489aaec143a7"
+  },
+  "russian-acted.wav": {
+    "bytes": 1733664,
+    "sha256": "61354eefab1ba60e41e54c2c34e6ddd1b60d99bc923a9b798f26004dd98b3861"
+  },
+  "russian-syn4.wav": {
+    "bytes": 1834428,
+    "sha256": "939648072d210ef99b1d6b1866110997852a53239d63989b78cbb2b267a70d49"
+  },
+  "russian.wav": {
+    "bytes": 1072282,
+    "sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9"
+  }
+}

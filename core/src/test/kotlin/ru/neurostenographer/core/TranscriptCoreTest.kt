@@ -9,6 +9,7 @@ fun main() {
     testRealtimeCore()
     testPcmWav()
     testPcmStreaming()
+    testPcmFileAudio()
     testPcm16WavWriter()
     testBoundedWavRecorder()
     testAudioSnapshots()
@@ -134,5 +135,5 @@ fun main() {
     }
     testWavContainer()
     testDiarizationReply()
-    println("16 CORE TEST GROUPS PASSED")
+    println("17 CORE TEST GROUPS PASSED")
 }

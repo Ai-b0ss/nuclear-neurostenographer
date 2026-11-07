@@ -4,15 +4,16 @@ package ru.neurostenographer.core
  * Codec encoder-delay/padding treatment is platform-dependent. Origin is the first
  * decoded sample; tolerance is explicit, not word alignment or timestamp accuracy.
  */
-class DecodedPcmTimeline(private val rate: Int, private val channels: Int) {
+class DecodedPcmTimeline(private val rate: Int, private val channels: Int,
+                         private val maxSeconds: Int = PcmWav.MAX_SECONDS) {
     private var origin: Long? = null
     private var frames = 0L
-    init { require(rate in 8000..48000 && channels in 1..2) }
+    init { require(rate in 8000..48000 && channels in 1..2 && maxSeconds in 1..PcmFileAudio.MAX_FILE_SECONDS) }
 
     fun accept(bytes: Int, timestampUs: Long) {
         require(bytes > 0 && bytes % (channels * 2) == 0) { "Обрезанный PCM16 кадр" }
         val next = frames + bytes / (channels * 2)
-        require(next <= rate.toLong() * PcmWav.MAX_SECONDS) { "Максимум ${PcmWav.MAX_LABEL}" }
+        require(next <= rate.toLong() * maxSeconds) { "Превышена допустимая длительность аудио" }
         val start = origin ?: timestampUs
         val elapsed = Math.subtractExact(timestampUs, start)
         val delta = Math.subtractExact(elapsed, frames * 1_000_000 / rate)

@@ -261,65 +261,28 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             message = "Чтение WAV и проверка модели…", stage = 1)
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
-            val app = getApplication<Application>()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
             store.verify(model) { context.ensureActive() }
-            val audio = app.contentResolver.openInputStream(source)!!.use {
-                PcmWav.read(it) { context.ensureActive() }
-            }
-            context.ensureActive()
-            var warning: String? = null
-            var backendUsed: String? = null
-            var speakers: DiarizationOutput? = null
-
-            if (BuildConfig.NEMOTRON_PROTOTYPE) {
-                try {
-                    mutable.value = mutable.value.copy(message = "Проверка Nemotron C2 (полностью офлайн)…")
-                    // The product APK carries a pinned ZIP. The research prototype can
-                    // use C0 if the C2 ZIP is not bundled in its ordinary UI.
-                    val c2 = NemotronBackend.current(app.filesDir)
-                        ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
-                    context.ensureActive()
-                    mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…", stage = 2)
-                    speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2)
-                    backendUsed = NemotronBackend.C2
-                } catch (e: CancellationException) { throw e }
-                catch (e: Exception) {
-                    warning = "Nemotron C2 недоступен: ${e.message ?: e.javaClass.simpleName}; включён резервный C0."
-                }
-            }
-            if (speakers == null) {
-                speakerStore.current()?.let { c0Model ->
-                    try {
-                        speakerStore.verify(c0Model) { context.ensureActive() }
-                        mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.", stage = 2)
-                        speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
-                        backendUsed = NemotronBackend.C0
-                    } catch (e: CancellationException) { throw e }
-                    catch (e: Exception) {
-                        warning = listOfNotNull(warning, e.message ?: "Диаризация C0 недоступна")
-                            .joinToString(" ")
-                    }
-                }
-            }
-            val asr = OfflineAsr.transcribe(audio, model, { context.ensureActive() }, { index, count ->
-                mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
-                    message = "Распознавание речи: фрагмент $index из $count")
-            }, turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows)
-            Triple(asr, speakers, backendUsed to warning)
+            require(source.scheme == "file") { "Аудиофайл должен быть сохранён локально" }
+            val pcm = PcmFileAudio(File(requireNotNull(source.path))) { context.ensureActive() }
+            if (pcm.durationMs > PcmWav.MAX_SECONDS * 1000L) recognizeLong(pcm, model)
+            else recognizeBlock(pcm.read(checkCancelled = { context.ensureActive() }), model)
         }
         val (backendUsed, warning) = processing
         val speakerSource = when {
+            backendUsed == "long-file" -> "chunked_unknown_global_speakers"
+            backendUsed == "digital-silence" -> "digital_silence_no_diarization"
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
             diarization == null -> "not_run"
             backendUsed == NemotronBackend.C2 -> NemotronBackend.REVISION
             else -> DiarizationModelStore.REVISION
         }
         val timestampSource = when {
+            output.tokenTimedWindows > 0 && output.untimedWindows == 0 -> "asr_token_timestamps"
+            output.tokenTimedWindows > 0 -> "asr_token_timestamps_and_input_windows"
             diarization == null -> "input_windows"
             output.tokenTimedWindows == 0 -> "diarization_boundaries_and_input_windows"
-            output.untimedWindows == 0 -> "asr_token_timestamps"
-            else -> "asr_token_timestamps_and_input_windows"
+            else -> "input_windows"
         }
         val warnings = listOfNotNull(warning, if (output.tokenTimedWindows > 0)
                 "Время слов — по меткам токенов ASR (шаг 40 мс), не точное выравнивание."
@@ -328,7 +291,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
             if (diarization == null) "Говорящие не определены." else null)
         val document = TranscriptDocument(output.segments.toList(), output.audioMs, TranscriptProvenance(
-            AsrModelSpec.ACTIVE.id, AsrModelStore.REVISION, timestampSource, speakerSource,
+            output.modelId, output.modelRevision, timestampSource, speakerSource,
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings)
         val details = (if (output.decodedWindows == 0) "Речевые окна не обнаружены; ASR не запускался. " else
                 if (output.segments.isEmpty()) "ASR не вернул текста. " else "ASR вернул ${output.segments.size} фрагментов. ") +
@@ -343,6 +306,115 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         mutable.value = mutable.value.copy(source = null, sourceName = null, segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
             current = saved, history = listOf(saved) + mutable.value.history, details = details, message = details)
+    }
+
+    private suspend fun recognizeBlock(audio: PcmAudio, model: File):
+        Triple<AsrOutput, DiarizationOutput?, Pair<String?, String?>> {
+        val context = currentCoroutineContext()
+        val app = getApplication<Application>()
+        if (audio.samples.all { it == 0f })
+            return Triple(AsrOutput(emptyList(), audio.durationMs, 0, 0),
+                DiarizationOutput(emptyList(), 0, 0, emptyList()), "digital-silence" to null)
+        var warning: String? = null
+        var backendUsed: String? = null
+        var speakers: DiarizationOutput? = null
+
+        if (BuildConfig.NEMOTRON_PROTOTYPE) {
+            try {
+                mutable.value = mutable.value.copy(message = "Проверка Nemotron C2 (полностью офлайн)…")
+                // The product APK carries a pinned ZIP. The research prototype can
+                // use C0 if the C2 ZIP is not bundled in its ordinary UI.
+                val c2 = NemotronBackend.current(app.filesDir)
+                    ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
+                context.ensureActive()
+                mutable.value = mutable.value.copy(message = "Nemotron C2: диаризация всей записи…", stage = 2)
+                speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2)
+                backendUsed = NemotronBackend.C2
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                warning = "Nemotron C2 недоступен: ${e.message ?: e.javaClass.simpleName}; включён резервный C0."
+            }
+        }
+        if (speakers == null) {
+            speakerStore.current()?.let { c0Model ->
+                try {
+                    speakerStore.verify(c0Model) { context.ensureActive() }
+                    mutable.value = mutable.value.copy(message = "Диаризация C0… Отмена завершит выделенный процесс.", stage = 2)
+                    speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
+                    backendUsed = NemotronBackend.C0
+                } catch (e: CancellationException) { throw e }
+                catch (e: Exception) {
+                    warning = listOfNotNull(warning, e.message ?: "Диаризация C0 недоступна")
+                        .joinToString(" ")
+                }
+            }
+        }
+        val progress: (Int, Int) -> Unit = { index, count ->
+            mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
+                message = "Распознавание речи: фрагмент $index из $count")
+        }
+        val english = if (BuildConfig.ENGLISH_AUTO) {
+            mutable.value = mutable.value.copy(message = "Определение языка записи…", stage = 3)
+            val englishModel = EnglishModelStore.ensure(app) { context.ensureActive() }
+            val language = WhisperEnglish.detect(audio, englishModel,
+                speakers?.windows ?: DiarizationTimeline.windows(emptyList(), audio.durationMs)) { context.ensureActive() }
+            if (language == "en") WhisperEnglish.transcribe(audio, englishModel,
+                speakers?.turns.orEmpty(), speakers?.windows, { context.ensureActive() }, progress)
+            else null
+        } else null
+        val asr = if (english != null) AsrOutput(english.segments, audio.durationMs,
+            english.loadMs, english.decodeMs, english.windows, untimedWindows = english.windows,
+            modelId = WhisperEnglish.ID, modelRevision = WhisperEnglish.REVISION)
+        else OfflineAsr.transcribe(audio, model, { context.ensureActive() }, progress,
+            turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows)
+        return Triple(asr, speakers, backendUsed to warning)
+    }
+
+    /** Long-file fallback keeps bounded memory and every block's text. Local C2 slot
+     * numbers are not global identities; do not invent continuity across independent runs. */
+    private suspend fun recognizeLong(pcm: PcmFileAudio, model: File):
+        Triple<AsrOutput, DiarizationOutput?, Pair<String?, String?>> {
+        val context = currentCoroutineContext()
+        val segments = mutableListOf<TranscriptSegment>()
+        val ids = linkedSetOf<String>()
+        val revisions = linkedSetOf<String>()
+        val warnings = linkedSetOf<String>()
+        var load = 0L; var decode = 0L
+        var windows = 0; var timed = 0; var untimed = 0
+        var start = 0L
+        while (start < pcm.durationMs) {
+            context.ensureActive()
+            var end = minOf(start + 300_000, pcm.durationMs)
+            if (end < pcm.durationMs) {
+                val boundary = pcm.read(end - 3000, end) { context.ensureActive() }
+                end = end - 3000 + QuietCuts.phraseCut(boundary.samples) / 16
+            }
+            if (pcm.durationMs - end in 1..99) end = pcm.durationMs
+            mutable.value = mutable.value.copy(message = "Обработка длинной записи: ${clock(start)} из ${clock(pcm.durationMs)}", stage = 1)
+            val block = pcm.read(start, end) { context.ensureActive() }
+            val first = block.samples.indexOfFirst { it != 0f }
+            if (first < 0) { start = end; continue }
+            val last = block.samples.indexOfLast { it != 0f }
+            // Only exact digital silence can be discarded, never a volume threshold.
+            val localStart = (first / 16L - 1000).coerceAtLeast(0)
+            val localEnd = (last / 16L + 1001).coerceAtMost(block.durationMs)
+            val trimmed = PcmAudio(block.samples.copyOfRange((localStart * 16).toInt(),
+                minOf((localEnd * 16).toInt(), block.samples.size)), 16000)
+            val (asr, _, processing) = recognizeBlock(trimmed, model)
+            val offset = start + localStart
+            segments += asr.segments.map { it.copy(startMs = it.startMs + offset, endMs = it.endMs + offset,
+                speakerId = null, attributionReliable = false, overlapSpeakers = emptyList()) }
+            ids += asr.modelId; revisions += asr.modelRevision
+            processing.second?.let { warnings += it }
+            load += asr.loadMs; decode += asr.decodeMs
+            windows += asr.decodedWindows; timed += asr.tokenTimedWindows; untimed += asr.untimedWindows
+            start = end
+        }
+        warnings += "Длинная запись обработана блоками. Сквозное сопоставление говорящих между блоками пока недоступно; текст сохранён без назначения говорящих."
+        return Triple(AsrOutput(segments, pcm.durationMs, load, decode, windows, timed, untimed,
+            ids.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.id },
+            revisions.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.revision }), null,
+            "long-file" to warnings.joinToString(" "))
     }
 
     fun prepareExport(format: String) {
@@ -377,7 +449,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             try { recorder = recorderFactory(file).also { it.start() } }
             catch (e: Throwable) { file.delete(); RecordingService.stop(getApplication()); throw e }
             recording.value = true
-            mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmWav.MAX_LABEL}. Предыдущий результат сохранён до успешной остановки.")
+            mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmFileAudio.MAX_FILE_LABEL}. Предыдущий результат сохранён до успешной остановки.")
             // Foreground entry is asynchronous and can be refused (Android 14+ background-start
             // rules). Without it recording ends when the app leaves the screen: say so.
             viewModelScope.launch {
@@ -388,7 +460,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             }
             recordingTimer = viewModelScope.launch {
                 yield() // Let startRecording finish publishing the observer job.
-                val deadline = System.nanoTime() + PcmWav.MAX_SECONDS * 1_000_000_000L
+                val deadline = System.nanoTime() + PcmFileAudio.MAX_FILE_SECONDS * 1_000_000_000L
                 while (recorder?.isRunning == true && System.nanoTime() < deadline) delay(100)
                 if (recording.value) stopRecording()
             }

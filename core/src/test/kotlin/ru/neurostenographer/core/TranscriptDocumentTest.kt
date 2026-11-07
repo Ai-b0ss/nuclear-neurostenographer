@@ -33,7 +33,8 @@ fun testTranscriptDocument() {
             TranscriptSegment(0, 100, "A", "раз"),
             TranscriptSegment(100, 300, null, "вместе", overlappingSpeech = true, overlapSpeakers = listOf("B", "A")),
             TranscriptSegment(300, 400, "B", "два")))
-        check(judgeOverlap.contains("\"speaker_id\": \"speaker_2\", \"start_ms\": 100") && !judgeOverlap.contains("unknown")) { judgeOverlap }
+        check(judgeOverlap.contains("\"speaker_id\": \"unknown\", \"start_ms\": 100")) { judgeOverlap }
+        check(judgeOverlap.contains("\"speaker_id\": \"speaker_2\", \"start_ms\": 300")) { judgeOverlap }
         check(document.export("txt").contains("[00:00:00.123–00:00:00.456]"))
         val txt = document.export("txt")
         check(txt.startsWith("Стенограмма · 1:00:01 · говорящих: 1\n") && !txt.contains("failed_worker_unknown_speakers"))

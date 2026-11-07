@@ -1,0 +1,57 @@
+Detected 127 equal APK entries
+
+
+
+433099843 bytes are equal out of 433505560 (99.91%)
+
+
+
+Performing Streamed Install
+
+
+
+
+
+Performing Streamed Install
+
+
+
+adb.exe: failed to install CHECKOUT\app\build\outputs\apk\androidTest\debug\app-debug-androidTest.apk: Failure [INSTALL_FAILED_ABORTED: User rejected permissions]
+
+
+
+
+
+
+
+
+
+python : Traceback (most recent call last):
+
+строка:18 знак:1
+
++ python -u .local/run_phone_checks.py *> .local/phone-final-run.log
+
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+
+  File "CHECKOUT\.local\run_phone_checks.py", line 20, in <module>
+
+    run(['install','-r',str(test)],180)
+
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "CHECKOUT\.local\run_phone_checks.py", line 11, in run
+
+    if p.returncode: raise RuntimeError('adb failed: '+repr(args))
+
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+RuntimeError: adb failed: ['install', '-r', 'K:\\nn-checkpoint-20261107\\app\\build\\outputs\\apk\\androidTest\\debug\\
+
+app-debug-androidTest.apk']

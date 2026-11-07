@@ -378,7 +378,7 @@ private fun StartCard(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit
                 Text("Открыть аудиофайл")
             }
             Spacer(Modifier.height(8.dp))
-            Text("WAV, MP3, M4A… до 20 мин. Аудио из мессенджера можно отправить сюда через «Поделиться».",
+            Text("WAV, MP3, M4A. Аудио из мессенджера можно отправить сюда через «Поделиться».",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
         }
     }
