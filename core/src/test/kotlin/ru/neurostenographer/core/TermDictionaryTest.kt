@@ -45,6 +45,18 @@ fun testTermDictionary() {
     check(pairs("Модбас, профинити, озернёт, кадисис, вихдель, юарт, джейтаг, фри ртос, ардуино.").map { it.second } ==
         listOf("Modbus", "PROFINET", "Ethernet", "CODESYS", "VHDL", "UART", "JTAG", "FreeRTOS", "Arduino")) { one("x").toString() }
     check(pairs("Для АСУ ТП и ПЛК нужен ФСТЭК, а ещё госсопках.").map { it.second } == listOf("ГосСОПКах"))
+    // Corporate slang (A3 output on the meeting probe).
+    check(pairs("Тиккет висит на опруве. Задеплеить на стейдж. Нужен ходфикс, бакфикс залили, старипоинтах, Копасите команды.") ==
+        listOf("Тиккет" to "Тикет", "опруве" to "апруве", "Задеплеить" to "Задеплоить", "ходфикс" to "хотфикс", "бакфикс" to "багфикс",
+            "старипоинтах" to "сторипоинтах", "Копасите" to "Капасити")) { pairs("x").toString() }
+    check(pairs("Истимейт по интеграции, приоритезация, вне скопа, фокап с релизом, постмартем, доунтайм, аллерт.").map { it.second } ==
+        listOf("Эстимейт", "приоритизация", "скопа", "факап", "постмортем", "даунтайм", "алерт")) { pairs("x").toString() }
+    check(pairs("Иркаин требует локализации, ФСТЭК и СТЭК, ГосОПК, PDN, СМЭФ, ТСУ.").map { it.second } == listOf("РКН", "ПДн", "СМЭВ", "ТСПУ", "ГосСОПК")) { pairs("x").toString() }
+    check(pairs("Вместо Джиры Кайтент, Postgrass Pro, Astro Linux, Retos, Moefis, Deckhouse, детхаус, ВК Тимс.").map { it.second }
+        .containsAll(listOf("Kaiten", "Postgres Pro", "Astra Linux", "РЕД ОС", "МойОфис", "Deckhouse", "VK Teams"))) { pairs("x").toString() }
+    check(pairs("Проопрувил, пул или реквест, ван ту ван, темлид, фолло по встрече.").map { it.second } ==
+        listOf("Проапрувил", "пулл-реквест", "one-to-one", "тимлид", "фоллоуап"))
+    check(pairs("Ядро Линукс, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, пак.").isEmpty()) { pairs("x").toString() }
     // Ordinary Russian words that sit close to terms are left alone.
     check(one("Шел дождь, рестораны открыты, мы шли, даст ответ, она сок пила, ромб и кан, график, насос и пентхаус.").isEmpty())
     // Stems never swallow a canonical form that merely starts with the variant: «пентест» stays «пентест».
