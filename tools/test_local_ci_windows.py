@@ -67,7 +67,8 @@ class LocalCITest(unittest.TestCase):
         self.assertEqual(report["steps"][0]["returncode"], 7)
 
     def test_timeout_does_not_kill_an_unrelated_process(self):
-        sentinel = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(5)"])
+        sentinel = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(5)"],
+                                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
         try:
             report = {"sha": SHA, "ref": "main", "steps": []}
             with self.assertRaisesRegex(RuntimeError, "timeout"):

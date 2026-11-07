@@ -98,7 +98,8 @@ class LocalCI:
 
     def output(self, args, cwd=None):
         return subprocess.check_output(args, cwd=cwd or self.source, env=self.env,
-                                       timeout=90, encoding="utf-8", errors="replace", stderr=subprocess.PIPE).strip()
+                                       timeout=90, encoding="utf-8", errors="replace", stderr=subprocess.PIPE,
+                                       creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0).strip()
 
     def state(self, **values):
         save_json(self.root / "current.json", {"pid": os.getpid(), "time": time.time(), **values})
@@ -159,7 +160,8 @@ class LocalCI:
             return
         if os.name == "nt":
             subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"],
-                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                           creationflags=subprocess.CREATE_NO_WINDOW)
         else:
             import signal
             os.killpg(process.pid, signal.SIGKILL)
@@ -170,11 +172,18 @@ class LocalCI:
         path.parent.mkdir(parents=True, exist_ok=True)
         start = time.monotonic()
         self.state(mode="running", sha=report["sha"], ref=report["ref"], step=name)
-        flags = (subprocess.CREATE_NO_WINDOW | subprocess.BELOW_NORMAL_PRIORITY_CLASS) if os.name == "nt" else 0
+        flags = 0
+        startup = None
+        if os.name == "nt":
+            # A console hidden from creation also keeps descendant CLI tools hidden.
+            flags = subprocess.CREATE_NEW_CONSOLE | subprocess.BELOW_NORMAL_PRIORITY_CLASS
+            startup = subprocess.STARTUPINFO()
+            startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            startup.wShowWindow = subprocess.SW_HIDE
         with path.open("wb") as log:
             process = subprocess.Popen(args, cwd=self.workspace, env=self.env, stdout=log,
                                        stderr=subprocess.STDOUT, creationflags=flags,
-                                       start_new_session=os.name != "nt")
+                                       start_new_session=os.name != "nt", startupinfo=startup)
             reason = None
             while process.poll() is None:
                 if self.stop_file.exists() or time.monotonic() - start > timeout:
