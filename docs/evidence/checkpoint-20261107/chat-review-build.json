@@ -1,0 +1,49 @@
+{
+  "code_commit": "446f7defb84ce19b8890aa10536b477a932d8618",
+  "ui_commit": "8784288d5fe4cdeb7edbf020edca238fb2cf0a44",
+  "builds": "PASS",
+  "variant": "A3+C2+realtime+englishAuto+checkpointQa",
+  "application_id": "ru.neurostenographer.app.checkpoint",
+  "release_signed": false,
+  "physical_acceptance": "NOT_RUN; phone left to active UI work",
+  "apks": {
+    "app-debug.apk": {
+      "bytes": 494186838,
+      "sha256": "fee96bf0ebaf53de69a66d9b5e07e4ade86fb158810ca0987d79be96292fdf80",
+      "model_assets": {
+        "assets/gigaam-v3-e2e-rnnt.zip": 326322714,
+        "assets/nemotron.zip": 103869540,
+        "assets/silero_vad.onnx": 643854,
+        "assets/whisper-tiny.zip": 65099802
+      }
+    },
+    "app-debug-androidTest.apk": {
+      "bytes": 5967951,
+      "sha256": "9e3048fa5f75a29b84b02b6c38ebc8a32695e4e65571f4d84df3053eabf863eb"
+    },
+    "app-release-unsigned.apk": {
+      "bytes": 420613868,
+      "sha256": "6ae6a262d842b16f26455362e9e7ca2dae96f785423a733b2e792f7fd5276989",
+      "model_assets": {
+        "assets/gigaam-v3-e2e-rnnt.zip": 326322714,
+        "assets/nemotron.zip": 103869540,
+        "assets/silero_vad.onnx": 643854,
+        "assets/whisper-tiny.zip": 65099802
+      },
+      "baseline_profiles": {
+        "assets/dexopt/baseline.prof": 4272,
+        "assets/dexopt/baseline.profm": 232
+      }
+    }
+  },
+  "english_model_hashes": {
+    "tiny-encoder.int8.onnx": "d24fb083ae3b1041fc24e97971d60e280c9342201fbb67b0ab428a8b4a51a434",
+    "tiny-decoder.int8.onnx": "d2fece8dd42771f1df975c6c0445770d0c292bf7547c2cae04a6c0cc57540925",
+    "tiny-tokens.txt": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+  },
+  "local_ci": {
+    "state": "success",
+    "steps": 24,
+    "core_groups": 18
+  }
+}

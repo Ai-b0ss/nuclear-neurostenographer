@@ -1,0 +1,160 @@
+{
+  "sha": "446f7defb84ce19b8890aa10536b477a932d8618",
+  "ref": "fix/checkpoint-20261107",
+  "repository": "Ai-b0ss/nuclear-neurostenographer",
+  "spec": "600188760fb088943c5757b1e2f2d26e56a7379722064162062ff5f9400a4c2b",
+  "started": 1794087087.6946108,
+  "steps": [
+    {
+      "name": "python-0",
+      "returncode": 0,
+      "seconds": 1.01,
+      "log": "00-python-0.log"
+    },
+    {
+      "name": "python-1",
+      "returncode": 0,
+      "seconds": 0.5,
+      "log": "01-python-1.log"
+    },
+    {
+      "name": "python-2",
+      "returncode": 0,
+      "seconds": 2.76,
+      "log": "02-python-2.log"
+    },
+    {
+      "name": "python-3",
+      "returncode": 0,
+      "seconds": 2.51,
+      "log": "03-python-3.log"
+    },
+    {
+      "name": "python-4",
+      "returncode": 0,
+      "seconds": 0.51,
+      "log": "04-python-4.log"
+    },
+    {
+      "name": "python-5",
+      "returncode": 0,
+      "seconds": 0.5,
+      "log": "05-python-5.log"
+    },
+    {
+      "name": "python-6",
+      "returncode": 0,
+      "seconds": 0.5,
+      "log": "06-python-6.log"
+    },
+    {
+      "name": "python-7",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "07-python-7.log"
+    },
+    {
+      "name": "python-8",
+      "returncode": 0,
+      "seconds": 23.56,
+      "log": "08-python-8.log"
+    },
+    {
+      "name": "python-9",
+      "returncode": 0,
+      "seconds": 0.76,
+      "log": "09-python-9.log"
+    },
+    {
+      "name": "python-10",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "10-python-10.log"
+    },
+    {
+      "name": "python-11",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "11-python-11.log"
+    },
+    {
+      "name": "python-12",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "12-python-12.log"
+    },
+    {
+      "name": "local-ci-controller-tests",
+      "returncode": 0,
+      "seconds": 1.26,
+      "log": "13-local-ci-controller-tests.log"
+    },
+    {
+      "name": "stored-evidence",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "14-stored-evidence.log"
+    },
+    {
+      "name": "gradle",
+      "returncode": 0,
+      "seconds": 152.91,
+      "log": "15-gradle.log"
+    },
+    {
+      "name": "plain-verify_transcript_exports",
+      "returncode": 0,
+      "seconds": 0.26,
+      "log": "16-plain-verify_transcript_exports.log"
+    },
+    {
+      "name": "plain-test_transcript_exports",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "17-plain-test_transcript_exports.log"
+    },
+    {
+      "name": "named-verify_transcript_exports",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "18-named-verify_transcript_exports.log"
+    },
+    {
+      "name": "named-test_transcript_exports",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "19-named-test_transcript_exports.log"
+    },
+    {
+      "name": "edited-verify_transcript_exports",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "20-edited-verify_transcript_exports.log"
+    },
+    {
+      "name": "edited-test_transcript_exports",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "21-edited-test_transcript_exports.log"
+    },
+    {
+      "name": "contest-json",
+      "returncode": 0,
+      "seconds": 0.25,
+      "log": "22-contest-json.log"
+    },
+    {
+      "name": "apk-inspection",
+      "returncode": 0,
+      "seconds": 1.01,
+      "log": "23-apk-inspection.log"
+    }
+  ],
+  "state": "success",
+  "published": true,
+  "core_groups": 18,
+  "device_inference": "NOT_RUN",
+  "scope": "Windows counterpart of android.yml: no emulator, physical device or hosted artifacts",
+  "description": "PASS: Python checks, core 18, lint, APKs, exports, runtime/ELF; no device inference",
+  "finished": 1794087285.8570333
+}

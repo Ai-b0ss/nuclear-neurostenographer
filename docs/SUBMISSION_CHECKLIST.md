@@ -7,9 +7,9 @@
 | APK | [Releases](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases) | Опубликован подписанный 0.3.14-contest, 355 698 002 байта. Это не итоговый APK PR #44 |
 | Код | main и [PR #44](https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/44) | main b979f49; экспериментальная интеграция отдельно. Итоговый APK должен соответствовать выбранному коммиту |
 | Установка и использование | [README](../README.md), [AUDIO_IMPORT](AUDIO_IMPORT.md), [PHONE_ACCEPTANCE](PHONE_ACCEPTANCE.md) | Документы есть; окончательный комплект требует сверки с итоговым UI/APK |
-| Архитектура и модели | [ARCHITECTURE](ARCHITECTURE.md), [MODELS](MODELS.md) | Обновлены: русский e2e RNN-T A3 + Nemotron C2, английский — отдельная опция ветки |
-| Ограничения | [CHECKPOINT_AFTER_CALL](CHECKPOINT_AFTER_CALL_2026-11-07.md), [разбор экспорта](CHAT_EXPORT_REVIEW_2026-11-08.md) | Явно описаны перекрытия, длинные записи без сквозных говорящих и границы проверки |
-| Тесты | docs/evidence/, [LOCAL_CI_WINDOWS](LOCAL_CI_WINDOWS.md) | На 47a25ba локальные Python/core/lint/APK/export/runtime проверки PASS. Новый объединённый UI проверяется отдельно. Это не финальная телефонная приёмка |
+| Архитектура и модели | [ARCHITECTURE](ARCHITECTURE.md), [MODELS](MODELS.md) | Обновлены: русский e2e RNN-T A3 + Nemotron C2; английский включён в проверенную тестовую сборку ветки |
+| Ограничения | [CHECKPOINT_AFTER_CALL](CHECKPOINT_AFTER_CALL_2026-11-07.md), [разбор экспорта](CHAT_EXPORT_REVIEW_2026-11-08.md) | Явно описаны; отдельная точка входа [LIMITATIONS](LIMITATIONS.md) |
+| Тесты | docs/evidence/, [LOCAL_CI_WINDOWS](LOCAL_CI_WINDOWS.md) | На объединённом 446f7de PASS: 24 этапа CI, 18 групп ядра; дополнительно debug/test/unsigned release со всеми моделями. [Сводка](TEST_RESULTS.md). Телефонная приёмка точного итогового APK открыта |
 | Видео | Пока не найдено в дереве Git или последних релизах | Открытая задача; возможные локальные файлы команды не проверены |
 
 ## До сдачи
