@@ -597,9 +597,8 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                 Card(shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(1.dp)) {
                     FlowRow(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp),
-                        itemVerticalAlignment = Alignment.CenterVertically) {
-                        Text("Экспорт", style = MaterialTheme.typography.labelLarge)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text("Экспорт", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(top = 10.dp))
                         for (f in listOf("json-contest", "txt", "json", "srt")) OutlinedButton(onClick = { onExport(f) }, enabled = !state.busy,
                             shape = RoundedCornerShape(50), contentPadding = PaddingValues(horizontal = 14.dp)) {
                             Text(when (f) { "json-contest" -> "JSON"; "json" -> "JSON расш."; else -> f.uppercase() })
@@ -710,7 +709,7 @@ internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needl
         Surface(Modifier.weight(1f), shape = RoundedCornerShape(topStart = 4.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 18.dp),
             color = color.copy(alpha = 0.10f)) {
             Column(Modifier.padding(horizontal = 14.dp, vertical = 10.dp)) {
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), itemVerticalAlignment = Alignment.CenterVertically) {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     val id = segment.speakerId
                     Text(highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, mark), color = color,
                         style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold,
