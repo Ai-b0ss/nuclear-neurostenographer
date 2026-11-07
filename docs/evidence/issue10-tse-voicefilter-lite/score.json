@@ -1,0 +1,48 @@
+{
+  "schema_version": "issue10-tse-v1",
+  "adapter_status": "SMOKE_OK",
+  "implementation": "independent_offline_research_adapter",
+  "upstream": {
+    "repository": "https://github.com/linsanzhu/open-voicefilter-lite.git",
+    "commit": "bfb557cb27f4ccd5ed8860a107aba9a0345d27ae",
+    "mask_onnx_size_bytes": 6827972,
+    "embedder_onnx_size_bytes": 12199675
+  },
+  "baseline": {
+    "wer": "NOT_RUN",
+    "reason": "Shared labeled real fragments are not ready"
+  },
+  "candidate": {
+    "wer": "NOT_RUN",
+    "reason": "Shared labeled real fragments are not ready"
+  },
+  "recovered_correct": "NOT_RUN",
+  "unknown": "NOT_RUN",
+  "rtf_status": "NOT_RUN",
+  "pss_status": "NOT_RUN",
+  "honor_status": "NOT_RUN",
+  "decision": "NOT_RUN",
+  "decision_reason": "No common A3 quality or HONOR RTF/PSS run; synthetic execution is not a quality decision",
+  "synthetic_smoke": {
+    "status": "OK",
+    "scope": "Numeric non-speech Windows host execution only; not A3 or DataHive quality evidence",
+    "enrollment_seconds": 3.0,
+    "input_seconds": 1.0,
+    "output_frames": 16000,
+    "output_sample_rate": 16000,
+    "output_pcm_bits": 16,
+    "output_rms": 0.052904223389990054,
+    "output_sha256": "35e600825d67aeed820be6ae86c2def2ff7b375f1196170224a6b439c9fd9168",
+    "model_load_seconds": 0.3625871999975061,
+    "inference_seconds": 0.35390629999892553,
+    "wall_seconds": 0.7316070000015316,
+    "inference_rtf": 0.35390629999892553,
+    "wall_rtf": 0.7316070000015316,
+    "threads": 1,
+    "pss": "NOT_RUN"
+  },
+  "unit_tests": {
+    "status": "OK",
+    "count": 11
+  }
+}

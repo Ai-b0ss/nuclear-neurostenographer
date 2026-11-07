@@ -1,0 +1,24 @@
+{
+  "upstream": {
+    "repository": "https://github.com/linsanzhu/open-voicefilter-lite.git",
+    "commit": "bfb557cb27f4ccd5ed8860a107aba9a0345d27ae",
+    "license": "Apache-2.0"
+  },
+  "files": {
+    "voicefilter_lite.int8.onnx": {
+      "path": "models/voicefilter_lite.int8.onnx",
+      "size_bytes": 6827972,
+      "sha256": "9c7a3b9a585b79cf6c976b5fdf0a38de7437074a839e9ea95a70057632b464b7"
+    },
+    "embedder.int8.onnx": {
+      "path": "models/embedder.int8.onnx",
+      "size_bytes": 12199675,
+      "sha256": "c4d17ba220a33d7f27866c78f573372f4ae2dd57b405cdacdaf4483ecc374812"
+    },
+    "LICENSE": {
+      "path": "LICENSE",
+      "size_bytes": 11558,
+      "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+    }
+  }
+}

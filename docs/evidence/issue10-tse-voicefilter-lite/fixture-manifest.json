@@ -1,0 +1,39 @@
+{
+  "schema_version": "issue10-fixtures-v1",
+  "kind": "synthetic_numeric_non_speech",
+  "committed_audio": false,
+  "storage": ".local/voicefilter-lite/smoke; ignored by Git",
+  "sample_rate": 16000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "fixtures": [
+    {
+      "id": "enrollment-3s",
+      "path": ".local/voicefilter-lite/smoke/enrollment-3s.wav",
+      "duration_seconds": 3.0,
+      "size_bytes": 96044,
+      "sha256": "c2f93d37dfb695e625672729bc8c92c800f54c02d7c17312acc89641647711ac",
+      "generator": "0.12*sin(2*pi*220*t) + 0.04*sin(2*pi*440*t), t=arange(48000)/16000"
+    },
+    {
+      "id": "mixture-1s",
+      "path": ".local/voicefilter-lite/smoke/mixture-1s.wav",
+      "duration_seconds": 1.0,
+      "size_bytes": 32044,
+      "sha256": "e8a2fe7be671f498710db7a3df1237407910a288fabc34cd2e94be9231cc60e2",
+      "generator": "0.12*sin(2*pi*220*t) + 0.04*sin(2*pi*440*t) + 0.10*sin(2*pi*330*t) + 0.02*sin(2*pi*997*t), t=arange(16000)/16000"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "enhanced-1s",
+      "path": ".local/voicefilter-lite/smoke/enhanced-1s.wav",
+      "duration_seconds": 1.0,
+      "size_bytes": 32044,
+      "sha256": "35e600825d67aeed820be6ae86c2def2ff7b375f1196170224a6b439c9fd9168"
+    }
+  ],
+  "quality_labels": "NOT_RUN",
+  "real_fragments": "NOT_RUN",
+  "datahive_wer": "NOT_RUN"
+}

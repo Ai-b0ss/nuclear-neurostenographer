@@ -1,0 +1,63 @@
+VoiceFilter-Lite issue10 actual research run
+Branch: research/overlap-tse-voicefilter-lite
+No training, commit, push, PR, app/core, A3 or C2 changes.
+
+[upstream]
+git ls-remote https://github.com/linsanzhu/open-voicefilter-lite.git HEAD
+bfb557cb27f4ccd5ed8860a107aba9a0345d27ae HEAD
+Local detached source checkout HEAD: bfb557cb27f4ccd5ed8860a107aba9a0345d27ae
+Source commit subject: chore: 调整包结构
+Source committer date: 2026-10-10T15:11:11+08:00
+
+[provision]
+$ .local/voicefilter-lite/venv/Scripts/python.exe tools/voicefilter_lite/provision.py --source-dir .local/upstream/open-voicefilter-lite
+VERIFIED voicefilter_lite.int8.onnx size=6827972 sha256=9c7a3b9a585b79cf6c976b5fdf0a38de7437074a839e9ea95a70057632b464b7
+VERIFIED embedder.int8.onnx size=12199675 sha256=c4d17ba220a33d7f27866c78f573372f4ae2dd57b405cdacdaf4483ecc374812
+VERIFIED LICENSE size=11558 sha256=1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6
+Exit: 0
+
+[dependencies]
+Isolated venv: .local/voicefilter-lite/venv
+Python 3.11.9; numpy 2.2.6; scipy 1.15.3; onnxruntime 1.23.2
+
+[preflight]
+$ .local/voicefilter-lite/venv/Scripts/python.exe tools/voicefilter_lite/preflight.py --output .local/voicefilter-lite/preflight.json
+status=OK; model_kind=mask_predictor/dvector; execution_provider=CPUExecutionProvider
+mask inputs=stacked_logmel,dvec,h0,c0; outputs=mask,f_adapt,hN,cN
+embedder input=mel_window; output=embedding
+mask config: sample_rate=16000 n_fft=1200 win_length=640 hop=160 n_mels=128 frame_stack=4 hidden=512 layers=3
+Exit: 0
+
+[tests initial]
+$ .local/voicefilter-lite/venv/Scripts/python.exe -m unittest discover -s tools/voicefilter_lite -p 'test_*.py' -v
+Ran 11 tests; OK; exit 0.
+
+[initial synthetic inference attempt]
+Generated 3 s numeric enrollment and 1 s numeric mixture under .local/voicefilter-lite/smoke.
+Inference exited nonzero before producing enhanced audio: main mel matrix orientation mismatch (601 vs 128).
+Fixed the main projection orientation and added a shape regression assertion. This attempt is not reported as a successful smoke.
+
+[tests final]
+$ .local/voicefilter-lite/venv/Scripts/python.exe -m unittest discover -s tools/voicefilter_lite -p 'test_*.py' -v
+Ran 11 tests in 2.188s; OK; exit 0.
+
+[synthetic inference final]
+$ .local/voicefilter-lite/venv/Scripts/python.exe tools/voicefilter_lite/infer.py --enrollment .local/voicefilter-lite/smoke/enrollment-3s.wav --input .local/voicefilter-lite/smoke/mixture-1s.wav --output .local/voicefilter-lite/smoke/enhanced-1s.wav --report .local/voicefilter-lite/smoke/report.json
+status=OK
+input_sha256=e8a2fe7be671f498710db7a3df1237407910a288fabc34cd2e94be9231cc60e2
+enrollment_sha256=c2f93d37dfb695e625672729bc8c92c800f54c02d7c17312acc89641647711ac
+output_sha256=35e600825d67aeed820be6ae86c2def2ff7b375f1196170224a6b439c9fd9168
+output=16000 frames, 16000 Hz, mono PCM16, finite; rms=0.052904223389990054; peak=0.1599317491054535; scale=1.0
+model_load_seconds=0.3625871999975061
+inference_seconds=0.35390629999892553
+wall_seconds=0.7316070000015316
+inference_rtf=0.35390629999892553
+wall_rtf=0.7316070000015316
+threads=1
+Exit: 0
+
+[not run]
+Shared labeled real fragments, A3 baseline/candidate WER, recovered correct, unknown: NOT_RUN
+Russian DataHive WER: NOT_RUN
+A3 RTF gate: NOT_RUN
+HONOR and PSS: NOT_RUN
