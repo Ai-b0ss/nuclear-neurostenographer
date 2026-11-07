@@ -139,7 +139,7 @@ class RealtimeActivity : ComponentActivity() {
                     Text("Пропустить уточнение (запись и текст сохранятся)", textAlign = TextAlign.Center)
                 }
                 if (complete) Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории") }
+                    OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории", textAlign = TextAlign.Center) }
                     OutlinedButton(onClick = {
                         val doc = state.document!!
                         exportText = doc.export("json-contest")
@@ -147,7 +147,7 @@ class RealtimeActivity : ComponentActivity() {
                         val topic = TopicTitle.suggest(doc.segments)
                         val stamp = java.text.SimpleDateFormat("yyyy-MM-dd HH-mm", java.util.Locale("ru")).format(java.util.Date())
                         export.launch(TranscriptExport.fileBase((topic ?: "Живая запись") + " " + stamp) + ".json")
-                    }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON") }
+                    }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON", textAlign = TextAlign.Center) }
                 }
                 batchFallback(state)
                 Spacer(Modifier.height(10.dp))
