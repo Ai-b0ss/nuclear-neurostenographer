@@ -61,8 +61,9 @@ fun testTermDictionary() {
         val missing = want.filter { w -> !w.contains("->") && got.none { it == w } }
         check(missing.isEmpty()) { "$text -> $got; missing $missing" }
     }
-    check(pairs("Ядро Линукс, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, пак, ГИС, минцифра сообщила.").isEmpty()) {
-        pairs("Ядро Линукс, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, пак, ГИС, минцифра сообщила.").toString() }
+    check(pairs("Ядро системы, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, ГИС, минцифра сообщила.").isEmpty()) {
+        pairs("Ядро системы, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, ГИС, минцифра сообщила.").toString() }
+    check(one("доверенный пак").single().ambiguous && one("скопа").single().ambiguous)
     // Ordinary Russian words that sit close to terms are left alone.
     check(one("Шел дождь, рестораны открыты, мы шли, даст ответ, она сок пила, ромб и кан, график, насос и пентхаус.").isEmpty())
     // Stems never swallow a canonical form that merely starts with the variant: «пентест» stays «пентест».
