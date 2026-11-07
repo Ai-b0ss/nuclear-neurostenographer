@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 57324,
+  "warnings": ["Время слов — по меткам токенов ASR (шаг 40 мс), не точное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 120, "end_ms": 2920, "speaker_id": "Speaker 1", "text": "Можешь ли ты прекратить разговаривать, пожалуйста?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 6420, "end_ms": 7860, "speaker_id": "Speaker 2", "text": "Установи новый будильник на", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 7860, "end_ms": 9220, "speaker_id": null, "overlap_speaker_ids": ["Speaker 2", "Speaker 3"], "text": "это. Запусти радиоканал.", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 9540, "end_ms": 11220, "speaker_id": "Speaker 3", "text": "Запусти радиоканал 103.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 13690, "end_ms": 15170, "speaker_id": "Speaker 4", "text": "Выключи мою розетку.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 17380, "end_ms": 20210, "speaker_id": "Speaker 4", "text": "Какой был первый фильм Александра Домогорова?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 23350, "end_ms": 28070, "speaker_id": "Speaker 2", "text": "Олли, сегодня вечером в 9 в джаз-клубе играет хорошая группа, я хочу пойти.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30980, "end_ms": 33050, "speaker_id": "Speaker 3", "text": "Открой игру Tetri, сыграем вместе.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 34900, "end_ms": 38300, "speaker_id": "Speaker 1", "text": "Пожалуйста, прочитай мою новостную ленту Фейсбука.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 39390, "end_ms": 41910, "speaker_id": "Speaker 2", "text": "Удали из моего календаря встречи в 9:00 утра.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 44290, "end_ms": 46250, "speaker_id": "Speaker 2", "text": "Что происходит в мире в эти дни?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 49090, "end_ms": 51110, "speaker_id": "Speaker 4", "text": "Дай определение слову стикер.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 53890, "end_ms": 55740, "speaker_id": "Speaker 2", "text": "Дай мне урок по кулинарии.", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

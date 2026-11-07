@@ -1,0 +1,114 @@
+{
+ "scope": "HONOR DNN-LX9 arm64, QA packages .realtime/.solhigh, code release/0.3.10 (8dfb409)",
+ "installed": [
+  "installed OK ru.neurostenographer.app.realtime f4d8afe1741f2879e3a03610d2c9bebcb165716414c9d815f10a75ff667e85b4",
+  "installed OK ru.neurostenographer.app.solhigh 5ce8d4319ef6a4f31211a46c86a4590e68fca65451db6a3e8232269a744d75cb"
+ ],
+ "results": [
+  {
+   "test": "live syn3-clean",
+   "ok": true,
+   "seconds": 66
+  },
+  {
+   "test": "live syn4-noise",
+   "ok": true,
+   "seconds": 96
+  },
+  {
+   "test": "live veche-2-one-to-one",
+   "ok": true,
+   "seconds": 98
+  },
+  {
+   "test": "live veche-3-auth-incident",
+   "ok": true,
+   "seconds": 99
+  },
+  {
+   "test": "live aba",
+   "ok": true,
+   "seconds": 31
+  },
+  {
+   "test": "live overlap",
+   "ok": true,
+   "seconds": 20
+  },
+  {
+   "test": "live silence",
+   "ok": true,
+   "seconds": 24
+  },
+  {
+   "test": "live c2OfflineParity",
+   "ok": true,
+   "seconds": 45
+  },
+  {
+   "test": "live damagedC2KeepsAsrAlive",
+   "ok": true,
+   "seconds": 14
+  },
+  {
+   "test": "live transcriptSnapshotCrashRecovery",
+   "ok": true,
+   "seconds": 9
+  },
+  {
+   "test": "live hourJournalBounded",
+   "ok": true,
+   "seconds": 9
+  },
+  {
+   "test": "live cancellationRecoveryAndRestart",
+   "ok": true,
+   "seconds": 4
+  },
+  {
+   "test": "live recoveryKeepsCompletedAndShortInterruptedAudio",
+   "ok": true,
+   "seconds": 4
+  },
+  {
+   "test": "live microphoneCaptureOnlyAndRestart",
+   "ok": true,
+   "seconds": 9
+  },
+  {
+   "test": "import fixturePipelineAndExports",
+   "ok": true,
+   "seconds": 130
+  },
+  {
+   "test": "import failedC2ReplacementKeepsVerifiedModel",
+   "ok": true,
+   "seconds": 7
+  },
+  {
+   "test": "lifecycle HonorLifecycleAcceptanceTest (3 tests)",
+   "ok": false,
+   "seconds": 707
+  }
+ ],
+ "not_run": [
+  "foregroundMicrophoneScreenOff: skipped at the owner's request (no screen-off/lock at night)",
+  "HonorLifecycleAcceptanceTest#grantedMicrophoneProduces16kWavAndCanRestart: plays audio through the speaker; not run at night at the owner's request (passed in run 1 on 0.3.9)"
+ ],
+ "notes": [
+  "HonorLifecycleAcceptanceTest FAIL after 707 s: the OS cgroup freezer froze .solhigh during the test (watchdog log 06:11); in run 1 on 0.3.9 it passed in 100 s. Not re-run at night because it plays audio through the speaker.",
+  "Silent re-run with a freezer watchdog (06:26, 06:27 unfrozen by bringing the QA app to the foreground): both silent lifecycle subtests PASS."
+ ],
+ "rerun_silent": [
+  {
+   "test": "HonorLifecycleAcceptanceTest#replacingC2DuringActiveWorkerRetainsItsModelAndCompletes",
+   "ok": true,
+   "seconds": 60
+  },
+  {
+   "test": "HonorLifecycleAcceptanceTest#c2WorkerDeathCancellationAndRecoveryAreExplicit",
+   "ok": true,
+   "seconds": 15
+  }
+ ]
+}

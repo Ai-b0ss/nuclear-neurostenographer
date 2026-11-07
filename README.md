@@ -54,7 +54,7 @@ bash tools/build_product_apk.sh
 
 Юнит-тесты ядра (16 групп, JDK 17): `gradle :core:runCoreTests`. Проверки на телефоне — инструментальные тесты в отдельных пакетах `.realtime` и `.solhigh`, чтобы не трогать установленное приложение: [docs/PHONE_ACCEPTANCE.md](docs/PHONE_ACCEPTANCE.md).
 
-GitHub Actions собирает отладочный APK без моделей. Эмуляторный workflow «Real offline Russian ASR (x86_64)» сейчас красный из-за устаревшего UI-сценария `tools/run_android_ui.py` (надписи интерфейса до 0.3.0) — это не ошибка приложения, сценарий в работе.
+GitHub Actions собирает отладочный APK без моделей. Эмуляторный workflow «Real offline Russian ASR (x86_64)» (инструментальные тесты, UI-сценарий записи/импорта/экспорта, установка комплекта моделей) с 0.3.10 снова зелёный на API 34 и 35 ([прогон](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/42318026836)); API 33 падает на таймауте загрузки эмулятора раннера.
 
 ## Приватность
 
