@@ -1,0 +1,16 @@
+{
+  "root": "K:/nn-local-ci-20261107",
+  "source": "K:/nn-checkpoint-20261107",
+  "refs": ["fix/checkpoint-20261107", "feature/ui-polish", "main"],
+  "poll_seconds": 60,
+  "java_home": "K:/nn-c2-android/.local/toolchain/jdk/jdk-17.0.21+9",
+  "sdk": "K:/nn-c2-android/.local/toolchain/sdk",
+  "gradle_home": "K:/nn-c2-android/.local/toolchain/gradle-home",
+  "gradle": "K:/nn-c2-android/.local/toolchain/gradle/gradle-8.9/bin/gradle.bat",
+  "runtime": "K:/nn-checkpoint-20261107/app/libs/sherpa-onnx-1.12.20.aar",
+  "python": "python",
+  "gh": "C:/Program Files/GitHub CLI/gh.exe",
+  "path_prefix": ["C:/Program Files/Git/bin", "C:/Program Files/Git/usr/bin"],
+  "details_url": "https://github.com/Ai-b0ss/nuclear-neurostenographer/pull/44",
+  "min_free_bytes": 1073741824
+}
