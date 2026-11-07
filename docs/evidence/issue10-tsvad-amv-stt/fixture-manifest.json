@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "id": "common-manual-reference",
+      "role": "activity evaluation reference",
+      "schema": "audio_duration_ms + diarization[{start_ms,end_ms,speaker_id}], annotation_source contains manual",
+      "status": "NOT_AVAILABLE",
+      "path": null,
+      "sha256": null,
+      "reason": "No common manual reference exists in this worktree"
+    },
+    {
+      "id": "fake-extractor-trajectory",
+      "role": "unit contract verification only",
+      "status": "PASS",
+      "path": "tools/test_tsvad_amv_stt.py",
+      "audio": false,
+      "quality_evidence": false,
+      "reason": "Deterministic fakes test adapter and evaluator behavior without claiming model accuracy"
+    }
+  ],
+  "real_audio_runs": [],
+  "separated_tracks": [],
+  "asr_recovery_runs": [],
+  "android_runs": []
+}

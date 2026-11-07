@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/uno-km/amv-stt",
+  "commit": "b063c273749b72002e7d498a2eb9a8e07e11721b",
+  "source_path": "amv_stt/diarization/overlap_resolver.py",
+  "source_url": "https://raw.githubusercontent.com/uno-km/amv-stt/b063c273749b72002e7d498a2eb9a8e07e11721b/amv_stt/diarization/overlap_resolver.py",
+  "source_sha256": "743ff0398943645336ef634c81e23def0ded6a91c815169a120563e7fb89b517",
+  "repository_license": "Apache-2.0",
+  "source_spdx": "Apache-2.0 OR Commercial-License",
+  "license_path": "LICENSE",
+  "license_url": "https://raw.githubusercontent.com/uno-km/amv-stt/b063c273749b72002e7d498a2eb9a8e07e11721b/LICENSE",
+  "license_sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "issue": 10,
+  "candidate": "uno-km/amv-stt OverlapResolver",
+  "upstream_commit": "b063c273749b72002e7d498a2eb9a8e07e11721b",
+  "license": {
+    "repository": "Apache-2.0",
+    "source_spdx": "Apache-2.0 OR Commercial-License"
+  },
+  "activity_vs_common_manual_reference": {
+    "status": "NOT_RUN",
+    "value": null,
+    "unit": null,
+    "reason": "Common manual reference is not present in this worktree; fake unit fixtures are not quality evidence"
+  },
+  "wer_recovery": {
+    "status": "NOT_RUN",
+    "value": null,
+    "unit": null,
+    "reason": "OverlapResolver only rewrites intervals; no separator, recovered waveform or paired ASR run exists"
+  },
+  "rtf_honor": {
+    "status": "NOT_RUN",
+    "value": null,
+    "unit": "processing_seconds_per_audio_second",
+    "reason": "No Android runner was executed for this isolated adapter"
+  },
+  "pss_honor": {
+    "status": "NOT_RUN",
+    "value": null,
+    "unit": "MiB",
+    "reason": "No Android runner was executed for this isolated adapter"
+  },
+  "unit_tests": {
+    "status": "PASS",
+    "value": 10,
+    "unit": "tests",
+    "reason": "Fake extractor/trajectory and evaluator contract tests only; not model accuracy evidence"
+  },
+  "limitations": [
+    "Sliding-window CAM++ cosine heuristic changes intervals only",
+    "Detected interjections replace dominant intervals instead of preserving simultaneous activity",
+    "No source separation or waveform output",
+    "No common manual activity score in this worktree",
+    "No paired ASR recovery or physical HONOR performance measurement"
+  ],
+  "decision": {
+    "recovery_claim": "NO-GO",
+    "production_integration": "NOT_RUN",
+    "reason": "Interval editing cannot establish WER recovery; separator, paired manual-reference ASR evidence and Android measurements are absent"
+  }
+}

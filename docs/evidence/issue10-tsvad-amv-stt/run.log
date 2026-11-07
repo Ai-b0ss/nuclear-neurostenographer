@@ -1,0 +1,25 @@
+$ git branch --show-current
+research/overlap-tsvad-amv-stt
+
+$ curl pinned uno-km/amv-stt overlap_resolver.py and LICENSE at b063c273749b72002e7d498a2eb9a8e07e11721b
+743ff0398943645336ef634c81e23def0ded6a91c815169a120563e7fb89b517  overlap_resolver.py
+a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9  LICENSE
+
+$ python -m unittest tools.test_tsvad_amv_stt -v
+Ran 10 tests in 2.145s
+OK
+
+$ git diff --check
+OK
+
+$ git diff --no-index --check /dev/null <each untracked file>
+Tracked and untracked diff whitespace checks: OK
+
+$ JSON parse and upstream SHA-256 verification
+JSON OK: 3
+Source and LICENSE hashes match provenance.json
+
+Activity vs common manual reference: NOT_RUN (reference absent)
+WER recovery: NOT_RUN (no separator or paired ASR run)
+HONOR RTF: NOT_RUN (no Android runner)
+HONOR PSS: NOT_RUN (no Android runner)
