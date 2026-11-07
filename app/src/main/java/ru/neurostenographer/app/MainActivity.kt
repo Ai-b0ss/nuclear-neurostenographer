@@ -248,7 +248,7 @@ class MainActivity : ComponentActivity() {
                     notice = "Выберите аудиофайл в системном окне."
                     importAudio.launch(arrayOf("audio/*", "application/ogg", "application/octet-stream"))
                 },
-                onTranscribe = model::transcribe, onCancel = model::cancel, onOpen = model::open,
+                onTranscribe = model::transcribe, onCancel = model::cancel, onDiscard = model::discardSource, onOpen = model::open,
                 onRealtime = if (BuildConfig.REALTIME) ({
                     startActivity(Intent().setClassName(this@MainActivity, "ru.neurostenographer.app.RealtimeActivity"))
                 }) else null,
@@ -338,7 +338,7 @@ private fun plural(n: Int, one: String, few: String, many: String): String =
 /** Two sections: «Запись» (record / open a file) and «Стенограммы» (everything finished, with multi-select). */
 @Composable
 private fun MainTabs(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
-                     onTranscribe: () -> Unit, onCancel: () -> Unit, onOpen: (String) -> Unit,
+                     onTranscribe: () -> Unit, onCancel: () -> Unit, onDiscard: () -> Unit, onOpen: (String) -> Unit,
                      onRealtime: (() -> Unit)?, onShareMany: (Set<String>) -> Unit, onDeleteMany: (Set<String>) -> Unit) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     Scaffold(containerColor = MaterialTheme.colorScheme.background, bottomBar = {
@@ -352,7 +352,7 @@ private fun MainTabs(state: ScreenState, recording: Boolean, preparing: Boolean,
         // Both sections stay composed: the first switch does not have to load and run its code for the first time
         // (a freshly installed app has no compiled code yet and a cold switch visibly stutters).
         Box(Modifier.fillMaxSize().padding(padding)) {
-            TabLayer(active = tab == 0) { HomeTab(state, recording, preparing, notice, onRecord, onImport, onTranscribe, onCancel, onRealtime) }
+            TabLayer(active = tab == 0) { HomeTab(state, recording, preparing, notice, onRecord, onImport, onTranscribe, onCancel, onDiscard, onRealtime) }
             TabLayer(active = tab == 1) { TranscriptsTab(state, tab == 1, onOpen, onShareMany, onDeleteMany) }
         }
     }
@@ -372,7 +372,7 @@ private fun TabLayer(active: Boolean, content: @Composable () -> Unit) {
 
 @Composable
 private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
-                    onTranscribe: () -> Unit, onCancel: () -> Unit, onRealtime: (() -> Unit)?) {
+                    onTranscribe: () -> Unit, onCancel: () -> Unit, onDiscard: () -> Unit, onRealtime: (() -> Unit)?) {
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
         Column(Modifier.fillMaxWidth().padding(top = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Нейростенограф", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
@@ -383,7 +383,7 @@ private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, 
                 Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(top = 20.dp, bottom = 12.dp),
             verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             val mode = when { recording -> 0; state.busy || preparing -> 1; else -> 2 }
             // Old card fades out first, the new one fades in after it: never two different cards on top of each other.
@@ -393,12 +393,12 @@ private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, 
                     0 -> RecordingHero(enabled = !state.busy, onStop = onRecord)
                     1 -> ProcessingCard(state, onCancel)
                     else -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        if (state.source != null) Box(Modifier.padding(bottom = 16.dp)) { PendingAudioCard(state, onTranscribe) }
+                        if (state.source != null) Box(Modifier.padding(bottom = 16.dp)) { PendingAudioCard(state, onTranscribe, onDiscard) }
                         StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport, onRealtime = onRealtime)
                     }
                 }
             }
-            if (!recording && !state.busy && !preparing && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) {
+            if (!recording && !state.busy && !preparing && state.source == null && state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) {
                 Text(state.message, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center, modifier = Modifier.padding(top = 16.dp))
             }
@@ -526,7 +526,7 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
 
 /** Calm equaliser while the phone works. Bars scale as layers: no recomposition, no re-recording per frame. */
 @Composable
-private fun WaveBars(color: Color) {
+internal fun WaveBars(color: Color) {
     val transition = rememberInfiniteTransition(label = "wave")
     Row(Modifier.height(40.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
         for (i in 0 until 9) {
@@ -560,17 +560,24 @@ private fun Steps(stage: Int) {
 
 /** Audio that was not recognised (cancelled or failed): recognition normally starts by itself. */
 @Composable
-private fun PendingAudioCard(state: ScreenState, onTranscribe: () -> Unit) {
+private fun PendingAudioCard(state: ScreenState, onTranscribe: () -> Unit, onDiscard: () -> Unit) {
     Card(shape = RoundedCornerShape(24.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(1.dp)) {
         Column(Modifier.fillMaxWidth().padding(16.dp)) {
             Text("Аудио ждёт расшифровки", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             Text(state.sourceName ?: "Аудио", style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
             state.sourceDurationMs?.let { Text("Длительность ${clock(it)}", style = MaterialTheme.typography.bodySmall) }
+            if (state.message.isNotBlank() && state.message != TranscriptionViewModel.READY) {
+                Spacer(Modifier.height(6.dp))
+                Text(state.message, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             Spacer(Modifier.height(12.dp))
             Button(onClick = onTranscribe, enabled = state.modelReady, shape = RoundedCornerShape(16.dp),
                 modifier = Modifier.fillMaxWidth().height(52.dp)) {
                 Text("Распознать", style = MaterialTheme.typography.titleMedium)
+            }
+            TextButton(onClick = onDiscard, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Text("Удалить это аудио", color = MaterialTheme.colorScheme.error)
             }
         }
     }

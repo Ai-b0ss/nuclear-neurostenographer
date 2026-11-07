@@ -158,7 +158,12 @@ class RealtimeActivity : ComponentActivity() {
                     else "Распознавание и разделение говорящих идут на телефоне, без интернета.",
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                 Spacer(Modifier.height(10.dp))
-                LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(18.dp),
+                if (recording && segments.isEmpty()) {
+                    // The lower half is not left blank while nothing has been recognised yet.
+                    Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        WaveBars(MaterialTheme.colorScheme.primary.copy(alpha = 0.6f))
+                    }
+                } else LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(18.dp),
                     contentPadding = PaddingValues(bottom = 24.dp)) {
                     items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
                 }

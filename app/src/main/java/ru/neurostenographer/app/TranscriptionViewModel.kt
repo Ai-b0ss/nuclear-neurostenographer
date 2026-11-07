@@ -90,7 +90,10 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         mutable.value = mutable.value.copy(busy = true)
         operation = viewModelScope.launch {
             try { block() }
-            catch (_: CancellationException) { mutable.value = mutable.value.copy(message = "Операция отменена.") }
+            catch (_: CancellationException) {
+                mutable.value = mutable.value.copy(message = if (mutable.value.source != null)
+                    "Расшифровка остановлена. Аудио можно расшифровать снова или удалить." else "Операция отменена.")
+            }
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
@@ -437,6 +440,20 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     }
 
     fun cancel() { operation?.cancel() }
+
+    /** Drops audio that was not recognised (cancelled or failed). Only app-owned copies are deleted, never a user's file. */
+    fun discardSource() {
+        if (mutable.value.busy || recording.value) return
+        val uri = mutable.value.source
+        if (uri?.scheme == "file") {
+            val file = File(uri.path ?: "")
+            val app = getApplication<Application>()
+            val ownedCopy = file.parentFile == File(app.cacheDir, "audio-input") ||
+                (file.parentFile == app.filesDir && file.name.matches(Regex("recording_\\d+\\.wav")))
+            if (ownedCopy) file.delete()
+        }
+        mutable.value = mutable.value.copy(source = null, sourceName = null, sourceDurationMs = null, message = READY)
+    }
 
     /** Explicit user action: delete only app-generated local audio, including abandoned imports.
      * Exported documents belong to their chosen provider and cannot be erased here.
