@@ -1,0 +1,16 @@
+== LIVE (0.3.9 code): transcript after finalization
+syn3-clean             WER 3/52 (5.8%)  cpWER 3/52  speakers 3/3  segments 7  | state COMPLETE latency p50 1341 max 2919 ms  final 12367 ms
+syn4-noise             WER 14/76 (18.4%)  cpWER NOT_SCORED  speakers 4/4  segments 13  | state COMPLETE latency p50 1285 max 1911 ms  final 21587 ms
+veche-2-one-to-one     WER 15/137 (10.9%)  cpWER NOT_SCORED  speakers 2/2  segments 20  | state COMPLETE latency p50 1658 max 3395 ms  final 22010 ms
+veche-3-auth-incident  WER 16/123 (13.0%)  cpWER NOT_SCORED  speakers 3/3  segments 16  | state COMPLETE latency p50 1349 max 2420 ms  final 22140 ms
+aba                    WER 1/17 (5.9%)  cpWER 1/17  speakers 2/2  segments 3  | state COMPLETE latency p50 1063 max 1458 ms  final 3595 ms
+overlap                segments 3  | state COMPLETE latency p50 1438 max 1438 ms  final 1558 ms
+silence                segments 0  | state COMPLETE latency p50 None max None ms  final 2188 ms
+
+== FILE IMPORT (.solhigh): 0.3.3 acceptance 06.11 -> current code
+aba         before: WER 1/17 (5.9%)  cpWER 1/17  speakers 2/2  segments 3
+            after:  WER 1/17 (5.9%)  cpWER 1/17  speakers 2/2  segments 3
+syn3-clean  before: WER 3/52 (5.8%)  cpWER 3/52  speakers 3/3  segments 7
+            after:  WER 3/52 (5.8%)  cpWER 3/52  speakers 3/3  segments 7
+syn4-noise  before: WER 12/76 (15.8%)  cpWER NOT_SCORED  speakers 4/4  segments 13
+            after:  WER 13/76 (17.1%)  cpWER NOT_SCORED  speakers 4/4  segments 13
