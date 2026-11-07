@@ -64,6 +64,10 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.StrokeCap
@@ -86,7 +90,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.neurostenographer.core.PcmWav
 import ru.neurostenographer.core.TermEdit
 import ru.neurostenographer.core.TranscriptExport
@@ -179,6 +186,7 @@ class MainActivity : ComponentActivity() {
             else notice = if (ok) "Вернитесь в приложение и нажмите «Записать»." else "Разрешение микрофона отклонено."
         }
         val haptic = LocalHapticFeedback.current
+        val scope = rememberCoroutineScope()
         val record = {
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             if (recording) model.stopRecording()
@@ -192,6 +200,9 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(state.source, state.busy, recording, state.modelReady) {
             val source = state.source?.toString()
             if (source != null && !state.busy && !recording && state.modelReady && state.current == null && autoStarted != source) {
+                // Let the card transition play and the screen settle first: the heavy work starts a moment later,
+                // so «Стоп» answers at once and does not stutter. 0.4 s is nothing against minutes of recognition.
+                delay(400)
                 autoStarted = source
                 model.transcribe()
             }
@@ -232,15 +243,20 @@ class MainActivity : ComponentActivity() {
                     startActivity(Intent().setClassName(this@MainActivity, "ru.neurostenographer.app.RealtimeActivity"))
                 }) else null,
                 onShareMany = { ids ->
-                    val text = state.history.filter { it.id in ids }.joinToString("\n\n") { t ->
-                        "══ ${t.title} ══\n" + t.document.export("txt", t.speakerNames, t.termEdits)
-                    }
-                    // An intent travels through Binder (about 1 MB): do not crash on a huge selection.
-                    if (text.length > 200_000) android.widget.Toast.makeText(this@MainActivity,
-                        "Слишком много текста для отправки. Выберите меньше стенограмм.", android.widget.Toast.LENGTH_LONG).show()
-                    else runCatching {
-                        startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
-                            .putExtra(Intent.EXTRA_SUBJECT, "Стенограммы: ${ids.size}").putExtra(Intent.EXTRA_TEXT, text), "Поделиться стенограммами"))
+                    // Joining many long transcripts takes a moment: confirm the tap at once, build off the UI thread.
+                    android.widget.Toast.makeText(this@MainActivity, "Готовлю к отправке…", android.widget.Toast.LENGTH_SHORT).show()
+                    val picked = state.history.filter { it.id in ids }
+                    scope.launch {
+                        val text = withContext(Dispatchers.Default) {
+                            picked.joinToString("\n\n") { t -> "══ ${t.title} ══\n" + t.document.export("txt", t.speakerNames, t.termEdits) }
+                        }
+                        // An intent travels through Binder (about 1 MB): do not crash on a huge selection.
+                        if (text.length > 200_000) android.widget.Toast.makeText(this@MainActivity,
+                            "Слишком много текста для отправки. Выберите меньше стенограмм.", android.widget.Toast.LENGTH_LONG).show()
+                        else runCatching {
+                            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
+                                .putExtra(Intent.EXTRA_SUBJECT, "Стенограммы: ${ids.size}").putExtra(Intent.EXTRA_TEXT, text), "Поделиться стенограммами"))
+                        }
                     }
                 },
                 onDeleteMany = model::deleteMany)
@@ -323,35 +339,38 @@ private fun MainTabs(state: ScreenState, recording: Boolean, notice: String, onR
                 icon = { Icon(Icons.AutoMirrored.Filled.List, null) }, label = { Text("Стенограммы") })
         }
     }) { padding ->
+        // Both sections stay composed: the first switch does not have to load and run its code for the first time
+        // (a freshly installed app has no compiled code yet and a cold switch visibly stutters).
         Box(Modifier.fillMaxSize().padding(padding)) {
-            if (tab == 0) HomeTab(state, recording, notice, onRecord, onImport, onTranscribe, onCancel, onRealtime)
-            else TranscriptsTab(state, onOpen, onShareMany, onDeleteMany)
+            TabLayer(active = tab == 0) { HomeTab(state, recording, notice, onRecord, onImport, onTranscribe, onCancel, onRealtime) }
+            TabLayer(active = tab == 1) { TranscriptsTab(state, tab == 1, onOpen, onShareMany, onDeleteMany) }
         }
+    }
+}
+
+/** The visible section is on top; the other one is kept below, invisible, silent for accessibility and deaf to touches. */
+@Composable
+private fun TabLayer(active: Boolean, content: @Composable () -> Unit) {
+    val hidden = if (active) Modifier else Modifier.alpha(0f).clearAndSetSemantics { }.pointerInput(Unit) {
+        awaitPointerEventScope { while (true) awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() } }
+    }
+    Box(Modifier.fillMaxSize().zIndex(if (active) 1f else 0f).then(hidden)) {
+        if (active) Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background))
+        content()
     }
 }
 
 @Composable
 private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRecord: () -> Unit, onImport: () -> Unit,
                     onTranscribe: () -> Unit, onCancel: () -> Unit, onRealtime: (() -> Unit)?) {
-    var menu by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
-        Box(Modifier.fillMaxWidth().padding(top = 20.dp)) {
-            Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Нейростенограф", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-                Spacer(Modifier.height(4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Filled.Lock, null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
-                    Spacer(Modifier.width(5.dp))
-                    Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-            }
-            // Rarely needed extras live in a menu, not on the main screen.
-            if (onRealtime != null) Box(Modifier.align(Alignment.TopEnd)) {
-                IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, "Ещё") }
-                DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                    DropdownMenuItem(text = { Text("Живая расшифровка") }, enabled = state.modelReady && !state.busy && !recording,
-                        onClick = { menu = false; onRealtime() })
-                }
+        Column(Modifier.fillMaxWidth().padding(top = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Нейростенограф", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(4.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Filled.Lock, null, Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.width(5.dp))
+                Text("Без интернета", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
@@ -363,7 +382,7 @@ private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRe
                     1 -> ProcessingCard(state, onCancel)
                     else -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (state.source != null) Box(Modifier.padding(bottom = 16.dp)) { PendingAudioCard(state, onTranscribe) }
-                        StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport)
+                        StartBlock(ready = state.modelReady, onRecord = onRecord, onImport = onImport, onRealtime = onRealtime)
                     }
                 }
             }
@@ -379,7 +398,7 @@ private fun HomeTab(state: ScreenState, recording: Boolean, notice: String, onRe
 
 /** No card and no halo: the record button is the page. */
 @Composable
-private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit) {
+private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Unit, onRealtime: (() -> Unit)?) {
     val primary = MaterialTheme.colorScheme.primary
     val interaction = remember { MutableInteractionSource() }
     val pressed by interaction.collectIsPressedAsState()
@@ -400,11 +419,19 @@ private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Uni
         Text("Остановите запись — расшифровка начнётся сама", style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
         Spacer(Modifier.height(24.dp))
+        // Two equal ways besides the big button; live transcription is not hidden.
         FilledTonalButton(onClick = onImport, enabled = ready, shape = RoundedCornerShape(50),
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) {
+            modifier = Modifier.fillMaxWidth(0.82f), contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) {
             Icon(Icons.Filled.Add, null, Modifier.size(20.dp))
             Spacer(Modifier.width(8.dp))
             Text("Открыть аудиофайл")
+        }
+        if (onRealtime != null) {
+            Spacer(Modifier.height(10.dp))
+            FilledTonalButton(onClick = onRealtime, enabled = ready, shape = RoundedCornerShape(50),
+                modifier = Modifier.fillMaxWidth(0.82f), contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) {
+                Text("Живая расшифровка")
+            }
         }
         Spacer(Modifier.height(8.dp))
         Text("WAV, MP3, M4A · до 20 мин · или «Поделиться» из мессенджера", style = MaterialTheme.typography.bodySmall,
@@ -554,7 +581,7 @@ private fun dayLabel(ms: Long): String {
 /** The list of finished transcripts. Long-press selects; with a selection the bar offers share and delete for all of them. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShareMany: (Set<String>) -> Unit,
+private fun TranscriptsTab(state: ScreenState, active: Boolean, onOpen: (String) -> Unit, onShareMany: (Set<String>) -> Unit,
                            onDeleteMany: (Set<String>) -> Unit) {
     var selected by remember { mutableStateOf(setOf<String>()) }
     var searching by remember { mutableStateOf(false) }
@@ -563,9 +590,13 @@ private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShare
     val ids = remember(state.history) { state.history.map { it.id }.toSet() }
     // A deleted transcript cannot stay selected.
     val chosen = selected.intersect(ids)
-    val selecting = chosen.isNotEmpty()
-    BackHandler(selecting || searching) {
-        if (selecting) selected = emptySet() else { searching = false; query = "" }
+    // Selection starts from the «Выбрать» button or a long press, and ends with ✕. It never ends by itself.
+    var selectMode by remember { mutableStateOf(false) }
+    val selecting = selectMode
+    // Leaving the section ends selection and search, so the hidden copy never owns the Back button.
+    LaunchedEffect(active) { if (!active) { selectMode = false; selected = emptySet(); searching = false; query = "" } }
+    BackHandler(active && (selecting || searching)) {
+        if (selecting) { selectMode = false; selected = emptySet() } else { searching = false; query = "" }
     }
     val needle = query.trim()
     val shown = remember(state.history, needle) {
@@ -579,11 +610,11 @@ private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShare
         if (selecting) TopAppBar(
             title = { Text("Выбрано: ${chosen.size}", fontWeight = FontWeight.SemiBold) },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-            navigationIcon = { IconButton(onClick = { selected = emptySet() }) { Icon(Icons.Filled.Close, "Снять выделение") } },
+            navigationIcon = { IconButton(onClick = { selectMode = false; selected = emptySet() }) { Icon(Icons.Filled.Close, "Отменить выбор") } },
             actions = {
                 IconButton(onClick = { selected = shown.map { it.id }.toSet() }) { Icon(Icons.Filled.Done, "Выбрать все") }
-                IconButton(onClick = { onShareMany(chosen) }) { Icon(Icons.Filled.Share, "Поделиться выбранными") }
-                IconButton(onClick = { confirm = true }) { Icon(Icons.Filled.Delete, "Удалить выбранные") }
+                IconButton(onClick = { onShareMany(chosen) }, enabled = chosen.isNotEmpty()) { Icon(Icons.Filled.Share, "Поделиться выбранными") }
+                IconButton(onClick = { confirm = true }, enabled = chosen.isNotEmpty()) { Icon(Icons.Filled.Delete, "Удалить выбранные") }
             })
         else TopAppBar(
             title = {
@@ -597,8 +628,9 @@ private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShare
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
             actions = {
-                if (state.history.isNotEmpty()) IconButton(onClick = { searching = !searching; if (!searching) query = "" }) {
-                    Icon(Icons.Filled.Search, "Поиск")
+                if (state.history.isNotEmpty()) {
+                    IconButton(onClick = { searching = !searching; if (!searching) query = "" }) { Icon(Icons.Filled.Search, "Поиск") }
+                    TextButton(onClick = { selectMode = true }) { Text("Выбрать") }
                 }
             })
     }) { padding ->
@@ -629,6 +661,7 @@ private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShare
                         onClick = { if (selecting) selected = if (t.id in chosen) chosen - t.id else chosen + t.id else onOpen(t.id) },
                         onLongClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            selectMode = true
                             selected = if (t.id in chosen) chosen - t.id else chosen + t.id
                         })
                 }
@@ -636,9 +669,9 @@ private fun TranscriptsTab(state: ScreenState, onOpen: (String) -> Unit, onShare
         }
     }
     if (confirm) AlertDialog(onDismissRequest = { confirm = false },
-        title = { Text("Удалить ${plural(chosen.size, "стенограмму", "стенограммы", "стенограмм")}?") },
+        title = { Text("Удалить: ${plural(chosen.size, "стенограмма", "стенограммы", "стенограмм")}?") },
         text = { Text("Они будут удалены с телефона. Экспортированные файлы останутся.") },
-        confirmButton = { TextButton(onClick = { confirm = false; onDeleteMany(chosen); selected = emptySet() }) { Text("Удалить") } },
+        confirmButton = { TextButton(onClick = { confirm = false; onDeleteMany(chosen); selected = emptySet(); selectMode = false }) { Text("Удалить") } },
         dismissButton = { TextButton(onClick = { confirm = false }) { Text("Отмена") } })
 }
 
