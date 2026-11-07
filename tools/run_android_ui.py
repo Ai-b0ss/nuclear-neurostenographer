@@ -219,7 +219,10 @@ class AndroidUi:
         self.visible("Экспорт", exact=True)
         deadline = time.monotonic() + 15
         while True:
-            body = self.command("exec-out", "cat", "/sdcard/Download/" + name)
+            try:
+                body = self.command("exec-out", "cat", "/sdcard/Download/" + name)
+            except subprocess.CalledProcessError as error:
+                body = b"cat: " + (error.output or b"")[:100]
             if (body and not body.startswith((b"cat:", b"error:", b"run-as:"))) or time.monotonic() >= deadline:
                 break
             time.sleep(0.5)
