@@ -101,44 +101,75 @@ class RealtimeActivity : ComponentActivity() {
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                 navigationIcon = { IconButton(onClick = { finish() }, enabled = !busy) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } })
         }) { padding ->
-            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(clock(state.audioMs), fontSize = 44.sp, fontWeight = FontWeight.Light,
-                    color = if (recording) red else MaterialTheme.colorScheme.onSurface)
-                Text(if (stopping) "Останавливаю…" else statusText(status), style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-                if (status == "LOADING" || status == "FINALIZING" || stopping) {
-                    Spacer(Modifier.height(8.dp))
-                    LinearProgressIndicator(Modifier.fillMaxWidth(0.6f).clip(RoundedCornerShape(50)))
-                }
-                Spacer(Modifier.height(14.dp))
-                if (!busy) {
-                    Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable {
-                        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
-                        else permission.launch(Manifest.permission.RECORD_AUDIO)
-                    }.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(Modifier.size(84.dp).background(MaterialTheme.colorScheme.primary, CircleShape), contentAlignment = Alignment.Center) {
-                            MicGlyph(MaterialTheme.colorScheme.onPrimary, 36.dp)
+            // Text panel on top (always there, grows with the conversation), controls at the bottom under the thumb.
+            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Surface(Modifier.weight(1f).fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
+                    if (segments.isEmpty()) {
+                        Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally) {
+                            if (recording) {
+                                WaveBars(MaterialTheme.colorScheme.primary.copy(alpha = 0.7f))
+                                Spacer(Modifier.height(16.dp))
+                                Text("Говорите — текст появится здесь после каждой фразы (обычно через 1–2 с).",
+                                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textAlign = TextAlign.Center)
+                            } else Text(
+                                if (complete) "Речь не распознана." else "Здесь появится текст разговора по ходу записи.\nРаспознавание и разделение говорящих идут на телефоне, без интернета.",
+                                style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center)
                         }
-                        Spacer(Modifier.height(8.dp))
-                        Text(if (complete) "Новая запись" else "Начать запись", style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold)
+                    } else {
+                        LazyColumn(state = list, modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(18.dp),
+                            contentPadding = PaddingValues(16.dp)) {
+                            items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
+                        }
                     }
-                } else if (recording) {
-                    Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable(enabled = !stopping) {
-                        stopping = true
-                        service("STOP")
-                    }.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(Modifier.size(84.dp).background(red, CircleShape), contentAlignment = Alignment.Center) {
-                            Box(Modifier.size(26.dp).background(Color.White, RoundedCornerShape(6.dp)))
+                }
+                Spacer(Modifier.height(10.dp))
+                if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
+                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.weight(1f)) {
+                        Text(clock(state.audioMs), fontSize = 40.sp, fontWeight = FontWeight.Light,
+                            color = if (recording) red else MaterialTheme.colorScheme.onSurface)
+                        Text(if (stopping) "Останавливаю…" else statusText(status), style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        if (status == "LOADING" || status == "FINALIZING" || stopping) {
+                            Spacer(Modifier.height(6.dp))
+                            LinearProgressIndicator(Modifier.fillMaxWidth(0.8f).clip(RoundedCornerShape(50)))
                         }
-                        Spacer(Modifier.height(8.dp))
-                        Text("Остановить", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = red)
+                    }
+                    Spacer(Modifier.width(12.dp))
+                    if (!busy) {
+                        Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable {
+                            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
+                            else permission.launch(Manifest.permission.RECORD_AUDIO)
+                        }.padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(Modifier.size(76.dp).background(MaterialTheme.colorScheme.primary, CircleShape), contentAlignment = Alignment.Center) {
+                                MicGlyph(MaterialTheme.colorScheme.onPrimary, 34.dp)
+                            }
+                            Spacer(Modifier.height(6.dp))
+                            Text(if (complete) "Новая запись" else "Начать запись", style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold)
+                        }
+                    } else if (recording) {
+                        Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable(enabled = !stopping) {
+                            stopping = true
+                            service("STOP")
+                        }.padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(Modifier.size(76.dp).background(red, CircleShape), contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(24.dp).background(Color.White, RoundedCornerShape(6.dp)))
+                            }
+                            Spacer(Modifier.height(6.dp))
+                            Text("Остановить", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold, color = red)
+                        }
                     }
                 }
                 if (status == "FINALIZING") TextButton(onClick = { service("CANCEL") }) {
                     Text("Пропустить уточнение (запись и текст сохранятся)", textAlign = TextAlign.Center)
                 }
-                if (complete) Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (complete) Row(Modifier.padding(bottom = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории", textAlign = TextAlign.Center) }
                     OutlinedButton(onClick = {
                         val doc = state.document!!
@@ -150,23 +181,7 @@ class RealtimeActivity : ComponentActivity() {
                     }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON", textAlign = TextAlign.Center) }
                 }
                 batchFallback(state)
-                Spacer(Modifier.height(10.dp))
-                if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
-                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-                if (segments.isEmpty()) Text(
-                    if (recording) "Говорите — текст появится после каждой фразы (обычно через 1–2 с)."
-                    else "Распознавание и разделение говорящих идут на телефоне, без интернета.",
-                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-                Spacer(Modifier.height(10.dp))
-                if (recording && segments.isEmpty()) {
-                    // The lower half is not left blank while nothing has been recognised yet.
-                    Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        WaveBars(MaterialTheme.colorScheme.primary.copy(alpha = 0.6f))
-                    }
-                } else LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(18.dp),
-                    contentPadding = PaddingValues(bottom = 24.dp)) {
-                    items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
-                }
+                Spacer(Modifier.height(8.dp))
             }
         }
     }
