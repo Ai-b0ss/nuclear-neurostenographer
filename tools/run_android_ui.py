@@ -437,7 +437,7 @@ def run(ui):
     ui.tap(label="Удалить")
     ui.visible("Стенограмма удалена")
     for format, body in exports.items():
-        if ui.command("exec-out", "cat", "/sdcard/Download/neuro-qa-ui." + format) != body:
+        if ui.command("exec-out", "cat", "/sdcard/Download/neuro-qa-ui." + ("contest.json" if format == "contest" else format)) != body:
             raise AssertionError("Transcript deletion modified provider-owned exports")
     checks.append("transcript_delete_keeps_exported_documents")
 
