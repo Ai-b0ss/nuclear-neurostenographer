@@ -349,7 +349,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         discardSnapshot(mutable.value.source)
         mutable.value = mutable.value.copy(source = null, sourceName = null, segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
-            current = saved, history = listOf(saved) + mutable.value.history, details = details, message = details)
+            current = saved, history = listOf(saved) + mutable.value.history, details = details, message = READY)
     }
 
     fun prepareExport(format: String) {
