@@ -1,0 +1,5 @@
+11-07 16:31:53.709 I/TestRunner(10109): finished: foregroundMicrophoneScreenOff(ru.neurostenographer.app.RealtimeDeviceTest)
+11-07 16:31:53.734 I/TestRunner(10109): run finished: 1 tests, 0 failed, 0 ignored
+11-07 16:31:53.744 I/ActivityManager( 1478): Force stopping ru.neurostenographer.app.realtime appid=10354 user=0: finished inst
+11-07 16:31:53.744 W/ActivityManager( 1478): Error shutting down UiAutomationConnection
+11-07 16:31:53.755 I/ActivityManager( 1478): Failure reporting to instrumentation watcher: comp=ComponentInfo{ru.neurostenographer.app.realtime.test/androidx.test.runner.AndroidJUnitRunner} results=Bundle[mParcelledData.dataSize=92]

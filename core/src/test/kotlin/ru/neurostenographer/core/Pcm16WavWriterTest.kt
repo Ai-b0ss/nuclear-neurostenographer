@@ -55,6 +55,12 @@ fun testPcm16WavWriter() {
         val abandoned = File(root, "abandoned.wav")
         Pcm16WavWriter(abandoned, 16000, 1).use { it.append(ByteBuffer.wrap(ByteArray(3200))) }
         check(!abandoned.exists())
+        val recoverable = File(root, "recoverable.wav")
+        Pcm16WavWriter(recoverable, 16000, 1, 3600, preservePartialOnFailure = true).use {
+            it.append(ByteBuffer.wrap(ByteArray(6400)))
+        }
+        check(recoverable.length() == 6444L) // realtime may recover the actual PCM after a crash
+        check(runCatching { Pcm16WavWriter(File(root, "bad-limit.wav"), 16000, 1, 3601) }.isFailure)
         val limit = File(root, "limit.wav")
         Pcm16WavWriter(limit, 8000, 2).use { sink ->
             repeat(PcmWav.MAX_SECONDS) { sink.append(ByteBuffer.wrap(ByteArray(8000 * 4))) }

@@ -19,6 +19,56 @@ fun testTermDictionary() {
     check(one("руби дрова").single().ambiguous)
     check(one("он шёл домой, шел дождь, растёт трава").isEmpty())
     check(one("котлинская котлинскаяяяя").map { it.original } == listOf("котлинская"))
+    // Hackathon / Hex.Team theme: spellings A3 produced on the TTS probe; Cyrillic canonical forms take endings without a hyphen.
+    fun pairs(text: String) = one(text).map { it.original to it.replacement }
+    check(pairs("Хокотон проводит не яу Мефи. Студенты МЕФИ. Нейросеть для деарезации говорящих. Чекпоинт Хокатона. Команда Хека Стим.") ==
+        listOf("Хокотон" to "Хакатон", "не яу Мефи" to "НИЯУ МИФИ", "МЕФИ" to "МИФИ", "деарезации" to "диаризации",
+            "Хокатона" to "Хакатона", "Хека Стим" to "Hex.Team")) { one("x").toString() }
+    check(pairs("Хакатон проводит НИЯУ МИФИ, диаризация, команда Hex.Team").isEmpty())
+    // Offensive security (A3 output on the probe).
+    check(pairs("Обсуждаем пентист внешнего периметра. Пентэстер нашёл SQL-инекцию. Используем энмоп и Вайершарк, потом метасполоид.") ==
+        listOf("пентист" to "пентест", "Пентэстер" to "Пентестер", "SQL-инекцию" to "SQL-инъекцию", "энмоп" to "Nmap",
+            "Вайершарк" to "Wireshark", "метасполоид" to "Metasploit")) { pairs("Обсуждаем пентист внешнего периметра. Пентэстер нашёл SQL-инекцию. Используем энмоп и Вайершарк, потом метасполоид.").toString() }
+    check(pairs("Эксплоид опубликован. Фазинг парсера и Фазир на ночь. Бэгдор и Рудкид в прошивке. Вредоносный шел-код.") ==
+        listOf("Эксплоид" to "Эксплойт", "Фазинг" to "Фаззинг", "Фазир" to "Фаззер", "Бэгдор" to "Бэкдор", "Рудкид" to "Руткит",
+            "шел-код" to "шелл-код")) { one("x").toString() }
+    check(pairs("Реверс инжиниринг прошивки в Вайда про и Гидре.") == listOf("Реверс инжиниринг" to "Реверс-инжиниринг", "Вайда про" to "IDA Pro",
+        "Гидре" to "Ghidra"))
+    check(pairs("Скад-система показывает параметры.") == listOf("Скад-система" to "SCADA-система"))
+    check(one("Гидре").single().ambiguous && one("люкс").single().ambiguous && one("Фриду").single().ambiguous)
+    // Acronyms: letter-name spellings and A3 misspellings; plain Latin acronyms are untouched.
+    check(pairs("Двухфакторная аутентификация, twfa, по впн и эс эс эйч, сиви и сивиэсэс, овасп, сием, эдр.") ==
+        listOf("twfa" to "2FA", "впн" to "VPN", "эс эс эйч" to "SSH", "сиви" to "CVE", "сивиэсэс" to "CVSS", "овасп" to "OWASP",
+            "сием" to "SIEM", "эдр" to "EDR")) { one("x").toString() }
+    check(one("VPN, SSH, SIEM, EDR, TLS, DNS, SQL, API, 2FA, OWASP, CVE, CVSS, Wi-Fi, Bluetooth, Nmap, Wireshark").isEmpty())
+    // Industrial control and embedded.
+    check(pairs("Модбас, профинити, озернёт, кадисис, вихдель, юарт, джейтаг, фри ртос, ардуино.").map { it.second } ==
+        listOf("Modbus", "PROFINET", "Ethernet", "CODESYS", "VHDL", "UART", "JTAG", "FreeRTOS", "Arduino")) { one("x").toString() }
+    check(pairs("Для АСУ ТП и ПЛК нужен ФСТЭК, а ещё госсопках.").map { it.second } == listOf("ГосСОПКах"))
+    // Corporate slang and the Russian IT landscape (A3 output on the meeting probe).
+    val slang = listOf(
+        "Тиккет висит на опруве. Задеплеить на стейдж. Нужен ходфикс, бакфикс залили, старипоинтах, Копасите команды." to
+            listOf("Тикет", "апруве", "Задеплоить", "хотфикс", "багфикс", "сторипоинтах", "Капасити"),
+        "Истимейт по интеграции, приоритезация, вне скопа, фокап с релизом, постмартем, доунтайм, аллерт." to
+            listOf("Эстимейт", "приоритизация", "скоупа", "факап", "постмортем", "даунтайм", "алерт"),
+        "Иркаин требует локализации, ФСТЭК и СТЭК, ГосОПК, PDN, СМЭФ, ТСУ." to listOf("РКН", "СТЭК->ФСТЭК", "ГосСОПК", "ПДн", "СМЭВ", "ТСПУ"),
+        "Вместо Джиры Кайтент, Postgrass Pro, Astro Linux, Retos, Moefis, детхаус, ВК Тимс." to
+            listOf("Kaiten", "Postgres Pro", "Astra Linux", "РЕД ОС", "МойОфис", "Deckhouse", "VK Teams"),
+        "Проопрувил, пул или реквест, ван ту ван, темлид, фолло по встрече." to
+            listOf("Проапрувил", "пулл-реквест", "one-to-one", "тимлид", "фоллоуап"))
+    for ((text, want) in slang) {
+        val got = pairs(text).map { it.second }
+        val missing = want.filter { w -> !w.contains("->") && got.none { it == w } }
+        check(missing.isEmpty()) { "$text -> $got; missing $missing" }
+    }
+    check(pairs("Ядро системы, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, ГИС, минцифра сообщила.").isEmpty()) {
+        pairs("Ядро системы, один с половиной, мой офис, озон, она шла, тарантул, стек, базис, ГИС, минцифра сообщила.").toString() }
+    check(one("доверенный пак").single().ambiguous && one("скопа").single().ambiguous)
+    // Ordinary Russian words that sit close to terms are left alone.
+    check(one("Шел дождь, рестораны открыты, мы шли, даст ответ, она сок пила, ромб и кан, график, насос и пентхаус.").isEmpty())
+    // Stems never swallow a canonical form that merely starts with the variant: «пентест» stays «пентест».
+    check(one("Пентест, пентесты, фаззинг, фаззингом, эксплойтов, руткита.").isEmpty())
+    try { Term("a*b", listOf("x")); error("Inner * accepted") } catch (_: IllegalArgumentException) { }
     // Already canonical: nothing to do.
     check(one("Пишу на Kotlin и JavaScript").isEmpty())
 

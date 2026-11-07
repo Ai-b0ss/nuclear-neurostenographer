@@ -1,0 +1,78 @@
+{
+  "fast": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.04985184257752181,
+      "miss_ms": 2389,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "speaker_1",
+        "1": "speaker_2",
+        "2": "speaker_3"
+      }
+    }
+  },
+  "preview": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.05089520470764993,
+      "miss_ms": 2439,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "speaker_1",
+        "1": "speaker_2",
+        "2": "speaker_3"
+      }
+    }
+  },
+  "final": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.05861608447059805,
+      "miss_ms": 2809,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "speaker_1",
+        "1": "speaker_2",
+        "2": "speaker_3"
+      }
+    }
+  },
+  "preview-first": {
+    "speakers": 3,
+    "der": {
+      "status": "SCORED",
+      "rate": 0.05089520470764993,
+      "miss_ms": 2439,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "0": "speaker_1",
+        "1": "speaker_2",
+        "2": "speaker_3"
+      }
+    }
+  }
+}

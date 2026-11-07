@@ -1,0 +1,2501 @@
+{
+  "scope": "SYNTHETIC_TTS_AND_AUTHORED_TESTS_NOT_NATURAL_CONVERSATION_GOLD",
+  "host": [
+    {
+      "fixture": "aba",
+      "baseline": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.5285427135678392,
+          "miss_ms": 5259,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 9950,
+          "scored_wall_ms": 10200,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "1e425f31e3ceea809e8dc2c1d6e785ab1f63fc2703e471b79b6ee5d460942bdd"
+      },
+      "live": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.45175879396984925,
+          "miss_ms": 4495,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 9950,
+          "scored_wall_ms": 10200,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986"
+      },
+      "final": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.45175879396984925,
+          "miss_ms": 4495,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 9950,
+          "scored_wall_ms": 10200,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986"
+      }
+    },
+    {
+      "fixture": "abab",
+      "baseline": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.5498205312275664,
+          "miss_ms": 7659,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 13930,
+          "scored_wall_ms": 14187,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "37d277f1acbcc6b976b322db1a1d6759be9e1e2f0647aabfc055e0fbf3e95a0b"
+      },
+      "live": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.46360373295046664,
+          "miss_ms": 6458,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 13930,
+          "scored_wall_ms": 14187,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "ee85220a5d78481ea4b9bc595a3b2749f360115a8e9175b054ebc926a4a0de6f"
+      },
+      "final": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.46360373295046664,
+          "miss_ms": 6458,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 13930,
+          "scored_wall_ms": 14187,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "ee85220a5d78481ea4b9bc595a3b2749f360115a8e9175b054ebc926a4a0de6f"
+      }
+    },
+    {
+      "fixture": "overlap",
+      "baseline": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.36611374407582936,
+          "miss_ms": 3090,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 8440,
+          "scored_wall_ms": 4470,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "f32c53c4f64a94dc7bdb4fa4d7c73da2c5c067702c7b69fb8576059e27c13717"
+      },
+      "live": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.36492890995260663,
+          "miss_ms": 3080,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 8440,
+          "scored_wall_ms": 4470,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "97119a3248ed3f66adff2f4568b2f990eca5a4af7587916ba8f8fd7ea582e9aa"
+      },
+      "final": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.36611374407582936,
+          "miss_ms": 3090,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 8440,
+          "scored_wall_ms": 4470,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "ddb60ad4ea70d6bc8ccbefca7dfafc0502cc89258a9a75219d09945c35f7bfd5"
+      }
+    },
+    {
+      "fixture": "return-pause",
+      "baseline": {
+        "speakers": 1,
+        "reference_speakers": 2,
+        "speaker_count_gate": "FAIL",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.549748743718593,
+          "miss_ms": 5451,
+          "false_alarm_ms": 0,
+          "confusion_ms": 19,
+          "reference_speaker_ms": 9950,
+          "scored_wall_ms": 68707,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1"
+          }
+        },
+        "turns_sha256": "770fcc2fb7b2cf43e6544d4e3007bd0ff63d8a28aa8115e8f3eb8683d44396e9"
+      },
+      "live": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.49728643216080404,
+          "miss_ms": 4948,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 9950,
+          "scored_wall_ms": 68707,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "af0a6c42c71868295aba3b9c1159bcee3ff20324d7f022850401d1dee576e046"
+      },
+      "final": {
+        "speakers": 2,
+        "reference_speakers": 2,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.38,
+          "miss_ms": 3781,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 9950,
+          "scored_wall_ms": 68707,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "067406c6844a7d7158420b66571c5715715e26681ffb9feb67de07f7771a6dc6"
+      }
+    },
+    {
+      "fixture": "short-tail",
+      "baseline": {
+        "speakers": 1,
+        "reference_speakers": 2,
+        "speaker_count_gate": "FAIL",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.75,
+          "miss_ms": 600,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 800,
+          "scored_wall_ms": 857,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1"
+          }
+        },
+        "turns_sha256": "740868c7c7d3fed719404a2d96ccdc2b718543ed22aa9e981e3ca6edc4ff350a"
+      },
+      "live": {
+        "speakers": 1,
+        "reference_speakers": 2,
+        "speaker_count_gate": "FAIL",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.75,
+          "miss_ms": 600,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 800,
+          "scored_wall_ms": 857,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1"
+          }
+        },
+        "turns_sha256": "740868c7c7d3fed719404a2d96ccdc2b718543ed22aa9e981e3ca6edc4ff350a"
+      },
+      "final": {
+        "speakers": 1,
+        "reference_speakers": 2,
+        "speaker_count_gate": "FAIL",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.75,
+          "miss_ms": 600,
+          "false_alarm_ms": 0,
+          "confusion_ms": 0,
+          "reference_speaker_ms": 800,
+          "scored_wall_ms": 857,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1"
+          }
+        },
+        "turns_sha256": "740868c7c7d3fed719404a2d96ccdc2b718543ed22aa9e981e3ca6edc4ff350a"
+      }
+    },
+    {
+      "fixture": "syn3",
+      "baseline": {
+        "speakers": 2,
+        "reference_speakers": 3,
+        "speaker_count_gate": "FAIL",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.5721032854138656,
+          "miss_ms": 9435,
+          "false_alarm_ms": 0,
+          "confusion_ms": 7160,
+          "reference_speaker_ms": 29007,
+          "scored_wall_ms": 29007,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2"
+          }
+        },
+        "turns_sha256": "81834683640ff1705a7a9315dcdad10df2971b5444d08b35487d54834435bbc1"
+      },
+      "live": {
+        "speakers": 3,
+        "reference_speakers": 3,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.3211983314372393,
+          "miss_ms": 9097,
+          "false_alarm_ms": 0,
+          "confusion_ms": 220,
+          "reference_speaker_ms": 29007,
+          "scored_wall_ms": 29007,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2",
+            "2": "3"
+          }
+        },
+        "turns_sha256": "032e497b1aaeb09cb2344bf7ace196e3a8989ae88de75c5b52f8afc17f9baab3"
+      },
+      "final": {
+        "speakers": 3,
+        "reference_speakers": 3,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.31947460957699864,
+          "miss_ms": 9047,
+          "false_alarm_ms": 0,
+          "confusion_ms": 220,
+          "reference_speaker_ms": 29007,
+          "scored_wall_ms": 29007,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2",
+            "2": "3"
+          }
+        },
+        "turns_sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8"
+      }
+    },
+    {
+      "fixture": "syn4",
+      "baseline": {
+        "speakers": 4,
+        "reference_speakers": 4,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.40958690568978956,
+          "miss_ms": 20020,
+          "false_alarm_ms": 380,
+          "confusion_ms": 620,
+          "reference_speaker_ms": 51320,
+          "scored_wall_ms": 51320,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4"
+          }
+        },
+        "turns_sha256": "de0f5607b4e8c45dfc1b41382d37a436b716d1fff997fb227bdd18b4e7259ab2"
+      },
+      "live": {
+        "speakers": 4,
+        "reference_speakers": 4,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.4074434918160561,
+          "miss_ms": 19980,
+          "false_alarm_ms": 300,
+          "confusion_ms": 630,
+          "reference_speaker_ms": 51320,
+          "scored_wall_ms": 51320,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4"
+          }
+        },
+        "turns_sha256": "f03549437645982640868428b7396b5eb67c6adc7d0dcf8f41810f5a4324b6d6"
+      },
+      "final": {
+        "speakers": 4,
+        "reference_speakers": 4,
+        "speaker_count_gate": "PASS",
+        "der": {
+          "status": "SCORED",
+          "rate": 0.4074434918160561,
+          "miss_ms": 19990,
+          "false_alarm_ms": 280,
+          "confusion_ms": 640,
+          "reference_speaker_ms": 51320,
+          "scored_wall_ms": 51320,
+          "collar_radius_ms": 250,
+          "skip_reference_overlap": false,
+          "hypothesis_to_reference": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4"
+          }
+        },
+        "turns_sha256": "0e4e05ac96f7de930dd120724b972bd124d295d6e743a4dbd9d21ad816db1af0"
+      }
+    }
+  ],
+  "phone": [
+    {
+      "run": "baseline-aba-r2",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 12950,
+      "elapsed_ms": 14637,
+      "native_load_ms": 7315,
+      "asr_ms": 2156,
+      "c2_ms": 2818,
+      "vad_ms": 412,
+      "compute_rtf": 0.4159073359073359,
+      "cpu_ms": 29040,
+      "max_lag_ms": 7328,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 919735,
+      "recognizer_loads": 1,
+      "asr_latency_count": 4,
+      "asr_latency_p50_ms": 2285.0,
+      "asr_latency_p95_ms": 5858.85,
+      "c2_step_count": 4,
+      "c2_step_p50_ms": 737.0,
+      "c2_step_p95_ms": 905.7,
+      "e2e_wall_rtf": 1.13027,
+      "cpu_core_equivalent": 1.984,
+      "kernel_sampled_peak_pss_kb": 904417,
+      "battery_c_minmax": [
+        33.0,
+        34.0
+      ],
+      "speakers": 1,
+      "unknown_segments": 1,
+      "wer": {
+        "errors": 1,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.5475376884422111,
+        "miss_ms": 5159,
+        "false_alarm_ms": 0,
+        "confusion_ms": 289,
+        "reference_speaker_ms": 9950,
+        "scored_wall_ms": 10200,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1"
+        }
+      },
+      "reference_speakers": 2,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-baseline",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 1"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": null,
+      "finalization_state": null,
+      "revised_frames": null,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 17,
+        "wrong_speaker": 0,
+        "unknown_speaker": 4,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 4,
+        "rate": 0.23529411764705882
+      },
+      "words": 17,
+      "unknown_words": 4,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "baseline-syn3",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 33507,
+      "elapsed_ms": 38961,
+      "native_load_ms": 9081,
+      "asr_ms": 6375,
+      "c2_ms": 14862,
+      "vad_ms": 1311,
+      "compute_rtf": 0.6729340137881636,
+      "cpu_ms": 97454,
+      "max_lag_ms": 9088,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 12,
+      "sampled_pss_kb": 913415,
+      "recognizer_loads": 1,
+      "asr_latency_count": 8,
+      "asr_latency_p50_ms": 3143.0,
+      "asr_latency_p95_ms": 7208.15,
+      "c2_step_count": 10,
+      "c2_step_p50_ms": 1483.5,
+      "c2_step_p95_ms": 2455.05,
+      "e2e_wall_rtf": 1.16277,
+      "cpu_core_equivalent": 2.5013,
+      "kernel_sampled_peak_pss_kb": 898317,
+      "battery_c_minmax": [
+        32.0,
+        32.0
+      ],
+      "speakers": 2,
+      "unknown_segments": 1,
+      "wer": {
+        "errors": 3,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.5714137966697693,
+        "miss_ms": 9186,
+        "false_alarm_ms": 0,
+        "confusion_ms": 7389,
+        "reference_speaker_ms": 29007,
+        "scored_wall_ms": 29007,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2"
+        }
+      },
+      "reference_speakers": 3,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-baseline",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 1",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 2",
+            "Speaker 2"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 1,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": null,
+      "finalization_state": null,
+      "revised_frames": null,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 52,
+        "wrong_speaker": 17,
+        "unknown_speaker": 1,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 18,
+        "rate": 0.34615384615384615
+      },
+      "words": 54,
+      "unknown_words": 1,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "baseline-syn4",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 57324,
+      "elapsed_ms": 61901,
+      "native_load_ms": 6818,
+      "asr_ms": 9858,
+      "c2_ms": 32496,
+      "vad_ms": 2399,
+      "compute_rtf": 0.780702672528086,
+      "cpu_ms": 181643,
+      "max_lag_ms": 6816,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 984035,
+      "recognizer_loads": 1,
+      "asr_latency_count": 11,
+      "asr_latency_p50_ms": 1983.0,
+      "asr_latency_p95_ms": 3808.5,
+      "c2_step_count": 16,
+      "c2_step_p50_ms": 2163.5,
+      "c2_step_p95_ms": 3178.25,
+      "e2e_wall_rtf": 1.07984,
+      "cpu_core_equivalent": 2.9344,
+      "kernel_sampled_peak_pss_kb": 950064,
+      "battery_c_minmax": [
+        34.0,
+        35.0
+      ],
+      "speakers": 4,
+      "unknown_segments": 2,
+      "wer": {
+        "errors": 14,
+        "substitutions": 10,
+        "deletions": 3,
+        "insertions": 1,
+        "reference_words": 76,
+        "rate": 0.18421052631578946,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.40861262665627435,
+        "miss_ms": 19960,
+        "false_alarm_ms": 400,
+        "confusion_ms": 610,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3",
+          "Speaker 4": "4"
+        }
+      },
+      "reference_speakers": 4,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-baseline",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ],
+          "4": [
+            "Speaker 4",
+            "Speaker 4",
+            "Speaker 4"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": null,
+      "finalization_state": null,
+      "revised_frames": null,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 63,
+        "wrong_speaker": 0,
+        "unknown_speaker": 1,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 1,
+        "rate": 0.015873015873015872
+      },
+      "words": 71,
+      "unknown_words": 2,
+      "overlap_segments": 1,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "revised-syn3",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 33507,
+      "elapsed_ms": 44201,
+      "native_load_ms": 9915,
+      "asr_ms": 6391,
+      "c2_ms": 20142,
+      "vad_ms": 1218,
+      "compute_rtf": 0.8282149998507774,
+      "cpu_ms": 116336,
+      "max_lag_ms": 9920,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 4,
+      "sampled_pss_kb": 940136,
+      "recognizer_loads": 1,
+      "asr_latency_count": 8,
+      "asr_latency_p50_ms": 3438.0,
+      "asr_latency_p95_ms": 8053.4,
+      "c2_step_count": 10,
+      "c2_step_p50_ms": 1479.0,
+      "c2_step_p95_ms": 2470.15,
+      "e2e_wall_rtf": 1.31916,
+      "cpu_core_equivalent": 2.632,
+      "kernel_sampled_peak_pss_kb": 1028457,
+      "battery_c_minmax": [
+        34.0,
+        35.0
+      ],
+      "speakers": 3,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 3,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          },
+          {
+            "reference": "3",
+            "hypothesis": "Speaker 3"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.31947460957699864,
+        "miss_ms": 9037,
+        "false_alarm_ms": 0,
+        "confusion_ms": 230,
+        "reference_speaker_ms": 29007,
+        "scored_wall_ms": 29007,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3"
+        }
+      },
+      "reference_speakers": 3,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-new",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 5205,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 2747,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 52,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 54,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "final-aba",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 12950,
+      "elapsed_ms": 15831,
+      "native_load_ms": 6832,
+      "asr_ms": 2142,
+      "c2_ms": 3999,
+      "vad_ms": 464,
+      "compute_rtf": 0.5100386100386101,
+      "cpu_ms": 32746,
+      "max_lag_ms": 6976,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 28,
+      "sampled_pss_kb": 930914,
+      "recognizer_loads": 1,
+      "asr_latency_count": 4,
+      "asr_latency_p50_ms": 2126.5,
+      "asr_latency_p95_ms": 5516.9,
+      "c2_step_count": 4,
+      "c2_step_p50_ms": 740.0,
+      "c2_step_p95_ms": 909.55,
+      "e2e_wall_rtf": 1.22247,
+      "cpu_core_equivalent": 2.0685,
+      "kernel_sampled_peak_pss_kb": 1025978,
+      "battery_c_minmax": [
+        35.0,
+        36.0
+      ],
+      "speakers": 2,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 1,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.3796984924623116,
+        "miss_ms": 3778,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 9950,
+        "scored_wall_ms": 10200,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2"
+        }
+      },
+      "reference_speakers": 2,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 1153,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 198,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 17,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 17,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "final-fallback-300",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 33507,
+      "elapsed_ms": 42062,
+      "native_load_ms": 6748,
+      "asr_ms": 6548,
+      "c2_ms": 12689,
+      "vad_ms": 2402,
+      "compute_rtf": 0.6458053541051124,
+      "cpu_ms": 86809,
+      "max_lag_ms": 6752,
+      "fallback": true,
+      "silence_ms": 300,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 953961,
+      "recognizer_loads": 1,
+      "asr_latency_count": 8,
+      "asr_latency_p50_ms": 1230.5,
+      "asr_latency_p95_ms": 4646.15,
+      "c2_step_count": 4,
+      "c2_step_p50_ms": 1964.5,
+      "c2_step_p95_ms": 2496.3,
+      "e2e_wall_rtf": 1.25532,
+      "cpu_core_equivalent": 2.0638,
+      "kernel_sampled_peak_pss_kb": 935191,
+      "battery_c_minmax": [
+        38.0,
+        38.0
+      ],
+      "speakers": 3,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 3,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          },
+          {
+            "reference": "3",
+            "hypothesis": "Speaker 3"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.31947460957699864,
+        "miss_ms": 9047,
+        "false_alarm_ms": 0,
+        "confusion_ms": 220,
+        "reference_speaker_ms": 29007,
+        "scored_wall_ms": 29007,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3"
+        }
+      },
+      "reference_speakers": 3,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 5172,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 364,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 52,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 54,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "final-overlap",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 5480,
+      "elapsed_ms": 10056,
+      "native_load_ms": 6906,
+      "asr_ms": 1201,
+      "c2_ms": 1412,
+      "vad_ms": 140,
+      "compute_rtf": 0.5023722627737226,
+      "cpu_ms": 18079,
+      "max_lag_ms": 5448,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 913500,
+      "recognizer_loads": 1,
+      "asr_latency_count": 2,
+      "asr_latency_p50_ms": 3603.0,
+      "asr_latency_p95_ms": 3752.4,
+      "c2_step_count": 2,
+      "c2_step_p50_ms": 435.5,
+      "c2_step_p95_ms": 455.75,
+      "e2e_wall_rtf": 1.83504,
+      "cpu_core_equivalent": 1.7978,
+      "kernel_sampled_peak_pss_kb": 824441,
+      "battery_c_minmax": [
+        39.0,
+        39.0
+      ],
+      "speakers": 1,
+      "unknown_segments": 1,
+      "wer": {
+        "errors": 6,
+        "substitutions": 2,
+        "deletions": 4,
+        "insertions": 0,
+        "reference_words": 14,
+        "rate": 0.42857142857142855,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.3636255924170616,
+        "miss_ms": 3069,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 8440,
+        "scored_wall_ms": 4470,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2"
+        }
+      },
+      "reference_speakers": 2,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 1"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 541,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 1,
+      "matched_word_attribution": {
+        "status": "NOT_SCORED",
+        "reason": "Overlapping reference word order is ambiguous"
+      },
+      "words": 10,
+      "unknown_words": 6,
+      "overlap_segments": 1,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "final-silence",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 8000,
+      "elapsed_ms": 9838,
+      "native_load_ms": 6767,
+      "asr_ms": 0,
+      "c2_ms": 2411,
+      "vad_ms": 198,
+      "compute_rtf": 0.326125,
+      "cpu_ms": 16452,
+      "max_lag_ms": 6816,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 921061,
+      "recognizer_loads": 1,
+      "asr_latency_count": 0,
+      "asr_latency_p50_ms": null,
+      "asr_latency_p95_ms": null,
+      "c2_step_count": 3,
+      "c2_step_p50_ms": 564.0,
+      "c2_step_p95_ms": 629.7,
+      "e2e_wall_rtf": 1.22975,
+      "cpu_core_equivalent": 1.6723,
+      "kernel_sampled_peak_pss_kb": 846786,
+      "battery_c_minmax": [
+        38.0,
+        39.0
+      ],
+      "speakers": 0,
+      "unknown_segments": 0,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "finalization_ms": 757,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 0,
+      "words": 0,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "EMPTY_SILENCE"
+    },
+    {
+      "run": "final-single",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 5470,
+      "elapsed_ms": 10022,
+      "native_load_ms": 6850,
+      "asr_ms": 1237,
+      "c2_ms": 1378,
+      "vad_ms": 135,
+      "compute_rtf": 0.5027422303473492,
+      "cpu_ms": 18126,
+      "max_lag_ms": 5438,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 907767,
+      "recognizer_loads": 1,
+      "asr_latency_count": 2,
+      "asr_latency_p50_ms": 3574.0,
+      "asr_latency_p95_ms": 3717.1,
+      "c2_step_count": 2,
+      "c2_step_p50_ms": 416.0,
+      "c2_step_p95_ms": 421.4,
+      "e2e_wall_rtf": 1.83218,
+      "cpu_core_equivalent": 1.8086,
+      "kernel_sampled_peak_pss_kb": 893584,
+      "battery_c_minmax": [
+        38.0,
+        38.0
+      ],
+      "speakers": 1,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 1,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_words": 10,
+        "rate": 0.1,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 1,
+        "reference_words": 10,
+        "rate": 0.1,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.2716297786720322,
+        "miss_ms": 1350,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 4970,
+        "scored_wall_ms": 4970,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1"
+        }
+      },
+      "reference_speakers": 1,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 546,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 0,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 10,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 10,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "final-syn3-clean",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 33507,
+      "elapsed_ms": 44243,
+      "native_load_ms": 10152,
+      "asr_ms": 6357,
+      "c2_ms": 20209,
+      "vad_ms": 1198,
+      "compute_rtf": 0.8286029784821082,
+      "cpu_ms": 117078,
+      "max_lag_ms": 10176,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 933007,
+      "recognizer_loads": 1,
+      "asr_latency_count": 8,
+      "asr_latency_p50_ms": 3480.5,
+      "asr_latency_p95_ms": 8307.15,
+      "c2_step_count": 10,
+      "c2_step_p50_ms": 1502.5,
+      "c2_step_p95_ms": 2491.15,
+      "e2e_wall_rtf": 1.32041,
+      "cpu_core_equivalent": 2.6462,
+      "kernel_sampled_peak_pss_kb": 1061929,
+      "battery_c_minmax": [
+        35.0,
+        35.0
+      ],
+      "speakers": 3,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 3,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          },
+          {
+            "reference": "3",
+            "hypothesis": "Speaker 3"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.31947460957699864,
+        "miss_ms": 9047,
+        "false_alarm_ms": 0,
+        "confusion_ms": 220,
+        "reference_speaker_ms": 29007,
+        "scored_wall_ms": 29007,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3"
+        }
+      },
+      "reference_speakers": 3,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 5173,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 2747,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 52,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 54,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "final-syn4-noise",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 57324,
+      "elapsed_ms": 71594,
+      "native_load_ms": 6803,
+      "asr_ms": 9859,
+      "c2_ms": 42378,
+      "vad_ms": 2323,
+      "compute_rtf": 0.951782848370665,
+      "cpu_ms": 216071,
+      "max_lag_ms": 6816,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 130,
+      "sampled_pss_kb": 1004158,
+      "recognizer_loads": 1,
+      "asr_latency_count": 11,
+      "asr_latency_p50_ms": 1972.0,
+      "asr_latency_p95_ms": 3855.5,
+      "c2_step_count": 16,
+      "c2_step_p50_ms": 2169.5,
+      "c2_step_p95_ms": 3191.5,
+      "e2e_wall_rtf": 1.24894,
+      "cpu_core_equivalent": 3.018,
+      "kernel_sampled_peak_pss_kb": 958205,
+      "battery_c_minmax": [
+        36.0,
+        37.0
+      ],
+      "speakers": 4,
+      "unknown_segments": 2,
+      "wer": {
+        "errors": 14,
+        "substitutions": 10,
+        "deletions": 3,
+        "insertions": 1,
+        "reference_words": 76,
+        "rate": 0.18421052631578946,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.40763834762275913,
+        "miss_ms": 19960,
+        "false_alarm_ms": 330,
+        "confusion_ms": 630,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3",
+          "Speaker 4": "4"
+        }
+      },
+      "reference_speakers": 4,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-final",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ],
+          "4": [
+            "Speaker 4",
+            "Speaker 4",
+            "Speaker 4"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 9697,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 42,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 63,
+        "wrong_speaker": 0,
+        "unknown_speaker": 1,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 1,
+        "rate": 0.015873015873015872
+      },
+      "words": 71,
+      "unknown_words": 2,
+      "overlap_segments": 1,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "verified-aba",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 12950,
+      "elapsed_ms": 15830,
+      "native_load_ms": 6809,
+      "asr_ms": 2123,
+      "c2_ms": 3979,
+      "vad_ms": 477,
+      "compute_rtf": 0.508030888030888,
+      "cpu_ms": 32550,
+      "max_lag_ms": 6816,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 913457,
+      "recognizer_loads": 1,
+      "asr_latency_count": 4,
+      "asr_latency_p50_ms": 2033.0,
+      "asr_latency_p95_ms": 5344.7,
+      "c2_step_count": 4,
+      "c2_step_p50_ms": 744.0,
+      "c2_step_p95_ms": 913.5,
+      "e2e_wall_rtf": 1.22239,
+      "cpu_core_equivalent": 2.0562,
+      "kernel_sampled_peak_pss_kb": 915852,
+      "battery_c_minmax": [
+        37.0,
+        38.0
+      ],
+      "speakers": 2,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 1,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 1,
+        "reference_words": 17,
+        "rate": 0.058823529411764705,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 1,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.3796984924623116,
+        "miss_ms": 3778,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 9950,
+        "scored_wall_ms": 10200,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2"
+        }
+      },
+      "reference_speakers": 2,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-verified",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 1146,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 198,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 17,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 17,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "verified-overlap",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 5480,
+      "elapsed_ms": 9851,
+      "native_load_ms": 6740,
+      "asr_ms": 1209,
+      "c2_ms": 1410,
+      "vad_ms": 132,
+      "compute_rtf": 0.502007299270073,
+      "cpu_ms": 17969,
+      "max_lag_ms": 5448,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 925613,
+      "recognizer_loads": 1,
+      "asr_latency_count": 2,
+      "asr_latency_p50_ms": 3375.5,
+      "asr_latency_p95_ms": 3521.75,
+      "c2_step_count": 2,
+      "c2_step_p50_ms": 431.0,
+      "c2_step_p95_ms": 445.4,
+      "e2e_wall_rtf": 1.79763,
+      "cpu_core_equivalent": 1.8241,
+      "kernel_sampled_peak_pss_kb": 936025,
+      "battery_c_minmax": [
+        39.0,
+        40.0
+      ],
+      "speakers": 1,
+      "unknown_segments": 1,
+      "wer": {
+        "errors": 6,
+        "substitutions": 2,
+        "deletions": 4,
+        "insertions": 0,
+        "reference_words": 14,
+        "rate": 0.42857142857142855,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.3636255924170616,
+        "miss_ms": 3069,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 8440,
+        "scored_wall_ms": 4470,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2"
+        }
+      },
+      "reference_speakers": 2,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-verified",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 1"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 548,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 1,
+      "matched_word_attribution": {
+        "status": "NOT_SCORED",
+        "reason": "Overlapping reference word order is ambiguous"
+      },
+      "words": 10,
+      "unknown_words": 6,
+      "overlap_segments": 1,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "verified-silence",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 8000,
+      "elapsed_ms": 9882,
+      "native_load_ms": 6727,
+      "asr_ms": 0,
+      "c2_ms": 2434,
+      "vad_ms": 207,
+      "compute_rtf": 0.330125,
+      "cpu_ms": 16458,
+      "max_lag_ms": 6752,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 922609,
+      "recognizer_loads": 1,
+      "asr_latency_count": 0,
+      "asr_latency_p50_ms": null,
+      "asr_latency_p95_ms": null,
+      "c2_step_count": 3,
+      "c2_step_p50_ms": 569.0,
+      "c2_step_p95_ms": 629.3,
+      "e2e_wall_rtf": 1.23525,
+      "cpu_core_equivalent": 1.6655,
+      "kernel_sampled_peak_pss_kb": 910259,
+      "battery_c_minmax": [
+        40.0,
+        40.0
+      ],
+      "speakers": 0,
+      "unknown_segments": 0,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-verified",
+      "finalization_ms": 795,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 0,
+      "words": 0,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "EMPTY_SILENCE"
+    },
+    {
+      "run": "verified-syn3-clean",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 33507,
+      "elapsed_ms": 44197,
+      "native_load_ms": 6781,
+      "asr_ms": 6375,
+      "c2_ms": 20319,
+      "vad_ms": 1509,
+      "compute_rtf": 0.8417047184170472,
+      "cpu_ms": 115621,
+      "max_lag_ms": 6784,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 0,
+      "sampled_pss_kb": 955401,
+      "recognizer_loads": 1,
+      "asr_latency_count": 8,
+      "asr_latency_p50_ms": 2658.0,
+      "asr_latency_p95_ms": 5027.6,
+      "c2_step_count": 10,
+      "c2_step_p50_ms": 1504.5,
+      "c2_step_p95_ms": 2485.65,
+      "e2e_wall_rtf": 1.31904,
+      "cpu_core_equivalent": 2.616,
+      "kernel_sampled_peak_pss_kb": 932108,
+      "battery_c_minmax": [
+        37.0,
+        37.0
+      ],
+      "speakers": 3,
+      "unknown_segments": 0,
+      "wer": {
+        "errors": 3,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "SCORED",
+        "errors": 3,
+        "reference_words": 52,
+        "rate": 0.057692307692307696,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 3,
+        "mapping": [
+          {
+            "reference": "1",
+            "hypothesis": "Speaker 1"
+          },
+          {
+            "reference": "2",
+            "hypothesis": "Speaker 2"
+          },
+          {
+            "reference": "3",
+            "hypothesis": "Speaker 3"
+          }
+        ]
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.31947460957699864,
+        "miss_ms": 9047,
+        "false_alarm_ms": 0,
+        "confusion_ms": 220,
+        "reference_speaker_ms": 29007,
+        "scored_wall_ms": 29007,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3"
+        }
+      },
+      "reference_speakers": 3,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-verified",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 5185,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 2747,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 52,
+        "wrong_speaker": 0,
+        "unknown_speaker": 0,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 0,
+        "rate": 0.0
+      },
+      "words": 54,
+      "unknown_words": 0,
+      "overlap_segments": 0,
+      "export_consistency": "PASS"
+    },
+    {
+      "run": "verified-syn4-noise",
+      "instrumentation": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "state": "COMPLETE",
+      "audio_ms": 57324,
+      "elapsed_ms": 71763,
+      "native_load_ms": 6749,
+      "asr_ms": 9830,
+      "c2_ms": 42351,
+      "vad_ms": 2298,
+      "compute_rtf": 0.950369827646361,
+      "cpu_ms": 216116,
+      "max_lag_ms": 6752,
+      "fallback": false,
+      "silence_ms": 500,
+      "pcm_exact": true,
+      "pacing_valid": true,
+      "max_feed_lateness_ms": 3,
+      "sampled_pss_kb": 999121,
+      "recognizer_loads": 1,
+      "asr_latency_count": 11,
+      "asr_latency_p50_ms": 1972.0,
+      "asr_latency_p95_ms": 3757.5,
+      "c2_step_count": 16,
+      "c2_step_p50_ms": 2169.0,
+      "c2_step_p95_ms": 3189.5,
+      "e2e_wall_rtf": 1.25188,
+      "cpu_core_equivalent": 3.0115,
+      "kernel_sampled_peak_pss_kb": 937014,
+      "battery_c_minmax": [
+        38.0,
+        39.0
+      ],
+      "speakers": 4,
+      "unknown_segments": 2,
+      "wer": {
+        "errors": 14,
+        "substitutions": 10,
+        "deletions": 3,
+        "insertions": 1,
+        "reference_words": 76,
+        "rate": 0.18421052631578946,
+        "status": "SCORED",
+        "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+      },
+      "cpwer": {
+        "status": "NOT_SCORED",
+        "reason": "Hypothesis contains unattributed words"
+      },
+      "der": {
+        "status": "SCORED",
+        "rate": 0.40763834762275913,
+        "miss_ms": 19960,
+        "false_alarm_ms": 330,
+        "confusion_ms": 630,
+        "reference_speaker_ms": 51320,
+        "scored_wall_ms": 51320,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "Speaker 1": "1",
+          "Speaker 2": "2",
+          "Speaker 3": "3",
+          "Speaker 4": "4"
+        }
+      },
+      "reference_speakers": 4,
+      "timing_validity": "PACED_CONFIRMED",
+      "group": "phone-verified",
+      "identity_stability": {
+        "dominant_ids_by_reference_voice": {
+          "1": [
+            "Speaker 1",
+            "Speaker 1"
+          ],
+          "2": [
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2",
+            "Speaker 2"
+          ],
+          "3": [
+            "Speaker 3",
+            "Speaker 3"
+          ],
+          "4": [
+            "Speaker 4",
+            "Speaker 4",
+            "Speaker 4"
+          ]
+        },
+        "reference_voices_with_multiple_dominant_ids": 0,
+        "missing_reference_turns": 0,
+        "scope": "COARSE_REFERENCE_TURN_DOMINANCE_NOT_FRAME_ACCURACY"
+      },
+      "finalization_ms": 9796,
+      "finalization_state": "COMPLETE",
+      "revised_frames": 42,
+      "matched_word_attribution": {
+        "status": "SCORED",
+        "exact_lexical_matches": 63,
+        "wrong_speaker": 0,
+        "unknown_speaker": 1,
+        "scope": "LEXICAL_DP_MATCHES_ONLY_GLOBAL_DER_ID_MAPPING_NO_WORD_TIME_GOLD",
+        "errors_including_unknown": 1,
+        "rate": 0.015873015873015872
+      },
+      "words": 71,
+      "unknown_words": 2,
+      "overlap_segments": 1,
+      "export_consistency": "PASS"
+    }
+  ],
+  "instrumentation": [
+    {
+      "group": "phone-baseline",
+      "run": "baseline-aba-r2",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "aba",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 22.799,
+      "utc": "2026-11-06T05:03:27.538276+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-baseline",
+      "run": "baseline-syn3",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 46.553,
+      "utc": "2026-11-06T05:01:47.014734+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-baseline",
+      "run": "baseline-syn4",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn4-noise",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 68.256,
+      "utc": "2026-11-06T05:05:08.639359+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-new",
+      "run": "hour-journal",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#hourJournalBounded",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 11.243,
+      "utc": "2026-11-06T05:11:13.693628+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-new",
+      "run": "revised-syn3",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 56.177,
+      "utc": "2026-11-06T05:10:31.817396+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-aba",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "aba",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 28.151,
+      "utc": "2026-11-06T05:14:51.218850+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-c2OfflineParity",
+      "status": "FAIL",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#c2OfflineParity",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 27.738,
+      "utc": "2026-11-06T05:17:47.844250+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-cancellationRecoveryAndRestart",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#cancellationRecoveryAndRestart",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 5.575,
+      "utc": "2026-11-06T05:17:19.762197+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-damagedC2KeepsAsrAlive",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#damagedC2KeepsAsrAlive",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 11.164,
+      "utc": "2026-11-06T05:17:13.851493+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-fallback-300",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn3-clean",
+      "pause": "300",
+      "fallback": true,
+      "paced": true,
+      "wall_s": 51.17,
+      "utc": "2026-11-06T05:19:28.311946+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-overlap",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "overlap",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 17.115,
+      "utc": "2026-11-06T05:16:27.553692+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-silence",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "silence",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 17.029,
+      "utc": "2026-11-06T05:16:44.907446+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-single",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "single",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 17.133,
+      "utc": "2026-11-06T05:17:02.367882+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-syn3-clean",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 50.689,
+      "utc": "2026-11-06T05:14:22.739244+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-final",
+      "run": "final-syn4-noise",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn4-noise",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 78.581,
+      "utc": "2026-11-06T05:16:10.124813+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-aba",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "aba",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 22.514,
+      "utc": "2026-11-06T05:25:59.405983+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-c2OfflineParity",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#c2OfflineParity",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 28.195,
+      "utc": "2026-11-06T05:24:16.764469+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-cancellationRecoveryAndRestart",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#cancellationRecoveryAndRestart",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 5.631,
+      "utc": "2026-11-06T05:24:45.580906+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-damagedC2KeepsAsrAlive",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#damagedC2KeepsAsrAlive",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 11.154,
+      "utc": "2026-11-06T05:24:39.640761+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-hourJournalBounded",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#hourJournalBounded",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 11.098,
+      "utc": "2026-11-06T05:24:28.177760+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-overlap",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "overlap",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 17.157,
+      "utc": "2026-11-06T05:27:35.614169+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-silence",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "silence",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 16.955,
+      "utc": "2026-11-06T05:27:52.880178+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-syn3-clean",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn3-clean",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 50.687,
+      "utc": "2026-11-06T05:25:36.573062+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    },
+    {
+      "group": "phone-verified",
+      "run": "verified-syn4-noise",
+      "status": "PASS",
+      "method": "ru.neurostenographer.app.RealtimeDeviceTest#importedRussianStreaming",
+      "clip": "syn4-noise",
+      "pause": "500",
+      "fallback": false,
+      "paced": true,
+      "wall_s": 78.448,
+      "utc": "2026-11-06T05:27:18.156601+00:00",
+      "adb_exit": 0,
+      "screen_switched_off": false,
+      "screen_restored": false
+    }
+  ]
+}

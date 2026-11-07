@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "recording_id": "return-pause",
+  "audio_sha256": "f9edc94390926b4dd5e7eeda7b8d61e8bb88f9441f256a379719a5dad6f84a5d",
+  "audio_duration_ms": 71457,
+  "diarization": [
+    {
+      "start_ms": 0,
+      "end_ms": 1500,
+      "speaker_id": "1"
+    },
+    {
+      "start_ms": 21500,
+      "end_ms": 25980,
+      "speaker_id": "2"
+    },
+    {
+      "start_ms": 45980,
+      "end_ms": 51450,
+      "speaker_id": "1"
+    }
+  ],
+  "kind": "DERIVED_SYNTHETIC_COARSE_INTERVALS_NO_WORD_GOLD",
+  "source_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+  "recipe": {
+    "indices": [
+      0,
+      1,
+      5
+    ],
+    "gap_ms": 20000,
+    "clip_ms": null,
+    "tail_samples": 127
+  }
+}

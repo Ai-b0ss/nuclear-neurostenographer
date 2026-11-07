@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "normalization": "NFKC, lowercase, yo->ye, Unicode alphanumeric tokens; no number expansion",
+  "wer": {
+    "errors": 13,
+    "substitutions": 7,
+    "deletions": 3,
+    "insertions": 3,
+    "reference_words": 137,
+    "rate": 0.0948905109489051,
+    "status": "SCORED",
+    "ordering": "segment start then end; overlap may make sequence WER ambiguous"
+  },
+  "cpwer": {
+    "status": "NOT_SCORED",
+    "reason": "Hypothesis contains unattributed words"
+  },
+  "der": {
+    "status": "SCORED",
+    "rate": 0.05206548638873025,
+    "miss_ms": 2188,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "reference_speaker_ms": 42024,
+    "scored_wall_ms": 45173,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "Speaker 1": "speaker_1",
+      "Speaker 2": "speaker_2"
+    }
+  },
+  "reference": {
+    "recording_id": "veche-2-one-to-one",
+    "annotation_source": "artem-tish/veche-bench data_medium human-scripted CSV",
+    "license": "CC-BY-4.0",
+    "kind": "SCRIPTED_HUMAN_RUSSIAN_MEETING_WITH_OVERLAP_NOT_SPONTANEOUS",
+    "audio_sha256": "1a248421ee4725e56bbc3c5e49d37f5f346fcf97a249b0809be3b0cfe15273b8"
+  },
+  "scope": "SCRIPTED_HUMAN_RUSSIAN_MEETING_WITH_OVERLAP_NOT_SPONTANEOUS",
+  "export_sha256": "e36454d7351210b53e307cfabca0d974a9ce01fb7036b2407c3d63a4d99636b1"
+}

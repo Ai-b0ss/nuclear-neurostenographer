@@ -92,8 +92,9 @@ object NemotronDiarization {
                     }
                 } finally { inputs.values.forEach { it.close() } }
             }
+            // Two passes: the second starts with the voices the first one learned (docs/C2_POSTPROCESS_2026-11-06.md).
             val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled,
-                NemotronPostprocess.PRODUCT)
+                NemotronPostprocess.PRODUCT, warmSecondPass = true)
             val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
             return DiarizationOutput(turns, (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000,
                 DiarizationTimeline.speechWindows(raw, audio.durationMs))

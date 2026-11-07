@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 60000,
+  "warnings": ["Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/dual-pass-preview-first-final-fill-experimental/fast-chunk72-after3-experimental", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 88, "end_ms": 328, "speaker_id": null, "text": "—", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 328, "end_ms": 3928, "speaker_id": "Speaker 1", "text": "Вы бы шапку надели или хоть капюшон накинули.—", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 4208, "end_ms": 8008, "speaker_id": "Speaker 2", "text": "О, если лес выдворит нас, даже если мы далеко от деревни?—", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 8208, "end_ms": 12216, "speaker_id": "Speaker 3", "text": "Прости, Марус, тут такое дело... Ахметов повесил голову.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 12296, "end_ms": 15216, "speaker_id": "Speaker 4", "text": "Я сходил ещё раз проведать тело Владимира.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 15416, "end_ms": 22456, "speaker_id": "Speaker 2", "text": "Она пошла вслед за ним, направляясь к ручью, который отделяет нашу овцеводческую ферму от леса.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 22736, "end_ms": 25576, "speaker_id": "Speaker 1", "text": "Зоя Петровна написала. Приходи.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 25816, "end_ms": 30072, "speaker_id": "Speaker 2", "text": "Он стонет и смеётся над собой. Мне стоило", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 30072, "end_ms": 32512, "speaker_id": null, "text": "попросить... Может, она кого-то разукрасила, а он", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 32512, "end_ms": 33312, "speaker_id": "Speaker 4", "text": "не похвалил.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 33592, "end_ms": 34552, "speaker_id": "Speaker 3", "text": "Будьте здоровы.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 34840, "end_ms": 35000, "speaker_id": null, "text": "—", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 35000, "end_ms": 36600, "speaker_id": "Speaker 3", "text": "Крикнул кто-то снаружи гаража.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 36720, "end_ms": 37800, "speaker_id": "Speaker 1", "text": "Ты извини, что я...", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 38976, "end_ms": 40376, "speaker_id": null, "text": "Влезла безвозили", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 40376, "end_ms": 43600, "speaker_id": "Speaker 3", "text": "только задержанных. А теперь ещё и Мухтар ездил.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 43760, "end_ms": 45520, "speaker_id": "Speaker 2", "text": "Похоже, это ты мучаешь меня.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 45720, "end_ms": 46480, "speaker_id": "Speaker 4", "text": "Первое— число—", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 46480, "end_ms": 48360, "speaker_id": null, "text": "количество оригинальных приёмов,", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 50040, "end_ms": 53360, "speaker_id": "Speaker 4", "text": "третье— если разбить длинные приёмы на составляющие.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 53520, "end_ms": 57096, "speaker_id": "Speaker 3", "text": "Во мне же вдруг проснулся шко Кольник, что пробрался в учительскую.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 57440, "end_ms": 60000, "speaker_id": "Speaker 4", "text": "Люди, что ответственны за всё это, заслужили хорошую", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

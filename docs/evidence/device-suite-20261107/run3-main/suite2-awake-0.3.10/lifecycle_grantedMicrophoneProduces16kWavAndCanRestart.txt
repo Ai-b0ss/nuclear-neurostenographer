@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.HonorLifecycleAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+ru.neurostenographer.app.HonorLifecycleAcceptanceTest:
+INSTRUMENTATION_STATUS: test=grantedMicrophoneProduces16kWavAndCanRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.HonorLifecycleAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Public QA playback was not recognized through the physical microphone; check acoustic setup
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at ru.neurostenographer.app.HonorLifecycleAcceptanceTest.grantedMicrophoneProduces16kWavAndCanRestart(HonorLifecycleAcceptanceTest.kt:141)
+
+INSTRUMENTATION_STATUS: stream=
+Error in grantedMicrophoneProduces16kWavAndCanRestart(ru.neurostenographer.app.HonorLifecycleAcceptanceTest):
+java.lang.AssertionError: Public QA playback was not recognized through the physical microphone; check acoustic setup
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at ru.neurostenographer.app.HonorLifecycleAcceptanceTest.grantedMicrophoneProduces16kWavAndCanRestart(HonorLifecycleAcceptanceTest.kt:141)
+
+INSTRUMENTATION_STATUS: test=grantedMicrophoneProduces16kWavAndCanRestart
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38,858
+There was 1 failure:
+1) grantedMicrophoneProduces16kWavAndCanRestart(ru.neurostenographer.app.HonorLifecycleAcceptanceTest)
+java.lang.AssertionError: Public QA playback was not recognized through the physical microphone; check acoustic setup
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at ru.neurostenographer.app.HonorLifecycleAcceptanceTest.grantedMicrophoneProduces16kWavAndCanRestart(HonorLifecycleAcceptanceTest.kt:141)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

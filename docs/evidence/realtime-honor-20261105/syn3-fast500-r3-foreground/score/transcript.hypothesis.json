@@ -1,0 +1,62 @@
+{
+ "schema_version": 1,
+ "recording_id": "syn3-clean",
+ "audio_sha256": "7b5d5f9c8d5a984d193c2a0e31afe5dc6e3c1fb068d9499d552f104c0a6c4ce9",
+ "audio_duration_ms": 33507,
+ "segments": [
+  {
+   "start_ms": 232,
+   "end_ms": 1192,
+   "speaker_id": "Speaker 1",
+   "text": "Билет на поезд."
+  },
+  {
+   "start_ms": 3184,
+   "end_ms": 4184,
+   "speaker_id": "Speaker 1",
+   "text": "Играй плейлист"
+  },
+  {
+   "start_ms": 4184,
+   "end_ms": 4704,
+   "speaker_id": null,
+   "text": "Клавы"
+  },
+  {
+   "start_ms": 4704,
+   "end_ms": 5184,
+   "speaker_id": "Speaker 1",
+   "text": "Коки."
+  },
+  {
+   "start_ms": 7120,
+   "end_ms": 13808,
+   "speaker_id": "Speaker 2",
+   "text": "Ты не мог бы перенести мою встречу? Я недоволен. Я недоволен Яндекс Маркетом. Пожалуйста, помогите мне."
+  },
+  {
+   "start_ms": 15824,
+   "end_ms": 18224,
+   "speaker_id": "Speaker 2",
+   "text": "Запланируй, пожалуйста, встречу с этим человеком."
+  },
+  {
+   "start_ms": 19736,
+   "end_ms": 26536,
+   "speaker_id": "Speaker 1",
+   "text": "Могу я послушать«Равные среди первых» по радио в спальне? Скажи мне, есть ли у шоколадницы доставка?"
+  },
+  {
+   "start_ms": 26576,
+   "end_ms": 29336,
+   "speaker_id": "Speaker 2",
+   "text": "Играй, играй покинула чат Клавы Коки."
+  },
+  {
+   "start_ms": 31152,
+   "end_ms": 33032,
+   "speaker_id": "Speaker 2",
+   "text": "Воспроизведи Европу Плюс."
+  }
+ ]
+}

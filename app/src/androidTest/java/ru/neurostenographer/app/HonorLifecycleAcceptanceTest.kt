@@ -7,6 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import org.junit.Assert.*
+import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
 import ru.neurostenographer.core.*
@@ -19,7 +20,8 @@ class HonorLifecycleAcceptanceTest {
     private val context get() = instrumentation.targetContext
 
     @Before fun isolatedPackageOnly() {
-        check(context.packageName == "ru.neurostenographer.app.solhigh")
+        // Skipped (not failed) in any other package, e.g. the generic emulator suite; never runs against it.
+        assumeTrue("Physical .solhigh acceptance only", context.packageName == "ru.neurostenographer.app.solhigh")
         check(BuildConfig.ASR_A3 && BuildConfig.NEMOTRON_PROTOTYPE)
     }
 

@@ -1,0 +1,62 @@
+{
+  "source_audio_sha256": "0cf28d979cb5a800699aeaf9e74a21feeeef2d5e89e672fd4f03e9c03fdc0319",
+  "reference_sha256": "7bed93b2ec247e6ae26c2761c876e7db5c39867ce55ad532fb1a7c947a5b9729",
+  "hypothesis_sha256": "ddb60ad4ea70d6bc8ccbefca7dfafc0502cc89258a9a75219d09945c35f7bfd5",
+  "scope": "COARSE_TTS_REFERENCE_PCM_ENERGY_ONLY_NOT_SPEECH_GOLD",
+  "collar_radius_ms": 250,
+  "threshold_dbfs": {
+    "quiet": -45.0,
+    "energetic": -35.0
+  },
+  "score": {
+    "status": "SCORED",
+    "rate": 0.36611374407582936,
+    "miss_ms": 3090,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "reference_speaker_ms": 8440,
+    "scored_wall_ms": 4470,
+    "collar_radius_ms": 250,
+    "skip_reference_overlap": false,
+    "hypothesis_to_reference": {
+      "0": "1",
+      "1": "2"
+    }
+  },
+  "totals": {
+    "reference_ms": 8440,
+    "missed_ms": 3090,
+    "false_alarm_ms": 0,
+    "confusion_ms": 0,
+    "scored_ms": 4470,
+    "excluded_ms": 1010,
+    "missed_quiet45_ms": 1729,
+    "missed_quiet35_ms": 2830,
+    "missed_loud35_ms": 260
+  },
+  "per_reference": [
+    {
+      "reference_index": 0,
+      "speaker": "1",
+      "start_ms": 0,
+      "end_ms": 5470,
+      "scored_ms": 4470,
+      "missed_ms": 2641,
+      "missed_pcm_quiet45_ms": 1450
+    },
+    {
+      "reference_index": 1,
+      "speaker": "2",
+      "start_ms": 1000,
+      "end_ms": 5480,
+      "scored_ms": 3970,
+      "missed_ms": 2141,
+      "missed_pcm_quiet45_ms": 950
+    }
+  ],
+  "caveats": [
+    "PCM energy alone does not prove human speech, silence or voice identity.",
+    "Reference labels are coarse TTS clip intervals; high reference misses may be annotation artifacts.",
+    "Predicted turns reflect saved raw C2 output; ASR/VAD evidence is not inferred from them."
+  ]
+}

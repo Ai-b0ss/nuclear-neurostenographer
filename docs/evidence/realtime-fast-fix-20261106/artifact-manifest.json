@@ -1,0 +1,433 @@
+{
+  "scope": "MATERIALIZED_WORKTREE_BYTES_NOT_GIT_BLOBS",
+  "files": {
+    "core/src/test/kotlin/ru/neurostenographer/core/RealtimeChunkBoundaryTest.kt": {
+      "sha256": "00568b7c36d55a5188ef688cf2f1510784e23888d8f4c4a1cdc3029f58d391ac",
+      "bytes": 3560
+    },
+    "core/src/test/kotlin/ru/neurostenographer/core/RealtimeCoreTest.kt": {
+      "sha256": "5b8e491ab601ef72213857b42542790c3270875b171e2e26e5b87b4b1063b71e",
+      "bytes": 7936
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fallback-cost.json": {
+      "sha256": "363973d49a514dfb694b5eb7911e537689a8015a9748a419b10441c5903406d2",
+      "bytes": 137
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fallback-trace.tsv": {
+      "sha256": "bec46201a566a948ac5197d8c351db1a96ac9fcc3b7b64e38840f9475dd877b9",
+      "bytes": 190
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fallback.json": {
+      "sha256": "20d46867e66c14d1103e2ed271e2063c382e6975d27b285b5efdc95bc524b3c2",
+      "bytes": 271
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fallback.tsv": {
+      "sha256": "e672a02d63e95d96433e14f9f21e2cf917104f8471cd669770921ba005ab4f16",
+      "bytes": 38
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fast-cost.json": {
+      "sha256": "b259ce7dd0d02f12460c5d22b0feb5f90df2de7064b20598cb255231a91b463e",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fast-trace.tsv": {
+      "sha256": "687dcdd474211ca665cc7e58bb678bb74b329a4bc02f9ddf5e9edd9808e17133",
+      "bytes": 280
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fast.json": {
+      "sha256": "956c88c80e623f732382bf6830af807aee7c38fb0fd99bcc91c6c4aa5370594a",
+      "bytes": 271
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/fast.tsv": {
+      "sha256": "1e425f31e3ceea809e8dc2c1d6e785ab1f63fc2703e471b79b6ee5d460942bdd",
+      "bytes": 146
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/incremental-offline-cost.json": {
+      "sha256": "480377fcb8850f061bad9ac9543227de0e3d05e09ce55dab45293b28eb0bcaea",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/incremental-offline-trace.tsv": {
+      "sha256": "26f272181feec905b04663e755c126e8eeb2214fe3e144a26c6199e491952293",
+      "bytes": 142
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/incremental-offline.json": {
+      "sha256": "6fd23e2fd473333843f45ee866c846b0368e1d27b0960931281a88a24a546795",
+      "bytes": 272
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/incremental-offline.tsv": {
+      "sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986",
+      "bytes": 194
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/inputs.json": {
+      "sha256": "d7089cb0b91019bdd894bc0004a1d0a7264c187e800347a5a7a5687a8b55fece",
+      "bytes": 3283
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/long-right6-cost.json": {
+      "sha256": "43c7f2c1850300a9d0a87709a1b5a8b4b7223dfdd4b8dda8e1f217ed52e4fecb",
+      "bytes": 137
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/long-right6-trace.tsv": {
+      "sha256": "310c9a2c9d59d7832a7fa0970542e1a663f31a8962029ef6147338902c414c14",
+      "bytes": 192
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/long-right6.json": {
+      "sha256": "d2e67d86d2245f1f13c5408310fbb197978b014747a9a20d3ded26acb5347ad4",
+      "bytes": 272
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/long-right6.tsv": {
+      "sha256": "c9b9622437ff8abffef8a528337ff21a89210e07b546a3f634045a74c1aa63aa",
+      "bytes": 146
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/original-offline.tsv": {
+      "sha256": "a7f7b28e577de1400bbb12c78e222b6cae35313f631f0782b4fa455a89a9c986",
+      "bytes": 194
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/parity.json": {
+      "sha256": "07dd015b6412a092085f8c8fca905812e982adaaa5a6de12d716ea9d118b0688",
+      "bytes": 135
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/scores.json": {
+      "sha256": "942801fff90d540ad67a0555e3e2a6b9c4c25ef4cfb810b1f226c830ef69445f",
+      "bytes": 3892
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/short-right40-cost.json": {
+      "sha256": "ae3fc963c4ffa06bac9ec44a91fe659184422334c3f58544624a55b3577d058b",
+      "bytes": 135
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/short-right40-trace.tsv": {
+      "sha256": "e1521ae55bb73d360c7a3660e00cb1f426bdb2795ff7926e857fbed6fffcc72d",
+      "bytes": 281
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/short-right40.json": {
+      "sha256": "ebd356bbfea8321e5c71ed4e4594d7e58d213a16923dc78c42236fa08a979d1d",
+      "bytes": 272
+    },
+    "docs/evidence/realtime-fast-fix-20261106/aba-baseline/short-right40.tsv": {
+      "sha256": "551abc71691504fff95f2d9b6528876ae34a82b9bac064c51db46919051b78a9",
+      "bytes": 182
+    },
+    "docs/evidence/realtime-fast-fix-20261106/build.txt": {
+      "sha256": "66398349965ce3aa99ebf5ba7dfa7e47a82546842b7b5fb3f6a0226fd8ff3bdc",
+      "bytes": 4632
+    },
+    "docs/evidence/realtime-fast-fix-20261106/lint-debug.txt": {
+      "sha256": "752f98f473acb041166d86999fa7293471ad6225f483bd79490ce516e4b8243c",
+      "bytes": 1329
+    },
+    "docs/evidence/realtime-fast-fix-20261106/phone-keyguard.txt": {
+      "sha256": "c7afe619d56e548a08407461f6b44f61514ae9d6903a17734cc86fa87741f6fc",
+      "bytes": 304
+    },
+    "docs/evidence/realtime-fast-fix-20261106/scorer-tests.txt": {
+      "sha256": "3788b486b93f24f89627d8c18629be332377c67cd474d27d499d54aafd815dea",
+      "bytes": 116
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fallback-cost.json": {
+      "sha256": "556c588f34326107cc2c789f06153e695aac701362845a354e532528a9623fef",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fallback-trace.tsv": {
+      "sha256": "a8ed443ac98911b3a64a780213d01922219e4c46f1d62fc76cb039fc6aeb6fce",
+      "bytes": 308
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fallback.json": {
+      "sha256": "27331dce910cec01f2848a6ea455fbbb89a49bbd3c7056eca4c2db74e6321a88",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fallback.tsv": {
+      "sha256": "e4dd066091c72f37a8d5462440922e465a0b27595dcf1046dfca13cfc2ce2352",
+      "bytes": 170
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fast-cost.json": {
+      "sha256": "face92d4ca358187f8597971c9fc039042f40da1eac8ed06dfcd7a7fe78c8022",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fast-trace.tsv": {
+      "sha256": "70c4b24cca4e214db05481d153fe1182699ddd6a25f080da3e26c1d825f375b8",
+      "bytes": 595
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fast.json": {
+      "sha256": "8be9c579cc63d75f49c590b55447320fcaf63ea63b07a4542d4f10d182b3aef1",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/fast.tsv": {
+      "sha256": "81834683640ff1705a7a9315dcdad10df2971b5444d08b35487d54834435bbc1",
+      "bytes": 192
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/incremental-offline-cost.json": {
+      "sha256": "cde60932dca74a379f7a2704bc01f4cf7459d3d897c32b0dfcf316f6f7aa4af1",
+      "bytes": 137
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/incremental-offline-trace.tsv": {
+      "sha256": "4f90de8d45f8f7b30fc3c26f08694d752bb28ef00cd8508199aa67b9d899a6e7",
+      "bytes": 197
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/incremental-offline.json": {
+      "sha256": "495cf566eda91aa65bbd135d853e7c44f84f28b13292962f2108ea160150e9d0",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/incremental-offline.tsv": {
+      "sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8",
+      "bytes": 158
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/inputs.json": {
+      "sha256": "9d0b442dbe4e9d26fe6df38f63beaff4177db2a23fc96892854ff6b8c3e2b1a8",
+      "bytes": 3283
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/long-right6-cost.json": {
+      "sha256": "301839821cd19fe5afd39d492d1ce8c86f0122c59a86f7216f70a0edd90a3501",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/long-right6-trace.tsv": {
+      "sha256": "d06deb7d1288ad8b32fae63978de6bb6d65fd0a27eac71e8a7295bc2abe765e8",
+      "bytes": 307
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/long-right6.json": {
+      "sha256": "9a229af67fb4ba8a02edd8b66f934cefccda4eb7c681496c211ea7dd07fc63f9",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/long-right6.tsv": {
+      "sha256": "a84e81feb78a7da98827b74fe3c12bba7f8c313bc78386ea72e8cbf3cc67ab06",
+      "bytes": 170
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/original-offline.tsv": {
+      "sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8",
+      "bytes": 158
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/parity.json": {
+      "sha256": "07dd015b6412a092085f8c8fca905812e982adaaa5a6de12d716ea9d118b0688",
+      "bytes": 135
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/scores.json": {
+      "sha256": "5ce0143581ec8ea386349b52622f9fd6def15ad97801099685a289bddfaf4c45",
+      "bytes": 4060
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/short-right40-cost.json": {
+      "sha256": "48c5ca5b8d8bb894124e15af437b10b636ee6e6de963001441b41e84db6d6ccf",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/short-right40-trace.tsv": {
+      "sha256": "47564f27271c1768ac74875a299160a9b1e05c5adac65f300072a8abc3327ea2",
+      "bytes": 606
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/short-right40.json": {
+      "sha256": "7146d2c13ab02bcf6081c9b848aa1ec30f028c12d58990661a79aa3053aa02f3",
+      "bytes": 274
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-baseline/short-right40.tsv": {
+      "sha256": "1a46075256e9e2f1c1be50a75beb6cc3289f7aaae0bb2a5a35b490ea7b649688",
+      "bytes": 158
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fallback-cost.json": {
+      "sha256": "140ba5efd39da3424e8403cf14300b323fe6ea837e646e94c3caae12407c48d4",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fallback-trace.tsv": {
+      "sha256": "545dd44c22120741ac7ffcab98cdfa00c53c10ccb60c37f8cbe02f8ec5aa7b51",
+      "bytes": 487
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fallback.json": {
+      "sha256": "dbc4d85f37fd78a71afb9c12c6564e99094136f40a7e5fac8752d63e737ffae4",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fallback.tsv": {
+      "sha256": "e4dd066091c72f37a8d5462440922e465a0b27595dcf1046dfca13cfc2ce2352",
+      "bytes": 170
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fast-cost.json": {
+      "sha256": "db536060bc0598c50ce1d90b9b4f894382b2604e85df319bee067ab0e695c911",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fast-trace.tsv": {
+      "sha256": "d28c17576b6ad0e63e10bb73571e224d4c84af5f76270421cb1cf3f8bbde58ec",
+      "bytes": 901
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fast.json": {
+      "sha256": "dd61c4021f7bfa3dd3adefcaffb904010b49ae0502329909e993df616deb8c27",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/fast.tsv": {
+      "sha256": "81834683640ff1705a7a9315dcdad10df2971b5444d08b35487d54834435bbc1",
+      "bytes": 192
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/incremental-offline-cost.json": {
+      "sha256": "5d900bd7a68ed476a8b034b059c95b180872f8d6ec4c6be26ba4c4c96f79185a",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/incremental-offline-trace.tsv": {
+      "sha256": "2974918af2e07cc992d3074bcee432611bf56fd1d903dc62602b5514cf1d0ae6",
+      "bytes": 335
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/incremental-offline.json": {
+      "sha256": "3033fff6ce96964947f3191e4acd6d19e9d6b4f4b16240f2a73a98724646105a",
+      "bytes": 272
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/incremental-offline.tsv": {
+      "sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8",
+      "bytes": 158
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/inputs.json": {
+      "sha256": "6663c92de9a5d7618ab72a3c8b541bfdb0e71c6e1ea3e4609e0e65078b487d95",
+      "bytes": 3283
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/long-right6-cost.json": {
+      "sha256": "fd17694adc2ef516f4abb575e8bc596ff651188c9a532a37a3de31ea628e23fd",
+      "bytes": 134
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/long-right6-trace.tsv": {
+      "sha256": "3a9e6ff03ddb8d00fca5bfb07387bc24f94a4aa94cf525cd29986e7bec2e24ef",
+      "bytes": 486
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/long-right6.json": {
+      "sha256": "d02a00d6318409d7d0077c8f9348f025d24cc5bbe6fbf7120036286cf15ae514",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/long-right6.tsv": {
+      "sha256": "a84e81feb78a7da98827b74fe3c12bba7f8c313bc78386ea72e8cbf3cc67ab06",
+      "bytes": 170
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/original-offline.tsv": {
+      "sha256": "393a779eb6a52c60905f6b44f9a73c40d3d09fa88ca97851afe70a19691bbec8",
+      "bytes": 158
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/parity.json": {
+      "sha256": "07dd015b6412a092085f8c8fca905812e982adaaa5a6de12d716ea9d118b0688",
+      "bytes": 135
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/scores.json": {
+      "sha256": "5ce0143581ec8ea386349b52622f9fd6def15ad97801099685a289bddfaf4c45",
+      "bytes": 4060
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/short-right40-cost.json": {
+      "sha256": "1d9cc656fdbff19093acdc78e697e8c63eab6b6352ad7588356e3a3aed532443",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/short-right40-trace.tsv": {
+      "sha256": "8fb01d30a1c64b4191e17cd5896194c89cd594cd9f2001e005abcec83801e318",
+      "bytes": 911
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/short-right40.json": {
+      "sha256": "5f2eaac887b8a835774d5b00c488716cc2caf85d1a4b97f560537c6cb07d3b2f",
+      "bytes": 274
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn3-traced/short-right40.tsv": {
+      "sha256": "1a46075256e9e2f1c1be50a75beb6cc3289f7aaae0bb2a5a35b490ea7b649688",
+      "bytes": 158
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fallback-cost.json": {
+      "sha256": "5280828e5e5001cda9f83a556ea5b213a5a9115fd8db5c2df74cd26b2d6bd092",
+      "bytes": 135
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fallback-trace.tsv": {
+      "sha256": "e2818722c8410d1c46c4a9de05b665e54f489a111630f50aab7e5711b71caa10",
+      "bytes": 429
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fallback.json": {
+      "sha256": "970013ad1069d3c453ed286c29e864c39a0aba6926bdd482b2446103dda7ec5f",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fallback.tsv": {
+      "sha256": "ede7b0a4a54ba0f2cec4c77f58f707fabe0c3b5e478be6c308d5aa308d611d98",
+      "bytes": 189
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fast-cost.json": {
+      "sha256": "2c66873e752c0c69f27f8c0a7c7b51ac6047a72cce299fa4b1714113a1c302a3",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fast-trace.tsv": {
+      "sha256": "d0d6b1695afa3fdea46d922147618ca68ad8f815be9fd6d59fd510d2c826ce59",
+      "bytes": 942
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fast.json": {
+      "sha256": "d9bac756a01e9ace9b4f65b4bea6e268441b3e4d49b22967ff0677965d0e3c8b",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/fast.tsv": {
+      "sha256": "de0f5607b4e8c45dfc1b41382d37a436b716d1fff997fb227bdd18b4e7259ab2",
+      "bytes": 189
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/incremental-offline-cost.json": {
+      "sha256": "32d7dce9422cbcbd02b440e52376d69acc09930f753548638fdf877f2378229a",
+      "bytes": 137
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/incremental-offline-trace.tsv": {
+      "sha256": "a8bc96075745bb8185773fa226472a1a083b09841ffd713bd25eb07e45704b0c",
+      "bytes": 263
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/incremental-offline.json": {
+      "sha256": "69f7103b960cc651f009625c5a653485f8a38ee97cebde4fd3283a44e4c1cfe1",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/incremental-offline.tsv": {
+      "sha256": "0e4e05ac96f7de930dd120724b972bd124d295d6e743a4dbd9d21ad816db1af0",
+      "bytes": 175
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/inputs.json": {
+      "sha256": "6a06de43381c6a81371b4a4ee2b74e4090f1eb985e4f9300f5c9d405f07828f0",
+      "bytes": 3283
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/long-right6-cost.json": {
+      "sha256": "1d295f50a0f009fdf3bed50a1b9a69d01378feb10313358c5277fe131ab81650",
+      "bytes": 138
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/long-right6-trace.tsv": {
+      "sha256": "9b43984ab4fc78e8077dd826775b2c2500f0c9a9e61d2e06379234e197fc93bc",
+      "bytes": 429
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/long-right6.json": {
+      "sha256": "69d6690c5b5196f8479d5793986c801987f843eb702d9a38ccd664e1d126bc5e",
+      "bytes": 273
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/long-right6.tsv": {
+      "sha256": "12589791da46e8a03aa749a52c19827f22bff7a913e4873986f55529b54db651",
+      "bytes": 201
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/original-offline.tsv": {
+      "sha256": "c235cee83196f0053c1faeceb8c0a43fdbc731229b0e704921d7b4fc60b20160",
+      "bytes": 175
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/parity.json": {
+      "sha256": "07dd015b6412a092085f8c8fca905812e982adaaa5a6de12d716ea9d118b0688",
+      "bytes": 135
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/scores.json": {
+      "sha256": "615b8b5d91b5549e9378f2ea12ca6920a136c770e69c0d1edbef82a5851c7f39",
+      "bytes": 4220
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/short-right40-cost.json": {
+      "sha256": "9863e6d596b0ea51549c0c5dbfdc6a2ef2ca1fd64d84f263103d1b80ad86f763",
+      "bytes": 136
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/short-right40-trace.tsv": {
+      "sha256": "fc25c34d51114602ec012a1d231d8f30704c5fcdadee796147aec236289ddb0a",
+      "bytes": 953
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/short-right40.json": {
+      "sha256": "dfcb2d5a0c52bd4bad7ea033b6f8d314d62c2e489bf35deec26f521386cb1b09",
+      "bytes": 274
+    },
+    "docs/evidence/realtime-fast-fix-20261106/syn4-baseline/short-right40.tsv": {
+      "sha256": "e2323e1ca6b25148a8ef4fbda3ea62f790c31d9704e2daa5971363421e1e9937",
+      "bytes": 175
+    },
+    "docs/evidence/realtime-fast-fix-20261106/verification.json": {
+      "sha256": "70be49ec21c016932f6a46c0c31f61ff812ba52322f28a6d1dec6ab5d27eb48d",
+      "bytes": 651
+    },
+    "docs/REALTIME_FAST_SPEAKER_FIX_2026-11-06.md": {
+      "sha256": "d64cc75d24fc322ca455c019dd96040234efa802a75be481025985a1455fdbee",
+      "bytes": 12047
+    },
+    "tools/realtime/host.py": {
+      "sha256": "e7c558e0cc716f1b730bf3912a63b84523a0692bb886cf0a18fa0fce9874d0ba",
+      "bytes": 3250
+    },
+    "tools/realtime/HostStreaming.kt": {
+      "sha256": "88526818a48e8ade4ab346d47d04bcd8c721d6a9d9ec7174566981bb14755514",
+      "bytes": 8812
+    },
+    "tools/realtime/score_host.py": {
+      "sha256": "211ab7cea7e10930786315b790d659d2c119d73b9631e57091a1bc16f6b9193c",
+      "bytes": 2319
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "veche-2-one-to-one",
+    "audio_sha256": "1a248421ee4725e56bbc3c5e49d37f5f346fcf97a249b0809be3b0cfe15273b8",
+    "human_scripted": true,
+    "speakers": 2
+  },
+  {
+    "name": "veche-3-auth-incident",
+    "audio_sha256": "b987f38f5c3b7570523a6c4850ee4e5891c68abb8fe449d30e5745263c76c57c",
+    "human_scripted": true,
+    "speakers": 3
+  }
+]

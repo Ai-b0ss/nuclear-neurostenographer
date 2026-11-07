@@ -1,0 +1,11 @@
+15:55:36 frozen: /proc/8815/cgroup /proc/8849/cgroup
+16:29:47 frozen (lifecycle, manual watchdog): /proc/9222/cgroup /proc/9307/cgroup 
+16:43:00 frozen (lifecycle, manual watchdog): /proc/11116/cgroup 
+16:44:03 frozen (lifecycle, manual watchdog): /proc/11116/cgroup /proc/11375/cgroup 
+16:45:51 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 
+16:46:08 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 
+16:46:25 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 
+16:46:42 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 
+16:46:58 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 
+16:47:15 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 
+16:47:32 frozen (lifecycle, manual watchdog): /proc/11763/cgroup 

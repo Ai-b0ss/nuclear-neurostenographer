@@ -30,6 +30,7 @@ def main():
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--work', type=Path, required=True, help='scratch dir for the compiled jar and JVM tmp')
     ap.add_argument('--params', type=Path)
+    ap.add_argument('--passes', default='', help='comma list of extra passes: warm, rev')
     a = ap.parse_args()
     ort = HARNESS / 'onnxruntime-1.17.1.jar'
     if sha(ort) != ORT_SHA:
@@ -39,7 +40,7 @@ def main():
             raise SystemExit('C2 model pin mismatch: ' + name)
     sources = sorted((ROOT / 'core/src/main/kotlin/ru/neurostenographer/core').glob('*.kt'))
     sources += sorted((ROOT / 'app/src/nemotron/java/ru/neurostenographer/core').glob('*.kt'))
-    sources += [ROOT / 'tools/c2pp/DumpLogits.kt']
+    sources += [ROOT / 'tools/c2pp/DumpLogits.kt', ROOT / 'app/src/realtime/java/ru/neurostenographer/app/JournalBlocks.kt']
     kotlin = HARNESS / 'kotlin'
     cp = os.pathsep.join([str(kotlin / 'kotlin-stdlib.jar'), str(ort)])
     a.work.mkdir(parents=True, exist_ok=True)
@@ -52,7 +53,7 @@ def main():
     (a.out / 'inputs.json').write_text(json.dumps(dict(scope='WINDOWS_HOST_C2_NOT_PHONE', model_pins=PINS, ort_jar_sha256=ORT_SHA,
         sources={str(p.relative_to(ROOT)): sha(p) for p in sources}, wavs={w.name: sha(w) for w in a.wavs}), indent=1), encoding='utf-8')
     tmp = a.work / 'tmp'; tmp.mkdir(exist_ok=True)
-    subprocess.run([str(JAVA), '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-cp', os.pathsep.join([str(jar), cp]),
+    subprocess.run([str(JAVA), '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-Dc2pp.passes=' + a.passes, '-cp', os.pathsep.join([str(jar), cp]),
                     'ru.neurostenographer.tools.DumpLogitsKt', str(MODEL), str(a.out), str(lst),
                     *([str(a.params)] if a.params else [])], check=True)
 

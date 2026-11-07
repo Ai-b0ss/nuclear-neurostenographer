@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 60000,
+  "warnings": ["Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9/dual-pass-preview-first-final-fill-experimental/fast-chunk72-after3-experimental", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 336, "end_ms": 7536, "speaker_id": "Speaker 1", "text": "Также будут допрашивать Щеглова, Родионова и многочисленных свидетелей, кто находился в момент убийства на лужайке перед особняком.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 8080, "end_ms": 11600, "speaker_id": "Speaker 2", "text": "Сначала ты девицу отогнала, а потом подоспели наши ребята", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 11600, "end_ms": 11840, "speaker_id": null, "text": "к", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 12376, "end_ms": 15872, "speaker_id": "Speaker 3", "text": "И я думаю, потому Что я вас не люблю.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 16592, "end_ms": 20392, "speaker_id": "Speaker 2", "text": "С ним сейчас Арнольд, и у них как раз личные счёты.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 20728, "end_ms": 25808, "speaker_id": "Speaker 1", "text": "Казалось, Борис пропустил мимо ушей главное, что они поедут, возможно, прямо к убийце.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 26608, "end_ms": 27008, "speaker_id": "Speaker 2", "text": "Поэтому не", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 27008, "end_ms": 28968, "speaker_id": null, "text": "перебивай. Он боится обратиться за помощью к", "overlapping_speech": true, "attribution_reliable": false},
+    {"start_ms": 28968, "end_ms": 35168, "speaker_id": "Speaker 1", "text": "друзьям или в полицию, потому что ему надо будет объяснить, что он здесь делает, к кому приехал и что ему надо.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 35328, "end_ms": 42248, "speaker_id": "Speaker 3", "text": "«Конечно, она догадывалась, на что он метит и должна была ему отказать!»— порывисто воскликнула", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 42248, "end_ms": 43248, "speaker_id": null, "text": "Ретси.«Я", "overlapping_speech": false, "attribution_reliable": false},
+    {"start_ms": 43248, "end_ms": 50168, "speaker_id": "Speaker 1", "text": "совсем забыла об этом следователе Морозове, который приходил в том злосчастном ноябре ко мне в больницу и задавал вопросы».", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 50656, "end_ms": 55056, "speaker_id": "Speaker 3", "text": "Каким ничтожным сделалось для него её присутствие.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 55488, "end_ms": 58808, "speaker_id": "Speaker 1", "text": "Это будет маленький эпизод. Но вот увидишь, её заметят.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 59176, "end_ms": 60000, "speaker_id": "Speaker 2", "text": "Паул с не особенно.", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}

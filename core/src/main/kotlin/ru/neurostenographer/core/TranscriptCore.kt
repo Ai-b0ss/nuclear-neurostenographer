@@ -21,7 +21,10 @@ data class TranscriptSegment(
     val speakerId: String?,
     val text: String,
     val overlappingSpeech: Boolean = false,
-    val attributionReliable: Boolean = false
+    val attributionReliable: Boolean = false,
+    /** Speakers whose turns overlap inside this fragment; [speakerId] stays null because the words cannot be
+     * split between them. Shown as «Говорящий 1 + Говорящий 2» instead of «Не определён». */
+    val overlapSpeakers: List<String> = emptyList()
 ) {
     init { require(startMs >= 0 && endMs > startMs && text.isNotBlank()) }
 }
@@ -69,7 +72,12 @@ object TokenWords {
 
 /** Does not invent speaker IDs or word timestamps when evidence is ambiguous. */
 object TranscriptFusion {
-    private data class Attribution(val speakerId: String?, val overlap: Boolean, val reliable: Boolean)
+    private data class Attribution(val speakerId: String?, val overlap: Boolean, val reliable: Boolean,
+                                   val overlapSpeakers: List<String> = emptyList())
+
+    /** "Speaker 2" before "Speaker 10"; other ids alphabetically. */
+    internal val SPEAKER_ORDER: Comparator<String> = compareBy<String>(
+        { it.removePrefix("Speaker ").toIntOrNull() ?: Int.MAX_VALUE }, { it })
 
     fun attributeWords(
         words: List<RecognizedWord>,
@@ -83,10 +91,12 @@ object TranscriptFusion {
         val result = mutableListOf<TranscriptSegment>()
         for (word in input) {
             val a = attribute(word.startMs, word.endMs, turns, minDominance, minMargin)
-            val current = TranscriptSegment(word.startMs, word.endMs, a.speakerId, word.text, a.overlap, a.reliable)
+            val current = TranscriptSegment(word.startMs, word.endMs, a.speakerId, word.text, a.overlap, a.reliable,
+                a.overlapSpeakers)
             val previous = result.lastOrNull()
             if (previous != null && previous.speakerId == current.speakerId &&
                 previous.overlappingSpeech == current.overlappingSpeech &&
+                previous.overlapSpeakers == current.overlapSpeakers &&
                 previous.attributionReliable == current.attributionReliable &&
                 current.startMs <= previous.endMs + maxGapMs) {
                 val noSpace = current.text.first() in ".,!?;:…»)" || previous.text.last() in "(«"
@@ -103,7 +113,7 @@ object TranscriptFusion {
     fun attributeChunks(chunks: List<RecognizedChunk>, turns: List<SpeakerTurn>): List<TranscriptSegment> =
         chunks.sortedBy { it.startMs }.map { c ->
             val a = attribute(c.startMs, c.endMs, turns, 0.9, 0.8)
-            TranscriptSegment(c.startMs, c.endMs, a.speakerId, c.text, a.overlap, a.reliable)
+            TranscriptSegment(c.startMs, c.endMs, a.speakerId, c.text, a.overlap, a.reliable, a.overlapSpeakers)
         }
 
     /** Joins adjacent fragments of one reliably attributed speaker into a reply.
@@ -168,17 +178,18 @@ object TranscriptFusion {
         val ranked = grouped.mapValues { total(it.value) }
             .toList().sortedWith(compareByDescending<Pair<String, Long>> { it.second }.thenBy { it.first })
         val groups = grouped.keys.toList()
-        val overlap = groups.indices.any { i ->
-            ((i + 1) until groups.size).any { j ->
-                intersection(grouped.getValue(groups[i]), grouped.getValue(groups[j])) > 0L
+        val overlapping = sortedSetOf(SPEAKER_ORDER)
+        for (i in groups.indices) for (j in (i + 1) until groups.size)
+            if (intersection(grouped.getValue(groups[i]), grouped.getValue(groups[j])) > 0L) {
+                overlapping += groups[i]; overlapping += groups[j]
             }
-        }
+        val overlap = overlapping.isNotEmpty()
         val duration = (end - start).toDouble()
         val second = ranked.getOrNull(1)?.second ?: 0L
         val uncertain = turns.any { !it.attributionEligible && it.startMs < end && it.endMs > start }
         val reliable = !overlap && !uncertain && ranked[0].second / duration >= minDominance &&
             (ranked[0].second - second) / duration >= minMargin
-        return Attribution(if (reliable) ranked[0].first else null, overlap, reliable)
+        return Attribution(if (reliable) ranked[0].first else null, overlap, reliable, overlapping.toList())
     }
 }
 
@@ -263,9 +274,14 @@ object TranscriptExport {
     }
     fun txt(items: List<TranscriptSegment>, names: Map<String, String> = emptyMap()): String = items.joinToString("\n") {
         "[" + time(it.startMs) + "–" + time(it.endMs) + "] " +
-            displaySpeaker(it.speakerId, names) + ": " + it.text +
+            segmentSpeaker(it, names) + ": " + it.text +
             (if (it.overlappingSpeech) " [перекрытие речи]" else "")
     }
+    /** Speaker label of a fragment: overlapped speech without one attributable speaker lists everyone who spoke
+     * («Говорящий 1 + Говорящий 2»); the words are not split between them. */
+    fun segmentSpeaker(s: TranscriptSegment, names: Map<String, String> = emptyMap()): String =
+        if (s.speakerId == null && s.overlapSpeakers.isNotEmpty()) s.overlapSpeakers.joinToString(" + ") { displaySpeaker(it, names) }
+        else displaySpeaker(s.speakerId, names)
     /** Human-readable label for TXT/SRT; JSON keeps the stable id ("Speaker N"). A user-given name wins. */
     fun displaySpeaker(id: String?, names: Map<String, String> = emptyMap()): String = when {
         id == null -> "Не определён"
@@ -276,7 +292,7 @@ object TranscriptExport {
     fun srt(items: List<TranscriptSegment>, names: Map<String, String> = emptyMap()): String =
         items.sortedBy { it.startMs }.mapIndexed { i, s ->
             (i + 1).toString() + "\n" + srtTime(s.startMs) + " --> " +
-                srtTime(s.endMs) + "\n" + displaySpeaker(s.speakerId, names) + ": " + s.text +
+                srtTime(s.endMs) + "\n" + segmentSpeaker(s, names) + ": " + s.text +
                 (if (s.overlappingSpeech) " [перекрытие речи]" else "")
         }.joinToString("\n\n")
     fun json(items: List<TranscriptSegment>, provenance: TranscriptProvenance? = null,
@@ -297,6 +313,8 @@ object TranscriptExport {
                     ", \"speaker_id\": " + (it.speakerId?.let(::jsonString) ?: "null") +
                     (it.speakerId?.let { id -> names[id]?.trim()?.takeIf(String::isNotEmpty) }
                         ?.let { name -> ", \"speaker_name\": " + jsonString(name) } ?: "") +
+                    (if (it.overlapSpeakers.isEmpty()) "" else ", \"overlap_speaker_ids\": [" +
+                        it.overlapSpeakers.joinToString(", ", transform = ::jsonString) + "]") +
                     ", \"text\": " + jsonString(it.text) + (fixed?.let { t -> ", \"text_edited\": " + jsonString(t) } ?: "") +
                     ", \"overlapping_speech\": " +
                     it.overlappingSpeech + ", \"attribution_reliable\": " + it.attributionReliable + "}"

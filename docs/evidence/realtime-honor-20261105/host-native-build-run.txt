@@ -1,0 +1,5 @@
+incremental-offline: calls=2 context=304 wall_ms=936
+fast: calls=10 context=419 wall_ms=2789
+fallback: calls=4 context=419 wall_ms=1312
+adaptive-20min: calls=127 context=525 wall_ms=78618
+fallback-60min: calls=376 context=528 wall_ms=253772

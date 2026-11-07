@@ -17,7 +17,7 @@ from run_android_ui import AndroidUi, PACKAGE, dismiss_foreign_anr_dialog
 ROOT = Path(__file__).resolve().parents[1]
 KIT = f"/sdcard/Android/data/{PACKAGE}/files/kit"
 ASSETS = ROOT / ".local/androidTestAssets"
-MISSING = "Модель распознавания не установлена"
+MISSING = "Модель распознавания не встроена"  # 0.3.x: «… не встроена в эту сборку.»
 
 
 def push(ui, local, name):
@@ -62,7 +62,10 @@ def run(ui):
     restart(ui)
     if not wait_for(ui, "gigaam-v3.zip:", 60):
         raise AssertionError("A corrupt kit ZIP was not reported by name")
-    ui.visible(MISSING)
+    # 0.3.x replaces the missing-model hint with the error; the model must still not be reported as installed.
+    _, installed = ui.find(label="Комплект установлен", timeout=0)
+    if installed is not None:
+        raise AssertionError("A corrupt kit ZIP was reported as installed")
     if "gigaam-v3.zip" not in ui.shell("ls", KIT):
         raise AssertionError("A rejected ZIP must stay in the kit folder for a retry")
     ui.screenshot("kit-corrupt-rejected")

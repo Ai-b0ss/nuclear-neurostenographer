@@ -8,13 +8,14 @@
 #   .local/productAssets/gigaam-v3-e2e-rnnt.zip A3 bundle, SHA-256 3a4057b9...3225 (tools/asr_20261104/make_a3_bundle.py
 #                                              from the Smirnov75 files after tools/asr_20261104/strip_unused_opsets.py)
 #   .local/productAssets/nemotron.zip          C2 bundle, SHA-256 a9a4f0fd...8bec (python tools/provision_nemotron.py)
+#   .local/realtimeAssets/silero_vad.onnx      live-mode VAD (0.3.8+), SHA-256 9e2449e1...1fd6, MIT (assets/silero-LICENSE.txt)
 #   $TOOLCHAIN                                 JDK 17, Android SDK 35, Gradle 8.9 with a warm cache (default: the C2 toolchain)
 #   $KEYS/nn-release.jks + $KEYS/pw.txt        release key (alias nn); the password is passed via env, never printed
 set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 TOOLCHAIN=${TOOLCHAIN:-K:/nn-c2-android/.local/toolchain}
 KEYS=${KEYS:-K:/nn-release-keys}
-for f in app/libs/sherpa-onnx-1.12.20.aar .local/productAssets/gigaam-v3-e2e-rnnt.zip .local/productAssets/nemotron.zip; do
+for f in app/libs/sherpa-onnx-1.12.20.aar .local/productAssets/gigaam-v3-e2e-rnnt.zip .local/productAssets/nemotron.zip .local/realtimeAssets/silero_vad.onnx; do
   [ -f "$ROOT/$f" ] || { echo "Missing $f (see header)"; exit 2; }
 done
 export JAVA_HOME=$TOOLCHAIN/jdk/jdk-17.0.21+9 ANDROID_HOME=$TOOLCHAIN/sdk GRADLE_USER_HOME=$TOOLCHAIN/gradle-home ANDROID_USER_HOME=$TOOLCHAIN/android-user

@@ -1,0 +1,170 @@
+{
+  "scope": "PUBLIC_SCRIPTED_RUSSIAN_HUMAN_VOICE_RTTM_DIFFERENTIAL",
+  "no_retraining_no_reference_in_inference": true,
+  "audio_sha256": "b987f38f5c3b7570523a6c4850ee4e5891c68abb8fe449d30e5745263c76c57c",
+  "reference_sha256": "af4c5258ec93df1c83c2e2897aab2b46a8d6b4e34d3e3a6d8d6bcf509f5bca90",
+  "run_hashes": {
+    "baseline": "6972d06830ece15634996742bfbcfd5a5f961988cdfe73d6d9459fae12907fde",
+    "accelerated": "e9c769094412dc3485319db0f73dffb6f7d3eac9045f93d4813f38a66a8febd0",
+    "repeat": "af585c57780d65ca6faedd2dec06262f14885e50447d4fed416c1bf4cd4e6636"
+  },
+  "baseline": {
+    "score": {
+      "status": "SCORED",
+      "rate": 0.043153457702099246,
+      "miss_ms": 2068,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "speaker_1",
+        "Speaker 2": "speaker_2",
+        "Speaker 3": "speaker_3"
+      }
+    },
+    "turns": 17
+  },
+  "accelerated": {
+    "score": {
+      "status": "SCORED",
+      "rate": 0.04816159592671424,
+      "miss_ms": 2308,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "speaker_1",
+        "Speaker 2": "speaker_2",
+        "Speaker 3": "speaker_3"
+      }
+    },
+    "turns": 17
+  },
+  "repeated": {
+    "score": {
+      "status": "SCORED",
+      "rate": 0.04816159592671424,
+      "miss_ms": 2308,
+      "false_alarm_ms": 0,
+      "confusion_ms": 0,
+      "reference_speaker_ms": 47922,
+      "scored_wall_ms": 49098,
+      "collar_radius_ms": 250,
+      "skip_reference_overlap": false,
+      "hypothesis_to_reference": {
+        "Speaker 1": "speaker_1",
+        "Speaker 2": "speaker_2",
+        "Speaker 3": "speaker_3"
+      }
+    },
+    "turns": 17
+  },
+  "new_missed_regions": [
+    {
+      "start_ms": 6040,
+      "end_ms": 6230,
+      "extra_missing_speaker_ms": 190,
+      "reference": "speaker_1",
+      "predicted": "",
+      "baseline_predicted": "Speaker 1",
+      "dbfs": -44.51,
+      "min_dbfs": -47.77,
+      "max_dbfs": -42.16
+    },
+    {
+      "start_ms": 2240,
+      "end_ms": 2250,
+      "extra_missing_speaker_ms": 10,
+      "reference": "speaker_1",
+      "predicted": "",
+      "baseline_predicted": "Speaker 1",
+      "dbfs": -46.26,
+      "min_dbfs": -46.26,
+      "max_dbfs": -46.26
+    },
+    {
+      "start_ms": 6450,
+      "end_ms": 6460,
+      "extra_missing_speaker_ms": 10,
+      "reference": "speaker_1",
+      "predicted": "",
+      "baseline_predicted": "Speaker 1",
+      "dbfs": -50.86,
+      "min_dbfs": -50.86,
+      "max_dbfs": -50.86
+    },
+    {
+      "start_ms": 14570,
+      "end_ms": 14580,
+      "extra_missing_speaker_ms": 10,
+      "reference": "speaker_2",
+      "predicted": "",
+      "baseline_predicted": "Speaker 2",
+      "dbfs": -52.47,
+      "min_dbfs": -52.47,
+      "max_dbfs": -52.47
+    },
+    {
+      "start_ms": 14870,
+      "end_ms": 14880,
+      "extra_missing_speaker_ms": 10,
+      "reference": "speaker_2",
+      "predicted": "",
+      "baseline_predicted": "Speaker 2",
+      "dbfs": -56.66,
+      "min_dbfs": -56.66,
+      "max_dbfs": -56.66
+    },
+    {
+      "start_ms": 28610,
+      "end_ms": 28620,
+      "extra_missing_speaker_ms": 10,
+      "reference": "speaker_2",
+      "predicted": "",
+      "baseline_predicted": "Speaker 2",
+      "dbfs": -49.86,
+      "min_dbfs": -49.86,
+      "max_dbfs": -49.86
+    }
+  ],
+  "per_reference_deltas": [
+    {
+      "reference_index": 0,
+      "speaker": "speaker_1",
+      "start_ms": 320,
+      "end_ms": 8608,
+      "baseline_missed_ms": 1260,
+      "candidate_missed_ms": 1470,
+      "delta_missed_ms": 210
+    },
+    {
+      "reference_index": 1,
+      "speaker": "speaker_2",
+      "start_ms": 10142,
+      "end_ms": 18878,
+      "baseline_missed_ms": 290,
+      "candidate_missed_ms": 310,
+      "delta_missed_ms": 20
+    },
+    {
+      "reference_index": 4,
+      "speaker": "speaker_2",
+      "start_ms": 23742,
+      "end_ms": 30398,
+      "baseline_missed_ms": 340,
+      "candidate_missed_ms": 350,
+      "delta_missed_ms": 10
+    }
+  ],
+  "remarks": [
+    "Only energy is measured, not independently detected speech",
+    "No RTTM annotations were used to produce either model output",
+    "These are 10-ms RTTM scoring regions with +/-250 ms collar exclusions"
+  ]
+}

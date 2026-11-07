@@ -6,6 +6,7 @@ private fun test(label: String, action: () -> Unit) {
 }
 
 fun main() {
+    testRealtimeCore()
     testPcmWav()
     testPcmStreaming()
     testPcm16WavWriter()
@@ -55,6 +56,26 @@ fun main() {
         val turns = listOf(SpeakerTurn(0, 1000, "A"), SpeakerTurn(300, 900, "B"))
         val result = TranscriptFusion.attributeWords(listOf(RecognizedWord(400, 700, "да")), turns).single()
         check(result.speakerId == null && result.overlappingSpeech)
+        check(result.overlapSpeakers == listOf("A", "B"))
+    }
+    test("overlap names both speakers in UI, TXT, SRT and JSON") {
+        // A third speaker present in the window but not overlapping is not named.
+        val turns = listOf(SpeakerTurn(0, 1000, "Speaker 10"), SpeakerTurn(300, 900, "Speaker 2"), SpeakerTurn(1000, 1200, "Speaker 1"))
+        val s = TranscriptFusion.attributeWords(listOf(RecognizedWord(400, 1100, "да")), turns).single()
+        check(s.speakerId == null && s.overlapSpeakers == listOf("Speaker 2", "Speaker 10")) { s.toString() }
+        check(TranscriptExport.segmentSpeaker(s) == "Говорящий 2 + Говорящий 10")
+        check(TranscriptExport.segmentSpeaker(s, mapOf("Speaker 2" to "Анна")) == "Анна + Говорящий 10")
+        check(TranscriptExport.txt(listOf(s)).contains("] Говорящий 2 + Говорящий 10: да [перекрытие речи]"))
+        check(TranscriptExport.srt(listOf(s)).contains("\nГоворящий 2 + Говорящий 10: да"))
+        val json = TranscriptExport.json(listOf(s))
+        check(json.contains("\"speaker_id\": null, \"overlap_speaker_ids\": [\"Speaker 2\", \"Speaker 10\"], \"text\"")) { json }
+        // Words of different overlap pairs do not merge into one fragment.
+        val two = TranscriptFusion.attributeWords(listOf(RecognizedWord(100, 200, "а"), RecognizedWord(250, 350, "б")),
+            listOf(SpeakerTurn(0, 400, "A"), SpeakerTurn(0, 220, "B"), SpeakerTurn(240, 400, "C")))
+        check(two.map { it.overlapSpeakers } == listOf(listOf("A", "B"), listOf("A", "C"))) { two.toString() }
+        // No overlap, no names: unknown stays «Не определён».
+        check(TranscriptExport.segmentSpeaker(TranscriptSegment(0, 1, null, "x")) == "Не определён")
+        check(!TranscriptExport.json(listOf(TranscriptSegment(0, 1, null, "x"))).contains("overlap_speaker_ids"))
     }
     test("adjacent speakers not overlap") {
         val result = TranscriptFusion.attributeWords(

@@ -1,0 +1,190 @@
+{
+  "scope": "HOST_C2_ONLY_COARSE_TTS_NOT_HUMAN_GOLD",
+  "reference_sha256": "f3f22f3cf7e651fbaee664ebb93ad563248e78afd77ea10207556d874ce12919",
+  "results": {
+    "adaptive-20min": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.18852382984249486,
+        "miss_ms": 5828,
+        "false_alarm_ms": 0,
+        "confusion_ms": 4334,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "2": "spk2",
+          "3": "spk3"
+        }
+      },
+      "turns_sha256": "45a40b55694ca43a389768082c276c7c881782792f1e826b01093cf20e51a760"
+    },
+    "fallback-60min": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.18203068474852976,
+        "miss_ms": 4649,
+        "false_alarm_ms": 0,
+        "confusion_ms": 5163,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "2": "spk2",
+          "3": "spk3"
+        }
+      },
+      "turns_sha256": "f1c638a37750c2a853c317c1e2598012484ae17698abd6887a295680ce0114ac"
+    },
+    "fallback": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.18203068474852976,
+        "miss_ms": 4649,
+        "false_alarm_ms": 0,
+        "confusion_ms": 5163,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "2": "spk2",
+          "3": "spk3"
+        }
+      },
+      "turns_sha256": "8d4d76b09c5cce92e18678bcc2de64748fa69799f5456d20bf65301d02b237e7"
+    },
+    "fast": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.2517485112145892,
+        "miss_ms": 8291,
+        "false_alarm_ms": 0,
+        "confusion_ms": 5279,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "2": "spk2",
+          "3": "spk3"
+        }
+      },
+      "turns_sha256": "4dc3e4cc08f786050593b55e854467effe892087cd11cf38a650b159c1d0a83d"
+    },
+    "incremental-offline": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.13767322783518543,
+        "miss_ms": 4608,
+        "false_alarm_ms": 0,
+        "confusion_ms": 2813,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "3": "spk2",
+          "2": "spk3"
+        }
+      },
+      "turns_sha256": "6987d7d86a0f0e61090dd3a339c1608e8049579650c824095db8dc7089efb199"
+    },
+    "original-offline": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.13767322783518543,
+        "miss_ms": 4608,
+        "false_alarm_ms": 0,
+        "confusion_ms": 2813,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "3": "spk2",
+          "2": "spk3"
+        }
+      },
+      "turns_sha256": "4b15157602e0765bbd021edae81e6a612b4b3b695f1546b9d3087edaad7cc9b7"
+    },
+    "revised-fast": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.08661855555349424,
+        "miss_ms": 4669,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "2": "spk2",
+          "3": "spk3"
+        }
+      },
+      "turns_sha256": "d20e4207ead444d4330a0bd4bbf6006a2a99b5da4e98be5ad434f36e951ae446"
+    },
+    "revised-offline": {
+      "speakers": 4,
+      "reference_speakers": 4,
+      "speaker_count_gate": "PASS",
+      "der": {
+        "status": "SCORED",
+        "rate": 0.13858226814834054,
+        "miss_ms": 4657,
+        "false_alarm_ms": 0,
+        "confusion_ms": 2813,
+        "reference_speaker_ms": 53903,
+        "scored_wall_ms": 48419,
+        "collar_radius_ms": 250,
+        "skip_reference_overlap": false,
+        "hypothesis_to_reference": {
+          "0": "spk0",
+          "1": "spk1",
+          "3": "spk2",
+          "2": "spk3"
+        }
+      },
+      "turns_sha256": "824efb143319b70e947b03d48b0e92369f523e705eb197de2822f84c104b86b0"
+    }
+  }
+}

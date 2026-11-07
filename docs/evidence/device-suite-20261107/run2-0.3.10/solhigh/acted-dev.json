@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "units": "milliseconds",
+  "audio_duration_ms": 19655,
+  "warnings": ["Время слов — по меткам токенов ASR (шаг 40 мс), не точное выравнивание."],
+  "provenance": {"engine": "sherpa-onnx-1.12.20/gigaam-v3-e2e-rnnt-int8-opsetfix", "model_revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix", "timestamp_source": "asr_token_timestamps", "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9", "runtime_sha256": "771fda6a4abf845a6f84f48e05e887fdf159671beb88cbc9aae327806511c1c8"},
+  "segments": [
+    {"start_ms": 220, "end_ms": 5860, "speaker_id": "Speaker 1", "text": "Примерно так же мы всегда проводим полный цикл тестирования перед внедрением новых технологий.", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 6890, "end_ms": 11050, "speaker_id": "Speaker 2", "text": "Да уж, не самое приятное приключение. А как вы решили эту проблему?", "overlapping_speech": false, "attribution_reliable": true},
+    {"start_ms": 12110, "end_ms": 19580, "speaker_id": "Speaker 1", "text": "Знаешь, мне бы хотелось сходить в музей-заповедник Царицыно. Там и архитектура потрясающая, и парки красивые.", "overlapping_speech": false, "attribution_reliable": true}
+  ]
+}
