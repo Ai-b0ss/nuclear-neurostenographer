@@ -1,0 +1,24 @@
+{
+  "input_name": "ITAM-demo-3-speakers-33s.wav",
+  "published": false,
+  "eta_calculating_seen": true,
+  "eta_numeric_seen": true,
+  "eta_examples": [
+    "Осталось ориентировочно 00:16",
+    "Осталось ориентировочно 00:17",
+    "Осталось ориентировочно 00:04"
+  ],
+  "candidate_apk_sha256": "60db53a52ae637eacc21cbff650560d719f5eae7e78fbb92bbf9aabc465ca4c1",
+  "wall_processing_s": 33.84,
+  "player_available": true,
+  "json_saved": true,
+  "json_segments": 7,
+  "json_sha256": "86a4e95d47f835eaa6a324402a087ac0893ae568a516d7ef14343518a9b4707e",
+  "status": "PASS",
+  "capture_trim_s": 90.81,
+  "transcode_rc": 0,
+  "video_file": "C:\\Users\\user\\Documents\\Codex\\2026-11-08\\chatgpt\\outputs\\demo\\ITAM-demo-3speakers-eta-playback.mp4",
+  "video_decode_rc": 0,
+  "video_bytes": 1048592,
+  "video_sha256": "5358854b8ce59f128fe8bf3c01283e32ecab7da72eba05c51333c02a1bb4fac2"
+}

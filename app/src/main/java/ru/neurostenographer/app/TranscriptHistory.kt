@@ -29,6 +29,26 @@ fun TermEdit.key() = "$segment:$start:$original"
  */
 class TranscriptHistory(filesDir: File) {
     private val dir = File(filesDir, "transcripts").apply { mkdirs() }
+    private val audioDir = File(filesDir, "transcript-audio").apply { mkdirs() }
+
+    /** Move an app-owned WAV without allocating a second long audio copy. */
+    fun attachAudio(id: String, source: File): Boolean {
+        require(id.matches(Regex("t[0-9]+")))
+        if (!source.isFile || !source.name.endsWith(".wav", ignoreCase = true)) return false
+        return source.renameTo(File(audioDir, "$id.wav"))
+    }
+
+    /** Only private app-owned audio files, never arbitrary external paths. */
+    fun audioFile(id: String): File? {
+        if (!id.matches(Regex("t[0-9]+"))) return null
+        return File(audioDir, "$id.wav").takeIf { it.isFile && it.length() > 44L }
+    }
+
+    fun clearSavedAudio(): Int {
+        var failed = 0
+        audioDir.listFiles().orEmpty().filter { it.isFile }.forEach { if (!it.delete()) failed++ }
+        return failed
+    }
 
     fun save(title: String, document: TranscriptDocument, createdMs: Long = System.currentTimeMillis()): SavedTranscript {
         val id = "t$createdMs"
@@ -67,10 +87,10 @@ class TranscriptHistory(filesDir: File) {
 
     fun delete(id: String) {
         require(id.matches(Regex("t\\d+")))
-        File(dir, "$id.json").delete(); File(dir, "$id.meta.json").delete()
+        File(dir, "$id.json").delete(); File(dir, "$id.meta.json").delete(); File(audioDir, "$id.wav").delete()
     }
 
-    fun deleteAll() { dir.listFiles().orEmpty().forEach { it.delete() } }
+    fun deleteAll() { dir.listFiles().orEmpty().forEach { it.delete() }; clearSavedAudio() }
 
     private fun load(id: String): SavedTranscript {
         val meta = JSONObject(File(dir, "$id.meta.json").readText())

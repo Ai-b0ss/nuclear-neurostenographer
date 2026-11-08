@@ -25,6 +25,7 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false, val c
     val details: String = "", val userTerms: List<Term> = emptyList(),
     /** 0 = no recognition running, 1 = preparing, 2 = speakers, 3 = speech. Only drives the progress steps in the UI. */
     val stage: Int = 0, val processingClock: AudioProcessingClock? = null,
+    val shortEta: ShortProcessingEta? = null,
     val recordingStartedAtMs: Long? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
@@ -99,7 +100,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -193,6 +194,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     }
 
     fun closeTranscript() { mutable.value = mutable.value.copy(current = null) }
+
+    fun savedAudioFile(id: String): File? = history.audioFile(id)
     fun refreshHistory() {
         if (mutable.value.busy || recording.value) return
         viewModelScope.launch {
@@ -270,7 +273,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
-            message = "Готовлю запись…", stage = 1, processingClock = null)
+            message = "Готовлю запись…", stage = 1, processingClock = null, shortEta = null)
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
@@ -278,7 +281,10 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             require(source.scheme == "file") { "Аудиофайл должен быть сохранён локально" }
             val pcm = PcmFileAudio(File(requireNotNull(source.path))) { context.ensureActive() }
             if (pcm.durationMs > PcmWav.MAX_SECONDS * 1000L) recognizeLong(pcm, model)
-            else recognizeBlock(pcm.read(checkCancelled = { context.ensureActive() }), model)
+            else {
+                mutable.value = mutable.value.copy(shortEta = ShortProcessingEta(SystemClock.elapsedRealtime()))
+                recognizeBlock(pcm.read(checkCancelled = { context.ensureActive() }), model)
+            }
         }
         val (backendUsed, warning) = processing
         val speakerSource = when {
@@ -317,12 +323,25 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         // A file the user named themselves keeps its name.
         val topic = if (named.startsWith("Запись ") || named == "Аудиофайл") TopicTitle.suggest(document.segments) else null
         val title = if (topic != null) topic + " · " + named.removePrefix("Запись ") else named
-        val saved = withContext(Dispatchers.IO) { history.save(title, document) }
-        // The transcript is kept; the audio copy is not needed any more.
+        val saved = withContext(Dispatchers.IO) {
+            history.save(title, document).also { saved ->
+                // Preserve decoded audio for seeking. Rename on the same volume,
+                // no RAM-sized copy. A playback failure must not drop the transcript.
+                mutable.value.source?.path?.let { history.attachAudio(saved.id, File(it)) }
+            }
+        }
+        // Attached audio no longer exists at the temporary snapshot path.
         discardSnapshot(mutable.value.source)
         mutable.value = mutable.value.copy(source = null, sourceName = null, segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
             current = saved, history = listOf(saved) + mutable.value.history, details = details, message = READY)
+    }
+
+    /** Uses monotonic wall time; does not create a fake countdown before any checkpoint. */
+    private fun etaCheckpoint(fraction: Double) {
+        val old = mutable.value.shortEta ?: return
+        mutable.value = mutable.value.copy(
+            shortEta = old.checkpoint(fraction.coerceAtLeast(old.phaseFraction), SystemClock.elapsedRealtime()))
     }
 
     private suspend fun recognizeBlock(audio: PcmAudio, model: File):
@@ -366,7 +385,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 }
             }
         }
+        // A finished diarization pass is the first honest time calibration.
+        // If C2 was unavailable, the first ASR callback performs calibration instead.
+        if (speakers != null) etaCheckpoint(0.45)
         val progress: (Int, Int) -> Unit = { index, count ->
+            if (count > 0) etaCheckpoint(0.45 + 0.43 * index.coerceIn(0, count).toDouble() / count)
             mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
                 message = "Расшифровываю речь: часть $index из $count")
         }
@@ -391,9 +414,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
             } else try {
                 mutable.value = mutable.value.copy(
-                    message = "Уточняю одновременную речь…", stage = 3, progress = 0f)
+                    message = "Уточняю одновременную речь…", stage = 3, progress = 0f,
+                    shortEta = mutable.value.shortEta?.invalidateUntilCheckpoint())
                 FddtHybrid.transcribe(app, audio, speakers?.turns.orEmpty(), baseline,
                     { context.ensureActive() }) { index, count ->
+                    if (count > 0) etaCheckpoint(0.88 + 0.1 * index.coerceIn(0, count).toDouble() / count)
                     mutable.value = mutable.value.copy(
                         message = "Разделяю перекрытия: $index из $count", stage = 3,
                         progress = (index-1).toFloat()/count.coerceAtLeast(1))
@@ -595,6 +620,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                     if (file.isFile && pattern.matches(file.name) && !file.delete()) failed++
                 }
             }
+            failed += history.clearSavedAudio()
             check(failed == 0) { "Не удалось удалить $failed локальных аудиофайлов. Повторите очистку." }
         }
         mutable.value = mutable.value.copy(
