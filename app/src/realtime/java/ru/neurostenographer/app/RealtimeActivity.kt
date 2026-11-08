@@ -184,7 +184,7 @@ class RealtimeActivity : ComponentActivity() {
                     Text("Пропустить уточнение (запись и текст сохранятся)", textAlign = TextAlign.Center)
                 }
                 if (complete) Row(Modifier.padding(bottom = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("В историю", textAlign = TextAlign.Center) }
+                    OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Назад", textAlign = TextAlign.Center) }
                     OutlinedButton(onClick = {
                         val doc = state.document!!
                         exportText = doc.export("json-contest")
