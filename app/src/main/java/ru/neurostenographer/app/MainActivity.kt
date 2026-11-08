@@ -491,14 +491,17 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
     Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Box(Modifier.height(160.dp), contentAlignment = Alignment.Center) {
-            FilledTonalButton(onClick = onCancel, shape = CircleShape, contentPadding = PaddingValues(0.dp),
+            FilledTonalButton(onClick = onCancel, enabled = !state.cancelling, shape = CircleShape, contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.size(136.dp)) { Icon(Icons.Filled.Close, "Отменить", Modifier.size(48.dp)) }
         }
-        Text("Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-        Text("Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
+        Text(if (state.cancelling) "Останавливаю…" else "Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        Text(if (state.cancelling) "Останавливаю обработку" else "Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
         if (state.stage > 0) Steps(state.stage)
         val timeline = state.processingClock
-        if (timeline != null) {
+        if (state.cancelling) {
+            Text("Ожидаю завершения текущего этапа.", style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+            LinearProgressIndicator(Modifier.fillMaxWidth())
+        } else if (timeline != null) {
             // Wall-clock ticks only update Compose. ASR and diarization continue on IO.
             val tick by produceState(SystemClock.elapsedRealtime(), timeline) {
                 while (true) {

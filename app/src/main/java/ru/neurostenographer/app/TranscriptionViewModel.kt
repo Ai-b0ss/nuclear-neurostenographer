@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import ru.neurostenographer.core.*
 import java.io.File
 
-data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
+data class ScreenState(val source: Uri? = null, val busy: Boolean = false, val cancelling: Boolean = false,
     val modelReady: Boolean = false, val message: String = "Установите локальный ZIP модели ${AsrModelSpec.ACTIVE.label} (${AsrModelSpec.ACTIVE.sizeLabel}).",
     val segments: List<TranscriptSegment> = emptyList(), val diarizationReady: Boolean = false,
     val speakerSource: String = "not_run", val timestampSource: String = "input_windows",
@@ -89,7 +89,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     private fun work(whileRecording: Boolean = false, block: suspend () -> Unit) {
         if (mutable.value.busy || (recording.value && !whileRecording)) return
-        mutable.value = mutable.value.copy(busy = true)
+        mutable.value = mutable.value.copy(busy = true, cancelling = false)
         operation = viewModelScope.launch {
             try { block() }
             catch (_: CancellationException) {
@@ -99,7 +99,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, progress = null, stage = 0, processingClock = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -555,7 +555,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
     }
 
-    fun cancel() { operation?.cancel() }
+    fun cancel() {
+        if (!mutable.value.busy || mutable.value.cancelling) return
+        mutable.value = mutable.value.copy(cancelling = true, message = "Останавливаю обработку…")
+        operation?.cancel()
+    }
 
     /** Drops audio that was not recognised (cancelled or failed). Only app-owned copies are deleted, never a user's file. */
     fun discardSource() {
