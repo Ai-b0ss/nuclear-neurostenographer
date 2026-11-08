@@ -1,0 +1,247 @@
+{
+  "category": "synthetic_holdout",
+  "metric": "speaker-permutation word error; not DER",
+  "normalization": "NFKC, lowercase, yo->e, punctuation stripped for scoring; exact preservation checked separately",
+  "unknown_policy": "unknown is a separate stream included in optimal label permutation",
+  "cases": [
+    {
+      "file": "holdout_26.wav",
+      "category": "synthetic_holdout",
+      "reference_words": 83,
+      "baseline_errors": 55,
+      "final_errors": 43,
+      "unknown_before": 27,
+      "unknown_after": 8,
+      "baseline_timeline_word_errors": 23,
+      "final_timeline_word_errors": 23,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 44066,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 33,
+          "errors": 18
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 34,
+          "errors": 10
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 27,
+          "errors": 27
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 51,
+          "errors": 26
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 35,
+          "errors": 9
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 8,
+          "errors": 8
+        }
+      ]
+    },
+    {
+      "file": "holdout_52.wav",
+      "category": "synthetic_holdout",
+      "reference_words": 67,
+      "baseline_errors": 48,
+      "final_errors": 37,
+      "unknown_before": 15,
+      "unknown_after": 4,
+      "baseline_timeline_word_errors": 26,
+      "final_timeline_word_errors": 26,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 31474,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 28,
+          "pred_words": 24,
+          "errors": 11
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 39,
+          "pred_words": 24,
+          "errors": 22
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 15,
+          "errors": 15
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 28,
+          "pred_words": 35,
+          "errors": 11
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 39,
+          "pred_words": 24,
+          "errors": 22
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 4,
+          "errors": 4
+        }
+      ]
+    },
+    {
+      "file": "holdout_11.wav",
+      "category": "synthetic_holdout",
+      "reference_words": 83,
+      "baseline_errors": 67,
+      "final_errors": 64,
+      "unknown_before": 31,
+      "unknown_after": 25,
+      "baseline_timeline_word_errors": 33,
+      "final_timeline_word_errors": 33,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 58630,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 31,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 31,
+          "errors": 17
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 11,
+          "errors": 11
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 25,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 36,
+          "errors": 13
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 12,
+          "errors": 12
+        }
+      ]
+    },
+    {
+      "file": "holdout_01.wav",
+      "category": "synthetic_holdout",
+      "reference_words": 40,
+      "baseline_errors": 1,
+      "final_errors": 1,
+      "unknown_before": 0,
+      "unknown_after": 0,
+      "baseline_timeline_word_errors": 1,
+      "final_timeline_word_errors": 1,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 15,
+      "changed": false,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 20,
+          "pred_words": 20,
+          "errors": 0
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 20,
+          "pred_words": 19,
+          "errors": 1
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 20,
+          "pred_words": 20,
+          "errors": 0
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 20,
+          "pred_words": 19,
+          "errors": 1
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "reference_words": 273,
+    "baseline_errors": 171,
+    "final_errors": 145,
+    "unknown_before": 73,
+    "unknown_after": 37,
+    "baseline_timeline_word_errors": 83,
+    "final_timeline_word_errors": 83
+  }
+}

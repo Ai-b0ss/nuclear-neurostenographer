@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import ru.neurostenographer.core.*
 import java.io.File
 
-data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
+data class ScreenState(val source: Uri? = null, val busy: Boolean = false, val cancelling: Boolean = false,
     val modelReady: Boolean = false, val message: String = "Установите локальный ZIP модели ${AsrModelSpec.ACTIVE.label} (${AsrModelSpec.ACTIVE.sizeLabel}).",
     val segments: List<TranscriptSegment> = emptyList(), val diarizationReady: Boolean = false,
     val speakerSource: String = "not_run", val timestampSource: String = "input_windows",
@@ -24,7 +24,8 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val history: List<SavedTranscript> = emptyList(), val current: SavedTranscript? = null,
     val details: String = "", val userTerms: List<Term> = emptyList(),
     /** 0 = no recognition running, 1 = preparing, 2 = speakers, 3 = speech. Only drives the progress steps in the UI. */
-    val stage: Int = 0, val processingClock: AudioProcessingClock? = null)
+    val stage: Int = 0, val processingClock: AudioProcessingClock? = null,
+    val recordingStartedAtMs: Long? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
@@ -88,7 +89,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     private fun work(whileRecording: Boolean = false, block: suspend () -> Unit) {
         if (mutable.value.busy || (recording.value && !whileRecording)) return
-        mutable.value = mutable.value.copy(busy = true)
+        mutable.value = mutable.value.copy(busy = true, cancelling = false)
         operation = viewModelScope.launch {
             try { block() }
             catch (_: CancellationException) {
@@ -98,7 +99,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, progress = null, stage = 0, processingClock = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -381,8 +382,31 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val asr = if (english != null) AsrOutput(english.segments, audio.durationMs,
             english.loadMs, english.decodeMs, english.windows, untimedWindows = english.windows,
             modelId = WhisperEnglish.ID, modelRevision = WhisperEnglish.REVISION)
-        else OfflineAsr.transcribe(audio, model, { context.ensureActive() }, progress,
-            turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows)
+        else {
+            val baseline = OfflineAsr.transcribe(audio, model, { context.ensureActive() }, progress,
+                turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows,
+                unmerged = BuildConfig.FDDT_HYBRID)
+            if (!BuildConfig.FDDT_HYBRID) baseline
+            else if (speakers == null || backendUsed != NemotronBackend.C2) {
+                baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
+            } else try {
+                mutable.value = mutable.value.copy(
+                    message = "Уточняю одновременную речь…", stage = 3, progress = 0f)
+                FddtHybrid.transcribe(app, audio, speakers?.turns.orEmpty(), baseline,
+                    { context.ensureActive() }) { index, count ->
+                    mutable.value = mutable.value.copy(
+                        message = "Разделяю перекрытия: $index из $count", stage = 3,
+                        progress = (index-1).toFloat()/count.coerceAtLeast(1))
+                }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                Log.e("FddtHybrid", "FDDT optional postpass failed; A3 preserved", e)
+                warning = listOfNotNull(warning,
+                    "Не удалось уточнить перекрытия. Сохранён исходный текст.")
+                    .joinToString(" ")
+                baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
+            }
+        }
         return Triple(asr, speakers, backendUsed to warning)
     }
 
@@ -482,7 +506,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             try { recorder = recorderFactory(file).also { it.start() } }
             catch (e: Throwable) { file.delete(); RecordingService.stop(getApplication()); throw e }
             recording.value = true
-            mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmFileAudio.MAX_FILE_LABEL}. Предыдущий результат сохранён до успешной остановки.")
+            mutable.value = mutable.value.copy(recordingStartedAtMs = SystemClock.elapsedRealtime(),
+                message = "Идёт запись. Максимум — ${PcmFileAudio.MAX_FILE_LABEL}. Предыдущий результат сохранён до успешной остановки.")
             // Foreground entry is asynchronous and can be refused (Android 14+ background-start
             // rules). Without it recording ends when the app leaves the screen: say so.
             viewModelScope.launch {
@@ -530,7 +555,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
     }
 
-    fun cancel() { operation?.cancel() }
+    fun cancel() {
+        if (!mutable.value.busy || mutable.value.cancelling) return
+        mutable.value = mutable.value.copy(cancelling = true, message = "Останавливаю обработку…")
+        operation?.cancel()
+    }
 
     /** Drops audio that was not recognised (cancelled or failed). Only app-owned copies are deleted, never a user's file. */
     fun discardSource() {

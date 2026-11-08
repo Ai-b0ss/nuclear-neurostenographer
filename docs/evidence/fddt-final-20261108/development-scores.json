@@ -1,0 +1,411 @@
+{
+  "category": "synthetic_development",
+  "metric": "speaker-permutation word error; not DER",
+  "normalization": "NFKC, lowercase, yo->e, punctuation stripped for scoring; exact preservation checked separately",
+  "unknown_policy": "unknown is a separate stream included in optimal label permutation",
+  "cases": [
+    {
+      "file": "ivkond_08.wav",
+      "category": "synthetic_development",
+      "reference_words": 83,
+      "baseline_errors": 67,
+      "final_errors": 64,
+      "unknown_before": 31,
+      "unknown_after": 25,
+      "baseline_timeline_word_errors": 33,
+      "final_timeline_word_errors": 33,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 58793,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 31,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 31,
+          "errors": 17
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 11,
+          "errors": 11
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 25,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 36,
+          "errors": 13
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 12,
+          "errors": 12
+        }
+      ]
+    },
+    {
+      "file": "ivkond_32.wav",
+      "category": "synthetic_development",
+      "reference_words": 42,
+      "baseline_errors": 8,
+      "final_errors": 8,
+      "unknown_before": 0,
+      "unknown_after": 0,
+      "baseline_timeline_word_errors": 2,
+      "final_timeline_word_errors": 2,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 15,
+      "changed": false,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 14,
+          "pred_words": 12,
+          "errors": 2
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 3,
+          "pred_words": 3,
+          "errors": 0
+        },
+        {
+          "ref": "3",
+          "pred": "Speaker 3",
+          "ref_words": 9,
+          "pred_words": 9,
+          "errors": 0
+        },
+        {
+          "ref": "4",
+          "pred": "Speaker 4",
+          "ref_words": 16,
+          "pred_words": 13,
+          "errors": 3
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 5",
+          "ref_words": 0,
+          "pred_words": 3,
+          "errors": 3
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 14,
+          "pred_words": 12,
+          "errors": 2
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 3,
+          "pred_words": 3,
+          "errors": 0
+        },
+        {
+          "ref": "3",
+          "pred": "Speaker 3",
+          "ref_words": 9,
+          "pred_words": 9,
+          "errors": 0
+        },
+        {
+          "ref": "4",
+          "pred": "Speaker 4",
+          "ref_words": 16,
+          "pred_words": 13,
+          "errors": 3
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 5",
+          "ref_words": 0,
+          "pred_words": 3,
+          "errors": 3
+        }
+      ]
+    },
+    {
+      "file": "ivkond_34.wav",
+      "category": "synthetic_development",
+      "reference_words": 69,
+      "baseline_errors": 51,
+      "final_errors": 34,
+      "unknown_before": 25,
+      "unknown_after": 13,
+      "baseline_timeline_word_errors": 22,
+      "final_timeline_word_errors": 22,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 44478,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 43,
+          "pred_words": 34,
+          "errors": 14
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 26,
+          "pred_words": 19,
+          "errors": 12
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 25,
+          "errors": 25
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 43,
+          "pred_words": 46,
+          "errors": 9
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 26,
+          "pred_words": 19,
+          "errors": 12
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 13,
+          "errors": 13
+        }
+      ]
+    },
+    {
+      "file": "ivkond_38.wav",
+      "category": "synthetic_development",
+      "reference_words": 68,
+      "baseline_errors": 50,
+      "final_errors": 40,
+      "unknown_before": 21,
+      "unknown_after": 13,
+      "baseline_timeline_word_errors": 21,
+      "final_timeline_word_errors": 21,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 43841,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 26,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 28,
+          "pred_words": 20,
+          "errors": 10
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 21,
+          "errors": 21
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 26,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 28,
+          "pred_words": 28,
+          "errors": 8
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 13,
+          "errors": 13
+        }
+      ]
+    },
+    {
+      "file": "ivkond_44.wav",
+      "category": "synthetic_development",
+      "reference_words": 84,
+      "baseline_errors": 54,
+      "final_errors": 59,
+      "unknown_before": 32,
+      "unknown_after": 24,
+      "baseline_timeline_word_errors": 28,
+      "final_timeline_word_errors": 28,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 54322,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 53,
+          "pred_words": 32,
+          "errors": 23
+        },
+        {
+          "ref": "2",
+          "pred": "unknown",
+          "ref_words": 31,
+          "pred_words": 32,
+          "errors": 17
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 14,
+          "errors": 14
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 53,
+          "pred_words": 33,
+          "errors": 22
+        },
+        {
+          "ref": "2",
+          "pred": "unknown",
+          "ref_words": 31,
+          "pred_words": 24,
+          "errors": 16
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 21,
+          "errors": 21
+        }
+      ]
+    },
+    {
+      "file": "ivkond_66.wav",
+      "category": "synthetic_development",
+      "reference_words": 72,
+      "baseline_errors": 62,
+      "final_errors": 52,
+      "unknown_before": 41,
+      "unknown_after": 19,
+      "baseline_timeline_word_errors": 20,
+      "final_timeline_word_errors": 20,
+      "exact_text_and_punctuation_preserved": true,
+      "overlap_word_times_preserved": true,
+      "fddt_ms": 56414,
+      "changed": true,
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 33,
+          "pred_words": 14,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "unknown",
+          "ref_words": 39,
+          "pred_words": 41,
+          "errors": 28
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 15,
+          "errors": 15
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 33,
+          "pred_words": 14,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 39,
+          "pred_words": 37,
+          "errors": 14
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 19,
+          "errors": 19
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "reference_words": 418,
+    "baseline_errors": 292,
+    "final_errors": 257,
+    "unknown_before": 150,
+    "unknown_after": 94,
+    "baseline_timeline_word_errors": 126,
+    "final_timeline_word_errors": 126
+  }
+}

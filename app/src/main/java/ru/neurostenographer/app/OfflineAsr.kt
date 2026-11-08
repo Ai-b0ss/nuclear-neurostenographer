@@ -27,7 +27,7 @@ object OfflineAsr {
     fun transcribe(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
                    progress: (Int, Int) -> Unit = { _, _ -> },
                    turns: List<SpeakerTurn> = emptyList(),
-                   speechWindows: List<AudioWindow>? = null): AsrOutput {
+                   speechWindows: List<AudioWindow>? = null, unmerged: Boolean = false): AsrOutput {
         require(audio.sampleRate == 16000 && audio.samples.size >= 1600 &&
             audio.samples.size <= PcmWav.MAX_SECONDS * 16000) { "Аудио должно длиться от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
         // Token timing is measured for the A3 transducer only (docs/ASR_WORD_ATTRIBUTION_2026-11-05.md);
@@ -77,9 +77,11 @@ object OfflineAsr {
                 } finally { stream.release() }
             }
         } finally { recognizer.release() }
-        val segments = (TranscriptFusion.attributeWords(words, turns) + TranscriptFusion.attributeChunks(chunks, turns))
+        val attributed = if (unmerged) words.flatMap { TranscriptFusion.attributeWords(listOf(it), turns) }
+            else TranscriptFusion.attributeWords(words, turns)
+        val segments = (attributed + TranscriptFusion.attributeChunks(chunks, turns))
             .sortedBy { it.startMs }
-        return AsrOutput(TranscriptFusion.mergeReplies(segments), audio.durationMs,
+        return AsrOutput(if (unmerged) segments else TranscriptFusion.mergeReplies(segments), audio.durationMs,
             (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000, windows.size, timed, chunks.size)
     }
 }

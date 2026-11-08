@@ -1,0 +1,110 @@
+{
+  "stage": "COMPLETE",
+  "seconds": 887.3,
+  "records": [
+    {
+      "install": "app-debug.apk",
+      "sha256": "e55a517f274dca07dd975a34946640d451c6663c47a2d32055df670aae614a69"
+    },
+    {
+      "install": "app-debug-androidTest.apk",
+      "sha256": "7db5e9f0fffe47343418af940b1cb873af83a40085c5ca0fc57ec0d0f6606041"
+    },
+    {
+      "test": "datahive_ru_000002_mix",
+      "pass": true,
+      "seconds": 39.94,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 34,069\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "datahive_ru_000004_mix",
+      "pass": true,
+      "seconds": 29.26,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 23,365\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "datahive_ru_000013_mix",
+      "pass": true,
+      "seconds": 16.58,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 11,233\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "holdout_01",
+      "pass": true,
+      "seconds": 6.3,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 0,743\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "holdout_11",
+      "pass": true,
+      "seconds": 65.25,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 60,032\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "holdout_26",
+      "pass": true,
+      "seconds": 50.93,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 45,594\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "holdout_52",
+      "pass": true,
+      "seconds": 38.43,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 32,78\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "ivkond_08",
+      "pass": true,
+      "seconds": 65.61,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 60,247\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "ivkond_32",
+      "pass": true,
+      "seconds": 6.29,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 0,725\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "ivkond_34",
+      "pass": true,
+      "seconds": 50.9,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 45,771\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "ivkond_38",
+      "pass": true,
+      "seconds": 50.58,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 45,248\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "ivkond_44",
+      "pass": true,
+      "seconds": 61.1,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 55,758\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "ivkond_66",
+      "pass": true,
+      "seconds": 63.06,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.FieldEvaluationDeviceTest:\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.FieldEvaluationDeviceTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compareBaselineAndHybrid\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 57,731\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "basic_inputs",
+      "pass": true,
+      "seconds": 184.93,
+      "tail": "INSTRUMENTATION_STATUS: test=failedRecordingAndStopTimeoutPreservePreviousInput\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.RecordingTest\r\nINSTRUMENTATION_STATUS: current=8\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=8\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=platformMicrophoneProducesBoundedWavAndReleasesForNextSession\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.RecordingTest\r\nINSTRUMENTATION_STATUS: current=8\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=8\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=platformMicrophoneProducesBoundedWavAndReleasesForNextSession\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 179,463\r\n\r\nOK (8 tests)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "english",
+      "pass": true,
+      "seconds": 35.47,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.EnglishCheckpointTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.EnglishCheckpointTest:\r\nINSTRUMENTATION_STATUS: test=englishRussianAndSilence\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.EnglishCheckpointTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=englishRussianAndSilence\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 30,12\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "long_21min",
+      "pass": true,
+      "seconds": 49.32,
+      "tail": "INSTRUMENTATION_STATUS: class=ru.neurostenographer.app.LongCheckpointTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nru.neurostenographer.app.LongCheckpointTest:\r\nINSTRUMENTATION_STATUS: test=twentyOneMinuteFileThroughProductAndMp3Import\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ru.neurostenographer.app.LongCheckpointTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=twentyOneMinuteFileThroughProductAndMp3Import\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 43,956\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    }
+  ]
+}

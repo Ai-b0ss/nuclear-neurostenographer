@@ -395,7 +395,8 @@ private fun HomeTab(state: ScreenState, recording: Boolean, preparing: Boolean, 
             AnimatedContent(targetState = mode, transitionSpec = { fadeIn(tween(160, delayMillis = 100)) togetherWith fadeOut(tween(100)) },
                 label = "hero") { m ->
                 when (m) {
-                    0 -> RecordingHero(enabled = !state.busy, level = microphoneLevel, onStop = onRecord)
+                    0 -> RecordingHero(enabled = !state.busy, level = microphoneLevel,
+                        startedAtMs = state.recordingStartedAtMs, onStop = onRecord)
                     1 -> ProcessingCard(state, onCancel)
                     else -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (state.source != null) Box(Modifier.padding(bottom = 16.dp)) { PendingAudioCard(state, onTranscribe, onDiscard) }
@@ -457,34 +458,28 @@ private fun StartBlock(ready: Boolean, onRecord: () -> Unit, onImport: () -> Uni
 }
 
 @Composable
-private fun RecordingHero(enabled: Boolean, level: Float, onStop: () -> Unit) {
-    val seconds by produceState(0L) {
-        val started = SystemClock.elapsedRealtime()
+private fun RecordingHero(enabled: Boolean, level: Float, startedAtMs: Long?, onStop: () -> Unit) {
+    val seconds by produceState(0L,startedAtMs) {
+        val started = startedAtMs ?: SystemClock.elapsedRealtime()
         while (true) { value = (SystemClock.elapsedRealtime() - started) / 1000; delay(250) }
     }
     val red = MaterialTheme.colorScheme.error
     Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(Modifier.width(190.dp).height(160.dp), contentAlignment = Alignment.Center) {
-            Canvas(Modifier.fillMaxSize().semantics { contentDescription = "Уровень микрофона" }) {
-                drawArc(red.copy(alpha = 0.16f), -90f, 360f, false,
-                    topLeft = Offset((size.width - size.height) / 2 + 3.dp.toPx(), 3.dp.toPx()),
-                    size = Size(size.height - 6.dp.toPx(), size.height - 6.dp.toPx()), style = Stroke(5.dp.toPx()))
-                drawArc(red, -90f, 360f * level.coerceIn(0f, 1f), false,
-                    topLeft = Offset((size.width - size.height) / 2 + 3.dp.toPx(), 3.dp.toPx()),
-                    size = Size(size.height - 6.dp.toPx(), size.height - 6.dp.toPx()),
-                    style = Stroke(5.dp.toPx(), cap = StrokeCap.Round))
-            }
-            Box(Modifier.size(136.dp).background(red, CircleShape).clip(CircleShape)
+        Text(clock(seconds * 1000), fontSize = 48.sp, fontWeight = FontWeight.Light)
+        Text("Идёт запись", style = MaterialTheme.typography.titleMedium, color = red)
+        Spacer(Modifier.height(28.dp))
+        VoiceWaveform(level,MaterialTheme.colorScheme.primary,modifier=Modifier.padding(horizontal=12.dp))
+        Spacer(Modifier.height(32.dp))
+        Box(Modifier.height(112.dp), contentAlignment = Alignment.Center) {
+            Box(Modifier.size(104.dp).background(red, CircleShape).clip(CircleShape)
                 .semantics { contentDescription = "Стоп" }.clickable(enabled = enabled, onClick = onStop),
                 contentAlignment = Alignment.Center) {
                 Box(Modifier.size(34.dp).background(Color.White, RoundedCornerShape(7.dp)))
             }
         }
         Spacer(Modifier.height(14.dp))
-        Text("Остановить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-        Spacer(Modifier.height(24.dp))
-        Text(clock(seconds * 1000), fontSize = 48.sp, fontWeight = FontWeight.Light)
-        Text("Идёт запись", style = MaterialTheme.typography.titleMedium, color = red)
+        Text(if (enabled) "Остановить" else "Останавливаю…", style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(12.dp))
         Text("Максимум ${PcmFileAudio.MAX_FILE_LABEL}. " + if (RecordingService.active) "Можно свернуть приложение." else "Не сворачивайте приложение.",
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
@@ -496,14 +491,17 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
     Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Box(Modifier.height(160.dp), contentAlignment = Alignment.Center) {
-            FilledTonalButton(onClick = onCancel, shape = CircleShape, contentPadding = PaddingValues(0.dp),
+            FilledTonalButton(onClick = onCancel, enabled = !state.cancelling, shape = CircleShape, contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.size(136.dp)) { Icon(Icons.Filled.Close, "Отменить", Modifier.size(48.dp)) }
         }
-        Text("Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-        Text("Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
+        Text(if (state.cancelling) "Останавливаю…" else "Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        Text(if (state.cancelling) "Останавливаю обработку" else "Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
         if (state.stage > 0) Steps(state.stage)
         val timeline = state.processingClock
-        if (timeline != null) {
+        if (state.cancelling) {
+            Text("Ожидаю завершения текущего этапа.", style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+            LinearProgressIndicator(Modifier.fillMaxWidth())
+        } else if (timeline != null) {
             // Wall-clock ticks only update Compose. ASR and diarization continue on IO.
             val tick by produceState(SystemClock.elapsedRealtime(), timeline) {
                 while (true) {

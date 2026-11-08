@@ -62,7 +62,7 @@ def main():
                 loop = ["-stream_loop", "-1"] if name == "too-long.m4a" else []
                 subprocess.run([args.ffmpeg, "-nostdin", "-hide_banner", "-loglevel", "error", "-y",
                                 *loop, "-i", str(source), "-map_metadata", "-1", *options, str(output)],
-                               check=True, timeout=30)
+                               check=True, timeout=120 if name == "too-long.m4a" else 30)
                 (failures if name in rejected else formats)[name] = {
                     "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "bytes": output.stat().st_size}
             manifest.write_text(json.dumps({"kind": "GENERATED_NUMERIC_TONES_NOT_SPEECH",

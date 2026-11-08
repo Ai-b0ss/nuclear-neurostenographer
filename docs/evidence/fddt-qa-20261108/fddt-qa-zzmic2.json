@@ -1,0 +1,26 @@
+{
+  "transcript": [
+    {"speaker_id": "speaker_1", "start_ms": 460, "end_ms": 2170, "text": "Запусти следующий подкаст."},
+    {"speaker_id": "speaker_1", "start_ms": 3910, "end_ms": 5060, "text": "Какие напоминания"},
+    {"speaker_id": "speaker_2", "start_ms": 4100, "end_ms": 5520, "text": "Открой температуру"},
+    {"speaker_id": "speaker_1", "start_ms": 7460, "end_ms": 8900, "text": "Пожалуйста, напомни."},
+    {"speaker_id": "speaker_3", "start_ms": 7770, "end_ms": 10380, "text": "На какое время установлены мои будильники?"},
+    {"speaker_id": "speaker_4", "start_ms": 12210, "end_ms": 14630, "text": "Включи станцию с музыкой кантри."},
+    {"speaker_id": "speaker_1", "start_ms": 12220, "end_ms": 12840, "text": "Короче"},
+    {"speaker_id": "speaker_1", "start_ms": 16390, "end_ms": 18660, "text": "Как в целом продвигаются акции?"},
+    {"speaker_id": "speaker_3", "start_ms": 16590, "end_ms": 17480, "text": "Дай мне урок"},
+    {"speaker_id": "speaker_4", "start_ms": 20130, "end_ms": 21410, "text": "Покажи мою встречу"},
+    {"speaker_id": "unknown", "start_ms": 21410, "end_ms": 21650, "text": "на"},
+    {"speaker_id": "unknown", "start_ms": 21690, "end_ms": 22410, "text": "следующий"},
+    {"speaker_id": "speaker_4", "start_ms": 22410, "end_ms": 22650, "text": "месяц."},
+    {"speaker_id": "speaker_4", "start_ms": 24270, "end_ms": 27850, "text": "Расскажите мне информацию о географии Индии"},
+    {"speaker_id": "speaker_1", "start_ms": 24470, "end_ms": 25410, "text": "Скажите мне"},
+    {"speaker_id": "speaker_2", "start_ms": 29220, "end_ms": 31700, "text": "Удали мою следующую встречу, пожалуйста"},
+    {"speaker_id": "speaker_4", "start_ms": 29330, "end_ms": 30200, "text": "Алексана"},
+    {"speaker_id": "speaker_1", "start_ms": 33370, "end_ms": 34980, "text": "Удали стрелку на сегодня"},
+    {"speaker_id": "speaker_3", "start_ms": 33860, "end_ms": 35940, "text": "Что происходит в мире в эти дни?"},
+    {"speaker_id": "speaker_4", "start_ms": 37660, "end_ms": 42790, "text": "Подскажи варианты поезда до Санкт-Петербурга в следующую среду или четверг."},
+    {"speaker_id": "speaker_4", "start_ms": 44090, "end_ms": 45460, "text": "Рецепты, которые"},
+    {"speaker_id": "speaker_3", "start_ms": 44780, "end_ms": 47060, "text": "Сколько лет Джейкей Роулинг?"}
+  ]
+}

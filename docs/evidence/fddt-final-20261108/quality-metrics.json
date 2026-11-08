@@ -1,0 +1,829 @@
+{
+  "cases": [
+    {
+      "file": "holdout_26.wav",
+      "category": "sealed_holdout",
+      "words": 83,
+      "baseline_errors": 55,
+      "final_errors": 43,
+      "baseline_timeline_wer_errors": 23,
+      "final_timeline_wer_errors": 23,
+      "unknown_before": 27,
+      "unknown_after": 8,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 44066,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 33,
+          "errors": 18
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 34,
+          "errors": 10
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 27,
+          "errors": 27
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 51,
+          "errors": 26
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 35,
+          "errors": 9
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 8,
+          "errors": 8
+        }
+      ]
+    },
+    {
+      "file": "holdout_52.wav",
+      "category": "sealed_holdout",
+      "words": 67,
+      "baseline_errors": 48,
+      "final_errors": 37,
+      "baseline_timeline_wer_errors": 26,
+      "final_timeline_wer_errors": 26,
+      "unknown_before": 15,
+      "unknown_after": 4,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 31474,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 28,
+          "pred_words": 24,
+          "errors": 11
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 39,
+          "pred_words": 24,
+          "errors": 22
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 15,
+          "errors": 15
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 28,
+          "pred_words": 35,
+          "errors": 11
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 39,
+          "pred_words": 24,
+          "errors": 22
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 4,
+          "errors": 4
+        }
+      ]
+    },
+    {
+      "file": "holdout_11.wav",
+      "category": "sealed_holdout",
+      "words": 83,
+      "baseline_errors": 67,
+      "final_errors": 64,
+      "baseline_timeline_wer_errors": 33,
+      "final_timeline_wer_errors": 33,
+      "unknown_before": 31,
+      "unknown_after": 25,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 58630,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 31,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 31,
+          "errors": 17
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 11,
+          "errors": 11
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 25,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 36,
+          "errors": 13
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 12,
+          "errors": 12
+        }
+      ]
+    },
+    {
+      "file": "holdout_01.wav",
+      "category": "sealed_holdout",
+      "words": 40,
+      "baseline_errors": 1,
+      "final_errors": 1,
+      "baseline_timeline_wer_errors": 1,
+      "final_timeline_wer_errors": 1,
+      "unknown_before": 0,
+      "unknown_after": 0,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 15,
+      "changed": false,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 20,
+          "pred_words": 20,
+          "errors": 0
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 20,
+          "pred_words": 19,
+          "errors": 1
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 20,
+          "pred_words": 20,
+          "errors": 0
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 20,
+          "pred_words": 19,
+          "errors": 1
+        }
+      ]
+    },
+    {
+      "file": "ivkond_08.wav",
+      "category": "development",
+      "words": 83,
+      "baseline_errors": 67,
+      "final_errors": 64,
+      "baseline_timeline_wer_errors": 33,
+      "final_timeline_wer_errors": 33,
+      "unknown_before": 31,
+      "unknown_after": 25,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 58793,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 31,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 31,
+          "errors": 17
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 11,
+          "errors": 11
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "unknown",
+          "ref_words": 40,
+          "pred_words": 25,
+          "errors": 39
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 43,
+          "pred_words": 36,
+          "errors": 13
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 1",
+          "ref_words": 0,
+          "pred_words": 12,
+          "errors": 12
+        }
+      ]
+    },
+    {
+      "file": "ivkond_32.wav",
+      "category": "development",
+      "words": 42,
+      "baseline_errors": 8,
+      "final_errors": 8,
+      "baseline_timeline_wer_errors": 2,
+      "final_timeline_wer_errors": 2,
+      "unknown_before": 0,
+      "unknown_after": 0,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 15,
+      "changed": false,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 14,
+          "pred_words": 12,
+          "errors": 2
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 3,
+          "pred_words": 3,
+          "errors": 0
+        },
+        {
+          "ref": "3",
+          "pred": "Speaker 3",
+          "ref_words": 9,
+          "pred_words": 9,
+          "errors": 0
+        },
+        {
+          "ref": "4",
+          "pred": "Speaker 4",
+          "ref_words": 16,
+          "pred_words": 13,
+          "errors": 3
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 5",
+          "ref_words": 0,
+          "pred_words": 3,
+          "errors": 3
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 14,
+          "pred_words": 12,
+          "errors": 2
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 3,
+          "pred_words": 3,
+          "errors": 0
+        },
+        {
+          "ref": "3",
+          "pred": "Speaker 3",
+          "ref_words": 9,
+          "pred_words": 9,
+          "errors": 0
+        },
+        {
+          "ref": "4",
+          "pred": "Speaker 4",
+          "ref_words": 16,
+          "pred_words": 13,
+          "errors": 3
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 5",
+          "ref_words": 0,
+          "pred_words": 3,
+          "errors": 3
+        }
+      ]
+    },
+    {
+      "file": "ivkond_34.wav",
+      "category": "development",
+      "words": 69,
+      "baseline_errors": 51,
+      "final_errors": 34,
+      "baseline_timeline_wer_errors": 22,
+      "final_timeline_wer_errors": 22,
+      "unknown_before": 25,
+      "unknown_after": 13,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 44478,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 43,
+          "pred_words": 34,
+          "errors": 14
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 26,
+          "pred_words": 19,
+          "errors": 12
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 25,
+          "errors": 25
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 43,
+          "pred_words": 46,
+          "errors": 9
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 26,
+          "pred_words": 19,
+          "errors": 12
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 13,
+          "errors": 13
+        }
+      ]
+    },
+    {
+      "file": "ivkond_38.wav",
+      "category": "development",
+      "words": 68,
+      "baseline_errors": 50,
+      "final_errors": 40,
+      "baseline_timeline_wer_errors": 21,
+      "final_timeline_wer_errors": 21,
+      "unknown_before": 21,
+      "unknown_after": 13,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 43841,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 26,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 28,
+          "pred_words": 20,
+          "errors": 10
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 21,
+          "errors": 21
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 40,
+          "pred_words": 26,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 28,
+          "pred_words": 28,
+          "errors": 8
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 13,
+          "errors": 13
+        }
+      ]
+    },
+    {
+      "file": "ivkond_44.wav",
+      "category": "development",
+      "words": 84,
+      "baseline_errors": 54,
+      "final_errors": 59,
+      "baseline_timeline_wer_errors": 28,
+      "final_timeline_wer_errors": 28,
+      "unknown_before": 32,
+      "unknown_after": 24,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 54322,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 53,
+          "pred_words": 32,
+          "errors": 23
+        },
+        {
+          "ref": "2",
+          "pred": "unknown",
+          "ref_words": 31,
+          "pred_words": 32,
+          "errors": 17
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 14,
+          "errors": 14
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 53,
+          "pred_words": 33,
+          "errors": 22
+        },
+        {
+          "ref": "2",
+          "pred": "unknown",
+          "ref_words": 31,
+          "pred_words": 24,
+          "errors": 16
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 21,
+          "errors": 21
+        }
+      ]
+    },
+    {
+      "file": "ivkond_66.wav",
+      "category": "development",
+      "words": 72,
+      "baseline_errors": 62,
+      "final_errors": 52,
+      "baseline_timeline_wer_errors": 20,
+      "final_timeline_wer_errors": 20,
+      "unknown_before": 41,
+      "unknown_after": 19,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 56414,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 33,
+          "pred_words": 14,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "unknown",
+          "ref_words": 39,
+          "pred_words": 41,
+          "errors": 28
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 15,
+          "errors": 15
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "1",
+          "pred": "Speaker 1",
+          "ref_words": 33,
+          "pred_words": 14,
+          "errors": 19
+        },
+        {
+          "ref": "2",
+          "pred": "Speaker 2",
+          "ref_words": 39,
+          "pred_words": 37,
+          "errors": 14
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 19,
+          "errors": 19
+        }
+      ]
+    },
+    {
+      "file": "datahive_ru_000002_mix.wav",
+      "category": "real_pseudo_reference",
+      "words": 82,
+      "baseline_errors": 50,
+      "final_errors": 42,
+      "baseline_timeline_wer_errors": 41,
+      "final_timeline_wer_errors": 41,
+      "unknown_before": 18,
+      "unknown_after": 11,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 32746,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "right",
+          "pred": "Speaker 1",
+          "ref_words": 56,
+          "pred_words": 35,
+          "errors": 21
+        },
+        {
+          "ref": "left",
+          "pred": "unknown",
+          "ref_words": 26,
+          "pred_words": 18,
+          "errors": 18
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 11,
+          "errors": 11
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "right",
+          "pred": "Speaker 1",
+          "ref_words": 56,
+          "pred_words": 37,
+          "errors": 20
+        },
+        {
+          "ref": "left",
+          "pred": "Speaker 2",
+          "ref_words": 26,
+          "pred_words": 16,
+          "errors": 11
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 11,
+          "errors": 11
+        }
+      ]
+    },
+    {
+      "file": "datahive_ru_000004_mix.wav",
+      "category": "real_pseudo_reference",
+      "words": 73,
+      "baseline_errors": 35,
+      "final_errors": 33,
+      "baseline_timeline_wer_errors": 33,
+      "final_timeline_wer_errors": 33,
+      "unknown_before": 9,
+      "unknown_after": 6,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 22093,
+      "changed": true,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix+fddt_e2e_rnnt_int8_attribution_r1",
+      "baseline_assignment": [
+        {
+          "ref": "right",
+          "pred": "Speaker 1",
+          "ref_words": 64,
+          "pred_words": 55,
+          "errors": 22
+        },
+        {
+          "ref": "left",
+          "pred": "unknown",
+          "ref_words": 9,
+          "pred_words": 9,
+          "errors": 8
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "Speaker 2",
+          "ref_words": 0,
+          "pred_words": 5,
+          "errors": 5
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "right",
+          "pred": "Speaker 1",
+          "ref_words": 64,
+          "pred_words": 57,
+          "errors": 20
+        },
+        {
+          "ref": "left",
+          "pred": "Speaker 2",
+          "ref_words": 9,
+          "pred_words": 6,
+          "errors": 7
+        },
+        {
+          "ref": "*EMPTY*",
+          "pred": "unknown",
+          "ref_words": 0,
+          "pred_words": 6,
+          "errors": 6
+        }
+      ]
+    },
+    {
+      "file": "datahive_ru_000013_mix.wav",
+      "category": "real_pseudo_reference",
+      "words": 85,
+      "baseline_errors": 18,
+      "final_errors": 18,
+      "baseline_timeline_wer_errors": 13,
+      "final_timeline_wer_errors": 13,
+      "unknown_before": 4,
+      "unknown_after": 4,
+      "exact_punctuated_tokens_preserved": true,
+      "fddt_ms": 9924,
+      "changed": false,
+      "revision": "Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8+opsetfix",
+      "baseline_assignment": [
+        {
+          "ref": "left",
+          "pred": "Speaker 1",
+          "ref_words": 83,
+          "pred_words": 83,
+          "errors": 14
+        },
+        {
+          "ref": "right",
+          "pred": "unknown",
+          "ref_words": 2,
+          "pred_words": 4,
+          "errors": 4
+        }
+      ],
+      "final_assignment": [
+        {
+          "ref": "left",
+          "pred": "Speaker 1",
+          "ref_words": 83,
+          "pred_words": 83,
+          "errors": 14
+        },
+        {
+          "ref": "right",
+          "pred": "unknown",
+          "ref_words": 2,
+          "pred_words": 4,
+          "errors": 4
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "development": {
+      "words": 418,
+      "baseline_errors": 292,
+      "final_errors": 257,
+      "baseline_timeline_wer_errors": 126,
+      "final_timeline_wer_errors": 126,
+      "unknown_before": 150,
+      "unknown_after": 94,
+      "cases": 6
+    },
+    "real_pseudo_reference": {
+      "words": 240,
+      "baseline_errors": 103,
+      "final_errors": 93,
+      "baseline_timeline_wer_errors": 87,
+      "final_timeline_wer_errors": 87,
+      "unknown_before": 31,
+      "unknown_after": 21,
+      "cases": 3
+    },
+    "sealed_holdout": {
+      "words": 273,
+      "baseline_errors": 171,
+      "final_errors": 145,
+      "baseline_timeline_wer_errors": 83,
+      "final_timeline_wer_errors": 83,
+      "unknown_before": 73,
+      "unknown_after": 37,
+      "cases": 4
+    }
+  }
+}
