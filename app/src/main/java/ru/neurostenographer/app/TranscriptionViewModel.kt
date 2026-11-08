@@ -402,7 +402,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (e: Exception) {
                 Log.e("FddtHybrid", "FDDT optional postpass failed; A3 preserved", e)
                 warning = listOfNotNull(warning,
-                    "Экспериментальный проход FDDT не выполнен: оставлен исходный A3.")
+                    "Не удалось уточнить перекрытия. Сохранён исходный текст.")
                     .joinToString(" ")
                 baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
             }

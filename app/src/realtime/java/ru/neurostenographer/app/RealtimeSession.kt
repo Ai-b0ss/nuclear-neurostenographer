@@ -37,7 +37,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
     private val phrases = JSONArray()
     private val steps = JSONArray()
     private val loading = JSONArray()
-    private val warnings = mutableListOf("Эксперимент realtime; метки токенов ASR, не точное акустическое выравнивание.")
+    private val warnings = mutableListOf("Временные метки слов приблизительные; точное акустическое выравнивание не выполняется.")
     private var raw = emptyList<ClusterTurn>()
     private var committedMs = 0L
     private var nativeMs = 0L
