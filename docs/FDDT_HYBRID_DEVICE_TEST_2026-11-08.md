@@ -70,6 +70,31 @@ Gradle --offline --no-daemon :core:runCoreTests :app:assembleDebug
 -PnemotronProduct=true -PasrA3=true -PenglishAuto=true -PfddtHybrid=true:
 PASS, including FddtOverlapPlan tests and 20 core test groups.
 Android debug APK installed side-by-side and launched successfully.
+Additional Gradle :app:lintDebug and :app:assembleDebugAndroidTest: PASS
+(62 actions, one existing deprecated-API warning in RealtimeDeviceTest).
+
+## Cancellation during FDDT on actual phone
+
+Re-imported the same four-speaker overlap WAV, waited for
+«Разделяю перекрытия: 1 из 9», then tapped the actual round Cancel icon
+(center of the button, not the non-clickable text label).
+App returned to the source/audio-ready screen showing:
+«Расшифровка остановлена. Аудио можно расшифровать снова или удалить.»
+No new transcript was written after cancellation. A3/C2 model state remained
+installed; source WAV remained available for immediate retry.
+Screen evidence:
+- docs/evidence/fddt-qa-20261108/honor-fddt-cancel.png.
+
+The first automation attempt touched the static text label rather than the
+round Cancel icon; that was a test-driver error. Repeating with the real
+button independently confirmed cancellation works.
+
+## App memory sample (not peak)
+
+During an additional run on HONOR, adb dumpsys meminfo reported TOTAL PSS
+735,468 KiB (~718 MiB), including native heap 623,996 KiB. This is one
+point-in-time sample, NOT proven worst-case memory; the independent standalone
+FDDT pass peak remains separately recorded above.
 
 ## Known gaps and acceptance for merging to main
 
