@@ -1,5 +1,31 @@
 # Нейро-стенографист (Nuclear Neurostenographer)
 
+## Материалы для жюри — всё в одном месте
+
+Здесь собраны шесть материалов, указанных в конкурсной форме. Репозиторий открыт для просмотра без авторизации.
+
+1. **[Инструкция по установке и использованию](#установка-и-использование)** — прямая ссылка на [финальный APK](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-0.3.17-playback-candidate.apk) и последовательность действий.
+2. **[Архитектура решения](docs/ARCHITECTURE.md)** и **[используемые модели](docs/MODELS.md)** — GigaAM A3, Nemotron C2, FDDT, Whisper Tiny, алгоритм объединения реплик.
+3. **[Ограничения решения](docs/LIMITATIONS.md)** — неполная обработка перекрытий и ограничения длинных записей.
+4. **[Результаты собственных испытаний](docs/TEST_RESULTS.md)** — в том числе [WER/RTF на HONOR](docs/DEVICE_RTF_2026-11-08.md) и [проверка финального ETA](docs/ETA_ACCEPTANCE_2026-11-08.md).
+5. **[Видеодемонстрация работы приложения](artifacts/demo/ITAM-demo-3speakers-eta-playback.mp4)** — настоящий экран HONOR: импорт, ETA, три говорящих, воспроизведение и экспорт JSON; также [MP4 в релизе](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/ITAM-demo-3speakers-eta-playback.mp4).
+6. **[Презентация для защиты (PPTX)](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-defense-final.pptx)** — 7 слайдов, доступна в файлах релиза.
+
+**[Перейти к финальному релизу с APK, видео и презентацией](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-eta-playback-final)**
+
+## Установка и использование
+
+1. Скачайте [финальный APK](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-0.3.17-playback-candidate.apk) (≈637 МБ; SHA-256: `60db53a52ae637eacc21cbff650560d719f5eae7e78fbb92bbf9aabc465ca4c1`).
+2. На Android разрешите установку APK из выбранного источника и установите приложение. Все необходимые модели уже включены, отдельно скачивать их не требуется.
+3. Откройте **«Нейростенограф»**. Нажмите **«Открыть аудиофайл»** и выберите запись либо **«Записать»** для записи с микрофона.
+4. Дождитесь обработки на телефоне: приложение показывает этапы и ориентировочное оставшееся время. Интернет не нужен, можно включить авиарежим.
+5. Откройте стенограмму, проверьте говорящих и таймкоды; нажмите ▶ возле реплики для прослушивания с её начала.
+6. Нажмите **«Сохранить JSON»**, выберите папку и подтвердите сохранение. Выход соответствует конкурсному формату `transcript[]` с `speaker_id`, `start_ms`, `end_ms`, `text`.
+
+**Проверенный телефон:** HONOR 10X Lite (DNN-LX9), Android 10 ARM64. Контрольный пример — [трёхголосый WAV](artifacts/demo/ITAM-demo-3-speakers-33s.wav) и [полученный JSON](artifacts/demo/ITAM-demo-3-speakers-33s-export-eta.json). Проигрыватель и ETA относятся к новой финальной сборке, не к предыдущему опубликованному APK 0.3.17. Оставшиеся ограничения и условия честно описаны выше.
+
+
+
 ## Актуальная сдача и локальная доработка 08.11
 
 **Уже опубликованный конкурсный APK:** 0.3.17-contest (SHA-256 `4fe325aa185a1b02530a9732e4b42a61c0e0db70d04f97584650a10522b752b2`). **Локальный кандидат с проигрывателем и ETA:** новый APK отличается от опубликованного и пока не является конкурсным релизом; наличие исходного кода в этой ветке не означает публикацию. Проверки кандидата и хэши — в отдельном акте.
