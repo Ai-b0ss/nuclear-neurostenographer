@@ -8,14 +8,15 @@ data class FddtRegion(val startMs: Long, val endMs: Long, val speakers: List<Str
 }
 
 object FddtOverlapPlan {
-    /** The whole turn affected by overlap is processed, not only the literal intersection.
-     * This mirrors Ruzanna's hybrid transcribe_hybrid and protects word boundaries.
+    /** Replace only actual overlap. Context belongs to the inference window, not
+     * the replacement interval: clean parts of long turns stay on A3.
      */
-    fun regions(turns: List<SpeakerTurn>, audioMs: Long): List<FddtRegion> {
+    fun regions(turns: List<SpeakerTurn>, audioMs: Long, wholeTurns: Boolean = false): List<FddtRegion> {
         if (audioMs < 1000) return emptyList()
         val known = turns.filter { it.speakerId != "Unknown" && it.endMs <= audioMs }
             .sortedWith(compareBy<SpeakerTurn> { it.startMs }.thenBy { it.endMs })
         if (known.size < 2) return emptyList()
+        val intersections = mutableListOf<Pair<Long,Long>>()
         val affected = BooleanArray(known.size)
         for (i in known.indices) {
             for (j in i + 1 until known.size) {
@@ -23,18 +24,22 @@ object FddtOverlapPlan {
                 if (known[i].speakerId != known[j].speakerId) {
                     val overlap = minOf(known[i].endMs, known[j].endMs) -
                         maxOf(known[i].startMs, known[j].startMs)
-                    if (overlap >= 160L) { affected[i] = true; affected[j] = true }
+                    if (overlap >= 160L) {
+                        intersections += maxOf(known[i].startMs,known[j].startMs) to minOf(known[i].endMs,known[j].endMs)
+                        affected[i] = true; affected[j] = true
+                    }
                 }
             }
         }
-        val active = known.filterIndexed { i, _ -> affected[i] }
-        if (active.isEmpty()) return emptyList()
+        if (intersections.isEmpty()) return emptyList()
+        val intervals = if (wholeTurns) known.filterIndexed { i,_ -> affected[i] }.map { it.startMs to it.endMs }
+            else intersections
         val components = mutableListOf<Pair<Long, Long>>()
-        for (t in active) {
+        for ((start,end) in intervals.sortedBy { it.first }) {
             val last = components.lastOrNull()
-            if (last != null && t.startMs <= last.second + 100L) {
-                components[components.lastIndex] = last.first to maxOf(last.second,t.endMs)
-            } else components += t.startMs to t.endMs
+            if (last != null && start <= last.second + if (wholeTurns) 100L else 0L) {
+                components[components.lastIndex] = last.first to maxOf(last.second,end)
+            } else components += start to end
         }
         return components.flatMap { (start,end) ->
             val parts = mutableListOf<FddtRegion>()
@@ -63,12 +68,18 @@ object FddtOverlapPlan {
         require(speaker.isNotBlank() && startMs >= 0)
         val frames = frameCount(samples)
         val out = FloatArray(4*frames)
+        val windowEndMs = startMs + samples * 1000L / 16000L
+        val rasterized = turns.filter { it.startMs < windowEndMs && it.endMs > startMs }.map {
+            Triple(((maxOf(it.startMs,startMs)-startMs)/40L).toInt(),
+                ((minOf(it.endMs,windowEndMs)-startMs+39L)/40L).toInt(), it.speakerId)
+        }
         for (i in 0 until frames) {
-            val at = startMs + 40L*i
             var target = false; var other = false
-            for (turn in turns) {
-                if (at >= turn.startMs && at < turn.endMs) {
-                    if (turn.speakerId == speaker) target = true else other = true
+            for ((first,last,id) in rasterized) {
+                // Match Python stno_mask: floor(start*25):ceil(end*25), after
+                // clipping turns to this audio window. Point sampling shifts onsets.
+                if (i >= first && i < last) {
+                    if (id == speaker) target = true else other = true
                     if (target && other) break
                 }
             }
@@ -91,5 +102,44 @@ object FddtOverlapPlan {
         if (baseWords > 0 && count < baseWords*0.5) return false
         if (baseWords > 0 && count > maxOf(8,baseWords*3)) return false
         return true
+    }
+
+    /** A long foreground voice must never compensate a suppressed quiet voice.
+     * Unknown mixture words remain a regional check, never a fabricated per-person reference.
+     */
+    fun canReplace(base: List<TranscriptSegment>, candidates: Map<String,String>, speakers: List<String>): Boolean {
+        fun count(text: String) = text.split(Regex("\\s+")).count(String::isNotBlank)
+        if (!canReplace(base.sumOf { count(it.text) }, candidates, speakers)) return false
+        for (speaker in speakers) {
+            val before = base.filter { it.speakerId == speaker }.sumOf { count(it.text) }
+            val after = count(candidates[speaker].orEmpty())
+            if (before > 0 && (after < before * 0.5 || after > maxOf(8, before * 3))) return false
+        }
+        return true
+    }
+
+    /** Half-open ownership keeps a word in exactly one adjacent inference region. */
+    fun owns(region: FddtRegion, word: RecognizedWord): Boolean =
+        word.startMs >= region.startMs && word.startMs < region.endMs
+
+    /** Preserve A3 words, punctuation, order and timing. Only an ambiguous single
+     * word with matching timed FDDT evidence from exactly one voice is attributed.
+     * Common words seen in both voices remain unknown.
+     */
+    fun refineAttribution(base: List<TranscriptSegment>, evidence: List<TranscriptSegment>): List<TranscriptSegment> {
+        fun normalized(text: String) = text.lowercase(java.util.Locale.ROOT).replace('ё','е')
+            .split(Regex("[^\\p{L}\\p{N}]+")).filter(String::isNotBlank)
+        val indexed = evidence.filter { it.speakerId != null }
+            .map { it to normalized(it.text).toSet() }
+        return base.map { word ->
+            if (word.speakerId != null || !word.overlappingSpeech) return@map word
+            val tokens = normalized(word.text)
+            if (tokens.size != 1) return@map word
+            val voices = indexed.asSequence().filter { (candidate, words) ->
+                tokens.single() in words && word.startMs < candidate.endMs+200L &&
+                    word.endMs > candidate.startMs-200L
+            }.mapNotNull { it.first.speakerId }.distinct().toList()
+            if (voices.size == 1) word.copy(speakerId=voices.single(),attributionReliable=false) else word
+        }
     }
 }

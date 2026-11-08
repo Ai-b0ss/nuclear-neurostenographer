@@ -11,7 +11,8 @@ import java.io.File
 @RunWith(AndroidJUnit4::class)
 class EnglishCheckpointTest {
     @Test fun englishRussianAndSilence() {
-        assumeTrue(BuildConfig.ENGLISH_AUTO && BuildConfig.APPLICATION_ID.endsWith(".checkpoint"))
+        assumeTrue(BuildConfig.ENGLISH_AUTO && (BuildConfig.APPLICATION_ID.endsWith(".checkpoint") ||
+            BuildConfig.APPLICATION_ID.endsWith(".fddtqa")))
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         val model = EnglishModelStore.ensure(context)

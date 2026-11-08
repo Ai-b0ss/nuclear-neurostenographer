@@ -26,6 +26,15 @@ public final class FddtOnnxRecognizer implements AutoCloseable {
     private final List<String> pieces;
 
     public FddtOnnxRecognizer(File dir, int threads) throws Exception {
+        // Validate the tokenizer before allocating any native sessions.
+        pieces = new ArrayList<>();
+        for (String line : Files.readAllLines(new File(dir, "tokens.txt").toPath())) {
+            int split = line.lastIndexOf(' ');
+            if (split < 0 || Integer.parseInt(line.substring(split+1)) != pieces.size())
+                throw new IOException("Invalid tokens.txt");
+            pieces.add(line.substring(0, split));
+        }
+        if (pieces.size() != BLANK + 1) throw new IOException("Unexpected RNN-T token count");
         env = OrtEnvironment.getEnvironment();
         options = new OrtSession.SessionOptions();
         options.setIntraOpNumThreads(threads);
@@ -34,7 +43,7 @@ public final class FddtOnnxRecognizer implements AutoCloseable {
         // Avoid retaining partially initialized native sessions on construction errors.
         OrtSession e = null, d = null, j = null;
         try {
-            e = env.createSession(new File(dir, "encoder_fddt.int8.onnx").getAbsolutePath(), options);
+            e = openEncoder(dir,threads);
             d = env.createSession(new File(dir, "decoder.onnx").getAbsolutePath(), options);
             j = env.createSession(new File(dir, "joint.onnx").getAbsolutePath(), options);
         } catch (Exception ex) {
@@ -45,13 +54,37 @@ public final class FddtOnnxRecognizer implements AutoCloseable {
             throw ex;
         }
         encoder = e; decoder = d; joint = j;
-        pieces = new ArrayList<>();
-        for (String line : Files.readAllLines(new File(dir, "tokens.txt").toPath())) {
-            int split = line.lastIndexOf(' ');
-            if (split < 0) throw new IOException("Invalid tokens.txt");
-            pieces.add(line.substring(0, split));
+    }
+
+    /** Device-local CPU graph cache: weights and ORT version identify it. Never
+     * distribute this hardware-optimized graph to a different device/provider.
+     * A cache error falls back to the pinned original model.
+     */
+    private OrtSession openEncoder(File dir, int threads) throws OrtException {
+        File source = new File(dir,"encoder_fddt.int8.onnx");
+        File cache = new File(dir,"encoder-98d9a048-cpu-"+env.getVersion()+".optimized.onnx");
+        if (cache.isFile() && cache.length()>0) {
+            try (OrtSession.SessionOptions saved = new OrtSession.SessionOptions()) {
+                saved.setIntraOpNumThreads(threads);
+                saved.setInterOpNumThreads(1);
+                saved.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.NO_OPT);
+                return env.createSession(cache.getAbsolutePath(),saved);
+            } catch (OrtException badCache) { cache.delete(); }
         }
-        if (pieces.size() < BLANK + 1) throw new IOException("Unexpected RNN-T token count");
+        File partial = new File(cache.getAbsolutePath()+".partial.onnx");
+        partial.delete();
+        try (OrtSession.SessionOptions build = new OrtSession.SessionOptions()) {
+            build.setIntraOpNumThreads(threads);
+            build.setInterOpNumThreads(1);
+            build.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.ALL_OPT);
+            build.setOptimizedModelFilePath(partial.getAbsolutePath());
+            OrtSession session = env.createSession(source.getAbsolutePath(),build);
+            if (partial.length()>0) partial.renameTo(cache);
+            return session;
+        } catch (OrtException unavailableCache) {
+            // Low storage or a runtime without serialization must not lose ASR.
+            return env.createSession(source.getAbsolutePath(),options);
+        } finally { partial.delete(); }
     }
 
     /** STNO mask: flat [4, ceil(samples/16000*25)+1], row-major. */

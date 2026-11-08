@@ -24,7 +24,8 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val history: List<SavedTranscript> = emptyList(), val current: SavedTranscript? = null,
     val details: String = "", val userTerms: List<Term> = emptyList(),
     /** 0 = no recognition running, 1 = preparing, 2 = speakers, 3 = speech. Only drives the progress steps in the UI. */
-    val stage: Int = 0, val processingClock: AudioProcessingClock? = null)
+    val stage: Int = 0, val processingClock: AudioProcessingClock? = null,
+    val recordingStartedAtMs: Long? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
@@ -390,11 +391,12 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
             } else try {
                 mutable.value = mutable.value.copy(
-                    message = "Уточняю одновременную речь с FDDT…", stage = 3)
+                    message = "Уточняю одновременную речь…", stage = 3, progress = 0f)
                 FddtHybrid.transcribe(app, audio, speakers?.turns.orEmpty(), baseline,
                     { context.ensureActive() }) { index, count ->
                     mutable.value = mutable.value.copy(
-                        message = "Разделяю перекрытия: $index из $count", stage = 3)
+                        message = "Разделяю перекрытия: $index из $count", stage = 3,
+                        progress = (index-1).toFloat()/count.coerceAtLeast(1))
                 }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
@@ -504,7 +506,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             try { recorder = recorderFactory(file).also { it.start() } }
             catch (e: Throwable) { file.delete(); RecordingService.stop(getApplication()); throw e }
             recording.value = true
-            mutable.value = mutable.value.copy(message = "Идёт запись. Максимум — ${PcmFileAudio.MAX_FILE_LABEL}. Предыдущий результат сохранён до успешной остановки.")
+            mutable.value = mutable.value.copy(recordingStartedAtMs = SystemClock.elapsedRealtime(),
+                message = "Идёт запись. Максимум — ${PcmFileAudio.MAX_FILE_LABEL}. Предыдущий результат сохранён до успешной остановки.")
             // Foreground entry is asynchronous and can be refused (Android 14+ background-start
             // rules). Without it recording ends when the app leaves the screen: say so.
             viewModelScope.launch {

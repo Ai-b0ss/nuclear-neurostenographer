@@ -14,7 +14,8 @@ import java.io.RandomAccessFile
 @RunWith(AndroidJUnit4::class)
 class LongCheckpointTest {
     @Test fun twentyOneMinuteFileThroughProductAndMp3Import() {
-        assumeTrue(BuildConfig.ENGLISH_AUTO && BuildConfig.APPLICATION_ID.endsWith(".checkpoint"))
+        assumeTrue(BuildConfig.ENGLISH_AUTO && (BuildConfig.APPLICATION_ID.endsWith(".checkpoint") ||
+            BuildConfig.APPLICATION_ID.endsWith(".fddtqa")))
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val app = instrumentation.targetContext.applicationContext as Application
         val source = File(app.cacheDir, "checkpoint-long.wav")

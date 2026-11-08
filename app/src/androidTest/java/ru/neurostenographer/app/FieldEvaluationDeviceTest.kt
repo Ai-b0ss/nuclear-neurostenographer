@@ -21,7 +21,7 @@ class FieldEvaluationDeviceTest {
         val filename = requireNotNull(args.getString("evalFile")) { "Pass -e evalFile name.wav" }
         require(Regex("[a-zA-Z0-9_\\-]+\\.wav").matches(filename))
         val mode = args.getString("evalMode") ?: "mixed"
-        require(mode == "mixed" || mode == "clean")
+        require(mode == "mixed" || mode == "clean" || mode == "replay")
         val context = instrumentation.targetContext
         // HONOR may choose the physical SD card as the app's default external location,
         // while adb push writes to /storage/emulated/0. Search only our app-owned dirs.
@@ -46,6 +46,35 @@ class FieldEvaluationDeviceTest {
             val audio = file.inputStream().buffered().use { PcmWav.read(it) }
             report.put("audio_ms",audio.durationMs)
             require(audio.durationMs in 5000..120000)
+            if (mode == "replay") {
+                // Fixed C2/A3 outputs make this a paired test of the changed FDDT
+                // implementation, without rerunning or retuning the baseline.
+                val saved = candidateDirs.map { File(it,filename.removeSuffix(".wav")+".baseline.json") }
+                    .first { it.isFile }
+                val source = JSONObject(saved.readText(Charsets.UTF_8))
+                val rows = source.getJSONArray("baseline_unmerged")
+                val segments = (0 until rows.length()).map { i -> rows.getJSONObject(i).let {
+                    TranscriptSegment(it.getLong("start_ms"),it.getLong("end_ms"),
+                        if (it.isNull("speaker_id")) null else it.getString("speaker_id"),it.getString("text"),
+                        overlappingSpeech=it.optBoolean("overlap"))
+                } }
+                val turnRows = source.getJSONArray("c2_turns")
+                val turns = (0 until turnRows.length()).map { i -> turnRows.getJSONObject(i).let {
+                    SpeakerTurn(it.getLong("start_ms"),it.getLong("end_ms"),it.getString("speaker_id"))
+                } }
+                val before = SystemClock.elapsedRealtime()
+                val result = FddtHybrid.transcribe(context,audio,turns,
+                    AsrOutput(segments,audio.durationMs,0,0),{}, { _,_ -> })
+                report.put("baseline_origin","saved C2/A3, same recording, no new baseline inference")
+                report.put("baseline",rows).put("c2_turns",turnRows)
+                report.put("c2_ms",0).put("a3_ms",0)
+                report.put("fddt_ms",SystemClock.elapsedRealtime()-before)
+                report.put("hybrid",serialize(result.segments))
+                report.put("hybrid_revision",result.modelRevision)
+                report.put("changed",result.modelRevision.contains("+fddt_"))
+                report.put("success",true)
+                return@runBlocking
+            }
             val model = requireNotNull(AsrModelStore(context).current()) { "A3 model missing" }
             AsrModelStore(context).verify(model)
             val started = SystemClock.elapsedRealtime()
@@ -66,6 +95,7 @@ class FieldEvaluationDeviceTest {
                     turns=diag.turns,speechWindows=diag.windows,unmerged=true)
                 report.put("a3_ms",SystemClock.elapsedRealtime()-started-report.getLong("c2_ms"))
                 report.put("baseline",serialize(TranscriptFusion.mergeReplies(baseline.segments)))
+                report.put("baseline_unmerged",serialize(baseline.segments))
                 val beforeFddt=SystemClock.elapsedRealtime()
                 val hybrid=FddtHybrid.transcribe(context,audio,diag.turns,baseline,
                     checkCancelled={},onProgress={ index,total ->

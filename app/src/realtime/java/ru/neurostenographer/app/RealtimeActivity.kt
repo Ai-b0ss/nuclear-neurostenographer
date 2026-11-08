@@ -112,7 +112,11 @@ class RealtimeActivity : ComponentActivity() {
                         Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally) {
                             if (recording) {
-                                Text("Говорите — текст появится здесь после каждой фразы (обычно через 1–2 с).",
+                                Text(when (status) {
+                                    "LOADING" -> "Запись уже идёт. Подготавливаю распознавание…"
+                                    "CAPTURE_ONLY" -> "Звук сохраняется. После остановки запись можно расшифровать отдельно."
+                                    else -> "Текст появляется после каждой фразы. Говорите в обычном темпе."
+                                },
                                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = TextAlign.Center)
                             } else Text(
@@ -130,7 +134,8 @@ class RealtimeActivity : ComponentActivity() {
                 // Keep the actual microphone level visible even after live text begins.
                 if (recording) {
                     Spacer(Modifier.height(8.dp))
-                    LinearProgressIndicator(progress = { micLevel }, modifier = Modifier.fillMaxWidth().height(8.dp))
+                    VoiceWaveform(micLevel, MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.fillMaxWidth().height(56.dp))
                 }
                 Spacer(Modifier.height(10.dp))
                 if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
@@ -193,23 +198,29 @@ class RealtimeActivity : ComponentActivity() {
         }
     }
 
-    /** Only when live inference did not finish: the saved WAV can still go through file recognition. */
+    /** Reuse the full file pipeline after live capture, without holding both
+     * live native models and the FDDT encoder in memory at the same time.
+     */
     @Composable
     private fun batchFallback(state: RealtimeView) {
-        if (state.status !in listOf("CANCELLED", "CAPTURE_INTERRUPTED", "RECOVERED_WAV") && !state.status.startsWith("FAILED")) return
+        val refineOverlap = BuildConfig.FDDT_HYBRID && state.status.startsWith("COMPLETE") &&
+            state.document?.segments?.any { it.overlappingSpeech } == true
+        if (!refineOverlap && state.status !in listOf("CANCELLED", "CAPTURE_INTERRUPTED", "RECOVERED_WAV") &&
+            !state.status.startsWith("FAILED")) return
         val captured = state.directory?.let { File(it, "capture.wav") } ?: return
         val finalized = File(captured.parentFile, "capture-finalized.txt").isFile || File(captured.parentFile, "recovered.txt").isFile
         if (!finalized) return
         if (state.audioMs > 20 * 60 * 1000) {
-            Text("Длинная запись сохранена. Откройте её для полной расшифровки.",
+            Text("Длинная запись сохранена. Полная обработка сохранит текст без сквозных меток говорящих.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            return
         }
         OutlinedButton(onClick = {
             startActivity(Intent(this, MainActivity::class.java).setAction("ru.neurostenographer.REALTIME_BATCH")
                 .setData(android.net.Uri.fromFile(captured)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP))
             finish()
-        }, modifier = Modifier.fillMaxWidth()) { Text("Распознать сохранённую запись как файл") }
+        }, modifier = Modifier.fillMaxWidth()) {
+            Text(if (refineOverlap) "Уточнить перекрытия" else "Распознать сохранённую запись как файл")
+        }
     }
 
     private fun service(action: String) {
