@@ -3,6 +3,10 @@ package ru.neurostenographer.app
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -53,6 +57,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
@@ -92,7 +97,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -225,7 +229,7 @@ class MainActivity : ComponentActivity() {
         val current = state.current
         if (current != null) {
             BackHandler { model.closeTranscript() }
-            TranscriptScreen(current, state, onBack = model::closeTranscript, onDelete = { model.delete(current.id) },
+            TranscriptScreen(current, state, audioFile = model.savedAudioFile(current.id), onBack = model::closeTranscript, onDelete = { model.delete(current.id) },
                 onRename = { model.rename(current.id, it) },
                 onRenameSpeaker = { speaker, name -> model.renameSpeaker(current.id, speaker, name) },
                 suggestions = remember(current, state.userTerms) { model.termSuggestions(current) },
@@ -744,7 +748,7 @@ private fun HistoryRow(item: SavedTranscript, enabled: Boolean, selecting: Boole
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: () -> Unit, onDelete: () -> Unit,
+private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, audioFile: java.io.File?, onBack: () -> Unit, onDelete: () -> Unit,
                              onRename: (String) -> Unit, onRenameSpeaker: (String, String) -> Unit,
                              suggestions: List<TermEdit>, onResolveTerms: (List<TermEdit>, List<TermEdit>) -> Unit,
                              onRevertTerms: () -> Unit, onAddTerm: (String, String) -> Unit,
@@ -757,6 +761,44 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
     var menuOpen by remember { mutableStateOf(false) }
     var exportOpen by remember { mutableStateOf(false) }
     var query by remember(item.id) { mutableStateOf("") }
+    val player = remember(item.id, audioFile?.absolutePath) {
+        audioFile?.takeIf { it.isFile }?.let { file ->
+            runCatching { MediaPlayer().apply { setDataSource(file.absolutePath); prepare() } }.getOrNull()
+        }
+    }
+    var playing by remember(item.id) { mutableStateOf(false) }
+    var playbackMs by remember(item.id) { mutableLongStateOf(0L) }
+    DisposableEffect(player) {
+        player?.setOnCompletionListener { playing = false; playbackMs = 0L }
+        onDispose { player?.release() }
+    }
+    val owner = LocalLifecycleOwner.current
+    DisposableEffect(player, owner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP && player?.isPlaying == true) {
+                player.pause()
+                playing = false
+            }
+        }
+        owner.lifecycle.addObserver(observer)
+        onDispose { owner.lifecycle.removeObserver(observer) }
+    }
+    LaunchedEffect(player, playing) {
+        while (playing && player != null) {
+            playbackMs = runCatching { player.currentPosition.toLong() }.getOrDefault(0L)
+            if (!player.isPlaying) { playing = false; break }
+            delay(160)
+        }
+    }
+    val playFrom: (Long) -> Unit = { ms ->
+        if (player != null) runCatching {
+            val target = ms.coerceIn(0L, player.duration.toLong().coerceAtLeast(0L)).toInt()
+            player.seekTo(target)
+            player.start()
+            playing = true
+            playbackMs = target.toLong()
+        }
+    }
     val names = item.speakerNames
     val segments = remember(item) { item.shownSegments }
     val editedIndexes = remember(item) { item.termEdits.map { it.segment }.toSet() }
@@ -817,6 +859,33 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
                     }
                     Button(onClick = { onExport("json-contest") }, enabled = !state.busy,
                         modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("Сохранить JSON") }
+                    if (player != null) {
+                        Row(verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            FilledTonalIconButton(onClick = {
+                                runCatching {
+                                    if (player.isPlaying) { player.pause(); playing = false }
+                                    else { if (player.currentPosition >= player.duration) player.seekTo(0)
+                                        player.start(); playing = true }
+                                }
+                            }) {
+                                if (playing) Text("Ⅱ", style = MaterialTheme.typography.titleMedium)
+                                else Icon(Icons.Filled.PlayArrow, "Слушать аудио")
+                            }
+                            Column(Modifier.weight(1f)) {
+                                Text("Исходная запись · " + clock(playbackMs) + " / " + clock(player.duration.toLong()),
+                                    style = MaterialTheme.typography.bodySmall)
+                                Slider(value = playbackMs.toFloat().coerceIn(0f, player.duration.toFloat().coerceAtLeast(1f)),
+                                    onValueChange = { v -> runCatching { player.seekTo(v.toInt()); playbackMs = v.toLong() } },
+                                    valueRange = 0f..player.duration.toFloat().coerceAtLeast(1f))
+                            }
+                        }
+                        Text("Нажмите ▶ возле реплики, чтобы перейти к этому месту записи.",
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    } else {
+                        Text("Аудио для этой стенограммы не сохранено. Для новых обработок будет доступно воспроизведение.",
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         counts.entries.sortedBy { speakerIndex(it.key) ?: Int.MAX_VALUE }.forEach { (id, n) ->
                             Surface(shape = RoundedCornerShape(50), color = speakerColor(id).copy(alpha = 0.14f),
@@ -848,7 +917,8 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, onBack: 
             }
             if (segments.isEmpty()) item { Text("Речь не распознана.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
             items(shown) { (index, it) -> Reply(it, names, needle, edited = index in editedIndexes,
-                onSpeaker = { id -> if (!state.busy) naming = id }) }
+                onSpeaker = { id -> if (!state.busy) naming = id }, onPlay = if (player == null) null else playFrom,
+                active = playing && playbackMs in it.startMs..it.endMs) }
 
         }
     }
@@ -907,13 +977,15 @@ private fun highlighted(text: String, needle: String, mark: Color): AnnotatedStr
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needle: String, edited: Boolean = false,
-                  onSpeaker: (String) -> Unit) {
+                  onSpeaker: (String) -> Unit, onPlay: ((Long) -> Unit)? = null, active: Boolean = false) {
     val color = speakerColor(segment.speakerId)
     val mark = Color(0xFFFFD54F).copy(alpha = 0.55f)
     val bar = with(androidx.compose.ui.platform.LocalDensity.current) { 3.dp.toPx() }
     val speakerText = remember(segment, names, needle) { highlighted(TranscriptExport.segmentSpeaker(segment, names), needle, mark) }
     val bodyText = remember(segment.text, needle) { highlighted(segment.text, needle, mark) }
-    Column(Modifier.fillMaxWidth().drawBehind {
+    Column(Modifier.fillMaxWidth().background(
+        if (active) MaterialTheme.colorScheme.primary.copy(alpha = 0.07f) else Color.Transparent)
+        .drawBehind {
         drawRoundRect(color, size = Size(bar, size.height), cornerRadius = CornerRadius(bar / 2))
     }.padding(start = 16.dp)) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -923,6 +995,10 @@ internal fun Reply(segment: TranscriptSegment, names: Map<String, String>, needl
                 modifier = if (id != null) Modifier.clip(RoundedCornerShape(4.dp)).clickable { onSpeaker(id) } else Modifier)
             Text("${clock(segment.startMs)}–${clock(segment.endMs)}", style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (onPlay != null) IconButton(onClick = { onPlay(segment.startMs) },
+                modifier = Modifier.size(28.dp)) {
+                Icon(Icons.Filled.PlayArrow, "Слушать с начала реплики", Modifier.size(18.dp))
+            }
             if (segment.overlappingSpeech) Text("перекрытие", style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (edited) Text("правка", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)

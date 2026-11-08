@@ -1,0 +1,4 @@
+﻿dataset,cases,reference_words,speaker_aware_errors_baseline,speaker_aware_errors_fddt,timeline_wer_errors_baseline,timeline_wer_errors_fddt,reference_quality
+development,6,418,292,257,126,126,synthetic
+sealed_holdout,4,273,171,145,83,83,published synthetic annotation
+real_pseudo_reference,3,240,103,93,87,87,"automatic pseudo reference, not human"

@@ -193,6 +193,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     }
 
     fun closeTranscript() { mutable.value = mutable.value.copy(current = null) }
+
+    fun savedAudioFile(id: String): File? = history.audioFile(id)
     fun refreshHistory() {
         if (mutable.value.busy || recording.value) return
         viewModelScope.launch {
@@ -317,8 +319,14 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         // A file the user named themselves keeps its name.
         val topic = if (named.startsWith("Запись ") || named == "Аудиофайл") TopicTitle.suggest(document.segments) else null
         val title = if (topic != null) topic + " · " + named.removePrefix("Запись ") else named
-        val saved = withContext(Dispatchers.IO) { history.save(title, document) }
-        // The transcript is kept; the audio copy is not needed any more.
+        val saved = withContext(Dispatchers.IO) {
+            history.save(title, document).also { saved ->
+                // Preserve decoded audio for seeking. Rename on the same volume,
+                // no RAM-sized copy. A playback failure must not drop the transcript.
+                mutable.value.source?.path?.let { history.attachAudio(saved.id, File(it)) }
+            }
+        }
+        // Attached audio no longer exists at the temporary snapshot path.
         discardSnapshot(mutable.value.source)
         mutable.value = mutable.value.copy(source = null, sourceName = null, segments = document.segments, document = document,
             sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
@@ -595,6 +603,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                     if (file.isFile && pattern.matches(file.name) && !file.delete()) failed++
                 }
             }
+            failed += history.clearSavedAudio()
             check(failed == 0) { "Не удалось удалить $failed локальных аудиофайлов. Повторите очистку." }
         }
         mutable.value = mutable.value.copy(
