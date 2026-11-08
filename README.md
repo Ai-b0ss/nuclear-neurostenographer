@@ -1,5 +1,7 @@
 # Нейро-стенографист (Nuclear Neurostenographer)
 
+> Эта ветка содержит изменения после вечернего созвона 07.11: [проверки, сборка и ограничения](docs/CHECKPOINT_AFTER_CALL_2026-11-07.md). Они не входят в опубликованный 0.3.14.
+
 Офлайн-приложение для Android: расшифровывает запись разговора на русском, само определяет говорящих и выдаёт диалог с временными метками — «кто, когда, что сказал». Работает без интернета (в манифесте нет разрешения INTERNET), модели внутри APK. Проект для Nuclear IT Hack (НИЯУ МИФИ, ноябрь 2026).
 
 **Текущий выпуск: [v0.3.14-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases)** (предыдущий — [v0.3.13-contest](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.13-contest))

@@ -1,4 +1,25 @@
-# Model candidates and references (30 Oct 2026)
+# Модели: актуальное состояние
+
+Обновлено 08.11.2026 для fix/checkpoint-20261107. Для продуктовой сборки используется e2e RNN-T A3, а не CTC из первоначального прототипа. Обычный APK без продуктовых флагов может использовать другую конфигурацию.
+
+| Назначение | Модель/путь | Статус |
+|---|---|---|
+| Русский текст, регистр, пунктуация | GigaAM v3 **e2e RNN-T INT8**, A3, флаг -PasrA3=true | Продуктовая русская модель. Точная конверсия и хеши: AsrModelSpec.E2E_RNNT |
+| Говорящие | Nemotron 3 Diarization INT8, C2 | Продуктовый путь; четыре слота, не сквозная идентификация 20 участников |
+| Английский + выбор языка | Multilingual Whisper Tiny INT8, -PenglishAuto=true | Опция экспериментальной ветки; tools/provision_english.py, три закреплённых SHA. Live preview остаётся русским |
+| Паузы в живом режиме | Silero VAD | Поиск речи, не модель говорящих |
+| Runtime | no-TTS sherpa-onnx 1.12.20 / ORT 1.17.1 | Закреплённый AAR и проверка фактических JNI-байтов; tools/runtime/runtime.properties |
+| GigaAM CTC, pyannote + ERes2Net | Старые конфигурации | История и альтернативные сборки, не описание текущего конкурсного A3+C2 |
+| FDDT / VoxLock / DiCoW | Исследования восстановления перекрытий | Не включены в продукт; синтетические результаты и другая версия GigaAM не доказывают готовность Android |
+
+A3: Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8, encoder INT8 с удалёнными неиспользуемыми opset imports для совместимости ORT 1.17.1. Encoder, decoder, joint и tokens перечислены с SHA/размерами в app/src/main/java/ru/neurostenographer/app/AsrModelSpec.kt. Исходные плавающие веса для обучения FDDT нужно проверять на соответствие именно e2e RNN-T; ONNX INT8 из APK не учебный checkpoint.
+
+Архитектура и ограничения: [ARCHITECTURE](ARCHITECTURE.md). Фактическая приёмка версий: [CHECKPOINT_AFTER_CALL](CHECKPOINT_AFTER_CALL_2026-11-07.md). Лицензии каждого веса и runtime проверяются отдельно; лицензия библиотеки не заменяет лицензию модели. Частные аудио и тяжёлые экспериментальные checkpoints не следует добавлять в исходный Git.
+
+## Архив исследования от 30.10.2026
+
+Ниже сохранены первоначальные кандидаты и состояние раннего прототипа. Утверждения «current», «selected», «не проверен ARM64» и «Nemotron research only» ниже относятся к тому этапу и не задают текущую конфигурацию.
+
 
 Current ASR experiment: GigaAM v3 CTC INT8, HF revision `32a4c7cc81809bd132e2d935ab99e9e6ab47fbec`, model SHA-256 `f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec`, 224,721,476 bytes. 16 kHz / 64 features, CPU greedy decoding through sherpa-onnx 1.12.20. Tokens and MIT LICENSE are pinned in `tools/provision_asr.py`. Real Android x86_64 Russian inference passes; physical ARM64 and independent dialogue accuracy remain unverified. The default runtime is now the pinned, Android-tested no-TTS source build. The full upstream GPL/TTS AAR is regression-only. Distribution/notices review is still open. See [runtime license review](RUNTIME_LICENSES.md) and [progress](PROGRESS.md).
 

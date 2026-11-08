@@ -5,7 +5,8 @@ import ru.neurostenographer.core.*
 import java.io.File
 
 data class AsrOutput(val segments: List<TranscriptSegment>, val audioMs: Long,
-    val loadMs: Long, val decodeMs: Long, val decodedWindows: Int = 0, val tokenTimedWindows: Int = 0, val untimedWindows: Int = 0)
+    val loadMs: Long, val decodeMs: Long, val decodedWindows: Int = 0, val tokenTimedWindows: Int = 0, val untimedWindows: Int = 0,
+    val modelId: String = AsrModelSpec.ACTIVE.id, val modelRevision: String = AsrModelSpec.ACTIVE.revision)
 
 /** Owns native resources on one worker. With speaker turns, windows follow continuous speech and each
  * word is attributed by its own token timestamps; a window without usable timestamps (and the

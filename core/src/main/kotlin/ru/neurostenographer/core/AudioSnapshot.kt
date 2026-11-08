@@ -9,9 +9,14 @@ data class AudioSnapshot(val file: File, val durationMs: Long)
  * revoke access or change its contents later. Caller owns successful snapshots.
  */
 object AudioSnapshots {
-    const val MAX_BYTES = 48_000L * 4 * PcmWav.MAX_SECONDS + 1_048_576 + 8
+    const val MAX_BYTES = PcmFileAudio.MAX_ENCODED_BYTES
 
-    fun import(input: InputStream, directory: File, checkCancelled: () -> Unit = {}): AudioSnapshot {
+    fun import(input: InputStream, directory: File, checkCancelled: () -> Unit = {}): AudioSnapshot =
+        importBounded(input, directory, MAX_BYTES, checkCancelled)
+
+    internal fun importBounded(input: InputStream, directory: File, maxBytes: Long,
+                               checkCancelled: () -> Unit = {}): AudioSnapshot {
+        require(maxBytes in 1..MAX_BYTES)
         check(directory.isDirectory || directory.mkdirs())
         val stage = File.createTempFile("input-", ".wav", directory)
         var accepted = false
@@ -25,12 +30,11 @@ object AudioSnapshots {
                     if (count < 0) break
                     require(count > 0) { "Источник WAV не возвращает данные" }
                     total += count
-                    require(total <= MAX_BYTES) { "WAV слишком большой (максимум ${PcmWav.MAX_LABEL})" }
+                    require(total <= maxBytes) { "Аудиофайл слишком большой (максимум 5 ГБ)" }
                     output.write(buffer, 0, count)
                 }
             }
-            val audio = stage.inputStream().use { PcmWav.read(it, checkCancelled) }
-            require(audio.durationMs in 100..PcmWav.MAX_SECONDS * 1000L) { "Нужен WAV длительностью от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
+            val audio = PcmFileAudio(stage, checkCancelled)
             checkCancelled()
             accepted = true
             return AudioSnapshot(stage, audio.durationMs)

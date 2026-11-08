@@ -1,0 +1,38 @@
+{
+  "base": "b979f4984d3696a4356febe52b31d99df48976b5",
+  "device": "Physical HONOR 10X Lite; Android 10; ARM64",
+  "core": {
+    "status": "PASS",
+    "groups": 17
+  },
+  "contest_json_validator": "PASS",
+  "fixture_preparation": "PASS: 5 exact WAV copies; real MP3 encoding; 6 SHA-256 hashes",
+  "physical_english": {
+    "status": "PASS",
+    "cases": [
+      "English LID and decoded text",
+      "Russian LID on 4 fixtures",
+      "digital silence",
+      "cancellation"
+    ],
+    "app_sha256": "5ca15bac64b312ed42ba9df387d38d8cc92f9152e1dc77034a31fed46c9e1e3f",
+    "test_apk_sha256": "f47faaebf5a9c5f0b2e737be8fc1e99e63f4b03943280a43d42e18a1c0282c27"
+  },
+  "physical_long_21_minutes": {
+    "status": "NOT_COMPLETED",
+    "reason": "Vendor background freezing; task-owned package stopped before repeat attempt. Raw log says process crashed after that controlled stop."
+  },
+  "physical_mp3": "NOT_RUN: follows long test",
+  "latest_apk_acceptance": "BLOCKED: update not installed; test install aborted; a separate realtime installation is open",
+  "limitations": [
+    "No held-out English WER",
+    "No full 8-hour test",
+    "No cross-block speaker identities",
+    "No 20-speaker acceptance",
+    "No end-to-end RTF claim from frozen/background runs"
+  ],
+  "latest_build_apks": {
+    "app-debug.apk": "2ab31ea0be249be0853f3e29a6069db2702b1948ded1b48e641809d566668869",
+    "app-debug-androidTest.apk": "9e3048fa5f75a29b84b02b6c38ebc8a32695e4e65571f4d84df3053eabf863eb"
+  }
+}

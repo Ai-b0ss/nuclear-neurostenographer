@@ -19,7 +19,9 @@ class RecorderStopTimeout : IllegalStateException("Микрофон ещё ос�
  * Only the writer thread reads/closes a started capture. A stop timeout retains
  * ownership; callers must not clear the recorder or delete its output yet.
  */
-class BoundedWavRecorder(private val output: File, private val capture: PcmCapture) {
+class BoundedWavRecorder(private val output: File, private val capture: PcmCapture,
+                         private val maxSeconds: Int = PcmFileAudio.MAX_FILE_SECONDS) {
+    init { require(maxSeconds in 1..PcmFileAudio.MAX_FILE_SECONDS) }
     private val stopping = AtomicBoolean(false)
     @Volatile private var worker: Thread? = null
     @Volatile private var failure: Throwable? = null
@@ -56,14 +58,14 @@ class BoundedWavRecorder(private val output: File, private val capture: PcmCaptu
 
     private fun record() {
         try {
-            Pcm16WavWriter(output, 16000, 1).use { sink ->
+            Pcm16WavWriter(output, 16000, 1, maxSeconds).use { sink ->
                 val samples = ShortArray(2048)
                 val bytes = ByteArray(samples.size * 2)
-                val limit = 16000L * PcmWav.MAX_SECONDS
+                val limit = 16000L * maxSeconds
                 val beginning = System.nanoTime()
                 var frames = 0L
                 while (!stopping.get() && frames < limit &&
-                    System.nanoTime() - beginning < PcmWav.MAX_SECONDS * 1_000_000_000L) {
+                    System.nanoTime() - beginning < maxSeconds * 1_000_000_000L) {
                     val count = capture.read(samples)
                     check(count in 0..samples.size) { "AudioRecord.read failure: $count" }
                     if (count == 0) { Thread.sleep(10); continue }

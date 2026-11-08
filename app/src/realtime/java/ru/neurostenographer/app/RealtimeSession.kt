@@ -306,8 +306,10 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                 // Every finished session goes to the shared history (speakers may be provisional or unknown: the
                 // document's provenance and warnings say so). The title is what the history list shows.
                 if (state.startsWith("COMPLETE")) document?.let {
-                    val title = "Живая запись " + java.text.SimpleDateFormat("d MMMM HH:mm", java.util.Locale("ru"))
+                    val stamp = java.text.SimpleDateFormat("d MMMM HH:mm", java.util.Locale("ru"))
                         .format(java.util.Date(directory.name.toLongOrNull() ?: System.currentTimeMillis()))
+                    val topic = ru.neurostenographer.core.TopicTitle.suggest(it.segments)
+                    val title = if (topic != null) "$topic · $stamp" else "Живая запись $stamp"
                     TranscriptHistory(context.filesDir).save(title, it)
                 }
             } finally { stopLiveC2() } }

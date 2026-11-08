@@ -104,11 +104,19 @@ class CodecImportTest {
                 .bufferedReader().use { it.readText() }).getJSONObject("reject_files")
             for (name in records.keys()) {
                 instrumentation.context.assets.open("codecs/$name").use { input -> source.outputStream().use { input.copyTo(it) } }
+                if (name == "too-long.m4a") {
+                    // The former 20-minute rejection is now a positive long-file regression.
+                    val accepted = AudioImport.import(context, Uri.fromFile(source))
+                    assertTrue(accepted.durationMs in 1_200_000L..1_203_000L)
+                    accepted.file.delete()
+                    assertEquals(before, root.list()!!.toSet())
+                    continue
+                }
                 val error = runCatching { AudioImport.import(context, Uri.fromFile(source)) }.exceptionOrNull()
                 assertNotNull("Accepted negative fixture $name", error)
                 val reason = when (name) {
                     "two-tracks.m4a" -> "ровно один"
-                    else -> "20 минут"
+                    else -> "8 часов"
                 }
                 assertTrue("$name: $error", error!!.message.orEmpty().contains(reason))
                 assertEquals(before, root.list()!!.toSet())

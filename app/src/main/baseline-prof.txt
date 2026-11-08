@@ -1,0 +1,10 @@
+# Baseline profile: the app and the UI libraries it uses are compiled ahead of time, so the first screens
+# (tab switch, lists, dialogs) do not run in the interpreter after install.
+HSPLru/neurostenographer/**;->**(**)**
+Lru/neurostenographer/**;
+HSPLandroidx/compose/**;->**(**)**
+Landroidx/compose/**;
+HSPLandroidx/activity/**;->**(**)**
+HSPLandroidx/lifecycle/**;->**(**)**
+HSPLandroidx/savedstate/**;->**(**)**
+HSPLandroidx/core/**;->**(**)**

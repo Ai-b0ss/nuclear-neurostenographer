@@ -11,6 +11,7 @@ import ru.neurostenographer.core.PcmCapture
 
 /** Android adapter; resource ownership/limits are exercised in core tests. */
 interface WavRecording {
+    val level: Float get() = 0f
     val isRunning: Boolean
     @RequiresPermission(Manifest.permission.RECORD_AUDIO)
     fun start()
@@ -20,6 +21,8 @@ interface WavRecording {
 
 class RecordWav(private val output: File) : WavRecording {
     private var recorder: BoundedWavRecorder? = null
+    @Volatile private var measuredLevel = 0f
+    override val level: Float get() = measuredLevel
     override val isRunning: Boolean get() = recorder?.isRunning == true
 
     @RequiresPermission(Manifest.permission.RECORD_AUDIO)
@@ -36,13 +39,16 @@ class RecordWav(private val output: File) : WavRecording {
                 audio.startRecording()
                 check(audio.recordingState == AudioRecord.RECORDSTATE_RECORDING) { "Microphone did not start" }
             }
-            override fun read(samples: ShortArray): Int =
-                audio.read(samples, 0, samples.size, AudioRecord.READ_NON_BLOCKING)
+            override fun read(samples: ShortArray): Int {
+                val count = audio.read(samples, 0, samples.size, AudioRecord.READ_NON_BLOCKING)
+                if (count > 0) measuredLevel = ru.neurostenographer.core.VoiceLevel.measure(samples, count)
+                return count
+            }
 
             override fun close() {
                 try {
                     if (audio.recordingState == AudioRecord.RECORDSTATE_RECORDING) audio.stop()
-                } finally { audio.release() }
+                } finally { measuredLevel = 0f; audio.release() }
             }
         })
         recorder = session

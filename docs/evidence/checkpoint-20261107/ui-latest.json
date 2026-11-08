@@ -1,0 +1,28 @@
+{
+  "ui_head": "91d950fbec721aa8f5d6dd28803d4e4848137991",
+  "debug_build": "PASS",
+  "instrumentation_build": "PASS",
+  "release_build": "PASS",
+  "core_groups": 17,
+  "core_proof": "ui-integration-build.txt; no core changes since that run",
+  "physical_acceptance": "NOT_RUN; handset left to Claude",
+  "published_release": false,
+  "apks": {
+    "app-debug.apk": {
+      "bytes": 494186838,
+      "sha256": "a04bfc23395aa25fb8575bbbc1a5d947ebef097d0dce3af187f80676666ba144"
+    },
+    "app-debug-androidTest.apk": {
+      "bytes": 5967951,
+      "sha256": "9e3048fa5f75a29b84b02b6c38ebc8a32695e4e65571f4d84df3053eabf863eb"
+    },
+    "app-release-unsigned.apk": {
+      "bytes": 420597484,
+      "sha256": "7777ab9685238265e6524deacd1e68109a7ef2a21b9df41b2a7fce6e9fa1055c"
+    }
+  },
+  "release_profile_assets": {
+    "assets/dexopt/baseline.prof": 4280,
+    "assets/dexopt/baseline.profm": 231
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ui_head": "1c13f0a3fbd4913ee0b0415dbc51cf7c61ff7acc",
+  "core_groups": 17,
+  "core": "PASS",
+  "product_debug_build": "PASS",
+  "instrumentation_build": "PASS",
+  "workflow_tests": 7,
+  "ui_tool_tests": 6,
+  "physical_acceptance": "NOT_RUN: phone left to the ongoing Claude UI work",
+  "apks": {
+    "app-debug.apk": "5d223527c0c72b5d7774eaffc2df00f99dc237e720c642af39fba50e1323185e",
+    "app-debug-androidTest.apk": "9e3048fa5f75a29b84b02b6c38ebc8a32695e4e65571f4d84df3053eabf863eb"
+  }
+}

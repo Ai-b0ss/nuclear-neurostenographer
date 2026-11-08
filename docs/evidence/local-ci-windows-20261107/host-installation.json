@@ -1,0 +1,11 @@
+﻿{
+    "task":  "NeurostenographerLocalCI",
+    "state":  "Running",
+    "logon_type":  "Interactive",
+    "run_level":  "Limited",
+    "executable":  "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+    "launcher":  "\"K:\\nn-local-ci-20261107\\local_ci_launcher.pyw\"",
+    "execution_time_limit":  "PT0S",
+    "autostart_configured":  true,
+    "reboot_tested":  false
+}

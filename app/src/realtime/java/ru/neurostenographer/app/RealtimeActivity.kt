@@ -8,7 +8,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -16,8 +22,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import ru.neurostenographer.core.TopicTitle
+import ru.neurostenographer.core.TranscriptExport
 import androidx.core.content.ContextCompat
 import java.io.File
 
@@ -53,6 +65,7 @@ class RealtimeActivity : ComponentActivity() {
         super.onStop()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun LiveScreen() {
         val state by RealtimeService.view.collectAsState()
@@ -73,61 +86,109 @@ class RealtimeActivity : ComponentActivity() {
         val recording = status in listOf("LOADING", "RUNNING", "CAPTURE_ONLY")
         val busy = recording || status == "FINALIZING"
         val complete = status.startsWith("COMPLETE")
+        val micLevel by produceState(0f, recording) {
+            while (recording) { value = RealtimeCapture.microphoneLevel; kotlinx.coroutines.delay(50) }
+            value = 0f
+        }
         val segments = state.document?.segments.orEmpty()
         val list = rememberLazyListState()
+        // Stop answers at once: the service needs a moment to report FINALIZING, the screen must not look frozen meanwhile.
+        var stopping by remember { mutableStateOf(false) }
+        LaunchedEffect(status) { stopping = false }
         LaunchedEffect(segments.size) { if (segments.isNotEmpty()) list.animateScrollToItem(segments.size - 1) }
         // After a session ends, the next one should start without a model-loading wait as well.
         LaunchedEffect(busy) { if (!busy) RealtimePreload.start(this@RealtimeActivity) }
+        val red = MaterialTheme.colorScheme.error
 
-        Scaffold { padding ->
-            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    TextButton(onClick = { finish() }, enabled = !busy) { Text("← Назад") }
-                    Spacer(Modifier.width(4.dp))
-                    Text("Живая расшифровка", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-                }
-                Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(1.dp)) {
-                    Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(clock(state.audioMs), style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold,
-                                color = if (recording) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface)
-                            Spacer(Modifier.width(12.dp))
-                            Text(statusText(status), style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
+            TopAppBar(title = { Text("Живая расшифровка", fontWeight = FontWeight.SemiBold) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                navigationIcon = { IconButton(onClick = { finish() }, enabled = !busy) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } })
+        }) { padding ->
+            // Text panel on top (always there, grows with the conversation), controls at the bottom under the thumb.
+            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Surface(Modifier.weight(1f).fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
+                    if (segments.isEmpty()) {
+                        Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally) {
+                            if (recording) {
+                                Text("Говорите — текст появится здесь после каждой фразы (обычно через 1–2 с).",
+                                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textAlign = TextAlign.Center)
+                            } else Text(
+                                if (complete) "Речь не распознана." else "Здесь появится текст разговора по ходу записи.\nРаспознавание и разделение говорящих идут на телефоне, без интернета.",
+                                style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center)
                         }
-                        if (status == "LOADING" || status == "FINALIZING") LinearProgressIndicator(Modifier.fillMaxWidth())
-                        if (!busy) Button(onClick = {
-                            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
-                            else permission.launch(Manifest.permission.RECORD_AUDIO)
-                        }, modifier = Modifier.fillMaxWidth().height(56.dp)) {
-                            Text(if (complete) "Новая запись" else "Начать запись", style = MaterialTheme.typography.titleMedium)
+                    } else {
+                        LazyColumn(state = list, modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(18.dp),
+                            contentPadding = PaddingValues(16.dp)) {
+                            items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
                         }
-                        if (recording) Button(onClick = { service("STOP") }, modifier = Modifier.fillMaxWidth().height(56.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)) {
-                            Text("Остановить", style = MaterialTheme.typography.titleMedium)
-                        }
-                        if (status == "FINALIZING") TextButton(onClick = { service("CANCEL") }) {
-                            Text("Пропустить уточнение (запись и текст сохранятся)")
-                        }
-                        if (complete) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("Открыть в истории") }
-                            OutlinedButton(onClick = { exportText = state.document!!.export("json-contest"); export.launch("live.json") },
-                                enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Экспорт JSON") }
-                        }
-                        batchFallback(state)
                     }
                 }
-                if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
-                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                if (segments.isEmpty()) Text(
-                    if (recording) "Говорите — текст появится после каждой фразы (обычно через 1–2 с)."
-                    else "Распознавание и разделение говорящих идут на телефоне, без интернета.",
-                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                LazyColumn(state = list, modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                    items(segments) { Reply(it, emptyMap(), "", onSpeaker = {}) }
+                // Keep the actual microphone level visible even after live text begins.
+                if (recording) {
+                    Spacer(Modifier.height(8.dp))
+                    LinearProgressIndicator(progress = { micLevel }, modifier = Modifier.fillMaxWidth().height(8.dp))
                 }
+                Spacer(Modifier.height(10.dp))
+                if (recording && segments.isNotEmpty()) Text("Говорящие предварительные: после остановки они уточняются по всей записи.",
+                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.weight(1f)) {
+                        Text(clock(state.audioMs), fontSize = 40.sp, fontWeight = FontWeight.Light,
+                            color = if (recording) red else MaterialTheme.colorScheme.onSurface)
+                        Text(if (stopping) "Останавливаю…" else statusText(status), style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        if (status == "LOADING" || status == "FINALIZING" || stopping) {
+                            Spacer(Modifier.height(6.dp))
+                            LinearProgressIndicator(Modifier.fillMaxWidth(0.8f).clip(RoundedCornerShape(50)))
+                        }
+                    }
+                    Spacer(Modifier.width(12.dp))
+                    if (!busy) {
+                        Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable {
+                            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) start()
+                            else permission.launch(Manifest.permission.RECORD_AUDIO)
+                        }.padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(Modifier.size(76.dp).background(MaterialTheme.colorScheme.primary, CircleShape), contentAlignment = Alignment.Center) {
+                                MicGlyph(MaterialTheme.colorScheme.onPrimary, 34.dp)
+                            }
+                            Spacer(Modifier.height(6.dp))
+                            Text(if (complete) "Новая запись" else "Начать запись", style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold)
+                        }
+                    } else if (recording) {
+                        Column(Modifier.clip(RoundedCornerShape(24.dp)).clickable(enabled = !stopping) {
+                            stopping = true
+                            service("STOP")
+                        }.padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(Modifier.size(76.dp).background(red, CircleShape), contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(24.dp).background(Color.White, RoundedCornerShape(6.dp)))
+                            }
+                            Spacer(Modifier.height(6.dp))
+                            Text("Остановить", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold, color = red)
+                        }
+                    }
+                }
+                if (status == "FINALIZING") TextButton(onClick = { service("CANCEL") }) {
+                    Text("Пропустить уточнение (запись и текст сохранятся)", textAlign = TextAlign.Center)
+                }
+                if (complete) Row(Modifier.padding(bottom = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { finish() }, modifier = Modifier.weight(1f)) { Text("В историю", textAlign = TextAlign.Center) }
+                    OutlinedButton(onClick = {
+                        val doc = state.document!!
+                        exportText = doc.export("json-contest")
+                        // The file is named after what was said, not «live»: topic words + date, like the saved transcript.
+                        val topic = TopicTitle.suggest(doc.segments)
+                        val stamp = java.text.SimpleDateFormat("yyyy-MM-dd HH-mm", java.util.Locale("ru")).format(java.util.Date())
+                        export.launch(TranscriptExport.fileBase((topic ?: "Живая запись") + " " + stamp) + ".json")
+                    }, enabled = state.document != null, modifier = Modifier.weight(1f)) { Text("Сохранить JSON", textAlign = TextAlign.Center) }
+                }
+                batchFallback(state)
+                Spacer(Modifier.height(8.dp))
             }
         }
     }
@@ -140,7 +201,7 @@ class RealtimeActivity : ComponentActivity() {
         val finalized = File(captured.parentFile, "capture-finalized.txt").isFile || File(captured.parentFile, "recovered.txt").isFile
         if (!finalized) return
         if (state.audioMs > 20 * 60 * 1000) {
-            Text("Запись длиннее 20 минут сохранена; обычное распознавание файла ограничено 20 минутами.",
+            Text("Длинная запись сохранена. Откройте её для полной расшифровки.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             return
         }
