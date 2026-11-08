@@ -1,0 +1,47 @@
+{
+  "kind": "GENERATED_NUMERIC_TONES_NOT_SPEECH",
+  "sdk": 29,
+  "abis": [
+    "arm64-v8a",
+    "armeabi-v7a",
+    "armeabi"
+  ],
+  "generator": "ffmpeg version 7.1-essentials_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+  "results": [
+    {
+      "fixture": "tone.m4a",
+      "sha256": "0cf777410cf6ca9f6268221ce757bc818d1dc2951c1843b055b144e94e5a1ec3",
+      "duration_ms": 1253,
+      "rms": 0.12190056647376485,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone.mp3",
+      "sha256": "b48051fe7d0b1689baff4606789bd79552a7e695fa75c97b862aef42f6d1728a",
+      "duration_ms": 1250,
+      "rms": 0.1158682090488333,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone-vorbis.ogg",
+      "sha256": "65be622e1080929dda802bd5ff3b040a9e822a866d8bd675f562dd20e92b43ec",
+      "duration_ms": 1250,
+      "rms": 0.1225937119302279,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone-opus.ogg",
+      "sha256": "f50661be8c5d069e19c158c0f7660b5de0b2278f14ee4e9c6aecc8f794eb3d03",
+      "duration_ms": 1253,
+      "rms": 0.12188034899592438,
+      "status": "PASS"
+    },
+    {
+      "fixture": "tone.flac",
+      "sha256": "7e1d79f00ab0c53fd5891a78ed29def3e94b53f904113409956de23533d56b63",
+      "duration_ms": 1250,
+      "rms": 0.12197029339057025,
+      "status": "PASS"
+    }
+  ]
+}
