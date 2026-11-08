@@ -502,10 +502,33 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
         Text("Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
         Text("Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
         if (state.stage > 0) Steps(state.stage)
-        Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-        val progress = state.progress
-        if (progress != null) LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
-        else LinearProgressIndicator(Modifier.fillMaxWidth())
+        val timeline = state.processingClock
+        if (timeline != null) {
+            // Wall-clock ticks only update Compose. ASR and diarization continue on IO.
+            val tick by produceState(SystemClock.elapsedRealtime(), timeline) {
+                while (true) {
+                    value = SystemClock.elapsedRealtime()
+                    delay(250)
+                }
+            }
+            Text("Обработка длинной записи", style = MaterialTheme.typography.bodyMedium)
+            Text("Примерно обработано: ${clock(timeline.positionAt(tick))} из ${clock(timeline.totalMs)}",
+                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+            if (timeline.waitingForCheckpoint(tick)) {
+                Text("Завершаю текущий фрагмент, уточняю время",
+                    style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+            } else {
+                Text((if (timeline.calibrated) "Осталось примерно " else "Предварительно осталось ≈ ") +
+                    clock(timeline.remainingWallMs(tick)),
+                    style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+            }
+            LinearProgressIndicator(progress = { timeline.fractionAt(tick) }, Modifier.fillMaxWidth())
+        } else {
+            Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+            val progress = state.progress
+            if (progress != null) LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
+            else LinearProgressIndicator(Modifier.fillMaxWidth())
+        }
         Text("Всё обрабатывается на телефоне", style = MaterialTheme.typography.bodySmall)
     }
 }

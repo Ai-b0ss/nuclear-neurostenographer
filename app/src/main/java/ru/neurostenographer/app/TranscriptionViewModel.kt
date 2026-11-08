@@ -5,6 +5,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
+import android.os.SystemClock
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.core.content.ContextCompat
@@ -23,7 +24,7 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false,
     val history: List<SavedTranscript> = emptyList(), val current: SavedTranscript? = null,
     val details: String = "", val userTerms: List<Term> = emptyList(),
     /** 0 = no recognition running, 1 = preparing, 2 = speakers, 3 = speech. Only drives the progress steps in the UI. */
-    val stage: Int = 0)
+    val stage: Int = 0, val processingClock: AudioProcessingClock? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     private val recorderFactory: (File) -> WavRecording = ::RecordWav) : AndroidViewModel(application) {
@@ -97,7 +98,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, progress = null, stage = 0, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, progress = null, stage = 0, processingClock = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -268,7 +269,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
-            message = "Готовлю запись…", stage = 1)
+            message = "Готовлю запись…", stage = 1, processingClock = null)
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
@@ -397,6 +398,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         var load = 0L; var decode = 0L
         var windows = 0; var timed = 0; var untimed = 0
         var start = 0L
+        var estimate = AudioProcessingClock(pcm.durationMs, 0L,
+            minOf(300_000L, pcm.durationMs), SystemClock.elapsedRealtime())
+        mutable.value = mutable.value.copy(processingClock = estimate, progress = null, stage = 1)
         while (start < pcm.durationMs) {
             context.ensureActive()
             var end = minOf(start + 300_000, pcm.durationMs)
@@ -405,24 +409,36 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 end = end - 3000 + QuietCuts.phraseCut(boundary.samples) / 16
             }
             if (pcm.durationMs - end in 1..99) end = pcm.durationMs
-            mutable.value = mutable.value.copy(message = "Обработка длинной записи: ${clock(start)} из ${clock(pcm.durationMs)}", stage = 1)
+            val blockStarted = SystemClock.elapsedRealtime()
+            mutable.value = mutable.value.copy(
+                message = "Обрабатываю длинную запись", stage = 1,
+                processingClock = estimate)
             val block = pcm.read(start, end) { context.ensureActive() }
             val first = block.samples.indexOfFirst { it != 0f }
-            if (first < 0) { start = end; continue }
-            val last = block.samples.indexOfLast { it != 0f }
-            // Only exact digital silence can be discarded, never a volume threshold.
-            val localStart = (first / 16L - 1000).coerceAtLeast(0)
-            val localEnd = (last / 16L + 1001).coerceAtMost(block.durationMs)
-            val trimmed = PcmAudio(block.samples.copyOfRange((localStart * 16).toInt(),
-                minOf((localEnd * 16).toInt(), block.samples.size)), 16000)
-            val (asr, _, processing) = recognizeBlock(trimmed, model)
-            val offset = start + localStart
-            segments += asr.segments.map { it.copy(startMs = it.startMs + offset, endMs = it.endMs + offset,
-                speakerId = null, attributionReliable = false, overlapSpeakers = emptyList()) }
-            ids += asr.modelId; revisions += asr.modelRevision
-            processing.second?.let { warnings += it }
-            load += asr.loadMs; decode += asr.decodeMs
-            windows += asr.decodedWindows; timed += asr.tokenTimedWindows; untimed += asr.untimedWindows
+            if (first >= 0) {
+                val last = block.samples.indexOfLast { it != 0f }
+                // Only exact digital silence can be discarded, never a volume threshold.
+                val localStart = (first / 16L - 1000).coerceAtLeast(0)
+                val localEnd = (last / 16L + 1001).coerceAtMost(block.durationMs)
+                val trimmed = PcmAudio(block.samples.copyOfRange((localStart * 16).toInt(),
+                    minOf((localEnd * 16).toInt(), block.samples.size)), 16000)
+                val (asr, _, processing) = recognizeBlock(trimmed, model)
+                val offset = start + localStart
+                segments += asr.segments.map { it.copy(startMs = it.startMs + offset, endMs = it.endMs + offset,
+                    speakerId = null, attributionReliable = false, overlapSpeakers = emptyList()) }
+                ids += asr.modelId; revisions += asr.modelRevision
+                processing.second?.let { warnings += it }
+                load += asr.loadMs; decode += asr.decodeMs
+                windows += asr.decodedWindows; timed += asr.tokenTimedWindows; untimed += asr.untimedWindows
+            }
+            val finishedAt = SystemClock.elapsedRealtime()
+            estimate = estimate.advance(
+                completedMs = end,
+                nextEndMs = minOf(end + 300_000L, pcm.durationMs),
+                nowMs = finishedAt,
+                measuredWallMs = if (first >= 0) (finishedAt - blockStarted).coerceAtLeast(1) else null)
+            mutable.value = mutable.value.copy(processingClock = estimate,
+                progress = estimate.fractionAt(finishedAt))
             start = end
         }
         warnings += "Длинная запись обработана блоками. Сквозное сопоставление говорящих между блоками пока недоступно; текст сохранён без назначения говорящих."
