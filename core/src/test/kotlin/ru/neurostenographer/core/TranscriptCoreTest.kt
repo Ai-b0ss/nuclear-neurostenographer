@@ -19,6 +19,7 @@ fun main() {
     testDiarizationTimeline()
     testDecodeBudget()
     testAudioProcessingClock()
+    testFddtOverlapPlan()
     test("A B A speaker returns") {
         val turns = listOf(SpeakerTurn(2000, 2900, "B"), SpeakerTurn(4000, 5000, "A"), SpeakerTurn(0, 1500, "A"))
         val words = listOf(RecognizedWord(4050, 4500, "согласен"), RecognizedWord(100, 600, "привет"), RecognizedWord(2100, 2500, "да"))

@@ -381,8 +381,30 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val asr = if (english != null) AsrOutput(english.segments, audio.durationMs,
             english.loadMs, english.decodeMs, english.windows, untimedWindows = english.windows,
             modelId = WhisperEnglish.ID, modelRevision = WhisperEnglish.REVISION)
-        else OfflineAsr.transcribe(audio, model, { context.ensureActive() }, progress,
-            turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows)
+        else {
+            val baseline = OfflineAsr.transcribe(audio, model, { context.ensureActive() }, progress,
+                turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows,
+                unmerged = BuildConfig.FDDT_HYBRID)
+            if (!BuildConfig.FDDT_HYBRID) baseline
+            else if (speakers == null || backendUsed != NemotronBackend.C2) {
+                baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
+            } else try {
+                mutable.value = mutable.value.copy(
+                    message = "Уточняю одновременную речь с FDDT…", stage = 3)
+                FddtHybrid.transcribe(app, audio, speakers?.turns.orEmpty(), baseline,
+                    { context.ensureActive() }) { index, count ->
+                    mutable.value = mutable.value.copy(
+                        message = "Разделяю перекрытия: $index из $count", stage = 3)
+                }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                Log.e("FddtHybrid", "FDDT optional postpass failed; A3 preserved", e)
+                warning = listOfNotNull(warning,
+                    "Экспериментальный проход FDDT не выполнен: оставлен исходный A3.")
+                    .joinToString(" ")
+                baseline.copy(segments = TranscriptFusion.mergeReplies(baseline.segments))
+            }
+        }
         return Triple(asr, speakers, backendUsed to warning)
     }
 

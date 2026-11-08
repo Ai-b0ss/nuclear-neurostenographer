@@ -43,6 +43,10 @@ val nemotronEnabled = nemotronPrototype || nemotronProduct
 // Separate test build with GigaAM v3 e2e RNNT (punctuation); never the RC1 applicationId.
 val asrA3 = providers.gradleProperty("asrA3").orNull == "true"
 val englishAuto = providers.gradleProperty("englishAuto").orNull == "true"
+val fddtHybrid = providers.gradleProperty("fddtHybrid").orNull == "true"
+check(!fddtHybrid || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototype)) {
+    "FDDT hybrid requires product A3 + C2; build as a separate QA app"
+}
 if (englishAuto) check(rootProject.file(".local/englishAssets/whisper-tiny.zip").isFile) {
     "English auto detection requires the pinned bundled .local/englishAssets/whisper-tiny.zip"
 }
@@ -79,6 +83,7 @@ android {
         buildConfigField("boolean", "ASR_A3", asrA3.toString())
         buildConfigField("boolean", "ENGLISH_AUTO", englishAuto.toString())
         buildConfigField("boolean", "REALTIME", realtime.toString())
+        buildConfigField("boolean", "FDDT_HYBRID", fddtHybrid.toString())
         manifestPlaceholders["appLabel"] = "Нейростенограф"
     }
     // Optional workspace-owned debug key for restricted local build environments.
@@ -110,6 +115,16 @@ android {
     if (providers.gradleProperty("checkpointQa").orNull == "true") {
         defaultConfig.applicationIdSuffix = ".checkpoint"
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф проверка"
+    }
+    if (fddtHybrid) {
+        check(providers.gradleProperty("checkpointQa").orNull != "true")
+        defaultConfig.applicationIdSuffix = ".fddtqa"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф FDDT эксперимент"
+        val fddtAssets = rootProject.file(".local/fddtAssets")
+        for (file in listOf("encoder_fddt.int8.onnx", "decoder.onnx", "joint.onnx", "tokens.txt")) {
+            check(fddtAssets.resolve(file).isFile) { "FDDT QA model asset missing: $file" }
+        }
+        sourceSets.getByName("main").assets.srcDir(fddtAssets)
     }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
     // QA uses only its named fixtures, never stale models/audio from prior test runs.
@@ -188,7 +203,7 @@ android {
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
-    if (nemotronEnabled) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
