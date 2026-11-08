@@ -9,7 +9,7 @@
 3. **[Ограничения решения](docs/LIMITATIONS.md)** — неполная обработка перекрытий и ограничения длинных записей.
 4. **[Результаты собственных испытаний](docs/TEST_RESULTS.md)** — в том числе [WER/RTF на HONOR](docs/DEVICE_RTF_2026-11-08.md) и [проверка финального ETA](docs/ETA_ACCEPTANCE_2026-11-08.md).
 5. **[Видеодемонстрация работы приложения](artifacts/demo/ITAM-demo-3speakers-eta-playback.mp4)** — настоящий экран HONOR: импорт, ETA, три говорящих, воспроизведение и экспорт JSON; также [MP4 в релизе](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/ITAM-demo-3speakers-eta-playback.mp4).
-6. **[Презентация для защиты (PPTX)](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-defense-final.pptx)** — 7 слайдов, доступна в файлах релиза.
+6. **[Презентация для защиты (PPTX)](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-defense-final.pdf)** — 7 слайдов, доступна в файлах релиза.
 
 **[Перейти к финальному релизу с APK, видео и презентацией](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-eta-playback-final)**
 
