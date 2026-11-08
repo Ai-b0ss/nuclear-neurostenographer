@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.neurostenographer.core.TopicTitle
@@ -101,7 +102,8 @@ class RealtimeActivity : ComponentActivity() {
         val red = MaterialTheme.colorScheme.error
 
         Scaffold(containerColor = MaterialTheme.colorScheme.background, topBar = {
-            TopAppBar(title = { Text("Живая расшифровка", fontWeight = FontWeight.SemiBold) },
+            TopAppBar(title = { Text("Живая расшифровка", fontWeight = FontWeight.SemiBold,
+                maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                 navigationIcon = { IconButton(onClick = { finish() }, enabled = !busy) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Назад") } })
         }) { padding ->
@@ -120,7 +122,7 @@ class RealtimeActivity : ComponentActivity() {
                                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = TextAlign.Center)
                             } else Text(
-                                if (complete) "Речь не распознана." else "Здесь появится текст разговора по ходу записи.\nРаспознавание и разделение говорящих идут на телефоне, без интернета.",
+                                if (complete) "Речь не распознана." else "Здесь появится текст разговора по ходу записи.\nВсё обрабатывается на телефоне, без интернета. Одна живая запись — до 1 часа.",
                                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center)
                         }
