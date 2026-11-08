@@ -115,3 +115,33 @@ FDDT pass peak remains separately recorded above.
   to main, gate FDDT runtime and verify default APK compatibility.
 - Current implementation does not repair chunked long-audio global speaker IDs;
   it fixes regular (<=20 min) file handling.
+
+
+## Reproducing this experimental APK on another computer
+
+Prerequisites: JDK 17, Gradle 8.9, Android SDK, project sherpa-onnx AAR,
+and the exact Ruzanna Telegram archive fddt_rnnt 2.zip, never an arbitrary
+unverified model download.
+
+1. From repository root run:
+
+       python3 tools/prepare_fddt_assets.py --archive "/path/to/fddt_rnnt 2.zip"
+       python3 tools/prepare_fddt_assets.py --verify-only
+
+   The tool verifies full archive SHA256 and SHA256/size of each of the
+   four ONNX/tokens assets, then installs only those four files atomically
+   under .local/fddtAssets. It never imports or executes Python from the zip.
+   A second invocation is idempotent. A wrong 448 KB previous archive fails
+   closed. Fresh extraction and repeated validation were both tested.
+
+2. Make the existing project A3/C2 assets available as described in the
+   standard build instructions. Build with flags:
+
+       gradle :core:runCoreTests :app:assembleDebug -PnemotronProduct=true -PasrA3=true -PenglishAuto=true -PfddtHybrid=true
+
+3. Install the experimental build by adb install -r
+   app/build/outputs/apk/debug/app-debug.apk. Package ID is
+   ru.neurostenographer.app.fddtqa, separate from production app ID.
+
+The delivered GitHub PR intentionally excludes bulky 328 MB model files
+and does not require user credentials or a paid API to compile.
