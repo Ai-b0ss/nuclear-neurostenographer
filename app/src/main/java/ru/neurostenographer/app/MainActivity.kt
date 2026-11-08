@@ -525,6 +525,23 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                     style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
             }
             LinearProgressIndicator(progress = { timeline.fractionAt(tick) }, Modifier.fillMaxWidth())
+        } else if (state.shortEta != null) {
+            val eta = state.shortEta
+            val tick by produceState(SystemClock.elapsedRealtime(), eta) {
+                while (true) { value = SystemClock.elapsedRealtime(); delay(250) }
+            }
+            Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+            val remaining = eta.remainingWallMs(tick)
+            if (remaining == null) {
+                Text("Уточняю оставшееся время по скорости обработки…",
+                    style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+            } else {
+                Text("Осталось ориентировочно " + clock(remaining),
+                    style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+            }
+            val progress = state.progress
+            if (progress != null) LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
+            else LinearProgressIndicator(Modifier.fillMaxWidth())
         } else {
             Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
             val progress = state.progress
