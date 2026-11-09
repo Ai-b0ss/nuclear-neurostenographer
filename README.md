@@ -1,5 +1,18 @@
 # Нейро-стенографист (Nuclear Neurostenographer)
 
+
+**Полностью офлайн на Android:** распознавание русской и английской речи, разделение говорящих, таймкоды, живая стенограмма и экспорт TXT / SRT / JSON. Модели работают непосредственно на смартфоне.
+
+[**Портфолио и результат**](https://i99er-igor-portfolio.static.hf.space/cases.html#nuclear) · [**Финальный APK**](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-eta-playback-final) · [**Тесты на HONOR**](docs/DEVICE_RTF_2026-11-08.md)
+
+<p align="center">
+  <img src="https://i99er-igor-portfolio.static.hf.space/assets/product-shots/nuclear-transcript-20261109.png" width="230" alt="Стенограмма на физическом HONOR: три говорящих и таймкоды">
+  &nbsp;&nbsp;
+  <img src="https://i99er-igor-portfolio.static.hf.space/assets/product-shots/nuclear-processing-20261109.png" width="230" alt="Этапы локальной обработки и оценка оставшегося времени">
+</p>
+
+---
+
 ## Материалы для жюри — всё в одном месте
 
 Здесь собраны шесть материалов, указанных в конкурсной форме. Репозиторий открыт для просмотра без авторизации.
