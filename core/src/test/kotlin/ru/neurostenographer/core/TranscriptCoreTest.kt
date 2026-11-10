@@ -52,6 +52,25 @@ fun main() {
         check(TranscriptExport.fileBase("v1.2 итог") == "v1_2 итог")
         check(TranscriptExport.fileBase(" ... ") == "transcript")
     }
+    test("long recording local speaker scope preserves attribution and unknowns") {
+        val one = TranscriptSegment(250, 420, "Speaker 1", "слово", attributionReliable = true)
+        val shifted = LocalSpeakerScope.shift(one, 300_000L, 0)
+        check(shifted.startMs == 300_250L && shifted.endMs == 300_420L)
+        check(shifted.speakerId == "Block 1 / Speaker 1" && shifted.attributionReliable)
+        val repeated = LocalSpeakerScope.shift(one, 600_000L, 1)
+        check(repeated.speakerId == "Block 2 / Speaker 1")
+        check(repeated.speakerId != shifted.speakerId)
+        val header = TranscriptExport.header(listOf(shifted, repeated), 900_000L)
+        check(header.contains("локальных меток: 2") && header.contains("по блокам")) { header }
+        val unknown = LocalSpeakerScope.shift(TranscriptSegment(0, 100, null, "неясно"), 300_000L, 0)
+        check(unknown.speakerId == null)
+        val overlap = LocalSpeakerScope.shift(
+            TranscriptSegment(100, 300, null, "оба", true, false, listOf("Speaker 1", "Speaker 2")),
+            400_000L, 2)
+        check(overlap.speakerId == null)
+        check(overlap.overlapSpeakers == listOf("Block 3 / Speaker 1", "Block 3 / Speaker 2"))
+        check(TranscriptExport.contestJson(listOf(overlap)).contains("unknown"))
+    }
     test("unknown without diarization") {
         val result = TranscriptFusion.attributeWords(listOf(RecognizedWord(0, 500, "текст")), emptyList())
         check(result.single().speakerId == null && !result.single().attributionReliable)

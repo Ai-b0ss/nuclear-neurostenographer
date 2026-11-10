@@ -39,6 +39,42 @@ object DiarizationTimeline {
         }
     }
 
+    /** Union of independent speech evidence: Silero and Nemotron. Neither detector
+     * may erase speech found by the other. Speaker labels are never inferred here.
+     * Adjacent original 20 s chunks are re-joined before applying the same cap.
+     */
+    fun combineSpeechWindows(c2: List<AudioWindow>, vad: List<AudioWindow>, audioMs: Long): List<AudioWindow> {
+        require(audioMs >= 100)
+        val all = (c2 + vad).sortedWith(compareBy<AudioWindow> { it.startMs }.thenBy { it.endMs })
+        require(all.all { it.startMs >= 0 && it.endMs > it.startMs && it.endMs <= audioMs })
+        val merged = mutableListOf<AudioWindow>()
+        for (w in all) {
+            val last = merged.lastOrNull()
+            if (last != null && w.startMs - last.endMs < MERGE_GAP_MS) {
+                merged[merged.lastIndex] = AudioWindow(last.startMs, maxOf(last.endMs, w.endMs))
+            } else merged += w
+        }
+        return merged.flatMap { w ->
+            val parts = mutableListOf<AudioWindow>()
+            if (w.endMs - w.startMs < 100L) {
+                // ASR requires at least 100 ms; preserve a tiny detected utterance.
+                val begin = minOf(w.startMs, audioMs - 100L).coerceAtLeast(0L)
+                parts += AudioWindow(begin, begin + 100L)
+            } else {
+                var at = w.startMs
+                while (w.endMs - at > 20_000L) {
+                    // Avoid a 1..99 ms tail that would abort transcription.
+                    val tail = w.endMs - (at + 20_000L)
+                    val next = if (tail in 1L..99L) w.endMs - 100L else at + 20_000L
+                    parts += AudioWindow(at, next)
+                    at = next
+                }
+                parts += AudioWindow(at, w.endMs)
+            }
+            parts
+        }
+    }
+
     /** Pre-0.3.2 policy, still used for ASR without word timestamps (CTC build): speech cut at every
      * turn boundary, so each fragment can be attributed as a whole. */
     fun turnWindows(turns: List<SpeakerTurn>, audioMs: Long): List<AudioWindow> =

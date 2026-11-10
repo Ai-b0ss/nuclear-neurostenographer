@@ -76,8 +76,8 @@ android {
         applicationId = "ru.neurostenographer.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 20
-        versionName = "0.3.17-contest"
+        versionCode = 21
+        versionName = "0.4.0"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
@@ -160,6 +160,11 @@ android {
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Sol QA"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
+    // FDDT helper Java sources compile in all variants, so ORT classes remain
+    // a compile dependency. However, without Nemotron/FDDT, its standalone JNI
+    // layer must NOT ship in the ordinary sherpa-only Android application.
+    packaging.jniLibs.pickFirsts += "**/libonnxruntime.so"
+    if (!nemotronEnabled) packaging.jniLibs.excludes += "**/libonnxruntime4j_jni.so"
     if (realtime) {
         if (realtimeSideBySide) {
             defaultConfig.applicationIdSuffix = ".realtime"
@@ -195,8 +200,7 @@ android {
                 providers.gradleProperty("productAssetsDir").orNull ?: ".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
-        // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
-        packaging.jniLibs.pickFirsts += setOf("**/libonnxruntime.so")
+        // ONNX Runtime duplicate handling is applied to all build types above.
     }
     // Comparison probe only; never part of a product build.
     if (providers.gradleProperty("litertProbe").orNull == "true") {
@@ -209,6 +213,8 @@ android {
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
+    // Needed at compile time by FddtOnnxRecognizer.java even in default builds.
+    // The unused JNI implementation is excluded when Nemotron is disabled.
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))

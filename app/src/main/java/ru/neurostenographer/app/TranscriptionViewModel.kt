@@ -288,7 +288,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
         val (backendUsed, warning) = processing
         val speakerSource = when {
-            backendUsed == "long-file" -> "chunked_unknown_global_speakers"
+            backendUsed == "long-file" -> "chunked_locally_scoped_speakers_no_global_link"
             backendUsed == "digital-silence" -> "digital_silence_no_diarization"
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
             diarization == null -> "not_run"
@@ -388,6 +388,21 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         // A finished diarization pass is the first honest time calibration.
         // If C2 was unavailable, the first ASR callback performs calibration instead.
         if (speakers != null) etaCheckpoint(0.45)
+        // ASR must not depend solely on Nemotron detecting a voice. Silero is
+        // independent acoustic evidence; a missed C2 turn cannot suppress a
+        // Silero-positive utterance. The union remains bounded to 20 s windows.
+        val asrWindows = try {
+            val vadWindows = OfflineSpeechVad.detect(app, audio) { context.ensureActive() }
+            if (vadWindows == null) speakers?.windows
+            else DiarizationTimeline.combineSpeechWindows(
+                speakers?.windows.orEmpty(), vadWindows, audio.durationMs
+            )
+        } catch (e: CancellationException) { throw e }
+        catch (e: Exception) {
+            warning = listOfNotNull(warning, "Независимый VAD недоступен: ${e.javaClass.simpleName}; использованы окна C2.")
+                .joinToString(" ")
+            speakers?.windows
+        }
         val progress: (Int, Int) -> Unit = { index, count ->
             if (count > 0) etaCheckpoint(0.45 + 0.43 * index.coerceIn(0, count).toDouble() / count)
             mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
@@ -397,9 +412,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             mutable.value = mutable.value.copy(message = "Определяю язык записи…", stage = 3)
             val englishModel = EnglishModelStore.ensure(app) { context.ensureActive() }
             val language = WhisperEnglish.detect(audio, englishModel,
-                speakers?.windows ?: DiarizationTimeline.windows(emptyList(), audio.durationMs)) { context.ensureActive() }
+                asrWindows ?: DiarizationTimeline.windows(emptyList(), audio.durationMs)) { context.ensureActive() }
             if (language == "en") WhisperEnglish.transcribe(audio, englishModel,
-                speakers?.turns.orEmpty(), speakers?.windows, { context.ensureActive() }, progress)
+                speakers?.turns.orEmpty(), asrWindows, { context.ensureActive() }, progress)
             else null
         } else null
         val asr = if (english != null) AsrOutput(english.segments, audio.durationMs,
@@ -407,7 +422,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             modelId = WhisperEnglish.ID, modelRevision = WhisperEnglish.REVISION)
         else {
             val baseline = OfflineAsr.transcribe(audio, model, { context.ensureActive() }, progress,
-                turns = speakers?.turns.orEmpty(), speechWindows = speakers?.windows,
+                turns = speakers?.turns.orEmpty(), speechWindows = asrWindows,
                 unmerged = BuildConfig.FDDT_HYBRID)
             if (!BuildConfig.FDDT_HYBRID) baseline
             else if (speakers == null || backendUsed != NemotronBackend.C2) {
@@ -447,6 +462,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         var load = 0L; var decode = 0L
         var windows = 0; var timed = 0; var untimed = 0
         var start = 0L
+        var blockIndex = 0
         var estimate = AudioProcessingClock(pcm.durationMs, 0L,
             minOf(300_000L, pcm.durationMs), SystemClock.elapsedRealtime())
         mutable.value = mutable.value.copy(processingClock = estimate, progress = null, stage = 1)
@@ -473,8 +489,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                     minOf((localEnd * 16).toInt(), block.samples.size)), 16000)
                 val (asr, _, processing) = recognizeBlock(trimmed, model)
                 val offset = start + localStart
-                segments += asr.segments.map { it.copy(startMs = it.startMs + offset, endMs = it.endMs + offset,
-                    speakerId = null, attributionReliable = false, overlapSpeakers = emptyList()) }
+                // Preserve local speaker attribution without claiming that local
+                // slot IDs are the same people across five-minute blocks.
+                segments += asr.segments.map { LocalSpeakerScope.shift(it, offset, blockIndex) }
                 ids += asr.modelId; revisions += asr.modelRevision
                 processing.second?.let { warnings += it }
                 load += asr.loadMs; decode += asr.decodeMs
@@ -489,8 +506,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             mutable.value = mutable.value.copy(processingClock = estimate,
                 progress = estimate.fractionAt(finishedAt))
             start = end
+            blockIndex++
         }
-        warnings += "Длинная запись обработана блоками. Сквозное сопоставление говорящих между блоками пока недоступно; текст сохранён без назначения говорящих."
+        warnings += "Длинная запись обработана блоками. Говорящие различаются только внутри каждого блока, сквозное сопоставление между блоками недоступно."
         return Triple(AsrOutput(segments, pcm.durationMs, load, decode, windows, timed, untimed,
             ids.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.id },
             revisions.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.revision }), null,
