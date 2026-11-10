@@ -103,6 +103,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.neurostenographer.core.PcmFileAudio
 import ru.neurostenographer.core.PcmWav
+import ru.neurostenographer.core.ProcessingTimeDisplay
 import ru.neurostenographer.core.TermEdit
 import ru.neurostenographer.core.TranscriptExport
 import ru.neurostenographer.core.TranscriptSegment
@@ -539,10 +540,11 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                                 Text("Запуск модели, ожидаю первый обработанный фрагмент",
                                     style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
                             }
-                            val range = diar.remainingRangeMs(tick)
-                            Text(if (range == null) "Диаризация продолжается, уточняю время…"
-                                 else "Говорящие: осталось ≈ " +
-                                     clock(range.first) + "–" + clock(range.second),
+                            val remaining = if (diar.historyCalibrated || diar.completedChunks >= 2)
+                                ProcessingTimeDisplay.approximateRemainingMs(diar.remainingMs(tick))
+                                else null
+                            Text(if (remaining == null) "Определяю оставшееся время…"
+                                 else "До конца этапа ≈ " + clock(remaining),
                                 style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
                         }
                     } else if (timeline != null) {
@@ -557,15 +559,27 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                                 clock(timeline.remainingWallMs(tick)),
                                 style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
                         }
-                    } else if (state.shortEta != null) {
-                        val eta = state.shortEta
+                    } else if (state.stage == 3 && state.asrWindowEta != null) {
+                        val asr = state.asrWindowEta
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center)
-                        val remaining = eta.remainingRangeWallMs(tick)
-                        Text(if (remaining == null) "Уточняю время до готовой стенограммы…"
-                             else "Стенограмма: осталось ≈ " + clock(remaining.first) +
-                                  "–" + clock(remaining.second),
-                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        if (asr.completedWindows == asr.totalWindows) {
+                            Text("Речевые окна готовы. Завершаю обработку…",
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        } else {
+                            val remaining = ProcessingTimeDisplay.approximateRemainingMs(asr.remainingMs(tick))
+                            Text(if (remaining == null) "Уточняю скорость распознавания…"
+                                 else "До конца распознавания ≈ " + clock(remaining),
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        }
+                    } else if (state.shortEta != null) {
+                        Text(state.message, style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center)
+                        // Before the first ASR window is decoded, actual
+                        // throughput is unknown. Never extrapolate the much
+                        // slower diarizer as a fake text-stage ETA.
+                        Text("Подготавливаю распознавание, уточняю время…",
+                            style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
                     } else {
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center)

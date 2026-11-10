@@ -21,6 +21,8 @@ fun main() {
     testAudioProcessingClock()
     testShortProcessingEta()
     testDiarizationTimeEstimate()
+    testProcessingTimeDisplay()
+    testAsrWindowEta()
     testFddtOverlapPlan()
     test("A B A speaker returns") {
         val turns = listOf(SpeakerTurn(2000, 2900, "B"), SpeakerTurn(4000, 5000, "A"), SpeakerTurn(0, 1500, "A"))

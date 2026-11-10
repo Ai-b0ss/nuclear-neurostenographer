@@ -28,6 +28,7 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false, val c
     val shortEta: ShortProcessingEta? = null,
     val processingStartedAtMs: Long? = null,
     val diarizationClock: DiarizationTimeEstimate? = null,
+    val asrWindowEta: AsrWindowEta? = null,
     val recordingStartedAtMs: Long? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
@@ -102,7 +103,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, asrWindowEta = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -276,7 +277,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
             message = "Готовлю запись…", stage = 1, processingClock = null, shortEta = null,
-            diarizationClock = null, processingStartedAtMs = SystemClock.elapsedRealtime())
+            diarizationClock = null, asrWindowEta = null,
+            processingStartedAtMs = SystemClock.elapsedRealtime())
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
@@ -369,7 +371,17 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 prefs.edit().putFloat("wall-ratio-$backend", smoothed).apply()
             }
         }
-        mutable.value = mutable.value.copy(diarizationClock = null)
+        // The native C2 worker has finished, but VAD / language detection may
+        // still run before the first ASR progress callback. Do not leave the UI
+        // on "Кто говорит" with a cleared clock: this used to make the live
+        // progress disappear and show "Запускаю определение говорящих..." again.
+        mutable.value = mutable.value.copy(
+            diarizationClock = null,
+            stage = if (successful) 3 else 2,
+            progress = null,
+            message = if (successful) "Говорящие определены. Готовлю текст…"
+                      else "Определение говорящих прервалось, проверяю резервный движок…"
+        )
     }
 
     /** Uses monotonic wall time; does not create a fake countdown before any checkpoint. */
@@ -432,6 +444,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         // A finished diarization pass is the first honest time calibration.
         // If C2 was unavailable, the first ASR callback performs calibration instead.
         if (speakers != null) etaCheckpoint(0.45)
+        // If both diarizers failed or no fallback is installed, ASR still
+        // proceeds. Do not strand the UI at stage 2 with a null native timer.
+        if (speakers == null) mutable.value = mutable.value.copy(
+            stage = 3, diarizationClock = null, progress = null,
+            message = "Определение говорящих недоступно. Готовлю расшифровку…")
         // ASR must not depend solely on Nemotron detecting a voice. Silero is
         // independent acoustic evidence; a missed C2 turn cannot suppress a
         // Silero-positive utterance. The union remains bounded to 20 s windows.
@@ -448,9 +465,21 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             speakers?.windows
         }
         val progress: (Int, Int) -> Unit = { index, count ->
-            if (count > 0) etaCheckpoint(0.45 + 0.43 * index.coerceIn(0, count).toDouble() / count)
-            mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
-                message = "Расшифровываю речь: часть $index из $count")
+            if (count > 0) {
+                val now = SystemClock.elapsedRealtime()
+                val previous = mutable.value.asrWindowEta
+                // The model's actual completed-window callbacks, not
+                // diarization time, estimate remaining ASR wall time.
+                val asrEta = if (previous == null || previous.totalWindows != count)
+                    AsrWindowEta.begin(now, count, index.coerceIn(0, count))
+                else previous.checkpoint(index.coerceIn(0, count), count, now)
+                etaCheckpoint(0.45 + 0.43 * index.coerceIn(0, count).toDouble() / count)
+                mutable.value = mutable.value.copy(
+                    asrWindowEta = asrEta,
+                    progress = index.toFloat() / count,
+                    stage = 3,
+                    message = "Расшифровываю речь: часть $index из $count")
+            }
         }
         val english = if (BuildConfig.ENGLISH_AUTO) {
             mutable.value = mutable.value.copy(message = "Определяю язык записи…", stage = 3)
