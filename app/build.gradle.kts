@@ -160,7 +160,11 @@ android {
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Sol QA"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
-    // The standalone ORT Android dependency is only packaged with C2 below.
+    // FDDT helper Java sources compile in all variants, so ORT classes remain
+    // a compile dependency. However, without Nemotron/FDDT, its standalone JNI
+    // layer must NOT ship in the ordinary sherpa-only Android application.
+    packaging.jniLibs.pickFirsts += "**/libonnxruntime.so"
+    if (!nemotronEnabled) packaging.jniLibs.excludes += "**/libonnxruntime4j_jni.so"
     if (realtime) {
         if (realtimeSideBySide) {
             defaultConfig.applicationIdSuffix = ".realtime"
@@ -196,9 +200,7 @@ android {
                 providers.gradleProperty("productAssetsDir").orNull ?: ".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
-        // Both the sherpa AAR and the C2-only ORT dependency bundle the same
-        // ONNX Runtime SONAME. Keep one copy only in the Nemotron variants.
-        packaging.jniLibs.pickFirsts += "**/libonnxruntime.so"
+        // ONNX Runtime duplicate handling is applied to all build types above.
     }
     // Comparison probe only; never part of a product build.
     if (providers.gradleProperty("litertProbe").orNull == "true") {
@@ -211,9 +213,9 @@ android {
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
-    // Default (non-Nemotron) builds use sherpa's own ONNX Runtime and must
-    // not accidentally bundle the ORT Java JNI layer as extra native code.
-    if (nemotronEnabled) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
+    // Needed at compile time by FddtOnnxRecognizer.java even in default builds.
+    // The unused JNI implementation is excluded when Nemotron is disabled.
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
