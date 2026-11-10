@@ -160,10 +160,7 @@ android {
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Sol QA"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
-    // Both the pinned sherpa AAR and onnxruntime-android carry libonnxruntime.so
-    // in EVERY build (the dependencies are unconditional). The collision also
-    // affects default CI builds with nemotronEnabled=false, not only C2 builds.
-    packaging.jniLibs.pickFirsts += "**/libonnxruntime.so"
+    // The standalone ORT Android dependency is only packaged with C2 below.
     if (realtime) {
         if (realtimeSideBySide) {
             defaultConfig.applicationIdSuffix = ".realtime"
@@ -199,7 +196,9 @@ android {
                 providers.gradleProperty("productAssetsDir").orNull ?: ".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
-        // ONNX Runtime native packing is handled for all build variants above.
+        // Both the sherpa AAR and the C2-only ORT dependency bundle the same
+        // ONNX Runtime SONAME. Keep one copy only in the Nemotron variants.
+        packaging.jniLibs.pickFirsts += "**/libonnxruntime.so"
     }
     // Comparison probe only; never part of a product build.
     if (providers.gradleProperty("litertProbe").orNull == "true") {
@@ -212,7 +211,9 @@ android {
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
-    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
+    // Default (non-Nemotron) builds use sherpa's own ONNX Runtime and must
+    // not accidentally bundle the ORT Java JNI layer as extra native code.
+    if (nemotronEnabled) implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
