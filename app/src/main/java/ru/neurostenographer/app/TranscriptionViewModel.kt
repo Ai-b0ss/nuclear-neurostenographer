@@ -414,7 +414,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             val language = WhisperEnglish.detect(audio, englishModel,
                 asrWindows ?: DiarizationTimeline.windows(emptyList(), audio.durationMs)) { context.ensureActive() }
             if (language == "en") WhisperEnglish.transcribe(audio, englishModel,
-                speakers?.turns.orEmpty(), asrWindows, { context.ensureActive() }, progress
+                speakers?.turns.orEmpty(), asrWindows, { context.ensureActive() }, progress)
             else null
         } else null
         val asr = if (english != null) AsrOutput(english.segments, audio.durationMs,
