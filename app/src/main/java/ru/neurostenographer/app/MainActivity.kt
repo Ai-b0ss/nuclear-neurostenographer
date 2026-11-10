@@ -103,6 +103,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.neurostenographer.core.PcmFileAudio
 import ru.neurostenographer.core.PcmWav
+import ru.neurostenographer.core.ProcessingTimeDisplay
 import ru.neurostenographer.core.TermEdit
 import ru.neurostenographer.core.TranscriptExport
 import ru.neurostenographer.core.TranscriptSegment
@@ -539,10 +540,11 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                                 Text("Запуск модели, ожидаю первый обработанный фрагмент",
                                     style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
                             }
-                            val range = diar.remainingRangeMs(tick)
-                            Text(if (range == null) "Диаризация продолжается, уточняю время…"
-                                 else "Говорящие: осталось ≈ " +
-                                     clock(range.first) + "–" + clock(range.second),
+                            val remaining = if (diar.historyCalibrated || diar.completedChunks >= 2)
+                                ProcessingTimeDisplay.approximateRemainingMs(diar.remainingMs(tick))
+                                else null
+                            Text(if (remaining == null) "Определяю оставшееся время…"
+                                 else "До конца этапа ≈ " + clock(remaining),
                                 style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
                         }
                     } else if (timeline != null) {
@@ -561,10 +563,11 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                         val eta = state.shortEta
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center)
-                        val remaining = eta.remainingRangeWallMs(tick)
+                        val remaining = if (eta.calibrated)
+                            ProcessingTimeDisplay.approximateRemainingMs(eta.remainingWallMs(tick))
+                            else null
                         Text(if (remaining == null) "Уточняю время до готовой стенограммы…"
-                             else "Стенограмма: осталось ≈ " + clock(remaining.first) +
-                                  "–" + clock(remaining.second),
+                             else "До готовой стенограммы ≈ " + clock(remaining),
                             style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
                     } else {
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,

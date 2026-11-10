@@ -369,7 +369,17 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 prefs.edit().putFloat("wall-ratio-$backend", smoothed).apply()
             }
         }
-        mutable.value = mutable.value.copy(diarizationClock = null)
+        // The native C2 worker has finished, but VAD / language detection may
+        // still run before the first ASR progress callback. Do not leave the UI
+        // on "Кто говорит" with a cleared clock: this used to make the live
+        // progress disappear and show "Запускаю определение говорящих..." again.
+        mutable.value = mutable.value.copy(
+            diarizationClock = null,
+            stage = if (successful) 3 else 2,
+            progress = null,
+            message = if (successful) "Говорящие определены. Готовлю текст…"
+                      else "Определение говорящих прервалось, проверяю резервный движок…"
+        )
     }
 
     /** Uses monotonic wall time; does not create a fake countdown before any checkpoint. */
@@ -432,6 +442,11 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         // A finished diarization pass is the first honest time calibration.
         // If C2 was unavailable, the first ASR callback performs calibration instead.
         if (speakers != null) etaCheckpoint(0.45)
+        // If both diarizers failed or no fallback is installed, ASR still
+        // proceeds. Do not strand the UI at stage 2 with a null native timer.
+        if (speakers == null) mutable.value = mutable.value.copy(
+            stage = 3, diarizationClock = null, progress = null,
+            message = "Определение говорящих недоступно. Готовлю расшифровку…")
         // ASR must not depend solely on Nemotron detecting a voice. Silero is
         // independent acoustic evidence; a missed C2 turn cannot suppress a
         // Silero-positive utterance. The union remains bounded to 20 s windows.
