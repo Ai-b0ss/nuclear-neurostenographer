@@ -160,6 +160,10 @@ android {
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Sol QA"
     }
     packaging.jniLibs.excludes += setOf("**/libsherpa-onnx-c-api.so", "**/libsherpa-onnx-cxx-api.so")
+    // Both the pinned sherpa AAR and onnxruntime-android carry libonnxruntime.so
+    // in EVERY build (the dependencies are unconditional). The collision also
+    // affects default CI builds with nemotronEnabled=false, not only C2 builds.
+    packaging.jniLibs.pickFirsts += "**/libonnxruntime.so"
     if (realtime) {
         if (realtimeSideBySide) {
             defaultConfig.applicationIdSuffix = ".realtime"
@@ -195,8 +199,7 @@ android {
                 providers.gradleProperty("productAssetsDir").orNull ?: ".local/productAssets"))
         }
         sourceSets.getByName("androidTest").java.srcDir("src/nemotronTest/java")
-        // Both AARs carry ONNX Runtime 1.17.1; tools/nemotron/check_prototype_apk.py checks which copy is packaged.
-        packaging.jniLibs.pickFirsts += setOf("**/libonnxruntime.so")
+        // ONNX Runtime native packing is handled for all build variants above.
     }
     // Comparison probe only; never part of a product build.
     if (providers.gradleProperty("litertProbe").orNull == "true") {
