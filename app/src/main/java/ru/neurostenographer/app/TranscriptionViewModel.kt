@@ -28,6 +28,7 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false, val c
     val shortEta: ShortProcessingEta? = null,
     val processingStartedAtMs: Long? = null,
     val diarizationClock: DiarizationTimeEstimate? = null,
+    val asrWindowEta: AsrWindowEta? = null,
     val recordingStartedAtMs: Long? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
@@ -102,7 +103,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, asrWindowEta = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -276,7 +277,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
             message = "Готовлю запись…", stage = 1, processingClock = null, shortEta = null,
-            diarizationClock = null, processingStartedAtMs = SystemClock.elapsedRealtime())
+            diarizationClock = null, asrWindowEta = null,
+            processingStartedAtMs = SystemClock.elapsedRealtime())
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
@@ -463,9 +465,21 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             speakers?.windows
         }
         val progress: (Int, Int) -> Unit = { index, count ->
-            if (count > 0) etaCheckpoint(0.45 + 0.43 * index.coerceIn(0, count).toDouble() / count)
-            mutable.value = mutable.value.copy(progress = index.toFloat() / count, stage = 3,
-                message = "Расшифровываю речь: часть $index из $count")
+            if (count > 0) {
+                val now = SystemClock.elapsedRealtime()
+                val previous = mutable.value.asrWindowEta
+                // The model's actual completed-window callbacks, not
+                // diarization time, estimate remaining ASR wall time.
+                val asrEta = if (previous == null || previous.totalWindows != count)
+                    AsrWindowEta.begin(now, count, index.coerceIn(0, count))
+                else previous.checkpoint(index.coerceIn(0, count), count, now)
+                etaCheckpoint(0.45 + 0.43 * index.coerceIn(0, count).toDouble() / count)
+                mutable.value = mutable.value.copy(
+                    asrWindowEta = asrEta,
+                    progress = index.toFloat() / count,
+                    stage = 3,
+                    message = "Расшифровываю речь: часть $index из $count")
+            }
         }
         val english = if (BuildConfig.ENGLISH_AUTO) {
             mutable.value = mutable.value.copy(message = "Определяю язык записи…", stage = 3)

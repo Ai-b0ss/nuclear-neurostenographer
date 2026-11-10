@@ -559,16 +559,27 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                                 clock(timeline.remainingWallMs(tick)),
                                 style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
                         }
-                    } else if (state.shortEta != null) {
-                        val eta = state.shortEta
+                    } else if (state.stage == 3 && state.asrWindowEta != null) {
+                        val asr = state.asrWindowEta
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center)
-                        val remaining = if (eta.calibrated)
-                            ProcessingTimeDisplay.approximateRemainingMs(eta.remainingWallMs(tick))
-                            else null
-                        Text(if (remaining == null) "Уточняю время до готовой стенограммы…"
-                             else "До готовой стенограммы ≈ " + clock(remaining),
-                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        if (asr.completedWindows == asr.totalWindows) {
+                            Text("Речевые окна готовы. Завершаю обработку…",
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        } else {
+                            val remaining = ProcessingTimeDisplay.approximateRemainingMs(asr.remainingMs(tick))
+                            Text(if (remaining == null) "Уточняю скорость распознавания…"
+                                 else "До конца распознавания ≈ " + clock(remaining),
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        }
+                    } else if (state.shortEta != null) {
+                        Text(state.message, style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center)
+                        // Before the first ASR window is decoded, actual
+                        // throughput is unknown. Never extrapolate the much
+                        // slower diarizer as a fake text-stage ETA.
+                        Text("Подготавливаю распознавание, уточняю время…",
+                            style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
                     } else {
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center)

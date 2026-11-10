@@ -41,3 +41,18 @@ No user audio, utterance text, or private screenshots are published.
 No speech/model weights/ASR text/storage/certificates changed. Do not modify
 user media or erase application data. Install a signed RC only after the
 full core + Android instrumentation compilation + lint gate.
+
+## Follow-up: inaccurate ASR-stage ETA (same physical device)
+
+The first fix (0.4.1-rc3) correctly maintained stages and completed a
+172-second test in approximately 132 seconds. But at the final ASR callback
+(17/17 decoded windows) it still claimed around 20 seconds remaining, whereas
+the saved result appeared about 5 seconds later. The extrapolation of the
+overall processing duration from an earlier, slower Nemotron phase is not
+a reliable forecast for ASR. This is a separate verified error.
+
+The next revision uses AsrWindowEta: actual completion timestamps of individual
+ASR windows determine text-stage throughput, with smoothing and bounded
+deadline corrections. Until a window-time sample exists, ETA is unknown.
+At the final callback, numeric countdown is removed and the screen displays
+finalization status. Long recording processingClock remains separate.
