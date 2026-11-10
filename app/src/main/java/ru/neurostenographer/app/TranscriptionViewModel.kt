@@ -354,7 +354,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
 
     private fun diarizationProgress(completed: Int, total: Int) {
         val old = mutable.value.diarizationClock ?: return
-        val next = old.withProgress(completed, total)
+        val next = old.withProgress(completed, total, SystemClock.elapsedRealtime())
         if (next != old) mutable.value = mutable.value.copy(diarizationClock = next)
     }
 

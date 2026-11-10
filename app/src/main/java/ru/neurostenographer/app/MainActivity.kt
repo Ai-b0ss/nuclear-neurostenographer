@@ -539,11 +539,11 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                                 Text("Запуск модели, ожидаю первый обработанный фрагмент",
                                     style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
                             }
-                            val left = diar.remainingMs(tick)
-                            Text(if (left == null) "Работа продолжается, уточняю прогноз…"
-                                 else (if (diar.provisional() && !diar.historyCalibrated)
-                                     "Предварительно осталось ≈ " else "Осталось примерно ") + clock(left),
-                                style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+                            val range = diar.remainingRangeMs(tick)
+                            Text(if (range == null) "Диаризация продолжается, уточняю время…"
+                                 else "Говорящие: осталось ≈ " +
+                                     clock(range.first) + "–" + clock(range.second),
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
                         }
                     } else if (timeline != null) {
                         Text("Примерно обработано: " + clock(timeline.positionAt(tick)) +
@@ -561,9 +561,10 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                         val eta = state.shortEta
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center)
-                        val remaining = eta.remainingWallMs(tick)
-                        Text(if (remaining == null) "Уточняю оставшееся время по скорости обработки…"
-                             else "Осталось ориентировочно " + clock(remaining),
+                        val remaining = eta.remainingRangeWallMs(tick)
+                        Text(if (remaining == null) "Уточняю время до готовой стенограммы…"
+                             else "Стенограмма: осталось ≈ " + clock(remaining.first) +
+                                  "–" + clock(remaining.second),
                             style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
                     } else {
                         Text(state.message, style = MaterialTheme.typography.bodyMedium,
