@@ -39,6 +39,33 @@ object DiarizationTimeline {
         }
     }
 
+    /** Union of independent speech evidence: Silero and Nemotron. Neither detector
+     * may erase speech found by the other. Speaker labels are never inferred here.
+     * Adjacent original 20 s chunks are re-joined before applying the same cap.
+     */
+    fun combineSpeechWindows(c2: List<AudioWindow>, vad: List<AudioWindow>, audioMs: Long): List<AudioWindow> {
+        require(audioMs > 0)
+        val all = (c2 + vad).sortedWith(compareBy<AudioWindow> { it.startMs }.thenBy { it.endMs })
+        require(all.all { it.startMs >= 0 && it.endMs > it.startMs && it.endMs <= audioMs })
+        val merged = mutableListOf<AudioWindow>()
+        for (w in all) {
+            val last = merged.lastOrNull()
+            if (last != null && w.startMs - last.endMs < MERGE_GAP_MS) {
+                merged[merged.lastIndex] = AudioWindow(last.startMs, maxOf(last.endMs, w.endMs))
+            } else merged += w
+        }
+        return merged.flatMap { w ->
+            val parts = mutableListOf<AudioWindow>()
+            var at = w.startMs
+            while (at < w.endMs) {
+                val next = minOf(at + 20_000L, w.endMs)
+                if (next > at) parts += AudioWindow(at, next)
+                at = next
+            }
+            parts
+        }
+    }
+
     /** Pre-0.3.2 policy, still used for ASR without word timestamps (CTC build): speech cut at every
      * turn boundary, so each fragment can be attributed as a whole. */
     fun turnWindows(turns: List<SpeakerTurn>, audioMs: Long): List<AudioWindow> =

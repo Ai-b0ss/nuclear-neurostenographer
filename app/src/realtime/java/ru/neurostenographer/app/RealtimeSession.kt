@@ -284,7 +284,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
                         }
                         val aligned = SpeakerIdentity.align(final, raw)
                         if (options.consensusExperimental) {
-                            val consensus = SpeakerConsensus.previewFirst(raw, aligned)
+                            val consensus = SpeakerConsensus.offlineFirst(raw, aligned)
                             raw = consensus.turns
                             speakerDisagreementMs = consensus.disagreementMs
                             speakerOfflineFillMs = consensus.offlineFillMs

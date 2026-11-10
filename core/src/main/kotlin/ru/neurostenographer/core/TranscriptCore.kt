@@ -272,7 +272,10 @@ object TranscriptExport {
         val s = audioMs / 1000
         val duration = if (s >= 3600) String.format(Locale.ROOT, "%d:%02d:%02d", s / 3600, s / 60 % 60, s % 60)
             else String.format(Locale.ROOT, "%02d:%02d", s / 60, s % 60)
-        return "Стенограмма · $duration · говорящих: " + items.mapNotNull { it.speakerId }.distinct().size
+        val ids = items.mapNotNull { it.speakerId }.distinct()
+        val localBlocks = ids.any { it.startsWith("Block ") }
+        return if (localBlocks) "Стенограмма · $duration · локальных меток: ${ids.size} (по блокам, не уникальные люди)"
+            else "Стенограмма · $duration · говорящих: ${ids.size}"
     }
     fun txt(items: List<TranscriptSegment>, names: Map<String, String> = emptyMap()): String = items.joinToString("\n") {
         "[" + time(it.startMs) + "–" + time(it.endMs) + "] " +

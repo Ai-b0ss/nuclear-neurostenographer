@@ -21,7 +21,19 @@ object SpeakerConsensus {
     private data class Event(val ms: Long, val cluster: Int,
                              val preview: Boolean, val change: Int)
 
-    fun previewFirst(preview: List<ClusterTurn>, alignedOffline: List<ClusterTurn>): Result {
+    fun previewFirst(preview: List<ClusterTurn>, alignedOffline: List<ClusterTurn>): Result =
+        reconcile(preview, alignedOffline, preferOffline = false)
+
+    /** After Stop, the full-context diarization supersedes provisional live
+     * hypotheses where available; the provisional timeline fills final gaps.
+     * This does not claim the offline model is infallible: labels must first
+     * be aligned by SpeakerIdentity.align.
+     */
+    fun offlineFirst(preview: List<ClusterTurn>, alignedOffline: List<ClusterTurn>): Result =
+        reconcile(preview, alignedOffline, preferOffline = true)
+
+    private fun reconcile(preview: List<ClusterTurn>, alignedOffline: List<ClusterTurn>,
+                          preferOffline: Boolean): Result {
         val events = ArrayList<Event>((preview.size + alignedOffline.size) * 2)
 
         fun add(turns: List<ClusterTurn>, isPreview: Boolean) {
@@ -70,7 +82,11 @@ object SpeakerConsensus {
             }
             val hasPreview = previewCounts.any { it > 0 }
             for (slot in 0..7) {
-                val active = if (hasPreview) previewCounts[slot] > 0 else finalCounts[slot] > 0
+                val active = if (preferOffline) {
+                    if (finalCounts.any { it > 0 }) finalCounts[slot] > 0 else previewCounts[slot] > 0
+                } else {
+                    if (hasPreview) previewCounts[slot] > 0 else finalCounts[slot] > 0
+                }
                 if (active && openedAt[slot] < 0) openedAt[slot] = at
                 if (!active && openedAt[slot] >= 0) {
                     if (at > openedAt[slot]) {

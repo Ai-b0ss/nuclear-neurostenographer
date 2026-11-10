@@ -32,6 +32,20 @@ fun testDiarizationTimeline() {
         listOf(AudioWindow(0, 1800), AudioWindow(1800, 2000), AudioWindow(2000, 4000), AudioWindow(6000, 7000)))
     check(DiarizationTimeline.speechWindows(listOf(ClusterTurn(0f, 25f, 1), ClusterTurn(25f, 30f, 2)), 30000) ==
         listOf(AudioWindow(0, 20000), AudioWindow(20000, 30000)))
+    // Independent VAD must rescue speech missed by C2 without inventing IDs.
+    val c2 = listOf(AudioWindow(1000, 2500))
+    val vad = listOf(AudioWindow(0, 600), AudioWindow(2800, 3700))
+    check(DiarizationTimeline.combineSpeechWindows(c2, vad, 4000) ==
+        listOf(AudioWindow(0, 3700)))
+    check(DiarizationTimeline.combineSpeechWindows(emptyList(), vad, 4000) ==
+        listOf(AudioWindow(0, 600), AudioWindow(2800, 3700)))
+    check(DiarizationTimeline.combineSpeechWindows(listOf(AudioWindow(0, 20_000),
+        AudioWindow(20_000, 25_000)), emptyList(), 25_000) ==
+        listOf(AudioWindow(0, 20_000), AudioWindow(20_000, 25_000)))
+    try {
+        DiarizationTimeline.combineSpeechWindows(emptyList(), listOf(AudioWindow(3000, 5000)), 4000)
+        error("Invalid independent speech interval accepted")
+    } catch (_: IllegalArgumentException) { }
     check(DiarizationTimeline.speechWindows(emptyList(), 3000).isEmpty())
     check(DiarizationTimeline.windows(emptyList(), 40001) == listOf(AudioWindow(0, 20000), AudioWindow(20000, 40000)))
     check(DiarizationTimeline.canonicalize(listOf(ClusterTurn(1f, 11f, 2)), 2000).single().endMs == 2000L)
