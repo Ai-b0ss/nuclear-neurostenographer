@@ -26,6 +26,8 @@ data class ScreenState(val source: Uri? = null, val busy: Boolean = false, val c
     /** 0 = no recognition running, 1 = preparing, 2 = speakers, 3 = speech. Only drives the progress steps in the UI. */
     val stage: Int = 0, val processingClock: AudioProcessingClock? = null,
     val shortEta: ShortProcessingEta? = null,
+    val processingStartedAtMs: Long? = null,
+    val diarizationClock: DiarizationTimeEstimate? = null,
     val recordingStartedAtMs: Long? = null)
 
 class TranscriptionViewModel @JvmOverloads constructor(application: Application,
@@ -100,7 +102,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, modelReady = store.current() != null,
+            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
     }
@@ -273,7 +275,8 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
     fun transcribe() = work {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
-            message = "Готовлю запись…", stage = 1, processingClock = null, shortEta = null)
+            message = "Готовлю запись…", stage = 1, processingClock = null, shortEta = null,
+            diarizationClock = null, processingStartedAtMs = SystemClock.elapsedRealtime())
         val (output, diarization, processing) = withContext(Dispatchers.IO) {
             val context = currentCoroutineContext()
             val model = requireNotNull(store.current()) { "Установите ZIP модели" }
@@ -337,6 +340,38 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             current = saved, history = listOf(saved) + mutable.value.history, details = details, message = READY)
     }
 
+    /** C2/C0 speaker timing is kept separate from overall ASR checkpoints. On a
+     * fresh device the first forecast is explicitly provisional, then completed
+     * native chunk counts refine it. Successful runs calibrate subsequent jobs. */
+    private fun beginDiarizationTiming(audioMs: Long, backend: String): Long {
+        val started = SystemClock.elapsedRealtime()
+        val prefs = getApplication<Application>().getSharedPreferences("diarization-timing-v1", 0)
+        val ratio = prefs.getFloat("wall-ratio-$backend", Float.NaN).toDouble()
+        mutable.value = mutable.value.copy(message = "Определяю, кто говорит…", stage = 2,
+            diarizationClock = DiarizationTimeEstimate.begin(started, audioMs, ratio))
+        return started
+    }
+
+    private fun diarizationProgress(completed: Int, total: Int) {
+        val old = mutable.value.diarizationClock ?: return
+        val next = old.withProgress(completed, total)
+        if (next != old) mutable.value = mutable.value.copy(diarizationClock = next)
+    }
+
+    private fun endDiarizationTiming(started: Long, audioMs: Long, backend: String, successful: Boolean) {
+        if (successful && audioMs > 0) {
+            val ratio = (SystemClock.elapsedRealtime() - started).toDouble() / audioMs
+            if (ratio.isFinite() && ratio in 0.04..5.0) {
+                val prefs = getApplication<Application>().getSharedPreferences("diarization-timing-v1", 0)
+                val previous = prefs.getFloat("wall-ratio-$backend", Float.NaN)
+                val smoothed = if (previous.isFinite() && previous in 0.04f..5.0f)
+                    (previous * 0.4 + ratio * 0.6).toFloat() else ratio.toFloat()
+                prefs.edit().putFloat("wall-ratio-$backend", smoothed).apply()
+            }
+        }
+        mutable.value = mutable.value.copy(diarizationClock = null)
+    }
+
     /** Uses monotonic wall time; does not create a fake countdown before any checkpoint. */
     private fun etaCheckpoint(fraction: Double) {
         val old = mutable.value.shortEta ?: return
@@ -363,9 +398,14 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 val c2 = NemotronBackend.current(app.filesDir)
                     ?: app.assets.open("nemotron.zip").use { NemotronBackend.install(app.filesDir, it) }
                 context.ensureActive()
-                mutable.value = mutable.value.copy(message = "Определяю, кто говорит…", stage = 2)
-                speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2)
-                backendUsed = NemotronBackend.C2
+                val started = beginDiarizationTiming(audio.durationMs, NemotronBackend.C2)
+                try {
+                    speakers = IsolatedDiarization.process(app, audio, c2, backend = NemotronBackend.C2,
+                        onProgress = ::diarizationProgress)
+                    backendUsed = NemotronBackend.C2
+                } finally {
+                    endDiarizationTiming(started, audio.durationMs, NemotronBackend.C2, speakers != null)
+                }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 warning = "Nemotron C2 недоступен: ${e.message ?: e.javaClass.simpleName}; включён резервный C0."
@@ -375,9 +415,13 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             speakerStore.current()?.let { c0Model ->
                 try {
                     speakerStore.verify(c0Model) { context.ensureActive() }
-                    mutable.value = mutable.value.copy(message = "Определяю, кто говорит…", stage = 2)
-                    speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
-                    backendUsed = NemotronBackend.C0
+                    val started = beginDiarizationTiming(audio.durationMs, NemotronBackend.C0)
+                    try {
+                        speakers = IsolatedDiarization.process(app, audio, c0Model, backend = NemotronBackend.C0)
+                        backendUsed = NemotronBackend.C0
+                    } finally {
+                        endDiarizationTiming(started, audio.durationMs, NemotronBackend.C0, speakers != null)
+                    }
                 } catch (e: CancellationException) { throw e }
                 catch (e: Exception) {
                     warning = listOfNotNull(warning, e.message ?: "Диаризация C0 недоступна")

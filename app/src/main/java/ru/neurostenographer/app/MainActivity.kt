@@ -510,13 +510,41 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             // The ETA can be one, two or three lines. Reserve a stable layout
             // slot so updates never move the progress track.
-            Box(Modifier.fillMaxWidth().height(142.dp), contentAlignment = Alignment.TopCenter) {
+            Box(Modifier.fillMaxWidth().height(184.dp), contentAlignment = Alignment.TopCenter) {
                 Column(Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    state.processingStartedAtMs?.let { started ->
+                        Text("Прошло всего: " + clock((tick - started).coerceAtLeast(0L)),
+                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                    }
                     if (state.cancelling) {
                         Text("Ожидаю завершения текущего этапа.",
                             style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                    } else if (state.stage == 2) {
+                        Text(state.message, style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center)
+                        val diar = state.diarizationClock
+                        if (diar == null) {
+                            Text("Запускаю определение говорящих…",
+                                style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                        } else {
+                            Text("Диаризация: прошло " + clock(diar.elapsedMs(tick)),
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                            if (diar.totalChunks > 0) {
+                                Text("Фрагменты модели: " + diar.completedChunks + " из " +
+                                     diar.totalChunks + " (2 прохода)",
+                                    style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                            } else {
+                                Text("Запуск модели, ожидаю первый обработанный фрагмент",
+                                    style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                            }
+                            val left = diar.remainingMs(tick)
+                            Text(if (left == null) "Работа продолжается, уточняю прогноз…"
+                                 else (if (diar.provisional() && !diar.historyCalibrated)
+                                     "Предварительно осталось ≈ " else "Осталось примерно ") + clock(left),
+                                style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+                        }
                     } else if (timeline != null) {
                         Text("Примерно обработано: " + clock(timeline.positionAt(tick)) +
                             " из " + clock(timeline.totalMs),
@@ -545,6 +573,10 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
             }
             val progress = when {
                 state.cancelling -> null
+                state.stage == 2 -> state.diarizationClock?.let { diar ->
+                    if (diar.totalChunks > 0)
+                        diar.completedChunks.toFloat() / diar.totalChunks else null
+                }
                 timeline != null -> timeline.fractionAt(tick)
                 else -> state.progress
             }

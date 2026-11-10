@@ -63,7 +63,8 @@ object NemotronDiarization {
         return out
     }
 
-    fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {}): DiarizationOutput {
+    fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
+                onProgress: (Int, Int) -> Unit = { _, _ -> }): DiarizationOutput {
         require(audio.sampleRate == 16000)
         VerifiedModelBundle(ARTIFACTS).verify(model, checkCancelled)
         val filters = floats(File(model, "mel_filters.bin"), NemotronConfig.MELS * NemotronConfig.BINS)
@@ -94,7 +95,7 @@ object NemotronDiarization {
             }
             // Two passes: the second starts with the voices the first one learned (docs/C2_POSTPROCESS_2026-11-06.md).
             val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled,
-                NemotronPostprocess.PRODUCT, warmSecondPass = true)
+                NemotronPostprocess.PRODUCT, warmSecondPass = true, onProgress = onProgress)
             val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
             return DiarizationOutput(turns, (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000,
                 DiarizationTimeline.speechWindows(raw, audio.durationMs))

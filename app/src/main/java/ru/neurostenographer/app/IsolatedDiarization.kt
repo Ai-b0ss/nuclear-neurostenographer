@@ -46,7 +46,8 @@ object IsolatedDiarization {
     suspend fun process(context: Context, audio: PcmAudio, model: File,
                         clusteringThreshold: Float = OfflineDiarization.THRESHOLD,
                         backend: String = NemotronBackend.C0,
-                        onWorkerStarted: (Int) -> Unit = {}): DiarizationOutput = withContext(Dispatchers.IO) {
+                        onWorkerStarted: (Int) -> Unit = {},
+                        onProgress: (Int, Int) -> Unit = { _, _ -> }): DiarizationOutput = withContext(Dispatchers.IO) {
         // Never let callers silently change production inference settings.
         require(OfflineDiarization.validThreshold(clusteringThreshold))
         require(BuildConfig.DEBUG || clusteringThreshold == OfflineDiarization.THRESHOLD)
@@ -75,7 +76,8 @@ object IsolatedDiarization {
                 try {
                     // Cheap phones can run slower than realtime on long recordings.
                     withTimeout(maxOf(10 * 60 * 1000L, audio.durationMs * 4)) {
-                        awaitWorker(context, input, model, audio.durationMs, clusteringThreshold, backend, onWorkerStarted)
+                        awaitWorker(context, input, model, audio.durationMs, clusteringThreshold, backend,
+                            onWorkerStarted, onProgress)
                     }
                 } catch (_: TimeoutCancellationException) { throw DiarizationUnavailable("Превышено время диаризации") }
             } finally { input.delete() }
@@ -84,7 +86,8 @@ object IsolatedDiarization {
 
     private suspend fun awaitWorker(context: Context, input: File, model: File, audioMs: Long,
                                     clusteringThreshold: Float, backend: String,
-                                    onWorkerStarted: (Int) -> Unit): DiarizationOutput = withContext(Dispatchers.Main.immediate) {
+                                    onWorkerStarted: (Int) -> Unit,
+                                    onProgress: (Int, Int) -> Unit): DiarizationOutput = withContext(Dispatchers.Main.immediate) {
         val result = CompletableDeferred<DiarizationOutput>()
         var workerDeath: CompletableDeferred<Unit>? = null
         var workerBinder: IBinder? = null
@@ -93,6 +96,12 @@ object IsolatedDiarization {
             try {
                 when (message.what) {
                     DiarizationService.STARTED -> onWorkerStarted(message.arg1)
+                    DiarizationService.PROGRESS -> {
+                        // Reject corrupted/out-of-order Binder messages; a late
+                        // message must not regress or resurrect a completed phase.
+                        if (message.arg2 in 1..10000 && message.arg1 in 1..message.arg2)
+                            onProgress(message.arg1, message.arg2)
+                    }
                     DiarizationService.FAILURE -> result.completeExceptionally(DiarizationUnavailable("Ошибка процесса диаризации"))
                     DiarizationService.RESULT -> {
                         val data = message.data

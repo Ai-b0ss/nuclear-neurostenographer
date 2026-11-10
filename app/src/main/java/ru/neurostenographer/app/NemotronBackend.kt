@@ -39,12 +39,14 @@ object NemotronBackend {
         }
     }
 
-    fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit): DiarizationOutput {
+    fun process(audio: PcmAudio, model: File, checkCancelled: () -> Unit,
+                onProgress: (Int, Int) -> Unit = { _, _ -> }): DiarizationOutput {
         check(BuildConfig.NEMOTRON_PROTOTYPE) { "Nemotron prototype is not in this build" }
         val type = Class.forName("ru.neurostenographer.app.NemotronDiarization")
-        val method = type.getMethod("process", PcmAudio::class.java, File::class.java, Function0::class.java)
+        val method = type.getMethod("process", PcmAudio::class.java, File::class.java,
+            Function0::class.java, Function2::class.java)
         try {
-            return method.invoke(type.getField("INSTANCE").get(null), audio, model, checkCancelled) as DiarizationOutput
+            return method.invoke(type.getField("INSTANCE").get(null), audio, model, checkCancelled, onProgress) as DiarizationOutput
         } catch (e: InvocationTargetException) {
             throw e.targetException
         }
