@@ -492,63 +492,109 @@ private fun RecordingHero(enabled: Boolean, level: Float, startedAtMs: Long?, on
 
 @Composable
 private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
-    Column(Modifier.fillMaxWidth().heightIn(min = 560.dp), horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Box(Modifier.height(160.dp), contentAlignment = Alignment.Center) {
-            FilledTonalButton(onClick = onCancel, enabled = !state.cancelling, shape = CircleShape, contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.size(136.dp)) { Icon(Icons.Filled.Close, "Отменить", Modifier.size(48.dp)) }
-        }
-        Text(if (state.cancelling) "Останавливаю…" else "Отменить", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-        Text(if (state.cancelling) "Останавливаю обработку" else "Идёт расшифровка", style = MaterialTheme.typography.titleMedium)
-        if (state.stage > 0) Steps(state.stage)
-        val timeline = state.processingClock
-        if (state.cancelling) {
-            Text("Ожидаю завершения текущего этапа.", style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-            LinearProgressIndicator(Modifier.fillMaxWidth())
-        } else if (timeline != null) {
-            // Wall-clock ticks only update Compose. ASR and diarization continue on IO.
-            val tick by produceState(SystemClock.elapsedRealtime(), timeline) {
-                while (true) {
-                    value = SystemClock.elapsedRealtime()
-                    delay(250)
+    val timeline = state.processingClock
+    // One tick is shared by the ETA label and progress. It does not restart
+    // when the app switches from diarization to text recognition.
+    val tick by produceState(SystemClock.elapsedRealtime(), timeline, state.shortEta) {
+        while (true) { value = SystemClock.elapsedRealtime(); delay(250) }
+    }
+    Column(Modifier.fillMaxWidth().heightIn(min = 500.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        // Always mount the title and stepper: changing stage must not move the
+        // controls or push the progress track down the screen.
+        Text(if (state.cancelling) "Останавливаю обработку" else "Идёт расшифровка",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+        Steps(state.stage.coerceIn(0, 3))
+        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            // The ETA can be one, two or three lines. Reserve a stable layout
+            // slot so updates never move the progress track.
+            Box(Modifier.fillMaxWidth().height(184.dp), contentAlignment = Alignment.TopCenter) {
+                Column(Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    state.processingStartedAtMs?.let { started ->
+                        Text("Прошло всего: " + clock((tick - started).coerceAtLeast(0L)),
+                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                    }
+                    if (state.cancelling) {
+                        Text("Ожидаю завершения текущего этапа.",
+                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                    } else if (state.stage == 2) {
+                        Text(state.message, style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center)
+                        val diar = state.diarizationClock
+                        if (diar == null) {
+                            Text("Запускаю определение говорящих…",
+                                style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                        } else {
+                            Text("Диаризация: прошло " + clock(diar.elapsedMs(tick)),
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                            if (diar.totalChunks > 0) {
+                                Text("Фрагменты модели: " + diar.completedChunks + " из " +
+                                     diar.totalChunks + " (2 прохода)",
+                                    style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                            } else {
+                                Text("Запуск модели, ожидаю первый обработанный фрагмент",
+                                    style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                            }
+                            val range = diar.remainingRangeMs(tick)
+                            Text(if (range == null) "Диаризация продолжается, уточняю время…"
+                                 else "Говорящие: осталось ≈ " +
+                                     clock(range.first) + "–" + clock(range.second),
+                                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        }
+                    } else if (timeline != null) {
+                        Text("Примерно обработано: " + clock(timeline.positionAt(tick)) +
+                            " из " + clock(timeline.totalMs),
+                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                        if (timeline.waitingForCheckpoint(tick)) {
+                            Text("Завершаю текущий фрагмент, уточняю время",
+                                style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                        } else {
+                            Text((if (timeline.calibrated) "Осталось примерно " else "Предварительно осталось ≈ ") +
+                                clock(timeline.remainingWallMs(tick)),
+                                style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+                        }
+                    } else if (state.shortEta != null) {
+                        val eta = state.shortEta
+                        Text(state.message, style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center)
+                        val remaining = eta.remainingRangeWallMs(tick)
+                        Text(if (remaining == null) "Уточняю время до готовой стенограммы…"
+                             else "Стенограмма: осталось ≈ " + clock(remaining.first) +
+                                  "–" + clock(remaining.second),
+                            style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                    } else {
+                        Text(state.message, style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center)
+                    }
                 }
             }
-            Text("Обработка длинной записи", style = MaterialTheme.typography.bodyMedium)
-            Text("Примерно обработано: ${clock(timeline.positionAt(tick))} из ${clock(timeline.totalMs)}",
-                style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-            if (timeline.waitingForCheckpoint(tick)) {
-                Text("Завершаю текущий фрагмент, уточняю время",
-                    style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
-            } else {
-                Text((if (timeline.calibrated) "Осталось примерно " else "Предварительно осталось ≈ ") +
-                    clock(timeline.remainingWallMs(tick)),
-                    style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+            val progress = when {
+                state.cancelling -> null
+                state.stage == 2 -> state.diarizationClock?.let { diar ->
+                    if (diar.totalChunks > 0)
+                        diar.completedChunks.toFloat() / diar.totalChunks else null
+                }
+                timeline != null -> timeline.fractionAt(tick)
+                else -> state.progress
             }
-            LinearProgressIndicator(progress = { timeline.fractionAt(tick) }, Modifier.fillMaxWidth())
-        } else if (state.shortEta != null) {
-            val eta = state.shortEta
-            val tick by produceState(SystemClock.elapsedRealtime(), eta) {
-                while (true) { value = SystemClock.elapsedRealtime(); delay(250) }
-            }
-            Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-            val remaining = eta.remainingWallMs(tick)
-            if (remaining == null) {
-                Text("Уточняю оставшееся время по скорости обработки…",
-                    style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-            } else {
-                Text("Осталось ориентировочно " + clock(remaining),
-                    style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
-            }
-            val progress = state.progress
-            if (progress != null) LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
-            else LinearProgressIndicator(Modifier.fillMaxWidth())
-        } else {
-            Text(state.message, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-            val progress = state.progress
-            if (progress != null) LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
-            else LinearProgressIndicator(Modifier.fillMaxWidth())
+            if (progress == null) LinearProgressIndicator(Modifier.fillMaxWidth())
+            else LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
         }
-        Text("Всё обрабатывается на телефоне", style = MaterialTheme.typography.bodySmall)
+        Text("Всё обрабатывается на телефоне",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+        // Cancel is a secondary action, not a 136 dp hero above the actual task.
+        OutlinedButton(onClick = onCancel, enabled = !state.cancelling,
+            modifier = Modifier.heightIn(min = 48.dp),
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 10.dp)) {
+            Icon(Icons.Filled.Close, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text("Отменить", style = MaterialTheme.typography.bodyMedium)
+        }
     }
 }
 
@@ -894,7 +940,12 @@ private fun TranscriptScreen(item: SavedTranscript, state: ScreenState, audioFil
                                     style = MaterialTheme.typography.bodySmall)
                                 Slider(value = playbackMs.toFloat().coerceIn(0f, player.duration.toFloat().coerceAtLeast(1f)),
                                     onValueChange = { v -> runCatching { player.seekTo(v.toInt()); playbackMs = v.toLong() } },
-                                    valueRange = 0f..player.duration.toFloat().coerceAtLeast(1f))
+                                    valueRange = 0f..player.duration.toFloat().coerceAtLeast(1f),
+                                    thumb = {
+                                        // Round draggable seek marker instead of the confusing
+                                        // Material3 vertical bar next to a horizontal track.
+                                        Box(Modifier.size(18.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
+                                    })
                             }
                         }
                         Text("Нажмите ▶ возле реплики, чтобы перейти к этому месту записи.",

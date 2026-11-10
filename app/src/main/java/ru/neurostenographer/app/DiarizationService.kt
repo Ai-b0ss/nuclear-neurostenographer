@@ -58,7 +58,13 @@ class DiarizationService : Service() {
                 }
                 val result = if (backend == NemotronBackend.C0)
                     OfflineDiarization.process(PcmAudio(samples, 16000), model, clusteringThreshold = threshold)
-                else NemotronBackend.process(PcmAudio(samples, 16000), model) {}
+                else NemotronBackend.process(PcmAudio(samples, 16000), model, {}, { done, total ->
+                    // Send only completed chunks. Model inference is synchronous in
+                    // this dedicated process; no UI progress is inferred or faked.
+                    if (total in 1..10000 && done in 1..total) {
+                        runCatching { reply.send(Message.obtain(null, PROGRESS, done, total)) }
+                    }
+                })
                 require(result.turns.size <= DiarizationReply.MAX_ITEMS && result.windows.size <= DiarizationReply.MAX_ITEMS)
                 val output = Bundle().apply {
                     putLongArray("starts", result.turns.map { it.startMs }.toLongArray())
@@ -96,5 +102,6 @@ class DiarizationService : Service() {
         const val STARTED = 2
         const val RESULT = 3
         const val FAILURE = 4
+        const val PROGRESS = 5
     }
 }

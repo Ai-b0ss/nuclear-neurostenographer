@@ -333,10 +333,12 @@ object NemotronDiarizer {
 
     fun diarize(wave: FloatArray, filters: FloatArray, hann: FloatArray, silence: FloatArray, runner: NemotronChunkRunner,
                 checkCancelled: () -> Unit = {}, postprocess: NemotronPostprocess = NemotronPostprocess.RAW,
-                warmSecondPass: Boolean = false): List<ClusterTurn> {
+                warmSecondPass: Boolean = false,
+                onProgress: (Int, Int) -> Unit = { _, _ -> }): List<ClusterTurn> {
         val mel = { NemotronMel(wave, filters, hann) }
-        return if (warmSecondPass) warmGuarded(mel, silence, runner, checkCancelled, postprocess)
-               else binarize(frameLogits(wave, filters, hann, silence, runner, checkCancelled), postprocess)
+        return if (warmSecondPass) warmGuarded(mel, silence, runner, checkCancelled, postprocess, onProgress)
+               else binarize(frameLogitsWithCache(mel, runner, checkCancelled,
+                   NemotronSpeakerCache(silence), onProgress).first, postprocess)
     }
 
     private fun speakerCount(turns: List<ClusterTurn>) = turns.mapTo(HashSet()) { it.cluster }.size
@@ -428,10 +430,19 @@ object NemotronDiarizer {
     }
 
     private fun warmGuarded(mel: () -> NemotronMel, silence: FloatArray, runner: NemotronChunkRunner,
-                            checkCancelled: () -> Unit, postprocess: NemotronPostprocess): List<ClusterTurn> {
-        val first = frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence))
+                            checkCancelled: () -> Unit, postprocess: NemotronPostprocess,
+                            onProgress: (Int, Int) -> Unit = { _, _ -> }): List<ClusterTurn> {
+        // Both passes count as work. The count is actual completed native chunks,
+        // never simulated time. Progress must not jump back at warm-pass start.
+        var firstChunks = 0
+        val first = frameLogitsWithCache(mel, runner, checkCancelled, NemotronSpeakerCache(silence)) { done, total ->
+            firstChunks = total
+            onProgress(done, total * 2)
+        }
         val single = binarize(first.first, postprocess)
-        val warm = binarize(frameLogitsWithCache(mel, runner, checkCancelled, first.second.warmCopy()).first, postprocess)
+        val warm = binarize(frameLogitsWithCache(mel, runner, checkCancelled, first.second.warmCopy()) { done, total ->
+            onProgress(firstChunks + done, firstChunks + total)
+        }.first, postprocess)
         return chooseWarm(single, warm)
     }
 
@@ -442,7 +453,8 @@ object NemotronDiarizer {
     }
 
     private fun frameLogitsWithCache(newMel: () -> NemotronMel, runner: NemotronChunkRunner, checkCancelled: () -> Unit,
-                                     cache: NemotronSpeakerCache): Pair<NemotronFrameLogits, NemotronSpeakerCache> {
+                                     cache: NemotronSpeakerCache,
+                                     onProgress: (Int, Int) -> Unit = { _, _ -> }): Pair<NemotronFrameLogits, NemotronSpeakerCache> {
         val mel = newMel()
         val factor = NemotronConfig.SUBSAMPLING
         val melFrames = mel.frames
@@ -452,6 +464,7 @@ object NemotronDiarizer {
         val all = FloatArray(melFrames * speakers)
         var written = 0
         var start = 0
+        val totalChunks = (embeddings + NemotronConfig.CHUNK - 1) / NemotronConfig.CHUNK
         while (start < embeddings) {
             checkCancelled()
             val end = min(start + NemotronConfig.CHUNK, embeddings)
@@ -470,6 +483,7 @@ object NemotronDiarizer {
                 written++
             }
             start = end
+            onProgress((end + NemotronConfig.CHUNK - 1) / NemotronConfig.CHUNK, totalChunks)
         }
         return NemotronFrameLogits(if (written == melFrames) all else all.copyOf(written * speakers), written) to cache
     }
