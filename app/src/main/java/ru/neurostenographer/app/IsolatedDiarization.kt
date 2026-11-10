@@ -46,8 +46,11 @@ object IsolatedDiarization {
     suspend fun process(context: Context, audio: PcmAudio, model: File,
                         clusteringThreshold: Float = OfflineDiarization.THRESHOLD,
                         backend: String = NemotronBackend.C0,
-                        onWorkerStarted: (Int) -> Unit = {},
-                        onProgress: (Int, Int) -> Unit = { _, _ -> }): DiarizationOutput = withContext(Dispatchers.IO) {
+                        // Keep the one-arg callback last: existing Kotlin callers
+                        // use trailing lambdas for onWorkerStarted (including
+                        // lifecycle and cancellation instrumentation tests).
+                        onProgress: (Int, Int) -> Unit = { _, _ -> },
+                        onWorkerStarted: (Int) -> Unit = {}): DiarizationOutput = withContext(Dispatchers.IO) {
         // Never let callers silently change production inference settings.
         require(OfflineDiarization.validThreshold(clusteringThreshold))
         require(BuildConfig.DEBUG || clusteringThreshold == OfflineDiarization.THRESHOLD)
