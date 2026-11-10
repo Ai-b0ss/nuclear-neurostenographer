@@ -101,7 +101,7 @@ class RealtimeSession(private val context: Context, val journal: RealtimeJournal
             AsrModelSpec.ACTIVE.id, AsrModelStore.REVISION,
             if (untimedChunks == 0) "asr_token_timestamps" else "asr_token_timestamps_and_input_windows",
             if (finalizationState == "COMPLETE") "${NemotronBackend.REVISION}/" +
-                (if (options.consensusExperimental) "dual-pass-preview-first-final-fill-experimental"
+                (if (options.consensusExperimental) "dual-pass-offline-first-preview-gap-fill-experimental"
                  else "global-offline-final-warm-postprocessed") +
                 (if (options.c2Chunk72AfterThreeExperimental) "/fast-chunk72-after3-experimental" else "")
             else if (c2State == "ACTIVE") "${NemotronBackend.REVISION}/revisable-provisional" else "c2_unavailable_or_partial_unknown_speakers",

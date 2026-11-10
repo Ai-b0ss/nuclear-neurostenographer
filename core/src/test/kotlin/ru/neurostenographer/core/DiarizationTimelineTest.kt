@@ -46,6 +46,16 @@ fun testDiarizationTimeline() {
         DiarizationTimeline.combineSpeechWindows(emptyList(), listOf(AudioWindow(3000, 5000)), 4000)
         error("Invalid independent speech interval accepted")
     } catch (_: IllegalArgumentException) { }
+    // Regression: a 20s window plus 1..99ms used to abort the whole ASR.
+    for (duration in listOf(20_001L, 20_050L, 40_055L, 60_099L)) {
+        val windows = DiarizationTimeline.combineSpeechWindows(
+            listOf(AudioWindow(0, duration)), emptyList(), duration)
+        check(windows.all { it.endMs - it.startMs in 100L..20_000L }) { windows.toString() }
+        check(windows.first().startMs == 0L && windows.last().endMs == duration)
+        check(windows.zipWithNext().all { (a, b) -> a.endMs == b.startMs })
+    }
+    check(DiarizationTimeline.combineSpeechWindows(
+        emptyList(), listOf(AudioWindow(250, 280)), 1000) == listOf(AudioWindow(250, 350)))
     check(DiarizationTimeline.speechWindows(emptyList(), 3000).isEmpty())
     check(DiarizationTimeline.windows(emptyList(), 40001) == listOf(AudioWindow(0, 20000), AudioWindow(20000, 40000)))
     check(DiarizationTimeline.canonicalize(listOf(ClusterTurn(1f, 11f, 2)), 2000).single().endMs == 2000L)

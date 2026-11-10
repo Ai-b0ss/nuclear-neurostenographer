@@ -44,7 +44,7 @@ object DiarizationTimeline {
      * Adjacent original 20 s chunks are re-joined before applying the same cap.
      */
     fun combineSpeechWindows(c2: List<AudioWindow>, vad: List<AudioWindow>, audioMs: Long): List<AudioWindow> {
-        require(audioMs > 0)
+        require(audioMs >= 100)
         val all = (c2 + vad).sortedWith(compareBy<AudioWindow> { it.startMs }.thenBy { it.endMs })
         require(all.all { it.startMs >= 0 && it.endMs > it.startMs && it.endMs <= audioMs })
         val merged = mutableListOf<AudioWindow>()
@@ -56,11 +56,20 @@ object DiarizationTimeline {
         }
         return merged.flatMap { w ->
             val parts = mutableListOf<AudioWindow>()
-            var at = w.startMs
-            while (at < w.endMs) {
-                val next = minOf(at + 20_000L, w.endMs)
-                if (next > at) parts += AudioWindow(at, next)
-                at = next
+            if (w.endMs - w.startMs < 100L) {
+                // ASR requires at least 100 ms; preserve a tiny detected utterance.
+                val begin = minOf(w.startMs, audioMs - 100L).coerceAtLeast(0L)
+                parts += AudioWindow(begin, begin + 100L)
+            } else {
+                var at = w.startMs
+                while (w.endMs - at > 20_000L) {
+                    // Avoid a 1..99 ms tail that would abort transcription.
+                    val tail = w.endMs - (at + 20_000L)
+                    val next = if (tail in 1L..99L) w.endMs - 100L else at + 20_000L
+                    parts += AudioWindow(at, next)
+                    at = next
+                }
+                parts += AudioWindow(at, w.endMs)
             }
             parts
         }

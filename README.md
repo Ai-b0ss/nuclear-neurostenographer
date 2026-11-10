@@ -1,12 +1,62 @@
 # Нейро-стенографист (Nuclear Neurostenographer)
 
-> Эта ветка собирает 0.3.17-contest: FDDT для уточнения автора слов на перекрытиях, сохранение текста A3 и обновлённый индикатор микрофона. [Требования](docs/FINAL_REQUIREMENTS_2026-11-08.md), [итоговые проверки](docs/FINAL_ACCEPTANCE_2026-11-08.md). Старые отчёты ниже относятся к указанным в них версиям.
+
+**Полностью офлайн на Android:** распознавание русской и английской речи, разделение говорящих, таймкоды, живая стенограмма и экспорт TXT / SRT / JSON. Модели работают непосредственно на смартфоне.
+
+[**Портфолио и результат**](https://i99er-igor-portfolio.static.hf.space/cases.html#nuclear) · [**Финальный APK**](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-eta-playback-final) · [**Тесты на HONOR**](docs/DEVICE_RTF_2026-11-08.md)
+
+<p align="center">
+  <img src="https://i99er-igor-portfolio.static.hf.space/assets/product-shots/nuclear-transcript-20261109.png" width="230" alt="Стенограмма на физическом HONOR: три говорящих и таймкоды">
+  &nbsp;&nbsp;
+  <img src="https://i99er-igor-portfolio.static.hf.space/assets/product-shots/nuclear-processing-20261109.png" width="230" alt="Этапы локальной обработки и оценка оставшегося времени">
+</p>
+
+---
+
+## Материалы для жюри — всё в одном месте
+
+Здесь собраны шесть материалов, указанных в конкурсной форме. Репозиторий открыт для просмотра без авторизации.
+
+1. **[Инструкция по установке и использованию](#установка-и-использование)** — прямая ссылка на [финальный APK](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-0.3.17-playback-candidate.apk) и последовательность действий.
+2. **[Архитектура решения](docs/ARCHITECTURE.md)** и **[используемые модели](docs/MODELS.md)** — GigaAM A3, Nemotron C2, FDDT, Whisper Tiny, алгоритм объединения реплик.
+3. **[Ограничения решения](docs/LIMITATIONS.md)** — неполная обработка перекрытий и ограничения длинных записей.
+4. **[Результаты собственных испытаний](docs/TEST_RESULTS.md)** — в том числе [WER/RTF на HONOR](docs/DEVICE_RTF_2026-11-08.md) и [проверка финального ETA](docs/ETA_ACCEPTANCE_2026-11-08.md).
+5. **[Видеодемонстрация работы приложения](artifacts/demo/ITAM-demo-3speakers-eta-playback.mp4)** — настоящий экран HONOR: импорт, ETA, три говорящих, воспроизведение и экспорт JSON; также [MP4 в релизе](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/ITAM-demo-3speakers-eta-playback.mp4).
+6. **[Презентация для защиты (PPTX)](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-defense-final.pdf)** — 7 слайдов, доступна в файлах релиза.
+
+**[Перейти к финальному релизу с APK, видео и презентацией](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-eta-playback-final)**
+
+## Установка и использование
+
+1. Скачайте [финальный APK](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/download/v0.3.17-eta-playback-final/Neurostenographer-0.3.17-playback-candidate.apk) (≈637 МБ; SHA-256: `60db53a52ae637eacc21cbff650560d719f5eae7e78fbb92bbf9aabc465ca4c1`).
+2. На Android разрешите установку APK из выбранного источника и установите приложение. Все необходимые модели уже включены, отдельно скачивать их не требуется.
+3. Откройте **«Нейростенограф»**. Нажмите **«Открыть аудиофайл»** и выберите запись либо **«Записать»** для записи с микрофона.
+4. Дождитесь обработки на телефоне: приложение показывает этапы и ориентировочное оставшееся время. Интернет не нужен, можно включить авиарежим.
+5. Откройте стенограмму, проверьте говорящих и таймкоды; нажмите ▶ возле реплики для прослушивания с её начала.
+6. Нажмите **«Сохранить JSON»**, выберите папку и подтвердите сохранение. Выход соответствует конкурсному формату `transcript[]` с `speaker_id`, `start_ms`, `end_ms`, `text`.
+
+**Проверенный телефон:** HONOR 10X Lite (DNN-LX9), Android 10 ARM64. Контрольный пример — [трёхголосый WAV](artifacts/demo/ITAM-demo-3-speakers-33s.wav) и [полученный JSON](artifacts/demo/ITAM-demo-3-speakers-33s-export-eta.json). Проигрыватель и ETA относятся к новой финальной сборке, не к предыдущему опубликованному APK 0.3.17. Оставшиеся ограничения и условия честно описаны выше.
+
+
+
+## Актуальная сдача и локальная доработка 08.11
+
+**Финальный опубликованный APK с проигрывателем и ETA:** [`v0.3.17-eta-playback-final`](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-eta-playback-final), SHA-256 `60db53a52ae637eacc21cbff650560d719f5eae7e78fbb92bbf9aabc465ca4c1`. Предыдущий [`v0.3.17-contest`](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases/tag/v0.3.17-contest), SHA-256 `4fe325aa185a1b02530a9732e4b42a61c0e0db70d04f97584650a10522b752b2`, сохранён для воспроизводимости старых измерений. APK различаются при одинаковом внутреннем versionName.
+
+Рабочая команда из четырёх участников: Игорь Глуховский, Александр Мирошниченко, Сергей Шибаев, Рузанна. Предыдущие формы с неполным составом не определяют фактическую команду.
+
+Содержание по структуре организаторов: [архитектура](docs/ARCHITECTURE.md), [используемые модели](docs/MODELS.md), [ограничения](docs/LIMITATIONS.md), [тесты и методика](docs/TEST_RESULTS.md), [новые телефонные измерения WER/RTF](docs/DEVICE_RTF_2026-11-08.md), [материалы демонстрации](artifacts/demo/README.md), [исходники Android](src/mobile/README.md).
+
+
+
+
+> Опубликованный конкурсный релиз `v0.3.17-contest` включает FDDT, сохранение текста A3 и обновлённый индикатор микрофона. Текущий код после него дополнительно содержит локальный проигрыватель и ETA коротких записей; **это разные APK**. [Требования](docs/FINAL_REQUIREMENTS_2026-11-08.md), [итоговые проверки](docs/FINAL_ACCEPTANCE_2026-11-08.md). Старые отчёты ниже относятся к указанным в них версиям.
 
 Офлайн-приложение для Android: расшифровывает запись разговора на русском, само определяет говорящих и выдаёт диалог с временными метками — «кто, когда, что сказал». Работает без интернета (в манифесте нет разрешения INTERNET), модели внутри APK. Проект для Nuclear IT Hack (НИЯУ МИФИ, ноябрь 2026).
 
-**Версия этой ветки: 0.3.17-contest.** Подписанные выпуски и их контрольные суммы: [Releases](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases). Номер ветки сам по себе не означает публикацию APK.
+**Версия опубликованного конкурсного релиза: 0.3.17-contest.** Подписанные выпуски и их контрольные суммы: [Releases](https://github.com/Ai-b0ss/nuclear-neurostenographer/releases). Номер ветки сам по себе не означает публикацию APK.
 
-> **Формат вывода для жюри.** Кнопка «JSON» (с 0.3.14) сохраняет файл строго по слайду организаторов: `{"transcript":[{"speaker_id","start_ms","end_ms","text"}]}`, исходный текст распознавания без правок. 0.3.4–0.3.13 экспортировали другой JSON. Расширенный формат — «JSON расш.». Требования, комплект сдачи и что не сделано: [CONTEST_REQUIREMENTS](docs/CONTEST_REQUIREMENTS_2026-11-07.md), [SUBMISSION_CHECKLIST](docs/SUBMISSION_CHECKLIST.md).. Подписанный APK, arm64-v8a + x86_64. Проверяется на физическом HONOR 10X Lite (Kirin 710, Android 10).
+> **Формат вывода для жюри.** Кнопка «JSON» (с 0.3.14) сохраняет файл строго по слайду организаторов: `{"transcript":[{"speaker_id","start_ms","end_ms","text"}]}`, исходный текст распознавания без правок. 0.3.4–0.3.13 экспортировали другой JSON. Расширенный формат — «JSON расш.». Требования, комплект сдачи и что не сделано: [CONTEST_REQUIREMENTS](docs/CONTEST_REQUIREMENTS_2026-11-07.md), [SUBMISSION_CHECKLIST](docs/SUBMISSION_CHECKLIST.md). Подписанный APK, arm64-v8a + x86_64. Проверяется на физическом HONOR 10X Lite (Kirin 710, Android 10).
 
 > 0.3.4–0.3.6 собраны без `-PasrA3=true` и не работают — не устанавливайте их. 0.3.7–0.3.9 на коротких диалогах склеивают двух говорящих в одного (исправлено в 0.3.10, см. ниже).
 
@@ -78,3 +128,11 @@ GitHub Actions собирает отладочный APK без моделей. 
 ## История
 
 До 0.3.3 проект прошёл путь от CTC-модели и pyannote + ERes2Net (C0) к A3 + Nemotron C2; эти этапы и все промежуточные измерения — в [docs/PROGRESS.md](docs/PROGRESS.md) и [docs/DECISION_REGISTER.md](docs/DECISION_REGISTER.md).
+
+### Оценка времени на коротких записях
+
+Старая `AudioProcessingClock` для файлов длиннее 20 минут **не была потеряна при merge**: она вошла в main через PR #44. В новой локальной ветке добавлена `ShortProcessingEta` для обычных файлов: после первого завершённого этапа отображается приблизительное оставшееся время по монотонным временным меткам и реальным промежуточным результатам. При задержке этапа больше прогноза оценка снимается вместо ложного «00:00». Точный отдельный APK и телефонная приёмка кандидата должны быть указаны отдельно; в опубликованном 0.3.17 числовой ETA показывался **только для длинных файлов**.
+
+[История модуля ETA и испытание нового обратного отсчёта на HONOR](docs/ETA_ACCEPTANCE_2026-11-08.md).
+
+[Демонстрация ETA, проигрывателя и JSON на новом кандидате](artifacts/demo/ITAM-demo-3speakers-eta-playback.mp4).

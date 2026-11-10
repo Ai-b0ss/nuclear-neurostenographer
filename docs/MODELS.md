@@ -1,42 +1,44 @@
-# Модели: актуальное состояние
+# Используемые нейросетевые модели
 
-Обновлено 08.11.2026 для 0.3.17-contest. Для продуктовой сборки используется e2e RNN-T A3, а не CTC из первоначального прототипа. Обычный APK без продуктовых флагов может использовать другую конфигурацию.
+**Актуальный пакет:** подписанный Android APK `0.3.17-contest`; SHA-256 APK `4fe325aa185a1b02530a9732e4b42a61c0e0db70d04f97584650a10522b752b2`. Работает локально на Android (CPU ARM64), без облачного распознавания и без разрешения INTERNET. В отдельном локальном кандидате с проигрывателем состав моделей тот же, но бинарный APK другой. Нельзя принимать результаты одного APK за испытания другого.
 
-| Назначение | Модель/путь | Статус |
-|---|---|---|
-| Русский текст, регистр, пунктуация | GigaAM v3 **e2e RNN-T INT8**, A3, флаг -PasrA3=true | Продуктовая русская модель. Точная конверсия и хеши: AsrModelSpec.E2E_RNNT |
-| Говорящие | Nemotron 3 Diarization INT8, C2 | Продуктовый путь; четыре слота, не сквозная идентификация 20 участников |
-| Английский + выбор языка | Multilingual Whisper Tiny INT8, -PenglishAuto=true | Опция экспериментальной ветки; tools/provision_english.py, три закреплённых SHA. Live preview остаётся русским |
-| Паузы в живом режиме | Silero VAD | Поиск речи, не модель говорящих |
-| Runtime | no-TTS sherpa-onnx 1.12.20 / ORT 1.17.1 | Закреплённый AAR и проверка фактических JNI-байтов; tools/runtime/runtime.properties |
-| GigaAM CTC, pyannote + ERes2Net | Старые конфигурации | История и альтернативные сборки, не описание текущего конкурсного A3+C2 |
-| GigaAM e2e RNN-T + FDDT | `-PfddtHybrid=true`, ONNX INT8 из архива Рузанны | Уточняет автора сомнительных слов, сохраняя текст и время A3. Отдельная полная замена слов — `fddtWordRecovery=true` |
-| VoxLock / DiCoW | Альтернативные исследования | Не включены в продукт |
+## Фактически встроенные веса
 
-A3: Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8, encoder INT8 с удалёнными неиспользуемыми opset imports для совместимости ORT 1.17.1. Encoder, decoder, joint и tokens перечислены с SHA/размерами в app/src/main/java/ru/neurostenographer/app/AsrModelSpec.kt. Исходные плавающие веса для обучения FDDT нужно проверять на соответствие именно e2e RNN-T; ONNX INT8 из APK не учебный checkpoint.
+| Назначение | Модель | Файл | Объём | SHA-256 |
+|---|---|---|---:|---|
+| Русская ASR, пунктуация | GigaAM v3 e2e RNN-T INT8, A3 | `gigaam-v3-e2e-rnnt.zip` | 326,322,714 байт | `3a4057b9526f9aee16eda47f74ed1b77b56b09c5068547e20855bd6fd9f43225` |
+| Определение говорящих | Nemotron 3 Diarization INT8, C2 | `nemotron.zip` | 103,869,540 байт | `a9a4f0fd6ae8bc50767a9bfc7f8874b8ad880919a4e9dc38f6f34e098b9c8bec` |
+| Английская ASR и выбор языка | Whisper Tiny multilingual INT8 | `whisper-tiny.zip` | 65,099,802 байт | `b335821b6d82835e427347253530083e9d3d4c15e1184099eee3e2c2f9fe1164` |
+| Детектор речи | Silero VAD ONNX | `silero_vad.onnx` | 643,854 байт | `9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6` |
+| Уточнение автора на перекрытиях | FDDT: GigaAM e2e RNN-T с обученным адаптером | `encoder_fddt.int8.onnx` | 320,122,758 байт | `98d9a0480416e61434b1edbca18491fcb0593ad27eb6e628cf687011c4921140` |
+| Декодер FDDT | RNNT decoder | `decoder.onnx` | 4,599,970 байт | `75d61a4e5b1bfeaa667360bef042f284c43ca0a4e310de5de3377e6b48ac7835` |
+| Joint FDDT | RNNT joint | `joint.onnx` | 2,712,926 байт | `8f007db342af76c7355912ab0611d66aaafa4d74df035ca0016ed622e4344fc7` |
+| Словарь токенов FDDT | RNNT tokens | `tokens.txt` | 13,354 байт | `39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7` |
 
-Архитектура и ограничения: [ARCHITECTURE](ARCHITECTURE.md). Фактическая приёмка версий: [CHECKPOINT_AFTER_CALL](CHECKPOINT_AFTER_CALL_2026-11-07.md). Лицензии каждого веса и runtime проверяются отдельно; лицензия библиотеки не заменяет лицензию модели. Частные аудио и тяжёлые экспериментальные checkpoints не следует добавлять в исходный Git.
+Таблица получена из проверенного содержимого собранного APK (файл `apk-verification.json`, выверен при предыдущей приёмке). SHA внешнего ZIP — контроль пакета, не отдельной внутренней модели. Все веса должны быть доступны до запуска проверки, не скачиваются во время обработки.
 
-## Архив исследования от 30.10.2026
+## Последовательность обработки
 
-Ниже сохранены первоначальные кандидаты и состояние раннего прототипа. Утверждения «current», «selected», «не проверен ARM64» и «Nemotron research only» ниже относятся к тому этапу и не задают текущую конфигурацию.
+1. Импорт WAV/MP3/M4A или захват микрофона. Конверсия в PCM16 mono 16 кГц; Silero VAD помогает отбросить неречевые интервалы.
+2. Nemotron C2 предсказывает активность говорящих по времени; четыре внутренних слота **не гарантируют** поддержку произвольного количества устойчивых голосов.
+3. GigaAM v3 **e2e RNN-T A3** распознаёт русский текст, регистр и пунктуацию, выдаёт приблизительные временные метки слов.
+4. Привязка слов к активным говорящим по временной шкале. В областях с перекрытиями FDDT получает маску STNO и уточняет **только однозначно найденного автора** неизвестных слов. Базовые слова/пунктуация/время A3 не заменяются.
+5. Если выбранный файл английский, встроенный Whisper Tiny обрабатывает соответствующие окна. Флаг сборки `-PenglishAuto=true`. Предварительная живая расшифровка остаётся русской.
+6. Объединение в реплики, сохранение истории и экспорт `transcript[]` в конкурсный JSON.
 
+## Сборка и совместимость
 
-Current ASR experiment: GigaAM v3 CTC INT8, HF revision `32a4c7cc81809bd132e2d935ab99e9e6ab47fbec`, model SHA-256 `f86ebfa0429ced91be6054fc344827e9c6c2572f3c318416cd974b06f66437ec`, 224,721,476 bytes. 16 kHz / 64 features, CPU greedy decoding through sherpa-onnx 1.12.20. Tokens and MIT LICENSE are pinned in `tools/provision_asr.py`. Real Android x86_64 Russian inference passes; physical ARM64 and independent dialogue accuracy remain unverified. The default runtime is now the pinned, Android-tested no-TTS source build. The full upstream GPL/TTS AAR is regression-only. Distribution/notices review is still open. See [runtime license review](RUNTIME_LICENSES.md) and [progress](PROGRESS.md).
+- Флаги: `-PnemotronProduct=true -PasrA3=true -PenglishAuto=true -PfddtHybrid=true`.
+- Инференс: no-TTS `sherpa-onnx 1.12.20` с ONNX Runtime `1.17.1`; JNI/AAR сверяются по закреплённым SHA. Основной режим на HONOR — CPU, без заявленного NPU-ускорения.
+- Русский A3 закреплён к `Smirnov75/GigaAM-v3-sherpa-onnx@6888903da215c7735f51101d939f3bfa679fb2b8`, конверсия encoder INT8 с проверенной совместимостью ORT.
+- Адаптеры FDDT, подготовленные Рузанной, имеют 98 304 обученных параметра. Экспериментальная полная замена слов не включена в продуктовый путь. VoxLock, DiCoP, VoiceFilter-Lite, SpeakerBeam-SS, старый GigaAM CTC и pyannote+ERes2Net в конкурсный APK не включены.
+- Точные определения архивов, исходные контрольные суммы и версии модели — `app/src/main/java/ru/neurostenographer/app/AsrModelSpec.kt`, `FddtHybrid.kt`, `app/build.gradle.kts` и конфигурация C2.
 
-| Capability | Candidate | Implementation reference | Important notes |
-|---|---|---|---|
-| Russian ASR | GigaAM v3 CTC INT8 | https://github.com/k2-fsa/sherpa-onnx/issues/2852 | sherpa-onnx model bundle exists. Check exact weight license. Non-streaming model. |
-| Russian ASR alternative | T-one Russian ONNX | https://k2-fsa.github.io/sherpa/onnx/pretrained_models/online-ctc/t-one-ctc-models.html | Expects 8 kHz audio according to converter docs. Verify accuracy and license. |
-| Compact backup | Small Russian Zipformer | https://k2-fsa.github.io/sherpa/onnx/pretrained_models/ | Faster/smaller candidate; performance needs device tests. |
-| VAD | Silero VAD ONNX | https://github.com/snakers4/silero-vad | Offline speech-region detector; not diarization. |
-| Speaker segmentation | pyannote segmentation 3.0 | https://huggingface.co/pyannote/segmentation-3.0 | Handles 10 s windows, up to 3 local speakers and overlaps; requires additional global speaker embeddings/clustering. |
-| Speaker embeddings | 3D-Speaker ERes2Net or CAM++ | https://github.com/modelscope/3D-Speaker | Compare accuracy and CPU latency. |
-| Android runtime | sherpa-onnx | https://github.com/k2-fsa/sherpa-onnx/tree/master/android/SherpaOnnxSpeakerDiarization | Android/Kotlin example is available. |
-| Research only | Nemotron 3 Diarization ONNX | https://huggingface.co/joosthel/Nemotron-3-Diarization-ONNX | Third-party conversion not yet demonstrated inside this Android app. |
+## Что не заявляем
 
-Important licensing distinction: sherpa-onnx's Apache-2.0 license does not automatically license each third-party model weight. **RevAI reverb-diarization-v1 has a non-production license**, so exclude it from a distributable production package unless legal conditions are satisfied. Source model owners determine redistribution rights. Test dataset rights separately.
+- Нет подтверждённого сквозного сопоставления ID говорящих между независимо обработанными длинными блоками после 20 минут.
+- Нет полного восстановления каждого произнесённого слова в одновременной речи; часть фрагментов остаётся `unknown`.
+- Независимый ручной эталон на большой выборке живых переговоров и закрытый стенд организаторов не проводились.
+- Лицензии на исполняемые библиотеки и сами веса — разные объекты; проверять первичные условия каждого владельца. Исторические исследования и запрещённые для выпуска модели не входят в архив продукта.
 
-**No model files or user audio belong in the public Git repository.**
-
-Selected diarization: pinned pyannote segmentation FP32 + ERes2Net base (45.6 MB), threshold 0.8, unknown speaker count. Real Android recurrence, worker containment/cancellation and Russian combined inference pass. The original known-mixture worker failure is preserved; the default patched runtime completes with unknown identities, without established overlap recognition. Exact hashes, weight licenses and limitations: [DIARIZATION.md](DIARIZATION.md).
+[Архитектура](ARCHITECTURE.md) · [Испытания](TEST_RESULTS.md) · [Ограничения](LIMITATIONS.md) · [Архив прежних исследований](archive/MODELS_RESEARCH_PREVIOUS_2026-11-08.md).

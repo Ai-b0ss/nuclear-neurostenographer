@@ -7,11 +7,10 @@ import kotlin.math.roundToLong
  * to reference labels, ASR text or future PCM.
  *
  * The final timeline MUST already be aligned to the preview's slot IDs by
- * SpeakerIdentity.align. Preview wins where it has an active speaker; offline
- * finalization fills only intervals with no preview hypothesis.
- *
- * This avoids replacing stable early identities with contradictory offline
- * output, but it cannot correct a preview that is itself confidently wrong.
+ * SpeakerIdentity.align. There are explicit preview-first and opt-in
+ * post-stop offline-first policies. Offline-first uses full-context labels
+ * where possible and fills its gaps with provisional evidence.
+ * Neither policy establishes ground-truth speaker correctness.
  * At most two 8-slot event counters are live, independent of recording length.
  */
 object SpeakerConsensus {

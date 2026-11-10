@@ -32,3 +32,9 @@
 ## Откат и сохранность
 
 Предыдущая 0.3.17 и её исходники остаются в ветке `finish/fddt-contest-20261108` и исходном APK. Код 0.4.0 — в отдельном worktree `K:\\nn-posthack-20261110`. Никаких удалений данных телефона, сервера Moodle, слияний в основную ветку или переустановок не выполнялось.
+
+## Integration review (10 Nov 2026)
+
+- Integration baseline: main commit e5eae26f, including audio playback and processing ETA. Both are preserved.
+- Fixed a review finding: a 1-99 ms tail after combining speech windows could invalidate ASR. Added regression tests.
+- The previously built APK from the 0.3.17-based branch is NOT a binary build of the merged main+0.4.0 sources. Its hash does not attest this integration. Rebuild and device acceptance are required before binary distribution.
