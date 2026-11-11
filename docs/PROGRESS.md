@@ -6,7 +6,9 @@
 - Added GlobalSpeakerBook, NemotronVoiceProfiles and opt-in globalSpeakerBook flag. Old block-scoped IDs preserved when evidence is missing, ambiguous or invalid. Not a validated speaker-verification model.
 - Core:runCoreTests passed (including new identity/overlap tests). App:compileDebugKotlin passed for QA product C2+A3 build with local equivalent ONNX Runtime 1.17.1 AAR (temporary file dependency used only to work around offline cache; normal Maven declaration restored).
 - New same-file WER/cpWER scorer and three Python unit tests passed; end-to-end synthetic CLI fixture also passed. Python CI test added.
-- **Not yet tested:** a real long audio run with speaker identities on physical ARM64, held-out DER/cpWER, full packaged APK, direct Skvor comparison on identical recordings.
+- **HONOR physical smoke:** experimental APK + test APK installed side by side; 6:10 repeated permitted fixture passed 1/1 Android instrumentation, 102.8 seconds wall time (RTF 0.277 on a silence-heavy file), two stable speaker IDs across two blocks, eight transcript segments. Repeated clip text differed by 2/141 words (not ground-truth WER). Logs and evidence retained locally only.
+- **Regression retest:** second physical instrumentation PASS 1/1 after removing false unknown-speaker warning (pipeline 101.812s, 0.2748 RTF); all eight segments and timestamps exactly match first run. The production-length threshold remains unchanged; a separate QA flag triggers long-file processing after five minutes. Sanitized evidence: evidence/speakerbook-honor-smoke-20261111.json.
+- **Not yet tested:** independent/new speakers in 20+ minute continuous audio, held-out DER/cpWER, direct Skvor comparison on identical annotated recordings.
 - Architecture, safety limits and validation steps: GLOBAL_SPEAKER_BOOK_QA_2026-11-11.md.
 
 

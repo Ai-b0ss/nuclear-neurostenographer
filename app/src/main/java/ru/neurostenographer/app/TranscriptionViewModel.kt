@@ -285,15 +285,26 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             store.verify(model) { context.ensureActive() }
             require(source.scheme == "file") { "Аудиофайл должен быть сохранён локально" }
             val pcm = PcmFileAudio(File(requireNotNull(source.path))) { context.ensureActive() }
-            if (pcm.durationMs > PcmWav.MAX_SECONDS * 1000L) recognizeLong(pcm, model)
+            // QA mode exercises the SAME real long-file implementation on a >5-minute fixture.
+            // The regular product still switches to this path only after 20 minutes.
+            if (pcm.durationMs > PcmWav.MAX_SECONDS * 1000L ||
+                (BuildConfig.GLOBAL_SPEAKER_BOOK && pcm.durationMs > 300_000L))
+                recognizeLong(pcm, model)
             else {
                 mutable.value = mutable.value.copy(shortEta = ShortProcessingEta(SystemClock.elapsedRealtime()))
                 recognizeBlock(pcm.read(checkCancelled = { context.ensureActive() }), model)
             }
         }
         val (backendUsed, warning) = processing
+        val hasSpeakerAttribution = output.segments.any { it.speakerId != null || it.overlapSpeakers.isNotEmpty() }
+        // Do not claim a voice-link model ran when C2 produced no usable profiles.
+        val hasAcousticVoiceLink = output.segments.any { segment ->
+            segment.speakerId?.startsWith("Speaker ") == true ||
+                segment.overlapSpeakers.any { it.startsWith("Speaker ") }
+        }
         val speakerSource = when {
-            backendUsed == "long-file" && BuildConfig.GLOBAL_SPEAKER_BOOK -> "chunked_experimental_voice_embeddings"
+            backendUsed == "long-file" && BuildConfig.GLOBAL_SPEAKER_BOOK && hasAcousticVoiceLink ->
+                "chunked_experimental_voice_embeddings"
             backendUsed == "long-file" -> "chunked_locally_scoped_speakers_no_global_link"
             backendUsed == "digital-silence" -> "digital_silence_no_diarization"
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
@@ -313,14 +324,17 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             else "Интервалы фрагментов, не пословное выравнивание.",
             if (output.decodedWindows == 0) "Сегментация не обнаружила речевых окон; ASR не запускался." else null,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
-            if (diarization == null) "Говорящие не определены." else null)
+            if (diarization == null && !(backendUsed == "long-file" && hasSpeakerAttribution))
+                "Говорящие не определены." else null)
         val document = TranscriptDocument(output.segments.toList(), output.audioMs, TranscriptProvenance(
             output.modelId, output.modelRevision, timestampSource, speakerSource,
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings)
         val details = (if (output.decodedWindows == 0) "Речевые окна не обнаружены; ASR не запускался. " else
                 if (output.segments.isEmpty()) "ASR не вернул текста. " else "ASR вернул ${output.segments.size} фрагментов. ") +
                 "Аудио: ${output.audioMs} мс; загрузка ${output.loadMs} мс; обработка ${output.decodeMs} мс. " +
-                (if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
+                (if (backendUsed == "long-file" && hasSpeakerAttribution)
+                    "Диаризация выполнена по блокам. "
+                else if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
                     "Диаризация ${backendUsed?.uppercase()}: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс. ") +
                 (warning ?: "")
         android.util.Log.i("NeuroStenoMetrics", details)
