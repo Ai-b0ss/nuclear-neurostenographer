@@ -42,6 +42,53 @@ def temperature(adb,serial):
     return parse_battery(p.stdout)
 
 
+def parse_cpu_thermal(text):
+    """Read CURRENT Android Thermal HAL CPU sensors (type 0), never cached values.
+
+    This works on stock HONOR via dumpsys thermalservice, unlike
+    /sys/class/thermal which is inaccessible without root on this phone.
+    """
+    current=re.search(
+        r"Current temperatures from HAL:\s*\n(?P<body>.*?)(?:Current cooling devices from HAL:|\Z)",
+        text,re.IGNORECASE | re.DOTALL)
+    if current is None:
+        raise ValueError("Thermal HAL current sensor block unavailable")
+    values={}
+    per_sensor_status={}
+    for match in re.finditer(r"Temperature\{([^}]+)\}",current.group("body")):
+        fields=dict(re.findall(r"\b(mValue|mType|mName|mStatus)=([^,}]+)",match.group(1)))
+        if fields.get("mType")!="0":
+            continue
+        try:
+            name=fields["mName"].strip()
+            c=float(fields["mValue"])
+            status=int(fields["mStatus"])
+        except (KeyError,ValueError,OverflowError) as exc:
+            raise ValueError("Invalid CPU HAL reading") from exc
+        if not re.fullmatch(r"[A-Za-z0-9_.-]{1,48}",name) or not (0<=c<=125) or not 0<=status<=6:
+            raise ValueError("Out-of-range CPU HAL reading")
+        if name in values:
+            raise ValueError("Duplicate live CPU sensor: "+name)
+        values[name]=c
+        per_sensor_status[name]=status
+    if not values:
+        raise ValueError("No current CPU sensors in Thermal HAL")
+    match=re.search(r"(?m)^Thermal Status:\s*(\d+)\s*$",text)
+    if match is None or not 0<=int(match.group(1))<=6:
+        raise ValueError("Android thermal status missing/invalid")
+    return {"sensors_c":values,"max_c":max(values.values()),
+            "sensor_status":per_sensor_status,
+            "max_sensor_status":max(per_sensor_status.values()),
+            "android_status":int(match.group(1))}
+
+
+def cpu_temperature(adb,serial):
+    p=adb_call(adb,serial,"shell","dumpsys","thermalservice")
+    if p.returncode:
+        raise RuntimeError("ADB Thermal HAL query failed: "+p.stderr[-180:])
+    return parse_cpu_thermal(p.stdout)
+
+
 def stop_qa(adb,serial):
     results=[]
     for pkg in (QA_PACKAGE,TEST_PACKAGE):
@@ -96,15 +143,28 @@ def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
 
 
 def run(a):
-    if not (100<=a.start_max_tenths<a.cutoff_tenths<=450):
-        raise ValueError("start temperature must be below cutoff")
+    battery_cutoff=int(getattr(a,"cutoff_tenths",450))
+    battery_start=int(getattr(a,"start_max_tenths",390))
+    battery_warning=int(getattr(a,"battery_warning_tenths",min(430,battery_cutoff-10)))
+    cpu_cutoff=float(getattr(a,"cpu_cutoff_c",78.0))
+    cpu_warning=float(getattr(a,"cpu_warning_c",75.0))
+    cpu_start=float(getattr(a,"cpu_start_max_c",65.0))
+    if not (100<=battery_start<battery_warning<battery_cutoff<=500):
+        raise ValueError("invalid battery starting/warning/cutoff temperatures")
+    if not (30<=cpu_start<cpu_warning<cpu_cutoff<=85):
+        raise ValueError("invalid CPU starting/warning/cutoff temperatures")
     if a.poll_s<1 or a.poll_s>10 or not 20<=a.limit_s<=2400:
         raise ValueError("invalid watchdog interval/duration")
     first,level=temperature(a.adb,a.serial)
-    if first>=a.start_max_tenths:
+    thermal=cpu_temperature(a.adb,a.serial)
+    if first>=battery_start:
         raise RuntimeError("Refusing sustained device load: battery "+str(first/10)+" C")
     if level<40:
         raise RuntimeError("Refusing device load: battery "+str(level)+"%")
+    if thermal["max_c"]>=cpu_start:
+        raise RuntimeError("Refusing sustained device load: CPU "+str(thermal["max_c"])+" C")
+    if thermal["android_status"]>=3 or thermal.get("max_sensor_status",0)>=3:
+        raise RuntimeError("Refusing load: Android reports severe thermal status")
     log=Path(a.log).resolve()
     log.parent.mkdir(parents=True,exist_ok=True)
     if log.exists():raise FileExistsError("Log already exists: "+str(log))
@@ -114,7 +174,16 @@ def run(a):
         "qa_mode":getattr(a,"qa_mode",None),
         "initial_temperature_c":first/10,
         "initial_battery_percent":level,"max_temperature_c":first/10,
-        "watchdog_cutoff_c":a.cutoff_tenths/10,"status":"RUNNING"}
+        "watchdog_cutoff_c":battery_cutoff/10,
+        "battery_warning_c":battery_warning/10,
+        "initial_cpu_temperatures_c":thermal["sensors_c"],
+        "max_cpu_temperature_c":thermal["max_c"],
+        "max_cpu_temperatures_by_sensor_c":dict(thermal["sensors_c"]),
+        "cpu_warning_c":cpu_warning,"cpu_cutoff_c":cpu_cutoff,
+        "initial_android_thermal_status":thermal["android_status"],
+        "max_android_thermal_status":thermal["android_status"],
+        "max_cpu_sensor_status":thermal.get("max_sensor_status",0),
+        "status":"RUNNING","warnings":[]}
     started=time.monotonic()
     proc=None
     try:
@@ -126,17 +195,41 @@ def run(a):
                     report["status"]="HOST_TIMEOUT_ABORT"
                     report["forced_stop"]=stop_qa(a.adb,a.serial)
                     break
-                try:t,level=temperature(a.adb,a.serial)
+                try:
+                    t,level=temperature(a.adb,a.serial)
+                    thermal=cpu_temperature(a.adb,a.serial)
                 except Exception as e:
-                    report["status"]="ADB_LOST_ABORT"
-                    report["error"]=str(e)[:180]
+                    report["status"]="THERMAL_TELEMETRY_LOST_ABORT"
+                    report["error"]=type(e).__name__+": "+str(e)[:180]
                     report["forced_stop"]=stop_qa(a.adb,a.serial)
                     break
                 report["max_temperature_c"]=max(report["max_temperature_c"],t/10)
-                if t>=a.cutoff_tenths:
+                report["max_cpu_temperature_c"]=max(report["max_cpu_temperature_c"],thermal["max_c"])
+                report["max_android_thermal_status"]=max(
+                    report["max_android_thermal_status"],thermal["android_status"])
+                report["max_cpu_sensor_status"]=max(
+                    report["max_cpu_sensor_status"],thermal.get("max_sensor_status",0))
+                for name,c in thermal["sensors_c"].items():
+                    report["max_cpu_temperatures_by_sensor_c"][name]=max(
+                        report["max_cpu_temperatures_by_sensor_c"].get(name,c),c)
+                if (t>=battery_cutoff or thermal["max_c"]>=cpu_cutoff or
+                    thermal["android_status"]>=3 or thermal.get("max_sensor_status",0)>=3):
                     report["status"]="THERMAL_ABORT"
+                    report["trigger"]={
+                        "battery_c":t/10,"cpu_max_c":thermal["max_c"],
+                        "cpu_sensors_c":thermal["sensors_c"],
+                        "android_thermal_status":thermal["android_status"],
+                        "max_cpu_sensor_status":thermal.get("max_sensor_status",0)}
                     report["forced_stop"]=stop_qa(a.adb,a.serial)
                     break
+                if (t>=battery_warning or thermal["max_c"]>=cpu_warning or
+                    thermal["android_status"]>=2 or thermal.get("max_sensor_status",0)>=2):
+                    warning={
+                        "elapsed_s":round(time.monotonic()-started,1),
+                        "battery_c":t/10,"cpu_max_c":thermal["max_c"],
+                        "android_status":thermal["android_status"]}
+                    report["warnings"].append(warning)
+                    print("THERMAL_WARNING "+json.dumps(warning),flush=True)
             try:proc.wait(timeout=12)
             except subprocess.TimeoutExpired:
                 report["forced_stop"]=stop_qa(a.adb,a.serial)
@@ -179,8 +272,12 @@ if __name__=="__main__":
     parser.add_argument("--adb",required=True,type=Path)
     parser.add_argument("--serial",required=True)
     parser.add_argument("--log",required=True,type=Path)
-    parser.add_argument("--cutoff-tenths",type=int,default=420)
+    parser.add_argument("--cutoff-tenths",type=int,default=450)
     parser.add_argument("--start-max-tenths",type=int,default=390)
+    parser.add_argument("--battery-warning-tenths",type=int,default=430)
+    parser.add_argument("--cpu-cutoff-c",type=float,default=78.0)
+    parser.add_argument("--cpu-warning-c",type=float,default=75.0)
+    parser.add_argument("--cpu-start-max-c",type=float,default=65.0)
     parser.add_argument("--poll-s",type=float,default=2)
     parser.add_argument("--limit-s",type=int,default=900)
     parser.add_argument("--test-case",choices=("long","cross"),default="long")

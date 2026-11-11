@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import android.os.PowerManager
+import android.content.Context
 import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
@@ -37,10 +39,10 @@ class LongContinuousSpeakerBookDeviceTest {
         evidence.writeText(JSONObject()
             .put("run_id", runId).put("status", "RUNNING")
             .put("scope", "long_20min_device_qa").toString(2))
-        // The previous 20m test was aborted when the HONOR battery sensor
-        // reached 47 C. For this *test only*, never start hot or continue
-        // above a conservative 42 C cutoff (sensor reads tenths of a degree).
-        val highestSafeBatteryTenths = 420
+        // Abort if battery hits 45 C on-device, independent of the host.
+        // Host watchdog ALSO checks each current CPU cluster (78 C cutoff)
+        // and Android thermal status. This test must run via the host guard.
+        val highestSafeBatteryTenths = 450
         var peakBatteryTenths = 0
         fun verifyCoolBattery() {
             val reading = target.registerReceiver(
@@ -48,10 +50,14 @@ class LongContinuousSpeakerBookDeviceTest {
                 ?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
             assertTrue("Battery temperature unavailable; fail closed", reading in 100..650)
             if (reading > peakBatteryTenths) peakBatteryTenths = reading
-            if (reading >= highestSafeBatteryTenths) {
+            val thermalStatus = (target.getSystemService(Context.POWER_SERVICE) as PowerManager)
+                .currentThermalStatus
+            if (reading >= highestSafeBatteryTenths ||
+                thermalStatus >= PowerManager.THERMAL_STATUS_SEVERE) {
                 inst.runOnMainSync { if (modelInitialized) model.cancel() }
-                throw AssertionError("THERMAL_ABORT: battery reached " +
-                    (reading / 10.0) + " C; test cutoff 42.0 C")
+                throw AssertionError("THERMAL_ABORT: battery=" +
+                    (reading / 10.0) + " C; test cutoff 45.0 C; android_status=" +
+                    thermalStatus)
             }
         }
         fun awaitIdle(maxMillis: Long) {

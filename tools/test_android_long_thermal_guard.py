@@ -39,6 +39,9 @@ class ThermalWatchdogTests(unittest.TestCase):
             cfg=SimpleNamespace(adb=Path("adb"),serial="FAKE",log=log,
                 start_max_tenths=390,cutoff_tenths=420,poll_s=1,limit_s=20)
             with (patch.object(watchdog,"temperature",return_value=(350,85)),
+                  patch.object(watchdog,"cpu_temperature",return_value={
+                      "sensors_c":{"cluster0":35.0,"cluster1":37.0},
+                      "max_c":37.0,"android_status":0}),
                   patch.object(watchdog.subprocess,"Popen",side_effect=fake_popen),
                   patch.object(watchdog,"stop_qa",return_value=[
                       {"package":QA_PACKAGE,"success":True},
@@ -66,6 +69,9 @@ class ThermalWatchdogTests(unittest.TestCase):
             cfg=SimpleNamespace(adb=Path("adb"),serial="FAKE",log=log,
                 start_max_tenths=390,cutoff_tenths=420,poll_s=1,limit_s=20)
             with (patch.object(watchdog,"temperature",return_value=(350,85)),
+                  patch.object(watchdog,"cpu_temperature",return_value={
+                      "sensors_c":{"cluster0":35.0,"cluster1":37.0},
+                      "max_c":37.0,"android_status":0}),
                   patch.object(watchdog.subprocess,"Popen",side_effect=fake_popen),
                   patch.object(watchdog,"stop_qa",return_value=[
                       {"package":QA_PACKAGE,"success":False},
@@ -91,6 +97,168 @@ class ThermalWatchdogTests(unittest.TestCase):
         for case,mode in (("long","repeat"),("unknown",None),("cross","evil")):
             with self.assertRaises(ValueError):
                 watchdog.instrumentation_command(Path("adb"),"HONOR",case,mode)
+
+    def test_parse_actual_honor_live_cpu_sensors_not_cached(self):
+        source="""Thermal Status: 0
+Cached temperatures:
+    Temperature{mValue=90.0, mType=0, mName=cluster0, mStatus=0}
+Current temperatures from HAL:
+    Temperature{mValue=37.2, mType=1, mName=gpu, mStatus=0}
+    Temperature{mValue=36.0, mType=0, mName=cluster0, mStatus=0}
+    Temperature{mValue=41.4, mType=0, mName=cluster1, mStatus=0}
+    Temperature{mValue=35.0, mType=2, mName=Battery, mStatus=0}
+Current cooling devices from HAL:
+"""
+        t=watchdog.parse_cpu_thermal(source)
+        self.assertEqual(t["sensors_c"],{"cluster0":36.0,"cluster1":41.4})
+        self.assertEqual(t["max_c"],41.4)
+        self.assertEqual(t["android_status"],0)
+
+    def test_missing_unreliable_hal_fails_closed(self):
+        basic="""Thermal Status: 0
+Cached temperatures:
+    Temperature{mValue=30.0, mType=0, mName=cluster0, mStatus=0}
+"""
+        for bad in (basic,
+                    "Current temperatures from HAL:\\nThermal Status: 0",
+                    "Thermal Status: 0\\nCurrent temperatures from HAL:\\n"
+                    "Temperature{mValue=nan, mType=0, mName=cluster0, mStatus=0}",
+                    "Thermal Status: 0\\nCurrent temperatures from HAL:\\n"
+                    "Temperature{mValue=45.0, mType=1, mName=gpu, mStatus=0}",
+                    "Thermal Status: 9\\nCurrent temperatures from HAL:\\n"
+                    "Temperature{mValue=45.0, mType=0, mName=cluster0, mStatus=0}"):
+            with self.subTest(bad=bad[:70]):
+                with self.assertRaises(ValueError):
+                    watchdog.parse_cpu_thermal(bad.replace(chr(92)+"n","\n"))
+
+    def test_cpu_or_battery_or_android_severe_aborts(self):
+        class Running:
+            returncode=None
+            def poll(self):return self.returncode
+            def wait(self,timeout=None):
+                self.returncode=0
+                return 0
+            def terminate(self):self.returncode=-15
+            def kill(self):self.returncode=-9
+        def fake_popen(cmd,stdout,stderr):
+            stdout.write("INSTRUMENTATION_STATUS_CODE: 1\n")
+            stdout.flush()
+            return Running()
+        healthy={"sensors_c":{"cluster0":35.0,"cluster1":39.0},
+                 "max_c":39.0,"android_status":0}
+        cases=[
+            ("CPU",[(350,80),(360,80)],[healthy,
+             {"sensors_c":{"cluster0":76.5,"cluster1":78.0},
+              "max_c":78.0,"android_status":0}]),
+            ("BATTERY",[(350,80),(450,80)],[healthy,healthy]),
+            ("ANDROID_SEVERE",[(350,80),(370,80)],[healthy,
+             {"sensors_c":{"cluster0":50.0,"cluster1":51.0},
+              "max_c":51.0,"android_status":3}]),
+        ]
+        for cause,batteries,cpus in cases:
+            with self.subTest(cause=cause),TemporaryDirectory() as directory:
+                cfg=SimpleNamespace(adb=Path("adb"),serial="FAKE",
+                    log=Path(directory)/"test.log",start_max_tenths=390,
+                    cutoff_tenths=450,poll_s=1,limit_s=300)
+                with (patch.object(watchdog,"temperature",side_effect=batteries),
+                      patch.object(watchdog,"cpu_temperature",side_effect=cpus),
+                      patch.object(watchdog.subprocess,"Popen",side_effect=fake_popen),
+                      patch.object(watchdog.time,"sleep",return_value=None),
+                      patch.object(watchdog,"stop_qa",return_value=[
+                        {"package":QA_PACKAGE,"success":True},
+                        {"package":TEST_PACKAGE,"success":True}]),
+                      patch.object(watchdog,"verify_qa_stopped",return_value={
+                        "verified":True,"remaining":[],"stopped":True})):
+                    self.assertEqual(watchdog.run(cfg),1)
+                report=json.loads(cfg.log.with_suffix(".status.json").read_text())
+                self.assertEqual(report["status"],"THERMAL_ABORT")
+                self.assertEqual(report["watchdog_cutoff_c"],45.0)
+                self.assertEqual(report["cpu_cutoff_c"],78.0)
+                self.assertTrue(report["cleanup_verified"]["stopped"])
+                if cause=="CPU":self.assertEqual(report["trigger"]["cpu_max_c"],78.0)
+                if cause=="BATTERY":self.assertEqual(report["trigger"]["battery_c"],45.0)
+                if cause=="ANDROID_SEVERE":
+                    self.assertEqual(report["trigger"]["android_thermal_status"],3)
+
+    def test_cpu_sensor_severe_status_not_ignored(self):
+        block="""Thermal Status: 0
+Current temperatures from HAL:
+ Temperature{mValue=55.0, mType=0, mName=cluster1, mStatus=3}
+Current cooling devices from HAL:
+"""
+        out=watchdog.parse_cpu_thermal(block)
+        self.assertEqual(out["max_c"],55.0)
+        self.assertEqual(out["max_sensor_status"],3)
+
+    def test_warning_does_not_abort_or_get_mislabeled_pass(self):
+        class OnePoll:
+            returncode=None
+            polls=0
+            def poll(self):
+                self.polls+=1
+                return None if self.polls==1 else 0
+            def wait(self,timeout=None):
+                self.returncode=0
+                return 0
+            def terminate(self):self.returncode=-15
+            def kill(self):self.returncode=-9
+        def fake_popen(cmd,stdout,stderr):
+            stdout.write("No assertion result yet\\n")
+            stdout.flush()
+            return OnePoll()
+        with TemporaryDirectory() as directory:
+            config=SimpleNamespace(adb=Path("adb"),serial="FAKE",
+                log=Path(directory)/"test.log",start_max_tenths=390,
+                cutoff_tenths=450,poll_s=1,limit_s=300)
+            cool={"sensors_c":{"cluster0":40.0,"cluster1":45.0},
+                  "max_c":45.0,"android_status":0}
+            hot={"sensors_c":{"cluster0":74.0,"cluster1":75.0},
+                 "max_c":75.0,"android_status":0}
+            with (patch.object(watchdog,"temperature",side_effect=[(350,85),(430,85)]),
+                  patch.object(watchdog,"cpu_temperature",side_effect=[cool,hot]),
+                  patch.object(watchdog.subprocess,"Popen",side_effect=fake_popen),
+                  patch.object(watchdog.time,"sleep",return_value=None),
+                  patch.object(watchdog,"stop_qa",return_value=[
+                      {"package":QA_PACKAGE,"success":True},
+                      {"package":TEST_PACKAGE,"success":True}]),
+                  patch.object(watchdog,"verify_qa_stopped",return_value={
+                      "verified":True,"stopped":True,"remaining":[]})):
+                self.assertEqual(watchdog.run(config),1)
+            evidence=json.loads(config.log.with_suffix(".status.json").read_text())
+            self.assertEqual(evidence["status"],"FAIL")
+            self.assertEqual(len(evidence["warnings"]),1)
+            self.assertEqual(evidence["warnings"][0]["battery_c"],43.0)
+            self.assertEqual(evidence["warnings"][0]["cpu_max_c"],75.0)
+            self.assertEqual(evidence["max_cpu_temperature_c"],75.0)
+
+    def test_lost_cpu_sensor_during_processing_aborts(self):
+        class Active:
+            returncode=None
+            def poll(self):return self.returncode
+            def wait(self,timeout=None):
+                self.returncode=0
+                return 0
+            def terminate(self):self.returncode=-15
+            def kill(self):self.returncode=-9
+        with TemporaryDirectory() as directory:
+            config=SimpleNamespace(adb=Path("adb"),serial="FAKE",
+                log=Path(directory)/"test.log",start_max_tenths=390,
+                cutoff_tenths=450,poll_s=1,limit_s=300)
+            with (patch.object(watchdog,"temperature",side_effect=[(350,85),(360,85)]),
+                  patch.object(watchdog,"cpu_temperature",side_effect=[
+                      {"sensors_c":{"cluster0":35.0},"max_c":35.0,"android_status":0},
+                      ValueError("HAL current CPU readings disappeared")]),
+                  patch.object(watchdog.subprocess,"Popen",return_value=Active()),
+                  patch.object(watchdog.time,"sleep",return_value=None),
+                  patch.object(watchdog,"stop_qa",return_value=[
+                      {"package":QA_PACKAGE,"success":True},
+                      {"package":TEST_PACKAGE,"success":True}]),
+                  patch.object(watchdog,"verify_qa_stopped",return_value={
+                      "verified":True,"stopped":True,"remaining":[]})):
+                self.assertEqual(watchdog.run(config),1)
+            report=json.loads(config.log.with_suffix(".status.json").read_text())
+            self.assertEqual(report["status"],"THERMAL_TELEMETRY_LOST_ABORT")
+            self.assertTrue(report["cleanup_verified"]["stopped"])
 
     def test_unavailable_or_corrupt(self):
         for text in ("level: 90", "temperature: 420", "temperature: 999\nlevel: 85",

@@ -1,6 +1,11 @@
 package ru.neurostenographer.app
 
 import android.app.Application
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.BatteryManager
+import android.os.PowerManager
+import android.content.Context
 import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
@@ -47,13 +52,35 @@ class CrossWindowSpeakerBookDeviceTest {
             .put("qa_mode", mode).toString(2))
         var verifiedRecord: JSONObject? = null
 
+        fun ensureSafeTemperature() {
+            // Instrumentation can be run without ADB host watchdog;
+            // the battery and Android thermal status still fail closed.
+            // Numeric CPU cluster temperature needs privileged ADB thermalservice
+            // and is enforced by the host watchdog, not this test process.
+            val battery = target.registerReceiver(
+                null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                ?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
+            assertTrue("Battery temperature unavailable", battery in 100..650)
+            val manager = target.getSystemService(Context.POWER_SERVICE) as PowerManager
+            val status = manager.currentThermalStatus
+            if (battery >= 450 || status >= PowerManager.THERMAL_STATUS_SEVERE) {
+                throw AssertionError("THERMAL_ABORT: battery=" +
+                    (battery / 10.0) + " C; android_thermal_status=" + status)
+            }
+        }
         fun idle(limitMs: Long) {
             val deadline = SystemClock.elapsedRealtime() + limitMs
-            while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(200)
+            ensureSafeTemperature()
+            while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) {
+                SystemClock.sleep(200)
+                ensureSafeTemperature()
+            }
             assertFalse("Timeout " + stage + ": " + model.state.value.message, model.state.value.busy)
+            ensureSafeTemperature()
         }
         var movedModel = false
         try {
+            ensureSafeTemperature()
             assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
             if (missingModel) {
                 assertTrue("Missing QA TitaNet model must exist before test", optionalModel.isFile)

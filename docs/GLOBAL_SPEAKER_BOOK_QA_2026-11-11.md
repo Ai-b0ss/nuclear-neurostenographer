@@ -1,3 +1,31 @@
+## QA temperature policy — 12 November 2026 (HONOR)
+
+The previous battery-only 42 C cutoff was a temporary guard used for
+the earlier measurements below, NOT the current policy. Current limits,
+implemented independently in the Android QA instrumentation and
+host-side ADB watchdog, are:
+
+- Do not START while battery temperature is 39 C or above, or current
+  CPU cluster temperature is 65 C or above. Battery charge must be >=40%.
+- Warn at battery >=43 C, any CPU cluster >=75 C, or Android thermal
+  status MODERATE (2).
+- **Stop immediately at battery >=45 C OR any CPU cluster >=78 C OR
+  Android's overall/per-CPU sensor thermal status >=SEVERE (3)**.
+- Read battery from dumpsys battery and both real CPU clusters from
+  *Current temperatures from HAL* in dumpsys thermalservice, every
+  two seconds. Never rely on Cached temperatures or inaccessible
+  /sys/class/thermal entries; if sensor/ADB telemetry disappears, stop.
+- Device-side instrumentation additionally checks battery >=45 C and
+  the Android severe-thermal status. Numeric CPU-cluster cutoffs rely
+  on the host watchdog, which is mandatory for sustained HONOR QA.
+- Always force-stop and verify that **only isolated speakerbookqa
+  packages** terminate. Ordinary production app is untouched.
+
+These are test policies, not manufacturer-certified safe operating
+limits. Earlier 41/42 C and 47 C measurements remain historically
+accurate. Increasing the threshold does not validate speaker accuracy
+or guarantee the 20+ minute test will finish.
+
 ## Second HONOR run, different speakers — thermally aborted
 
 Attempted the distinct-source negative control using the same tested
@@ -92,8 +120,10 @@ speaker ground truth. Feature remains off by default; no release claim.
    начинать длительный тест при температуре аккумулятора
    39 °C и выше, контролирует датчик раз в 2 секунды
    и принудительно останавливает ТОЛЬКО QA-пакеты
-   при 42 °C, таймауте или потере телеметрии.
-   Встроенная проверка Android тоже остаётся.
+   при 45 °C аккумулятора, 78 °C любого CPU-кластера, серьёзном
+   статусе перегрева Android, таймауте или потере телеметрии.
+   Встроенная проверка Android также отключает QA при 45 °C
+   аккумулятора либо серьёзном статусе перегрева Android.
 
 **Проверка:** 20 групп тестов ядра PASS, включая регрессии
 перекрытия, дрейфа и двух независимых частей.

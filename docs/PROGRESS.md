@@ -1,3 +1,20 @@
+## 2026-11-12 — independent battery + CPU thermal limits
+
+- Owner requested a less restrictive but still bounded experimental
+  thermal policy: battery abort at **45 C**, CPU cluster abort at **78 C**;
+  warnings at battery **43 C**, CPU **75 C**.
+- Confirmed HONOR Android 10 Thermal HAL exposes current readings for
+  cluster0, cluster1 and Android Thermal Status via ADB. Both CPU readings
+  were ~35 C when the battery was 36 C; /sys/class/thermal is not
+  accessible on this stock phone.
+- Host watchdog reads CURRENT (not cached) CPU HAL readings and battery
+  every 2 seconds, checks severe OS/sensor status, and fails closed
+  when telemetry is unavailable. Android QA independently checks battery
+  and OS severe status. CPU numeric enforcement requires host watchdog.
+- Previous tests with the 42 C cutoff remain historically accurate.
+  CPU threshold change needs CI, Android compile and fresh hardware
+  negative-control/endurance evidence before claiming completion.
+
 ## 2026-11-12 — device negative-control attempt and thermal gate
 
 - A second HONOR instrumentation run used distinct public speakers
