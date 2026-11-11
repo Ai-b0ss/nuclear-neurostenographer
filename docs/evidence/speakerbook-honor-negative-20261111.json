@@ -1,0 +1,45 @@
+{
+  "schema": "neurostenographer-speakerbook-negative-control-v1",
+  "date": "2026-11-11",
+  "device": {
+    "model": "HONOR 10X Lite DNN-LX9",
+    "android": "10",
+    "abi": "arm64-v8a"
+  },
+  "qa_variant": "ru.neurostenographer.app.speakerbookqa",
+  "scope": "different_source_audio_clips_speaker_identities_not_independently_annotated",
+  "fixture": {
+    "first": "01_ru_two_speakers_slow.wav",
+    "second": "05_ru_truecrime_three_speakers_natural.wav",
+    "second_start_ms": 302000,
+    "sha256": "a2dc1e9667bda9f27dc38db97d28501b628a3b0d635a4bdc9837b8c24ca98355",
+    "duration_ms": 421300,
+    "human_disjoint_speaker_verification": false
+  },
+  "outcome": {
+    "android_instrumentation": "FAIL_expected_no_shared_ids",
+    "reason": "Potential cross-window false merge: Speaker 2 reused for different source clips",
+    "wall_ms": 135264,
+    "rtf": 0.3210633752670306,
+    "profiled_blocks": 2,
+    "first_speaker_ids": [
+      "Speaker 2",
+      "Speaker 1"
+    ],
+    "second_speaker_ids": [
+      "Speaker 3",
+      "Speaker 4",
+      "Speaker 2"
+    ],
+    "shared_speaker_ids": [
+      "Speaker 2"
+    ],
+    "segments": 21
+  },
+  "scope_limitations": [
+    "Different recordings do not prove distinct participant identities without ground-truth annotation.",
+    "Long digital silence was skipped by processing; RTF is not representative of continuous dialogue.",
+    "This QA result is a safety warning, not a DER metric."
+  ],
+  "release_decision": "Do not enable GlobalSpeakerBook in default builds, require independently validated speaker-verification embeddings and held-out corpus."
+}

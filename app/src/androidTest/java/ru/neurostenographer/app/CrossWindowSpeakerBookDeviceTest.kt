@@ -19,9 +19,13 @@ class CrossWindowSpeakerBookDeviceTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val target = instrumentation.targetContext
         assumeTrue("Experimental test is not part of default Android CI", BuildConfig.GLOBAL_SPEAKER_BOOK)
-        val source = File(requireNotNull(target.getExternalFilesDir("qa")), "speakerbook_repeat_after_5min.wav")
+        val negativeControl = InstrumentationRegistry.getArguments().getString("qaMode") == "differentSources"
+        val fixtureName = if (negativeControl) "speakerbook_unrelated_after_5min.wav" else "speakerbook_repeat_after_5min.wav"
+        val source = File(requireNotNull(target.getExternalFilesDir("qa")), fixtureName)
         assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
-        val evidence = File(target.filesDir, "speakerbook-device-evidence.json")
+        val evidence = File(target.filesDir,
+            if (negativeControl) "speakerbook-different-sources-evidence.json"
+            else "speakerbook-device-evidence.json")
         val owner = ViewModelStore()
         lateinit var model: TranscriptionViewModel
         var stage = "setup"
@@ -60,7 +64,10 @@ class CrossWindowSpeakerBookDeviceTest {
             val blocks = Regex("профили получены для ([0-9]+) блоков")
                 .find(warning)?.groupValues?.get(1)?.toIntOrNull() ?: 0
             val record = JSONObject()
-                .put("scope", "repeated_public_clip_gain_changed_not_independent_accuracy")
+                .put("scope", if (negativeControl)
+                    "different_source_clips_speakers_not_identity_annotated"
+                    else "repeated_public_clip_gain_changed_not_independent_accuracy")
+                .put("qa_mode", if (negativeControl) "differentSources" else "repeat")
                 .put("duration_ms", doc.audioMs)
                 .put("wall_ms", elapsed).put("rtf", elapsed.toDouble() / doc.audioMs)
                 .put("segments", doc.segments.size)
@@ -80,7 +87,12 @@ class CrossWindowSpeakerBookDeviceTest {
             assertTrue("First block text missing", initial.isNotEmpty())
             assertTrue("Second block text missing", repeated.isNotEmpty())
             assertTrue("Both blocks need voice profiles", blocks >= 2)
-            assertTrue("Returned speaker was not linked across blocks", shared.isNotEmpty())
+            if (negativeControl) {
+                assertTrue("Potential cross-window false-merge of speakers from different clips: " + shared,
+                    shared.isEmpty())
+            } else {
+                assertTrue("Returned speaker was not linked across blocks", shared.isNotEmpty())
+            }
         } catch (e: Throwable) {
             if (!evidence.exists()) evidence.writeText(JSONObject()
                 .put("scope", "voice_link_test_error").put("stage", stage)
