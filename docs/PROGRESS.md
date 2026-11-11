@@ -30,6 +30,21 @@
   Feature remains QA-only and MUST NOT ship before new physical
   revalidation plus speaker-disjoint Russian field data.
 
+## 2026-11-11 — PR #54 review fixes and workspace consolidation
+
+- Git workspace copies reduced from 31 to one canonical checkout
+  (during the final consolidation step); unique uncommitted reports
+  preserved separately, one latest RC4 production APK retained.
+- Additional read-only review detected QA application-ID suffix collision,
+  host watchdog early exit, and stale short-device evidence.
+  All three fixed and tested with Python unit tests and Android compilation.
+- Unrelated shared NonCancellable transcript save change reverted to
+  origin/main while speakerbook QA remains opt-in.
+- Latest tests: Android debug + AndroidTest Kotlin compile PASS;
+  Gradle negative-flag configuration test PASS; host watchdog five tests PASS.
+- Merge remains blocked on untested continuous 20+ minute physical
+  run and Russian held-out identity/diarization validation.
+
 ## 2026-11-11 — correctness hardening after independent code review
 
 - Ineligible/short overlapping turns are explicitly excluded from

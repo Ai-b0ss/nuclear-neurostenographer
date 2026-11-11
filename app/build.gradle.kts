@@ -120,11 +120,6 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
-    // Never overwrite the installed competition/product package with unvalidated voice linking.
-    if (globalSpeakerBook) {
-        defaultConfig.applicationIdSuffix = ".speakerbookqa"
-        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Voice QA"
-    }
     if (englishAuto) sourceSets.getByName("main").assets.srcDir(rootProject.file(".local/englishAssets"))
     if (providers.gradleProperty("checkpointQa").orNull == "true") {
         defaultConfig.applicationIdSuffix = ".checkpoint"
@@ -219,6 +214,21 @@ android {
         sourceSets.getByName("androidTest").java.srcDirs("src/litertProbe/java", "src/litertProbeTest/java")
         kotlinOptions { freeCompilerArgs += "-Xskip-metadata-version-check" }
         androidResources { noCompress += "tflite" }
+    }
+    // Last and FINAL suffix assignment: never let any QA combination overwrite
+    // another already-installed app. Incompatible variants must fail the build.
+    if (globalSpeakerBook) {
+        check(providers.gradleProperty("checkpointQa").orNull != "true" &&
+              !fddtQa && !solHighAcceptance &&
+              providers.gradleProperty("a3SideBySide").orNull != "true" &&
+              !realtimeSideBySide && !nemotronPrototype && !c2Candidate &&
+              providers.gradleProperty("litertProbe").orNull != "true") {
+            "globalSpeakerBook is an isolated QA app. Disable checkpointQa/fddtQa/" +
+            "solHighAcceptance/a3SideBySide/realtimeSideBySide/" +
+            "nemotronPrototype/c2Candidate/litertProbe."
+        }
+        defaultConfig.applicationIdSuffix = ".speakerbookqa"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Voice QA"
     }
 }
 dependencies {

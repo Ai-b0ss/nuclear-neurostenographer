@@ -53,6 +53,29 @@ def stop_qa(adb,serial):
     return results
 
 
+def remaining_qa_processes(ps_text):
+    """Return only exact QA package names or their secondary processes."""
+    found=[]
+    for line in ps_text.splitlines():
+        parts=line.split()
+        if not parts:
+            continue
+        name=parts[-1]
+        if (name in (QA_PACKAGE, TEST_PACKAGE) or
+                name.startswith(QA_PACKAGE+":") or
+                name.startswith(TEST_PACKAGE+":")):
+            found.append(name)
+    return sorted(set(found))
+
+
+def verify_qa_stopped(adb,serial):
+    p=adb_call(adb,serial,"shell","ps","-A")
+    if p.returncode:
+        return {"verified":False,"error":"Cannot inspect device process table"}
+    running=remaining_qa_processes(p.stdout)
+    return {"verified":True,"remaining":running,"stopped":not running}
+
+
 def run(a):
     if not (100<=a.start_max_tenths<a.cutoff_tenths<=450):
         raise ValueError("start temperature must be below cutoff")
@@ -101,14 +124,29 @@ def run(a):
                 except subprocess.TimeoutExpired:proc.kill()
     finally:
         if proc is not None and proc.poll() is None:
-            stop_qa(a.adb,a.serial)
             proc.terminate()
+            try:proc.wait(timeout=4)
+            except subprocess.TimeoutExpired:proc.kill()
         report["wall_seconds"]=round(time.monotonic()-started,2)
         report["instrumentation_exit_code"]=proc.returncode if proc else None
         if report["status"]=="RUNNING":
             tail=log.read_text(encoding="utf8",errors="replace")[-4000:]
             report["status"]="PASS" if ("OK (1 test)" in tail and
                  "FAILURES!!!" not in tail and proc.returncode==0) else "FAIL"
+        # Always force-stop our isolated QA packages, including when adb's
+        # local client exits prematurely while native Android workers remain.
+        # Never force-stop the ordinary product application.
+        report["forced_stop"]=stop_qa(a.adb,a.serial)
+        try:
+            report["cleanup_verified"]=verify_qa_stopped(a.adb,a.serial)
+        except Exception as cleanup_error:
+            report["cleanup_verified"]={
+                "verified":False,"error":type(cleanup_error).__name__+
+                ": "+str(cleanup_error)[:160]}
+        if report["status"]=="PASS" and (
+            not all(x["success"] for x in report["forced_stop"]) or
+            not report["cleanup_verified"].get("stopped",False)):
+            report["status"]="CLEANUP_NOT_CONFIRMED"
         summary=log.with_suffix(".status.json")
         summary.write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding="utf8")
         print(json.dumps(report,ensure_ascii=False,indent=2),flush=True)

@@ -26,7 +26,6 @@ class CrossWindowSpeakerBookDeviceTest {
         val fixtureName = if (negativeControl) "speakerbook_unrelated_after_5min.wav" else "speakerbook_repeat_after_5min.wav"
         val qaDir = requireNotNull(target.getExternalFilesDir("qa"))
         val source = File(qaDir, fixtureName)
-        assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
         // Rename only our QA TitaNet model, restoring it even if the test fails.
         // This exercises the REAL worker's absent-model fail-closed path.
         val optionalModel = File(qaDir, "titanet/nemo_en_titanet_small.onnx")
@@ -40,6 +39,13 @@ class CrossWindowSpeakerBookDeviceTest {
         lateinit var model: TranscriptionViewModel
         var stage = "setup"
         val start = SystemClock.elapsedRealtime()
+        val runId = SystemClock.elapsedRealtimeNanos().toString()
+        // Prior evidence is never a result for the current run.
+        evidence.writeText(JSONObject()
+            .put("run_id", runId).put("status", "RUNNING")
+            .put("scope", "voice_link_device_qa")
+            .put("qa_mode", mode).toString(2))
+        var verifiedRecord: JSONObject? = null
 
         fun idle(limitMs: Long) {
             val deadline = SystemClock.elapsedRealtime() + limitMs
@@ -48,6 +54,7 @@ class CrossWindowSpeakerBookDeviceTest {
         }
         var movedModel = false
         try {
+            assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
             if (missingModel) {
                 assertTrue("Missing QA TitaNet model must exist before test", optionalModel.isFile)
                 assertFalse("Stale QA backup must not be overwritten", heldModel.exists())
@@ -82,6 +89,7 @@ class CrossWindowSpeakerBookDeviceTest {
             val blocks = Regex("профили получены для ([0-9]+) блоков")
                 .find(warning)?.groupValues?.get(1)?.toIntOrNull() ?: 0
             val record = JSONObject()
+                .put("run_id", runId)
                 .put("scope", when (mode) {
                     "differentSources" -> "different_source_clips_speakers_not_identity_annotated"
                     "withoutModel" -> "missing_optional_model_must_keep_block_local_ids"
@@ -100,8 +108,6 @@ class CrossWindowSpeakerBookDeviceTest {
                 .put("warning", warning)
                 .put("first_text_preview", initial.joinToString(" ") { it.text }.take(250))
                 .put("second_text_preview", repeated.joinToString(" ") { it.text }.take(250))
-            evidence.writeText(record.toString(2))
-            Log.i("SpeakerBookDeviceQA", record.toString())
             assertFalse("False unknown-speaker warning on a long-file result", warning.contains("Говорящие не определены."))
             assertTrue("First block text missing", initial.isNotEmpty())
             assertTrue("Second block text missing", repeated.isNotEmpty())
@@ -124,19 +130,36 @@ class CrossWindowSpeakerBookDeviceTest {
                     assertTrue("Returned speaker was not linked across blocks", shared.isNotEmpty())
                 }
             }
+            verifiedRecord = record
         } catch (e: Throwable) {
-            if (!evidence.exists()) evidence.writeText(JSONObject()
+            evidence.writeText(JSONObject()
+                .put("run_id", runId).put("status", "FAIL")
                 .put("scope", "voice_link_test_error").put("stage", stage)
                 .put("error", e.javaClass.simpleName).put("message", e.message ?: "")
                 .put("elapsed_ms", SystemClock.elapsedRealtime() - start).toString(2))
             throw e
         } finally {
-            // Always return the exact original QA model to its previous name.
-            if (movedModel) {
-                assertTrue("Failed to restore TitaNet QA model", heldModel.renameTo(optionalModel))
-                assertTrue("Restored model missing", optionalModel.isFile)
+            try {
+                // Always return the exact original QA model to its previous name.
+                if (movedModel) {
+                    assertTrue("Failed to restore TitaNet QA model", heldModel.renameTo(optionalModel))
+                    assertTrue("Restored model missing", optionalModel.isFile)
+                }
+                instrumentation.runOnMainSync { owner.clear() }
+            } catch (cleanupError: Throwable) {
+                evidence.writeText(JSONObject()
+                    .put("run_id", runId).put("status", "FAIL")
+                    .put("scope", "voice_link_test_cleanup_error")
+                    .put("stage", "cleanup")
+                    .put("error", cleanupError.javaClass.simpleName)
+                    .put("message", cleanupError.message ?: "").toString(2))
+                throw cleanupError
             }
-            instrumentation.runOnMainSync { owner.clear() }
         }
+        // Publish PASS only after assertions AND cleanup succeed.
+        val record = requireNotNull(verifiedRecord)
+        record.put("status", "PASS")
+        evidence.writeText(record.toString(2))
+        Log.i("SpeakerBookDeviceQA", record.toString())
     }
 }
