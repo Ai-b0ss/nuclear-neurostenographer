@@ -18,6 +18,8 @@ fun main() {
     testVerifiedModelBundle()
     testDiarizationTimeline()
     testGlobalSpeakerBook()
+    testCleanSpeakerFrames()
+    testVoicePrintAgreement()
     testDecodeBudget()
     testAudioProcessingClock()
     testShortProcessingEta()

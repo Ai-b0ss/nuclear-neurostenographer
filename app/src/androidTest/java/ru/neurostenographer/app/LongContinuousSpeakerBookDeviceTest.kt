@@ -32,6 +32,11 @@ class LongContinuousSpeakerBookDeviceTest {
         var modelInitialized = false
         var stage = "startup"
         val begun = SystemClock.elapsedRealtime()
+        // Overwrite any stale success evidence BEFORE processing starts.
+        val runId = SystemClock.elapsedRealtimeNanos().toString()
+        evidence.writeText(JSONObject()
+            .put("run_id", runId).put("status", "RUNNING")
+            .put("scope", "long_20min_device_qa").toString(2))
         // The previous 20m test was aborted when the HONOR battery sensor
         // reached 47 C. For this *test only*, never start hot or continue
         // above a conservative 42 C cutoff (sensor reads tenths of a degree).
@@ -91,6 +96,7 @@ class LongContinuousSpeakerBookDeviceTest {
                 segments.count { it.startMs / 300_000L == index.toLong() }
             }
             val result = JSONObject()
+                .put("run_id", runId)
                 .put("scope", "20min40s_continuous_test_audio_no_ground_truth")
                 .put("duration_ms", duration)
                 .put("wall_ms", recognitionMillis)
@@ -103,8 +109,6 @@ class LongContinuousSpeakerBookDeviceTest {
                 .put("speaker_source", doc.provenance.speakerSource)
                 .put("segments_by_5min_interval", JSONArray(buckets))
                 .put("warning", warning)
-            evidence.writeText(result.toString(2))
-            Log.i("SpeakerBookLongDeviceQA", result.toString())
             assertEquals("Long-file duration must be preserved", duration, doc.audioMs)
             assertTrue("No ASR result for real continuous recording", segments.size >= 20)
             assertTrue("All transcript segments must be within audio",
@@ -118,8 +122,17 @@ class LongContinuousSpeakerBookDeviceTest {
             assertTrue("No C2 profiling at all", profileBlocks > 0)
             assertEquals("Long recording must use specialized voice embeddings",
                 "chunked_titanet_small_voice_embeddings_qa", doc.provenance.speakerSource)
+            // Success only AFTER every postcondition has been established.
+            result.put("status", "PASS")
+            evidence.writeText(result.toString(2))
+            Log.i("SpeakerBookLongDeviceQA", result.toString())
         } catch (e: Throwable) {
-            if (!evidence.exists()) evidence.writeText(JSONObject()
+            // A failed assertion or cancellation MUST REPLACE stale success
+            // evidence from an earlier run. Always persist a terminal state.
+            val thermal = e.message?.startsWith("THERMAL_ABORT") == true
+            evidence.writeText(JSONObject()
+                .put("run_id", runId)
+                .put("status", if (thermal) "THERMAL_ABORT" else "FAIL")
                 .put("scope", "long_20min_device_qa_error")
                 .put("stage", stage).put("error", e.javaClass.simpleName)
                 .put("message", e.message ?: "")
@@ -127,10 +140,19 @@ class LongContinuousSpeakerBookDeviceTest {
                 .put("elapsed_ms", SystemClock.elapsedRealtime() - begun).toString(2))
             throw e
         } finally {
-            inst.runOnMainSync {
-                if (modelInitialized) model.cancel()
-                store.clear()
+            if (modelInitialized) {
+                inst.runOnMainSync { model.cancel() }
+                // Cancellation request alone does not prove that native
+                // computation stopped; wait briefly and log that uncertainty.
+                val deadline = SystemClock.elapsedRealtime() + 5_000L
+                while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline)
+                    SystemClock.sleep(200)
+                if (model.state.value.busy) {
+                    Log.e("SpeakerBookLongDeviceQA",
+                        "Native worker cancellation unacknowledged; host-side ADB watchdog required")
+                }
             }
+            inst.runOnMainSync { store.clear() }
         }
     }
 }

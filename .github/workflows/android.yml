@@ -29,6 +29,12 @@ jobs:
           gradle-version: '8.9'
       - name: Validate same-corpus WER/cpWER scoring
         run: python3 -m unittest discover -s tools -p test_compare_transcript_outputs.py -v
+      - name: Validate speaker-verification metric math and known/unknown gates
+        run: python3 -m unittest discover -s tools -p test_speaker_verification_metrics.py -v
+      - name: Validate long-recording thermal watchdog input parser
+        run: python3 -m unittest discover -s tools -p test_android_long_thermal_guard.py -v
+      - name: Validate public speaker-disjoint VCTK evidence integrity
+        run: python3 -m unittest discover -s tools -p test_vctk_quantitative_evidence.py -v
       - name: Verify pinned sherpa-onnx runtime
         env:
           GH_TOKEN: ${{ github.token }}

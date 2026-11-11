@@ -4,6 +4,8 @@ import android.content.Context
 import com.k2fsa.sherpa.onnx.SpeakerEmbeddingExtractor
 import com.k2fsa.sherpa.onnx.SpeakerEmbeddingExtractorConfig
 import ru.neurostenographer.core.PcmAudio
+import ru.neurostenographer.core.CleanSpeakerFrames
+import ru.neurostenographer.core.VoicePrintAgreement
 import ru.neurostenographer.core.SpeakerTurn
 import ru.neurostenographer.core.VoicePrint
 import java.io.File
@@ -42,57 +44,56 @@ object TitaNetVoiceProfiles {
         }
         if (hash.digest().joinToString("") { "%02x".format(it.toInt() and 0xff) } != SHA256) return emptyList()
 
-        val speakers = turns.filter { it.attributionEligible }
-            .map { it.speakerId }.distinct()
-        if (speakers.isEmpty() || speakers.size > 8) return emptyList()
         val frames = (audio.samples.size / SAMPLE_PER_HOP)
         if (frames == 0 || frames > 30000) return emptyList()
 
-        // A 40 ms frame must be fully covered by exactly ONE C2 speaker.
-        // Partially covered frames and overlaps never become voice evidence.
-        val owners = IntArray(frames) { -1 }
-        val idToIndex = speakers.withIndex().associate { it.value to it.index }
-        for (t in turns) {
-            if (!t.attributionEligible || t.endMs > audio.durationMs) continue
-            val id = idToIndex[t.speakerId] ?: continue
-            val start = ((t.startMs + HOP_MS - 1) / HOP_MS).toInt().coerceIn(0, frames)
-            val end = (t.endMs / HOP_MS).toInt().coerceIn(0, frames)
-            for (i in start until end) {
-                if (owners[i] == -1) owners[i] = id
-                else if (owners[i] != id) owners[i] = -2
-            }
+        // Compute evidence from all turns, not just eligible ones: an
+        // ineligible/unknown overlapping turn must block its contaminated
+        // samples even when it is excluded from voice attribution.
+        val selection = CleanSpeakerFrames.select(turns, frames, audio.durationMs, HOP_MS)
+        val speakers = selection.speakerIds
+        if (speakers.isEmpty()) return emptyList()
+        val owners = selection.owners
+        // Require two separate temporal samples, each at least 3 seconds.
+        // Sampling the first 16 seconds alone could authorize misattribution
+        // of an unrelated speaker incorrectly reusing C2's slot later.
+        val plans = speakers.indices.mapNotNull { index ->
+            CleanSpeakerFrames.separate(owners, index,
+                minFramesPerSample = (MIN_VOICE_MS / HOP_MS).toInt(),
+                maxFramesPerSample = (MAX_VOICE_MS / 2 / HOP_MS).toInt())
+                ?.let { index to it }
         }
-        val sampleLimit = MAX_VOICE_MS.toInt() * RATE / 1000
-        val signal = Array(speakers.size) { FloatArray(sampleLimit) }
-        val count = IntArray(speakers.size)
-        for (frame in owners.indices) {
-            val id = owners[frame]
-            if (id !in speakers.indices || count[id] + SAMPLE_PER_HOP > sampleLimit) continue
-            val offset = frame * SAMPLE_PER_HOP
-            audio.samples.copyInto(signal[id], count[id], offset, offset + SAMPLE_PER_HOP)
-            count[id] += SAMPLE_PER_HOP
-        }
-        val eligible = speakers.indices.filter {
-            count[it] >= MIN_VOICE_MS.toInt() * RATE / 1000
-        }
-        if (eligible.isEmpty()) return emptyList()
+        if (plans.isEmpty()) return emptyList()
         val extractor = SpeakerEmbeddingExtractor(config = SpeakerEmbeddingExtractorConfig(
             model = model.absolutePath, numThreads = 2, debug = false, provider = "cpu"))
         try {
             require(extractor.dim() == DIM) { "Unexpected TitaNet dimension" }
-            return eligible.mapNotNull { id ->
+            fun embedding(frames: IntArray): FloatArray? {
+                val pcm = FloatArray(frames.size * SAMPLE_PER_HOP)
+                frames.forEachIndexed { i, frame ->
+                    val offset = frame * SAMPLE_PER_HOP
+                    audio.samples.copyInto(pcm, i * SAMPLE_PER_HOP,
+                        offset, offset + SAMPLE_PER_HOP)
+                }
                 val stream = extractor.createStream()
                 try {
-                    val pcm = signal[id].copyOf(count[id])
                     stream.acceptWaveform(pcm, RATE)
                     stream.inputFinished()
-                    if (!extractor.isReady(stream)) return@mapNotNull null
-                    val emb = extractor.compute(stream)
-                    if (emb.size != DIM || emb.any { !it.isFinite() }) return@mapNotNull null
-                    VoicePrint(speakers[id], emb, count[id].toLong() * 1000 / RATE)
+                    if (!extractor.isReady(stream)) return null
+                    return extractor.compute(stream).takeIf {
+                        it.size == DIM && it.all { value -> value.isFinite() }
+                    }
                 } finally {
                     stream.release()
                 }
+            }
+            return plans.mapNotNull { (index, parts) ->
+                val early = embedding(parts.early) ?: return@mapNotNull null
+                val late = embedding(parts.late) ?: return@mapNotNull null
+                val agreed = VoicePrintAgreement.mergeIfConsistent(early, late)
+                    ?: return@mapNotNull null
+                VoicePrint(speakers[index], agreed,
+                    (parts.early.size + parts.late.size).toLong() * HOP_MS)
             }
         } finally {
             extractor.release()

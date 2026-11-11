@@ -1,5 +1,64 @@
 # Progress — 2026-10-30
 
+## 2026-11-11 — independent Codex Sol 6.1 High audit hardening
+
+- Independent read-only auxiliary audit flagged two concrete identity
+  vulnerabilities: ineligible overlapping speech contaminated "clean"
+  audio, and incremental centroid updates could drift away from
+  an original speaker. Fixed both with fail-closed semantics.
+- Added clean-frame mask with every turn contributing as a blocker,
+  immutable enrollment anchor in GlobalSpeakerBook, and TWO
+  temporally disjoint (>=3s each) TitaNet fingerprints per local
+  speaker with required within-block similarity >=0.84.
+- New Kotlin regression tests for false overlap, sub-frame fragments,
+  gradual identity drift, independent temporal evidence and mixed-speaker
+  detection. All 20 core test groups passed locally after the changes.
+  Android QA + instrumentation Kotlin compilation PASSED (32 tasks).
+- Corrected cancellation/persistence race by making final history
+  save + audio move + UI publication one non-cancellable commit.
+- Fixed stale success evidence in 20m QA instrumentation: RUNNING,
+  PASS only after assertions, FAIL/THERMAL_ABORT always written.
+  Added independent host ADB watchdog with 39C preflight and 42C
+  cutoff, with pure unit tests for battery parser.
+- PC VCTK proxy of two independent excerpts/person: 15/24 people
+  had consistent profiles at 0.84, 9 rejected; of 15 resulting profiles,
+  14 linked a third utterance, 1 rejected, 0 wrong links.
+  This is NOT a physical C2 five-minute-block test.
+- IMPORTANT: new dual-voice code has not been retested on HONOR
+  because previous sustained inference reached battery 47C.
+  Earlier HONOR PASS evidence applies to single-profile revision.
+  Feature remains QA-only and MUST NOT ship before new physical
+  revalidation plus speaker-disjoint Russian field data.
+
+## 2026-11-11 — correctness hardening after independent code review
+
+- Ineligible/short overlapping turns are explicitly excluded from
+  identity evidence; regression covers 200ms and sub-frame overlaps.
+- Global voice-book matching now checks original immutable enrollment
+  anchor as well as adaptive centroid, blocking identity drift.
+- Two temporally separated clean voice excerpts must agree for a
+  TitaNet profile to be accepted (conservative; can reduce coverage).
+- Long physical QA has terminal evidence status and an optional host
+  temperature watchdog that stops only QA packages.
+- Core tests passed; current newly hardened Android behavior still
+  requires a physical recheck after phone cooling.
+
+## 2026-11-11 — speaker-disjoint VCTK quantitative validation
+
+- 108 VCTK mic2 excerpts, 36 labelled people, 3 distinct clips each.
+- First 6 people used to calibrate 0.632, next 6 for preliminary holdout;
+  a fresh set of 24 was evaluated with both 0.84 and FROZEN 0.632.
+- Fresh 24: 0.84 -> 0/2484 false pair matches but 26/72 false rejects.
+  0.632 -> 10/2484 false pair matches, 0/72 false rejects.
+- In two-rotation unknown-voice enrollment test, at 0.632 there were
+  5/72 wrongly accepted unknown utterances, from 4 actual people;
+  at 0.84 there were 20/48 rejected known utterances.
+- Simulated noise, echo and telephone filter revealed severe
+  enrollment/probe acoustic mismatch; do not promote thresholds to
+  production. Model uses English VCTK and no verified Russian DER.
+- Evidence and clip checksum manifest stored in docs/evidence;
+  pure Python scorer and its 6 regression tests added to CI.
+
 ## 2026-11-11 — TitaNet Small speaker verification, physical HONOR QA
 
 - After the first negative-control C2 false-match warning, switched active QA

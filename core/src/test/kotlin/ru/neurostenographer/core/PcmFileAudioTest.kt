@@ -45,6 +45,17 @@ fun testPcmFileAudio() {
         check(PcmFileAudio.MAX_ENCODED_BYTES == 5L * 1024 * 1024 * 1024)
         // Sparse eight-hour file: read the end without allocating/reading an hour of floats.
         val long = File(directory, "hour.wav")
+        // Windows RandomAccessFile.setLength allocates the entire 8-hour WAV
+        // unless the file is explicitly marked sparse. That can exhaust the
+        // test drive even though the test reads only the final PCM sample.
+        // Linux/macOS already create sparse holes by default.
+        if (System.getProperty("os.name").startsWith("Windows", ignoreCase = true)) {
+            check(long.createNewFile())
+            val result = ProcessBuilder("fsutil.exe", "sparse", "setflag", long.absolutePath)
+                .redirectErrorStream(true).start()
+            val log = result.inputStream.bufferedReader().use { it.readText() }
+            check(result.waitFor() == 0) { "Cannot create sparse test WAV: " + log }
+        }
         val frames = 28800L * 16000
         RandomAccessFile(long, "rw").use { f ->
             fun le(value: Long, bytes: Int) { repeat(bytes) { f.write((value ushr (8 * it)).toInt() and 255) } }

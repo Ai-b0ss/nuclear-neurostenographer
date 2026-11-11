@@ -343,18 +343,29 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         // A file the user named themselves keeps its name.
         val topic = if (named.startsWith("Запись ") || named == "Аудиофайл") TopicTitle.suggest(document.segments) else null
         val title = if (topic != null) topic + " · " + named.removePrefix("Запись ") else named
-        val saved = withContext(Dispatchers.IO) {
-            history.save(title, document).also { saved ->
-                // Preserve decoded audio for seeking. Rename on the same volume,
-                // no RAM-sized copy. A playback failure must not drop the transcript.
-                mutable.value.source?.path?.let { history.attachAudio(saved.id, File(it)) }
+        // Cancellation is allowed until this point. Once the first history file
+        // is written, we must finish attaching the audio and publishing the
+        // new state as ONE non-cancellable commit, otherwise the original WAV
+        // may move while the UI keeps a stale file path after cancellation.
+        currentCoroutineContext().ensureActive()
+        val snapshotToCommit = mutable.value.source
+        withContext(NonCancellable) {
+            val saved = withContext(Dispatchers.IO) {
+                history.save(title, document).also { saved ->
+                    // Preserve decoded audio for seeking. Rename on the same volume,
+                    // no RAM-sized copy. A playback failure must not drop the transcript.
+                    snapshotToCommit?.path?.let { history.attachAudio(saved.id, File(it)) }
+                }
             }
+            // Attached audio no longer exists at the temporary snapshot path.
+            discardSnapshot(snapshotToCommit)
+            mutable.value = mutable.value.copy(source = null, sourceName = null,
+                segments = document.segments, document = document,
+                sourceDurationMs = output.audioMs, speakerSource = speakerSource,
+                timestampSource = timestampSource, current = saved,
+                history = listOf(saved) + mutable.value.history,
+                details = details, message = READY)
         }
-        // Attached audio no longer exists at the temporary snapshot path.
-        discardSnapshot(mutable.value.source)
-        mutable.value = mutable.value.copy(source = null, sourceName = null, segments = document.segments, document = document,
-            sourceDurationMs = output.audioMs, speakerSource = speakerSource, timestampSource = timestampSource,
-            current = saved, history = listOf(saved) + mutable.value.history, details = details, message = READY)
     }
 
     /** C2/C0 speaker timing is kept separate from overall ASR checkpoints. On a

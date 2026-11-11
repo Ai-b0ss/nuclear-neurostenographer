@@ -37,5 +37,26 @@ fun testGlobalSpeakerBook() {
     check(arr.contentEquals(floatArrayOf(1f, 0f, 0f)))
     check(runCatching { book.link(listOf(p("dup", 1f, 0f), p("dup", 0f, 1f))) }.isFailure)
     check(runCatching { book.link((0..8).map { p("id$it", 1f, 0f) }) }.isFailure)
+    // An adapting centroid must NEVER be allowed to drift away from the
+    // first enrollment voice. The old implementation accepted repeated
+    // small rotations until it linked nearly orthogonal speakers.
+    val driftBook = GlobalSpeakerBook()
+    check(driftBook.link(listOf(p("enroll", 1f, 0f)))["enroll"] == "Speaker 1")
+    for (angle in 4..100 step 4) {
+        val rad = Math.toRadians(angle.toDouble())
+        val probe = p("probe", kotlin.math.cos(rad).toFloat(),
+                      kotlin.math.sin(rad).toFloat())
+        val assigned = driftBook.link(listOf(probe))["probe"]
+        if (angle >= 36) {
+            check(assigned != "Speaker 1") {
+                "Unanchored centroid drifted identity to angle " + angle
+            }
+        }
+    }
+    // The immutable anchor does NOT stop ordinary small speaker variation.
+    val stableBook = GlobalSpeakerBook()
+    check(stableBook.link(listOf(p("a", 1f, 0f)))["a"] == "Speaker 1")
+    check(stableBook.link(listOf(p("b", 0.985f, 0.17f)))["b"] == "Speaker 1")
+    check(stableBook.link(listOf(p("c", 0.98f, 0.19f)))["c"] == "Speaker 1")
     println("PASS global speaker book: A-B-A, swapped slots, ambiguity, collision, overlap, invalid input")
 }
