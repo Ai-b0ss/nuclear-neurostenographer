@@ -27,6 +27,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Validate same-corpus WER/cpWER scoring
+        run: python3 -m unittest discover -s tools -p test_compare_transcript_outputs.py -v
       - name: Verify pinned sherpa-onnx runtime
         env:
           GH_TOKEN: ${{ github.token }}

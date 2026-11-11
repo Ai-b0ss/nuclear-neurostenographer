@@ -118,7 +118,23 @@ object IsolatedDiarization {
                         val processMs = data.getLong("process", -1)
                         val validated = DiarizationReply.validate(audioMs, starts, ends, names, eligible, ws, we,
                             loadMs, processMs)
-                        result.complete(DiarizationOutput(validated.turns, loadMs, processMs, validated.windows))
+                        // Optional voice evidence is bounded and independently validated.
+                        // Reject corrupt/ambiguous profile transport without dropping ASR.
+                        val ids = data.getStringArrayList("voiceIds").orEmpty()
+                        val speech = data.getLongArray("voiceMs")
+                        val vectors = data.getFloatArray("voiceVectors")
+                        val known = validated.turns.map { it.speakerId }.toSet()
+                        val voiceProfiles = if (BuildConfig.GLOBAL_SPEAKER_BOOK &&
+                            ids.size in 1..8 && ids.distinct().size == ids.size &&
+                            speech?.size == ids.size && vectors?.size == ids.size * 512 &&
+                            ids.all { it in known } && speech.all { it in 0..audioMs } &&
+                            vectors.all { it.isFinite() }) {
+                            ids.indices.map { i ->
+                                VoicePrint(ids[i], vectors.copyOfRange(i * 512, (i + 1) * 512), speech[i])
+                            }
+                        } else emptyList()
+                        result.complete(DiarizationOutput(
+                            validated.turns, loadMs, processMs, validated.windows, voiceProfiles))
                     }
                 }
             } catch (_: Exception) { result.completeExceptionally(DiarizationUnavailable("Некорректный ответ диаризации")) }

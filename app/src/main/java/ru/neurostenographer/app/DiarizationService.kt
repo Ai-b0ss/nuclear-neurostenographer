@@ -74,6 +74,17 @@ class DiarizationService : Service() {
                     putLongArray("windowStarts", result.windows.map { it.startMs }.toLongArray())
                     putLongArray("windowEnds", result.windows.map { it.endMs }.toLongArray())
                     putLong("load", result.loadMs); putLong("process", result.processMs)
+                    if (BuildConfig.GLOBAL_SPEAKER_BOOK && result.voicePrints.isNotEmpty()) {
+                        require(result.voicePrints.size <= 8 &&
+                            result.voicePrints.all { it.embedding.size == 512 })
+                        val flat = FloatArray(result.voicePrints.size * 512)
+                        result.voicePrints.forEachIndexed { index, profile ->
+                            profile.embedding.copyInto(flat, index * 512)
+                        }
+                        putStringArrayList("voiceIds", ArrayList(result.voicePrints.map { it.localSpeakerId }))
+                        putLongArray("voiceMs", result.voicePrints.map { it.cleanSpeechMs }.toLongArray())
+                        putFloatArray("voiceVectors", flat)
+                    }
                 }
                 reply.send(Message.obtain(null, RESULT).apply { this.data = output })
             } catch (e: Exception) {

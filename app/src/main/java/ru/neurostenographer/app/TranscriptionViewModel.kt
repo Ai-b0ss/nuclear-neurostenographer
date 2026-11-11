@@ -293,6 +293,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
         val (backendUsed, warning) = processing
         val speakerSource = when {
+            backendUsed == "long-file" && BuildConfig.GLOBAL_SPEAKER_BOOK -> "chunked_experimental_voice_embeddings"
             backendUsed == "long-file" -> "chunked_locally_scoped_speakers_no_global_link"
             backendUsed == "digital-silence" -> "digital_silence_no_diarization"
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
@@ -532,6 +533,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val ids = linkedSetOf<String>()
         val revisions = linkedSetOf<String>()
         val warnings = linkedSetOf<String>()
+        // Experimental QA only. A profile missing from C2 never generates identity evidence.
+        val voiceBook = if (BuildConfig.GLOBAL_SPEAKER_BOOK) GlobalSpeakerBook() else null
+        var profiledBlocks = 0
         var load = 0L; var decode = 0L
         var windows = 0; var timed = 0; var untimed = 0
         var start = 0L
@@ -560,11 +564,15 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 val localEnd = (last / 16L + 1001).coerceAtMost(block.durationMs)
                 val trimmed = PcmAudio(block.samples.copyOfRange((localStart * 16).toInt(),
                     minOf((localEnd * 16).toInt(), block.samples.size)), 16000)
-                val (asr, _, processing) = recognizeBlock(trimmed, model)
+                val (asr, diarization, processing) = recognizeBlock(trimmed, model)
                 val offset = start + localStart
-                // Preserve local speaker attribution without claiming that local
-                // slot IDs are the same people across five-minute blocks.
-                segments += asr.segments.map { LocalSpeakerScope.shift(it, offset, blockIndex) }
+                val links = if (voiceBook != null && processing.first == NemotronBackend.C2) {
+                    voiceBook.link(diarization?.voicePrints.orEmpty()).also {
+                        if (it.isNotEmpty()) profiledBlocks++
+                    }
+                } else emptyMap()
+                // No evidence, short speech, or an ambiguous profile => keep local ID.
+                segments += asr.segments.map { LocalSpeakerScope.shift(it, offset, blockIndex, links) }
                 ids += asr.modelId; revisions += asr.modelRevision
                 processing.second?.let { warnings += it }
                 load += asr.loadMs; decode += asr.decodeMs
@@ -581,7 +589,12 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             start = end
             blockIndex++
         }
-        warnings += "Длинная запись обработана блоками. Говорящие различаются только внутри каждого блока, сквозное сопоставление между блоками недоступно."
+        warnings += if (voiceBook == null)
+            "Длинная запись обработана блоками. Говорящие различаются только внутри каждого блока, сквозное сопоставление между блоками недоступно."
+        else "Экспериментальное сопоставление голосов: профили получены для " +
+            profiledBlocks + " блоков, найдено " + voiceBook.size() +
+            " голосовых групп. Неподтверждённые голоса остались с локальными ID. " +
+            "Качество межблочного сопоставления на независимых записях не проверено."
         return Triple(AsrOutput(segments, pcm.durationMs, load, decode, windows, timed, untimed,
             ids.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.id },
             revisions.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.revision }), null,

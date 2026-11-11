@@ -17,6 +17,8 @@ fun main() {
     testTermDictionary()
     testVerifiedModelBundle()
     testDiarizationTimeline()
+    testGlobalSpeakerBook()
+    testNemotronVoiceProfiles()
     testDecodeBudget()
     testAudioProcessingClock()
     testShortProcessingEta()

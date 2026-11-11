@@ -338,7 +338,44 @@ object NemotronDiarizer {
         val mel = { NemotronMel(wave, filters, hann) }
         return if (warmSecondPass) warmGuarded(mel, silence, runner, checkCancelled, postprocess, onProgress)
                else binarize(frameLogitsWithCache(mel, runner, checkCancelled,
-                   NemotronSpeakerCache(silence), onProgress).first, postprocess)
+                   NemotronSpeakerCache(silence), onProgress = onProgress).first, postprocess)
+    }
+
+    /**
+     * Experimental per-window C2 encoder profiles for cross-window voice matching.
+     * Keep this off in product builds until held-out validation.
+     */
+    fun diarizeWithVoiceProfiles(wave: FloatArray, filters: FloatArray, hann: FloatArray,
+                                 silence: FloatArray, runner: NemotronChunkRunner,
+                                 checkCancelled: () -> Unit = {},
+                                 postprocess: NemotronPostprocess = NemotronPostprocess.PRODUCT,
+                                 onProgress: (Int, Int) -> Unit = { _, _ -> }
+    ): Pair<List<ClusterTurn>, List<VoicePrint>> {
+        val mel = { NemotronMel(wave, filters, hann) }
+        val frames = (1 + wave.size / NemotronConfig.HOP + NemotronConfig.SUBSAMPLING - 1) /
+            NemotronConfig.SUBSAMPLING
+        require(frames in 1..20_000) { "Voice profiling is only for bounded blocks" }
+        fun collector(target: FloatArray): (Int, Int, FloatArray, Int) -> Unit = {
+            start, count, raw, context ->
+            val width = NemotronConfig.HIDDEN
+            require(start >= 0 && start + count <= frames && context >= 0 &&
+                raw.size >= (context + count) * width) { "Invalid C2 embedding dimensions" }
+            raw.copyInto(target, start * width, context * width, (context + count) * width)
+        }
+        val firstVectors = FloatArray(frames * NemotronConfig.HIDDEN)
+        val first = frameLogitsWithCache(mel, runner, checkCancelled,
+            NemotronSpeakerCache(silence), collector(firstVectors),
+            { done, total -> onProgress(done, total * 2) })
+        val firstTurns = binarize(first.first, postprocess)
+        val warmVectors = FloatArray(frames * NemotronConfig.HIDDEN)
+        val warm = frameLogitsWithCache(mel, runner, checkCancelled,
+            first.second.warmCopy(), collector(warmVectors),
+            { done, total -> onProgress(total + done, total * 2) })
+        val warmTurns = binarize(warm.first, postprocess)
+        val chosen = chooseWarm(firstTurns, warmTurns)
+        val selected = if (chosen === warmTurns) warmVectors else firstVectors
+        return chosen to NemotronVoiceProfiles.aggregate(
+            chosen, selected, frames, wave.size.toLong() * 1000L / 16000L)
     }
 
     private fun speakerCount(turns: List<ClusterTurn>) = turns.mapTo(HashSet()) { it.cluster }.size
@@ -454,7 +491,9 @@ object NemotronDiarizer {
 
     private fun frameLogitsWithCache(newMel: () -> NemotronMel, runner: NemotronChunkRunner, checkCancelled: () -> Unit,
                                      cache: NemotronSpeakerCache,
-                                     onProgress: (Int, Int) -> Unit = { _, _ -> }): Pair<NemotronFrameLogits, NemotronSpeakerCache> {
+                                     collectEmbeddings: ((Int, Int, FloatArray, Int) -> Unit)? = null,
+                                     onProgress: (Int, Int) -> Unit = { _, _ -> }
+    ): Pair<NemotronFrameLogits, NemotronSpeakerCache> {
         val mel = newMel()
         val factor = NemotronConfig.SUBSAMPLING
         val melFrames = mel.frames
@@ -476,6 +515,7 @@ object NemotronDiarizer {
             val contextFrames = cache.contextFrames()
             val step = runner.run(chunk, melEnd - melStart, max(min(melEnd, valid) - melStart, 0), cache.context(), contextFrames)
             cache.update(step, chunkFrames)
+            collectEmbeddings?.invoke(start, chunkFrames, step.embeds, contextFrames)
             val from = contextFrames * factor
             val until = min((contextFrames + chunkFrames) * factor, from + (melFrames - written))
             for (row in from until until) {

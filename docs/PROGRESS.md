@@ -1,5 +1,15 @@
 # Progress — 2026-10-30
 
+## 2026-11-11 — experimental cross-window voice identity, QA only
+
+- Separate worktree/branch feat/global-speakerbook-20261111 from origin/main 459773f. Main app/release unchanged.
+- Added GlobalSpeakerBook, NemotronVoiceProfiles and opt-in globalSpeakerBook flag. Old block-scoped IDs preserved when evidence is missing, ambiguous or invalid. Not a validated speaker-verification model.
+- Core:runCoreTests passed (including new identity/overlap tests). App:compileDebugKotlin passed for QA product C2+A3 build with local equivalent ONNX Runtime 1.17.1 AAR (temporary file dependency used only to work around offline cache; normal Maven declaration restored).
+- New same-file WER/cpWER scorer and three Python unit tests passed; end-to-end synthetic CLI fixture also passed. Python CI test added.
+- **Not yet tested:** a real long audio run with speaker identities on physical ARM64, held-out DER/cpWER, full packaged APK, direct Skvor comparison on identical recordings.
+- Architecture, safety limits and validation steps: GLOBAL_SPEAKER_BOOK_QA_2026-11-11.md.
+
+
 > **Обновлено 07.11.2026:** текущий выпуск — 0.3.14-contest. Сводка метрик (ПК / телефон / не проверено): [CHECKPOINT_2026-11-07.md](CHECKPOINT_2026-11-07.md). Ниже — журнал, новые записи сверху.
 
 ## 2026-11-07 (вечер) — 0.3.14: официальный JSON для жюри в основном экспорте

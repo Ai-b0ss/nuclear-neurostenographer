@@ -40,6 +40,10 @@ val c2Candidate = providers.gradleProperty("c2Candidate").orNull == "true"
 check(!(nemotronPrototype && nemotronProduct)) { "Prototype and product are separate variants" }
 check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduct=true" }
 val nemotronEnabled = nemotronPrototype || nemotronProduct
+val globalSpeakerBook = providers.gradleProperty("globalSpeakerBook").orNull == "true"
+check(!globalSpeakerBook || nemotronProduct) {
+    "Voice-link QA requires -PnemotronProduct=true; production remains unchanged"
+}
 // Separate test build with GigaAM v3 e2e RNNT (punctuation); never the RC1 applicationId.
 val asrA3 = providers.gradleProperty("asrA3").orNull == "true"
 val englishAuto = providers.gradleProperty("englishAuto").orNull == "true"
@@ -82,6 +86,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
+        buildConfigField("boolean", "GLOBAL_SPEAKER_BOOK", globalSpeakerBook.toString())
         buildConfigField("boolean", "ASR_A3", asrA3.toString())
         buildConfigField("boolean", "ENGLISH_AUTO", englishAuto.toString())
         buildConfigField("boolean", "REALTIME", realtime.toString())
@@ -115,6 +120,11 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
+    // Never overwrite the installed competition/product package with unvalidated voice linking.
+    if (globalSpeakerBook) {
+        defaultConfig.applicationIdSuffix = ".speakerbookqa"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Voice QA"
+    }
     if (englishAuto) sourceSets.getByName("main").assets.srcDir(rootProject.file(".local/englishAssets"))
     if (providers.gradleProperty("checkpointQa").orNull == "true") {
         defaultConfig.applicationIdSuffix = ".checkpoint"
