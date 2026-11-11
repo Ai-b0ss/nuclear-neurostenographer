@@ -1,0 +1,223 @@
+{
+  "schema": "speakerbook-vctk-quantitative-evidence-v1",
+  "date": "2026-11-11",
+  "machine": "Windows desktop CPU, sherpa-onnx 1.12.40, ffmpeg mono 16k",
+  "model": "nemo_en_titanet_small.onnx",
+  "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+  "dataset": {
+    "name": "VCTK mic2",
+    "total_speakers": 36,
+    "total_clips": 108,
+    "dev_speakers": 6,
+    "first_holdout_speakers": 6,
+    "never_seen_external_speakers": 24,
+    "manifest_file": "speakerbook-vctk-manifest-20261111.json",
+    "manifest_sha256": "a7ebd6784d8f189e093547b33b22109dcaf87366573a0350821cab21e3f85b21"
+  },
+  "first_dev_calibration": {
+    "threshold": 0.632003402136209,
+    "positive_pairs": 18,
+    "negative_pairs": 135,
+    "false_accepts": 0,
+    "false_rejects": 0,
+    "false_accept_rate": 0.0,
+    "false_reject_rate": 0.0,
+    "true_accept_rate": 1.0,
+    "accuracy": 1.0
+  },
+  "first_cohort_heldout": {
+    "fixed_0_84": {
+      "threshold": 0.84,
+      "positive_pairs": 18,
+      "negative_pairs": 135,
+      "false_accepts": 0,
+      "false_rejects": 5,
+      "false_accept_rate": 0.0,
+      "false_reject_rate": 0.2777777777777778,
+      "true_accept_rate": 0.7222222222222222,
+      "accuracy": 0.9673202614379085
+    },
+    "selected_0_632": {
+      "threshold": 0.632003402136209,
+      "positive_pairs": 18,
+      "negative_pairs": 135,
+      "false_accepts": 0,
+      "false_rejects": 0,
+      "false_accept_rate": 0.0,
+      "false_reject_rate": 0.0,
+      "true_accept_rate": 1.0,
+      "accuracy": 1.0
+    }
+  },
+  "external_24_speakers": {
+    "cosine_distributions": {
+      "same": {
+        "min": 0.7336049119677623,
+        "p05": 0.7786290136164619,
+        "median": 0.8572654306905962,
+        "p95": 0.9232086563156712,
+        "max": 0.9414262059861346
+      },
+      "different": {
+        "min": -0.057428639262876,
+        "p05": 0.09843567654617694,
+        "median": 0.28155401876581826,
+        "p95": 0.45945023006337443,
+        "max": 0.6753667744397222
+      }
+    },
+    "fixed_0_84_pairwise": {
+      "threshold": 0.84,
+      "positive_pairs": 72,
+      "negative_pairs": 2484,
+      "false_accepts": 0,
+      "false_rejects": 26,
+      "false_accept_rate": 0.0,
+      "false_reject_rate": 0.3611111111111111,
+      "true_accept_rate": 0.6388888888888888,
+      "accuracy": 0.9898278560250391
+    },
+    "frozen_0_632_pairwise": {
+      "threshold": 0.632003402136209,
+      "positive_pairs": 72,
+      "negative_pairs": 2484,
+      "false_accepts": 10,
+      "false_rejects": 0,
+      "false_accept_rate": 0.004025764895330112,
+      "false_reject_rate": 0.0,
+      "true_accept_rate": 1.0,
+      "accuracy": 0.9960876369327074
+    },
+    "fixed_0_84_new_speaker_detection": {
+      "enrolled_speakers": 24,
+      "unknown_speakers": 24,
+      "known_probes": 48,
+      "unknown_probes": 72,
+      "correct_known_links": 28,
+      "wrong_known_links": 0,
+      "rejected_known": 20,
+      "false_accepted_unknown": 0,
+      "correct_rejected_unknown": 72,
+      "threshold": 0.84,
+      "margin": 0.07,
+      "unknown_false_accept_rate": 0.0,
+      "known_reject_rate": 0.4166666666666667,
+      "known_wrong_link_rate": 0.0,
+      "rounds": 2
+    },
+    "frozen_0_632_new_speaker_detection": {
+      "enrolled_speakers": 24,
+      "unknown_speakers": 24,
+      "known_probes": 48,
+      "unknown_probes": 72,
+      "correct_known_links": 48,
+      "wrong_known_links": 0,
+      "rejected_known": 0,
+      "false_accepted_unknown": 5,
+      "correct_rejected_unknown": 67,
+      "threshold": 0.632003402136209,
+      "margin": 0.07,
+      "unknown_false_accept_rate": 0.06944444444444445,
+      "known_reject_rate": 0.0,
+      "known_wrong_link_rate": 0.0,
+      "rounds": 2
+    },
+    "two_temporally_separated_voiceprints_proxy": {
+      "people": 24,
+      "verified_two_part_profiles": 15,
+      "rejected_inconsistent_profiles": 9,
+      "third_utterance_correct_links": 14,
+      "third_utterance_wrong_links": 0,
+      "third_utterance_link_rejections": 1,
+      "third_utterance_no_profile": 9,
+      "consistency_threshold": 0.84,
+      "link_threshold": 0.84,
+      "margin": 0.07
+    }
+  },
+  "acoustic_stress_conditions": {
+    "clean": {
+      "fixed_0_84": {
+        "correct_known_links": 28,
+        "rejected_known": 20,
+        "false_accepted_unknown": 0,
+        "unknown_speakers_with_false_accept": 0,
+        "known_probes": 48,
+        "unknown_probes": 72
+      },
+      "frozen_0_632": {
+        "correct_known_links": 48,
+        "rejected_known": 0,
+        "false_accepted_unknown": 5,
+        "unknown_speakers_with_false_accept": 4,
+        "known_probes": 48,
+        "unknown_probes": 72
+      }
+    },
+    "noise15db": {
+      "fixed_0_84": {
+        "correct_known_links": 0,
+        "rejected_known": 48,
+        "false_accepted_unknown": 0,
+        "unknown_speakers_with_false_accept": 0,
+        "known_probes": 48,
+        "unknown_probes": 72
+      },
+      "frozen_0_632": {
+        "correct_known_links": 43,
+        "rejected_known": 5,
+        "false_accepted_unknown": 2,
+        "unknown_speakers_with_false_accept": 2,
+        "known_probes": 48,
+        "unknown_probes": 72
+      }
+    },
+    "telephone_bandpass": {
+      "fixed_0_84": {
+        "correct_known_links": 0,
+        "rejected_known": 48,
+        "false_accepted_unknown": 0,
+        "unknown_speakers_with_false_accept": 0,
+        "known_probes": 48,
+        "unknown_probes": 72
+      },
+      "frozen_0_632": {
+        "correct_known_links": 0,
+        "rejected_known": 48,
+        "false_accepted_unknown": 2,
+        "unknown_speakers_with_false_accept": 2,
+        "known_probes": 48,
+        "unknown_probes": 72
+      }
+    },
+    "echo_plus_noise15db": {
+      "fixed_0_84": {
+        "correct_known_links": 0,
+        "rejected_known": 48,
+        "false_accepted_unknown": 0,
+        "unknown_speakers_with_false_accept": 0,
+        "known_probes": 48,
+        "unknown_probes": 72
+      },
+      "frozen_0_632": {
+        "correct_known_links": 31,
+        "rejected_known": 17,
+        "false_accepted_unknown": 2,
+        "unknown_speakers_with_false_accept": 2,
+        "known_probes": 48,
+        "unknown_probes": 72
+      }
+    }
+  },
+  "model_release_policy": "DO NOT adjust production similarity threshold on these cohorts; experimental QA only",
+  "limitations": [
+    "36 speaker identities but many within-speaker pair scores are correlated",
+    "Only 24 truly external speakers after calibrating on 6 speakers from initial 12",
+    "English close-talk recordings; no Russian acoustic/overlap evaluation, no DER/cpWER",
+    "Open-set simulation uses one clean enrollment utterance per known speaker, two distinct probes per known speaker",
+    "Synthetic conditions test mismatched enrollment/probe domains, not actual telephone call quality",
+    "VCTK mic2 and native sherpa-onnx version 1.12.40 differ from actual Android sherpa 1.12.20",
+    "0 observed false matches does not prove zero population FAR",
+    "Dual-sample proxy uses two different VCTK utterances per person instead of early/late C2-selected frames inside an actual 5-minute Android block."
+  ]
+}

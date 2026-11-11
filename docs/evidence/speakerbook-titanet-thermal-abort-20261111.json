@@ -1,0 +1,40 @@
+{
+  "schema": "speakerbook-titanet-physical-endurance-abort-v1",
+  "date": "2026-11-11",
+  "device": {
+    "model": "HONOR 10X Lite",
+    "android": "10",
+    "abi": "arm64-v8a"
+  },
+  "test": {
+    "class": "LongContinuousSpeakerBookDeviceTest",
+    "source_duration_ms": 1240000,
+    "input_type": "20m40s continuous Russian test WAV, local only, no upload",
+    "goal": "end-to-end long-file endurance and 5min cross-window voice linking"
+  },
+  "observations": {
+    "battery_temperature_c_before_long_test": 39.0,
+    "battery_temperature_c_peak_observed": 47.0,
+    "battery_level_percent_at_abort": 83,
+    "main_app_pss_kib_near_peak": 688075,
+    "source": "Android dumpsys battery + meminfo during test"
+  },
+  "action": {
+    "operation": "adb am force-stop QA app and QA test package",
+    "reason": "thermal safety",
+    "model_removed": false,
+    "release_app_affected": false
+  },
+  "outcome": {
+    "state": "ABORTED_BY_OPERATOR_DUE_TO_THERMAL_LIMIT",
+    "instrumentation_after_force_stop": "Process crashed (forced stop, not proven program defect)",
+    "end_to_end_result": null,
+    "rtf": null,
+    "successful_long_processing_proven": false
+  },
+  "limitations": [
+    "No end-to-end 20-minute result was produced",
+    "The 47C measurement is battery sensor temperature, not CPU die temperature",
+    "Do not interpret forced-stop instrumentation termination as evidence of an app crash"
+  ]
+}

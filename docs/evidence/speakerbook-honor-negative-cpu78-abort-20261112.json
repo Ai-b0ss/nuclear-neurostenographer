@@ -1,0 +1,41 @@
+{
+  "schema": "honor-thermal-cpu78-negative-abort-v1",
+  "date": "2026-11-12",
+  "device": "HONOR 10X Lite Android 10 ARM64",
+  "QA_only": true,
+  "input_duration_s": 421.3,
+  "input_sha256": "a2dc1e9667bda9f27dc38db97d28501b628a3b0d635a4bdc9837b8c24ca98355",
+  "git_tree": "34cc2b04e4b81250003738b658ec05ac0a2d1374",
+  "status": "THERMAL_ABORT",
+  "run_id": "718953182280990",
+  "battery_initial_c": 36.0,
+  "battery_max_c": 41.0,
+  "battery_hard_limit_c": 45.0,
+  "cpu_cluster_initial_c": {
+    "cluster0": 36.0,
+    "cluster1": 36.0
+  },
+  "cpu_cluster_max_c": {
+    "cluster0": 66.0,
+    "cluster1": 78.0
+  },
+  "cpu_hard_limit_c": 78.0,
+  "cpu_warning_limit_c": 75.0,
+  "max_android_thermal_status": 0,
+  "stop_trigger": {
+    "battery_c": 41.0,
+    "cpu_max_c": 78.0,
+    "cpu_sensors_c": {
+      "cluster0": 65.0,
+      "cluster1": 78.0
+    },
+    "android_thermal_status": 0,
+    "max_cpu_sensor_status": 0
+  },
+  "wall_seconds": 134.34,
+  "warning_sample_count": 7,
+  "qa_processes_stopped": true,
+  "app_terminal_evidence": "RUNNING after host-forced stop",
+  "identity_verification_completed": false,
+  "note": "No evidence about false merges or DER; host thermal abort is intentional, not an app crash."
+}

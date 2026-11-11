@@ -1,4 +1,171 @@
+## 2026-11-12 — independent battery + CPU thermal limits
+
+- Owner requested a less restrictive but still bounded experimental
+  thermal policy: battery abort at **45 C**, CPU cluster abort at **78 C**;
+  warnings at battery **43 C**, CPU **75 C**.
+- Confirmed HONOR Android 10 Thermal HAL exposes current readings for
+  cluster0, cluster1 and Android Thermal Status via ADB. Both CPU readings
+  were ~35 C when the battery was 36 C; /sys/class/thermal is not
+  accessible on this stock phone.
+- Host watchdog reads CURRENT (not cached) CPU HAL readings and battery
+  every 2 seconds, checks severe OS/sensor status, and fails closed
+  when telemetry is unavailable. Android QA independently checks battery
+  and OS severe status. CPU numeric enforcement requires host watchdog.
+- Previous tests with the 42 C cutoff remain historically accurate.
+  CPU threshold change needs CI, Android compile and fresh hardware
+  negative-control/endurance evidence before claiming completion.
+
+## 2026-11-12 — device negative-control attempt and thermal gate
+
+- A second HONOR instrumentation run used distinct public speakers
+  after the positive test. It started at battery 38°C and reached
+  the 42°C safety cutoff after 112.73 s.
+- Host watchdog recorded **THERMAL_ABORT** and verified both isolated
+  QA processes stopped. The Android instrumentation 'Process crashed'
+  line is a force-stop consequence, not evidence of an app crash.
+- Application evidence remained RUNNING (as intended when forcibly
+  stopped); there is **no negative-control accuracy result**.
+- Local failure evidence: docs/evidence/speakerbook-honor-negative-thermal-abort-20261112.json.
+- Expanded host watchdog now allows only named QA test classes and
+  known QA modes; Python tests exercise invalid class/mode rejection.
+- The phone must cool before any new sustained workload.
+
+## 2026-11-12 — repository consolidation and HONOR post-review QA
+
+- Removed 29 historical Git worktrees, preserving a single canonical tree
+  at C:/Users/user/Documents/nuclear-neurostenographer; archived unique
+  reports and interrupted integration Git state to the verified local ZIP
+  .local/retained-unique-work-20261111.zip.
+- Kept exactly one ready release APK at
+  .local/releases/current/Neurostenographer-0.4.1-rc4.apk; discarded older
+  RC1/RC2/RC3/posthack duplicates, retaining Git history.
+- Restored Gradle 8.9, Temurin JDK 17.0.21 and Android SDK, validated
+  executables, and restored Maven dependencies after isolated QA builds.
+- PR #54 review: addressed conflicting app ID, early-exit watchdog and
+  stale instrumentation evidence. GitHub Actions passed for these fixes.
+- **HONOR short test after review: PASS**. Repeated 370.453 s public WAV,
+  8 segments, two profiled windows, one speaker linked across windows;
+  the remaining IDs are deliberately local and unlinked. RTF 0.294;
+  peak battery temperature 41°C, cutoff 42°C; no QA process left running.
+  Evidence: docs/evidence/speakerbook-honor-repeat-postreview-20261112.json
+- Still a release NO-GO: only one returning speaker linked on this fixture,
+  no new-revision different-source negative control, no safe successful
+  20+ minute test or independent Russian manual speaker DER/cpWER.
+
 # Progress — 2026-10-30
+
+## 2026-11-11 — independent Codex Sol 6.1 High audit hardening
+
+- Independent read-only auxiliary audit flagged two concrete identity
+  vulnerabilities: ineligible overlapping speech contaminated "clean"
+  audio, and incremental centroid updates could drift away from
+  an original speaker. Fixed both with fail-closed semantics.
+- Added clean-frame mask with every turn contributing as a blocker,
+  immutable enrollment anchor in GlobalSpeakerBook, and TWO
+  temporally disjoint (>=3s each) TitaNet fingerprints per local
+  speaker with required within-block similarity >=0.84.
+- New Kotlin regression tests for false overlap, sub-frame fragments,
+  gradual identity drift, independent temporal evidence and mixed-speaker
+  detection. All 20 core test groups passed locally after the changes.
+  Android QA + instrumentation Kotlin compilation PASSED (32 tasks).
+- Corrected cancellation/persistence race by making final history
+  save + audio move + UI publication one non-cancellable commit.
+- Fixed stale success evidence in 20m QA instrumentation: RUNNING,
+  PASS only after assertions, FAIL/THERMAL_ABORT always written.
+  Added independent host ADB watchdog with 39C preflight and 42C
+  cutoff, with pure unit tests for battery parser.
+- PC VCTK proxy of two independent excerpts/person: 15/24 people
+  had consistent profiles at 0.84, 9 rejected; of 15 resulting profiles,
+  14 linked a third utterance, 1 rejected, 0 wrong links.
+  This is NOT a physical C2 five-minute-block test.
+- IMPORTANT: new dual-voice code has not been retested on HONOR
+  because previous sustained inference reached battery 47C.
+  Earlier HONOR PASS evidence applies to single-profile revision.
+  Feature remains QA-only and MUST NOT ship before new physical
+  revalidation plus speaker-disjoint Russian field data.
+
+## 2026-11-11 — PR #54 review fixes and workspace consolidation
+
+- Git workspace copies reduced from 31 to one canonical checkout
+  (during the final consolidation step); unique uncommitted reports
+  preserved separately, one latest RC4 production APK retained.
+- Additional read-only review detected QA application-ID suffix collision,
+  host watchdog early exit, and stale short-device evidence.
+  All three fixed and tested with Python unit tests and Android compilation.
+- Unrelated shared NonCancellable transcript save change reverted to
+  origin/main while speakerbook QA remains opt-in.
+- Latest tests: Android debug + AndroidTest Kotlin compile PASS;
+  Gradle negative-flag configuration test PASS; host watchdog five tests PASS.
+- Merge remains blocked on untested continuous 20+ minute physical
+  run and Russian held-out identity/diarization validation.
+
+## 2026-11-11 — correctness hardening after independent code review
+
+- Ineligible/short overlapping turns are explicitly excluded from
+  identity evidence; regression covers 200ms and sub-frame overlaps.
+- Global voice-book matching now checks original immutable enrollment
+  anchor as well as adaptive centroid, blocking identity drift.
+- Two temporally separated clean voice excerpts must agree for a
+  TitaNet profile to be accepted (conservative; can reduce coverage).
+- Long physical QA has terminal evidence status and an optional host
+  temperature watchdog that stops only QA packages.
+- Core tests passed; current newly hardened Android behavior still
+  requires a physical recheck after phone cooling.
+
+## 2026-11-11 — speaker-disjoint VCTK quantitative validation
+
+- 108 VCTK mic2 excerpts, 36 labelled people, 3 distinct clips each.
+- First 6 people used to calibrate 0.632, next 6 for preliminary holdout;
+  a fresh set of 24 was evaluated with both 0.84 and FROZEN 0.632.
+- Fresh 24: 0.84 -> 0/2484 false pair matches but 26/72 false rejects.
+  0.632 -> 10/2484 false pair matches, 0/72 false rejects.
+- In two-rotation unknown-voice enrollment test, at 0.632 there were
+  5/72 wrongly accepted unknown utterances, from 4 actual people;
+  at 0.84 there were 20/48 rejected known utterances.
+- Simulated noise, echo and telephone filter revealed severe
+  enrollment/probe acoustic mismatch; do not promote thresholds to
+  production. Model uses English VCTK and no verified Russian DER.
+- Evidence and clip checksum manifest stored in docs/evidence;
+  pure Python scorer and its 6 regression tests added to CI.
+
+## 2026-11-11 — TitaNet Small speaker verification, physical HONOR QA
+
+- After the first negative-control C2 false-match warning, switched active QA
+  cross-window matching from unverified Nemotron C2 hidden embeddings to an
+  independent sherpa-onnx TitaNet Small 192D speaker-embedding extractor.
+  Exact model SHA256 pinned; optional 40 MB weights remain only in the QA
+  sandbox and are not bundled into the released APK.
+- Physical HONOR ARM64 tests: repeated-source positive 2/2 matching IDs,
+  different-source negative 0 ID cross-links (old C2 had 1 shared ID),
+  missing optional model fails closed to local block IDs with full ASR text,
+  independent utterance of same C2 speaker cosine 0.845 vs other voice 0.250.
+- Source clips do not have independently verified identity labels;
+  none of these numbers is a held-out DER or speaker-verification FPR.
+- Sanitized evidence: evidence/speakerbook-titanet-honor-20261111.json.
+- QA-only, do not merge into production until continuous 20+ minute
+  processing and held-out DER/cpWER/false-match validation pass.
+- 20m40s continuous QA test attempted on HONOR, but **manually aborted**
+  after the battery sensor reached 47 C. Android showed a test process
+  termination because we force-stopped the QA packages; this is NOT proof
+  of a software crash or successful 20+ min processing.
+  Observations: evidence/speakerbook-titanet-thermal-abort-20261111.json.
+  Do not re-run a sustained load on this phone without a thermal cutoff
+  and a cooling/power plan.
+
+
+
+## 2026-11-11 — experimental cross-window voice identity, QA only
+
+- Separate worktree/branch feat/global-speakerbook-20261111 from origin/main 459773f. Main app/release unchanged.
+- Added GlobalSpeakerBook, NemotronVoiceProfiles and opt-in globalSpeakerBook flag. Old block-scoped IDs preserved when evidence is missing, ambiguous or invalid. Not a validated speaker-verification model.
+- Core:runCoreTests passed (including new identity/overlap tests). App:compileDebugKotlin passed for QA product C2+A3 build with local equivalent ONNX Runtime 1.17.1 AAR (temporary file dependency used only to work around offline cache; normal Maven declaration restored).
+- New same-file WER/cpWER scorer and three Python unit tests passed; end-to-end synthetic CLI fixture also passed. Python CI test added.
+- **HONOR physical smoke:** experimental APK + test APK installed side by side; 6:10 repeated permitted fixture passed 1/1 Android instrumentation, 102.8 seconds wall time (RTF 0.277 on a silence-heavy file), two stable speaker IDs across two blocks, eight transcript segments. Repeated clip text differed by 2/141 words (not ground-truth WER). Logs and evidence retained locally only.
+- **Regression retest:** second physical instrumentation PASS 1/1 after removing false unknown-speaker warning (pipeline 101.812s, 0.2748 RTF); all eight segments and timestamps exactly match first run. The production-length threshold remains unchanged; a separate QA flag triggers long-file processing after five minutes. Sanitized evidence: evidence/speakerbook-honor-smoke-20261111.json.
+- **Negative source control on HONOR:** two separate audio sources (2-speaker + 3-speaker), 421.3s audio, 135.264s processing, 21 segments, both C2 blocks profiled. One global Speaker 2 was reused across sources, so the negative QA assertion failed. Voice identities were not independently human-labelled; this is a **potential false merge**, and blocks enabling the feature in the default APK. See evidence/speakerbook-honor-negative-20261111.json.
+- **Not yet tested:** independent/new speakers in 20+ minute continuous audio, held-out DER/cpWER, direct Skvor comparison on identical annotated recordings.
+- Architecture, safety limits and validation steps: GLOBAL_SPEAKER_BOOK_QA_2026-11-11.md.
+
 
 > **Обновлено 07.11.2026:** текущий выпуск — 0.3.14-contest. Сводка метрик (ПК / телефон / не проверено): [CHECKPOINT_2026-11-07.md](CHECKPOINT_2026-11-07.md). Ниже — журнал, новые записи сверху.
 

@@ -94,6 +94,8 @@ object NemotronDiarization {
                 } finally { inputs.values.forEach { it.close() } }
             }
             // Two passes: the second starts with the voices the first one learned (docs/C2_POSTPROCESS_2026-11-06.md).
+            // C2 internal embeddings are NOT a validated voice-verification model.
+            // TitaNet extracts independent speaker embeddings in the isolated worker.
             val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled,
                 NemotronPostprocess.PRODUCT, warmSecondPass = true, onProgress = onProgress)
             val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)

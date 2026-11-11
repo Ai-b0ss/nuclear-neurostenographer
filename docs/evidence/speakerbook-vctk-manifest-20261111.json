@@ -1,0 +1,1024 @@
+{
+  "source": "thelarryproject/vctk",
+  "original_corpus": "CSTR VCTK 0.92",
+  "license_claim": "CC-BY-4.0, verify upstream attribution for redistribution",
+  "mode": "mic2",
+  "total_speakers": 36,
+  "total_clips": 108,
+  "reference_data": "public speech recordings, not user audio",
+  "first_cohort_speakers": [
+    "p230",
+    "p234",
+    "p239",
+    "p240",
+    "p244",
+    "p247",
+    "p255",
+    "p260",
+    "p264",
+    "p271",
+    "p281",
+    "p284"
+  ],
+  "external_fresh_speakers": [
+    "p232",
+    "p233",
+    "p238",
+    "p243",
+    "p245",
+    "p246",
+    "p248",
+    "p250",
+    "p251",
+    "p252",
+    "p254",
+    "p256",
+    "p257",
+    "p258",
+    "p259",
+    "p268",
+    "p269",
+    "p272",
+    "p274",
+    "p275",
+    "p282",
+    "p283",
+    "p285",
+    "p300"
+  ],
+  "files": [
+    {
+      "id": "p230_226",
+      "speaker_id": "p230",
+      "path": "p230_226.flac",
+      "sha256": "77b3e5837ae1aff9c5444678b6714cd3608597ce892210170cda6b753b360254",
+      "duration_s": 4.057,
+      "mic_id": "mic2",
+      "row_index": 84010
+    },
+    {
+      "id": "p230_228",
+      "speaker_id": "p230",
+      "path": "p230_228.flac",
+      "sha256": "043758b00eef3a1d5c9bc9cabe5e6375e460e841bf7934cf1171d2c18343b8c4",
+      "duration_s": 4.075,
+      "mic_id": "mic2",
+      "row_index": 84014
+    },
+    {
+      "id": "p230_234",
+      "speaker_id": "p230",
+      "path": "p230_234.flac",
+      "sha256": "f2431041d649bf04804feb7afcf45ed33798b8eaccfa9703794c76f829e59d1a",
+      "duration_s": 3.758,
+      "mic_id": "mic2",
+      "row_index": 84024
+    },
+    {
+      "id": "p232_003",
+      "speaker_id": "p232",
+      "path": "p232_003.flac",
+      "sha256": "756cb5ab82861a5524232af4b3780d478734b0f7213c72818af0cee7c115b170",
+      "duration_s": 7.508,
+      "mic_id": "mic2",
+      "row_index": 13166
+    },
+    {
+      "id": "p232_004",
+      "speaker_id": "p232",
+      "path": "p232_004.flac",
+      "sha256": "0e77853521c1afa1ec1ccf0efdfa1fb6544b1d27152a8931c1c12235b6d27620",
+      "duration_s": 4.44,
+      "mic_id": "mic2",
+      "row_index": 13168
+    },
+    {
+      "id": "p232_005",
+      "speaker_id": "p232",
+      "path": "p232_005.flac",
+      "sha256": "2d400ac7ce0706a2abee3576fa7ecd21c990059dc8fa9a0fbff7ff944ee60400",
+      "duration_s": 6.582,
+      "mic_id": "mic2",
+      "row_index": 13170
+    },
+    {
+      "id": "p233_211",
+      "speaker_id": "p233",
+      "path": "p233_211.flac",
+      "sha256": "1ef8ec303afbd8fc9abed8741a5933324226ac4bc7b41fe8c049b3477e89f5cd",
+      "duration_s": 3.729,
+      "mic_id": "mic2",
+      "row_index": 14378
+    },
+    {
+      "id": "p233_212",
+      "speaker_id": "p233",
+      "path": "p233_212.flac",
+      "sha256": "4cd44c6b909c1a5ed72bf99f9f7442cb4eac30bebebba9f46fc5f4885ad7a01f",
+      "duration_s": 3.836,
+      "mic_id": "mic2",
+      "row_index": 14380
+    },
+    {
+      "id": "p233_216",
+      "speaker_id": "p233",
+      "path": "p233_216.flac",
+      "sha256": "aee1ae1216ac29776d235f4a34c275a8957ed4d3fec67a7256693981c1553288",
+      "duration_s": 3.937,
+      "mic_id": "mic2",
+      "row_index": 14388
+    },
+    {
+      "id": "p234_149",
+      "speaker_id": "p234",
+      "path": "p234_149.flac",
+      "sha256": "1895fbddade91b508ba42927cf6adaa1a9ed35ae354b71fd026af03cf29e43c9",
+      "duration_s": 3.757,
+      "mic_id": "mic2",
+      "row_index": 15020
+    },
+    {
+      "id": "p234_150",
+      "speaker_id": "p234",
+      "path": "p234_150.flac",
+      "sha256": "7f1d1367c525e239945ebfa060c9685936b395d93ecce2310c789fd92bf867b6",
+      "duration_s": 3.799,
+      "mic_id": "mic2",
+      "row_index": 15022
+    },
+    {
+      "id": "p234_152",
+      "speaker_id": "p234",
+      "path": "p234_152.flac",
+      "sha256": "cd2dbaaab05bcec16a0d6d96658b3e48b8da3f4531948797ba3204b9e7ebb691",
+      "duration_s": 3.631,
+      "mic_id": "mic2",
+      "row_index": 15026
+    },
+    {
+      "id": "p238_002",
+      "speaker_id": "p238",
+      "path": "p238_002.flac",
+      "sha256": "bbaaffff9eaf61f9c1141d986248589f148033aa708e4c8229a0e4a2a9f46342",
+      "duration_s": 4.472,
+      "mic_id": "mic2",
+      "row_index": 33134
+    },
+    {
+      "id": "p238_003",
+      "speaker_id": "p238",
+      "path": "p238_003.flac",
+      "sha256": "25e5a53d63f91e9f943be94c7cb4684133ed5ff11cc75da1e4b3099219f6abf9",
+      "duration_s": 8.322,
+      "mic_id": "mic2",
+      "row_index": 33136
+    },
+    {
+      "id": "p238_004",
+      "speaker_id": "p238",
+      "path": "p238_004.flac",
+      "sha256": "31eb9369a0ef9e8757a6d4e3c03644aa24495d6a3d0702394772e24ca622371e",
+      "duration_s": 6.421,
+      "mic_id": "mic2",
+      "row_index": 33138
+    },
+    {
+      "id": "p239_483",
+      "speaker_id": "p239",
+      "path": "p239_483.flac",
+      "sha256": "bad0373a9fc5484c22961a362fd60cd04f747956f4b2da9a613f53bf6a2f62f6",
+      "duration_s": 3.715,
+      "mic_id": "mic2",
+      "row_index": 35002
+    },
+    {
+      "id": "p239_489",
+      "speaker_id": "p239",
+      "path": "p239_489.flac",
+      "sha256": "9233c38a3f56759ca8d020f2ab4ce02980fb3224c8701e53d356855b85f76af0",
+      "duration_s": 4.826,
+      "mic_id": "mic2",
+      "row_index": 35014
+    },
+    {
+      "id": "p239_490",
+      "speaker_id": "p239",
+      "path": "p239_490.flac",
+      "sha256": "f69285bff11279f9e6d4734f758f88d5ab689631185626387c264d932b6c5669",
+      "duration_s": 4.011,
+      "mic_id": "mic2",
+      "row_index": 35016
+    },
+    {
+      "id": "p240_002",
+      "speaker_id": "p240",
+      "path": "p240_002.flac",
+      "sha256": "a6b5b7d7b4ec78be3f75962a59f80802c6ff96c4f7b9e6cf80be0391013e572d",
+      "duration_s": 3.765,
+      "mic_id": "mic2",
+      "row_index": 35046
+    },
+    {
+      "id": "p240_003",
+      "speaker_id": "p240",
+      "path": "p240_003.flac",
+      "sha256": "84c707e38a671162115cdaf942123b7cbe4eac80833f56e23454aa697cc8b3de",
+      "duration_s": 7.216,
+      "mic_id": "mic2",
+      "row_index": 35048
+    },
+    {
+      "id": "p240_004",
+      "speaker_id": "p240",
+      "path": "p240_004.flac",
+      "sha256": "78217c1be59f26d89b4e49b10d721f362ac4c288e131f669f70b14ecf7da0e35",
+      "duration_s": 5.227,
+      "mic_id": "mic2",
+      "row_index": 35050
+    },
+    {
+      "id": "p243_206",
+      "speaker_id": "p243",
+      "path": "p243_206.flac",
+      "sha256": "92e7a63c9dda86e86615ddc369ddbcb4e83c91d05ae631e3788f8daf54451c32",
+      "duration_s": 4.079,
+      "mic_id": "mic2",
+      "row_index": 16875
+    },
+    {
+      "id": "p243_208",
+      "speaker_id": "p243",
+      "path": "p243_208.flac",
+      "sha256": "8a6a3b117d86ab02e5492bea724dbd13699c08971b414932ddbef699748ba69d",
+      "duration_s": 3.884,
+      "mic_id": "mic2",
+      "row_index": 16879
+    },
+    {
+      "id": "p243_213",
+      "speaker_id": "p243",
+      "path": "p243_213.flac",
+      "sha256": "b16746cfdf36514f49ca4c14878f840f82c7664dd251307eacda5c87daa29046",
+      "duration_s": 5.123,
+      "mic_id": "mic2",
+      "row_index": 16889
+    },
+    {
+      "id": "p244_127",
+      "speaker_id": "p244",
+      "path": "p244_127.flac",
+      "sha256": "876ca26af00379cc736042ea04bb81cb4bd3646f4943adbfed14b08bbfc0f2f2",
+      "duration_s": 3.723,
+      "mic_id": "mic2",
+      "row_index": 17505
+    },
+    {
+      "id": "p244_131",
+      "speaker_id": "p244",
+      "path": "p244_131.flac",
+      "sha256": "cfc8a0530f0c3689d55952a5e172142c0ae6b4de9124b6fb770360aeb498d424",
+      "duration_s": 4.217,
+      "mic_id": "mic2",
+      "row_index": 17513
+    },
+    {
+      "id": "p244_143",
+      "speaker_id": "p244",
+      "path": "p244_143.flac",
+      "sha256": "52a82971b09cca3b00e606d5724402839ba59d670cdf5c908d318f0b8a804c43",
+      "duration_s": 3.919,
+      "mic_id": "mic2",
+      "row_index": 17537
+    },
+    {
+      "id": "p245_016",
+      "speaker_id": "p245",
+      "path": "p245_016.flac",
+      "sha256": "58e33ec9eab72bd9e3fde220ff5d20a62630422eedcc79776b23cc9421e5a4eb",
+      "duration_s": 7.64,
+      "mic_id": "mic2",
+      "row_index": 18125
+    },
+    {
+      "id": "p245_017",
+      "speaker_id": "p245",
+      "path": "p245_017.flac",
+      "sha256": "48d70d7d1408972b95b7620b1fc19ad1246f14dddea409be521fdb162f6f6103",
+      "duration_s": 3.624,
+      "mic_id": "mic2",
+      "row_index": 18127
+    },
+    {
+      "id": "p245_018",
+      "speaker_id": "p245",
+      "path": "p245_018.flac",
+      "sha256": "d48f3e88cb7abd189d1e3795005451c73c2d5e28fb0dbbab4cae1e9df012884b",
+      "duration_s": 6.145,
+      "mic_id": "mic2",
+      "row_index": 18129
+    },
+    {
+      "id": "p246_288",
+      "speaker_id": "p246",
+      "path": "p246_288.flac",
+      "sha256": "a91cc108dee372ee9897b863b98d3da343f4df9f75b6591ff06b292ea6291b69",
+      "duration_s": 4.229,
+      "mic_id": "mic2",
+      "row_index": 19375
+    },
+    {
+      "id": "p246_293",
+      "speaker_id": "p246",
+      "path": "p246_293.flac",
+      "sha256": "7e9a6e192c9cbf0bba5d3f5e47c7ec297d57f7775430db7844c7417c6be1139e",
+      "duration_s": 4.199,
+      "mic_id": "mic2",
+      "row_index": 19385
+    },
+    {
+      "id": "p246_299",
+      "speaker_id": "p246",
+      "path": "p246_299.flac",
+      "sha256": "c66dd32adc3f4360ba3782df898efe024ff5530ac5d8aa3026e8fd3969f9fd71",
+      "duration_s": 4.679,
+      "mic_id": "mic2",
+      "row_index": 19397
+    },
+    {
+      "id": "p247_251",
+      "speaker_id": "p247",
+      "path": "p247_251.flac",
+      "sha256": "fcda929b7b9e2b634049597d996f6d7a911519bd5f9c8b7b1015a59a3abb7644",
+      "duration_s": 3.619,
+      "mic_id": "mic2",
+      "row_index": 20015
+    },
+    {
+      "id": "p247_252",
+      "speaker_id": "p247",
+      "path": "p247_252.flac",
+      "sha256": "ea824d99232c77bf25f14ac263e2d1f95b6dff03c087be4b4f2c13c2e975fa97",
+      "duration_s": 4.204,
+      "mic_id": "mic2",
+      "row_index": 20017
+    },
+    {
+      "id": "p247_253",
+      "speaker_id": "p247",
+      "path": "p247_253.flac",
+      "sha256": "0eac7af54e51d64f01590245034477afc0794702d10010965084edded09e6dd9",
+      "duration_s": 3.994,
+      "mic_id": "mic2",
+      "row_index": 20019
+    },
+    {
+      "id": "p248_079",
+      "speaker_id": "p248",
+      "path": "p248_079.flac",
+      "sha256": "6c16a68257be4d23001d87f210cee49f987866f5276f8c05ea9f0993a2a6623f",
+      "duration_s": 4.418,
+      "mic_id": "mic2",
+      "row_index": 20625
+    },
+    {
+      "id": "p248_081",
+      "speaker_id": "p248",
+      "path": "p248_081.flac",
+      "sha256": "49836e23403505f963c813730f5b4c71b2d6df133429e706a5d2f2c0f6f74711",
+      "duration_s": 4.044,
+      "mic_id": "mic2",
+      "row_index": 20629
+    },
+    {
+      "id": "p248_087",
+      "speaker_id": "p248",
+      "path": "p248_087.flac",
+      "sha256": "d42d24ce77fbe71a93742ef276b9f051b90650541d3eea47d26ba2f8f8159652",
+      "duration_s": 3.801,
+      "mic_id": "mic2",
+      "row_index": 20641
+    },
+    {
+      "id": "p250_003",
+      "speaker_id": "p250",
+      "path": "p250_003.flac",
+      "sha256": "18019a700ebdeb85ae406eb90f58b1d3cf60da77d0cd78af00bae8bff1607225",
+      "duration_s": 6.52,
+      "mic_id": "mic2",
+      "row_index": 21895
+    },
+    {
+      "id": "p250_004",
+      "speaker_id": "p250",
+      "path": "p250_004.flac",
+      "sha256": "1e6142b427f4d1eb18c4567947819a060b3f05bb72b853d67dcb1139af56a349",
+      "duration_s": 4.206,
+      "mic_id": "mic2",
+      "row_index": 21897
+    },
+    {
+      "id": "p250_005",
+      "speaker_id": "p250",
+      "path": "p250_005.flac",
+      "sha256": "0cdd5329754b2e0d63068fa354f7f8bbfba148a83ba6dd5532ca610daaa60e84",
+      "duration_s": 6.084,
+      "mic_id": "mic2",
+      "row_index": 21899
+    },
+    {
+      "id": "p251_142",
+      "speaker_id": "p251",
+      "path": "p251_142.flac",
+      "sha256": "8ef7fa3b34981996dc8f696f5e3dc6b97adcfc231f678a651f8ffe0c0154504a",
+      "duration_s": 4.35,
+      "mic_id": "mic2",
+      "row_index": 23131
+    },
+    {
+      "id": "p251_148",
+      "speaker_id": "p251",
+      "path": "p251_148.flac",
+      "sha256": "6a9787c58dfaaf10a62091904083ccb60312100e59b83df9de448a7ca63a5648",
+      "duration_s": 4.536,
+      "mic_id": "mic2",
+      "row_index": 23143
+    },
+    {
+      "id": "p251_150",
+      "speaker_id": "p251",
+      "path": "p251_150.flac",
+      "sha256": "a7e754b13de6fae90ebf4c4c131a355e764be7a6523476b7a65e8578ec2f9aef",
+      "duration_s": 4.009,
+      "mic_id": "mic2",
+      "row_index": 23147
+    },
+    {
+      "id": "p252_282",
+      "speaker_id": "p252",
+      "path": "p252_282.flac",
+      "sha256": "81928e51bb8ab4586e8a4b4c430ef62991ea303ecaa6ee3711f5613cc136a1d3",
+      "duration_s": 4.206,
+      "mic_id": "mic2",
+      "row_index": 28126
+    },
+    {
+      "id": "p252_291",
+      "speaker_id": "p252",
+      "path": "p252_291.flac",
+      "sha256": "6dbcac62a738b567e0c24b19c3827a69da6108f5d01343202cc0803cd1d2d092",
+      "duration_s": 3.776,
+      "mic_id": "mic2",
+      "row_index": 28142
+    },
+    {
+      "id": "p252_294",
+      "speaker_id": "p252",
+      "path": "p252_294.flac",
+      "sha256": "510787c6354a75a4def0577c7d78fc23833c5b62789b4a9f99e1dd9e91692db5",
+      "duration_s": 3.898,
+      "mic_id": "mic2",
+      "row_index": 28148
+    },
+    {
+      "id": "p254_128",
+      "speaker_id": "p254",
+      "path": "p254_128.flac",
+      "sha256": "3787e5837c8047e26cf9377ec8505d1c048a12cbf3a3132aec9cc621b9d312a5",
+      "duration_s": 3.987,
+      "mic_id": "mic2",
+      "row_index": 29378
+    },
+    {
+      "id": "p254_130",
+      "speaker_id": "p254",
+      "path": "p254_130.flac",
+      "sha256": "b167fc4a1be7374ad0318ba039054faec5a33f2551eedc6276a2ea2462b43635",
+      "duration_s": 4.044,
+      "mic_id": "mic2",
+      "row_index": 29382
+    },
+    {
+      "id": "p254_133",
+      "speaker_id": "p254",
+      "path": "p254_133.flac",
+      "sha256": "65c0eafb54901878e5031cfeb353ce2d7f1048aef7d8e0d59295482e02533a53",
+      "duration_s": 3.755,
+      "mic_id": "mic2",
+      "row_index": 29388
+    },
+    {
+      "id": "p255_042",
+      "speaker_id": "p255",
+      "path": "p255_042.flac",
+      "sha256": "92f7b3298375ce38292521d14096dd26e2d21fd49f5edc6e3647a6568993ec8b",
+      "duration_s": 4.352,
+      "mic_id": "mic2",
+      "row_index": 30002
+    },
+    {
+      "id": "p255_043",
+      "speaker_id": "p255",
+      "path": "p255_043.flac",
+      "sha256": "52746f4baef73655a3cb8a1134b32f35a23a45e2a2f030a029c6b4eea7d1b9e4",
+      "duration_s": 4.101,
+      "mic_id": "mic2",
+      "row_index": 30004
+    },
+    {
+      "id": "p255_047",
+      "speaker_id": "p255",
+      "path": "p255_047.flac",
+      "sha256": "d03427dd0113136cb8cea0f3bd2df553b2e1330396f6f3c7e37de16682908f0f",
+      "duration_s": 4.513,
+      "mic_id": "mic2",
+      "row_index": 30012
+    },
+    {
+      "id": "p256_002",
+      "speaker_id": "p256",
+      "path": "p256_002.flac",
+      "sha256": "6dcaf9fdb1a44f7766921490447d6b96da9b9eb8abfcb9dd920e6ba09cf9095d",
+      "duration_s": 4.117,
+      "mic_id": "mic2",
+      "row_index": 30680
+    },
+    {
+      "id": "p256_003",
+      "speaker_id": "p256",
+      "path": "p256_003.flac",
+      "sha256": "a86be5f1a005cd0cdc5f642574eea1f98b9a5fc903c279cd2b3e2f6f05b593b5",
+      "duration_s": 7.365,
+      "mic_id": "mic2",
+      "row_index": 30682
+    },
+    {
+      "id": "p256_004",
+      "speaker_id": "p256",
+      "path": "p256_004.flac",
+      "sha256": "a14e6166f8a61b9d1791cc9b67154bba960956373e25dcf307e4e401d1b81f31",
+      "duration_s": 6.544,
+      "mic_id": "mic2",
+      "row_index": 30684
+    },
+    {
+      "id": "p257_410",
+      "speaker_id": "p257",
+      "path": "p257_410.flac",
+      "sha256": "407cfa9ee2f275cce02d309e53d6e7d2367835fed44ba09f6319280151f5c86d",
+      "duration_s": 3.968,
+      "mic_id": "mic2",
+      "row_index": 48162
+    },
+    {
+      "id": "p257_424",
+      "speaker_id": "p257",
+      "path": "p257_424.flac",
+      "sha256": "3ccf6088686ced578ac32eb9ee81766cd9ce1b964e1bcac7e746fc4578e59070",
+      "duration_s": 3.715,
+      "mic_id": "mic2",
+      "row_index": 48190
+    },
+    {
+      "id": "p257_430",
+      "speaker_id": "p257",
+      "path": "p257_430.flac",
+      "sha256": "7147430cad8324d4ff42ad675e3b5a5ab299ab470db448cc898a2627013d9956",
+      "duration_s": 3.715,
+      "mic_id": "mic2",
+      "row_index": 48202
+    },
+    {
+      "id": "p258_003",
+      "speaker_id": "p258",
+      "path": "p258_003.flac",
+      "sha256": "120309f3fbed2e9a19a08b454084c340a2f5f74cbf47c517473b8b52185b8fda",
+      "duration_s": 7.042,
+      "mic_id": "mic2",
+      "row_index": 48216
+    },
+    {
+      "id": "p258_004",
+      "speaker_id": "p258",
+      "path": "p258_004.flac",
+      "sha256": "c766d8a9b1dd1dc74ce7cfa7aef4411f426eac11eb3e37d6ef506d7286f0262c",
+      "duration_s": 4.705,
+      "mic_id": "mic2",
+      "row_index": 48218
+    },
+    {
+      "id": "p258_005",
+      "speaker_id": "p258",
+      "path": "p258_005.flac",
+      "sha256": "c71b32296bdd94c3a82eac9eeac0f1e70969a524024527478d2c1c8c62df9ba7",
+      "duration_s": 6.21,
+      "mic_id": "mic2",
+      "row_index": 48220
+    },
+    {
+      "id": "p259_170",
+      "speaker_id": "p259",
+      "path": "p259_170.flac",
+      "sha256": "13ebcbc2e44164ff647caf39f9b847e56a8d06f57628fc2c9396e209a4ab7fd0",
+      "duration_s": 3.672,
+      "mic_id": "mic2",
+      "row_index": 49376
+    },
+    {
+      "id": "p259_172",
+      "speaker_id": "p259",
+      "path": "p259_172.flac",
+      "sha256": "4e11d938621575d2808b9ea80c84ae965fb5c3a69f3f76bd0f7948df3e058897",
+      "duration_s": 4.627,
+      "mic_id": "mic2",
+      "row_index": 49380
+    },
+    {
+      "id": "p259_175",
+      "speaker_id": "p259",
+      "path": "p259_175.flac",
+      "sha256": "5f072b2c5ef7c3b9c2626bf0dabeb42d75e89ed2668ec085ca0975f3e342d251",
+      "duration_s": 4.462,
+      "mic_id": "mic2",
+      "row_index": 49386
+    },
+    {
+      "id": "p260_003",
+      "speaker_id": "p260",
+      "path": "p260_003.flac",
+      "sha256": "c59bc1a0e0da3a076e3f7a7882bbc1dc70382042080ac0a69472761b55d2eb09",
+      "duration_s": 6.689,
+      "mic_id": "mic2",
+      "row_index": 50004
+    },
+    {
+      "id": "p260_004",
+      "speaker_id": "p260",
+      "path": "p260_004.flac",
+      "sha256": "0fde2c2c4613b1e9df75f0504a4e5c0368028e35bdaf5ec842567bb220e82c7e",
+      "duration_s": 4.411,
+      "mic_id": "mic2",
+      "row_index": 50006
+    },
+    {
+      "id": "p260_005",
+      "speaker_id": "p260",
+      "path": "p260_005.flac",
+      "sha256": "d5402c16742faba3ebfd6082691a3b9616072da63e10f338df1348bede23485f",
+      "duration_s": 5.444,
+      "mic_id": "mic2",
+      "row_index": 50008
+    },
+    {
+      "id": "p264_304",
+      "speaker_id": "p264",
+      "path": "p264_304.flac",
+      "sha256": "bcf386f430db26f84c16f4b151fe7ae170423abb6c7d3d18eefc1940625dcaf0",
+      "duration_s": 4.823,
+      "mic_id": "mic2",
+      "row_index": 70004
+    },
+    {
+      "id": "p264_308",
+      "speaker_id": "p264",
+      "path": "p264_308.flac",
+      "sha256": "4700c9a9640909764244d57e2798453761dd9c8c49f4db54c0c9d3a6fc89f4da",
+      "duration_s": 6.063,
+      "mic_id": "mic2",
+      "row_index": 70012
+    },
+    {
+      "id": "p264_309",
+      "speaker_id": "p264",
+      "path": "p264_309.flac",
+      "sha256": "a8ba3807f7bcd6e74624113d124ee2e4d91dbd0d83d010d424510109ceef3f25",
+      "duration_s": 3.799,
+      "mic_id": "mic2",
+      "row_index": 70014
+    },
+    {
+      "id": "p268_093",
+      "speaker_id": "p268",
+      "path": "p268_093.flac",
+      "sha256": "8c0e0ad07edebc1363259d2c4697b36763e7685569030ebada4f1fd660754888",
+      "duration_s": 4.312,
+      "mic_id": "mic2",
+      "row_index": 36875
+    },
+    {
+      "id": "p268_094",
+      "speaker_id": "p268",
+      "path": "p268_094.flac",
+      "sha256": "6afc4511154aacb2ca7f56ac29947f7615e03639e7e5a63a52c9fa8fedc1829c",
+      "duration_s": 3.739,
+      "mic_id": "mic2",
+      "row_index": 36877
+    },
+    {
+      "id": "p268_106",
+      "speaker_id": "p268",
+      "path": "p268_106.flac",
+      "sha256": "511ec371bd4d7f8e75628b695a740026319353b7dc933ca6885249fdbdf16964",
+      "duration_s": 3.995,
+      "mic_id": "mic2",
+      "row_index": 36901
+    },
+    {
+      "id": "p269_315",
+      "speaker_id": "p269",
+      "path": "p269_315.flac",
+      "sha256": "fecffe245e66c32d773d1ced1b9602742afedb4de47a0c1273d25a08c7257973",
+      "duration_s": 3.923,
+      "mic_id": "mic2",
+      "row_index": 38125
+    },
+    {
+      "id": "p269_316",
+      "speaker_id": "p269",
+      "path": "p269_316.flac",
+      "sha256": "2597fd1f63d249b72566367c076e85360f7cc641da3bbc17716d2d9194415fe4",
+      "duration_s": 3.972,
+      "mic_id": "mic2",
+      "row_index": 38127
+    },
+    {
+      "id": "p269_320",
+      "speaker_id": "p269",
+      "path": "p269_320.flac",
+      "sha256": "76a2501f48ba677bf72310cd5524b4e4fb79986b961f0d0a26811bbd8313cf63",
+      "duration_s": 4.755,
+      "mic_id": "mic2",
+      "row_index": 38135
+    },
+    {
+      "id": "p271_391",
+      "speaker_id": "p271",
+      "path": "p271_391.flac",
+      "sha256": "49d57c42345f673677438666c33d2f7418fdc90261d2b0e9c316e0eb9cfab8ca",
+      "duration_s": 4.858,
+      "mic_id": "mic2",
+      "row_index": 40003
+    },
+    {
+      "id": "p271_392",
+      "speaker_id": "p271",
+      "path": "p271_392.flac",
+      "sha256": "46711d65e918b1ef21f416179f6dff3d408f1217659e5b1a93957d31a4b26ed7",
+      "duration_s": 5.683,
+      "mic_id": "mic2",
+      "row_index": 40005
+    },
+    {
+      "id": "p271_393",
+      "speaker_id": "p271",
+      "path": "p271_393.flac",
+      "sha256": "22d5f642ed8bf8afe7f91c311652b47963472e4fcd06e1a87edb4e068081366b",
+      "duration_s": 4.823,
+      "mic_id": "mic2",
+      "row_index": 40007
+    },
+    {
+      "id": "p272_252",
+      "speaker_id": "p272",
+      "path": "p272_252.flac",
+      "sha256": "565862642e315a470efafe05606ded2b1fbd8863bf38b52a3d0b275176b56d08",
+      "duration_s": 5.037,
+      "mic_id": "mic2",
+      "row_index": 40631
+    },
+    {
+      "id": "p272_257",
+      "speaker_id": "p272",
+      "path": "p272_257.flac",
+      "sha256": "e930acb59758414b636f40dd9a23a7940fbe469e49ee4f7c34455b11ef2e8a1f",
+      "duration_s": 5.079,
+      "mic_id": "mic2",
+      "row_index": 40641
+    },
+    {
+      "id": "p272_262",
+      "speaker_id": "p272",
+      "path": "p272_262.flac",
+      "sha256": "754378db4183cbf94c97464c7b2c3d16d6aab429016717e63b28e8c916fa0beb",
+      "duration_s": 4.293,
+      "mic_id": "mic2",
+      "row_index": 40651
+    },
+    {
+      "id": "p274_030",
+      "speaker_id": "p274",
+      "path": "p274_030.flac",
+      "sha256": "2ff980061fe6407932f01d4e62368247ffbf40ce0af49a79c72418dde5f3998e",
+      "duration_s": 3.972,
+      "mic_id": "mic2",
+      "row_index": 41875
+    },
+    {
+      "id": "p274_031",
+      "speaker_id": "p274",
+      "path": "p274_031.flac",
+      "sha256": "ae82ce9587bd2cb0a2d044772b2c2406e72b5c288dce0a2be3de206e37359c36",
+      "duration_s": 4.458,
+      "mic_id": "mic2",
+      "row_index": 41877
+    },
+    {
+      "id": "p274_035",
+      "speaker_id": "p274",
+      "path": "p274_035.flac",
+      "sha256": "1abe864b132f9e2d6ca0b57b4afd0ded055219a0f36a84a4dc3073e7305bb2fe",
+      "duration_s": 4.81,
+      "mic_id": "mic2",
+      "row_index": 41885
+    },
+    {
+      "id": "p275_194",
+      "speaker_id": "p275",
+      "path": "p275_194.flac",
+      "sha256": "7e505d38b510581a12eee12b7d9b26438135a119ef3b9d76492438f71ab207f0",
+      "duration_s": 3.845,
+      "mic_id": "mic2",
+      "row_index": 43131
+    },
+    {
+      "id": "p275_197",
+      "speaker_id": "p275",
+      "path": "p275_197.flac",
+      "sha256": "c45a43b8c942a9951e752a3dc7e09544fec8dce7c57630a734e2ada22f955b02",
+      "duration_s": 4.098,
+      "mic_id": "mic2",
+      "row_index": 43137
+    },
+    {
+      "id": "p275_205",
+      "speaker_id": "p275",
+      "path": "p275_205.flac",
+      "sha256": "55865d1ef50c3d32024c85ad8bae21fbfab5e677a206576c260fc631671452ca",
+      "duration_s": 4.223,
+      "mic_id": "mic2",
+      "row_index": 43149
+    },
+    {
+      "id": "p281_316",
+      "speaker_id": "p281",
+      "path": "p281_316.flac",
+      "sha256": "51df87878c295c598a0103717334b0aac17b100dcfa1c9b61838519d6fe106d8",
+      "duration_s": 4.241,
+      "mic_id": "mic2",
+      "row_index": 4
+    },
+    {
+      "id": "p281_317",
+      "speaker_id": "p281",
+      "path": "p281_317.flac",
+      "sha256": "48e0be1fc4e7748fc7a9aff3d9de3ec4bc4c2c72a6925c51a480b351439c1274",
+      "duration_s": 5.269,
+      "mic_id": "mic2",
+      "row_index": 6
+    },
+    {
+      "id": "p281_321",
+      "speaker_id": "p281",
+      "path": "p281_321.flac",
+      "sha256": "6d095ae7a64c269c06d8b4518274dd05e7e22f085a6eacfc431a758b127f2493",
+      "duration_s": 3.955,
+      "mic_id": "mic2",
+      "row_index": 14
+    },
+    {
+      "id": "p282_172",
+      "speaker_id": "p282",
+      "path": "p282_172.flac",
+      "sha256": "14dbb06250aa8b0d2bf0f26ea7b1d85c837b0133f8c626680af2f4cbfb84c270",
+      "duration_s": 4.355,
+      "mic_id": "mic2",
+      "row_index": 628
+    },
+    {
+      "id": "p282_178",
+      "speaker_id": "p282",
+      "path": "p282_178.flac",
+      "sha256": "feca457367da08884a4c876ad452440e531337f702d82aa6b22b50068637e210",
+      "duration_s": 3.806,
+      "mic_id": "mic2",
+      "row_index": 640
+    },
+    {
+      "id": "p282_180",
+      "speaker_id": "p282",
+      "path": "p282_180.flac",
+      "sha256": "12cb64688045eccaa98e02ee61942185aeac8be30329bd86485f6979671fec87",
+      "duration_s": 3.855,
+      "mic_id": "mic2",
+      "row_index": 644
+    },
+    {
+      "id": "p283_446",
+      "speaker_id": "p283",
+      "path": "p283_446.flac",
+      "sha256": "50d16fd6e06632e4a070bccc29d7d0505ad0b9b17e20c4f262db2c8840eb7662",
+      "duration_s": 3.806,
+      "mic_id": "mic2",
+      "row_index": 1912
+    },
+    {
+      "id": "p283_448",
+      "speaker_id": "p283",
+      "path": "p283_448.flac",
+      "sha256": "2fbf05f3b7178edbc84eb7dc02d060afa27086b0c8388ca6e6de549f6825f227",
+      "duration_s": 3.814,
+      "mic_id": "mic2",
+      "row_index": 1916
+    },
+    {
+      "id": "p283_454",
+      "speaker_id": "p283",
+      "path": "p283_454.flac",
+      "sha256": "c05c9cb66e6049b42dbf6889b4475745821a923c4cad80fc861f05452ca4b625",
+      "duration_s": 3.652,
+      "mic_id": "mic2",
+      "row_index": 1928
+    },
+    {
+      "id": "p284_019",
+      "speaker_id": "p284",
+      "path": "p284_019.flac",
+      "sha256": "6ecbd9df0106dba30457f1fff324515ffca0176f0ae580594c3329aa85d284c3",
+      "duration_s": 6.743,
+      "mic_id": "mic2",
+      "row_index": 2000
+    },
+    {
+      "id": "p284_021",
+      "speaker_id": "p284",
+      "path": "p284_021.flac",
+      "sha256": "ba1bee4439dc139a9335a4531a5e014fe2876217d1591dc2f55468c0271cdae8",
+      "duration_s": 7.602,
+      "mic_id": "mic2",
+      "row_index": 2004
+    },
+    {
+      "id": "p284_022",
+      "speaker_id": "p284",
+      "path": "p284_022.flac",
+      "sha256": "90f960a7f73abe2fe8eda85656a58acdd2df13dfae9cf71ed2ab172090c2bde7",
+      "duration_s": 5.789,
+      "mic_id": "mic2",
+      "row_index": 2006
+    },
+    {
+      "id": "p285_159",
+      "speaker_id": "p285",
+      "path": "p285_159.flac",
+      "sha256": "669c692537b47816f947a890f1f370b0e45b4f907d7abb2e2f540b6800a022fc",
+      "duration_s": 4.041,
+      "mic_id": "mic2",
+      "row_index": 3130
+    },
+    {
+      "id": "p285_162",
+      "speaker_id": "p285",
+      "path": "p285_162.flac",
+      "sha256": "3d64f9adb320e9fb21640823ce7cff30c8b1ab2294fc8fe3cdeff6215dfd2a1f",
+      "duration_s": 3.888,
+      "mic_id": "mic2",
+      "row_index": 3136
+    },
+    {
+      "id": "p285_163",
+      "speaker_id": "p285",
+      "path": "p285_163.flac",
+      "sha256": "bf71699d1692041eb64bc4c08cd848e3c1fd334fdd879f9e1f3cb90563421c91",
+      "duration_s": 3.969,
+      "mic_id": "mic2",
+      "row_index": 3138
+    },
+    {
+      "id": "p300_211",
+      "speaker_id": "p300",
+      "path": "p300_211.flac",
+      "sha256": "971ffc9c16165101f4d2afecdfe1f224e598443b1264e0f23f89582e91c7a536",
+      "duration_s": 3.731,
+      "mic_id": "mic2",
+      "row_index": 4376
+    },
+    {
+      "id": "p300_212",
+      "speaker_id": "p300",
+      "path": "p300_212.flac",
+      "sha256": "09a2ead3a4cc72fe0badd1f0b56eb3e59fec4768eebc4a2a36cad0202f5eefe1",
+      "duration_s": 4.225,
+      "mic_id": "mic2",
+      "row_index": 4378
+    },
+    {
+      "id": "p300_213",
+      "speaker_id": "p300",
+      "path": "p300_213.flac",
+      "sha256": "d2d37ca975f8e0da67f4b66be377999bf95ac31523a9c529ed4db53996b7721c",
+      "duration_s": 5.137,
+      "mic_id": "mic2",
+      "row_index": 4380
+    }
+  ],
+  "note": "Store checksums and source rows only. FLAC and speaker embeddings are not committed."
+}

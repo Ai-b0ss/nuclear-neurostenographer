@@ -285,14 +285,26 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             store.verify(model) { context.ensureActive() }
             require(source.scheme == "file") { "Аудиофайл должен быть сохранён локально" }
             val pcm = PcmFileAudio(File(requireNotNull(source.path))) { context.ensureActive() }
-            if (pcm.durationMs > PcmWav.MAX_SECONDS * 1000L) recognizeLong(pcm, model)
+            // QA mode exercises the SAME real long-file implementation on a >5-minute fixture.
+            // The regular product still switches to this path only after 20 minutes.
+            if (pcm.durationMs > PcmWav.MAX_SECONDS * 1000L ||
+                (BuildConfig.GLOBAL_SPEAKER_BOOK && pcm.durationMs > 300_000L))
+                recognizeLong(pcm, model)
             else {
                 mutable.value = mutable.value.copy(shortEta = ShortProcessingEta(SystemClock.elapsedRealtime()))
                 recognizeBlock(pcm.read(checkCancelled = { context.ensureActive() }), model)
             }
         }
         val (backendUsed, warning) = processing
+        val hasSpeakerAttribution = output.segments.any { it.speakerId != null || it.overlapSpeakers.isNotEmpty() }
+        // Do not claim a voice-link model ran when C2 produced no usable profiles.
+        val hasAcousticVoiceLink = output.segments.any { segment ->
+            segment.speakerId?.startsWith("Speaker ") == true ||
+                segment.overlapSpeakers.any { it.startsWith("Speaker ") }
+        }
         val speakerSource = when {
+            backendUsed == "long-file" && BuildConfig.GLOBAL_SPEAKER_BOOK && hasAcousticVoiceLink ->
+                "chunked_titanet_small_voice_embeddings_qa"
             backendUsed == "long-file" -> "chunked_locally_scoped_speakers_no_global_link"
             backendUsed == "digital-silence" -> "digital_silence_no_diarization"
             diarization == null && warning != null -> "failed_worker_unknown_speakers"
@@ -312,14 +324,17 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             else "Интервалы фрагментов, не пословное выравнивание.",
             if (output.decodedWindows == 0) "Сегментация не обнаружила речевых окон; ASR не запускался." else null,
             if (output.decodedWindows > 0 && output.segments.isEmpty()) "ASR не вернул текста." else null,
-            if (diarization == null) "Говорящие не определены." else null)
+            if (diarization == null && !(backendUsed == "long-file" && hasSpeakerAttribution))
+                "Говорящие не определены." else null)
         val document = TranscriptDocument(output.segments.toList(), output.audioMs, TranscriptProvenance(
             output.modelId, output.modelRevision, timestampSource, speakerSource,
             BuildConfig.SHERPA_RUNTIME_SHA256), warnings)
         val details = (if (output.decodedWindows == 0) "Речевые окна не обнаружены; ASR не запускался. " else
                 if (output.segments.isEmpty()) "ASR не вернул текста. " else "ASR вернул ${output.segments.size} фрагментов. ") +
                 "Аудио: ${output.audioMs} мс; загрузка ${output.loadMs} мс; обработка ${output.decodeMs} мс. " +
-                (if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
+                (if (backendUsed == "long-file" && hasSpeakerAttribution)
+                    "Диаризация выполнена по блокам. "
+                else if (diarization == null) "Диаризация недоступна. ASR без говорящих. " else
                     "Диаризация ${backendUsed?.uppercase()}: ${diarization.turns.filter { it.attributionEligible }.map { it.speakerId }.distinct().size} кластеров, ${diarization.processMs} мс. ") +
                 (warning ?: "")
         android.util.Log.i("NeuroStenoMetrics", details)
@@ -532,6 +547,9 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         val ids = linkedSetOf<String>()
         val revisions = linkedSetOf<String>()
         val warnings = linkedSetOf<String>()
+        // Experimental QA only. A profile missing from C2 never generates identity evidence.
+        val voiceBook = if (BuildConfig.GLOBAL_SPEAKER_BOOK) GlobalSpeakerBook() else null
+        var profiledBlocks = 0
         var load = 0L; var decode = 0L
         var windows = 0; var timed = 0; var untimed = 0
         var start = 0L
@@ -560,11 +578,15 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
                 val localEnd = (last / 16L + 1001).coerceAtMost(block.durationMs)
                 val trimmed = PcmAudio(block.samples.copyOfRange((localStart * 16).toInt(),
                     minOf((localEnd * 16).toInt(), block.samples.size)), 16000)
-                val (asr, _, processing) = recognizeBlock(trimmed, model)
+                val (asr, diarization, processing) = recognizeBlock(trimmed, model)
                 val offset = start + localStart
-                // Preserve local speaker attribution without claiming that local
-                // slot IDs are the same people across five-minute blocks.
-                segments += asr.segments.map { LocalSpeakerScope.shift(it, offset, blockIndex) }
+                val links = if (voiceBook != null && processing.first == NemotronBackend.C2) {
+                    voiceBook.link(diarization?.voicePrints.orEmpty()).also {
+                        if (it.isNotEmpty()) profiledBlocks++
+                    }
+                } else emptyMap()
+                // No evidence, short speech, or an ambiguous profile => keep local ID.
+                segments += asr.segments.map { LocalSpeakerScope.shift(it, offset, blockIndex, links) }
                 ids += asr.modelId; revisions += asr.modelRevision
                 processing.second?.let { warnings += it }
                 load += asr.loadMs; decode += asr.decodeMs
@@ -581,7 +603,12 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             start = end
             blockIndex++
         }
-        warnings += "Длинная запись обработана блоками. Говорящие различаются только внутри каждого блока, сквозное сопоставление между блоками недоступно."
+        warnings += if (voiceBook == null)
+            "Длинная запись обработана блоками. Говорящие различаются только внутри каждого блока, сквозное сопоставление между блоками недоступно."
+        else "Экспериментальное сопоставление голосов: профили получены для " +
+            profiledBlocks + " блоков, найдено " + voiceBook.size() +
+            " голосовых групп. Неподтверждённые голоса остались с локальными ID. " +
+            "Качество межблочного сопоставления на независимых записях не проверено."
         return Triple(AsrOutput(segments, pcm.durationMs, load, decode, windows, timed, untimed,
             ids.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.id },
             revisions.joinToString("+").ifEmpty { AsrModelSpec.ACTIVE.revision }), null,

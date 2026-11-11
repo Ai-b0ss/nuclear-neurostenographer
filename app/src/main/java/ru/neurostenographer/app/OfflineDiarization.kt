@@ -5,7 +5,7 @@ import ru.neurostenographer.core.*
 import java.io.File
 
 data class DiarizationOutput(val turns: List<SpeakerTurn>, val loadMs: Long, val processMs: Long,
-    val windows: List<AudioWindow>)
+    val windows: List<AudioWindow>, val voicePrints: List<VoicePrint> = emptyList())
 
 /** One full-recording call: pyannote segmentation, ERes2Net embeddings and
  * complete-link cosine clustering. Threshold is experimental, not confidence.

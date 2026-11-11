@@ -40,6 +40,10 @@ val c2Candidate = providers.gradleProperty("c2Candidate").orNull == "true"
 check(!(nemotronPrototype && nemotronProduct)) { "Prototype and product are separate variants" }
 check(!c2Candidate || nemotronProduct) { "C2 candidate requires -PnemotronProduct=true" }
 val nemotronEnabled = nemotronPrototype || nemotronProduct
+val globalSpeakerBook = providers.gradleProperty("globalSpeakerBook").orNull == "true"
+check(!globalSpeakerBook || nemotronProduct) {
+    "Voice-link QA requires -PnemotronProduct=true; production remains unchanged"
+}
 // Separate test build with GigaAM v3 e2e RNNT (punctuation); never the RC1 applicationId.
 val asrA3 = providers.gradleProperty("asrA3").orNull == "true"
 val englishAuto = providers.gradleProperty("englishAuto").orNull == "true"
@@ -82,6 +86,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SHERPA_RUNTIME_SHA256", "\"$selectedRuntimeDigest\"")
         buildConfigField("boolean", "NEMOTRON_PROTOTYPE", nemotronEnabled.toString())
+        buildConfigField("boolean", "GLOBAL_SPEAKER_BOOK", globalSpeakerBook.toString())
         buildConfigField("boolean", "ASR_A3", asrA3.toString())
         buildConfigField("boolean", "ENGLISH_AUTO", englishAuto.toString())
         buildConfigField("boolean", "REALTIME", realtime.toString())
@@ -209,6 +214,21 @@ android {
         sourceSets.getByName("androidTest").java.srcDirs("src/litertProbe/java", "src/litertProbeTest/java")
         kotlinOptions { freeCompilerArgs += "-Xskip-metadata-version-check" }
         androidResources { noCompress += "tflite" }
+    }
+    // Last and FINAL suffix assignment: never let any QA combination overwrite
+    // another already-installed app. Incompatible variants must fail the build.
+    if (globalSpeakerBook) {
+        check(providers.gradleProperty("checkpointQa").orNull != "true" &&
+              !fddtQa && !solHighAcceptance &&
+              providers.gradleProperty("a3SideBySide").orNull != "true" &&
+              !realtimeSideBySide && !nemotronPrototype && !c2Candidate &&
+              providers.gradleProperty("litertProbe").orNull != "true") {
+            "globalSpeakerBook is an isolated QA app. Disable checkpointQa/fddtQa/" +
+            "solHighAcceptance/a3SideBySide/realtimeSideBySide/" +
+            "nemotronPrototype/c2Candidate/litertProbe."
+        }
+        defaultConfig.applicationIdSuffix = ".speakerbookqa"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Voice QA"
     }
 }
 dependencies {

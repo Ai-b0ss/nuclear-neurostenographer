@@ -1,0 +1,20 @@
+{
+  "schema": "speakerbook-honor-negative-thermal-abort-v1",
+  "date": "2026-11-12",
+  "device": "HONOR 10X Lite Android 10 ARM64",
+  "qa_variant": "isolated speakerbookqa",
+  "scope": "different-source speaker negative-control test (unfinished)",
+  "test_fixture_sha256": "a2dc1e9667bda9f27dc38db97d28501b628a3b0d635a4bdc9837b8c24ca98355",
+  "tested_git_tree": "b0fac39fbe6b5f2dbef0adfde10474fad2ce3e3a",
+  "run_id": "715682409778364",
+  "status": "THERMAL_ABORT",
+  "start_temperature_c": 38.0,
+  "max_temperature_c": 42.0,
+  "thermal_cutoff_c": 42.0,
+  "elapsed_seconds": 112.73,
+  "qa_processes_stopped": true,
+  "instrumentation_exit_code": 0,
+  "app_evidence_status": "RUNNING (process intentionally force-stopped before terminal result)",
+  "no_negative_control_result": true,
+  "caveat": "Host-side thermal abort induced Android instrumentation 'Process crashed' text; not evidence of Android app crash or identity accuracy"
+}
