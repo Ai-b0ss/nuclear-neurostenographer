@@ -76,6 +76,22 @@ class ThermalWatchdogTests(unittest.TestCase):
                 saved=json.loads(log.with_suffix(".status.json").read_text())
                 self.assertEqual(saved["status"],"CLEANUP_NOT_CONFIRMED")
 
+    def test_allowed_cross_test_modes_and_no_other_package(self):
+        for mode in ("repeat","differentSources","withoutModel"):
+            cmd,name=watchdog.instrumentation_command(Path("adb"),"HONOR",
+                                                         "cross",mode)
+            self.assertEqual(cmd[-4:-1],["-e","qaMode",mode])
+            self.assertEqual(cmd[-1],watchdog.RUNNER)
+            self.assertEqual(name,
+                "ru.neurostenographer.app.CrossWindowSpeakerBookDeviceTest")
+            self.assertIn("-s",cmd)
+        cmd,name=watchdog.instrumentation_command(Path("adb"),"HONOR")
+        self.assertEqual(name,watchdog.TEST_CLASS)
+        self.assertNotIn("qaMode",cmd)
+        for case,mode in (("long","repeat"),("unknown",None),("cross","evil")):
+            with self.assertRaises(ValueError):
+                watchdog.instrumentation_command(Path("adb"),"HONOR",case,mode)
+
     def test_unavailable_or_corrupt(self):
         for text in ("level: 90", "temperature: 420", "temperature: 999\nlevel: 85",
                      "temperature: -1\nlevel: 90", "temperature: 440\nlevel: 120"):

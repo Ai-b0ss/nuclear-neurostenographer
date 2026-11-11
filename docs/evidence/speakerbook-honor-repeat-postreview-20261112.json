@@ -1,0 +1,48 @@
+{
+  "schema": "speakerbook-honor-repeat-post-review-v1",
+  "date": "2026-11-12",
+  "test": "CrossWindowSpeakerBookDeviceTest.longFileProducesMeasuredCrossWindowEvidence",
+  "host": "HONOR 10X Lite Android 10 ARM64",
+  "variant": "QA-only TitaNet 192D + Nemotron C2 + GigaAM A3",
+  "source_sha256": "c34f07df7c083f91956bb5b74af8bdf0a294a955c36ca6d0b3e669b001ea711c",
+  "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+  "tested_git_tree": "b0fac39fbe6b5f2dbef0adfde10474fad2ce3e3a",
+  "status": "PASS",
+  "run_id": "715105781287306",
+  "duration_ms": 370453,
+  "transcription_wall_ms": 108806,
+  "rtf": 0.2937106731488205,
+  "segments": 8,
+  "profiled_blocks": 2,
+  "first_speaker_ids": [
+    "Speaker 1",
+    "Block 1 / Speaker 1"
+  ],
+  "second_speaker_ids": [
+    "Speaker 1",
+    "Block 2 / Speaker 2"
+  ],
+  "shared_speaker_ids": [
+    "Speaker 1"
+  ],
+  "global_links_confirmed": 1,
+  "conservative_local_unlinked_ids": [
+    "Block 2 / Speaker 2",
+    "Block 1 / Speaker 1"
+  ],
+  "host_watchdog": {
+    "start_temperature_c": 36.0,
+    "max_temperature_c": 41.0,
+    "cutoff_temperature_c": 42.0,
+    "wall_seconds": 112.74,
+    "instrumentation_exit_code": 0,
+    "qa_processes_fully_stopped": true
+  },
+  "scope": "public fixture repeated across 5m blocks; not an independent diarization accuracy or Russian DER test",
+  "caveats": [
+    "One voice linked across the two blocks; the other remains locally scoped. This is not 2/2 correctness.",
+    "Recorded test is repeated-source identity, not different-source false-merge evaluation.",
+    "20+ minute continuous audio remains unverified on new build.",
+    "Actual speech samples and transcript previews intentionally excluded."
+  ]
+}

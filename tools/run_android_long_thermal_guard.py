@@ -76,6 +76,25 @@ def verify_qa_stopped(adb,serial):
     return {"verified":True,"remaining":running,"stopped":not running}
 
 
+def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
+    # Restricted to two QA-only JUnit classes in the isolated application.
+    cases={
+        "long":TEST_CLASS,
+        "cross":"ru.neurostenographer.app.CrossWindowSpeakerBookDeviceTest",
+    }
+    if test_case not in cases:
+        raise ValueError("Invalid QA test class")
+    if qa_mode is not None and (
+        test_case!="cross" or qa_mode not in ("repeat","differentSources","withoutModel")):
+        raise ValueError("Invalid QA test mode")
+    command=[str(adb),"-s",serial,"shell","am","instrument",
+             "-w","-r","-e","class",cases[test_case]]
+    if qa_mode is not None:
+        command.extend(["-e","qaMode",qa_mode])
+    command.append(RUNNER)
+    return command,cases[test_case]
+
+
 def run(a):
     if not (100<=a.start_max_tenths<a.cutoff_tenths<=450):
         raise ValueError("start temperature must be below cutoff")
@@ -89,9 +108,11 @@ def run(a):
     log=Path(a.log).resolve()
     log.parent.mkdir(parents=True,exist_ok=True)
     if log.exists():raise FileExistsError("Log already exists: "+str(log))
-    command=[str(a.adb),"-s",a.serial,"shell","am","instrument",
-        "-w","-r","-e","class",TEST_CLASS,RUNNER]
-    report={"test":TEST_CLASS,"qa_only":True,"initial_temperature_c":first/10,
+    command,test_name=instrumentation_command(a.adb,a.serial,
+        getattr(a,"test_case","long"),getattr(a,"qa_mode",None))
+    report={"test":test_name,"qa_only":True,
+        "qa_mode":getattr(a,"qa_mode",None),
+        "initial_temperature_c":first/10,
         "initial_battery_percent":level,"max_temperature_c":first/10,
         "watchdog_cutoff_c":a.cutoff_tenths/10,"status":"RUNNING"}
     started=time.monotonic()
@@ -162,6 +183,9 @@ if __name__=="__main__":
     parser.add_argument("--start-max-tenths",type=int,default=390)
     parser.add_argument("--poll-s",type=float,default=2)
     parser.add_argument("--limit-s",type=int,default=900)
+    parser.add_argument("--test-case",choices=("long","cross"),default="long")
+    parser.add_argument("--qa-mode",choices=("repeat","differentSources","withoutModel"),
+                        default=None)
     args=parser.parse_args()
     try:sys.exit(run(args))
     except Exception as e:

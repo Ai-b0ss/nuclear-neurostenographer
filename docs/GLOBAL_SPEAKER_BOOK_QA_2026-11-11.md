@@ -1,3 +1,37 @@
+## Second HONOR run, different speakers — thermally aborted
+
+Attempted the distinct-source negative control using the same tested
+post-review QA APK. Started at 38°C, hit the battery cutoff 42°C after
+112.73 s. The host forcibly stopped only the QA processes and
+confirmed they were no longer running. The Android instrumentation
+did not produce a terminal assertion result; its 'Process crashed'
+text is expected after forced stop, not an application crash report.
+This run proves only the thermal guard operated correctly.
+**No false-merge or accuracy conclusions can be drawn.**
+Evidence: docs/evidence/speakerbook-honor-negative-thermal-abort-20261112.json.
+
+## HONOR post-review TitaNet hardware QA — 12 November 2026
+
+Built and installed the isolated .speakerbookqa app plus Android tests
+on HONOR 10X Lite (Android 10). Verified TitaNet ONNX SHA-256 on the phone.
+Current logic includes two separated speech samples, immutable anchor,
+clean overlap masks, and terminal run evidence.
+
+**PASS for 370.453 s repeated-source public WAV**: 8 transcript segments,
+2 profiled windows, **one** global returning speaker ID (Speaker 1).
+Two other labels remained scoped to their own blocks. This does NOT
+prove that both returning people were identified. Processing 108.806 s,
+RTF ~0.294. Battery began at 36°C, peaked at 41°C with 42°C abort
+cutoff. All QA processes were confirmed stopped after instrumentation.
+
+Exact public fixture checksum, model hash, code tree, profile count and
+limitations are recorded without raw transcript or personal audio in:
+docs/evidence/speakerbook-honor-repeat-postreview-20261112.json
+
+Need independent different-source negative test for this new revision,
+continuous 20+ minute test without thermal abort and manual Russian
+speaker ground truth. Feature remains off by default; no release claim.
+
 # Эксперимент: глобальные голосовые метки для длинных записей
 
 **Дата:** 11 ноября 2026. Отдельная ветка feat/global-speakerbook-20261111

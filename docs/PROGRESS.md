@@ -1,3 +1,40 @@
+## 2026-11-12 — device negative-control attempt and thermal gate
+
+- A second HONOR instrumentation run used distinct public speakers
+  after the positive test. It started at battery 38°C and reached
+  the 42°C safety cutoff after 112.73 s.
+- Host watchdog recorded **THERMAL_ABORT** and verified both isolated
+  QA processes stopped. The Android instrumentation 'Process crashed'
+  line is a force-stop consequence, not evidence of an app crash.
+- Application evidence remained RUNNING (as intended when forcibly
+  stopped); there is **no negative-control accuracy result**.
+- Local failure evidence: docs/evidence/speakerbook-honor-negative-thermal-abort-20261112.json.
+- Expanded host watchdog now allows only named QA test classes and
+  known QA modes; Python tests exercise invalid class/mode rejection.
+- The phone must cool before any new sustained workload.
+
+## 2026-11-12 — repository consolidation and HONOR post-review QA
+
+- Removed 29 historical Git worktrees, preserving a single canonical tree
+  at C:/Users/user/Documents/nuclear-neurostenographer; archived unique
+  reports and interrupted integration Git state to the verified local ZIP
+  .local/retained-unique-work-20261111.zip.
+- Kept exactly one ready release APK at
+  .local/releases/current/Neurostenographer-0.4.1-rc4.apk; discarded older
+  RC1/RC2/RC3/posthack duplicates, retaining Git history.
+- Restored Gradle 8.9, Temurin JDK 17.0.21 and Android SDK, validated
+  executables, and restored Maven dependencies after isolated QA builds.
+- PR #54 review: addressed conflicting app ID, early-exit watchdog and
+  stale instrumentation evidence. GitHub Actions passed for these fixes.
+- **HONOR short test after review: PASS**. Repeated 370.453 s public WAV,
+  8 segments, two profiled windows, one speaker linked across windows;
+  the remaining IDs are deliberately local and unlinked. RTF 0.294;
+  peak battery temperature 41°C, cutoff 42°C; no QA process left running.
+  Evidence: docs/evidence/speakerbook-honor-repeat-postreview-20261112.json
+- Still a release NO-GO: only one returning speaker linked on this fixture,
+  no new-revision different-source negative control, no safe successful
+  20+ minute test or independent Russian manual speaker DER/cpWER.
+
 # Progress — 2026-10-30
 
 ## 2026-11-11 — independent Codex Sol 6.1 High audit hardening
