@@ -126,11 +126,13 @@ object IsolatedDiarization {
                         val known = validated.turns.map { it.speakerId }.toSet()
                         val voiceProfiles = if (BuildConfig.GLOBAL_SPEAKER_BOOK &&
                             ids.size in 1..8 && ids.distinct().size == ids.size &&
-                            speech?.size == ids.size && vectors?.size == ids.size * 512 &&
+                            speech?.size == ids.size &&
+                            vectors?.size == ids.size * TitaNetVoiceProfiles.DIM &&
                             ids.all { it in known } && speech.all { it in 0..audioMs } &&
                             vectors.all { it.isFinite() }) {
                             ids.indices.map { i ->
-                                VoicePrint(ids[i], vectors.copyOfRange(i * 512, (i + 1) * 512), speech[i])
+                                VoicePrint(ids[i], vectors.copyOfRange(
+                                    i * TitaNetVoiceProfiles.DIM, (i + 1) * TitaNetVoiceProfiles.DIM), speech[i])
                             }
                         } else emptyList()
                         result.complete(DiarizationOutput(

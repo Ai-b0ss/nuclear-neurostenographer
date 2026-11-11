@@ -1,5 +1,31 @@
 # Progress — 2026-10-30
 
+## 2026-11-11 — TitaNet Small speaker verification, physical HONOR QA
+
+- After the first negative-control C2 false-match warning, switched active QA
+  cross-window matching from unverified Nemotron C2 hidden embeddings to an
+  independent sherpa-onnx TitaNet Small 192D speaker-embedding extractor.
+  Exact model SHA256 pinned; optional 40 MB weights remain only in the QA
+  sandbox and are not bundled into the released APK.
+- Physical HONOR ARM64 tests: repeated-source positive 2/2 matching IDs,
+  different-source negative 0 ID cross-links (old C2 had 1 shared ID),
+  missing optional model fails closed to local block IDs with full ASR text,
+  independent utterance of same C2 speaker cosine 0.845 vs other voice 0.250.
+- Source clips do not have independently verified identity labels;
+  none of these numbers is a held-out DER or speaker-verification FPR.
+- Sanitized evidence: evidence/speakerbook-titanet-honor-20261111.json.
+- QA-only, do not merge into production until continuous 20+ minute
+  processing and held-out DER/cpWER/false-match validation pass.
+- 20m40s continuous QA test attempted on HONOR, but **manually aborted**
+  after the battery sensor reached 47 C. Android showed a test process
+  termination because we force-stopped the QA packages; this is NOT proof
+  of a software crash or successful 20+ min processing.
+  Observations: evidence/speakerbook-titanet-thermal-abort-20261111.json.
+  Do not re-run a sustained load on this phone without a thermal cutoff
+  and a cooling/power plan.
+
+
+
 ## 2026-11-11 — experimental cross-window voice identity, QA only
 
 - Separate worktree/branch feat/global-speakerbook-20261111 from origin/main 459773f. Main app/release unchanged.

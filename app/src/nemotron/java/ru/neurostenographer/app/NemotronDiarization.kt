@@ -94,14 +94,13 @@ object NemotronDiarization {
                 } finally { inputs.values.forEach { it.close() } }
             }
             // Two passes: the second starts with the voices the first one learned (docs/C2_POSTPROCESS_2026-11-06.md).
-            val (raw, voices) = if (BuildConfig.GLOBAL_SPEAKER_BOOK)
-                NemotronDiarizer.diarizeWithVoiceProfiles(audio.samples, filters, hann, silence,
-                    runner, checkCancelled, NemotronPostprocess.PRODUCT, onProgress)
-            else NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled,
-                NemotronPostprocess.PRODUCT, warmSecondPass = true, onProgress = onProgress) to emptyList()
+            // C2 internal embeddings are NOT a validated voice-verification model.
+            // TitaNet extracts independent speaker embeddings in the isolated worker.
+            val raw = NemotronDiarizer.diarize(audio.samples, filters, hann, silence, runner, checkCancelled,
+                NemotronPostprocess.PRODUCT, warmSecondPass = true, onProgress = onProgress)
             val turns = DiarizationTimeline.canonicalize(raw, audio.durationMs)
             return DiarizationOutput(turns, (loaded - started) / 1_000_000, (System.nanoTime() - loaded) / 1_000_000,
-                DiarizationTimeline.speechWindows(raw, audio.durationMs), voices)
+                DiarizationTimeline.speechWindows(raw, audio.durationMs))
         } finally {
             session.close()
             options.close()

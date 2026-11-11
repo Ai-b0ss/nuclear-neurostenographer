@@ -56,15 +56,29 @@ class DiarizationService : Service() {
                 val samples = DataInputStream(input.inputStream().buffered()).use { stream ->
                     FloatArray((input.length() / 4).toInt()) { stream.readFloat() }
                 }
-                val result = if (backend == NemotronBackend.C0)
-                    OfflineDiarization.process(PcmAudio(samples, 16000), model, clusteringThreshold = threshold)
-                else NemotronBackend.process(PcmAudio(samples, 16000), model, {}, { done, total ->
+                val audio = PcmAudio(samples, 16000)
+                val rawResult = if (backend == NemotronBackend.C0)
+                    OfflineDiarization.process(audio, model, clusteringThreshold = threshold)
+                else NemotronBackend.process(audio, model, {}, { done, total ->
                     // Send only completed chunks. Model inference is synchronous in
                     // this dedicated process; no UI progress is inferred or faked.
                     if (total in 1..10000 && done in 1..total) {
                         runCatching { reply.send(Message.obtain(null, PROGRESS, done, total)) }
                     }
                 })
+                // Experimental identity evidence must originate in a dedicated speaker
+                // embedding model, not the diarizer's own 512D hidden states.
+                // Any missing/corrupt QA model fails closed to block-local speaker IDs.
+                val result = if (BuildConfig.GLOBAL_SPEAKER_BOOK && backend == NemotronBackend.C2) {
+                    // Recover from an unavailable/incompatible optional QA model,
+                    // but do NOT swallow OutOfMemoryError or other fatal VM errors.
+                    val prints = try {
+                        TitaNetVoiceProfiles.compute(this, audio, rawResult.turns)
+                    } catch (_: Exception) {
+                        emptyList()
+                    }
+                    rawResult.copy(voicePrints = prints)
+                } else rawResult
                 require(result.turns.size <= DiarizationReply.MAX_ITEMS && result.windows.size <= DiarizationReply.MAX_ITEMS)
                 val output = Bundle().apply {
                     putLongArray("starts", result.turns.map { it.startMs }.toLongArray())
@@ -76,10 +90,10 @@ class DiarizationService : Service() {
                     putLong("load", result.loadMs); putLong("process", result.processMs)
                     if (BuildConfig.GLOBAL_SPEAKER_BOOK && result.voicePrints.isNotEmpty()) {
                         require(result.voicePrints.size <= 8 &&
-                            result.voicePrints.all { it.embedding.size == 512 })
-                        val flat = FloatArray(result.voicePrints.size * 512)
+                            result.voicePrints.all { it.embedding.size == TitaNetVoiceProfiles.DIM })
+                        val flat = FloatArray(result.voicePrints.size * TitaNetVoiceProfiles.DIM)
                         result.voicePrints.forEachIndexed { index, profile ->
-                            profile.embedding.copyInto(flat, index * 512)
+                            profile.embedding.copyInto(flat, index * TitaNetVoiceProfiles.DIM)
                         }
                         putStringArrayList("voiceIds", ArrayList(result.voicePrints.map { it.localSpeakerId }))
                         putLongArray("voiceMs", result.voicePrints.map { it.cleanSpeechMs }.toLongArray())

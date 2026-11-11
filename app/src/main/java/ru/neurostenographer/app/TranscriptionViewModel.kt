@@ -304,7 +304,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         }
         val speakerSource = when {
             backendUsed == "long-file" && BuildConfig.GLOBAL_SPEAKER_BOOK && hasAcousticVoiceLink ->
-                "chunked_experimental_voice_embeddings"
+                "chunked_titanet_small_voice_embeddings_qa"
             backendUsed == "long-file" -> "chunked_locally_scoped_speakers_no_global_link"
             backendUsed == "digital-silence" -> "digital_silence_no_diarization"
             diarization == null && warning != null -> "failed_worker_unknown_speakers"

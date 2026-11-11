@@ -19,13 +19,23 @@ class CrossWindowSpeakerBookDeviceTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val target = instrumentation.targetContext
         assumeTrue("Experimental test is not part of default Android CI", BuildConfig.GLOBAL_SPEAKER_BOOK)
-        val negativeControl = InstrumentationRegistry.getArguments().getString("qaMode") == "differentSources"
+        val mode = InstrumentationRegistry.getArguments().getString("qaMode") ?: "repeat"
+        assertTrue("Unknown test mode", mode in setOf("repeat", "differentSources", "withoutModel"))
+        val negativeControl = mode == "differentSources"
+        val missingModel = mode == "withoutModel"
         val fixtureName = if (negativeControl) "speakerbook_unrelated_after_5min.wav" else "speakerbook_repeat_after_5min.wav"
-        val source = File(requireNotNull(target.getExternalFilesDir("qa")), fixtureName)
+        val qaDir = requireNotNull(target.getExternalFilesDir("qa"))
+        val source = File(qaDir, fixtureName)
         assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
-        val evidence = File(target.filesDir,
-            if (negativeControl) "speakerbook-different-sources-evidence.json"
-            else "speakerbook-device-evidence.json")
+        // Rename only our QA TitaNet model, restoring it even if the test fails.
+        // This exercises the REAL worker's absent-model fail-closed path.
+        val optionalModel = File(qaDir, "titanet/nemo_en_titanet_small.onnx")
+        val heldModel = File(qaDir, "titanet/nemo_en_titanet_small.onnx.qa-hold")
+        val evidence = File(target.filesDir, when (mode) {
+            "differentSources" -> "speakerbook-different-sources-evidence.json"
+            "withoutModel" -> "speakerbook-without-model-evidence.json"
+            else -> "speakerbook-device-evidence.json"
+        })
         val owner = ViewModelStore()
         lateinit var model: TranscriptionViewModel
         var stage = "setup"
@@ -36,7 +46,15 @@ class CrossWindowSpeakerBookDeviceTest {
             while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(200)
             assertFalse("Timeout " + stage + ": " + model.state.value.message, model.state.value.busy)
         }
+        var movedModel = false
         try {
+            if (missingModel) {
+                assertTrue("Missing QA TitaNet model must exist before test", optionalModel.isFile)
+                assertFalse("Stale QA backup must not be overwritten", heldModel.exists())
+                assertTrue("Could not temporarily rename QA model", optionalModel.renameTo(heldModel))
+                movedModel = true
+                assertFalse("QA model still available after rename", optionalModel.exists())
+            }
             instrumentation.runOnMainSync {
                 model = TranscriptionViewModel(target.applicationContext as Application)
                 owner.put("cross-window-qa", model)
@@ -64,10 +82,12 @@ class CrossWindowSpeakerBookDeviceTest {
             val blocks = Regex("профили получены для ([0-9]+) блоков")
                 .find(warning)?.groupValues?.get(1)?.toIntOrNull() ?: 0
             val record = JSONObject()
-                .put("scope", if (negativeControl)
-                    "different_source_clips_speakers_not_identity_annotated"
-                    else "repeated_public_clip_gain_changed_not_independent_accuracy")
-                .put("qa_mode", if (negativeControl) "differentSources" else "repeat")
+                .put("scope", when (mode) {
+                    "differentSources" -> "different_source_clips_speakers_not_identity_annotated"
+                    "withoutModel" -> "missing_optional_model_must_keep_block_local_ids"
+                    else -> "repeated_public_clip_gain_changed_not_independent_accuracy"
+                })
+                .put("qa_mode", mode)
                 .put("duration_ms", doc.audioMs)
                 .put("wall_ms", elapsed).put("rtf", elapsed.toDouble() / doc.audioMs)
                 .put("segments", doc.segments.size)
@@ -82,16 +102,27 @@ class CrossWindowSpeakerBookDeviceTest {
                 .put("second_text_preview", repeated.joinToString(" ") { it.text }.take(250))
             evidence.writeText(record.toString(2))
             Log.i("SpeakerBookDeviceQA", record.toString())
-            assertEquals("chunked_experimental_voice_embeddings", doc.provenance.speakerSource)
             assertFalse("False unknown-speaker warning on a long-file result", warning.contains("Говорящие не определены."))
             assertTrue("First block text missing", initial.isNotEmpty())
             assertTrue("Second block text missing", repeated.isNotEmpty())
-            assertTrue("Both blocks need voice profiles", blocks >= 2)
-            if (negativeControl) {
-                assertTrue("Potential cross-window false-merge of speakers from different clips: " + shared,
-                    shared.isEmpty())
+            if (missingModel) {
+                assertEquals("No TitaNet must use local-only attribution",
+                    "chunked_locally_scoped_speakers_no_global_link", doc.provenance.speakerSource)
+                assertEquals("Unavailable model must not produce voice profiles", 0, blocks)
+                assertTrue("Missing model must not reuse IDs across blocks", shared.isEmpty())
+                assertTrue("First block must have local-scoped voice labels",
+                    firstIds.isNotEmpty() && firstIds.all { it.startsWith("Block ") })
+                assertTrue("Second block must have local-scoped voice labels",
+                    secondIds.isNotEmpty() && secondIds.all { it.startsWith("Block ") })
             } else {
-                assertTrue("Returned speaker was not linked across blocks", shared.isNotEmpty())
+                assertEquals("chunked_titanet_small_voice_embeddings_qa", doc.provenance.speakerSource)
+                assertTrue("Both blocks need voice profiles", blocks >= 2)
+                if (negativeControl) {
+                    assertTrue("Potential cross-window false-merge of speakers from different clips: " + shared,
+                        shared.isEmpty())
+                } else {
+                    assertTrue("Returned speaker was not linked across blocks", shared.isNotEmpty())
+                }
             }
         } catch (e: Throwable) {
             if (!evidence.exists()) evidence.writeText(JSONObject()
@@ -100,6 +131,11 @@ class CrossWindowSpeakerBookDeviceTest {
                 .put("elapsed_ms", SystemClock.elapsedRealtime() - start).toString(2))
             throw e
         } finally {
+            // Always return the exact original QA model to its previous name.
+            if (movedModel) {
+                assertTrue("Failed to restore TitaNet QA model", heldModel.renameTo(optionalModel))
+                assertTrue("Restored model missing", optionalModel.isFile)
+            }
             instrumentation.runOnMainSync { owner.clear() }
         }
     }
