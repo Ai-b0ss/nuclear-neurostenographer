@@ -1,0 +1,81 @@
+{
+  "schema": "honor-batch-power-rc5-v1",
+  "scope": "PHYSICAL_HONOR_SHORT_NOT_ENDURANCE",
+  "device": {
+    "status": "PASS",
+    "scope": "HONOR_ARM64_SHORT_FUNCTIONAL_NOT_ENDURANCE",
+    "audio_ms": 10000,
+    "global_speakerbook": false,
+    "version": "0.4.1-rc5",
+    "realtime_compiled": true,
+    "sdk": 29,
+    "model": "DNN-LX9",
+    "wall_ms": 24196,
+    "segments": 3,
+    "speaker_source": "nemotron3-diarization-onnx-4a911fc3/int8-ir9",
+    "screen_off_processing": true,
+    "processing_wake_lock_released": true
+  },
+  "watchdog": {
+    "test": "ru.neurostenographer.app.BatchPowerDeviceTest",
+    "qa_only": true,
+    "qa_mode": null,
+    "initial_temperature_c": 33.0,
+    "initial_battery_percent": 81,
+    "max_temperature_c": 33.0,
+    "watchdog_cutoff_c": 45.0,
+    "battery_warning_c": 43.0,
+    "initial_cpu_temperatures_c": {
+      "cluster0": 34.0,
+      "cluster1": 34.0
+    },
+    "max_cpu_temperature_c": 52.0,
+    "max_cpu_temperatures_by_sensor_c": {
+      "cluster0": 45.0,
+      "cluster1": 52.0
+    },
+    "cpu_warning_c": 75.0,
+    "cpu_cutoff_c": 78.0,
+    "initial_android_thermal_status": 0,
+    "max_android_thermal_status": 0,
+    "max_cpu_sensor_status": 0,
+    "status": "PASS",
+    "warnings": [],
+    "wall_seconds": 30.25,
+    "instrumentation_exit_code": 0,
+    "forced_stop": [
+      {
+        "package": "ru.neurostenographer.app.solhigh",
+        "success": true
+      },
+      {
+        "package": "ru.neurostenographer.app.solhigh.test",
+        "success": true
+      }
+    ],
+    "cleanup_verified": {
+      "verified": true,
+      "remaining": [],
+      "stopped": true
+    }
+  },
+  "candidate_product": {
+    "package": "ru.neurostenographer.app",
+    "version": "0.4.1-rc5",
+    "version_code": 26,
+    "sha256": "3f76f8760cb2e05218555dd236d307e3c1e62b00205f89f94a07bbc531674539",
+    "certificate_sha256": "8477cc6369b292019e2e9ff337e5ca08dc418ba585a3035093ec5cd98613306b",
+    "global_speakerbook": false,
+    "realtime": true,
+    "asr_a3": true,
+    "nemotron_c2": true
+  },
+  "main_product_installed_version": "0.4.1-rc4",
+  "install_blocker": "Secure PIN keyguard after screen-off QA; no credential entered or lock policy changed",
+  "power_condition": "Externally powered; battery energy not measured",
+  "source_sha256": {
+    "app/src/androidTest/java/ru/neurostenographer/app/BatchPowerDeviceTest.kt": "2c349b2d97435a60d9e37733241cb8815680fe62825e9d7a2b132bb2479e7885",
+    "tools/run_android_long_thermal_guard.py": "c601b262e58dbcee71e5ab3caba506af703fa0f2e00c06a9b5f3a36e2d2c4160",
+    "app/build.gradle.kts": "d37d15e81866959622b8626b975292d9038a7e7a034b4cb2a4d89aaa974c2f72"
+  }
+}

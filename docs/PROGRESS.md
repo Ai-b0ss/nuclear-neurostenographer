@@ -1805,3 +1805,11 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - ProcessingService now holds a bounded partial CPU lock during transcription, so the display can sleep; completion/cancellation releases ownership. Recording path and thermal guards unchanged.
 - All four emulator cases passed with display switched off and CPU lock released. Overlapping owners, duplicate release, restart, notification cancellation and release-before-start checks passed. 20m40s completed in 317,235 ms, 252 segments / 21 unknown / five profiled blocks, unchanged functional counts. Local QA build/core groups, actionlint, ordinary Android CI and host regression passed.
 - Read-only HONOR: battery 33 C, max reported idle CPU 41 C, thermal NONE, externally powered; no current app display-awake window. No physical inference or setting changes. Sustained ARM/OEM/thermal acceptance remains unverified. Production APK retained pending physical acceptance. See [batch runtime evidence](BATCH_RUNTIME_POWER_2026-11-12.md).
+
+
+## 2026-11-12 — RC5 short physical screen-off acceptance
+
+- Sol QA RC5 (ordinary A3+C2, realtime compiled, global voice linking OFF) passed a guarded physical HONOR/Android10 ARM64 10-second public WAV flow with the display off. Three segments, 24,196 ms pipeline / 30.25 s supervised run; battery max33 C, live CPU max52 C, no warning. CPU lock/service cleanup and stopped QA processes verified. No sustained/energy or RC4 A/B claim.
+- Product RC5/code26 built, signed with the original matching external production certificate, and package/version/flags/SHA verified. Exactly one ready production APK and checksum retained. External key location saved in ignored .local/release-signing-context.json; cleanup safeguard added.
+- Main phone app still RC4: screen-off QA activated its secure PIN lock; the installer rejected the product update. No credential, uninstall, data clear or global security/power setting change. Normally unlocking HONOR is required before the in-place update. Sol QA data preserved.
+- Thirteen watchdog unit tests, local core checks and both QA/product builds passed. See [RC5 evidence](HONOR_BATCH_POWER_RC5_2026-11-12.md).
