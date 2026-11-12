@@ -1,7 +1,13 @@
 """Selection regressions for the exploratory TitaNet diagnostic."""
 import unittest
-from diagnose_titanet_rejections import contiguous,trimmed,longer
+from diagnose_titanet_rejections import contiguous,trimmed,longer,current
+from evaluate_russian_bookmix_voice_link import separate
 class SelectionTests(unittest.TestCase):
+    def test_legacy_and_product_budgets_are_lists_and_disjoint(self):
+        for fn,size in [(current,200),(separate,400)]:
+            parts=fn([0]*1000,0)
+            self.assertEqual([len(v) for v in parts],[size,size])
+            self.assertFalse(set(parts[0])&set(parts[1]))
     def test_short_runs_cannot_supply_contiguous_evidence(self):
         self.assertIsNone(contiguous([0]*74+[-1]+[0]*74,0))
     def test_samples_are_disjoint_and_keep_original_frames(self):

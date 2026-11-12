@@ -31,7 +31,7 @@ order, so it is not a global-link recall result.
 The current eight-second cap provides too little consistent evidence for
 many profiles on these corpora; doubling it helps substantially without
 lowering the .84 threshold. It still leaves 32/60 profiles unaccepted in the
-initial test and may increase CPU load. No product default was changed.
+initial test and may increase CPU load. The initial diagnosis did not change runtime defaults. Subsequent Android integration is described below.
 Ordinary global linking stays disabled.
 
 Correction: the earlier compact summary said 83 different-voice pairs.
@@ -69,3 +69,43 @@ correlated host replay, not an independent production safety estimate.
 Next: validate the experimental Android variant and processing cost before
 changing its extraction budget. Keep consistency and matching thresholds
 frozen during that comparison.
+
+## Android integration and validation
+
+The experimental Android extractor now allows two disjoint samples of up to
+16s EACH (formerly8s each). Minimum3s/sample and the .84/.07 identity gates
+are unchanged. Ordinary global linking stays OFF. The PC replay uses the
+same400-frame cap; the diagnostic's current mode explicitly retains200
+frames so the historical baseline remains reproducible.
+
+All four Android x86_64 emulator cases passed on ea5095b:
+repeat, differentSources, missing model and continuous20m40s. The repeat
+case linked both controlled voices; the negative case shared no IDs; absent
+TitaNet kept block-local IDs and restored the model afterwards. Cleanup
+verification passed in all cases.
+
+The long fixture completed in268331ms (4m28.331s),252 segments,21 unknown
+speaker segments, five profiled blocks, and all time/end coverage assertions.
+This is an emulator measurement, not physical thermal acceptance. A prior
+run on another runner took218948ms; that difference is not a controlled
+measurement of the budget change.
+
+On identical60s audio and actual C2 turns within ONE emulator, both budgets
+were warmed, then measured three times each in alternating order. TitaNet
+median wall time:683.844277ms with8s cap,861.33491ms with16s cap,
++25.95484% (about177ms). Both admitted two controlled profiles.
+The cost includes model verification/loading and extraction. It does not
+measure total transcription slowdown, natural-conversation accuracy,
+peak RAM or physical battery/CPU temperature.
+
+The initial Linux host job exposed a missing colon in the modified Python
+slice. It was fixed and a fifth diagnostic regression now checks the actual
+legacy and product selectors, including list lengths and disjointness.
+Windows actual-C2 replay after the fix admitted26/30 and correctly linked
+7/7 admitted returning probes, without observed false links/mixes/collisions.
+The workflow can deliberately rerun only the host using a trigger-marker
+change whose commit message includes [speakerbook-host-only], avoiding
+unchanged Android endurance reruns. See PR56 for the final Linux check.
+
+[Android evidence](evidence/titanet16-android-validation-20261112.json).
+No HONOR test was performed. Feature quality remains experimental.

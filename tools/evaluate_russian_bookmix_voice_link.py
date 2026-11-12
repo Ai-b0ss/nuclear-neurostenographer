@@ -74,7 +74,7 @@ def separate(owners,who,max_frames=400):
     if len(active)<150:return None
     middle=len(active)//2
     early=active[:middle][:max_frames]
-    late=active[middle:][-max_frames]
+    late=active[middle:][-max_frames:]
     if len(early)<75 or len(late)<75 or early[-1]>=late[0]:
         return None
     return early,late

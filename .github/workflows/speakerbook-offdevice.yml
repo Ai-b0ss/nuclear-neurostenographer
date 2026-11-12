@@ -32,7 +32,9 @@ jobs:
       - name: Install fixed host evaluation dependencies
         run: pip install numpy==1.26.4 scipy==1.14.1 soundfile==0.13.1 sherpa-onnx==1.12.40
       - name: Test emulator isolation and result acceptance
-        run: python -m unittest discover -s tools -p test_speakerbook_offdevice.py -v
+        run: |
+          python -m unittest discover -s tools -p test_speakerbook_offdevice.py -v
+          python -m unittest discover -s tools -p test_titanet_diagnosis.py -v
       - name: Fetch frozen public Russian sample and checksum-pinned models
         run: python tools/provision_speakerbook_qa.py --host
       - name: Run actual product C2 and TitaNet (not a phone test)
@@ -55,7 +57,8 @@ jobs:
       fail-fast: false
       matrix:
         mode: ${{ fromJSON((github.event_name == 'workflow_dispatch' && !inputs.long) && '["repeat","differentSources","withoutModel"]' || '["repeat","differentSources","withoutModel","long"]') }}
-    if: github.event.repository.private == false
+    # Deliberate host-only reruns must not repeat unchanged Android endurance.
+    if: github.event.repository.private == false && !contains(github.event.head_commit.message, '[speakerbook-host-only]')
     runs-on: ubuntu-24.04
     timeout-minutes: 100
     steps:
