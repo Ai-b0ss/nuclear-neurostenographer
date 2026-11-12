@@ -1,9 +1,21 @@
-# HONOR screen-on endurance QA — 2026-11-13
+# HONOR screen-on processing and balanced batch ASR — 2026-11-13
 
-The owner explicitly prohibited turning off or locking the physical phone. Both physical short/long power tests now follow that instruction. They never send display power commands. PhysicalScreenOnQa requires the already unlocked, interactive device, launches the real QA Activity, waits for its RESUMED lifecycle stage and holds FLAG_KEEP_SCREEN_ON only on that Activity. The original window flag is restored on cleanup, including after other cleanup failures; global screen timeout/power settings are unchanged.
+## Owner display instruction
 
-The same public 20m40s fixture and ordinary RC5 A3+C2 pipeline run in isolated Sol QA, with realtime compiled and global speaker linking OFF. Product code/APK/version are unchanged. The existing host guard retains all CPU/battery/OS limits and app-heartbeat aborts. Current run status: RUNNING, no physical endurance PASS claimed yet.
+Never turn off or lock the physical HONOR during these checks. Both physical short/long tests now use a foreground QA Activity, wait for RESUMED and hold only its FLAG_KEEP_SCREEN_ON. They send no display power commands and change no global timeout/security/battery policy. Window ownership is restored at cleanup even after other cleanup failures.
 
-USB file-transfer mode restored ADB connectivity. Cool preflight passed. Initial processing was observed advancing at the C2 stage with display ON, battery34 C and CPU maximum59 C. These interim values are not the final peak or evidence of a completed transcript.
+## RC5 sustained result: thermal abort
 
-Local validation: corrected instrumentation compiled; the host watchdog's 17 tests remain applicable. Evidence will be added after the terminal run result. Earlier screen-off/headless investigation remains historical and must not be interpreted as the outcome of this screen-on test.
+The ordinary RC5 A3+C2 pipeline, realtime compiled and global speaker linking OFF, processed the pinned public 20m40s fixture with display ON. It was stopped by the host guard after 172.91 s at CPU78 C, battery40 C. Warnings began at143.3 s / CPU75 C. Last app heartbeat was at165.908 s in ASR stage3, with stage-local progress0.6; this is not 60% of the complete recording. Both isolated QA packages were stopped and absence verified. No endurance PASS or complete long transcript.
+
+An interim live reading of43–44 C was taken after the force-stop and represented cooling; it was not evidence of a still-running safe workload. [Authoritative thermal timeline and last app heartbeat](evidence/honor-rc5-screen-on-thermal-abort.json).
+
+## Concrete reduction before repeating
+
+RC6/code27 candidate limits batch OfflineAsr inference to two threads per session. Model weights, input windows, greedy decoding, word timing and fusion are unchanged. Realtime still calls modelConfig with its existing four-thread default; C2 keeps four threads and its previously validated blocking workers. This targets ASR concurrency after the observed ASR-stage cutoff; it does not prove that ASR was the only source of heat.
+
+An explicit inferenceThreads argument allows the physical test to compare the same public10-second probe at4 then2 threads using the exact Android runtime. The emitted text hashes match. Times were7580 and7973 ms; one ordered cold/warm pair is not a statistical speed, accuracy or energy benchmark. Host max CPU63 C / battery36 C; normal cleanup verified. Runtime assertions also confirmed the batch default2 and unchanged realtime model-config default4. [Paired numeric evidence](evidence/honor-rc6-asr-thread-parity.json).
+
+The RC6 long run with two ASR threads is RUNNING. Existing cool start and stop/warning thresholds are unchanged. The app wait bound is19 min within the existing20-min host bound to accommodate slower processing. No RC6 endurance pass, production installation or updated ready release is claimed yet; the installed and sole ready product APK remains RC5 until validation finishes.
+
+Local core checks, QA app/instrumentation builds and18 host watchdog unit tests passed. Only the test route can select the paired probe, and forced cleanup is still restricted to Sol QA and its test package.

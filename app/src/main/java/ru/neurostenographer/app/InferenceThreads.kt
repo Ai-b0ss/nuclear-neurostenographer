@@ -5,5 +5,11 @@ package ru.neurostenographer.app
  */
 object InferenceThreads {
     const val MAX = 4
+    // RNNT uses several sessions. Four threads per session exceeded the HONOR
+    // sustained CPU cutoff during ASR; batch recognition uses the balanced cap.
+    const val BATCH_ASR_MAX = 2
+    fun batchAsrCount(processors: Int = Runtime.getRuntime().availableProcessors()) =
+        processors.coerceIn(1, BATCH_ASR_MAX)
+
     fun count(processors: Int = Runtime.getRuntime().availableProcessors()) = processors.coerceIn(1, MAX)
 }

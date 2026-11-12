@@ -13,21 +13,23 @@ data class AsrOutput(val segments: List<TranscriptSegment>, val audioMs: Long,
  * no-diarization path) keeps input-window times and conservative chunk attribution. */
 object OfflineAsr {
     /** CTC (nemo) or NeMo RNNT (transducer); feature settings come from the model metadata in both cases. */
-    fun modelConfig(spec: AsrModelSpec, model: File): OfflineModelConfig {
+    fun modelConfig(spec: AsrModelSpec, model: File, threads: Int = InferenceThreads.count()): OfflineModelConfig {
+        require(threads in 1..InferenceThreads.MAX)
         fun path(name: String?) = File(model, requireNotNull(name)).absolutePath
         return if (spec.ctcModel != null) OfflineModelConfig(
             nemo = OfflineNemoEncDecCtcModelConfig(model = path(spec.ctcModel)), tokens = path(spec.tokens),
-            numThreads = InferenceThreads.count(), provider = "cpu", debug = false)
+            numThreads = threads, provider = "cpu", debug = false)
         else OfflineModelConfig(
             transducer = OfflineTransducerModelConfig(encoder = path(spec.encoder), decoder = path(spec.decoder), joiner = path(spec.joiner)),
             tokens = path(spec.tokens), modelType = "nemo_transducer",
-            numThreads = InferenceThreads.count(), provider = "cpu", debug = false)
+            numThreads = threads, provider = "cpu", debug = false)
     }
 
     fun transcribe(audio: PcmAudio, model: File, checkCancelled: () -> Unit = {},
                    progress: (Int, Int) -> Unit = { _, _ -> },
                    turns: List<SpeakerTurn> = emptyList(),
-                   speechWindows: List<AudioWindow>? = null, unmerged: Boolean = false): AsrOutput {
+                   speechWindows: List<AudioWindow>? = null, unmerged: Boolean = false,
+                   inferenceThreads: Int = InferenceThreads.batchAsrCount()): AsrOutput {
         require(audio.sampleRate == 16000 && audio.samples.size >= 1600 &&
             audio.samples.size <= PcmWav.MAX_SECONDS * 16000) { "Аудио должно длиться от 0,1 секунды до ${PcmWav.MAX_LABEL}" }
         // Token timing is measured for the A3 transducer only (docs/ASR_WORD_ATTRIBUTION_2026-11-05.md);
@@ -45,7 +47,7 @@ object OfflineAsr {
         val started = System.nanoTime()
         val recognizer = OfflineRecognizer(config = OfflineRecognizerConfig(
             featConfig = FeatureConfig(sampleRate = 16000, featureDim = 64),
-            modelConfig = modelConfig(AsrModelSpec.ACTIVE, model), decodingMethod = "greedy_search"
+            modelConfig = modelConfig(AsrModelSpec.ACTIVE, model, inferenceThreads), decodingMethod = "greedy_search"
         ))
         val loaded = System.nanoTime()
         val chunks = mutableListOf<RecognizedChunk>()

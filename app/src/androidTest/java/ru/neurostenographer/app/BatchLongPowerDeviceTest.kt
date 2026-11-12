@@ -41,6 +41,7 @@ class BatchLongPowerDeviceTest {
         val record = JSONObject().put("status", "RUNNING").put("scope", "HONOR_ARM64_20M40S_ENDURANCE")
             .put("audio_ms", 1_240_000).put("global_speakerbook", false)
             .put("version", BuildConfig.VERSION_NAME).put("realtime_compiled", BuildConfig.REALTIME)
+            .put("batch_asr_threads", InferenceThreads.batchAsrCount())
             .put("sdk", Build.VERSION.SDK_INT).put("model", Build.MODEL)
         evidence.writeText(record.toString(2))
         fun safe() {
@@ -78,7 +79,7 @@ class BatchLongPowerDeviceTest {
             }
             // Keep the owned QA window visible; never send display power commands.
             var heartbeatAt = 0L
-            await("Long transcription timed out: " + model.state.value.message, 900_000) {
+            await("Long transcription timed out: " + model.state.value.message, 1_140_000) {
                 val now = SystemClock.elapsedRealtime()
                 if (now - heartbeatAt >= 2_000) {
                     heartbeatAt = now

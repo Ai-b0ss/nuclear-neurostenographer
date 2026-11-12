@@ -86,6 +86,12 @@ class ThermalWatchdogTests(unittest.TestCase):
             self.assertEqual(report["max_cpu_temperature_c"],33)
             self.assertEqual(report["wall_seconds"],62)
 
+    def test_asr_threads_route_is_named_and_qa_only(self):
+        command,name=watchdog.instrumentation_command(Path("adb"),"HONOR","asrThreads")
+        self.assertEqual(name,"ru.neurostenographer.app.BatchAsrThreadsDeviceTest")
+        self.assertEqual(command[-4:-1],["-e","batchPowerQa","honor_asr_threads"])
+        self.assertEqual(command[-1],"ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
+
     def test_normal_battery(self):
         self.assertEqual(parse_battery("  level: 83\n  temperature: 368\n"),(368,83))
         self.assertEqual(parse_battery("temperature: 420\nlevel: 40"),(420,40))

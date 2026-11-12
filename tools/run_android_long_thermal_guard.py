@@ -133,6 +133,7 @@ def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
         "long":TEST_CLASS,
         "power":"ru.neurostenographer.app.BatchPowerDeviceTest",
         "powerLong":"ru.neurostenographer.app.BatchLongPowerDeviceTest",
+        "asrThreads":"ru.neurostenographer.app.BatchAsrThreadsDeviceTest",
         "cross":"ru.neurostenographer.app.CrossWindowSpeakerBookDeviceTest",
     }
     if test_case not in cases:
@@ -144,8 +145,8 @@ def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
              "-w","-r","-e","class",cases[test_case]]
     if qa_mode is not None:
         command.extend(["-e","qaMode",qa_mode])
-    if test_case in ("power","powerLong"):
-        command.extend(["-e","batchPowerQa","honor_long" if test_case=="powerLong" else "honor_short"])
+    if test_case in ("power","powerLong","asrThreads"):
+        command.extend(["-e","batchPowerQa",{"power":"honor_short","powerLong":"honor_long","asrThreads":"honor_asr_threads"}[test_case]])
         command.append("ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
     else:
         command.append(RUNNER)
@@ -184,7 +185,7 @@ def read_power_progress(adb,serial):
 
 
 def run(a):
-    power=getattr(a,"test_case","long") in ("power","powerLong")
+    power=getattr(a,"test_case","long") in ("power","powerLong","asrThreads")
     battery_cutoff=int(getattr(a,"cutoff_tenths",450))
     battery_start=int(getattr(a,"start_max_tenths",390))
     battery_warning=int(getattr(a,"battery_warning_tenths",min(430,battery_cutoff-10)))
@@ -336,7 +337,7 @@ if __name__=="__main__":
     parser.add_argument("--cpu-start-max-c",type=float,default=65.0)
     parser.add_argument("--poll-s",type=float,default=2)
     parser.add_argument("--limit-s",type=int,default=900)
-    parser.add_argument("--test-case",choices=("long","cross","power","powerLong"),default="long")
+    parser.add_argument("--test-case",choices=("long","cross","power","powerLong","asrThreads"),default="long")
     parser.add_argument("--qa-mode",choices=("repeat","differentSources","withoutModel"),
                         default=None)
     args=parser.parse_args()
