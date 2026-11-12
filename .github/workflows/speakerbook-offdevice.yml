@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install fixed host evaluation dependencies
-        run: pip install numpy==1.26.4 scipy==1.14.1 soundfile==0.13.1 sherpa-onnx==1.12.20
+        run: pip install numpy==1.26.4 scipy==1.14.1 soundfile==0.13.1 sherpa-onnx==1.12.40
       - name: Test emulator isolation and result acceptance
         run: python -m unittest discover -s tools -p test_speakerbook_offdevice.py -v
       - name: Fetch frozen public Russian sample and checksum-pinned models
@@ -52,6 +52,7 @@ jobs:
         with:
           name: speakerbook-host-metrics-no-audio-or-embeddings
           retention-days: 7
+          include-hidden-files: true
           path: .local/speakerbook-offdevice-current/host/*.json
   emulator:
     if: github.event.repository.private == false
@@ -108,6 +109,7 @@ jobs:
         with:
           name: speakerbook-emulator-metadata-NOT-HONOR-performance
           retention-days: 7
+          include-hidden-files: true
           path: |
             .local/speakerbook-offdevice-current/emulator/*.json
             .local/speakerbook-offdevice-current/fixtures/fixtures.json

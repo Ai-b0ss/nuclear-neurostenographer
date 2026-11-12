@@ -15,7 +15,7 @@ Do not repeat a continuous physical endurance run until load has been reduced.
 Provision fixed public inputs with Python 3.11 and Java 17:
 
 ```sh
-pip install numpy==1.26.4 scipy==1.14.1 soundfile==0.13.1 sherpa-onnx==1.12.20
+pip install numpy==1.26.4 scipy==1.14.1 soundfile==0.13.1 sherpa-onnx==1.12.40
 python tools/provision_speakerbook_qa.py --host
 python tools/run_speakerbook_host_qa.py \
   --data .local/speakerbook-active/scratch/ru_book_mix_eval \
@@ -27,7 +27,8 @@ python tools/run_speakerbook_host_qa.py \
 Existing Windows inputs can be reused through --java, --harness, --model and --site.
 The pre-existing auxiliary Python packages on the owner's PC are CPython 3.12
 binaries; run them with py -3.12, not Python 3.13. The local native sherpa version
-is recorded separately; CI pins 1.12.20 to match the Android runtime version.
+is recorded separately; CI pins the same host 1.12.40: PyPI has no 1.12.20 wheel for this platform.
+Android remains pinned to 1.12.20; cross-runtime parity is not assumed.
 
 The host suite freezes the first 15 two-speaker one-minute recordings from the
 already-reviewed 70-file audiobook sample. It compiles actual product Kotlin
