@@ -58,5 +58,25 @@
   "source_manifest_sha256": "2f1e26fe123afe43e76b96cd49fd62e75bdb94c2f056c1fc7fa43c981de46a6c",
   "unit_tests_passed": 25,
   "actionlint": "PASS",
-  "claim": "Current reporting correction, not a new model improvement or independent population validation"
+  "claim": "Current reporting correction, not a new model improvement or independent population validation",
+  "current_report_kotlin_parity": {
+    "status": "PASS",
+    "scope": "current Python report + existing policy replay + actual Kotlin GlobalSpeakerBook",
+    "datasets": 3,
+    "blocks": 47,
+    "identical_assignments": 72,
+    "source_fingerprints": {
+      "tools/current_speaker_policy.py": "c53ad18e2547cfbb2e33a22a9b55e4cd21c1a26be4a4b7853709722ca8f2a44a",
+      "tools/dual_anchor_policy.py": "ef7fb86e4fb1642570bcc2e17c3ed6c750826b63dbffc8b3000239fb0ea7cacb",
+      "core/src/main/kotlin/ru/neurostenographer/core/GlobalSpeakerBook.kt": "4e24733394705086458f280bd774dd18160e2e1dc8cdbc8bc5acd4589a5470af"
+    },
+    "raw_vectors_published": false,
+    "temporary_vectors_deleted": true
+  },
+  "validated_source_commit": "40830eaaf882ff16e012da5aff9b236a1ba0d296",
+  "ci": {
+    "policy": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43323729088",
+    "android": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43323728899",
+    "conclusion": "success"
+  }
 }
