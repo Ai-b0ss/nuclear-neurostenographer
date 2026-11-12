@@ -62,7 +62,7 @@ malformed evidence, mixed dimensions and version2 IPC rejection/downgrade.
 
 Local experimental Android APK and instrumentation APK assembled; all20
 core test groups and the real-model parity harness passed. Android emulator
-end-to-end verification is pending on this revision.
+end-to-end verification subsequently passed; see the result below.
 
 ## Evidence and reproduction
 
@@ -81,3 +81,30 @@ Source attribution: [Dialogs](https://huggingface.co/datasets/langswap/dialogs-r
 OpenRAIL, and [mexus/ru-book-mix-10h](https://huggingface.co/datasets/mexus/ru-book-mix-10h),
 CC-BY-4.0 and its listed source attributions. Host sherpa1.12.40 differs
 from Android1.12.20. No phone or natural-conversation acceptance claim.
+
+## Android end-to-end result
+
+All four emulator cases passed on29ada9d in
+[run43254970270](https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43254970270).
+Repeat: both controlled voices linked across blocks; different-source
+negative: no shared global IDs; absent model: only block-local labels,
+zero profiles, exact model restoration. Cleanup verified for all cases.
+
+Continuous20m40s input completed in370038ms (6m10.038s),252 segments,
+21 unknown-speaker segments, five profiled blocks and all timeline/end
+coverage checks passing. This is an uncontrolled separate-runner wall time;
+do not attribute differences from earlier runs to this policy change.
+
+[Android metadata](evidence/dual-anchor-20261112/android.json) contains only
+sanitized metrics. Host Linux baseline and16 Python guard/policy tests also
+passed. The host suite's main speaker_link summary is the legacy admission
+baseline; new-policy quality metrics are in result.json. Ordinary Android
+build/core CI passed as well. Final metadata-only changes retain identical
+runtime source blobs; the deliberate trigger marker is removed to avoid
+repeating unchanged Android endurance on merge.
+
+This validates IPCv2 and the complete Android pipeline, not independent
+Android identity-quality recall. The additional rescues were scored on
+host sherpa1.12.40 plus actual Kotlin-book parity; Android uses1.12.20.
+No physical phone test was performed, and ordinary global linking remains
+disabled because overall identity quality is still inadequate.
