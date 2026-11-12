@@ -1,0 +1,622 @@
+{
+  "schema": "speakerbook-final-acceptance-verification-v1",
+  "date": "2026-11-12",
+  "status": "VERIFIED_SAVED_RESULTS",
+  "release_decision": "NO_GO_GLOBAL_SPEAKERBOOK",
+  "verification": "Re-scored frozen actual model predictions; no new model or Android run",
+  "git_head": "f5aeed9f5ab4cdf43f32d43de2fef9ae97a5a751",
+  "source_hashes_verified": {
+    "core/src/main/kotlin/ru/neurostenographer/core/AsrWindowEta.kt": "0532761c83ec710b8b67ca7d566d2f6e6a6f689edfd374585375999277df98c8",
+    "core/src/main/kotlin/ru/neurostenographer/core/AudioProcessingClock.kt": "1df29db2ad6faaee6659a2f8c377400e9b056463d85198b85ec48a1cc505823d",
+    "core/src/main/kotlin/ru/neurostenographer/core/AudioSnapshot.kt": "39bfff7549766936c0c2b7773bc357a3b0c37f1c5af4fa76ea47db71f990b4c4",
+    "core/src/main/kotlin/ru/neurostenographer/core/BoundedWavRecorder.kt": "1f9202542141279d7272a077ef9aa77560c1e0460ef3acf31c5904c7d132a2dc",
+    "core/src/main/kotlin/ru/neurostenographer/core/BuiltinTerms.kt": "9a8b56fa8108bd07bb1fdc6ac17121ece055b1ad8c3b0c0cbb0d4572d5b5cb2d",
+    "core/src/main/kotlin/ru/neurostenographer/core/CleanSpeakerFrames.kt": "ae7291f30c0e370599c6f77a339e46e21d3c9e1a2479095474554bef421e9157",
+    "core/src/main/kotlin/ru/neurostenographer/core/DecodeBudget.kt": "ef3eedf813eef50312d9057102a19a16ae7c8c20367eaa7b4e8bc90bd8f9a911",
+    "core/src/main/kotlin/ru/neurostenographer/core/DecodedPcmTimeline.kt": "4a754e42443f3708b8161029fc4b7638e8f664bac30d20e7473ad633f5c4f106",
+    "core/src/main/kotlin/ru/neurostenographer/core/DiarizationReply.kt": "bc3a30566e48a09a4a4c3c9aa463b97f33fad961787e39668b2a1c69eac1b2e0",
+    "core/src/main/kotlin/ru/neurostenographer/core/DiarizationTimeEstimate.kt": "b48951d80c4af66eacf1d95c0ece2cdeead2350f25dc1f2ed3f1405af1534255",
+    "core/src/main/kotlin/ru/neurostenographer/core/DiarizationTimeline.kt": "377788df62fd50cbfa1107ecaa0a4370a88a752e0bed68937a9905acb491fbd5",
+    "core/src/main/kotlin/ru/neurostenographer/core/FddtOverlapPlan.kt": "2c3eb70ffcdc691802306391b3fa0ccd6253c342042d00ba1a4c53f90f134953",
+    "core/src/main/kotlin/ru/neurostenographer/core/GlobalSpeakerBook.kt": "f9debc54f1fa8d00c64854fa4e8883730c1a94ecd8af70290e62cbfc3815f2fd",
+    "core/src/main/kotlin/ru/neurostenographer/core/LocalSpeakerScope.kt": "ea7f5302483dfe04c400121050ff0a41f721a79c4ef08d17e9a2d08368933f8f",
+    "core/src/main/kotlin/ru/neurostenographer/core/Pcm16WavWriter.kt": "c970cbc91b770c31bb093df0a9f17059f43070cd9f6615497d8d5b371c2becdc",
+    "core/src/main/kotlin/ru/neurostenographer/core/PcmFileAudio.kt": "3cbd9fb48c32ff29e02abe73666771df8485680dca9daada9662abf08030b8fa",
+    "core/src/main/kotlin/ru/neurostenographer/core/PcmWav.kt": "62f09af971cd18d4b269a67ea98e03330e2f559cfb42bfc2249c347786f8d9ad",
+    "core/src/main/kotlin/ru/neurostenographer/core/ProcessingTimeDisplay.kt": "cb61a6b48d9ba18a26301ff560a378bd4b013362d227b54441df9d1571ab1b62",
+    "core/src/main/kotlin/ru/neurostenographer/core/ProvisionalTurns.kt": "7f3967515bfc77b33ac45e5a35b9cc97594d02eaa86e8ff0b279007a9a34d8cc",
+    "core/src/main/kotlin/ru/neurostenographer/core/QuietCuts.kt": "2b3f618c3ec67ad4ecba3e616430a987ebf807ca1885728cec26c47b494e6868",
+    "core/src/main/kotlin/ru/neurostenographer/core/RealtimeCore.kt": "36805b2ef3f580eabb6e9ce0bc857d9030c29359fc28af22f200de7d856ba76f",
+    "core/src/main/kotlin/ru/neurostenographer/core/RealtimeTranscript.kt": "ad19d83584a37724e96f76f212b41f2578880e2fc1e7601697afb7c68e3de523",
+    "core/src/main/kotlin/ru/neurostenographer/core/ShortProcessingEta.kt": "18286b8dc7113ff2cf813640bad5b9bf6489ca5be391814bae78f8f50b7747c3",
+    "core/src/main/kotlin/ru/neurostenographer/core/SpeakerConsensus.kt": "6c12bc68a17a721eeb744b20b709621b7ce39474c4b539800a12b2dc2cccfd82",
+    "core/src/main/kotlin/ru/neurostenographer/core/SpeakerIdentity.kt": "e7a04608d190e2cd7a100684d6910af0377601881a9669303cb6fe215588050c",
+    "core/src/main/kotlin/ru/neurostenographer/core/StreamingPcm16.kt": "1263a8ed7d37327297e45661604a020353624186634a07f9a9737064e8290fe5",
+    "core/src/main/kotlin/ru/neurostenographer/core/TermDictionary.kt": "fc22deaac7eff6f1a7dcc043298e7fb0036d906b72d2c479174300ea7d1903f4",
+    "core/src/main/kotlin/ru/neurostenographer/core/TopicTitle.kt": "0bbc355875384ca2de2be684b50e48c5824745a81dcdd30f29cf7459af5828d5",
+    "core/src/main/kotlin/ru/neurostenographer/core/TranscriptCore.kt": "276907476686d0746dd87766d72a0f9d037a2f6383b1de8b0f650c2fec451fb1",
+    "core/src/main/kotlin/ru/neurostenographer/core/TranscriptSnapshotStore.kt": "58c8e71f740daac1be90ff2312d90a0b2d3eb8619db3ea14e9f005b14a3fd130",
+    "core/src/main/kotlin/ru/neurostenographer/core/VerifiedModelBundle.kt": "6c92fcef645c9cb6fed703c9bc30f0901dc4aa0dbc830f6d7972693c051091e1",
+    "core/src/main/kotlin/ru/neurostenographer/core/VoiceLevel.kt": "6dee7f5d3ae82de79371f50fde120d5bb24fb06145ea232899cfe5aaf7601701",
+    "core/src/main/kotlin/ru/neurostenographer/core/VoicePrintAgreement.kt": "180b8af678c1b8c2cb4637dee6b749e4233d7641d4a1daf3946d5ddbdc4f1cc0",
+    "app/src/nemotron/java/ru/neurostenographer/core/NemotronDiarizer.kt": "a9ef4534edf41da6a9ffd94751f71228c48e117804832dc46e40ac148cc49e70",
+    "app/src/nemotron/java/ru/neurostenographer/core/NemotronStreaming.kt": "c6764260b994c3b3478d7ff4b4ea3d8498f57fb3f8dac8bbcf09dd0b58b08c19",
+    "tools/c2pp/DumpLogits.kt": "b85ba6ffb2851a89ce0e8d316382a3a97c8352cf11c2f6714c2d2a472cff9c39",
+    "app/src/realtime/java/ru/neurostenographer/app/JournalBlocks.kt": "1c6342b6aa64e710fb746f7f9836fcd7b6e508cc9267f82cf32063693db714bf"
+  },
+  "model_hashes_verified": {
+    "model.int8.ir9.onnx": "c465504c2f3a29242e1b3d894187ae5962be7320bed71a2ae203950285ee6025",
+    "mel_filters.bin": "bce5ec5f194a5913f6508cee5a85512e7bad2352db8fc28f5c6ff75af8b09137",
+    "hann400.bin": "c427e2029118cf789649e5a4d439b6115d0dd0cbf95dcd22f65e3c848add8c5b",
+    "silence_embeds.bin": "d4417b3c0eabdf7c47032fac2b5b5a7ee83d819a6ddda8fd8eaf74e2b5cc4ac7"
+  },
+  "ort_sha256_verified": "a4e57e18a04b6c1b5b0e2885af1d8557873d4ca04bfcebf79743966c4c8eb20f",
+  "source_report_hashes": {
+    "veche_hard_diarization_result.json": "c4790da8df2d80be69d2d105944d5f31e13f02cf7d3c30456d9001df3741cbef",
+    "russian_c2_der_score.json": "607362f0f5e3ff7f5ff265c3887c206660580a44d87124da6a742c489c4f6d65",
+    "russian_voice_link_score.json": "fe044c027694935a091bc7b962c0a8dbfa92bb5f3f3ec3fdd708f34cdc057ae3",
+    "russian_c2_actual_voice_links_result.json": "fd2aea72b40cef397e7d11af27b88787176a0ce8fade47549b93e487b059dd89",
+    "strict_previous_project_exclusion.json": "e3c4ae52191efdded9344844e07b4584e1ebbfc7bb81387207d83dbd93cbc86c"
+  },
+  "veche": {
+    "audio_duration_ms": 848247,
+    "recordings": [
+      {
+        "meeting": "2-one-to-one",
+        "duration_ms": 153189,
+        "reference_speakers": 2,
+        "wav_sha256": "b5d3db192f2f0d18297364662f1988a246de14ef74866f7bd7848ce33652f22b",
+        "csv_sha256": "0c6b1cb6e14f7d6224dafbf05d271c307336a46227b31b6bbea9c857ac556147",
+        "metrics": {
+          "product_collar_0ms": {
+            "reference_speaker_ms": 144117,
+            "miss_ms": 3343,
+            "false_alarm_ms": 5196,
+            "confusion_ms": 138,
+            "rate": 0.060208025423787614
+          },
+          "product_collar_250ms": {
+            "reference_speaker_ms": 108151,
+            "miss_ms": 2168,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "rate": 0.020046046730959492
+          },
+          "raw_collar_0ms": {
+            "reference_speaker_ms": 144117,
+            "miss_ms": 6427,
+            "false_alarm_ms": 1810,
+            "confusion_ms": 77,
+            "rate": 0.05768923860474476
+          },
+          "raw_collar_250ms": {
+            "reference_speaker_ms": 108151,
+            "miss_ms": 3934,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "rate": 0.03637506819169495
+          }
+        },
+        "hypothesis_sha256": {
+          "product": "25ec982e3ef28178d51e8743c0dfe7d01376fda092b5a2f516081f235d57af02",
+          "raw": "53425382a9e873a7e8926b16ed6fc94f6ee58ecf47304259bb83722e75a99dbc"
+        },
+        "predicted_speakers": 2
+      },
+      {
+        "meeting": "3-auth-incident",
+        "duration_ms": 304520,
+        "reference_speakers": 3,
+        "wav_sha256": "5ef7596327d38d9f1120fd07671acf6439339aaa51a26f255f9ac4e5e97faf57",
+        "csv_sha256": "5791b813ae6f64f7382fdc8394471778f85cffc160d47871f09b969e68a24287",
+        "metrics": {
+          "product_collar_0ms": {
+            "reference_speaker_ms": 285954,
+            "miss_ms": 13217,
+            "false_alarm_ms": 6333,
+            "confusion_ms": 326,
+            "rate": 0.06950768305391776
+          },
+          "product_collar_250ms": {
+            "reference_speaker_ms": 223698,
+            "miss_ms": 6184,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "rate": 0.02764441345027671
+          },
+          "raw_collar_0ms": {
+            "reference_speaker_ms": 285954,
+            "miss_ms": 21751,
+            "false_alarm_ms": 1667,
+            "confusion_ms": 241,
+            "rate": 0.08273708358687061
+          },
+          "raw_collar_250ms": {
+            "reference_speaker_ms": 223698,
+            "miss_ms": 12021,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "rate": 0.053737628409730974
+          }
+        },
+        "hypothesis_sha256": {
+          "product": "c49e0ddb3cea079b02b64f5d67faa1601713f46b2d553f1186fd913fa81fe42e",
+          "raw": "10c6e276412cea000817e56b8f22bba0e2f1a7f9af3c050c26a082bc611f6dec"
+        },
+        "predicted_speakers": 3
+      },
+      {
+        "meeting": "5-it-product",
+        "duration_ms": 390538,
+        "reference_speakers": 5,
+        "wav_sha256": "dd2dddc162151084082f836c9f5dd8c1479769bb89900a996db6d4d38f3a1705",
+        "csv_sha256": "4e4a908b7cd3e9fcf6b8c71022f3fe2dbc0f7c61273ecb24ab808c5a02a83bf1",
+        "metrics": {
+          "product_collar_0ms": {
+            "reference_speaker_ms": 358158,
+            "miss_ms": 10266,
+            "false_alarm_ms": 14298,
+            "confusion_ms": 380,
+            "rate": 0.06964524036877578
+          },
+          "product_collar_250ms": {
+            "reference_speaker_ms": 281304,
+            "miss_ms": 3293,
+            "false_alarm_ms": 5391,
+            "confusion_ms": 0,
+            "rate": 0.030870517305121862
+          },
+          "raw_collar_0ms": {
+            "reference_speaker_ms": 358158,
+            "miss_ms": 21244,
+            "false_alarm_ms": 1766,
+            "confusion_ms": 149,
+            "rate": 0.06466140641839635
+          },
+          "raw_collar_250ms": {
+            "reference_speaker_ms": 281304,
+            "miss_ms": 8785,
+            "false_alarm_ms": 0,
+            "confusion_ms": 0,
+            "rate": 0.03122955948013537
+          }
+        },
+        "hypothesis_sha256": {
+          "product": "6ec8d35442fdcce890bf9aefd3ed4ad37db89ef5df3566d910816fae1b2372f9",
+          "raw": "14bd0553818881af77dbdac4bc96922ebbfda80349d1aae4913a3e8e428c3b34"
+        },
+        "predicted_speakers": 5
+      }
+    ],
+    "pooled": {
+      "product_collar_0ms": {
+        "reference_speaker_ms": 788229,
+        "miss_ms": 26826,
+        "false_alarm_ms": 25827,
+        "confusion_ms": 844,
+        "DER_pct": 6.786987030418825
+      },
+      "product_collar_250ms": {
+        "reference_speaker_ms": 613153,
+        "miss_ms": 11645,
+        "false_alarm_ms": 5391,
+        "confusion_ms": 0,
+        "DER_pct": 2.7784256131830065
+      },
+      "raw_collar_0ms": {
+        "reference_speaker_ms": 788229,
+        "miss_ms": 49422,
+        "false_alarm_ms": 5243,
+        "confusion_ms": 467,
+        "DER_pct": 6.994414059873463
+      },
+      "raw_collar_250ms": {
+        "reference_speaker_ms": 613153,
+        "miss_ms": 24740,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "DER_pct": 4.0348819951953265
+      }
+    },
+    "crosscheck": "Exact millisecond counts agree between exhaustive and Hungarian DER for all 12 evaluations",
+    "reference_limit": "Human-read scripted assembled meetings; not spontaneous natural dialogue"
+  },
+  "long_test": {
+    "status": "THERMAL_ABORT",
+    "wall_seconds": 140.64,
+    "max_cpu_c": 78.0,
+    "max_battery_c": 42.0,
+    "qa_cleanup_verified": true,
+    "source_sha256": "4c7393aa98ff574c717f98a1b7f6c2a8beb1195189149b6a79aa218287a57349"
+  },
+  "not_measured": [
+    "natural spontaneous meeting DER",
+    "latest-build paired WER/cpWER",
+    "completed 20+ minute continuous Android run",
+    "population false-merge reliability"
+  ],
+  "russian_bookmix": {
+    "corpus": "mexus/ru-book-mix-10h",
+    "reference": "generator RTTM, synthetic mixes from Russian audiobooks, not human-labelled real conversations",
+    "recordings": 20,
+    "duration_seconds": 1200.0,
+    "unique_underlying_speakers": 36,
+    "DER_collar_zero_and_250ms": {
+      "0.0": {
+        "raw": {
+          "DER": 7.360664733087717,
+          "miss": 6.6595246182923535,
+          "fa": 0.20468065462970222,
+          "conf": 0.49645946016566067,
+          "DER_ov": 6.997654417513683,
+          "spk_count_acc": 95.0,
+          "files": 20
+        },
+        "product": {
+          "DER": 4.712009964028463,
+          "miss": 2.574621340788935,
+          "fa": 1.614799717801991,
+          "conf": 0.5225889054375376,
+          "DER_ov": 4.124315871774824,
+          "spk_count_acc": 95.0,
+          "files": 20
+        }
+      },
+      "0.25": {
+        "raw": {
+          "DER": 6.776228906823184,
+          "miss": 6.259721203228173,
+          "fa": 0.0,
+          "conf": 0.516507703595011,
+          "DER_ov": 5.602589641434263,
+          "spk_count_acc": 95.0,
+          "files": 20
+        },
+        "product": {
+          "DER": 2.921985815602837,
+          "miss": 2.382978723404255,
+          "fa": 0.0,
+          "conf": 0.5390070921985816,
+          "DER_ov": 3.4611553784860556,
+          "spk_count_acc": 95.0,
+          "files": 20
+        }
+      }
+    },
+    "DER_bootstrap_95pct_by_file": {
+      "0.0": {
+        "raw": [
+          5.90893381717643,
+          9.129905159662403
+        ],
+        "product": [
+          3.4939633094653217,
+          6.496613598381564
+        ]
+      },
+      "0.25": {
+        "raw": [
+          5.140767252422722,
+          8.718526501420593
+        ],
+        "product": [
+          1.7559392061384094,
+          4.598905576900687
+        ]
+      }
+    },
+    "limitations": [
+      "Reference diarization generated synthetically from audiobook speech, not manually annotated live conversations.",
+      "Each one-minute recording has independent local speaker IDs and 1-5 voices; scoring uses optimal per-file label permutation.",
+      "20 clips are fixed stratified by speaker count before predictions, but voice identities repeat across files.",
+      "Warm second pass PRODUCT is scored as used by Kotlin C2, but the full Android VAD/ASR pipeline and TitaNet global linking are not included.",
+      "4 CPU threads on PC versus 2 Android threads. This is a model/algorithmic DER, NOT device performance/DER.",
+      "The bootstrap treats recordings as resampling units and does not fully account for reused audiobook narrators."
+    ]
+  },
+  "russian_strict_unseen_project_subset": {
+    "schema": "new-speaker-russian-strict-subset-v1",
+    "excluded_previously_benchmarked": [
+      "rec_0334",
+      "rec_0416",
+      "rec_0450",
+      "rec_0477"
+    ],
+    "remaining_ids": [
+      "rec_0006",
+      "rec_0020",
+      "rec_0034",
+      "rec_0048",
+      "rec_0082",
+      "rec_0136",
+      "rec_0191",
+      "rec_0245",
+      "rec_0293",
+      "rec_0375",
+      "rec_0505",
+      "rec_0532",
+      "rec_0552",
+      "rec_0566",
+      "rec_0579",
+      "rec_0593"
+    ],
+    "selection_before_scoring": true,
+    "exclusion_found_during_post_audit": true,
+    "source": "mexus/ru-book-mix-10h synthetic Russian generator RTTM",
+    "sample_size": 16,
+    "metrics": {
+      "product_collar_0": {
+        "DER": 4.9013,
+        "miss": 2.5158,
+        "fa": 1.7337,
+        "conf": 0.6518,
+        "DER_ov": 3.5664,
+        "exact_speaker_count_fraction": 0.9375,
+        "files": 16,
+        "reference_speech_s": 920.57
+      },
+      "product_collar_0.25": {
+        "DER": 2.9538,
+        "miss": 2.2818,
+        "fa": 0.0,
+        "conf": 0.672,
+        "DER_ov": 2.5959,
+        "exact_speaker_count_fraction": 0.9375,
+        "files": 16,
+        "reference_speech_s": 819.95
+      },
+      "raw_collar_0": {
+        "DER": 7.504,
+        "miss": 6.6491,
+        "fa": 0.2357,
+        "conf": 0.6192,
+        "DER_ov": 6.5501,
+        "exact_speaker_count_fraction": 0.9375,
+        "files": 16,
+        "reference_speech_s": 920.57
+      },
+      "raw_collar_0.25": {
+        "DER": 6.8821,
+        "miss": 6.2382,
+        "fa": 0.0,
+        "conf": 0.6439,
+        "DER_ov": 4.8968,
+        "exact_speaker_count_fraction": 0.9375,
+        "files": 16,
+        "reference_speech_s": 819.95
+      }
+    },
+    "caveat": "Avoids earlier project evaluation audio by ID, but does not prove model training exclusion or human annotation."
+  },
+  "titanet_oracle_intervals": {
+    "schema": "russian_titanet_oracle_profile_independent_rttm_v1",
+    "test_date": "2026-11-12",
+    "source": "mexus/ru-book-mix-10h",
+    "reference": "synthetic mixes, generator RTTM and original audiobook source speaker IDs",
+    "runtime": "Windows CPU sherpa-onnx 1.12.40, native TitaNet Small pinned model",
+    "policy": "two clean disjoint >=3s samples, within-voice cosine>=0.84, global anchor and centroid>=0.84, margin>=0.07",
+    "full_app_e2e": false,
+    "assumption": "oracle RTTM turns instead of actual predicted C2 speaker labels",
+    "separate_files": 20,
+    "reference_local_speaker_instances": 60,
+    "reference_distinct_persons": 36,
+    "profiles_accepted": 14,
+    "profiles_rejected_by_reason": {
+      "two_excerpt_disagree": 42,
+      "accepted": 14,
+      "insufficient_clean_frames": 4
+    },
+    "profiles_unique_persons": 12,
+    "same_voice_pairwise": 3,
+    "same_voice_false_rejected_pairs": 0,
+    "different_voice_pairwise": 83,
+    "different_voice_false_accepted_pairs": 0,
+    "global_speaker_entries": 12,
+    "global_relinks_to_known": 2,
+    "global_relinks_wrong_person": 0,
+    "reappearing_persons_with_multiple_accepted_profiles": 1,
+    "reappearing_persons_fragmented": 0,
+    "runtime_seconds": 9.94,
+    "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+    "caveats": [
+      "Russian diarization DER is a different metric; use the separate C2-RTTM benchmark.",
+      "Oracle-clean RTTM strips overlapping speech; actual C2 prediction errors can be worse.",
+      "Audiobook narrators with reused source voices are synthetic mixes, not real conversations.",
+      "38+ correlated speech pairs are not independent population false-accept trials.",
+      "Desktop sherpa version 1.12.40 differs from Android 1.12.20."
+    ]
+  },
+  "titanet_actual_c2_intervals": {
+    "schema": "neurostenographer-russian-c2-predicted-global-link-v1",
+    "date": "2026-11-12",
+    "scope": "Windows product Kotlin C2 predictions plus native TitaNet speaker profile and matching algorithm",
+    "dataset": "mexus/ru-book-mix-10h",
+    "generator_ground_truth": true,
+    "source_model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+    "source_c2_inputs_sha256": "1704c00c2f3748f5aea2c8f353454c37174ba0148ede06dbd0c454f31d0d4a78",
+    "reference_audio_seconds": 1200.0,
+    "recordings": 20,
+    "c2_predicted_speaker_profiles": 61,
+    "c2_cluster_assignment_purity_below_80pct": 0,
+    "profiles_accepted": 13,
+    "profiles_rejected_consistency": 45,
+    "profiles_rejected_insufficient": 3,
+    "full_20": {
+      "total_expected_profiles": 61,
+      "profiles_consistent": 13,
+      "profiles_rejected_early_late": 45,
+      "profiles_rejected_insufficient_evidence": 3,
+      "first_valid_enrollments": 12,
+      "returning_valid_probes": 1,
+      "correct_returning_links": 1,
+      "returning_false_splits": 0,
+      "new_speaker_false_links": 0,
+      "wrong_returning_links": 0,
+      "speaker_mixes": 0,
+      "in_block_collisions": 0,
+      "distinct_true_voices_admitted": 12,
+      "total_global_ids_created": 12,
+      "returning_recall_accepted": 1.0
+    },
+    "strict_16": {
+      "files": 16,
+      "profile_appearances": 47,
+      "book": {
+        "total_expected_profiles": 47,
+        "profiles_consistent": 11,
+        "profiles_rejected_early_late": 33,
+        "profiles_rejected_insufficient_evidence": 3,
+        "first_valid_enrollments": 10,
+        "returning_valid_probes": 1,
+        "correct_returning_links": 1,
+        "returning_false_splits": 0,
+        "new_speaker_false_links": 0,
+        "wrong_returning_links": 0,
+        "speaker_mixes": 0,
+        "in_block_collisions": 0,
+        "distinct_true_voices_admitted": 10,
+        "total_global_ids_created": 10,
+        "returning_recall_accepted": 1.0
+      }
+    },
+    "profile_quality_by_recording": [
+      {
+        "file_id": "rec_0006",
+        "expected_speakers": 1,
+        "predicted_clusters": 2,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0020",
+        "expected_speakers": 1,
+        "predicted_clusters": 1,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0034",
+        "expected_speakers": 1,
+        "predicted_clusters": 1,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0048",
+        "expected_speakers": 1,
+        "predicted_clusters": 1,
+        "accepted": 1
+      },
+      {
+        "file_id": "rec_0082",
+        "expected_speakers": 2,
+        "predicted_clusters": 2,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0136",
+        "expected_speakers": 2,
+        "predicted_clusters": 2,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0191",
+        "expected_speakers": 2,
+        "predicted_clusters": 2,
+        "accepted": 1
+      },
+      {
+        "file_id": "rec_0245",
+        "expected_speakers": 2,
+        "predicted_clusters": 2,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0293",
+        "expected_speakers": 3,
+        "predicted_clusters": 3,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0334",
+        "expected_speakers": 3,
+        "predicted_clusters": 3,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0375",
+        "expected_speakers": 3,
+        "predicted_clusters": 3,
+        "accepted": 2
+      },
+      {
+        "file_id": "rec_0416",
+        "expected_speakers": 3,
+        "predicted_clusters": 3,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0450",
+        "expected_speakers": 4,
+        "predicted_clusters": 4,
+        "accepted": 1
+      },
+      {
+        "file_id": "rec_0477",
+        "expected_speakers": 4,
+        "predicted_clusters": 4,
+        "accepted": 1
+      },
+      {
+        "file_id": "rec_0505",
+        "expected_speakers": 4,
+        "predicted_clusters": 4,
+        "accepted": 1
+      },
+      {
+        "file_id": "rec_0532",
+        "expected_speakers": 4,
+        "predicted_clusters": 4,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0552",
+        "expected_speakers": 5,
+        "predicted_clusters": 5,
+        "accepted": 2
+      },
+      {
+        "file_id": "rec_0566",
+        "expected_speakers": 5,
+        "predicted_clusters": 5,
+        "accepted": 0
+      },
+      {
+        "file_id": "rec_0579",
+        "expected_speakers": 5,
+        "predicted_clusters": 5,
+        "accepted": 1
+      },
+      {
+        "file_id": "rec_0593",
+        "expected_speakers": 5,
+        "predicted_clusters": 5,
+        "accepted": 3
+      }
+    ],
+    "runtime_wall_seconds": 9.22,
+    "caveats": [
+      "C2 predictions from Windows host, not Android integration test.",
+      "Voiceprints extracted from C2 segments; RTTM only maps predicted clusters to source speakers for scoring.",
+      "Impure C2 clusters assigned unique artificial unknown identities; tracked as contamination.",
+      "Synthetic Russian dataset with generator RTTM, no human annotator; sessions are 60 seconds.",
+      "True source identity in files is dataset metadata; not guaranteed absent from model training.",
+      "No WER/cpWER measured; thresholds were frozen before data evaluation."
+    ]
+  },
+  "interpretation": [
+    "Veche completes only the available scripted human-voice diarization check; spontaneous conversation remains unvalidated.",
+    "Veche is evaluated only for local diarization; no speaker profiling or cross-recording identification.",
+    "Four bookmix clips had prior project evaluation; headline independent subset is 16 files with DER 4.9013/2.9538 percent.",
+    "Oracle voice profiles 14/60 are distinct from actual C2-turn voice profiles 13/61. Only one returning accepted C2 probe is insufficient to establish recall.",
+    "No observed wrong merge among heavily filtered voices cannot establish population safety.",
+    "Long Android run was thermally aborted, not passed. No new phone load was run in this continuation."
+  ]
+}

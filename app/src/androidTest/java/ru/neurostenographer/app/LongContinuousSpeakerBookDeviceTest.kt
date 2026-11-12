@@ -37,7 +37,7 @@ class LongContinuousSpeakerBookDeviceTest {
         // Overwrite any stale success evidence BEFORE processing starts.
         val runId = SystemClock.elapsedRealtimeNanos().toString()
         evidence.writeText(JSONObject()
-            .put("run_id", runId).put("status", "RUNNING")
+            .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label()).put("status", "RUNNING")
             .put("scope", "long_20min_device_qa").toString(2))
         // Abort if battery hits 45 C on-device, independent of the host.
         // Host watchdog ALSO checks each current CPU cluster (78 C cutoff)
@@ -45,6 +45,7 @@ class LongContinuousSpeakerBookDeviceTest {
         val highestSafeBatteryTenths = 450
         var peakBatteryTenths = 0
         fun verifyCoolBattery() {
+            if (SpeakerBookQaEnvironment.emulator()) return
             val reading = target.registerReceiver(
                 null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                 ?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
@@ -61,7 +62,7 @@ class LongContinuousSpeakerBookDeviceTest {
             }
         }
         fun awaitIdle(maxMillis: Long) {
-            val deadline = SystemClock.elapsedRealtime() + maxMillis
+            val deadline = SystemClock.elapsedRealtime() + SpeakerBookQaEnvironment.timeout(maxMillis)
             verifyCoolBattery()
             while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) {
                 SystemClock.sleep(350)
@@ -78,6 +79,7 @@ class LongContinuousSpeakerBookDeviceTest {
                 modelInitialized = true
                 store.put("speaker-book-long-real-qa", model)
             }
+            if (SpeakerBookQaEnvironment.emulator()) awaitIdle(240_000L)
             assertTrue("ASR not provisioned", model.state.value.modelReady)
             stage = "import_20min"
             inst.runOnMainSync { model.select(Uri.fromFile(source)) }
@@ -102,7 +104,7 @@ class LongContinuousSpeakerBookDeviceTest {
                 segments.count { it.startMs / 300_000L == index.toLong() }
             }
             val result = JSONObject()
-                .put("run_id", runId)
+                .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label())
                 .put("scope", "20min40s_continuous_test_audio_no_ground_truth")
                 .put("duration_ms", duration)
                 .put("wall_ms", recognitionMillis)
@@ -137,7 +139,7 @@ class LongContinuousSpeakerBookDeviceTest {
             // evidence from an earlier run. Always persist a terminal state.
             val thermal = e.message?.startsWith("THERMAL_ABORT") == true
             evidence.writeText(JSONObject()
-                .put("run_id", runId)
+                .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label())
                 .put("status", if (thermal) "THERMAL_ABORT" else "FAIL")
                 .put("scope", "long_20min_device_qa_error")
                 .put("stage", stage).put("error", e.javaClass.simpleName)

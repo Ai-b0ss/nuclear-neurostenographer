@@ -1,0 +1,80 @@
+{
+  "schema": "speakerbook-offdevice-migration-v1",
+  "date": "2026-11-12",
+  "host": {
+    "schema": "speakerbook-offdevice-host-v1",
+    "run_id": "1c1b7db44c334521b600af5ff309f333",
+    "status": "COMPLETED",
+    "execution_environment": "Windows-10-10.0.19045-SP0",
+    "android_test": false,
+    "device_thermal_acceptance": false,
+    "quality_release_gate": "NOT_ESTABLISHED",
+    "stage": "done",
+    "recordings": 15,
+    "audio_seconds": 900,
+    "der_250ms": 0.03200165436662315,
+    "speaker_link": {
+      "total_expected_profiles": 30,
+      "profiles_consistent": 12,
+      "profiles_rejected_early_late": 18,
+      "profiles_rejected_insufficient_evidence": 0,
+      "first_valid_enrollments": 12,
+      "returning_valid_probes": 0,
+      "correct_returning_links": 0,
+      "returning_false_splits": 0,
+      "new_speaker_false_links": 0,
+      "wrong_returning_links": 0,
+      "speaker_mixes": 0,
+      "in_block_collisions": 0,
+      "distinct_true_voices_admitted": 12,
+      "total_global_ids_created": 12,
+      "returning_recall_accepted": null
+    },
+    "runtime": "sherpa-onnx 1.12.40",
+    "limitations": [
+      "The global linking and TitaNet samples are replayed on a host computer, not executed inside Android",
+      "C2 turns (actual model outputs) are used to extract voiceprints. RTTM is only used to map clusters to reference voice labels for scoring",
+      "When a C2 cluster contains both speakers, Hungarian label alone can conceal confusion; purity metric reports its extent",
+      "This is a 15-minute subset split into 15 one-minute files, not 20+ minute continuous processing",
+      "Synthetic audiobook voices and generator RTTM are not a human-labeled natural Russian conversation",
+      "Small sample, repeated voices correlated, model pretraining overlap not excluded"
+    ],
+    "wall_seconds": 124.516
+  },
+  "fixtures": {
+    "schema": "speakerbook-emulator-fixtures-v1",
+    "scope": "Synthetic audiobook functional fixtures, not independent identity accuracy",
+    "source_dataset": "https://huggingface.co/datasets/mexus/ru-book-mix-10h",
+    "source_manifest_sha256": "2f1e26fe123afe43e76b96cd49fd62e75bdb94c2f056c1fc7fa43c981de46a6c",
+    "first_id": "rec_0058",
+    "negative_id": "rec_0059",
+    "different_source_voices": true,
+    "files": {
+      "speakerbook_repeat_after_5min.wav": {
+        "sha256": "13b18b9249bc845331d0cbec5a790fb374f8cb33b6de2d4634324e7ba78d4b82",
+        "duration_ms": 362000
+      },
+      "speakerbook_unrelated_after_5min.wav": {
+        "sha256": "58b34463282dd23207e28782f3553d7666cfefca39db586fa80137f3fc3f2df9",
+        "duration_ms": 362000
+      },
+      "continuous_20m40s.wav": {
+        "sha256": "d57edf4aee0fc50629e2c7239b74f7cd7ea24ed0a68382aad1d81f1f00f5ba45",
+        "duration_ms": 1240000
+      }
+    },
+    "selection_reason": "Functional positive with admitted profiles in the existing host diagnostic, not held-out accuracy",
+    "limitations": [
+      "Repeated source is a functional positive control",
+      "Long fixture repeats source speech; no natural meeting or phone performance claim"
+    ]
+  },
+  "unit_guard_tests": {
+    "passed": 6
+  },
+  "android_qa_build": "PASS: assembleDebug and assembleDebugAndroidTest, 71 Gradle tasks",
+  "workflow_lint": "PASS: actionlint v1.7.12",
+  "emulator_execution": "PENDING_CI",
+  "physical_phone_accessed": false,
+  "production_feature_default": false
+}
