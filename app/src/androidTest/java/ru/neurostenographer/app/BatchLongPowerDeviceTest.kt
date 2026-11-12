@@ -63,6 +63,14 @@ class BatchLongPowerDeviceTest {
         var failed: Throwable? = null
         try {
             check(source.isFile && source.length() == 39_680_044L) { "Public fixture unavailable: ${source.absolutePath}, exists=${source.exists()}, bytes=${source.length()}" }
+            check(power.isInteractive && !target.getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked) {
+                "Unlock HONOR for the actual foreground-to-background user flow"
+            }
+            target.startActivity(Intent(target, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+            inst.waitForIdleSync()
+            SystemClock.sleep(500)
+            record.put("foreground_activity_launched", true)
             inst.runOnMainSync {
                 model = TranscriptionViewModel(target.applicationContext as Application)
                 initialized = true
@@ -78,8 +86,8 @@ class BatchLongPowerDeviceTest {
             await("Processing foreground service / CPU lock missing") {
                 ProcessingService.active.value && ProcessingService.wakeLockHeld
             }
-            // Android 10 permits this user-authorized instrumentation to start the FGS
-            // without opening an Activity. No lock-screen dismissal or PIN input.
+            // Match the real user flow: foreground Activity -> active FGS -> display off.
+            // A headless launch can be frozen by HONOR before native computation starts.
             shell("input keyevent 223")
             await("Display did not sleep") { !power.isInteractive }
             var heartbeatAt = 0L
