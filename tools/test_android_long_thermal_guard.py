@@ -26,6 +26,14 @@ class ThermalWatchdogTests(unittest.TestCase):
             "x ru.neurostenographer.app.solhigh:diarization",power=True),
             ["ru.neurostenographer.app.solhigh:diarization"])
 
+    def test_long_power_route_keeps_the_ordinary_qa_package(self):
+        command,name=watchdog.instrumentation_command(Path("adb"),"HONOR","powerLong")
+        self.assertEqual(name,"ru.neurostenographer.app.BatchLongPowerDeviceTest")
+        self.assertEqual(command[-4:-1],["-e","batchPowerQa","honor_long"])
+        self.assertEqual(command[-1],"ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
+        with self.assertRaises(ValueError):
+            watchdog.instrumentation_command(Path("adb"),"HONOR","powerLong","repeat")
+
     def test_normal_battery(self):
         self.assertEqual(parse_battery("  level: 83\n  temperature: 368\n"),(368,83))
         self.assertEqual(parse_battery("temperature: 420\nlevel: 40"),(420,40))
