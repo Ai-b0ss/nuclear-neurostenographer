@@ -1803,4 +1803,5 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 
 - Four C2 threads retained; ORT1.17.1 spinning disabled for batch only. Fixed host clip: process CPU -14.23%, wall +1.25%, emitted millisecond turns identical. This is not a phone energy or thermal result.
 - ProcessingService now holds a bounded partial CPU lock during transcription, so the display can sleep; completion/cancellation releases ownership. Recording path and thermal guards unchanged.
-- Android lifecycle/screen-off QA pending. No new HONOR inference. See [batch runtime evidence](BATCH_RUNTIME_POWER_2026-11-12.md).
+- All four emulator cases passed with display switched off and CPU lock released. Overlapping owners, duplicate release, restart, notification cancellation and release-before-start checks passed. 20m40s completed in 317,235 ms, 252 segments / 21 unknown / five profiled blocks, unchanged functional counts. Local QA build/core groups, actionlint, ordinary Android CI and host regression passed.
+- Read-only HONOR: battery 33 C, max reported idle CPU 41 C, thermal NONE, externally powered; no current app display-awake window. No physical inference or setting changes. Sustained ARM/OEM/thermal acceptance remains unverified. Production APK retained pending physical acceptance. See [batch runtime evidence](BATCH_RUNTIME_POWER_2026-11-12.md).

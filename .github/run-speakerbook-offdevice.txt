@@ -1,1 +1,0 @@
-Explicit batch runtime / screen-off lifecycle QA 2026-11-12
