@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "blocks": 47,
+  "identical_assignments": 72,
+  "temporary_vectors_deleted": true,
+  "source_sha256": {
+    "core/src/main/kotlin/ru/neurostenographer/core/GlobalSpeakerBook.kt": "4e24733394705086458f280bd774dd18160e2e1dc8cdbc8bc5acd4589a5470af",
+    "core/src/main/kotlin/ru/neurostenographer/core/VoicePrintReply.kt": "f79bf5bbe61b0f811ba82b3e0881f3de344823cecb648886750426b2a6fbebd5",
+    "tools/dual_anchor_policy.py": "f3d8b14770349347e51833a12e592f7b7e450ec805949a8bb3bae0774f508d38"
+  }
+}

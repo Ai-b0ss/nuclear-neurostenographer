@@ -97,10 +97,14 @@ object TitaNetVoiceProfiles {
             return plans.mapNotNull { (index, parts) ->
                 val early = embedding(parts.early) ?: return@mapNotNull null
                 val late = embedding(parts.late) ?: return@mapNotNull null
-                val agreed = VoicePrintAgreement.mergeIfConsistent(early, late)
+                // Construction only, NOT identity admission. The book receives both
+                // raw samples and rechecks .84 agreement before any enrollment.
+                // A disagreement can only reuse an independently verified old anchor.
+                val agreed = VoicePrintAgreement.mergeIfConsistent(early, late, minCosine = 0.0)
                     ?: return@mapNotNull null
                 VoicePrint(speakers[index], agreed,
-                    (parts.early.size + parts.late.size).toLong() * HOP_MS)
+                    (parts.early.size + parts.late.size).toLong() * HOP_MS, early, late,
+                    parts.early.size.toLong() * HOP_MS, parts.late.size.toLong() * HOP_MS)
             }
         } finally {
             extractor.release()

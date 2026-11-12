@@ -1786,3 +1786,14 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - Identical4.527s warm control median56.2/161.4/66.9ms; ONNX40.3/101.4/28.3MB. Large has no compelling mobile benefit; CAM++ gains bookmix coverage but loses style robustness under existing policy. No independently calibrated optimum claimed.
 - Decision: retain Small, ordinary global linking OFF. Metrics/licenses/source pins and reproduction: docs/SPEAKER_MODEL_COMPARISON_2026-11-12.md. No audio/weights/embeddings committed.
 - Archived41-utterance Dialogs preview comparisons found: the preceding seven-original-file exclusion did not establish an untouched utterance holdout. Clarification recorded in acceptance report.
+
+## 2026-11-12: Dual-anchor return-only verification implemented
+
+- Experimental Small path now retains paired temporal evidence. New enrollment still needs .84 mutual agreement; disagreeing pairs can only reuse the same earlier ID after both independent anchor/centroid .84 similarity and .07 margin checks. No rescue enrollment or centroid adaptation. Ordinary flag stays OFF.
+- IPCv2 requires both192D arrays and independently bounded3..16s durations; unknown/corrupt optional identity is dropped without discarding valid ASR/diarization.
+- Host assignments14->15/35 Dialogs and28->31/60 oracle bookmix; actual C2 remains26/30. Correct admitted returns8/11->9/12,6/6->9/9,7/7 unchanged. No observed wrong links/mixed IDs; not population safety.
+-1702 constructed disagreeing speaker-switch pairs:0 wrong rescues (810 pairs have both sources enrolled). Kotlin/Python parity:72 identical assignments across47 blocks; private vectors deleted.
+- All20 core groups and local experimental app/test APK builds pass. Android end-to-end verification pending. See docs/DUAL_ANCHOR_VERIFICATION_2026-11-12.md.
+
+- Final Android evidence: all4 emulator cases PASS on29ada9d in run43254970270; IPCv2 repeat/negative/absent-model controls and cleanup verified. Long20m40s:370038ms,252 segments,21 unknown,5 profiled blocks, time/end coverage pass. Uncontrolled separate-runner timing, not HONOR performance.
+- Linux host baseline and16 Python guard/policy tests PASS; normal Android/core build PASS. Android rescue-quality recall is not independently scored; host/Kotlin gains remain limited. Ordinary feature stays OFF. Metadata: docs/evidence/dual-anchor-20261112/android.json.

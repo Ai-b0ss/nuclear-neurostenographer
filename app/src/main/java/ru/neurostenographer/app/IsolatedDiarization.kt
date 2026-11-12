@@ -120,21 +120,16 @@ object IsolatedDiarization {
                             loadMs, processMs)
                         // Optional voice evidence is bounded and independently validated.
                         // Reject corrupt/ambiguous profile transport without dropping ASR.
-                        val ids = data.getStringArrayList("voiceIds").orEmpty()
-                        val speech = data.getLongArray("voiceMs")
-                        val vectors = data.getFloatArray("voiceVectors")
                         val known = validated.turns.map { it.speakerId }.toSet()
-                        val voiceProfiles = if (BuildConfig.GLOBAL_SPEAKER_BOOK &&
-                            ids.size in 1..8 && ids.distinct().size == ids.size &&
-                            speech?.size == ids.size &&
-                            vectors?.size == ids.size * TitaNetVoiceProfiles.DIM &&
-                            ids.all { it in known } && speech.all { it in 0..audioMs } &&
-                            vectors.all { it.isFinite() }) {
-                            ids.indices.map { i ->
-                                VoicePrint(ids[i], vectors.copyOfRange(
-                                    i * TitaNetVoiceProfiles.DIM, (i + 1) * TitaNetVoiceProfiles.DIM), speech[i])
-                            }
-                        } else emptyList()
+                        val voiceProfiles = if (BuildConfig.GLOBAL_SPEAKER_BOOK) runCatching {
+                            ru.neurostenographer.core.VoicePrintReply.decode(
+                                data.getInt("voiceEvidenceVersion", -1),
+                                data.getStringArrayList("voiceIds").orEmpty(),
+                                data.getLongArray("voiceMs"), data.getFloatArray("voiceVectors"),
+                                data.getFloatArray("voiceEarly"), data.getFloatArray("voiceLate"),
+                                data.getLongArray("voiceEarlyMs"), data.getLongArray("voiceLateMs"),
+                                known, audioMs)
+                        }.getOrDefault(emptyList()) else emptyList()
                         result.complete(DiarizationOutput(
                             validated.turns, loadMs, processMs, validated.windows, voiceProfiles))
                     }
