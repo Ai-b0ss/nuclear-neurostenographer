@@ -1,3 +1,118 @@
+## 2026-11-12 — move C2 + TitaNet QA off the overheating phone
+
+Primary QA now has a portable PC host runner and a dedicated Linux Actions
+workflow with separate actual-inference and x86_64 Android emulator jobs.
+The physical HONOR was not accessed or loaded in this work.
+
+- Fresh Windows PC inference: 15 fixed two-speaker files / 900 s of speech
+  in 124.516 s including compilation/scoring; DER 3.20017% at 250 ms.
+  Actual C2 -> TitaNet replay admitted 12/30 profiles, zero admitted returning
+  probes; no release quality claim. This repeats the regression corpus.
+- Android isolated QA APK + instrumentation APK build PASS (71 tasks).
+  No product logic/default changed; no new production release APK.
+- Six emulator-isolation / false-success regressions PASS. The new runner
+  cannot select a physical target; it verifies ADB serial, qemu and x86_64.
+  On-device simulated-temperature bypass requires explicit emulator mode
+  AND ranchu/goldfish x86_64. Physical thermal policy remains unchanged.
+- New workflow passes actionlint 1.7.12. CI uses standard public Linux
+  runners, pins Python dependencies and all model checksums; no paid service.
+- Emulator suite covers repeat/different source/missing model, plus 20m40s.
+  Functional positive rec_0058 was selected for known admitted profiles;
+  this is deliberately NOT counted as independent accuracy validation.
+- Only sanitized JSON metadata is uploaded; audio, models, embeddings and
+  raw transcript previews/logs remain excluded. Current outputs replace
+  task-owned files in .local/speakerbook-offdevice-current.
+- GitHub integration can write the QA branch despite expired local Git
+  credentials; no owner login or foreground browser is required.
+- Final accelerated x86_64 Android CI: all FOUR cases PASS. Repeat linked
+  both expected voices across the boundary; different-source control had no
+  shared IDs; absent optional model retained only block-local IDs.
+- Continuous 20m40s input completed: recognition 218.948 s (RTF 0.17657),
+  252 segments, 21 uncertain speaker segments, 5 profiled blocks and
+  [61,61,61,61,8] segments by five-minute interval. End/timeline checks PASS.
+  Full long-test wrapper 232.066 s. This is NOT HONOR performance evidence.
+- KVM version 12 explicitly checked usable in all four cases; no software
+  VM-acceleration fallback. Boot ~33 s. The bootstrap udev rule contained
+  an incorrect GROUP equality condition; runner-user ownership + strict
+  acceleration checks replaced it. Earlier slow runs were canceled.
+- The first accelerated tests exposed an unreadable host-staged TitaNet
+  file. Fixed by copying a pinned instrumentation asset under the target
+  app UID. Confirmed asset hash in test APK and absence from main APK.
+- Heavy QA now runs only on workflow_dispatch or a deliberate change to
+  .github/run-speakerbook-offdevice.txt, preventing repeated heavy runs on
+  ordinary edits. CI matrix case outputs are independent; normal CI PASS.
+- Linux current host: 107.15 s for 900 s corpus, same DER and admitted
+  profile counts as Windows. Independent identity readiness still NO-GO.
+- CI: https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43174151953
+  tested runtime code cac43214; results and source blob pins are saved in
+  docs/evidence/speakerbook-offdevice-20261112.json.
+  Instructions: docs/SPEAKERBOOK_OFFDEVICE_QA.md.
+
+## 2026-11-12 — final acceptance verification: Veche and corrected independent scope
+
+**Decision remains NO-GO for default globalSpeakerBook.** The requested
+verification stage is closed with explicit outstanding release blockers;
+no new model tuning, APK, phone endurance run or product change.
+
+- Found the completed Veche hard 2/3/5-speaker host inference and re-scored
+  all three WAVs (848.247 s): DER 6.78699% at 0 ms, 2.77843% at 250 ms,
+  overlap included. Exact exhaustive and Hungarian scorers agree to the
+  millisecond on product/raw at both collars (12 comparisons).
+- Verified 37 compiled-input source fingerprints against current files,
+  all four model artifacts, ORT 1.17.1 jar and source WAV fingerprints.
+  These are provenance checks of saved inference, not a fresh model run.
+- Veche uses human-read scripted assembled meetings with background noise;
+  it cannot establish spontaneous natural Russian conversation DER.
+  Only local diarization was evaluated, never biometric identity linkage.
+- Corrected scope: four of 20 Russian bookmix recordings had prior project
+  evaluation. Strict 16-file exclusion yields DER 4.9013% / 2.9538%.
+- Keep oracle 14/60 admitted TitaNet profiles separate from actual C2
+  13/61 profiles; the latter has only one accepted returning probe.
+  Neither supports a general global identity accuracy claim.
+- Reconciled 140.64 s CPU-78C THERMAL_ABORT and verified isolated QA cleanup.
+  No repeat thermal stress; endurance is unpassed.
+- WER/cpWER for these exact latest-build recordings remains NOT SCORED.
+- Reproduction: system Python 3.13 (existing NumPy/SciPy) with
+  tools/verify_speakerbook_acceptance.py --qa-dir .local/qa-three-checks-current
+  --output .local/qa-three-checks-current/final-recheck.json.
+  The data venv lacks SciPy; no packages were installed.
+- Sanitized final evidence and corrected scope:
+  docs/evidence/speakerbook-final-acceptance-20261112.json.
+- Confirmed remote main bb0ab7a (#54) and passing post-merge Actions run
+  https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43115747309.
+
+## 2026-11-12 — three speakerbook release checks (20m, false joins, Russian)
+
+**Decision: NO-GO for enabling globalSpeakerBook by default.**
+See docs/evidence/speakerbook-three-release-checks-20261112.json for all
+checksums, measured results, evidence and precise limitations.
+
+- **Actual HONOR 20m40s endurance did NOT complete:** host stopped it after
+  140.64 seconds when CPU cluster1 reached 78 C; battery was 42 C.
+  Test-only processes were confirmed stopped; no full transcript exists.
+  The test audio repeats a public two-speaker excerpt, not a natural
+  twenty-minute meeting.
+- **Russian independent identity, oracle RTTM:** fixed first 70 synthetic
+  audiobook clips; 42 distinct true source voices, 85 speaker appearances.
+  TitaNet double-evidence accepted 34/85; rejected 51/85 (60%).
+  It linked 12 of 13 accepted returning probes correctly, split one,
+  and produced zero observed false identity merges. Oracle source turns
+  bypass C2 errors; this is not an end-to-end Android result.
+- **Actual host Kotlin Nemotron C2 DER:** first 15 two-speaker Russian
+  synthetic mixtures, 15 minutes, pinned IR9 INT8 model and ORT 1.17.1.
+  Pooled DER 3.20% (250 ms collar, overlapping speech included);
+  speaker count 2 on 15/15. Median DER 1.95%, worst file 14.18%.
+- **C2 predicted turns -> TitaNet global-link replay:** 12/30 profiles
+  accepted and 18/30 rejected. Zero observed wrong joins, but **zero
+  accepted returning probes**, so this subset cannot establish true
+  returning-speaker recall on real C2 predictions.
+- Generator RTTM labels are **not human-reviewed speech annotation**;
+  independent human Russian natural-conversation DER and paired cpWER
+  remain NOT SCORED. Pretraining exclusion also unverified.
+- New 8 hermetic scorer tests pass; existing 12 host thermal tests and
+  7 voice metric tests pass. Only one Git checkout and ready production APK.
+  The normal product feature remains disabled.
+
 ## 2026-11-12 — independent battery + CPU thermal limits
 
 - Owner requested a less restrictive but still bounded experimental

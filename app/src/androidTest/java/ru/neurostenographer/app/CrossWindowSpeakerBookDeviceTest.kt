@@ -47,12 +47,13 @@ class CrossWindowSpeakerBookDeviceTest {
         val runId = SystemClock.elapsedRealtimeNanos().toString()
         // Prior evidence is never a result for the current run.
         evidence.writeText(JSONObject()
-            .put("run_id", runId).put("status", "RUNNING")
+            .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label()).put("status", "RUNNING")
             .put("scope", "voice_link_device_qa")
             .put("qa_mode", mode).toString(2))
         var verifiedRecord: JSONObject? = null
 
         fun ensureSafeTemperature() {
+            if (SpeakerBookQaEnvironment.emulator()) return
             // Instrumentation can be run without ADB host watchdog;
             // the battery and Android thermal status still fail closed.
             // Numeric CPU cluster temperature needs privileged ADB thermalservice
@@ -69,9 +70,20 @@ class CrossWindowSpeakerBookDeviceTest {
             }
         }
         fun idle(limitMs: Long) {
-            val deadline = SystemClock.elapsedRealtime() + limitMs
+            val deadline = SystemClock.elapsedRealtime() + SpeakerBookQaEnvironment.timeout(limitMs)
             ensureSafeTemperature()
+            var heartbeatAt = 0L
             while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) {
+                if (SpeakerBookQaEnvironment.emulator() && SystemClock.elapsedRealtime() - heartbeatAt >= 2_000L) {
+                    heartbeatAt = SystemClock.elapsedRealtime()
+                    val current = model.state.value
+                    evidence.writeText(JSONObject()
+                        .put("run_id", runId).put("status", "RUNNING")
+                        .put("execution_environment", SpeakerBookQaEnvironment.label())
+                        .put("stage", stage).put("processing_stage", current.stage)
+                        .put("progress", current.progress?.toDouble() ?: JSONObject.NULL)
+                        .put("elapsed_ms", heartbeatAt - start).toString(2))
+                }
                 SystemClock.sleep(200)
                 ensureSafeTemperature()
             }
@@ -81,6 +93,7 @@ class CrossWindowSpeakerBookDeviceTest {
         var movedModel = false
         try {
             ensureSafeTemperature()
+            SpeakerBookQaEnvironment.prepareOptionalModel()
             assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
             if (missingModel) {
                 assertTrue("Missing QA TitaNet model must exist before test", optionalModel.isFile)
@@ -93,6 +106,7 @@ class CrossWindowSpeakerBookDeviceTest {
                 model = TranscriptionViewModel(target.applicationContext as Application)
                 owner.put("cross-window-qa", model)
             }
+            if (SpeakerBookQaEnvironment.emulator()) idle(240_000L)
             assertTrue("ASR not provisioned", model.state.value.modelReady)
             stage = "select"
             instrumentation.runOnMainSync { model.select(Uri.fromFile(source)) }
@@ -116,7 +130,7 @@ class CrossWindowSpeakerBookDeviceTest {
             val blocks = Regex("профили получены для ([0-9]+) блоков")
                 .find(warning)?.groupValues?.get(1)?.toIntOrNull() ?: 0
             val record = JSONObject()
-                .put("run_id", runId)
+                .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label())
                 .put("scope", when (mode) {
                     "differentSources" -> "different_source_clips_speakers_not_identity_annotated"
                     "withoutModel" -> "missing_optional_model_must_keep_block_local_ids"
@@ -160,7 +174,7 @@ class CrossWindowSpeakerBookDeviceTest {
             verifiedRecord = record
         } catch (e: Throwable) {
             evidence.writeText(JSONObject()
-                .put("run_id", runId).put("status", "FAIL")
+                .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label()).put("status", "FAIL")
                 .put("scope", "voice_link_test_error").put("stage", stage)
                 .put("error", e.javaClass.simpleName).put("message", e.message ?: "")
                 .put("elapsed_ms", SystemClock.elapsedRealtime() - start).toString(2))
@@ -175,7 +189,7 @@ class CrossWindowSpeakerBookDeviceTest {
                 instrumentation.runOnMainSync { owner.clear() }
             } catch (cleanupError: Throwable) {
                 evidence.writeText(JSONObject()
-                    .put("run_id", runId).put("status", "FAIL")
+                    .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label()).put("status", "FAIL")
                     .put("scope", "voice_link_test_cleanup_error")
                     .put("stage", "cleanup")
                     .put("error", cleanupError.javaClass.simpleName)

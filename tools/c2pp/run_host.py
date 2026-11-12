@@ -31,30 +31,33 @@ def main():
     ap.add_argument('--work', type=Path, required=True, help='scratch dir for the compiled jar and JVM tmp')
     ap.add_argument('--params', type=Path)
     ap.add_argument('--passes', default='', help='comma list of extra passes: warm, rev')
+    ap.add_argument('--java', default=str(JAVA))
+    ap.add_argument('--harness', type=Path, default=HARNESS)
+    ap.add_argument('--model', type=Path, default=MODEL)
     a = ap.parse_args()
-    ort = HARNESS / 'onnxruntime-1.17.1.jar'
+    ort = a.harness / 'onnxruntime-1.17.1.jar'
     if sha(ort) != ORT_SHA:
         raise SystemExit('ORT jar pin mismatch')
     for name, digest in PINS.items():
-        if sha(MODEL / name) != digest:
+        if sha(a.model / name) != digest:
             raise SystemExit('C2 model pin mismatch: ' + name)
     sources = sorted((ROOT / 'core/src/main/kotlin/ru/neurostenographer/core').glob('*.kt'))
     sources += sorted((ROOT / 'app/src/nemotron/java/ru/neurostenographer/core').glob('*.kt'))
     sources += [ROOT / 'tools/c2pp/DumpLogits.kt', ROOT / 'app/src/realtime/java/ru/neurostenographer/app/JournalBlocks.kt']
-    kotlin = HARNESS / 'kotlin'
+    kotlin = a.harness / 'kotlin'
     cp = os.pathsep.join([str(kotlin / 'kotlin-stdlib.jar'), str(ort)])
     a.work.mkdir(parents=True, exist_ok=True)
     jar = a.work / 'c2pp-classes'
-    subprocess.run([str(JAVA), '-cp', str(kotlin / '*'), 'org.jetbrains.kotlin.cli.jvm.K2JVMCompiler', '-no-stdlib', '-no-reflect',
+    subprocess.run([str(a.java), '-cp', str(kotlin / '*'), 'org.jetbrains.kotlin.cli.jvm.K2JVMCompiler', '-no-stdlib', '-no-reflect',
                     '-jvm-target', '17', '-classpath', cp, '-d', str(jar), *map(str, sources)], check=True)
     a.out.mkdir(parents=True, exist_ok=True)
     lst = a.work / 'wavs.txt'
     lst.write_text('\n'.join(str(w) for w in a.wavs), encoding='utf-8')
-    (a.out / 'inputs.json').write_text(json.dumps(dict(scope='WINDOWS_HOST_C2_NOT_PHONE', model_pins=PINS, ort_jar_sha256=ORT_SHA,
+    (a.out / 'inputs.json').write_text(json.dumps(dict(scope='HOST_C2_NOT_PHONE', model_pins=PINS, ort_jar_sha256=ORT_SHA,
         sources={str(p.relative_to(ROOT)): sha(p) for p in sources}, wavs={w.name: sha(w) for w in a.wavs}), indent=1), encoding='utf-8')
     tmp = a.work / 'tmp'; tmp.mkdir(exist_ok=True)
-    subprocess.run([str(JAVA), '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-Dc2pp.passes=' + a.passes, '-cp', os.pathsep.join([str(jar), cp]),
-                    'ru.neurostenographer.tools.DumpLogitsKt', str(MODEL), str(a.out), str(lst),
+    subprocess.run([str(a.java), '-Xmx2g', '-Djava.io.tmpdir=' + str(tmp), '-Dc2pp.passes=' + a.passes, '-cp', os.pathsep.join([str(jar), cp]),
+                    'ru.neurostenographer.tools.DumpLogitsKt', str(a.model), str(a.out), str(lst),
                     *([str(a.params)] if a.params else [])], check=True)
 
 
