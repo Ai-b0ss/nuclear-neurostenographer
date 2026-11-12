@@ -1797,3 +1797,11 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 
 - Final Android evidence: all4 emulator cases PASS on29ada9d in run43254970270; IPCv2 repeat/negative/absent-model controls and cleanup verified. Long20m40s:370038ms,252 segments,21 unknown,5 profiled blocks, time/end coverage pass. Uncontrolled separate-runner timing, not HONOR performance.
 - Linux host baseline and16 Python guard/policy tests PASS; normal Android/core build PASS. Android rescue-quality recall is not independently scored; host/Kotlin gains remain limited. Ordinary feature stays OFF. Metadata: docs/evidence/dual-anchor-20261112/android.json.
+
+
+## 2026-11-12 — batch CPU waiting / screen-off processing
+
+- Four C2 threads retained; ORT1.17.1 spinning disabled for batch only. Fixed host clip: process CPU -14.23%, wall +1.25%, emitted millisecond turns identical. This is not a phone energy or thermal result.
+- ProcessingService now holds a bounded partial CPU lock during transcription, so the display can sleep; completion/cancellation releases ownership. Recording path and thermal guards unchanged.
+- All four emulator cases passed with display switched off and CPU lock released. Overlapping owners, duplicate release, restart, notification cancellation and release-before-start checks passed. 20m40s completed in 317,235 ms, 252 segments / 21 unknown / five profiled blocks, unchanged functional counts. Local QA build/core groups, actionlint, ordinary Android CI and host regression passed.
+- Read-only HONOR: battery 33 C, max reported idle CPU 41 C, thermal NONE, externally powered; no current app display-awake window. No physical inference or setting changes. Sustained ARM/OEM/thermal acceptance remains unverified. Production APK retained pending physical acceptance. See [batch runtime evidence](BATCH_RUNTIME_POWER_2026-11-12.md).

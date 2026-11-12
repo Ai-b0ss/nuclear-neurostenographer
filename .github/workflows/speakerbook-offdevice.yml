@@ -7,7 +7,7 @@ on:
         type: boolean
         default: true
   push:
-    branches: ['main', 'qa/speakerbook-three-gates-20261112', 'research/titanet-rejections-20261112', 'research/dual-anchor-20261112']
+    branches: ['main', 'qa/speakerbook-three-gates-20261112', 'research/titanet-rejections-20261112', 'research/dual-anchor-20261112', 'perf/batch-runtime-power-20261112']
     paths: ['.github/run-speakerbook-offdevice.txt']
 permissions:
   contents: read

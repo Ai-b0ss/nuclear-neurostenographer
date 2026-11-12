@@ -86,6 +86,7 @@ class LongContinuousSpeakerBookDeviceTest {
         try {
             verifyCoolBattery()
             SpeakerBookQaEnvironment.prepareOptionalModel()
+            ProcessingPowerQa.foreground()
             inst.runOnMainSync {
                 model = TranscriptionViewModel(target.applicationContext as Application)
                 modelInitialized = true
@@ -102,6 +103,7 @@ class LongContinuousSpeakerBookDeviceTest {
             stage = "recognize_20min"
             val recognitionStart = SystemClock.elapsedRealtime()
             inst.runOnMainSync { model.transcribe() }
+            ProcessingPowerQa.screenOffDuringProcessing()
             awaitIdle(900_000L)
             val recognitionMillis = SystemClock.elapsedRealtime() - recognitionStart
             val doc = requireNotNull(model.state.value.document) {
@@ -142,6 +144,9 @@ class LongContinuousSpeakerBookDeviceTest {
             assertTrue("No C2 profiling at all", profileBlocks > 0)
             assertEquals("Long recording must use specialized voice embeddings",
                 "chunked_titanet_small_voice_embeddings_qa", doc.provenance.speakerSource)
+            ProcessingPowerQa.stopped()
+            result.put("screen_off_processing", SpeakerBookQaEnvironment.emulator())
+            result.put("processing_wake_lock_released", SpeakerBookQaEnvironment.emulator())
             // Success only AFTER every postcondition has been established.
             result.put("status", "PASS")
             evidence.writeText(result.toString(2))

@@ -171,10 +171,11 @@ class MainActivity : ComponentActivity() {
             while (recording) { value = model.recordingLevel; delay(50) }
             value = 0f
         }
-        // A long recording must not stop because the screen timed out mid-processing.
+        // Processing owns a bounded CPU lock; the display may sleep once FGS is ready.
         val view = LocalView.current
-        DisposableEffect(view, state.busy, recording) {
-            view.keepScreenOn = state.busy || recording
+        val processingActive by ProcessingService.active.collectAsState()
+        DisposableEffect(view, state.busy, recording, processingActive) {
+            view.keepScreenOn = recording || (state.busy && !processingActive)
             onDispose { view.keepScreenOn = false }
         }
         var notice by remember { mutableStateOf("") }
