@@ -58,5 +58,57 @@ fun testGlobalSpeakerBook() {
     check(stableBook.link(listOf(p("a", 1f, 0f)))["a"] == "Speaker 1")
     check(stableBook.link(listOf(p("b", 0.985f, 0.17f)))["b"] == "Speaker 1")
     check(stableBook.link(listOf(p("c", 0.98f, 0.19f)))["c"] == "Speaker 1")
+    // Inconsistent temporal excerpts can ONLY reuse the same independently verified old anchor.
+    fun pair(id: String, early: FloatArray, late: FloatArray) = VoicePrint(id,
+        requireNotNull(VoicePrintAgreement.mergeIfConsistent(early, late, minCosine = 0.0)),
+        6000, early, late, 3000, 3000)
+    fun at(degrees: Double) = floatArrayOf(kotlin.math.cos(Math.toRadians(degrees)).toFloat(),
+        kotlin.math.sin(Math.toRadians(degrees)).toFloat(), 0f)
+    val mixedDimensions = GlobalSpeakerBook()
+    check(mixedDimensions.link(listOf(p("two",1f,0f),p("three",1f,0f,0f))).isEmpty())
+    check(mixedDimensions.size() == 0)
+    val rescueBook = GlobalSpeakerBook()
+    rescueBook.link(listOf(p("anchor", 1f, 0f, 0f)))
+    repeat(40) { check(rescueBook.link(listOf(pair("return", at(30.0), at(-20.0))))["return"] == "Speaker 1") }
+    check(rescueBook.size() == 1)
+    // Reuse-only evidence must not adapt the centroid toward the asymmetric pair.
+    check(rescueBook.link(listOf(VoicePrint("edge", at(-30.0), 4000)))["edge"] == "Speaker 1")
+    check(rescueBook.link(listOf(pair("one_bad_half",at(0.0),at(50.0)))).isEmpty())
+    val pairedAmbiguous = GlobalSpeakerBook()
+    pairedAmbiguous.link(listOf(p("near_a",1f,0f,0f),p("near_b",0.999f,0f,0.04f)))
+    check(pairedAmbiguous.link(listOf(pair("unclear",at(30.0),at(-20.0)))).isEmpty())
+    check(pairedAmbiguous.size() == 2)
+    val unknownPair = GlobalSpeakerBook()
+    check(unknownPair.link(listOf(pair("unknown", at(30.0), at(-20.0)))).isEmpty())
+    check(unknownPair.size() == 0)
+    val switched = GlobalSpeakerBook()
+    switched.link(listOf(p("a", 1f, 0f, 0f), p("b", 0f, 1f, 0f)))
+    check(switched.link(listOf(pair("mixed", floatArrayOf(1f,0f,0f), floatArrayOf(0f,1f,0f)))).isEmpty())
+    check(switched.size() == 2)
+    val collisionBook = GlobalSpeakerBook()
+    collisionBook.link(listOf(p("anchor", 1f,0f,0f)))
+    check(collisionBook.link(listOf(pair("x", at(30.0), at(-20.0)), pair("y",at(30.0),at(-20.0)))).isEmpty())
+    check(collisionBook.size() == 1)
+    val sameBlock = GlobalSpeakerBook()
+    val simultaneous = sameBlock.link(listOf(p("fresh",1f,0f,0f), pair("unproven",at(30.0),at(-20.0))))
+    check(simultaneous.keys == setOf("fresh"))
+    val malformed = pair("bad",at(30.0),at(-20.0))
+    check(collisionBook.link(listOf(malformed.copy(lateEmbedding=null))).isEmpty())
+    check(collisionBook.link(listOf(malformed.copy(earlySpeechMs=2999,cleanSpeechMs=5999))).isEmpty())
+    check(collisionBook.link(listOf(malformed.copy(earlyEmbedding=floatArrayOf(Float.NaN,0f,0f)))).isEmpty())
+    check(collisionBook.link(listOf(malformed.copy(embedding=floatArrayOf(0f,1f,0f)))).isEmpty())
+    fun decode(version: Int = 2, early: FloatArray? = malformed.earlyEmbedding,
+               late: FloatArray? = malformed.lateEmbedding, earlyMs: LongArray? = longArrayOf(3000)) =
+        VoicePrintReply.decode(version,listOf("bad"),longArrayOf(6000),malformed.embedding,
+            early,late,earlyMs,longArrayOf(3000),setOf("bad"),6000,3)
+    check(decode().size == 1)
+    check(decode(version=1).isEmpty())
+    check(decode(early=null).isEmpty())
+    check(decode(late=null).isEmpty())
+    check(decode(earlyMs=null).isEmpty())
+    check(decode(early=floatArrayOf(1f)).isEmpty())
+    check(decode(earlyMs=longArrayOf(2999)).isEmpty())
+    verifyDualAnchorReplayIfAvailable()
+    println("PASS dual-anchor: paired reuse, no unproven enrollment, slot-switch rejection, collision, immutable centroid, strict IPC")
     println("PASS global speaker book: A-B-A, swapped slots, ambiguity, collision, overlap, invalid input")
 }

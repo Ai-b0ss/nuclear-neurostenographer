@@ -98,6 +98,19 @@ class DiarizationService : Service() {
                         putStringArrayList("voiceIds", ArrayList(result.voicePrints.map { it.localSpeakerId }))
                         putLongArray("voiceMs", result.voicePrints.map { it.cleanSpeechMs }.toLongArray())
                         putFloatArray("voiceVectors", flat)
+                        putInt("voiceEvidenceVersion", ru.neurostenographer.core.VoicePrintReply.VERSION)
+                        putFloatArray("voiceEarly", FloatArray(flat.size).also { values ->
+                            result.voicePrints.forEachIndexed { i, profile ->
+                                requireNotNull(profile.earlyEmbedding).copyInto(values, i * TitaNetVoiceProfiles.DIM)
+                            }
+                        })
+                        putFloatArray("voiceLate", FloatArray(flat.size).also { values ->
+                            result.voicePrints.forEachIndexed { i, profile ->
+                                requireNotNull(profile.lateEmbedding).copyInto(values, i * TitaNetVoiceProfiles.DIM)
+                            }
+                        })
+                        putLongArray("voiceEarlyMs", result.voicePrints.map { it.earlySpeechMs }.toLongArray())
+                        putLongArray("voiceLateMs", result.voicePrints.map { it.lateSpeechMs }.toLongArray())
                     }
                 }
                 reply.send(Message.obtain(null, RESULT).apply { this.data = output })

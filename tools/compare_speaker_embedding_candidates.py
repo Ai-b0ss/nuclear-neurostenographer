@@ -44,6 +44,7 @@ def main():
     ap.add_argument("--bookmix",type=Path,default=ROOT/".local/speakerbook-active/scratch/ru_book_mix_eval")
     ap.add_argument("--c2",type=Path,default=ROOT/".local/speakerbook-offdevice-current/host/predictions")
     ap.add_argument("--output",type=Path,default=ROOT/".local/speaker-model-compare-current")
+    ap.add_argument("--dual-anchor-experiment",action="store_true")
     a=ap.parse_args()
     if not a.output.resolve().is_relative_to((ROOT/".local").resolve()):ap.error("Output must be under .local")
     a.output.mkdir(parents=True,exist_ok=True)
@@ -51,7 +52,7 @@ def main():
             "policy":{"agreement":.84,"matching":.84,"margin":.07,"max_sample_s":16,"min_sample_s":3},
             "input_pins":{}}
     save(a.output/"result.json",result)
-    acquire(a.models)
+    if not a.dual_anchor_experiment:acquire(a.models)
     sys.path.insert(0,str(a.site.resolve()))
     import numpy as np,soundfile as sf,sherpa_onnx
     result["runtime"]=sherpa_onnx.__version__
@@ -101,7 +102,10 @@ def main():
     data["ActualC2_30"]=groups
     # Freeze test input counts and model list before inference; no model-based selection.
     result["group_counts"]={k:len(v) for k,v in data.items()};save(a.output/"result.json",result)
-    for name,(filename,wanted,size) in MODELS.items():
+    parity_lines=[];expected_lines=[]
+    selected={"TitaNetSmall":MODELS["TitaNetSmall"]} if a.dual_anchor_experiment else MODELS
+    for name,(filename,wanted,size) in selected.items():
+        if sha256(a.models/filename)!=wanted:raise ValueError("Wrong model")
         start=time.monotonic()
         extractor=sherpa_onnx.SpeakerEmbeddingExtractor(sherpa_onnx.SpeakerEmbeddingExtractorConfig(
             model=str(a.models/filename),num_threads=2,provider="cpu",debug=False))
@@ -128,6 +132,7 @@ def main():
                 if parts is None:item["valid"]="INSUFFICIENT_CLEAN_SPEECH"
                 else:
                     early,late=[embed(x) for x in parts];score=float(np.dot(early,late))
+                    item["early"]=early;item["late"]=late;item["early_ms"]=len(parts[0])*1000//16000;item["late_ms"]=len(parts[1])*1000//16000
                     scores.append(score);item["valid"]="PASS" if score>=.84 else "AGREEMENT_REJECT";item["v"]=normalized(early+late,np)
                 clips[-1]["profiles"].append(item)
             elapsed=time.perf_counter()-began
@@ -137,9 +142,46 @@ def main():
             out["datasets"][dataset]={"wall_seconds":round(elapsed,3),"global_book":book,
                 "accepted_pairs":calculate_pairs(accepted,np),"all_available_pairs":calculate_pairs(all_vectors,np),
                 "agreement_scores":scores}
+            if a.dual_anchor_experiment:
+                from dual_anchor_policy import simulate
+                out["datasets"][dataset]["dual_anchor"],events=simulate(clips,np)
+                for clip in clips:
+                    parity_lines.append("B\t"+dataset+"\t"+clip["id"])
+                    for item in clip["profiles"]:
+                        if "early" not in item:continue
+                        parity_lines.append("\t".join(["P",item["local"],str(item["early_ms"]),str(item["late_ms"]),
+                            ",".join(map(str,item["v"])),",".join(map(str,item["early"])),",".join(map(str,item["late"]))]))
+                    parity_lines.append("E")
+                expected_lines.extend("\t".join([dataset,e["clip"],e["local"],e["id"]]) for e in events if e["id"] is not None)
+                first_by_truth={};anchors={}
+                for clip in clips:
+                    for item in clip["profiles"]:
+                        if "early" in item:first_by_truth.setdefault(item["truth"],item)
+                        if item["valid"]=="PASS":anchors.setdefault(item["truth"],item)
+                seed=[{"id":"seed"+str(i),"profiles":[item]} for i,item in enumerate(anchors.values())]
+                switched=0;rescued=0;already_consistent=0
+                known_switches=0
+                for truth_a,item_a in first_by_truth.items():
+                    for truth_b,item_b in first_by_truth.items():
+                        if truth_a==truth_b:continue
+                        early=item_a["early"];late=item_b["late"]
+                        agreement=float(np.dot(early,late))
+                        if agreement>=.84:already_consistent+=1;continue
+                        switched+=1
+                        known_switches+=int(truth_a in anchors and truth_b in anchors)
+                        mixed={"local":"changed","truth":"MIXED","valid":"AGREEMENT_REJECT",
+                               "early":early,"late":late,"v":normalized(early+late,np)}
+                        _,events=simulate(seed+[{"id":"switch","profiles":[mixed]}],np)
+                        if events[-1]["id"] is not None:rescued+=1
+                out["datasets"][dataset]["speaker_switch_controls"]={
+                    "inconsistent_ordered_pairs":switched,"both_sources_enrolled":known_switches,
+                    "wrongly_rescued":rescued,"pairs_already_consistent_under_baseline":already_consistent}
             print("SCORED",name,dataset,"admitted",book["profiles_consistent"],"returning",book["correct_returning_links"],flush=True)
         result["models"][name]=out;save(a.output/"result.json",result)
         del extractor
+    if a.dual_anchor_experiment:
+        (a.output/"private-replay.tsv").write_text("\n".join(parity_lines)+"\n","utf8")
+        (a.output/"expected-links.tsv").write_text("\n".join(expected_lines)+"\n","utf8")
     result["status"]="COMPLETED";result["script_sha256"]=sha256(Path(__file__))
     result["limits"]=["Fixed production gates measure drop-in suitability, not independently calibrated model optima.",
       "These sets and some source actors were used previously; not untouched heldout evidence or training.",

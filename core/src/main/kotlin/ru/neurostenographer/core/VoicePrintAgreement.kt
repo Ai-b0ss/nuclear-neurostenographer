@@ -2,7 +2,7 @@ package ru.neurostenographer.core
 
 import kotlin.math.sqrt
 
-/** Two independent same-window TitaNet excerpts must agree before global linking. */
+/** Default consistent-enrollment fusion. A lower construction cutoff alone never authorizes identity. */
 object VoicePrintAgreement {
     fun mergeIfConsistent(first: FloatArray, second: FloatArray,
                           minCosine: Double = 0.84): FloatArray? {
