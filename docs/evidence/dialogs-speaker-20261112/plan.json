@@ -1,0 +1,2828 @@
+{
+  "schema": "dialogs-speaker-frozen-plan-v1",
+  "repository": "langswap/dialogs-ru-emotional-conversations",
+  "revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "metadata_sha256": "824091e87e879fdf8c7b8201e3f49be842203f411fba745afd95e320e4e4b5f2",
+  "license_sha256": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143",
+  "excluded_existing": [
+    "masha_dima_part11_106.wav",
+    "masha_dima_part11_80.wav",
+    "masha_dima_part1_368.wav",
+    "masha_dima_part3_174.wav",
+    "masha_dima_part4_118.wav",
+    "masha_dima_part4_45.wav",
+    "masha_dima_part5_119.wav"
+  ],
+  "selection": "CSV order; up to8 utterances until32s per actor/emotion, then truncate to32s; no model-score selection",
+  "groups": [
+    {
+      "emotion": "angry",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_101.wav",
+          "duration": 14.216291666666669
+        },
+        {
+          "path": "wavs/masha_dima_part1_103.wav",
+          "duration": 8.142875
+        },
+        {
+          "path": "wavs/masha_dima_part9_196.wav",
+          "duration": 8.369666666666667
+        },
+        {
+          "path": "wavs/masha_dima_part9_391.wav",
+          "duration": 4.901791666666667
+        }
+      ]
+    },
+    {
+      "emotion": "angry",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_122.wav",
+          "duration": 11.740229166666667
+        },
+        {
+          "path": "wavs/masha_dima_part9_276.wav",
+          "duration": 8.38175
+        }
+      ]
+    },
+    {
+      "emotion": "angry",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part4_312.wav",
+          "duration": 5.5505
+        },
+        {
+          "path": "wavs/masha_sveta_part3_721.wav",
+          "duration": 3.403395833333333
+        },
+        {
+          "path": "wavs/masha_sveta_part3_729.wav",
+          "duration": 2.5008958333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part9_481.wav",
+          "duration": 4.508791666666666
+        }
+      ]
+    },
+    {
+      "emotion": "arrogance",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part11_247.wav",
+          "duration": 11.3896875
+        },
+        {
+          "path": "wavs/masha_sveta_part10_848.wav",
+          "duration": 4.321666666666666
+        }
+      ]
+    },
+    {
+      "emotion": "arrogance",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part4_223.wav",
+          "duration": 5.472145833333333
+        }
+      ]
+    },
+    {
+      "emotion": "disgust",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_165.wav",
+          "duration": 12.772041666666668
+        },
+        {
+          "path": "wavs/masha_dima_part3_70.wav",
+          "duration": 4.806666666666667
+        }
+      ]
+    },
+    {
+      "emotion": "disgust",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_166.wav",
+          "duration": 12.967229166666666
+        },
+        {
+          "path": "wavs/masha_dima_part9_271.wav",
+          "duration": 6.3279375
+        },
+        {
+          "path": "wavs/masha_sveta_part9_1208.wav",
+          "duration": 4.4623125
+        }
+      ]
+    },
+    {
+      "emotion": "disgust",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part6_222.wav",
+          "duration": 11.007604166666669
+        },
+        {
+          "path": "wavs/masha_sveta_part6_296.wav",
+          "duration": 9.7430625
+        }
+      ]
+    },
+    {
+      "emotion": "fear",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part2_74.wav",
+          "duration": 3.105395833333333
+        },
+        {
+          "path": "wavs/masha_dima_part9_6.wav",
+          "duration": 6.179916666666666
+        }
+      ]
+    },
+    {
+      "emotion": "fear",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part3_672.wav",
+          "duration": 2.4926041666666667
+        }
+      ]
+    },
+    {
+      "emotion": "fear",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part9_234.wav",
+          "duration": 3.47625
+        },
+        {
+          "path": "wavs/masha_sveta_part10_1566.wav",
+          "duration": 2.2810625
+        }
+      ]
+    },
+    {
+      "emotion": "happy",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_347.wav",
+          "duration": 6.706666666666667
+        },
+        {
+          "path": "wavs/masha_dima_part4_169.wav",
+          "duration": 8.479569160997732
+        },
+        {
+          "path": "wavs/masha_dima_part3_306.wav",
+          "duration": 9.055328798185942
+        },
+        {
+          "path": "wavs/masha_dima_part2_122.wav",
+          "duration": 4.635875
+        },
+        {
+          "path": "wavs/masha_dima_part6_278.wav",
+          "duration": 9.461587301587302
+        }
+      ]
+    },
+    {
+      "emotion": "happy",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part6_247.wav",
+          "duration": 2.386530612244898
+        },
+        {
+          "path": "wavs/masha_dima_part10_35.wav",
+          "duration": 6.3152083333333335
+        }
+      ]
+    },
+    {
+      "emotion": "happy",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part4_267.wav",
+          "duration": 3.6044375
+        },
+        {
+          "path": "wavs/masha_sveta_part2_359.wav",
+          "duration": 7.0685416666666665
+        },
+        {
+          "path": "wavs/masha_sveta_part5_83.wav",
+          "duration": 9.183395833333334
+        },
+        {
+          "path": "wavs/masha_sveta_part9_48.wav",
+          "duration": 2.004625
+        },
+        {
+          "path": "wavs/masha_sveta_part9_553.wav",
+          "duration": 2.974875
+        },
+        {
+          "path": "wavs/masha_sveta_part9_745.wav",
+          "duration": 2.8586666666666667
+        }
+      ]
+    },
+    {
+      "emotion": "laughing",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_53.wav",
+          "duration": 6.29
+        },
+        {
+          "path": "wavs/masha_dima_part9_355.wav",
+          "duration": 8.474270833333334
+        }
+      ]
+    },
+    {
+      "emotion": "laughing",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part11_384.wav",
+          "duration": 10.956375
+        },
+        {
+          "path": "wavs/masha_sveta_part5_176.wav",
+          "duration": 3.7249375
+        },
+        {
+          "path": "wavs/masha_sveta_part8_460.wav",
+          "duration": 11.173333333333334
+        },
+        {
+          "path": "wavs/masha_sveta_part10_1916.wav",
+          "duration": 3.634083333333333
+        }
+      ]
+    },
+    {
+      "emotion": "laughing",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part3_701.wav",
+          "duration": 2.8133541666666666
+        },
+        {
+          "path": "wavs/masha_sveta_part7_109.wav",
+          "duration": 5.7813125
+        },
+        {
+          "path": "wavs/masha_sveta_part9_709.wav",
+          "duration": 4.93875
+        },
+        {
+          "path": "wavs/masha_sveta_part9_956.wav",
+          "duration": 6.902645833333334
+        }
+      ]
+    },
+    {
+      "emotion": "neutral",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part11_130.wav",
+          "duration": 3.7542291666666663
+        },
+        {
+          "path": "wavs/masha_dima_part11_132.wav",
+          "duration": 5.300083333333333
+        }
+      ]
+    },
+    {
+      "emotion": "neutral",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part8_207.wav",
+          "duration": 5.5671875
+        },
+        {
+          "path": "wavs/masha_dima_part9_211.wav",
+          "duration": 3.7242291666666665
+        },
+        {
+          "path": "wavs/masha_dima_part10_27.wav",
+          "duration": 4.226083333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part7_158.wav",
+          "duration": 10.210208333333334
+        }
+      ]
+    },
+    {
+      "emotion": "neutral",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part3_649.wav",
+          "duration": 2.8720625
+        },
+        {
+          "path": "wavs/masha_sveta_part7_312.wav",
+          "duration": 12.178833333333332
+        },
+        {
+          "path": "wavs/masha_sveta_part7_342.wav",
+          "duration": 12.479125
+        },
+        {
+          "path": "wavs/masha_sveta_part8_316.wav",
+          "duration": 4.6090625
+        }
+      ]
+    },
+    {
+      "emotion": "poem",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part11_84.wav",
+          "duration": 10.11175
+        },
+        {
+          "path": "wavs/masha_dima_part11_158.wav",
+          "duration": 9.348791666666669
+        },
+        {
+          "path": "wavs/masha_dima_part12_110.wav",
+          "duration": 16.8939375
+        }
+      ]
+    },
+    {
+      "emotion": "poem",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part10_499.wav",
+          "duration": 2.4344375
+        },
+        {
+          "path": "wavs/masha_sveta_part10_579.wav",
+          "duration": 2.350395833333333
+        },
+        {
+          "path": "wavs/masha_sveta_part10_656.wav",
+          "duration": 1.8449166666666668
+        }
+      ]
+    },
+    {
+      "emotion": "poem",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part10_496.wav",
+          "duration": 1.712208333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part10_535.wav",
+          "duration": 2.410604166666667
+        },
+        {
+          "path": "wavs/masha_sveta_part10_577.wav",
+          "duration": 2.52325
+        },
+        {
+          "path": "wavs/masha_sveta_part10_643.wav",
+          "duration": 3.221645833333333
+        }
+      ]
+    },
+    {
+      "emotion": "sad",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_71.wav",
+          "duration": 9.381166666666669
+        },
+        {
+          "path": "wavs/masha_dima_part1_87.wav",
+          "duration": 9.034291666666666
+        },
+        {
+          "path": "wavs/masha_dima_part9_206.wav",
+          "duration": 7.969354166666666
+        },
+        {
+          "path": "wavs/masha_dima_part9_325.wav",
+          "duration": 6.2571875
+        }
+      ]
+    },
+    {
+      "emotion": "sad",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part5_367.wav",
+          "duration": 6.55312925170068
+        },
+        {
+          "path": "wavs/masha_dima_part10_295.wav",
+          "duration": 8.951416666666667
+        },
+        {
+          "path": "wavs/masha_sveta_part2_102.wav",
+          "duration": 3.2365833333333334
+        },
+        {
+          "path": "wavs/masha_sveta_part9_1192.wav",
+          "duration": 2.6495
+        },
+        {
+          "path": "wavs/masha_sveta_part9_1312.wav",
+          "duration": 1.3130416666666669
+        },
+        {
+          "path": "wavs/masha_sveta_part10_191.wav",
+          "duration": 3.801770833333333
+        }
+      ]
+    },
+    {
+      "emotion": "sad",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part1_43.wav",
+          "duration": 3.636958333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part1_257.wav",
+          "duration": 5.421375
+        },
+        {
+          "path": "wavs/masha_sveta_part8_426.wav",
+          "duration": 3.0727083333333334
+        },
+        {
+          "path": "wavs/masha_sveta_part9_1339.wav",
+          "duration": 2.4676666666666667
+        },
+        {
+          "path": "wavs/masha_sveta_part10_1426.wav",
+          "duration": 0.9677708333333334
+        },
+        {
+          "path": "wavs/masha_sveta_part10_1615.wav",
+          "duration": 2.128979166666667
+        }
+      ]
+    },
+    {
+      "emotion": "sgorogovrki",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part12_1.wav",
+          "duration": 13.527125
+        },
+        {
+          "path": "wavs/masha_dima_part12_11.wav",
+          "duration": 12.948125
+        }
+      ]
+    },
+    {
+      "emotion": "sgorogovrki",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part4_153.wav",
+          "duration": 4.247729166666667
+        },
+        {
+          "path": "wavs/masha_sveta_part5_216.wav",
+          "duration": 9.424520833333334
+        },
+        {
+          "path": "wavs/masha_sveta_part5_218.wav",
+          "duration": 13.521270833333332
+        },
+        {
+          "path": "wavs/masha_sveta_part5_220.wav",
+          "duration": 8.811104166666667
+        }
+      ]
+    },
+    {
+      "emotion": "sgorogovrki",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part1_91.wav",
+          "duration": 6.397708333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part4_162.wav",
+          "duration": 17.316833333333335
+        },
+        {
+          "path": "wavs/masha_sveta_part4_172.wav",
+          "duration": 9.462604166666669
+        }
+      ]
+    },
+    {
+      "emotion": "surprise",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part1_261.wav",
+          "duration": 8.39
+        },
+        {
+          "path": "wavs/masha_dima_part1_364.wav",
+          "duration": 16.006875
+        },
+        {
+          "path": "wavs/masha_dima_part3_146.wav",
+          "duration": 4.685442176870748
+        },
+        {
+          "path": "wavs/masha_dima_part5_262.wav",
+          "duration": 11.18063492063492
+        }
+      ]
+    },
+    {
+      "emotion": "surprise",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part5_53.wav",
+          "duration": 7.55265306122449
+        },
+        {
+          "path": "wavs/masha_dima_part5_91.wav",
+          "duration": 12.162380952380952
+        },
+        {
+          "path": "wavs/masha_dima_part6_53.wav",
+          "duration": 8.004081632653062
+        },
+        {
+          "path": "wavs/masha_dima_part9_332.wav",
+          "duration": 6.7535
+        }
+      ]
+    },
+    {
+      "emotion": "surprise",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part4_197.wav",
+          "duration": 1.9587083333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part3_261.wav",
+          "duration": 3.3572083333333333
+        },
+        {
+          "path": "wavs/masha_sveta_part3_611.wav",
+          "duration": 5.36
+        },
+        {
+          "path": "wavs/masha_sveta_part9_238.wav",
+          "duration": 4.484354166666667
+        }
+      ]
+    },
+    {
+      "emotion": "whisper",
+      "speaker": "D",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part9_158.wav",
+          "duration": 6.901625
+        },
+        {
+          "path": "wavs/masha_dima_part9_397.wav",
+          "duration": 6.475979166666667
+        },
+        {
+          "path": "wavs/masha_dima_part11_296.wav",
+          "duration": 11.189083333333333
+        }
+      ]
+    },
+    {
+      "emotion": "whisper",
+      "speaker": "M",
+      "clips": [
+        {
+          "path": "wavs/masha_dima_part9_222.wav",
+          "duration": 5.624833333333333
+        },
+        {
+          "path": "wavs/masha_dima_part11_287.wav",
+          "duration": 13.122895833333333
+        },
+        {
+          "path": "wavs/masha_sveta_part9_770.wav",
+          "duration": 3.2539375
+        }
+      ]
+    },
+    {
+      "emotion": "whisper",
+      "speaker": "S",
+      "clips": [
+        {
+          "path": "wavs/masha_sveta_part9_1261.wav",
+          "duration": 3.730520833333333
+        }
+      ]
+    }
+  ],
+  "missing_sources": [
+    "wavs/masha_dima_part10_147.wav",
+    "wavs/masha_dima_part10_387.wav",
+    "wavs/masha_dima_part10_44.wav",
+    "wavs/masha_dima_part11_142.wav",
+    "wavs/masha_dima_part11_220.wav",
+    "wavs/masha_dima_part11_235.wav",
+    "wavs/masha_dima_part12_121.wav",
+    "wavs/masha_dima_part12_134.wav",
+    "wavs/masha_dima_part1_43.wav",
+    "wavs/masha_dima_part9_295.wav",
+    "wavs/masha_sveta_part10_548.wav",
+    "wavs/masha_sveta_part10_571.wav",
+    "wavs/masha_sveta_part10_604.wav",
+    "wavs/masha_sveta_part3_580.wav",
+    "wavs/masha_sveta_part5_313.wav",
+    "wavs/masha_sveta_part6_86.wav",
+    "wavs/masha_sveta_part9_1215.wav"
+  ],
+  "source_inventory": [
+    {
+      "type": "file",
+      "oid": "8684261779a5616a38442bb87a85c5b006c496f1",
+      "size": 372786,
+      "lfs": {
+        "oid": "2e9ac37b15ad4c1c6d789e2d6cac883a55202756ccfa412009ba99d8fd471ddf",
+        "size": 372786,
+        "pointerSize": 131
+      },
+      "xetHash": "43d4c41c5ec02d54d923b79d748b11640dd3bab543d67f3f8fc26dbc994d35e3",
+      "path": "wavs/masha_dima_part10_27.wav"
+    },
+    {
+      "type": "file",
+      "oid": "0cab5eac4d1507c98eb6a0e0367b0e923acb26cc",
+      "size": 789560,
+      "lfs": {
+        "oid": "452927f09a86005fddb758ab0bbf35749a20cd91f8cba0c6f6ea2185937a78b4",
+        "size": 789560,
+        "pointerSize": 131
+      },
+      "xetHash": "cee2e449ea3f09cdecdb851d6eae4f95da0bcbc12ca82332d5cfd7111c9a7c32",
+      "path": "wavs/masha_dima_part10_295.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c8e7b58dd0df03be78882163a3e5b7780e73d30d",
+      "size": 557046,
+      "lfs": {
+        "oid": "b9a1afc393e05c5cb2a24e27d512d4e511803c2a24dd521ba7dce459a98319da",
+        "size": 557046,
+        "pointerSize": 131
+      },
+      "xetHash": "0cc601154cfe2a49d6cd47c8a857a8780b62d6153d7d3e5700217311c5fda54e",
+      "path": "wavs/masha_dima_part10_35.wav"
+    },
+    {
+      "type": "file",
+      "oid": "69e25db117d8d9ea75dc314e54714c457eabd652",
+      "size": 331168,
+      "lfs": {
+        "oid": "99096caee769d6aeb7b918b3d09100d5ea74b4ace3345d7b38987ca7da8c33de",
+        "size": 331168,
+        "pointerSize": 131
+      },
+      "xetHash": "2cbf124e07d0092e5e775a41949ad9bc2c71ce7daaed5a5df5650f8afdd7a8fb",
+      "path": "wavs/masha_dima_part11_130.wav"
+    },
+    {
+      "type": "file",
+      "oid": "e5c16068e9a3449563ebee5d42242ced8217d302",
+      "size": 467512,
+      "lfs": {
+        "oid": "0b17b7715fdf096a432ecf005b95e6423bca961ed896adcd405c213521aa946e",
+        "size": 467512,
+        "pointerSize": 131
+      },
+      "xetHash": "1ceb83de4993fb9f5ec7938874e51282f8c9083d93948329e8b3c2d2b97a5651",
+      "path": "wavs/masha_dima_part11_132.wav"
+    },
+    {
+      "type": "file",
+      "oid": "3aa4d8ba29ced2800107af982c220f71f0ca4e0a",
+      "size": 824608,
+      "lfs": {
+        "oid": "bb0d56742d4f45b3b308c9603a8af29f0e84b2507402483eb66032b61eea37c9",
+        "size": 824608,
+        "pointerSize": 131
+      },
+      "xetHash": "f31e80d24c69ff7550be210bc775c5eac962a1fcdef72f2758ca40af7436f4e5",
+      "path": "wavs/masha_dima_part11_158.wav"
+    },
+    {
+      "type": "file",
+      "oid": "f302dd33c23d77cfdb600e78afd0c64ff7f798ed",
+      "size": 1004616,
+      "lfs": {
+        "oid": "30e5e3a38fed28c0247f3bcd4fe872c0a83ae91c2286d25c1b1ccc7b50f1ce3a",
+        "size": 1004616,
+        "pointerSize": 132
+      },
+      "xetHash": "c925f0c481b11c5d1985bc31e503eadb07d8448f54d23448b841a20f68c55489",
+      "path": "wavs/masha_dima_part11_247.wav"
+    },
+    {
+      "type": "file",
+      "oid": "f65ed8ab2159f10eecaaa90bd1837f748c647f23",
+      "size": 1157484,
+      "lfs": {
+        "oid": "8c9b3b5b5b4cdff4d13872aa5e9cbda98f3e2c5829ba7d31752d5906663f04af",
+        "size": 1157484,
+        "pointerSize": 132
+      },
+      "xetHash": "8eb6f14ea501f8adcb688065d82f99916dec8be84b65b6e28d9eb04d82c518f7",
+      "path": "wavs/masha_dima_part11_287.wav"
+    },
+    {
+      "type": "file",
+      "oid": "84d6744d92a02deb5b7f6f820f391acd148c7850",
+      "size": 986922,
+      "lfs": {
+        "oid": "4a9be355e2e55ce8dbffe38b04035f76c8ab23e4846e5735e282ee2bc4bbfc3c",
+        "size": 986922,
+        "pointerSize": 131
+      },
+      "xetHash": "5540a0540df89fb4401c0f4f690f94cc911f849fa625226a2bb4ba99570efd5e",
+      "path": "wavs/masha_dima_part11_296.wav"
+    },
+    {
+      "type": "file",
+      "oid": "23f733cfd485addb7ddf01cb23f7e4c19737f8a0",
+      "size": 966398,
+      "lfs": {
+        "oid": "14d799e6c3a6303e0005b63b8650a007c3cf714efac5a7ea30c03ecaa163488c",
+        "size": 966398,
+        "pointerSize": 131
+      },
+      "xetHash": "db42f071ecf75c83dffd9e1f79d5ea66ee0d40f304bf6c67e44a2e93ed9ede1e",
+      "path": "wavs/masha_dima_part11_384.wav"
+    },
+    {
+      "type": "file",
+      "oid": "94a84207ff3d25d10e47e3d836bb06ef9233fec7",
+      "size": 891902,
+      "lfs": {
+        "oid": "cd3c7a2389658dc607518ff86fc2a16950f125d57dddc76498920a042518eaad",
+        "size": 891902,
+        "pointerSize": 131
+      },
+      "xetHash": "46e9ab6d6d4c3ce43194e46bcb7c7ef8bc2df1ff9999964ef3f5c3f79d88d261",
+      "path": "wavs/masha_dima_part11_84.wav"
+    },
+    {
+      "type": "file",
+      "oid": "45d3384cafbdfdf1dd15d024de71e80d9ca86924",
+      "size": 1193138,
+      "lfs": {
+        "oid": "76d3056111932d0ccb4cf9a5535309fe1d6561a82d5b174f678b0a5929217aff",
+        "size": 1193138,
+        "pointerSize": 132
+      },
+      "xetHash": "ddecd0402128c98850fc37529f66497e67af01a7d4927f04e1c27f94e3f1ab0a",
+      "path": "wavs/masha_dima_part12_1.wav"
+    },
+    {
+      "type": "file",
+      "oid": "de2098e1cb833bd14469dc9aa5d4b0c4800cd185",
+      "size": 1142070,
+      "lfs": {
+        "oid": "c2a55ae5c42dbb92642ec1f09c9e120f532d4d5a52dfbeebbf6c2b5e14dc85cb",
+        "size": 1142070,
+        "pointerSize": 132
+      },
+      "xetHash": "4c47d3110b6c515db232288df4f827df53a36d9911b0e68d3d8ced25597d7fa8",
+      "path": "wavs/masha_dima_part12_11.wav"
+    },
+    {
+      "type": "file",
+      "oid": "d20b4ddeacb7b02bea41c28d662b1bd63233ea97",
+      "size": 1490090,
+      "lfs": {
+        "oid": "41df8789b64cdb1b171c048750d62457434aa2bc054e4c2165193885e6f39bc6",
+        "size": 1490090,
+        "pointerSize": 132
+      },
+      "xetHash": "d1fbc5552ffed715e253fb2af9188d225b182a50c89a109d6015dbdd29a8ee58",
+      "path": "wavs/masha_dima_part12_110.wav"
+    },
+    {
+      "type": "file",
+      "oid": "b83de70fa2e9ff459f939b718b7fe1919f8adb18",
+      "size": 1253922,
+      "lfs": {
+        "oid": "d4638450272161b4f14c6fb41c107041d8164b4a6019c309b90b80d33c0af6bd",
+        "size": 1253922,
+        "pointerSize": 132
+      },
+      "xetHash": "dead6890e56f56ddfcf2c3ef3eb103a43999bb722da597ba24ddd4de725a5b66",
+      "path": "wavs/masha_dima_part1_101.wav"
+    },
+    {
+      "type": "file",
+      "oid": "cfaeca22a595dbfc76fe1df045f001f593bf2f38",
+      "size": 718246,
+      "lfs": {
+        "oid": "efaf999f05283e6504bfe1b8ff126a5e41432b790f9f726452f49548f8183fac",
+        "size": 718246,
+        "pointerSize": 131
+      },
+      "xetHash": "5878ed830c28f70fb2c12e0c4fdeea93a3536f72b0209f3640f40f42661bd5cb",
+      "path": "wavs/masha_dima_part1_103.wav"
+    },
+    {
+      "type": "file",
+      "oid": "6d50462ad3ef54f0ba45e0b27df53a6b397d1795",
+      "size": 1035534,
+      "lfs": {
+        "oid": "ce234a7242c128f211276b12ad5f675542e32a89a92822d4887c46f7efd14917",
+        "size": 1035534,
+        "pointerSize": 132
+      },
+      "xetHash": "c6e7751a64db156e997fc291e080315173e729f778f2a181afca32ec9930d7dd",
+      "path": "wavs/masha_dima_part1_122.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c774dfaa24467f03d9288dd5de908063bee8d7f0",
+      "size": 1126540,
+      "lfs": {
+        "oid": "7f1b45b7aef4e0f0effa558a437f88b07dfe9dbf1cff2658ac54f053c91fe4c6",
+        "size": 1126540,
+        "pointerSize": 132
+      },
+      "xetHash": "304162c4f06f18631cae4992445c715a2520c741e6450f48d4c8a243d79ab92a",
+      "path": "wavs/masha_dima_part1_165.wav"
+    },
+    {
+      "type": "file",
+      "oid": "105f508d380c603c70ddfe80a5f19e3358f6a90e",
+      "size": 1143754,
+      "lfs": {
+        "oid": "414cc69ea47fb17922ed47b20c4396f85113e65d8055cd539ec9ba970d544569",
+        "size": 1143754,
+        "pointerSize": 132
+      },
+      "xetHash": "48fcf1a464e2101292b15dc787a58068562f725f7dd55a6258ec8047f51888d9",
+      "path": "wavs/masha_dima_part1_166.wav"
+    },
+    {
+      "type": "file",
+      "oid": "cea5d73ebf737701d5b2048922300ce513f3ef81",
+      "size": 740042,
+      "lfs": {
+        "oid": "a8d946c4b2a10f6411c683a19a67bd990d1e8c01acf5b9cd828ea4961e0fdc9c",
+        "size": 740042,
+        "pointerSize": 131
+      },
+      "xetHash": "f4c7f14c67533c82054c4c872a5e42ad291842ba4428aef51e1e90c3ab9eef7b",
+      "path": "wavs/masha_dima_part1_261.wav"
+    },
+    {
+      "type": "file",
+      "oid": "281c07d80e829a795a77cdf46a9803cbcd5a876e",
+      "size": 591572,
+      "lfs": {
+        "oid": "e4df9db0ed440dc583d204f4b64d91b753090b8227d8b31f91633dda417a7487",
+        "size": 591572,
+        "pointerSize": 131
+      },
+      "xetHash": "3ac29eb0af55d9616c45a6ed35206d11176d3fe0180fb5595f8832713df48e77",
+      "path": "wavs/masha_dima_part1_347.wav"
+    },
+    {
+      "type": "file",
+      "oid": "58555f34f19981bccda2f84dc62c29a681134c11",
+      "size": 1411852,
+      "lfs": {
+        "oid": "476353717c073b138c1881cdda7a1fd43c15450a1d25dcf73f302bda12d1bfe9",
+        "size": 1411852,
+        "pointerSize": 132
+      },
+      "xetHash": "6214255bf6141bdb67ddb1302d5d861b7af6f73a10e496d1acb6d8fd1301cade",
+      "path": "wavs/masha_dima_part1_364.wav"
+    },
+    {
+      "type": "file",
+      "oid": "d504b26b72c95593593d4e673c12f9d35576d9c7",
+      "size": 554822,
+      "lfs": {
+        "oid": "23dce6c926c1db3756ad6db2db2af0860ecb5149ce0f271a1099947d55028c48",
+        "size": 554822,
+        "pointerSize": 131
+      },
+      "xetHash": "491de0fae6989930ef0b8a98bc2a22f13942b5a3d2f7de47ac69b4aa97eba953",
+      "path": "wavs/masha_dima_part1_53.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c1a2b66a6eaa64131404d4f4ac611ac3d22f211a",
+      "size": 827464,
+      "lfs": {
+        "oid": "e6a5ab17beb51162a10eeb15fbea9928b11d3431ba179ac1fc53d5b668a2be84",
+        "size": 827464,
+        "pointerSize": 131
+      },
+      "xetHash": "9f92c3e8cc030aa6dafec35401f8fe49d476ecaca885ea815d1a5fd1d4478d99",
+      "path": "wavs/masha_dima_part1_71.wav"
+    },
+    {
+      "type": "file",
+      "oid": "ae088105c497f51fdb472195a75c2fa3f1eb6c4a",
+      "size": 796870,
+      "lfs": {
+        "oid": "66923211191a836e90435eed4d5a507d05ac11c299cc3da8d6dfc656b617dfea",
+        "size": 796870,
+        "pointerSize": 131
+      },
+      "xetHash": "912ed5b07bb309977eae18b531820f5f66ee4c1749e765972619d39b153bcbc6",
+      "path": "wavs/masha_dima_part1_87.wav"
+    },
+    {
+      "type": "file",
+      "oid": "ac7812be6b86777dbad3500d5796838b001693a4",
+      "size": 408930,
+      "lfs": {
+        "oid": "2e9e7177e46806ed7a3fdc899e9bee982650c98aee1af0506a0eb053b5e966b2",
+        "size": 408930,
+        "pointerSize": 131
+      },
+      "xetHash": "661f85069e9797cbc5e9e65bc9a7e9a157ce33ad97ed31abf5c76ea050c3405b",
+      "path": "wavs/masha_dima_part2_122.wav"
+    },
+    {
+      "type": "file",
+      "oid": "01779f46a06eb254c1e5ccdc346cbbd6a5b2a9f8",
+      "size": 273940,
+      "lfs": {
+        "oid": "80b4d352d9db8854f73dda55b1601c871993425e188722f6051fc05373519b5a",
+        "size": 273940,
+        "pointerSize": 131
+      },
+      "xetHash": "93f4fd807c011a9149abadd5b7dfc78070e5e87cb1a925b8067182c869aacb50",
+      "path": "wavs/masha_dima_part2_74.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c8979d7766ea6f6523c0158e998aa5e3a15e466b",
+      "size": 413300,
+      "lfs": {
+        "oid": "d1b9c222ce2dfa20398ed175eb03ce3d797d8a94b6394d1379033fa772a7187b",
+        "size": 413300,
+        "pointerSize": 131
+      },
+      "xetHash": "a4e593774b5a5165897032da430c347f1341792dc51ce9fabb51d310d95fd66b",
+      "path": "wavs/masha_dima_part3_146.wav"
+    },
+    {
+      "type": "file",
+      "oid": "3b5f437076046b3f3b596df209610f24fe224c9d",
+      "size": 798724,
+      "lfs": {
+        "oid": "d7611d13b23abc25c6a3fb3f920ca396f8f7d428b658ba8427d32f5fff96b0d4",
+        "size": 798724,
+        "pointerSize": 131
+      },
+      "xetHash": "32290284a0eaf420457176663f7297ebe8a263acb53edf6d768efa1a3bf29151",
+      "path": "wavs/masha_dima_part3_306.wav"
+    },
+    {
+      "type": "file",
+      "oid": "fbb4cd82275468e0a8dabb558bfa571ef172ac74",
+      "size": 423992,
+      "lfs": {
+        "oid": "d674e75fffaaad9eb00f355b861b032a4ff6724415d297005844ebb75793800d",
+        "size": 423992,
+        "pointerSize": 131
+      },
+      "xetHash": "1ac32d4b5fefa911834ebd2830d9775545e7abe4f97f13e921abb82a9abee68c",
+      "path": "wavs/masha_dima_part3_70.wav"
+    },
+    {
+      "type": "file",
+      "oid": "27153fee7ebb8c6240c816beeb910b75ecd010bc",
+      "size": 747942,
+      "lfs": {
+        "oid": "c51945644dcf006caa0b9832481a48377b355e3fb6fab14a808a5dac7c09ee52",
+        "size": 747942,
+        "pointerSize": 131
+      },
+      "xetHash": "64d2057942fc7b1c0272c06832f3773ec9111e17ccb0fcdfba875056ec735e1f",
+      "path": "wavs/masha_dima_part4_169.wav"
+    },
+    {
+      "type": "file",
+      "oid": "cbd95ee9d9d45fdc031b4d2bb29e7d33811b0c22",
+      "size": 986176,
+      "lfs": {
+        "oid": "2322bb8e63850d8ce7d7fe60d4c8f1cd1d82f7def9fc804fbde8e33c34303a00",
+        "size": 986176,
+        "pointerSize": 131
+      },
+      "xetHash": "4955dfb0a065548b8198b29f060d03dce2bc2abd26f8302cff3d3d8023c0dec6",
+      "path": "wavs/masha_dima_part5_262.wav"
+    },
+    {
+      "type": "file",
+      "oid": "8e2c467d0ebd1b77b7b9611bd14d2fdd5138d747",
+      "size": 578030,
+      "lfs": {
+        "oid": "9ca4ea958b6033301193478f5461347fdddd11302cc921bd3604bf4e66115b5e",
+        "size": 578030,
+        "pointerSize": 131
+      },
+      "xetHash": "843279346e6ba1efbc967940a485cde3b6759b5b19af13285d1979f647a3967d",
+      "path": "wavs/masha_dima_part5_367.wav"
+    },
+    {
+      "type": "file",
+      "oid": "b11a70772b03bb3be20d13223b3ef9f5de10d277",
+      "size": 666188,
+      "lfs": {
+        "oid": "5039a1bf377de26e20f1ac986b0eb178979366b22aea005a3b063c565b14005b",
+        "size": 666188,
+        "pointerSize": 131
+      },
+      "xetHash": "bda2ed66a264c5b769e0606592072825f83a91d3c52369b31b9cb81630048e6e",
+      "path": "wavs/masha_dima_part5_53.wav"
+    },
+    {
+      "type": "file",
+      "oid": "d6a90513f4ac6fe931ec98eba7d618ae06474d1a",
+      "size": 1072766,
+      "lfs": {
+        "oid": "108b6d549db6b3320e6cbd81b8938fdab8f4ab286ce861bac9a1517e9c617d57",
+        "size": 1072766,
+        "pointerSize": 132
+      },
+      "xetHash": "967fd18663be7e5ad818720163d73cf3b3d64b1a0bfea7c5c83e14f1cafb1e08",
+      "path": "wavs/masha_dima_part5_91.wav"
+    },
+    {
+      "type": "file",
+      "oid": "135421b8821f4dc881c7be4e75acf7a03f3dfc64",
+      "size": 210536,
+      "lfs": {
+        "oid": "539e152904c06e43853aeccf4362fb6f02a38428246936b0198902ead1c89ea1",
+        "size": 210536,
+        "pointerSize": 131
+      },
+      "xetHash": "f4dab110e78c994c1bf018d44be095a65db0cc44ad614231568f8987669a6426",
+      "path": "wavs/masha_dima_part6_247.wav"
+    },
+    {
+      "type": "file",
+      "oid": "5a916d3c20250d1d6a03146057a4b1572f84bf3f",
+      "size": 834556,
+      "lfs": {
+        "oid": "959cb3385f1c48a144a57d5ee587bd592fd15c70993cab3f180b968e4f27790f",
+        "size": 834556,
+        "pointerSize": 131
+      },
+      "xetHash": "17c8b9822a4d9d43e617ab1edc0bbb3310966b7d111ef06e0f41a1f4d2c1fb38",
+      "path": "wavs/masha_dima_part6_278.wav"
+    },
+    {
+      "type": "file",
+      "oid": "03d28f7c2a014ffd5bdfaec51b750c3b3134ea56",
+      "size": 706004,
+      "lfs": {
+        "oid": "7919c5b45da718a86e4993742a880c6ae1d31d40d3ffcbb8b68adf7884c5f13b",
+        "size": 706004,
+        "pointerSize": 131
+      },
+      "xetHash": "7bfe9e863d2396b74bf557af92b8727d013a2f26bee69f2c2064f41721796d56",
+      "path": "wavs/masha_dima_part6_53.wav"
+    },
+    {
+      "type": "file",
+      "oid": "30e1d196c856888d4cfc525de77e6c2961bb2796",
+      "size": 491070,
+      "lfs": {
+        "oid": "df5a9af9e83087dbfad2b1407d64c34f6caa0e4823662d5d3d27db5d5de375c1",
+        "size": 491070,
+        "pointerSize": 131
+      },
+      "xetHash": "6976199f339967e1ce0818b2b3d187af59fa1264c329bd41ed8fd59b5f1953fe",
+      "path": "wavs/masha_dima_part8_207.wav"
+    },
+    {
+      "type": "file",
+      "oid": "644eb7d6d8014657c558527491d2ccb4eb3fb8ae",
+      "size": 608768,
+      "lfs": {
+        "oid": "3d19286bf09066817c27898dd272a28a723658abea440d848231109e4728991d",
+        "size": 608768,
+        "pointerSize": 131
+      },
+      "xetHash": "567aca4ba89630f3dfa000ba53a6bb8277ff3f159edaf64bc35fb3683a1bff28",
+      "path": "wavs/masha_dima_part9_158.wav"
+    },
+    {
+      "type": "file",
+      "oid": "58a5fd8aeed0e31e1facc94f5f42843290d6342d",
+      "size": 738250,
+      "lfs": {
+        "oid": "c11b49fef9213b3eced8decb751e0e6b01d6756f517095b6485442daa6352a57",
+        "size": 738250,
+        "pointerSize": 131
+      },
+      "xetHash": "6ccee259c4b22373864826a9af1f039b68c1b50fe37c61aeb8754ec5155d9c36",
+      "path": "wavs/masha_dima_part9_196.wav"
+    },
+    {
+      "type": "file",
+      "oid": "5af3126143772453580614fcb49deedb892df9b3",
+      "size": 702942,
+      "lfs": {
+        "oid": "3d53f387d66fa89ce2b752303f8e895a7100c2b04442f76de22af31cf291b6de",
+        "size": 702942,
+        "pointerSize": 131
+      },
+      "xetHash": "5966ea4dda94f5959008f0e9c74cd94f53eb3e15c9b5c4d0b31bd2398ab581ad",
+      "path": "wavs/masha_dima_part9_206.wav"
+    },
+    {
+      "type": "file",
+      "oid": "97e6c85c6c5c0fb56e8c4884e2d9be66e80e5922",
+      "size": 328522,
+      "lfs": {
+        "oid": "23f619bef1200db42103a27b4cc5519374bdf1eb4aafa88294d8298df1b2b570",
+        "size": 328522,
+        "pointerSize": 131
+      },
+      "xetHash": "708570de0cf12bf209588132317ef65ecbb52d453605ea0d651e584fa7cf1fd5",
+      "path": "wavs/masha_dima_part9_211.wav"
+    },
+    {
+      "type": "file",
+      "oid": "e7856ba452ceff2a484b8acf291e1bed20495656",
+      "size": 496156,
+      "lfs": {
+        "oid": "7bb03126fb720925c2439d6b29d807c6f425a05bf60f5b1f1bcf1e6527ba9d15",
+        "size": 496156,
+        "pointerSize": 131
+      },
+      "xetHash": "38358969c9c704d932a150992a73fdaca0a884ff6f59a5db04ff718c5f90c497",
+      "path": "wavs/masha_dima_part9_222.wav"
+    },
+    {
+      "type": "file",
+      "oid": "db348d84309f07f7922e5aa42a5ac8ea7ae97aa8",
+      "size": 558170,
+      "lfs": {
+        "oid": "94bb74e79807cf58092210a984011dc05c3a0114799e5305703590d87f74bada",
+        "size": 558170,
+        "pointerSize": 131
+      },
+      "xetHash": "0334588308968df7dfaa82f38cebb085c17891478f144e18bec2a2fde4745bce",
+      "path": "wavs/masha_dima_part9_271.wav"
+    },
+    {
+      "type": "file",
+      "oid": "7dc1380c004d2b268f862d3448a98405cd757b13",
+      "size": 739316,
+      "lfs": {
+        "oid": "21380b8c78c8ee4b3006dea8f1b1f9295dafd2dbb890d248df22669acdc6788e",
+        "size": 739316,
+        "pointerSize": 131
+      },
+      "xetHash": "05688e58875fb9b705a66eec2bcf49f311538bd0d37d667d2e9bb2681e103b5f",
+      "path": "wavs/masha_dima_part9_276.wav"
+    },
+    {
+      "type": "file",
+      "oid": "a042a6df57a5b49c13e1f9864486fb39606df794",
+      "size": 551928,
+      "lfs": {
+        "oid": "9a0b50c48e06b7164c14ca77c9e6612b162215ea318ddeef328f7bf9f954cd4a",
+        "size": 551928,
+        "pointerSize": 131
+      },
+      "xetHash": "d19a7a4168227ed51a3b787186a7271ce3355b53ef32b6502bd9b1151db0540c",
+      "path": "wavs/masha_dima_part9_325.wav"
+    },
+    {
+      "type": "file",
+      "oid": "a03d85d3e4eef98ef5f68ab401f1704e811ef1bd",
+      "size": 595704,
+      "lfs": {
+        "oid": "08d35b9cf33e4a28c04a7e309c46c04d0b011a3a6efb0d53d52b9ab65c75c6df",
+        "size": 595704,
+        "pointerSize": 131
+      },
+      "xetHash": "eb23384966acd75dc40729b9159147e4e7f1b0973f52093f0d7dd001f34a7afa",
+      "path": "wavs/masha_dima_part9_332.wav"
+    },
+    {
+      "type": "file",
+      "oid": "74edc3e91695c65c518d1b3b7519b59fb1574571",
+      "size": 747476,
+      "lfs": {
+        "oid": "52eb88b31499ba8b081295e1791b1a861c88cc6a478936964ed158db5604a8ea",
+        "size": 747476,
+        "pointerSize": 131
+      },
+      "xetHash": "88af2fc0b7882d43e37a8c1bac6e27339c444d0b121e3f0d35a8bd264689f545",
+      "path": "wavs/masha_dima_part9_355.wav"
+    },
+    {
+      "type": "file",
+      "oid": "622debcaf2d9a894ff6f200313e971db405413cf",
+      "size": 432384,
+      "lfs": {
+        "oid": "71d9917296cba29fe5d530f594ec2c79ae0a16fe90bed010feb35dd6df7ac346",
+        "size": 432384,
+        "pointerSize": 131
+      },
+      "xetHash": "7a0e0cbec5e2614963d7032ab0feff257053108a285ec2c53da7a32dfd9907c8",
+      "path": "wavs/masha_dima_part9_391.wav"
+    },
+    {
+      "type": "file",
+      "oid": "bdd7a7fa4a29ec48becae65aa52d4e57dbea54e8",
+      "size": 571226,
+      "lfs": {
+        "oid": "f4b8a5afbc352d66eab8b26485169732de18691aa3bd4444c6ea90c2b313bb78",
+        "size": 571226,
+        "pointerSize": 131
+      },
+      "xetHash": "c01ab5e5e650ba02bb1c343746695c833dccaa92be54b95cfaba4122539cde86",
+      "path": "wavs/masha_dima_part9_397.wav"
+    },
+    {
+      "type": "file",
+      "oid": "288ab2919cdf50bc7084aa9ccb5faab07a4a0d5d",
+      "size": 545114,
+      "lfs": {
+        "oid": "16871ba1c7da5226481398ac6c17fafa5bd5714c0235eccbdcae263048109170",
+        "size": 545114,
+        "pointerSize": 131
+      },
+      "xetHash": "d3d980b42699f5dff46954d574b81c2c46beb63d3c885b5d5a8b8d1635e5d046",
+      "path": "wavs/masha_dima_part9_6.wav"
+    },
+    {
+      "type": "file",
+      "oid": "2bc243ddf9dedfa4f934f3b7087448db69579f16",
+      "size": 85402,
+      "lfs": {
+        "oid": "4daa3292592690e0288e5657b15aa0d5395b73ec4010b1de8eb5a1d8146517b2",
+        "size": 85402,
+        "pointerSize": 130
+      },
+      "xetHash": "1d4955d7583a5128ccd291a5929d10bb29d603eef4def8dfe7ddb4025f785aa9",
+      "path": "wavs/masha_sveta_part10_1426.wav"
+    },
+    {
+      "type": "file",
+      "oid": "95685678dd15d30e2fd97c6a3ab61cb366556bad",
+      "size": 201234,
+      "lfs": {
+        "oid": "7a69f0c1091c02d266a5e6f0075b5542143de00ba6670c0d3b10274f0f43199e",
+        "size": 201234,
+        "pointerSize": 131
+      },
+      "xetHash": "cc14d1380d762a8865e127dc98cb99267c2428780a920bc15a7f3504176e6586",
+      "path": "wavs/masha_sveta_part10_1566.wav"
+    },
+    {
+      "type": "file",
+      "oid": "eea1597b580fd9dd9ccfbac04a72b38847b27611",
+      "size": 187820,
+      "lfs": {
+        "oid": "9385aa3d0eb262084fb26bd1ad7d1f93d614390809cefd0fe3f92d20e254cdb7",
+        "size": 187820,
+        "pointerSize": 131
+      },
+      "xetHash": "cbf58974fd00e1c2e5d09b6b115b46b089617ffdae144068c50141172d818e72",
+      "path": "wavs/masha_sveta_part10_1615.wav"
+    },
+    {
+      "type": "file",
+      "oid": "8d22117381c06ce3578f5c5979bd9f794be7a5b0",
+      "size": 335362,
+      "lfs": {
+        "oid": "73ba0cf229356581fca35f543a81c123a363a977382ab34dfacc5939c2e77d48",
+        "size": 335362,
+        "pointerSize": 131
+      },
+      "xetHash": "597247b22b110edfe5ffb93feb525f7dda9c0f865946c96a6bc2651b0581a0bc",
+      "path": "wavs/masha_sveta_part10_191.wav"
+    },
+    {
+      "type": "file",
+      "oid": "d524d9083826a7dee544d6604fd53430b07c75ce",
+      "size": 320572,
+      "lfs": {
+        "oid": "0d515d4efc2deac844b30f8319fc039e61282daf4e855387380c8d3eceb43e04",
+        "size": 320572,
+        "pointerSize": 131
+      },
+      "xetHash": "e19e9fc49967d5635423c344151303be390e43ccc6f46346a8ce639c571c4614",
+      "path": "wavs/masha_sveta_part10_1916.wav"
+    },
+    {
+      "type": "file",
+      "oid": "f7b8383b8d307963539562152fdd37abcae2b2cd",
+      "size": 151062,
+      "lfs": {
+        "oid": "875ddce31dd3beda9c497149bad811b38a3cb06c77e11d949c73eaada5a6f3d3",
+        "size": 151062,
+        "pointerSize": 131
+      },
+      "xetHash": "69857145e12e1653e9e3eece1cebed7bdee2de1f9935da7a91d5c95ec98ce7bf",
+      "path": "wavs/masha_sveta_part10_496.wav"
+    },
+    {
+      "type": "file",
+      "oid": "670de7c969caa649595f2d8df752313d28d0ca89",
+      "size": 214762,
+      "lfs": {
+        "oid": "04d731b5761f069f19d8a09490757868ca41878dd12f8c07f45ae8c1a9c5e55e",
+        "size": 214762,
+        "pointerSize": 131
+      },
+      "xetHash": "756dfbdf46754bf5748ec62372ccbc7765adb1564e72642bee283466557ba7ac",
+      "path": "wavs/masha_sveta_part10_499.wav"
+    },
+    {
+      "type": "file",
+      "oid": "ceae7f1235f05316c613c99b1c2c7a4f9b99a036",
+      "size": 212660,
+      "lfs": {
+        "oid": "83c63d087eee12fb2a3e83a7612777e72a9b4e536566f768d88dfb1996ee1781",
+        "size": 212660,
+        "pointerSize": 131
+      },
+      "xetHash": "c88841cfdcd4094274886ab7c05ec8ce377481c8bd66125066a7a21cb5712d37",
+      "path": "wavs/masha_sveta_part10_535.wav"
+    },
+    {
+      "type": "file",
+      "oid": "523d461f40ce2aa7a811547e8661dd8aad2b945b",
+      "size": 222596,
+      "lfs": {
+        "oid": "f34ec44e08af4cac066b1b8bcf65078ef0b136751f2ce3e51f2be9bb1cda769a",
+        "size": 222596,
+        "pointerSize": 131
+      },
+      "xetHash": "2427941a7591ac313c2b3de483fb4713bb1a5ddc8dcd242c51408b65a17a4502",
+      "path": "wavs/masha_sveta_part10_577.wav"
+    },
+    {
+      "type": "file",
+      "oid": "919d3a6683e81c4b688eb76bef29d33a08847087",
+      "size": 207350,
+      "lfs": {
+        "oid": "f179d1d2671f07feb2eac915ff9356753e4bd85468adf8eb941a4089ba6e517a",
+        "size": 207350,
+        "pointerSize": 131
+      },
+      "xetHash": "94052a1a1f44ace2d15ac5e9ea9e81e302c5a8ec9757ad9ce54162ad4f59fe34",
+      "path": "wavs/masha_sveta_part10_579.wav"
+    },
+    {
+      "type": "file",
+      "oid": "bf32f33c6502171bac618dd3b85af08a7fc66246",
+      "size": 284194,
+      "lfs": {
+        "oid": "769032be5a50381e66653116bfd2967f5d71737eb5b09f92deb2506ac4d94005",
+        "size": 284194,
+        "pointerSize": 131
+      },
+      "xetHash": "10466101555f8a41998658b18534fc45972296f51e061844a02f18369ad8af6d",
+      "path": "wavs/masha_sveta_part10_643.wav"
+    },
+    {
+      "type": "file",
+      "oid": "a55d259bc81184e365d40ce7d9f1197c002a04d9",
+      "size": 162766,
+      "lfs": {
+        "oid": "5591fcf03547530a47287bfa48b5f74b36d26155cefbab08fdbf6ab4342f1761",
+        "size": 162766,
+        "pointerSize": 131
+      },
+      "xetHash": "3626266374beb0e9a983444f99bc8a99fb2fe10a3b34f33476ab5aab75af054f",
+      "path": "wavs/masha_sveta_part10_656.wav"
+    },
+    {
+      "type": "file",
+      "oid": "aa08b86d75170127c533cb1ff5736eb548e6ad7f",
+      "size": 381216,
+      "lfs": {
+        "oid": "288355cd539ff8383f1fa2ccbc3390968026f47951f55a16dbc434a8c748d4d2",
+        "size": 381216,
+        "pointerSize": 131
+      },
+      "xetHash": "677be8f709995371b1422bab489a75f44947fae844178a3b466d9195a94eb34d",
+      "path": "wavs/masha_sveta_part10_848.wav"
+    },
+    {
+      "type": "file",
+      "oid": "4972ffe7990c72e92f73eb79c2ec155bcd06fad0",
+      "size": 478210,
+      "lfs": {
+        "oid": "69e7b24b485c81cf3a3e7a3984c6ba3558ee4108e328c24f673c9480e5d10b78",
+        "size": 478210,
+        "pointerSize": 131
+      },
+      "xetHash": "904aa02099a3eadd6e43851c6c3cfe672078314399c96270b7e268f8923121ac",
+      "path": "wavs/masha_sveta_part1_257.wav"
+    },
+    {
+      "type": "file",
+      "oid": "b880d43ce0062965507d1d2fb7de127460a6a6ee",
+      "size": 320824,
+      "lfs": {
+        "oid": "1bf9afd203e814bd07e453d8bc09d3e17fb70744f3a87a2ed0245084a85dc37f",
+        "size": 320824,
+        "pointerSize": 131
+      },
+      "xetHash": "253cd3528667d6f1f980ee0fdf13fdbeaf0f2b8dec1f3963f0a4b576a4a17638",
+      "path": "wavs/masha_sveta_part1_43.wav"
+    },
+    {
+      "type": "file",
+      "oid": "930aec5892627be7c98d937c948b60b74fa06f96",
+      "size": 564322,
+      "lfs": {
+        "oid": "459858aea83f158f5664f486bc7ad22a3bdbdf2f7b5a2bacb1a66a5f1e1af431",
+        "size": 564322,
+        "pointerSize": 131
+      },
+      "xetHash": "b8bc3928f614c54b8e64fa7170446ab7e1b3143bd46cc30403a9acf2279b56ac",
+      "path": "wavs/masha_sveta_part1_91.wav"
+    },
+    {
+      "type": "file",
+      "oid": "48f2d58cac68bd66fd8b5e9da10f96419af05a1c",
+      "size": 285512,
+      "lfs": {
+        "oid": "1d8b44e11fd50f89d7b9f8d573d195fa4878398fe41a67b50285129c40a64ed9",
+        "size": 285512,
+        "pointerSize": 131
+      },
+      "xetHash": "490f034d1b461e2f82f7f8ec8087c96ac983966f5f6428e4210ff1853247176c",
+      "path": "wavs/masha_sveta_part2_102.wav"
+    },
+    {
+      "type": "file",
+      "oid": "716c3d955a7744ef33f38cc02d3346e636840021",
+      "size": 623490,
+      "lfs": {
+        "oid": "e92183df54b167bbee483c3449a2364c81586b37e945ba21d2df58fb07549213",
+        "size": 623490,
+        "pointerSize": 131
+      },
+      "xetHash": "360a44d0956b386f8bf0e354778a2c5db6ada5609c4c4a125a407b4631600574",
+      "path": "wavs/masha_sveta_part2_359.wav"
+    },
+    {
+      "type": "file",
+      "oid": "333777abfda24778ad1d17255e6ceb27c48f8240",
+      "size": 296150,
+      "lfs": {
+        "oid": "051f38d41f839eab40ed5144c5d9ba89c55b1df79ebb58e5c97b9bc901dd77a1",
+        "size": 296150,
+        "pointerSize": 131
+      },
+      "xetHash": "1fd332f3010d33f153375c5db652ff86d31779ca0af545a7c266a40adf050278",
+      "path": "wavs/masha_sveta_part3_261.wav"
+    },
+    {
+      "type": "file",
+      "oid": "de4fe7ef26106bf0c23635609119f76130d8495a",
+      "size": 472796,
+      "lfs": {
+        "oid": "f163e9cb82eb33e8990a765087b76a35f4e09d69f98b42894f88099881ecc655",
+        "size": 472796,
+        "pointerSize": 131
+      },
+      "xetHash": "251697bf354777a1f03354ef286619a45c9d810862b1f7f00e4e1b0d80f17342",
+      "path": "wavs/masha_sveta_part3_611.wav"
+    },
+    {
+      "type": "file",
+      "oid": "63b7aa75c94e5c87ee4132aba456bbf8e036ff44",
+      "size": 253360,
+      "lfs": {
+        "oid": "9175f23e039bccbc6360a91172c9d7f96aca9ef3760ac17b1d8449d39ad66a97",
+        "size": 253360,
+        "pointerSize": 131
+      },
+      "xetHash": "951ee7b708a672f7e4c8907440d37699948e961b5efe80a3c5cf36ae7714d6c3",
+      "path": "wavs/masha_sveta_part3_649.wav"
+    },
+    {
+      "type": "file",
+      "oid": "bbc568ccbb11b3ac0537e0aef299bf13fd4437da",
+      "size": 219892,
+      "lfs": {
+        "oid": "814749b089a28ab945b994b7b4cfe5381edddadc5a945e195d65d011f7f60adf",
+        "size": 219892,
+        "pointerSize": 131
+      },
+      "xetHash": "3a9478726abddb97ed05e39c843c27068c218f80adbf87c11c22b8f11e055e80",
+      "path": "wavs/masha_sveta_part3_672.wav"
+    },
+    {
+      "type": "file",
+      "oid": "014be22f668353e1a7a3cbccee5a55419a196fc9",
+      "size": 248182,
+      "lfs": {
+        "oid": "9091862590715541e9d97dab441551754da5d021dacd51a24978847c390c652b",
+        "size": 248182,
+        "pointerSize": 131
+      },
+      "xetHash": "af9728562cda6740dc5d1832ee59bb33974afb5407e0532cb9f9e72873105dbe",
+      "path": "wavs/masha_sveta_part3_701.wav"
+    },
+    {
+      "type": "file",
+      "oid": "27945e5e6de892ad7445b03c68ca5eb5defbe587",
+      "size": 300224,
+      "lfs": {
+        "oid": "adcbbe2d94090bbdd59a3fc36a7ead815fd24cb95e68ad16c03c3a0edaf87d76",
+        "size": 300224,
+        "pointerSize": 131
+      },
+      "xetHash": "fa19f3a6f59ff16a95b8f64a226d542f619605441c80a2ba193a68bfe0faf0d2",
+      "path": "wavs/masha_sveta_part3_721.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c257772ce68dc245726cc4f621056550e4344793",
+      "size": 220624,
+      "lfs": {
+        "oid": "6d25bbf14d4ae04ea83ff3409620de365b1ef8e7610f9734119bf1fa13cb9e00",
+        "size": 220624,
+        "pointerSize": 131
+      },
+      "xetHash": "5828206e72e8daea07f087b0a7a6772aae2d3d3fc13de43b8790129a88e5e166",
+      "path": "wavs/masha_sveta_part3_729.wav"
+    },
+    {
+      "type": "file",
+      "oid": "cc1efad33dfd083ee637b10996ebeed154039ed6",
+      "size": 374694,
+      "lfs": {
+        "oid": "f8a9b62c5f22c9517e41185a4bd1307220f47d4438074d05a498dbabff26102b",
+        "size": 374694,
+        "pointerSize": 131
+      },
+      "xetHash": "efad775956d22f4ce85cf91d41f2cf367fa383b2ccfa895e2f96980a66f407f0",
+      "path": "wavs/masha_sveta_part4_153.wav"
+    },
+    {
+      "type": "file",
+      "oid": "e8cd184ef45c50944006974e47995d5864ec03a4",
+      "size": 1527390,
+      "lfs": {
+        "oid": "33ace41a25caa1dec0fb47160ef2c960f9f38bf3963d48f3eed307dd4d43d719",
+        "size": 1527390,
+        "pointerSize": 132
+      },
+      "xetHash": "a8011821b7e5168a487809ac0d6ade93b746639dcd6db9f0f9a4197fd03cc376",
+      "path": "wavs/masha_sveta_part4_162.wav"
+    },
+    {
+      "type": "file",
+      "oid": "0dd861307972f4cd09d7a7e32275fec9d4f2ba18",
+      "size": 834646,
+      "lfs": {
+        "oid": "f680c2c39cf57267394792035d28b983f330c68b12d9064de731cb36d865f4b6",
+        "size": 834646,
+        "pointerSize": 131
+      },
+      "xetHash": "34d66bf78eef436bf962db8c37f5fba98c6cfff5fb73893f779f531e97a1a2a2",
+      "path": "wavs/masha_sveta_part4_172.wav"
+    },
+    {
+      "type": "file",
+      "oid": "f8ab526ab71efc1e857b0a94fc3ce8659b88f6f1",
+      "size": 172804,
+      "lfs": {
+        "oid": "d533f3c126faac329cadbf84a7ac73a7cfa45367e2dede367c92b34c648cbe6c",
+        "size": 172804,
+        "pointerSize": 131
+      },
+      "xetHash": "a7a36807f8eb168a30de8b38967637f74f4a52a9087dea9488997bb85231847a",
+      "path": "wavs/masha_sveta_part4_197.wav"
+    },
+    {
+      "type": "file",
+      "oid": "4c736b7060dec75cc853fb47ab62da5dda9b97d9",
+      "size": 482688,
+      "lfs": {
+        "oid": "20389e101c76e24cb4a27ea72f353e53252239e2a9c9b01742675dfb94578e29",
+        "size": 482688,
+        "pointerSize": 131
+      },
+      "xetHash": "3eca8a94ddcc49fefa71a3ce8e81253f83dd39170fb8a1416dab0853e27ce965",
+      "path": "wavs/masha_sveta_part4_223.wav"
+    },
+    {
+      "type": "file",
+      "oid": "dc37822eb092f65a194827cb18d28a50fbcf5cd1",
+      "size": 317956,
+      "lfs": {
+        "oid": "b618f66a3296983bf859cb2c3ad151fd0f0abc6a6ab34278bd7e0f337a0e9027",
+        "size": 317956,
+        "pointerSize": 131
+      },
+      "xetHash": "f36c2c0a3a318f786b297e88d49f31467d2885061d42d553b56ecfb7a49662fa",
+      "path": "wavs/masha_sveta_part4_267.wav"
+    },
+    {
+      "type": "file",
+      "oid": "ecd33e5d3b54f5420877c9a748986e988b1c5749",
+      "size": 489600,
+      "lfs": {
+        "oid": "00bfb548bd294fb95f7bc59da7cc135fe63c226b7894e63a7d58c78c8468d951",
+        "size": 489600,
+        "pointerSize": 131
+      },
+      "xetHash": "d94b497f3f04e485a6a75de4ddb004ebb7b81a9260f163355a00f63e00762ea4",
+      "path": "wavs/masha_sveta_part4_312.wav"
+    },
+    {
+      "type": "file",
+      "oid": "1c28e486c0c91b691b031ffc306722fac5e4db63",
+      "size": 328584,
+      "lfs": {
+        "oid": "f57c7937242d1929e6c3680bda4a044c47bd93e1a4a763fbb6ba5571d7f74585",
+        "size": 328584,
+        "pointerSize": 131
+      },
+      "xetHash": "f1a171d3c3c606a9074850e7f632d57a3daf41bd5eb5600cb531c550a86e7d16",
+      "path": "wavs/masha_sveta_part5_176.wav"
+    },
+    {
+      "type": "file",
+      "oid": "b94854a1d8a5a56b0d50b0489db8b43397a03167",
+      "size": 831288,
+      "lfs": {
+        "oid": "61f497681f0712b630fed29607cb140f48a8c85c8aa75f49ae3a91c9db5921fd",
+        "size": 831288,
+        "pointerSize": 131
+      },
+      "xetHash": "a93e2a585f939977de2dc8359bf284431d7a3ee0b7caa1dd39352e109575b519",
+      "path": "wavs/masha_sveta_part5_216.wav"
+    },
+    {
+      "type": "file",
+      "oid": "b68017ed15c876cccf2582ce0bfacb17fc255f12",
+      "size": 1192622,
+      "lfs": {
+        "oid": "544f3797ca9f7288649b9f5479ba55acdfe277a684262c59d7620befd09a2851",
+        "size": 1192622,
+        "pointerSize": 132
+      },
+      "xetHash": "7b93ecdaf53e99707bdb07a2adf13787894c0c5c399e866ee6fe6c3af48f75a3",
+      "path": "wavs/masha_sveta_part5_218.wav"
+    },
+    {
+      "type": "file",
+      "oid": "b8090ae42750c87fe0233e81fc06a51a286d7067",
+      "size": 777184,
+      "lfs": {
+        "oid": "b597c62036e57f135004070f5ae485ea68d61cb35a2d17039ae673cbc5a14bd3",
+        "size": 777184,
+        "pointerSize": 131
+      },
+      "xetHash": "171952a20148ca06db7cf174612c2a16ae6a9d5828c5c89e415bae818d72caf8",
+      "path": "wavs/masha_sveta_part5_220.wav"
+    },
+    {
+      "type": "file",
+      "oid": "04fa6781e0374d0472bf12ca39aab21766ca4c9a",
+      "size": 810020,
+      "lfs": {
+        "oid": "5173478de8f3fd96a9a50783b1a1774593a451af5af555a7028786c61d2f4b6d",
+        "size": 810020,
+        "pointerSize": 131
+      },
+      "xetHash": "cf5aff86c1f81e2b8d52ad5dfcdd5b39ce11814eb9b5060b08b571f06d934523",
+      "path": "wavs/masha_sveta_part5_83.wav"
+    },
+    {
+      "type": "file",
+      "oid": "e8efbc76584489d15fae25982cd6a54a6db47f0c",
+      "size": 970916,
+      "lfs": {
+        "oid": "595dbf16816e46ff393704ce4227aa34353efbd3cc2fc15bdd964595fb609a9c",
+        "size": 970916,
+        "pointerSize": 131
+      },
+      "xetHash": "2ca9ffc591e67b16616cb4ac324ad90330b0c5e572d1a3c07d42046303fc5c83",
+      "path": "wavs/masha_sveta_part6_222.wav"
+    },
+    {
+      "type": "file",
+      "oid": "0bc2dd8047d100f3a12791f0d952b7272d0e09c5",
+      "size": 859384,
+      "lfs": {
+        "oid": "40025756565edb2b0cac04648679b6f2bda334e698382ccd11c890392412a781",
+        "size": 859384,
+        "pointerSize": 131
+      },
+      "xetHash": "0e241e74a8d2d5c7240e52f4ada83ac17f4f313993a864965ca065e394fe7f17",
+      "path": "wavs/masha_sveta_part6_296.wav"
+    },
+    {
+      "type": "file",
+      "oid": "abea3c679e24a36aa08edb1099a259157e16cc1f",
+      "size": 509956,
+      "lfs": {
+        "oid": "989750257780d293075484d4c00212feb9be0ddfad1d27ebc0dce608f5469a72",
+        "size": 509956,
+        "pointerSize": 131
+      },
+      "xetHash": "883ea7ce322a6335b401ff0da6760c8e13a9465d9c0e7fd2c04c0c0aed536d0c",
+      "path": "wavs/masha_sveta_part7_109.wav"
+    },
+    {
+      "type": "file",
+      "oid": "60a0000da1de371d5f5bbfc46a41af76af617771",
+      "size": 900586,
+      "lfs": {
+        "oid": "283172614768f0af66b6364fd05438216c4d0b737f32bc6c209b0d10d2bacd2c",
+        "size": 900586,
+        "pointerSize": 131
+      },
+      "xetHash": "26ddceb5449dd309bb2c91aa445b38a541ccfbb752d490c5e00d47379ac3a6a0",
+      "path": "wavs/masha_sveta_part7_158.wav"
+    },
+    {
+      "type": "file",
+      "oid": "e0204ff6a960864197a50503be736c1a6ea3de6e",
+      "size": 1074218,
+      "lfs": {
+        "oid": "61749a942c6e3cf84e4e98caa10d3e497f8a7f75a31c52d8bc387dad60538805",
+        "size": 1074218,
+        "pointerSize": 132
+      },
+      "xetHash": "5047062d5590f5893620ac1fe9dd1fa955b7d77e5c4b051ad2dca9537fbd0f62",
+      "path": "wavs/masha_sveta_part7_312.wav"
+    },
+    {
+      "type": "file",
+      "oid": "7eba9fb9f0825d1003dae13b0a0c7d4dd19898e5",
+      "size": 1100704,
+      "lfs": {
+        "oid": "d80b542eacf36c493d5ea786e86a3654e27faa3ead44b9ccbd52ad94a62d1bf5",
+        "size": 1100704,
+        "pointerSize": 132
+      },
+      "xetHash": "903066b6c50cea3841731cc2c4d4f2246b6bf61ce94fe265c48fc35d2aa34021",
+      "path": "wavs/masha_sveta_part7_342.wav"
+    },
+    {
+      "type": "file",
+      "oid": "4d9a5ee40c19be3e48b6aedc0944b8eaf2109039",
+      "size": 406564,
+      "lfs": {
+        "oid": "cd8112ad4697e7f74fca7f23cc4e8ab7f1cff9ac1a36883d09c7e6ffb41072ad",
+        "size": 406564,
+        "pointerSize": 131
+      },
+      "xetHash": "7da9a5701c55b229c5e1f25f2cf6377a475823399965f3460791b22030d1b24c",
+      "path": "wavs/masha_sveta_part8_316.wav"
+    },
+    {
+      "type": "file",
+      "oid": "edfd655a5823c8b1aa56dc1637c58c4d49e9ffe2",
+      "size": 271058,
+      "lfs": {
+        "oid": "287175630bcebaefbcca46569303e76b347f6e4878473c13ee8af77056b1bd87",
+        "size": 271058,
+        "pointerSize": 131
+      },
+      "xetHash": "4ee3949347c60cafb862a06a9a82c8d2f8ef17635d2d4998255363e92e2a3c42",
+      "path": "wavs/masha_sveta_part8_426.wav"
+    },
+    {
+      "type": "file",
+      "oid": "736c82a99edc77c1ebfb170eaf7769777c032de2",
+      "size": 985532,
+      "lfs": {
+        "oid": "8b19e136456f528c8b998c84df0a2d116090790fec1513bb946d453c700c3611",
+        "size": 985532,
+        "pointerSize": 131
+      },
+      "xetHash": "18f5cbc22d65be4489a30e32337b66680e32be6f311f1d20d2fca9d0576ff163",
+      "path": "wavs/masha_sveta_part8_460.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c0a9afa64d046db5c5c2b6a62c270f515d4efc21",
+      "size": 233730,
+      "lfs": {
+        "oid": "0af8f9310ef74ca8d710b24836fb5d680bc388cc6ca316c304c2d02a3d7b8484",
+        "size": 233730,
+        "pointerSize": 131
+      },
+      "xetHash": "48f8c8d33bb54f935ff7094f842da049565cf4673c11d188ba71997679ebb706",
+      "path": "wavs/masha_sveta_part9_1192.wav"
+    },
+    {
+      "type": "file",
+      "oid": "20d3b50d847f4c53a52e4d321b414da193f62ba5",
+      "size": 393620,
+      "lfs": {
+        "oid": "593341410a5f7fc2df6c8c4009f3331531f8f3df0db003cee123e2b016a4a22c",
+        "size": 393620,
+        "pointerSize": 131
+      },
+      "xetHash": "d470675cf1b16aea662559d21ffdbe78d53c4c5d738af806a2ffc93d52c92112",
+      "path": "wavs/masha_sveta_part9_1208.wav"
+    },
+    {
+      "type": "file",
+      "oid": "2bf359da599787373685045e3f8946fa7928503c",
+      "size": 329076,
+      "lfs": {
+        "oid": "9186e96c061d009d8ee55122f0174e06ee8f655017431b51f9ec263da55ac573",
+        "size": 329076,
+        "pointerSize": 131
+      },
+      "xetHash": "657bb9d5bf85821118b502cac0f9667ae91a98a8422cdaf6b71d652e6f1e6b6e",
+      "path": "wavs/masha_sveta_part9_1261.wav"
+    },
+    {
+      "type": "file",
+      "oid": "43476e62639b75090e0c01b11c83c7c505aeb446",
+      "size": 115856,
+      "lfs": {
+        "oid": "ae582caa462d9d943db0955ce617bf584cdebc290d3df579d1373f6589bc1578",
+        "size": 115856,
+        "pointerSize": 131
+      },
+      "xetHash": "85e5211e8cf10e75fa8a4ca80b7868f5e3e2807c2a881de124ebfae631337b8a",
+      "path": "wavs/masha_sveta_part9_1312.wav"
+    },
+    {
+      "type": "file",
+      "oid": "4ba4522a1e14bec659f34122dff26bd52bf740ca",
+      "size": 217694,
+      "lfs": {
+        "oid": "995229d41dc4ae7f9117aaaa0d0672a5f86678ae09cc3b95a5169e4e9b37e586",
+        "size": 217694,
+        "pointerSize": 131
+      },
+      "xetHash": "868c17d16d556bc048b089fe6c81afb4ab9892b0b98812a115b56c6dfdecbb3b",
+      "path": "wavs/masha_sveta_part9_1339.wav"
+    },
+    {
+      "type": "file",
+      "oid": "d7483c4e67593e9470828cb97e59503ffaef224e",
+      "size": 306650,
+      "lfs": {
+        "oid": "da83ecbec9e0c848fa7763fd91c711630fc33a447e40c3405ce8f7648f1132d1",
+        "size": 306650,
+        "pointerSize": 131
+      },
+      "xetHash": "2223244ea664e7103b03139421437e0e1f1d627f7ed5848b6cf4f422551b0356",
+      "path": "wavs/masha_sveta_part9_234.wav"
+    },
+    {
+      "type": "file",
+      "oid": "de57cfbf5e885b94d151e42cab95dd5925f7bfca",
+      "size": 395566,
+      "lfs": {
+        "oid": "0f329881b9402686f50427e8aec4879d00a344d16d579c03ff10c703ed16f138",
+        "size": 395566,
+        "pointerSize": 131
+      },
+      "xetHash": "e39e4c6b212d97e43d29e8d67b201c2084b87bc7b28abaabc6265bc64aea8acd",
+      "path": "wavs/masha_sveta_part9_238.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c3c2d5800e7786ed7dc45e1617f41759e41d7f7c",
+      "size": 176852,
+      "lfs": {
+        "oid": "7a5c81d19478cd4be1360bb4663147540b7af04a111adfcf241e2aef2ff5294e",
+        "size": 176852,
+        "pointerSize": 131
+      },
+      "xetHash": "71652de8b1165f4c162be09dadb6127f938f80c601849774958954fe28ce4611",
+      "path": "wavs/masha_sveta_part9_48.wav"
+    },
+    {
+      "type": "file",
+      "oid": "1c728df326c43547fe29edb86bc085c12dd4f74e",
+      "size": 397720,
+      "lfs": {
+        "oid": "4d32d522a95ccc1067c2828741218955b0dfc91a162a88b4a4ce6d0abc8fa7d0",
+        "size": 397720,
+        "pointerSize": 131
+      },
+      "xetHash": "f388940e290969f3ceb80eae3114fadffe55e4f265aeceb2c25307a53d44e79e",
+      "path": "wavs/masha_sveta_part9_481.wav"
+    },
+    {
+      "type": "file",
+      "oid": "037fda5d7e847da38320123ee49d3da3a31ba845",
+      "size": 262428,
+      "lfs": {
+        "oid": "b1e1b1141e9f8e638c8e2fee0d56c37d5dcd834d93982b0361eea92266c4deaa",
+        "size": 262428,
+        "pointerSize": 131
+      },
+      "xetHash": "7bae5eb607ad1c7882166ee241cc356d66837b8dbbab3ce372d090ddb429e4e5",
+      "path": "wavs/masha_sveta_part9_553.wav"
+    },
+    {
+      "type": "file",
+      "oid": "4fe87ac98618d1e1726b35901884552bd7647dae",
+      "size": 435642,
+      "lfs": {
+        "oid": "2e9bebd8453560186e1d64ab76b5b42136c106ec938ae7b61255757ccdf8d8a7",
+        "size": 435642,
+        "pointerSize": 131
+      },
+      "xetHash": "6d6b19f8d5eb8715dc196ba15c348161ea9ed0fe41e7cd1e56c26dd76d4e3d26",
+      "path": "wavs/masha_sveta_part9_709.wav"
+    },
+    {
+      "type": "file",
+      "oid": "8840f27564dfe2ee9231ec40346dcc4c1db93d97",
+      "size": 252180,
+      "lfs": {
+        "oid": "cf20ebc6aba5b239df3550cd6ca7446a029f961d162ac9f88eb488962bec41e9",
+        "size": 252180,
+        "pointerSize": 131
+      },
+      "xetHash": "63f393bfcd1a0c35fbbc7aba23c28bac5aa7d1355324182bf57135bd6afd0c49",
+      "path": "wavs/masha_sveta_part9_745.wav"
+    },
+    {
+      "type": "file",
+      "oid": "8b74e26d4e024d2641e600d666b4ab57adccbf15",
+      "size": 287042,
+      "lfs": {
+        "oid": "7e92496adce730aaa80d965c24ae27a24774760328b70c72c374e6517fc59ee5",
+        "size": 287042,
+        "pointerSize": 131
+      },
+      "xetHash": "dbb479f1e867170b23ec4bef6accbc05677d8a21f6fe36519bde2c80f596bdf4",
+      "path": "wavs/masha_sveta_part9_770.wav"
+    },
+    {
+      "type": "file",
+      "oid": "c398c62c664fa88d7119d5604b9d82310cc2afc0",
+      "size": 608858,
+      "lfs": {
+        "oid": "b78bb3f45644c3fa34d4777422a52bd446cf16b5fd95a813f37d9db1ba9e5607",
+        "size": 608858,
+        "pointerSize": 131
+      },
+      "xetHash": "07cabc4320b250cb9f18929e87120bb5501e46fde5b523bb0a69b3b51f11fdd4",
+      "path": "wavs/masha_sveta_part9_956.wav"
+    }
+  ],
+  "sources": {
+    "wavs/masha_dima_part10_27.wav": {
+      "source_sha256": "2e9ac37b15ad4c1c6d789e2d6cac883a55202756ccfa412009ba99d8fd471ddf",
+      "converted_sha256": "0b0a048dce546c987fde8bed77fc585f546b1ffa0f8f069b29d8915e26f0eeac",
+      "converted_frames": 67618,
+      "source_rate": 44100,
+      "source_bytes": 372786
+    },
+    "wavs/masha_dima_part10_295.wav": {
+      "source_sha256": "452927f09a86005fddb758ab0bbf35749a20cd91f8cba0c6f6ea2185937a78b4",
+      "converted_sha256": "17b001a3151449238eddd34b70a68c15fbb28763b114e6411c7db214a8033c41",
+      "converted_frames": 143223,
+      "source_rate": 44100,
+      "source_bytes": 789560
+    },
+    "wavs/masha_dima_part10_35.wav": {
+      "source_sha256": "b9a1afc393e05c5cb2a24e27d512d4e511803c2a24dd521ba7dce459a98319da",
+      "converted_sha256": "01c293d4ce0bae55cf3df5c625c665d2e39d3afe9de0894be88c652eb8bafa50",
+      "converted_frames": 101044,
+      "source_rate": 44100,
+      "source_bytes": 557046
+    },
+    "wavs/masha_dima_part11_130.wav": {
+      "source_sha256": "99096caee769d6aeb7b918b3d09100d5ea74b4ace3345d7b38987ca7da8c33de",
+      "converted_sha256": "71dce9ccfe283c56be022877e87ac716039b9a985efe0435a52c4edaa508169f",
+      "converted_frames": 60068,
+      "source_rate": 44100,
+      "source_bytes": 331168
+    },
+    "wavs/masha_dima_part11_132.wav": {
+      "source_sha256": "0b17b7715fdf096a432ecf005b95e6423bca961ed896adcd405c213521aa946e",
+      "converted_sha256": "0cbc72e984e55ee7b1427b90a49f0c9c134d577762b8968dae1ab91050b6139e",
+      "converted_frames": 84802,
+      "source_rate": 44100,
+      "source_bytes": 467512
+    },
+    "wavs/masha_dima_part11_158.wav": {
+      "source_sha256": "bb0d56742d4f45b3b308c9603a8af29f0e84b2507402483eb66032b61eea37c9",
+      "converted_sha256": "b8c89a496a92558f54dbb82ddfeeb41f0b4c1b42a608440ab560dfe927760656",
+      "converted_frames": 149581,
+      "source_rate": 44100,
+      "source_bytes": 824608
+    },
+    "wavs/masha_dima_part11_247.wav": {
+      "source_sha256": "30e5e3a38fed28c0247f3bcd4fe872c0a83ae91c2286d25c1b1ccc7b50f1ce3a",
+      "converted_sha256": "ba3b92664f375768794963cabac55b54dcc619c45ff17c55bb2a35b76e34dff9",
+      "converted_frames": 182236,
+      "source_rate": 44100,
+      "source_bytes": 1004616
+    },
+    "wavs/masha_dima_part11_287.wav": {
+      "source_sha256": "8c9b3b5b5b4cdff4d13872aa5e9cbda98f3e2c5829ba7d31752d5906663f04af",
+      "converted_sha256": "20d757f61eb16dbb4a269b30d5fb369f348abb2536811959836b271e07dd167f",
+      "converted_frames": 209967,
+      "source_rate": 44100,
+      "source_bytes": 1157484
+    },
+    "wavs/masha_dima_part11_296.wav": {
+      "source_sha256": "4a9be355e2e55ce8dbffe38b04035f76c8ab23e4846e5735e282ee2bc4bbfc3c",
+      "converted_sha256": "87d7758815c7ac47f371fabf141b84bcb5c3278274a96dffc80eb0416f04006c",
+      "converted_frames": 179026,
+      "source_rate": 44100,
+      "source_bytes": 986922
+    },
+    "wavs/masha_dima_part11_384.wav": {
+      "source_sha256": "14d799e6c3a6303e0005b63b8650a007c3cf714efac5a7ea30c03ecaa163488c",
+      "converted_sha256": "417d4b0514ccf980753274c8425c25ace8269e4ea746b72b4b2a44d9b55192ce",
+      "converted_frames": 175303,
+      "source_rate": 44100,
+      "source_bytes": 966398
+    },
+    "wavs/masha_dima_part11_84.wav": {
+      "source_sha256": "cd3c7a2389658dc607518ff86fc2a16950f125d57dddc76498920a042518eaad",
+      "converted_sha256": "13a11ef2afb888543dca6adfa350684cbf7be7780c8e22d2e1bc86ab96a72748",
+      "converted_frames": 161789,
+      "source_rate": 44100,
+      "source_bytes": 891902
+    },
+    "wavs/masha_dima_part12_1.wav": {
+      "source_sha256": "76d3056111932d0ccb4cf9a5535309fe1d6561a82d5b174f678b0a5929217aff",
+      "converted_sha256": "076417a4c752a63bb50561beacc636f032372f0d35a927da8df55a86708e9731",
+      "converted_frames": 216435,
+      "source_rate": 44100,
+      "source_bytes": 1193138
+    },
+    "wavs/masha_dima_part12_11.wav": {
+      "source_sha256": "c2a55ae5c42dbb92642ec1f09c9e120f532d4d5a52dfbeebbf6c2b5e14dc85cb",
+      "converted_sha256": "be68844d490e7e3e5be843956582c8d8ddba17cda41b17ee1559eb486ee02fe4",
+      "converted_frames": 207171,
+      "source_rate": 44100,
+      "source_bytes": 1142070
+    },
+    "wavs/masha_dima_part12_110.wav": {
+      "source_sha256": "41df8789b64cdb1b171c048750d62457434aa2bc054e4c2165193885e6f39bc6",
+      "converted_sha256": "008ccacdee1bcde225f758be1ad7f35ac8599c9a19326c3557ad33e78248e0b4",
+      "converted_frames": 270304,
+      "source_rate": 44100,
+      "source_bytes": 1490090
+    },
+    "wavs/masha_dima_part1_101.wav": {
+      "source_sha256": "d4638450272161b4f14c6fb41c107041d8164b4a6019c309b90b80d33c0af6bd",
+      "converted_sha256": "7753106768f4c29ac87deed0e36ab6af8e39702acec9ec903ea7e14c82fc9022",
+      "converted_frames": 227461,
+      "source_rate": 44100,
+      "source_bytes": 1253922
+    },
+    "wavs/masha_dima_part1_103.wav": {
+      "source_sha256": "efaf999f05283e6504bfe1b8ff126a5e41432b790f9f726452f49548f8183fac",
+      "converted_sha256": "bd09b46e67e47e46a8d87dd204142094ce0bbd20cdf664cfc6a3c11056ea6fe6",
+      "converted_frames": 130287,
+      "source_rate": 44100,
+      "source_bytes": 718246
+    },
+    "wavs/masha_dima_part1_122.wav": {
+      "source_sha256": "ce234a7242c128f211276b12ad5f675542e32a89a92822d4887c46f7efd14917",
+      "converted_sha256": "1e0a00454bbaff5dd421bbc1cbebaaa42b07c4ddba5c46abd144a9f9851d7bbe",
+      "converted_frames": 187844,
+      "source_rate": 44100,
+      "source_bytes": 1035534
+    },
+    "wavs/masha_dima_part1_165.wav": {
+      "source_sha256": "7f1b45b7aef4e0f0effa558a437f88b07dfe9dbf1cff2658ac54f053c91fe4c6",
+      "converted_sha256": "9508a0de538fcffbfc2139d6e3d871ff43e33897b5372033c468c863005c9713",
+      "converted_frames": 204354,
+      "source_rate": 44100,
+      "source_bytes": 1126540
+    },
+    "wavs/masha_dima_part1_166.wav": {
+      "source_sha256": "414cc69ea47fb17922ed47b20c4396f85113e65d8055cd539ec9ba970d544569",
+      "converted_sha256": "2f320e7de07046b1208b7c1bba0a970d1e746ecef866d2f665f4e54f04bf04ca",
+      "converted_frames": 207476,
+      "source_rate": 44100,
+      "source_bytes": 1143754
+    },
+    "wavs/masha_dima_part1_261.wav": {
+      "source_sha256": "a8d946c4b2a10f6411c683a19a67bd990d1e8c01acf5b9cd828ea4961e0fdc9c",
+      "converted_sha256": "ba68020070d0b31f2bc469309d4b131514cd2313f55a2caac49a328179b79742",
+      "converted_frames": 134240,
+      "source_rate": 44100,
+      "source_bytes": 740042
+    },
+    "wavs/masha_dima_part1_347.wav": {
+      "source_sha256": "e4df9db0ed440dc583d204f4b64d91b753090b8227d8b31f91633dda417a7487",
+      "converted_sha256": "5e6e546a326885c39f4d94cc48540c1c7641624f1df8920b887e93df0d1aa389",
+      "converted_frames": 107307,
+      "source_rate": 44100,
+      "source_bytes": 591572
+    },
+    "wavs/masha_dima_part1_364.wav": {
+      "source_sha256": "476353717c073b138c1881cdda7a1fd43c15450a1d25dcf73f302bda12d1bfe9",
+      "converted_sha256": "95a9b242c20b5fc5d13d3cbe7f5673a1aedf583d94ee1765ebc76889c2be23dc",
+      "converted_frames": 256111,
+      "source_rate": 44100,
+      "source_bytes": 1411852
+    },
+    "wavs/masha_dima_part1_53.wav": {
+      "source_sha256": "23dce6c926c1db3756ad6db2db2af0860ecb5149ce0f271a1099947d55028c48",
+      "converted_sha256": "c630b6f14bedf60aa7fd6b7363e815208ac91f0c139de382c959d1fc6305e8f1",
+      "converted_frames": 100640,
+      "source_rate": 44100,
+      "source_bytes": 554822
+    },
+    "wavs/masha_dima_part1_71.wav": {
+      "source_sha256": "e6a5ab17beb51162a10eeb15fbea9928b11d3431ba179ac1fc53d5b668a2be84",
+      "converted_sha256": "e98e6c5953dd2bfa6d5536171760966ad847b6901134cf42ca529759f6d88627",
+      "converted_frames": 150099,
+      "source_rate": 44100,
+      "source_bytes": 827464
+    },
+    "wavs/masha_dima_part1_87.wav": {
+      "source_sha256": "66923211191a836e90435eed4d5a507d05ac11c299cc3da8d6dfc656b617dfea",
+      "converted_sha256": "daaa30e48ac86b85ed4fc99a327e179fa680966ee72ed3c1ebf2d6ad459958e1",
+      "converted_frames": 144549,
+      "source_rate": 44100,
+      "source_bytes": 796870
+    },
+    "wavs/masha_dima_part2_122.wav": {
+      "source_sha256": "2e9e7177e46806ed7a3fdc899e9bee982650c98aee1af0506a0eb053b5e966b2",
+      "converted_sha256": "c90580de3a942b1196d6ec6fc8a20e0722d3a70acb47a59e4be2fe1f1c6b44e6",
+      "converted_frames": 74175,
+      "source_rate": 44100,
+      "source_bytes": 408930
+    },
+    "wavs/masha_dima_part2_74.wav": {
+      "source_sha256": "80b4d352d9db8854f73dda55b1601c871993425e188722f6051fc05373519b5a",
+      "converted_sha256": "3ae7caa4d3695c27a0853e4aef199987212d0c6be3a3a20c35b3e1e90467e5a7",
+      "converted_frames": 49687,
+      "source_rate": 44100,
+      "source_bytes": 273940
+    },
+    "wavs/masha_dima_part3_146.wav": {
+      "source_sha256": "d1b9c222ce2dfa20398ed175eb03ce3d797d8a94b6394d1379033fa772a7187b",
+      "converted_sha256": "23c78e16d2f788ece4c679c52bc0bd32827ba4b52204cbcc06882881a44a0aa5",
+      "converted_frames": 74968,
+      "source_rate": 44100,
+      "source_bytes": 413300
+    },
+    "wavs/masha_dima_part3_306.wav": {
+      "source_sha256": "d7611d13b23abc25c6a3fb3f920ca396f8f7d428b658ba8427d32f5fff96b0d4",
+      "converted_sha256": "3be917d14da1ba092af4106ae883573394d3b893b0cfad0c0916c13bf150b009",
+      "converted_frames": 144886,
+      "source_rate": 44100,
+      "source_bytes": 798724
+    },
+    "wavs/masha_dima_part3_70.wav": {
+      "source_sha256": "d674e75fffaaad9eb00f355b861b032a4ff6724415d297005844ebb75793800d",
+      "converted_sha256": "3aa76c507f9c16428fed0242c1ffea2c0d3f0f15e8c6dff83ecc33001f22c89d",
+      "converted_frames": 76907,
+      "source_rate": 44100,
+      "source_bytes": 423992
+    },
+    "wavs/masha_dima_part4_169.wav": {
+      "source_sha256": "c51945644dcf006caa0b9832481a48377b355e3fb6fab14a808a5dac7c09ee52",
+      "converted_sha256": "e13f806ac2138373c9e2b826f4bfe6fdcedb5cbf8cb81ffa08f3255b9d3a19cd",
+      "converted_frames": 135674,
+      "source_rate": 44100,
+      "source_bytes": 747942
+    },
+    "wavs/masha_dima_part5_262.wav": {
+      "source_sha256": "2322bb8e63850d8ce7d7fe60d4c8f1cd1d82f7def9fc804fbde8e33c34303a00",
+      "converted_sha256": "9a12327768781aa3c41cdef7ff50e50ec54b1d0d5b2cc4377a2ec87b1d2c21e6",
+      "converted_frames": 178891,
+      "source_rate": 44100,
+      "source_bytes": 986176
+    },
+    "wavs/masha_dima_part5_367.wav": {
+      "source_sha256": "9ca4ea958b6033301193478f5461347fdddd11302cc921bd3604bf4e66115b5e",
+      "converted_sha256": "e4e24d7effabc754bc8bdba874e9390a0a676cf285315c1379059760d8445912",
+      "converted_frames": 104851,
+      "source_rate": 44100,
+      "source_bytes": 578030
+    },
+    "wavs/masha_dima_part5_53.wav": {
+      "source_sha256": "5039a1bf377de26e20f1ac986b0eb178979366b22aea005a3b063c565b14005b",
+      "converted_sha256": "de45512a9e06e1e84f5c08b40c4ba35970e71406607c87c73b808d010d755f92",
+      "converted_frames": 120843,
+      "source_rate": 44100,
+      "source_bytes": 666188
+    },
+    "wavs/masha_dima_part5_91.wav": {
+      "source_sha256": "108b6d549db6b3320e6cbd81b8938fdab8f4ab286ce861bac9a1517e9c617d57",
+      "converted_sha256": "980c63f6cb97e9ee5108901b3283679328b2522c14ef539e36fe03f1c4e0a31c",
+      "converted_frames": 194599,
+      "source_rate": 44100,
+      "source_bytes": 1072766
+    },
+    "wavs/masha_dima_part6_247.wav": {
+      "source_sha256": "539e152904c06e43853aeccf4362fb6f02a38428246936b0198902ead1c89ea1",
+      "converted_sha256": "311a445bad7420d9a7bf89931663c730e232612c5c85ae45a3e756def79c0d92",
+      "converted_frames": 38185,
+      "source_rate": 44100,
+      "source_bytes": 210536
+    },
+    "wavs/masha_dima_part6_278.wav": {
+      "source_sha256": "959cb3385f1c48a144a57d5ee587bd592fd15c70993cab3f180b968e4f27790f",
+      "converted_sha256": "173d53b03f71f8b16001c070772cfa37125abe25bf6fa326ea2ee1a7622f1d8d",
+      "converted_frames": 151386,
+      "source_rate": 44100,
+      "source_bytes": 834556
+    },
+    "wavs/masha_dima_part6_53.wav": {
+      "source_sha256": "7919c5b45da718a86e4993742a880c6ae1d31d40d3ffcbb8b68adf7884c5f13b",
+      "converted_sha256": "7cc62957df851a3152e6368a7c3b1c2dc6d5a1655cbf883ef2353651b5832ce7",
+      "converted_frames": 128066,
+      "source_rate": 44100,
+      "source_bytes": 706004
+    },
+    "wavs/masha_dima_part8_207.wav": {
+      "source_sha256": "df5a9af9e83087dbfad2b1407d64c34f6caa0e4823662d5d3d27db5d5de375c1",
+      "converted_sha256": "7da099ab7a4a7e3d54371fadab6a3c558e435af36eac08e6927c9b467234a4b5",
+      "converted_frames": 89076,
+      "source_rate": 44100,
+      "source_bytes": 491070
+    },
+    "wavs/masha_dima_part9_158.wav": {
+      "source_sha256": "3d19286bf09066817c27898dd272a28a723658abea440d848231109e4728991d",
+      "converted_sha256": "5cc0ba102a33ba29a12e5cfb3a3b073a5216c150968233f14e3245c286cc2ca4",
+      "converted_frames": 110427,
+      "source_rate": 44100,
+      "source_bytes": 608768
+    },
+    "wavs/masha_dima_part9_196.wav": {
+      "source_sha256": "c11b49fef9213b3eced8decb751e0e6b01d6756f517095b6485442daa6352a57",
+      "converted_sha256": "9931719ac1eaab2f0c6adc4ba66e6b0d8714d1c5233a29a9ad8694d3c1143a1c",
+      "converted_frames": 133915,
+      "source_rate": 44100,
+      "source_bytes": 738250
+    },
+    "wavs/masha_dima_part9_206.wav": {
+      "source_sha256": "3d53f387d66fa89ce2b752303f8e895a7100c2b04442f76de22af31cf291b6de",
+      "converted_sha256": "fc2dbdc888c76d61261c93ad4f13d8d562c80aaa419849258609b755d0488fad",
+      "converted_frames": 127510,
+      "source_rate": 44100,
+      "source_bytes": 702942
+    },
+    "wavs/masha_dima_part9_211.wav": {
+      "source_sha256": "23f619bef1200db42103a27b4cc5519374bdf1eb4aafa88294d8298df1b2b570",
+      "converted_sha256": "d8bc231d01ea025fa6c2e9ee6c443245adc6fe16e91a57a3db702896b8551e4e",
+      "converted_frames": 59588,
+      "source_rate": 44100,
+      "source_bytes": 328522
+    },
+    "wavs/masha_dima_part9_222.wav": {
+      "source_sha256": "7bb03126fb720925c2439d6b29d807c6f425a05bf60f5b1f1bcf1e6527ba9d15",
+      "converted_sha256": "457e6d2c26c592c00e44b15154df89c5b05e483ad7e9f8220807c9a31baaef1e",
+      "converted_frames": 89998,
+      "source_rate": 44100,
+      "source_bytes": 496156
+    },
+    "wavs/masha_dima_part9_271.wav": {
+      "source_sha256": "94bb74e79807cf58092210a984011dc05c3a0114799e5305703590d87f74bada",
+      "converted_sha256": "3cd1dcb224a32800e7941d877d8ab7b6912a257a152fd59ac410da52271118b3",
+      "converted_frames": 101248,
+      "source_rate": 44100,
+      "source_bytes": 558170
+    },
+    "wavs/masha_dima_part9_276.wav": {
+      "source_sha256": "21380b8c78c8ee4b3006dea8f1b1f9295dafd2dbb890d248df22669acdc6788e",
+      "converted_sha256": "d12dbb82963a9ada5777de7f7f9ea70e6acb079cef811c3598f9c68985519a85",
+      "converted_frames": 134109,
+      "source_rate": 44100,
+      "source_bytes": 739316
+    },
+    "wavs/masha_dima_part9_325.wav": {
+      "source_sha256": "9a0b50c48e06b7164c14ca77c9e6612b162215ea318ddeef328f7bf9f954cd4a",
+      "converted_sha256": "958b14f3ca4a2937d592325627cc9061d1db041b9d063a7c8ced69b528bcc2e7",
+      "converted_frames": 100116,
+      "source_rate": 44100,
+      "source_bytes": 551928
+    },
+    "wavs/masha_dima_part9_332.wav": {
+      "source_sha256": "08d35b9cf33e4a28c04a7e309c46c04d0b011a3a6efb0d53d52b9ab65c75c6df",
+      "converted_sha256": "82a43f8b838a1921f911ca7bd1d8522304603b00a2c3bb648b489fc665e8e48c",
+      "converted_frames": 108057,
+      "source_rate": 44100,
+      "source_bytes": 595704
+    },
+    "wavs/masha_dima_part9_355.wav": {
+      "source_sha256": "52eb88b31499ba8b081295e1791b1a861c88cc6a478936964ed158db5604a8ea",
+      "converted_sha256": "6983b6d73e57eb62e8a3cfb82014ef2dc70ec22fa3d1d0e9c8f280e91dbb9c3c",
+      "converted_frames": 135589,
+      "source_rate": 44100,
+      "source_bytes": 747476
+    },
+    "wavs/masha_dima_part9_391.wav": {
+      "source_sha256": "71d9917296cba29fe5d530f594ec2c79ae0a16fe90bed010feb35dd6df7ac346",
+      "converted_sha256": "c739848469e376596013f54f90846de3ab517478eb3d07641efc517083805a99",
+      "converted_frames": 78430,
+      "source_rate": 44100,
+      "source_bytes": 432384
+    },
+    "wavs/masha_dima_part9_397.wav": {
+      "source_sha256": "f4b8a5afbc352d66eab8b26485169732de18691aa3bd4444c6ea90c2b313bb78",
+      "converted_sha256": "2d4c851a0b5c1ad75059fdcf3e46cd38ba86baf9707c4e7b38957ec591fb9796",
+      "converted_frames": 103616,
+      "source_rate": 44100,
+      "source_bytes": 571226
+    },
+    "wavs/masha_dima_part9_6.wav": {
+      "source_sha256": "16871ba1c7da5226481398ac6c17fafa5bd5714c0235eccbdcae263048109170",
+      "converted_sha256": "016de5b785814651210ad313e1593d8a79ebfb7b28519aa419660a0a886161f6",
+      "converted_frames": 98879,
+      "source_rate": 44100,
+      "source_bytes": 545114
+    },
+    "wavs/masha_sveta_part10_1426.wav": {
+      "source_sha256": "4daa3292592690e0288e5657b15aa0d5395b73ec4010b1de8eb5a1d8146517b2",
+      "converted_sha256": "b96f80d3aebde70ced6bf70039866349b037bbf5a5c9d319ccaff382f9c6c4ad",
+      "converted_frames": 15485,
+      "source_rate": 44100,
+      "source_bytes": 85402
+    },
+    "wavs/masha_sveta_part10_1566.wav": {
+      "source_sha256": "7a69f0c1091c02d266a5e6f0075b5542143de00ba6670c0d3b10274f0f43199e",
+      "converted_sha256": "ecc55e851125ce04a10c6786ef94cfbc661caa53f50c623d135840d3cc363e2b",
+      "converted_frames": 36498,
+      "source_rate": 44100,
+      "source_bytes": 201234
+    },
+    "wavs/masha_sveta_part10_1615.wav": {
+      "source_sha256": "9385aa3d0eb262084fb26bd1ad7d1f93d614390809cefd0fe3f92d20e254cdb7",
+      "converted_sha256": "e7acd451f5141488509fb4480ac62fc75b1b001dfcacafa7393e368573805ddc",
+      "converted_frames": 34064,
+      "source_rate": 44100,
+      "source_bytes": 187820
+    },
+    "wavs/masha_sveta_part10_191.wav": {
+      "source_sha256": "73ba0cf229356581fca35f543a81c123a363a977382ab34dfacc5939c2e77d48",
+      "converted_sha256": "2c3b7b0912d618c7c6c21a14d3fa39fe4d58cb4a3d5fa6b5a7bc513f00de52e9",
+      "converted_frames": 60829,
+      "source_rate": 44100,
+      "source_bytes": 335362
+    },
+    "wavs/masha_sveta_part10_1916.wav": {
+      "source_sha256": "0d515d4efc2deac844b30f8319fc039e61282daf4e855387380c8d3eceb43e04",
+      "converted_sha256": "796643a71698721185be614a6121494deab93b2bcdf9eb033767dbe642a8d584",
+      "converted_frames": 58146,
+      "source_rate": 44100,
+      "source_bytes": 320572
+    },
+    "wavs/masha_sveta_part10_496.wav": {
+      "source_sha256": "875ddce31dd3beda9c497149bad811b38a3cb06c77e11d949c73eaada5a6f3d3",
+      "converted_sha256": "551a319889d975ca615b033db825a19f44b65c1f19591a21e78ff3c7b78a4aa8",
+      "converted_frames": 27396,
+      "source_rate": 44100,
+      "source_bytes": 151062
+    },
+    "wavs/masha_sveta_part10_499.wav": {
+      "source_sha256": "04d731b5761f069f19d8a09490757868ca41878dd12f8c07f45ae8c1a9c5e55e",
+      "converted_sha256": "94ba0bc7be9a7aea9990a8e6760210a88519af5a77b129be71864f16de06e8b8",
+      "converted_frames": 38952,
+      "source_rate": 44100,
+      "source_bytes": 214762
+    },
+    "wavs/masha_sveta_part10_535.wav": {
+      "source_sha256": "83c63d087eee12fb2a3e83a7612777e72a9b4e536566f768d88dfb1996ee1781",
+      "converted_sha256": "725f9a7293e844fa4f1614bb41544cbe7f2eb12676be1f3664adedc684ceaa2f",
+      "converted_frames": 38570,
+      "source_rate": 44100,
+      "source_bytes": 212660
+    },
+    "wavs/masha_sveta_part10_577.wav": {
+      "source_sha256": "f34ec44e08af4cac066b1b8bcf65078ef0b136751f2ce3e51f2be9bb1cda769a",
+      "converted_sha256": "32b69ca844bc07fad2154d54040466ea19de55320405be4d4861b750acb5ea2e",
+      "converted_frames": 40373,
+      "source_rate": 44100,
+      "source_bytes": 222596
+    },
+    "wavs/masha_sveta_part10_579.wav": {
+      "source_sha256": "f179d1d2671f07feb2eac915ff9356753e4bd85468adf8eb941a4089ba6e517a",
+      "converted_sha256": "0947690c0a5394df43dafcf1c3cd90d3bf3f94311675875bb6ae209fc063daec",
+      "converted_frames": 37607,
+      "source_rate": 44100,
+      "source_bytes": 207350
+    },
+    "wavs/masha_sveta_part10_643.wav": {
+      "source_sha256": "769032be5a50381e66653116bfd2967f5d71737eb5b09f92deb2506ac4d94005",
+      "converted_sha256": "8ecb12554a7336899cc19be4154441563b64c902a1fd3285c6cf41084f7b14a3",
+      "converted_frames": 51547,
+      "source_rate": 44100,
+      "source_bytes": 284194
+    },
+    "wavs/masha_sveta_part10_656.wav": {
+      "source_sha256": "5591fcf03547530a47287bfa48b5f74b36d26155cefbab08fdbf6ab4342f1761",
+      "converted_sha256": "ae20abbed1095ee81089de07a4ef10d83415f96b678cc405bc60afb6bde24021",
+      "converted_frames": 29519,
+      "source_rate": 44100,
+      "source_bytes": 162766
+    },
+    "wavs/masha_sveta_part10_848.wav": {
+      "source_sha256": "288355cd539ff8383f1fa2ccbc3390968026f47951f55a16dbc434a8c748d4d2",
+      "converted_sha256": "a0285c7132df85e5908af0aa2e3db747fd95345a0f4bc01acb426106327293e8",
+      "converted_frames": 69147,
+      "source_rate": 44100,
+      "source_bytes": 381216
+    },
+    "wavs/masha_sveta_part1_257.wav": {
+      "source_sha256": "69e7b24b485c81cf3a3e7a3984c6ba3558ee4108e328c24f673c9480e5d10b78",
+      "converted_sha256": "ed8a28df1a2c85308dbcafe8d1bb9daef8139420d5b28081aa049a71919cf298",
+      "converted_frames": 86743,
+      "source_rate": 44100,
+      "source_bytes": 478210
+    },
+    "wavs/masha_sveta_part1_43.wav": {
+      "source_sha256": "1bf9afd203e814bd07e453d8bc09d3e17fb70744f3a87a2ed0245084a85dc37f",
+      "converted_sha256": "70128b0605f3fe448846ea91785dfd3f8822ab7e0433a667121ce86c715d8f92",
+      "converted_frames": 58192,
+      "source_rate": 44100,
+      "source_bytes": 320824
+    },
+    "wavs/masha_sveta_part1_91.wav": {
+      "source_sha256": "459858aea83f158f5664f486bc7ad22a3bdbdf2f7b5a2bacb1a66a5f1e1af431",
+      "converted_sha256": "8ba64efce29fbbddc6cbbf2005722b26d04f787f00b162455c2ec49f29c82a97",
+      "converted_frames": 102364,
+      "source_rate": 44100,
+      "source_bytes": 564322
+    },
+    "wavs/masha_sveta_part2_102.wav": {
+      "source_sha256": "1d8b44e11fd50f89d7b9f8d573d195fa4878398fe41a67b50285129c40a64ed9",
+      "converted_sha256": "8454dd6ebc42ee7ca81161b181fe60e47b180d3bf9926aaf8de0d972acf2cc43",
+      "converted_frames": 51786,
+      "source_rate": 44100,
+      "source_bytes": 285512
+    },
+    "wavs/masha_sveta_part2_359.wav": {
+      "source_sha256": "e92183df54b167bbee483c3449a2364c81586b37e945ba21d2df58fb07549213",
+      "converted_sha256": "78484e65b11ccf0e9ba64fb5f8c010302ac0377095154bd7a98f2e094a6fa297",
+      "converted_frames": 113097,
+      "source_rate": 44100,
+      "source_bytes": 623490
+    },
+    "wavs/masha_sveta_part3_261.wav": {
+      "source_sha256": "051f38d41f839eab40ed5144c5d9ba89c55b1df79ebb58e5c97b9bc901dd77a1",
+      "converted_sha256": "792634f361c4900e4bbed47c0d31088d0b4a902e6641c264be8c6915531bbf59",
+      "converted_frames": 53716,
+      "source_rate": 44100,
+      "source_bytes": 296150
+    },
+    "wavs/masha_sveta_part3_611.wav": {
+      "source_sha256": "f163e9cb82eb33e8990a765087b76a35f4e09d69f98b42894f88099881ecc655",
+      "converted_sha256": "70e3e25e1deb2a7c57244b475f56379da9ad59f7afbe9171c16cca24f00639cf",
+      "converted_frames": 85760,
+      "source_rate": 44100,
+      "source_bytes": 472796
+    },
+    "wavs/masha_sveta_part3_649.wav": {
+      "source_sha256": "9175f23e039bccbc6360a91172c9d7f96aca9ef3760ac17b1d8449d39ad66a97",
+      "converted_sha256": "7733f4621493f059da7b1660e74be05bc7ac5edf29aa8bc4632fb6e7772ac109",
+      "converted_frames": 45954,
+      "source_rate": 44100,
+      "source_bytes": 253360
+    },
+    "wavs/masha_sveta_part3_672.wav": {
+      "source_sha256": "814749b089a28ab945b994b7b4cfe5381edddadc5a945e195d65d011f7f60adf",
+      "converted_sha256": "56864afa89f44810c1f40adad60d084b8478548df95711be8d79d7288890ced8",
+      "converted_frames": 39882,
+      "source_rate": 44100,
+      "source_bytes": 219892
+    },
+    "wavs/masha_sveta_part3_701.wav": {
+      "source_sha256": "9091862590715541e9d97dab441551754da5d021dacd51a24978847c390c652b",
+      "converted_sha256": "d2cb6d74c2a61380ba0e6cfe1c506c261488105a33f42a7e5a670379c381da17",
+      "converted_frames": 45014,
+      "source_rate": 44100,
+      "source_bytes": 248182
+    },
+    "wavs/masha_sveta_part3_721.wav": {
+      "source_sha256": "adcbbe2d94090bbdd59a3fc36a7ead815fd24cb95e68ad16c03c3a0edaf87d76",
+      "converted_sha256": "edefbaf04cb52f7313ab9cc3a917afd5308588f27ece7e89fed75547ad4c0941",
+      "converted_frames": 54455,
+      "source_rate": 44100,
+      "source_bytes": 300224
+    },
+    "wavs/masha_sveta_part3_729.wav": {
+      "source_sha256": "6d25bbf14d4ae04ea83ff3409620de365b1ef8e7610f9734119bf1fa13cb9e00",
+      "converted_sha256": "11768767c27c45638988d829f62efe030f6d95422346192129cb7d4f08963ca4",
+      "converted_frames": 40015,
+      "source_rate": 44100,
+      "source_bytes": 220624
+    },
+    "wavs/masha_sveta_part4_153.wav": {
+      "source_sha256": "f8a9b62c5f22c9517e41185a4bd1307220f47d4438074d05a498dbabff26102b",
+      "converted_sha256": "b76283695ae6ce90608ffa5687bd7ddf6854be7e2fbc75fe5f1271bb86965593",
+      "converted_frames": 67964,
+      "source_rate": 44100,
+      "source_bytes": 374694
+    },
+    "wavs/masha_sveta_part4_162.wav": {
+      "source_sha256": "33ace41a25caa1dec0fb47160ef2c960f9f38bf3963d48f3eed307dd4d43d719",
+      "converted_sha256": "5cd151440eefb14023cc5ece2649d22b4aaf8e222fcc9cc29262c2c93c3d6b8b",
+      "converted_frames": 277070,
+      "source_rate": 44100,
+      "source_bytes": 1527390
+    },
+    "wavs/masha_sveta_part4_172.wav": {
+      "source_sha256": "f680c2c39cf57267394792035d28b983f330c68b12d9064de731cb36d865f4b6",
+      "converted_sha256": "bf1b11ff3e61f2f3a587690c407974cc3716740d1e99ee13915db551e12976df",
+      "converted_frames": 151402,
+      "source_rate": 44100,
+      "source_bytes": 834646
+    },
+    "wavs/masha_sveta_part4_197.wav": {
+      "source_sha256": "d533f3c126faac329cadbf84a7ac73a7cfa45367e2dede367c92b34c648cbe6c",
+      "converted_sha256": "1834cce546fb1c026d160f246ef4c6b9f17cff03dd278fe2108c312f7a97f186",
+      "converted_frames": 31340,
+      "source_rate": 44100,
+      "source_bytes": 172804
+    },
+    "wavs/masha_sveta_part4_223.wav": {
+      "source_sha256": "20389e101c76e24cb4a27ea72f353e53252239e2a9c9b01742675dfb94578e29",
+      "converted_sha256": "67c16586bf3e4f3a0381f021cb5b04b42999d3bd7f0ad946b9bd2e3dd26b5c3e",
+      "converted_frames": 87555,
+      "source_rate": 44100,
+      "source_bytes": 482688
+    },
+    "wavs/masha_sveta_part4_267.wav": {
+      "source_sha256": "b618f66a3296983bf859cb2c3ad151fd0f0abc6a6ab34278bd7e0f337a0e9027",
+      "converted_sha256": "529115381f580b16430178f9b8eb5ac55aed86290e5323adfda09b6521cff15e",
+      "converted_frames": 57672,
+      "source_rate": 44100,
+      "source_bytes": 317956
+    },
+    "wavs/masha_sveta_part4_312.wav": {
+      "source_sha256": "00bfb548bd294fb95f7bc59da7cc135fe63c226b7894e63a7d58c78c8468d951",
+      "converted_sha256": "9c5071a9bda0577c85f8cca7a41b5dbc9d45050d9c30fa809c31a21909f28b09",
+      "converted_frames": 88809,
+      "source_rate": 44100,
+      "source_bytes": 489600
+    },
+    "wavs/masha_sveta_part5_176.wav": {
+      "source_sha256": "f57c7937242d1929e6c3680bda4a044c47bd93e1a4a763fbb6ba5571d7f74585",
+      "converted_sha256": "73f8f54ca43f9824e1d1886e9ee1af559ecdcb8ce8dd8dddc173685beb2416ae",
+      "converted_frames": 59600,
+      "source_rate": 44100,
+      "source_bytes": 328584
+    },
+    "wavs/masha_sveta_part5_216.wav": {
+      "source_sha256": "61f497681f0712b630fed29607cb140f48a8c85c8aa75f49ae3a91c9db5921fd",
+      "converted_sha256": "b07c6162aa0adc254868ec85c92250729ce9562f0cefcc987a4402636c944523",
+      "converted_frames": 150793,
+      "source_rate": 44100,
+      "source_bytes": 831288
+    },
+    "wavs/masha_sveta_part5_218.wav": {
+      "source_sha256": "544f3797ca9f7288649b9f5479ba55acdfe277a684262c59d7620befd09a2851",
+      "converted_sha256": "dd47d5fb471a1d9544b5d25001b3338715914d032aff9df2f081305a10b55510",
+      "converted_frames": 216341,
+      "source_rate": 44100,
+      "source_bytes": 1192622
+    },
+    "wavs/masha_sveta_part5_220.wav": {
+      "source_sha256": "b597c62036e57f135004070f5ae485ea68d61cb35a2d17039ae673cbc5a14bd3",
+      "converted_sha256": "b3a13b4a11fb7e5690355c9cd4a3cd7870591d27b75fb0bdbb8dc3c5a29dd149",
+      "converted_frames": 140978,
+      "source_rate": 44100,
+      "source_bytes": 777184
+    },
+    "wavs/masha_sveta_part5_83.wav": {
+      "source_sha256": "5173478de8f3fd96a9a50783b1a1774593a451af5af555a7028786c61d2f4b6d",
+      "converted_sha256": "5e7e354ff2d4e5ed33679ba448bc30b88310187086af7b79dfa98c3f2a109b29",
+      "converted_frames": 146935,
+      "source_rate": 44100,
+      "source_bytes": 810020
+    },
+    "wavs/masha_sveta_part6_222.wav": {
+      "source_sha256": "595dbf16816e46ff393704ce4227aa34353efbd3cc2fc15bdd964595fb609a9c",
+      "converted_sha256": "f6c18311550ec4eb99f046bbebf31e0079251cd613f772de32a1b56110e62cdd",
+      "converted_frames": 176122,
+      "source_rate": 44100,
+      "source_bytes": 970916
+    },
+    "wavs/masha_sveta_part6_296.wav": {
+      "source_sha256": "40025756565edb2b0cac04648679b6f2bda334e698382ccd11c890392412a781",
+      "converted_sha256": "52333d9574a7daac4c43cb0a0b4bd7d6862b28de53fcea79b3ff4220ecdb47b5",
+      "converted_frames": 155890,
+      "source_rate": 44100,
+      "source_bytes": 859384
+    },
+    "wavs/masha_sveta_part7_109.wav": {
+      "source_sha256": "989750257780d293075484d4c00212feb9be0ddfad1d27ebc0dce608f5469a72",
+      "converted_sha256": "f3390042f04197e5880bbe29f93f279db1c2a42778376d3099a9187cb59c9cc1",
+      "converted_frames": 92502,
+      "source_rate": 44100,
+      "source_bytes": 509956
+    },
+    "wavs/masha_sveta_part7_158.wav": {
+      "source_sha256": "283172614768f0af66b6364fd05438216c4d0b737f32bc6c209b0d10d2bacd2c",
+      "converted_sha256": "d3dfd60089600bf10e4fb71c31dc70ebf427fa225ed75d54914ea17ebacbcd3b",
+      "converted_frames": 163364,
+      "source_rate": 44100,
+      "source_bytes": 900586
+    },
+    "wavs/masha_sveta_part7_312.wav": {
+      "source_sha256": "61749a942c6e3cf84e4e98caa10d3e497f8a7f75a31c52d8bc387dad60538805",
+      "converted_sha256": "8ab43d6881b25f52048f3e7d93de5a396885faa238ab4c5995ebbb9c24dc323c",
+      "converted_frames": 194862,
+      "source_rate": 44100,
+      "source_bytes": 1074218
+    },
+    "wavs/masha_sveta_part7_342.wav": {
+      "source_sha256": "d80b542eacf36c493d5ea786e86a3654e27faa3ead44b9ccbd52ad94a62d1bf5",
+      "converted_sha256": "4ad96460befa9808e61293a86ce7db93b84c46e06c5a8ec8e245cc0a7b668f2e",
+      "converted_frames": 199667,
+      "source_rate": 44100,
+      "source_bytes": 1100704
+    },
+    "wavs/masha_sveta_part8_316.wav": {
+      "source_sha256": "cd8112ad4697e7f74fca7f23cc4e8ab7f1cff9ac1a36883d09c7e6ffb41072ad",
+      "converted_sha256": "1c29aacd02844324594799510595c9edd8faf0ea23081c0cd914b88e5cffaee7",
+      "converted_frames": 73746,
+      "source_rate": 44100,
+      "source_bytes": 406564
+    },
+    "wavs/masha_sveta_part8_426.wav": {
+      "source_sha256": "287175630bcebaefbcca46569303e76b347f6e4878473c13ee8af77056b1bd87",
+      "converted_sha256": "2d1bfb7735f1d2bd33a15a3ae290d7551c9072473449ee8e590a1e41da5347b0",
+      "converted_frames": 49164,
+      "source_rate": 44100,
+      "source_bytes": 271058
+    },
+    "wavs/masha_sveta_part8_460.wav": {
+      "source_sha256": "8b19e136456f528c8b998c84df0a2d116090790fec1513bb946d453c700c3611",
+      "converted_sha256": "d41b6154bec1251c6f78aa38520a8293e4cb00bf0c4960ba220bbfa73168be0c",
+      "converted_frames": 178774,
+      "source_rate": 44100,
+      "source_bytes": 985532
+    },
+    "wavs/masha_sveta_part9_1192.wav": {
+      "source_sha256": "0af8f9310ef74ca8d710b24836fb5d680bc388cc6ca316c304c2d02a3d7b8484",
+      "converted_sha256": "fe6010c0c4cb758e6403856356b4a500c94da5bcc8d1383e621e392919564fc7",
+      "converted_frames": 42393,
+      "source_rate": 44100,
+      "source_bytes": 233730
+    },
+    "wavs/masha_sveta_part9_1208.wav": {
+      "source_sha256": "593341410a5f7fc2df6c8c4009f3331531f8f3df0db003cee123e2b016a4a22c",
+      "converted_sha256": "765e7b4b5fcd8bdbb372c7e018e09d6b7da213b2ef9b14cf4c15118237cd9740",
+      "converted_frames": 71398,
+      "source_rate": 44100,
+      "source_bytes": 393620
+    },
+    "wavs/masha_sveta_part9_1261.wav": {
+      "source_sha256": "9186e96c061d009d8ee55122f0174e06ee8f655017431b51f9ec263da55ac573",
+      "converted_sha256": "f5ba57054df537c07b383fbf8990ded1fbdd59faf48044bbbd21663d8412b92e",
+      "converted_frames": 59689,
+      "source_rate": 44100,
+      "source_bytes": 329076
+    },
+    "wavs/masha_sveta_part9_1312.wav": {
+      "source_sha256": "ae582caa462d9d943db0955ce617bf584cdebc290d3df579d1373f6589bc1578",
+      "converted_sha256": "fc5d97ce299b338134bc1bea89a1a1e86efcf11521b7a3713fa105bc934d5a03",
+      "converted_frames": 21009,
+      "source_rate": 44100,
+      "source_bytes": 115856
+    },
+    "wavs/masha_sveta_part9_1339.wav": {
+      "source_sha256": "995229d41dc4ae7f9117aaaa0d0672a5f86678ae09cc3b95a5169e4e9b37e586",
+      "converted_sha256": "7f6a68ae750791863106aeb4ecd75c648f505c597a0842001549b77a4d21c596",
+      "converted_frames": 39483,
+      "source_rate": 44100,
+      "source_bytes": 217694
+    },
+    "wavs/masha_sveta_part9_234.wav": {
+      "source_sha256": "da83ecbec9e0c848fa7763fd91c711630fc33a447e40c3405ce8f7648f1132d1",
+      "converted_sha256": "6fcfc2fae9632359492da24328250f5d6cff9e53236a062da18c1a70a2fbc17e",
+      "converted_frames": 55621,
+      "source_rate": 44100,
+      "source_bytes": 306650
+    },
+    "wavs/masha_sveta_part9_238.wav": {
+      "source_sha256": "0f329881b9402686f50427e8aec4879d00a344d16d579c03ff10c703ed16f138",
+      "converted_sha256": "17593f4ce674527f989e5fe7abcd87ca1de664a812ce7e851053d87492560e91",
+      "converted_frames": 71751,
+      "source_rate": 44100,
+      "source_bytes": 395566
+    },
+    "wavs/masha_sveta_part9_48.wav": {
+      "source_sha256": "7a5c81d19478cd4be1360bb4663147540b7af04a111adfcf241e2aef2ff5294e",
+      "converted_sha256": "f010fdbae794d4f6f959885571b4cd02ac8d7b22c1581c7589b81fa425977af6",
+      "converted_frames": 32075,
+      "source_rate": 44100,
+      "source_bytes": 176852
+    },
+    "wavs/masha_sveta_part9_481.wav": {
+      "source_sha256": "4d32d522a95ccc1067c2828741218955b0dfc91a162a88b4a4ce6d0abc8fa7d0",
+      "converted_sha256": "fa9d013b07dd768929c052d24a8532ecf24ff3bc3704a2248569d84dfa7cb94f",
+      "converted_frames": 72141,
+      "source_rate": 44100,
+      "source_bytes": 397720
+    },
+    "wavs/masha_sveta_part9_553.wav": {
+      "source_sha256": "b1e1b1141e9f8e638c8e2fee0d56c37d5dcd834d93982b0361eea92266c4deaa",
+      "converted_sha256": "98e8fdf58617a3a389d324832685584379c5e00a00139e82187478ff28147cc2",
+      "converted_frames": 47599,
+      "source_rate": 44100,
+      "source_bytes": 262428
+    },
+    "wavs/masha_sveta_part9_709.wav": {
+      "source_sha256": "2e9bebd8453560186e1d64ab76b5b42136c106ec938ae7b61255757ccdf8d8a7",
+      "converted_sha256": "14e35c9eb5c027f70b61fc836c8ad3a9194981e6b50d1386fb008147a2f7eb96",
+      "converted_frames": 79021,
+      "source_rate": 44100,
+      "source_bytes": 435642
+    },
+    "wavs/masha_sveta_part9_745.wav": {
+      "source_sha256": "cf20ebc6aba5b239df3550cd6ca7446a029f961d162ac9f88eb488962bec41e9",
+      "converted_sha256": "c74f246f6b0ace180bc497ce7fcf7258b0b7654e86adbafdb0122c3bcf97ad0f",
+      "converted_frames": 45739,
+      "source_rate": 44100,
+      "source_bytes": 252180
+    },
+    "wavs/masha_sveta_part9_770.wav": {
+      "source_sha256": "7e92496adce730aaa80d965c24ae27a24774760328b70c72c374e6517fc59ee5",
+      "converted_sha256": "1191ba67b66caea049677f3b7e5308ffe4460e8c569956d9cb1373841a66a481",
+      "converted_frames": 52064,
+      "source_rate": 44100,
+      "source_bytes": 287042
+    },
+    "wavs/masha_sveta_part9_956.wav": {
+      "source_sha256": "b78bb3f45644c3fa34d4777422a52bd446cf16b5fd95a813f37d9db1ba9e5607",
+      "converted_sha256": "95c353b6e46634608eb68c3df35ce3c44180664e3673ba5c2c9568cfb99aa53f",
+      "converted_frames": 110443,
+      "source_rate": 44100,
+      "source_bytes": 608858
+    }
+  }
+}

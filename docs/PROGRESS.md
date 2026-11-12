@@ -1770,3 +1770,11 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - Paired warmed native benchmark on identical60s/C2 turns:683.844ms to861.335ms median (+25.95%, ~177ms),2 accepted profiles with either budget. This is TitaNet-only emulator cost, not HONOR performance.
 - Initial Linux scorer failed from a slice typo; fixed and covered by fifth selector regression. Windows actualC2 replay26/30 admitted and7/7 correct returning links. Host-only workflow rerun avoids repeating unchanged Android jobs.
 - Evidence: docs/evidence/titanet16-android-validation-20261112.json. No natural-conversation safety/physical endurance claim.
+
+## 2026-11-12: Human actor/style verification, keep global linking disabled
+
+- Dialogs:129 new selected utterances,112 available/17 missing at pinned revision;35 actor/style groups,3 actors,12 styles,711.395s input. OpenRAIL license attached.
+- Native TitaNet:8s cap4/35 admitted versus16s14/35. Candidate11 admitted returns:8 correct links,3 false splits,0 observed false links/mixes;65 correlated negative pairs. Four insufficient groups.
+- Acted studio utterances regrouped by actor/style, not spontaneous C2/DER evidence. Veche forbids voice profiling/re-identification; DAI is access-gated; commercial cards provide no free audio. No access request or third-party contact performed.
+- Decision: keep ordinary global speakerbook OFF. Eligible natural-conversation data and physical endurance remain open.
+- See docs/SPEAKER_LINK_ACCEPTANCE_2026-11-12.md. Eleven existing guards and result accounting passed. No app, threshold or thermal changes.

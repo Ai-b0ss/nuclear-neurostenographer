@@ -1,0 +1,600 @@
+{
+  "schema": "dialogs-actor-emotion-speaker-qa-v1",
+  "status": "COMPLETED",
+  "runtime": "1.12.40",
+  "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+  "plan_sha256": "81e70d31f235f2a2c3e83ed420150f964c65c1216dd5eb01692da9297167479d",
+  "script_sha256": "7ea6bb506ead1679c8c0aa730d60f974e70002aff91bf2c956b76e9c7ff23d80",
+  "groups": 35,
+  "source_clips": 112,
+  "unavailable_selected_clips": 17,
+  "unique_actor_aliases": 3,
+  "summary": {
+    "8": {
+      "book": {
+        "total_expected_profiles": 35,
+        "profiles_consistent": 4,
+        "profiles_rejected_early_late": 27,
+        "profiles_rejected_insufficient_evidence": 4,
+        "first_valid_enrollments": 2,
+        "returning_valid_probes": 2,
+        "correct_returning_links": 2,
+        "returning_false_splits": 0,
+        "new_speaker_false_links": 0,
+        "wrong_returning_links": 0,
+        "speaker_mixes": 0,
+        "in_block_collisions": 0,
+        "distinct_true_voices_admitted": 2,
+        "total_global_ids_created": 2,
+        "returning_recall_accepted": 1.0
+      },
+      "accepted_pairs": {
+        "positive_pairs": 3,
+        "negative_pairs": 3,
+        "positive_above_0_84": 3,
+        "false_rejects_0_84": 0,
+        "false_accepts_0_84": 0,
+        "positive_median": 0.8770405427527038,
+        "negative_max": 0.578846017582556,
+        "negative_p99": 0.57880928456057
+      }
+    },
+    "16": {
+      "book": {
+        "total_expected_profiles": 35,
+        "profiles_consistent": 14,
+        "profiles_rejected_early_late": 17,
+        "profiles_rejected_insufficient_evidence": 4,
+        "first_valid_enrollments": 3,
+        "returning_valid_probes": 11,
+        "correct_returning_links": 8,
+        "returning_false_splits": 3,
+        "new_speaker_false_links": 0,
+        "wrong_returning_links": 0,
+        "speaker_mixes": 0,
+        "in_block_collisions": 0,
+        "distinct_true_voices_admitted": 3,
+        "total_global_ids_created": 6,
+        "returning_recall_accepted": 0.7272727272727273
+      },
+      "accepted_pairs": {
+        "positive_pairs": 26,
+        "negative_pairs": 65,
+        "positive_above_0_84": 21,
+        "false_rejects_0_84": 5,
+        "false_accepts_0_84": 0,
+        "positive_median": 0.8876075915725785,
+        "negative_max": 0.6091090678752625,
+        "negative_p99": 0.6039098795744666
+      }
+    }
+  },
+  "scores": [
+    {
+      "emotion": "neutral",
+      "speaker_alias": "D",
+      "available_seconds": 9.054375,
+      "budgets": {
+        "8": {
+          "agreement": 0.7403879780526136,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7403879780526136,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "neutral",
+      "speaker_alias": "M",
+      "available_seconds": 23.727875,
+      "budgets": {
+        "8": {
+          "agreement": 0.7939813860554392,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8439910492043816,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "neutral",
+      "speaker_alias": "S",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.8760689464882552,
+          "status": "PASS"
+        },
+        "16": {
+          "agreement": 0.9406644003265175,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "angry",
+      "speaker_alias": "D",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.773742402779726,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8616264235137098,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "angry",
+      "speaker_alias": "M",
+      "available_seconds": 20.1220625,
+      "budgets": {
+        "8": {
+          "agreement": 0.6068650935431085,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7690986111445731,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "angry",
+      "speaker_alias": "S",
+      "available_seconds": 15.96375,
+      "budgets": {
+        "8": {
+          "agreement": 0.8435422879108859,
+          "status": "PASS"
+        },
+        "16": {
+          "agreement": 0.8435422879108859,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "arrogance",
+      "speaker_alias": "M",
+      "available_seconds": 15.7114375,
+      "budgets": {
+        "8": {
+          "agreement": 0.6071117419491813,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.6071117419491813,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "arrogance",
+      "speaker_alias": "S",
+      "available_seconds": 5.4721875,
+      "budgets": {
+        "8": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        },
+        "16": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        }
+      }
+    },
+    {
+      "emotion": "disgust",
+      "speaker_alias": "D",
+      "available_seconds": 17.5788125,
+      "budgets": {
+        "8": {
+          "agreement": 0.8271081878625774,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8284146474421573,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "disgust",
+      "speaker_alias": "M",
+      "available_seconds": 23.757625,
+      "budgets": {
+        "8": {
+          "agreement": 0.7614505069709985,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8084894290521976,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "disgust",
+      "speaker_alias": "S",
+      "available_seconds": 20.75075,
+      "budgets": {
+        "8": {
+          "agreement": 0.8594048295692964,
+          "status": "PASS"
+        },
+        "16": {
+          "agreement": 0.8761850380865668,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "fear",
+      "speaker_alias": "D",
+      "available_seconds": 9.285375,
+      "budgets": {
+        "8": {
+          "agreement": 0.7912381272031821,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7912381272031821,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "fear",
+      "speaker_alias": "M",
+      "available_seconds": 2.492625,
+      "budgets": {
+        "8": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        },
+        "16": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        }
+      }
+    },
+    {
+      "emotion": "fear",
+      "speaker_alias": "S",
+      "available_seconds": 5.7574375,
+      "budgets": {
+        "8": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        },
+        "16": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        }
+      }
+    },
+    {
+      "emotion": "happy",
+      "speaker_alias": "D",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.6648183772972032,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8526853952159263,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "happy",
+      "speaker_alias": "M",
+      "available_seconds": 8.7018125,
+      "budgets": {
+        "8": {
+          "agreement": 0.622877188549251,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.622877188549251,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "happy",
+      "speaker_alias": "S",
+      "available_seconds": 27.6948125,
+      "budgets": {
+        "8": {
+          "agreement": 0.7843103735329576,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8915813290711331,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "laughing",
+      "speaker_alias": "D",
+      "available_seconds": 14.7643125,
+      "budgets": {
+        "8": {
+          "agreement": 0.7045958562164252,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7045958562164252,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "laughing",
+      "speaker_alias": "M",
+      "available_seconds": 29.4889375,
+      "budgets": {
+        "8": {
+          "agreement": 0.7643927636678397,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.840148156207168,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "laughing",
+      "speaker_alias": "S",
+      "available_seconds": 20.43625,
+      "budgets": {
+        "8": {
+          "agreement": 0.7568315241416466,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8146921499841878,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "poem",
+      "speaker_alias": "D",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.6160509209669116,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7507956205449504,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "poem",
+      "speaker_alias": "M",
+      "available_seconds": 6.629875,
+      "budgets": {
+        "8": {
+          "agreement": 0.5677151743206044,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.5677151743206044,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "poem",
+      "speaker_alias": "S",
+      "available_seconds": 9.867875,
+      "budgets": {
+        "8": {
+          "agreement": 0.7876354857235797,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7876354857235797,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "sad",
+      "speaker_alias": "D",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.7605034603508389,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8432673914077362,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "sad",
+      "speaker_alias": "M",
+      "available_seconds": 26.5056875,
+      "budgets": {
+        "8": {
+          "agreement": 0.6282130770921062,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8057007746225335,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "sad",
+      "speaker_alias": "S",
+      "available_seconds": 17.6956875,
+      "budgets": {
+        "8": {
+          "agreement": 0.6934495959286798,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.684270014715928,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "sgorogovrki",
+      "speaker_alias": "D",
+      "available_seconds": 26.475375,
+      "budgets": {
+        "8": {
+          "agreement": 0.8322178896117334,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.896027709210633,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "sgorogovrki",
+      "speaker_alias": "M",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.8460534802126218,
+          "status": "PASS"
+        },
+        "16": {
+          "agreement": 0.9388199151688761,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "sgorogovrki",
+      "speaker_alias": "S",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.7933354987385017,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8704467299675223,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "surprise",
+      "speaker_alias": "D",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.5094780393463092,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8481305529479733,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "surprise",
+      "speaker_alias": "M",
+      "available_seconds": 32.0,
+      "budgets": {
+        "8": {
+          "agreement": 0.7186161078363242,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.8535743271827514,
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "emotion": "surprise",
+      "speaker_alias": "S",
+      "available_seconds": 15.1604375,
+      "budgets": {
+        "8": {
+          "agreement": 0.7690513004418041,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7690513004418041,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "whisper",
+      "speaker_alias": "D",
+      "available_seconds": 24.5668125,
+      "budgets": {
+        "8": {
+          "agreement": 0.39349499050427117,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.39862673688028843,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "whisper",
+      "speaker_alias": "M",
+      "available_seconds": 22.0018125,
+      "budgets": {
+        "8": {
+          "agreement": 0.628214121926286,
+          "status": "AGREEMENT_REJECT"
+        },
+        "16": {
+          "agreement": 0.7366548365763255,
+          "status": "AGREEMENT_REJECT"
+        }
+      }
+    },
+    {
+      "emotion": "whisper",
+      "speaker_alias": "S",
+      "available_seconds": 3.7305625,
+      "budgets": {
+        "8": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        },
+        "16": {
+          "status": "INSUFFICIENT_CLEAN_SPEECH"
+        }
+      }
+    }
+  ],
+  "wall_seconds": 14.64,
+  "limits": [
+    "Acted studio utterances regrouped by actor/emotion, not spontaneous dialogue or continuous meeting.",
+    "Only three source actors; aliases are dataset labels, not real-person identification.",
+    "Utterance labels assumed correct; pauses/possible contamination retained; not oracle clean-speech timing.",
+    "No C2, ASR, DER, Android or thermal test. Host sherpa1.12.40 differs from Android1.12.20.",
+    "Neutral first then alphabetic emotions; no threshold tuning. Results are correlated and not population safety.",
+    "Source license OpenRAIL applies; no recordings, embeddings or transcript text exported."
+  ]
+}
