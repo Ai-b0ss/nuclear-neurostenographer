@@ -1,4 +1,4 @@
-"""Research-only dual-anchor replay. No threshold reduction or new inconsistent enrollment."""
+"""Dual-anchor return-only replay, verified against the Kotlin book. No new inconsistent enrollment."""
 from evaluate_russian_bookmix_voice_link import normalized
 def simulate(clips,np):
     entries=[];truth_ids={};next_id=1

@@ -1832,3 +1832,10 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 ## PC quality continuation after HONOR testing suspended
 
 Owner requested that physical heating must not block system development. No further physical endurance run or cooling-pause implementation. Fresh current-source C2 inference on3 Veche hard recordings (848.247 s,2/3/5 speakers) completed on PC; correct speaker counts3/3, pooled DER6.787% without collar and2.778% at250 ms, overlap included. Scripted human speech, not spontaneous or a new unseen holdout. [Evidence and limitations](PC_QUALITY_CHECKPOINT_2026-11-13.md). Global identity remains disabled.
+
+
+## Current host speaker-book reporting (13 November 2026)
+
+Fixed the main host/oracle report to retain both temporal embeddings and execute the current dual-anchor return-only policy instead of rejecting disagreements before matching. Historical admission-only comparisons remain separate. Added policy/source fingerprints, rescue/unassigned counts and recall over all returning appearances.25 isolated Python regressions and actionlint passed. Fresh15-minute C2+TitaNet host suite completed in125.453 s:26/30 assigned,4 unassigned,7/7 returns, no observed false links. This reproduces the already merged16-second extraction/dual-anchor behavior; reporting changes alone do not improve recognition. [Evidence](evidence/speakerbook-current-policy-20261113.json). No phone access or ordinary feature enablement.
+
+Fresh three-way parity also passed: the current report, existing replay and actual Kotlin GlobalSpeakerBook agree on72 assignments in47 blocks across3 real-model snapshots. Temporary local vectors were deleted after successful verification. Fast policy CI43323729088 and Android/core/export/packaging CI43323728899 both pass on40830eaa; follow-up metadata retains identical runtime sources.

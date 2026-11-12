@@ -36,6 +36,7 @@ jobs:
           python -m unittest discover -s tools -p test_speakerbook_offdevice.py -v
           python -m unittest discover -s tools -p test_titanet_diagnosis.py -v
           python -m unittest discover -s tools -p test_dual_anchor_policy.py -v
+          python -m unittest discover -s tools -p test_russian_bookmix_validation.py -v
       - name: Fetch frozen public Russian sample and checksum-pinned models
         run: python tools/provision_speakerbook_qa.py --host
       - name: Run actual product C2 and TitaNet (not a phone test)

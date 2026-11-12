@@ -7,6 +7,8 @@ real source voice for error scoring. Not a mobile Android claim.
 import argparse,hashlib,json,sys,time
 from pathlib import Path
 
+from current_speaker_policy import replay as current_book_replay
+
 REPO=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(REPO/"tools"))
 from score_transcript import der
@@ -106,6 +108,7 @@ def main():
                     early=embed(blocks[parts[0]].ravel())
                     late=embed(blocks[parts[1]].ravel())
                     agreement=cosine(early,late,np)
+                    row.update(early=early,late=late)
                     if agreement<.84:
                         row["valid"]="AGREEMENT_REJECT"
                     else:
@@ -118,7 +121,7 @@ def main():
         print("C2_TITANET",stem,"profiled",sum(p["valid"]=="PASS" for p in profile),
               "purity",[round(x["purity"],3) for x in purities[-len(ids):]],
               "elapsed",round(time.monotonic()-t0,1),flush=True)
-    metrics,events=global_book_simulation(clips,np)
+    metrics,events=current_book_replay(clips,np)
     accepted=[p for rec in clips for p in rec["profiles"] if p["valid"]=="PASS"]
     result={
         "schema":"bookmix-c2-titanet-global-link-v1",
@@ -137,7 +140,8 @@ def main():
         "two_excerpts_global_link":metrics,
         "pairwise_accepted":calculate_pairs(accepted,np),
         "model_runtime":"sherpa-onnx "+str(getattr(sherpa_onnx,"__version__","unknown")),
-        "source_code_modes":"C2 product TSV, pinned threshold .84 and margin .07, no threshold training",
+        "identity_policy_sources":{n:hashlib.sha256((REPO/n).read_bytes()).hexdigest() for n in ("tools/current_speaker_policy.py","tools/dual_anchor_policy.py","core/src/main/kotlin/ru/neurostenographer/core/GlobalSpeakerBook.kt")},
+        "source_code_modes":"C2 product TSV, current dual-anchor return-only policy, pinned .84/.07 gates",
         "limitations":[
             "The global linking and TitaNet samples are replayed on a host computer, not executed inside Android",
             "C2 turns (actual model outputs) are used to extract voiceprints. RTTM is only used to map clusters to reference voice labels for scoring",
