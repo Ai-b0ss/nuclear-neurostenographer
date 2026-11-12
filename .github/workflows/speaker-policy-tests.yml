@@ -1,0 +1,36 @@
+name: Speaker policy replay tests
+on:
+  pull_request:
+    paths:
+      - 'tools/*speaker*policy*.py'
+      - 'tools/dual_anchor_policy.py'
+      - 'tools/test_dual_anchor_policy.py'
+      - 'tools/*russian_bookmix*.py'
+      - 'tools/run_speakerbook_host_qa.py'
+      - '.github/workflows/speaker-policy-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/*speaker*policy*.py'
+      - 'tools/dual_anchor_policy.py'
+      - 'tools/test_dual_anchor_policy.py'
+      - 'tools/*russian_bookmix*.py'
+      - 'tools/run_speakerbook_host_qa.py'
+      - '.github/workflows/speaker-policy-tests.yml'
+permissions:
+  contents: read
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy==1.26.4
+      - name: Verify current and historical scoring policies
+        run: |
+          python -m unittest discover -s tools -p test_russian_bookmix_validation.py -v
+          python -m unittest discover -s tools -p test_dual_anchor_policy.py -v
+          python -m unittest discover -s tools -p test_speakerbook_offdevice.py -v

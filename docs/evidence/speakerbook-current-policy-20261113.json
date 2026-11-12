@@ -1,0 +1,62 @@
+{
+  "schema": "speakerbook-current-policy-pc-v1",
+  "date": "2026-11-13",
+  "summary": {
+    "schema": "speakerbook-offdevice-host-v1",
+    "run_id": "d9bf3c2d2d284eb3a5fbd1c6e5889947",
+    "status": "COMPLETED",
+    "execution_environment": "Windows-10-10.0.19045-SP0",
+    "android_test": false,
+    "device_thermal_acceptance": false,
+    "quality_release_gate": "NOT_ESTABLISHED",
+    "stage": "done",
+    "recordings": 15,
+    "audio_seconds": 900,
+    "der_250ms": 0.03200165436662315,
+    "speaker_link": {
+      "policy": "dual_anchor_return_only_v1",
+      "total_expected_profiles": 30,
+      "profiles_consistent": 26,
+      "profiles_assigned": 26,
+      "profiles_unassigned": 4,
+      "profiles_rejected_early_late": 4,
+      "profiles_rejected_insufficient_evidence": 0,
+      "profiles_rescued_against_existing_anchor": 0,
+      "first_valid_enrollments": 19,
+      "returning_valid_probes": 7,
+      "returning_expected_probes": 7,
+      "correct_returning_links": 7,
+      "returning_false_splits": 0,
+      "new_speaker_false_links": 0,
+      "wrong_returning_links": 0,
+      "speaker_mixes": 0,
+      "in_block_collisions": 0,
+      "distinct_true_voices_admitted": 19,
+      "total_global_ids_created": 19,
+      "returning_recall_accepted": 1.0,
+      "returning_appearance_recall": 1.0
+    },
+    "speaker_link_policy": "dual_anchor_return_only_v1",
+    "runtime": "sherpa-onnx 1.12.40",
+    "limitations": [
+      "The global linking and TitaNet samples are replayed on a host computer, not executed inside Android",
+      "C2 turns (actual model outputs) are used to extract voiceprints. RTTM is only used to map clusters to reference voice labels for scoring",
+      "When a C2 cluster contains both speakers, Hungarian label alone can conceal confusion; purity metric reports its extent",
+      "This is a 15-minute subset split into 15 one-minute files, not 20+ minute continuous processing",
+      "Synthetic audiobook voices and generator RTTM are not a human-labeled natural Russian conversation",
+      "Small sample, repeated voices correlated, model pretraining overlap not excluded"
+    ],
+    "wall_seconds": 125.453
+  },
+  "identity_policy_sources": {
+    "tools/current_speaker_policy.py": "c53ad18e2547cfbb2e33a22a9b55e4cd21c1a26be4a4b7853709722ca8f2a44a",
+    "tools/dual_anchor_policy.py": "ef7fb86e4fb1642570bcc2e17c3ed6c750826b63dbffc8b3000239fb0ea7cacb",
+    "core/src/main/kotlin/ru/neurostenographer/core/GlobalSpeakerBook.kt": "4e24733394705086458f280bd774dd18160e2e1dc8cdbc8bc5acd4589a5470af"
+  },
+  "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+  "input_c2_source_sha256": "9a03b79a2478c0ecdf239828a55a4058d69280b066dd1523ee8a3f62f30e5037",
+  "source_manifest_sha256": "2f1e26fe123afe43e76b96cd49fd62e75bdb94c2f056c1fc7fa43c981de46a6c",
+  "unit_tests_passed": 25,
+  "actionlint": "PASS",
+  "claim": "Current reporting correction, not a new model improvement or independent population validation"
+}

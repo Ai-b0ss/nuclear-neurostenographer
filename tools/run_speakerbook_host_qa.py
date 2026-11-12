@@ -75,6 +75,7 @@ def main():
         state.update(status="COMPLETED", stage="done", recordings=len(rows),
                      audio_seconds=900, der_250ms=der["pooled_der_250ms_including_overlap"],
                      speaker_link=link["two_excerpts_global_link"],
+                     speaker_link_policy=link["two_excerpts_global_link"]["policy"],
                      runtime=link["model_runtime"],
                      limitations=link["limitations"])
     except BaseException as error:

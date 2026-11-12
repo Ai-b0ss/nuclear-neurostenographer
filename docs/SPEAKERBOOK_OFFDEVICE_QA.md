@@ -111,3 +111,13 @@ All five jobs passed in Actions run 43174151953, runtime code cac43214.
 
 The long case kept 21 uncertain speaker segments. Functional checks do not
 establish WER/cpWER, population identity accuracy or physical thermal readiness.
+
+## Current policy replay correction (13 November 2026)
+
+The main host summary now uses the current dual-anchor return-only policy. Both raw temporal embeddings survive extraction until matching: inconsistent evidence may reuse a separately established anchor, but cannot enroll or move an anchor. The historical admission-only simulator remains explicitly historical for old comparisons.
+
+Fresh15-minute C2 inference plus TitaNet replay produced26/30 assigned profiles,4 unassigned and7/7 correct returning links, with no observed wrong-person links. This is the existing correlated synthetic audiobook regression set, not a new holdout or population identity certification. The earlier12/30 result used8-second excerpts; the already merged16-second extraction explains that availability difference. The new reporting correction alone does not improve model accuracy.
+
+Summary metadata names the policy and fingerprints its Python and Kotlin sources. Both conditional returning recall and recall over ALL returning appearances are reported, so rejected returns cannot disappear from the denominator. Six additional regressions exercise rescue, missing evidence, one contaminated half, same-block self-validation, false-link scoring and the denominator. Fast policy CI needs no models, Android emulator or phone. Ordinary global linking remains disabled.
+
+[Fresh current-policy PC evidence](evidence/speakerbook-current-policy-20261113.json).

@@ -15,6 +15,8 @@ import sys
 import time
 from pathlib import Path
 
+from current_speaker_policy import replay as current_book_replay
+
 REPO=Path(__file__).resolve().parents[1]
 SHA_TITANET="ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e"
 
@@ -97,7 +99,7 @@ def calculate_pairs(records,np):
 
 
 def global_book_simulation(clips,np):
-    """Faithfully reproduce GlobalSpeakerBook Kotlin matching and in-block collision."""
+    """Historical consistent-enrollment baseline; excludes current dual-anchor rescues."""
     entries=[];n=1
     truth_to_ids={}
     outcome={
@@ -238,6 +240,7 @@ def main():
                     early=embed(framearray[frames[0]].flatten())
                     late=embed(framearray[frames[1]].flatten())
                     agreement=cosine(early,late,np)
+                    row.update(early=early,late=late)
                     row["early_late_cosine"]=agreement
                     if agreement<.84:
                         row["valid"]="AGREEMENT_REJECT"
@@ -255,8 +258,8 @@ def main():
     solo=results[:55]
     all_profiles=[p for rec in results for p in rec["profiles"] if p["valid"]=="PASS"]
     solo_profiles=[p for rec in solo for p in rec["profiles"] if p["valid"]=="PASS"]
-    full,events=global_book_simulation(results,np)
-    first55,_=global_book_simulation(solo,np)
+    full,events=current_book_replay(results,np)
+    first55,_=current_book_replay(solo,np)
     summary={
         "schema":"russian-bookmix-speaker-link-oracle-qa-v1",
         "date":"2026-11-12",
@@ -269,6 +272,7 @@ def main():
         "source_manifest_sha256":manifest["source_manifest_sha256"],
         "model_sha256":sha256(args.model),
         "model_runtime":"sherpa-onnx "+str(getattr(sherpa_onnx,"__version__","unknown")),
+        "identity_policy_sources":{n:hashlib.sha256((REPO/n).read_bytes()).hexdigest() for n in ("tools/current_speaker_policy.py","tools/dual_anchor_policy.py","core/src/main/kotlin/ru/neurostenographer/core/GlobalSpeakerBook.kt")},
         "thresholds_frozen":{"early_late_cosine":.84,"link_cosine":.84,"link_margin":.07},
         "turns":"ORACLE generator RTTM, not the actual Nemotron C2 output",
         "solo_pairwise":calculate_pairs(solo_profiles,np),

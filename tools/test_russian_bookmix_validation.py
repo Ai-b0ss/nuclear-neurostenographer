@@ -109,4 +109,67 @@ class RttmDerTest(unittest.TestCase):
             score=der(truth,generated,60000,0,False)
             self.assertGreater(score["rate"],0)
 
+class CurrentPolicyReportTests(unittest.TestCase):
+    @staticmethod
+    def paired(local, truth, first=0, last=0):
+        def vector(degrees):
+            angle=np.deg2rad(degrees)
+            return np.array([np.cos(angle),np.sin(angle),0.0])
+        early,late=vector(first),vector(last)
+        return {"local":local,"truth":truth,"early":early,"late":late,
+                "v":normalized(early+late,np),
+                "valid":"PASS" if float(early@late)>=.84 else "AGREEMENT_REJECT"}
+
+    def replay(self, clips):
+        from current_speaker_policy import replay
+        return replay(clips,np)
+
+    def test_disagreeing_return_reuses_existing_anchor(self):
+        clips=[{"id":"seed","profiles":[self.paired("a","A")]},
+               {"id":"return","profiles":[self.paired("r","A",30,-20)]}]
+        legacy,_=global_book_simulation(clips,np)
+        report,events=self.replay(clips)
+        self.assertEqual(legacy["correct_returning_links"],0)
+        self.assertEqual(report["policy"],"dual_anchor_return_only_v1")
+        self.assertEqual(report["profiles_rescued_against_existing_anchor"],1)
+        self.assertEqual(report["correct_returning_links"],1)
+        self.assertEqual(report["total_global_ids_created"],1)
+        self.assertEqual(report["profiles_rejected_early_late"],0)
+        self.assertEqual(events[-1]["id"],"Speaker 1")
+
+    def test_unassigned_returns_remain_in_recall_denominator(self):
+        clips=[{"id":"seed","profiles":[self.paired("a","A")]},
+               {"id":"good","profiles":[self.paired("a","A")]},
+               {"id":"bad","profiles":[self.paired("a","A",0,90)]}]
+        report,_=self.replay(clips)
+        self.assertEqual(report["returning_expected_probes"],2)
+        self.assertEqual(report["returning_valid_probes"],1)
+        self.assertEqual(report["profiles_unassigned"],1)
+        self.assertEqual(report["returning_recall_accepted"],1.0)
+        self.assertEqual(report["returning_appearance_recall"],.5)
+
+    def test_pair_cannot_validate_itself_or_same_block_anchor(self):
+        clips=[{"id":"one","profiles":[self.paired("a","A"),self.paired("b","A",30,-20)]}]
+        report,events=self.replay(clips)
+        self.assertEqual(report["profiles_assigned"],1)
+        self.assertEqual(report["profiles_rescued_against_existing_anchor"],0)
+        self.assertIsNone(next(e for e in events if e["local"]=="b")["id"])
+
+    def test_current_report_rejects_missing_halves(self):
+        with self.assertRaisesRegex(ValueError,"both temporal"):
+            self.replay([{"id":"one","profiles":[profile("a","A",[1,0,0])]}])
+
+    def test_status_cannot_bypass_raw_pair_consistency(self):
+        p=self.paired("a","A",0,90);p["valid"]="PASS"
+        report,_=self.replay([{"id":"one","profiles":[p]}])
+        self.assertEqual(report["profiles_assigned"],0)
+        self.assertEqual(report["profiles_rejected_early_late"],1)
+
+    def test_wrong_person_rescue_is_counted(self):
+        report,_=self.replay([{"id":"seed","profiles":[self.paired("a","A")]},
+              {"id":"impostor","profiles":[self.paired("b","B",30,-20)]}])
+        self.assertEqual(report["new_speaker_false_links"],1)
+        self.assertEqual(report["speaker_mixes"],1)
+
+
 if __name__=="__main__":unittest.main()
