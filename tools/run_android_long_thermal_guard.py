@@ -89,9 +89,10 @@ def cpu_temperature(adb,serial):
     return parse_cpu_thermal(p.stdout)
 
 
-def stop_qa(adb,serial):
+def stop_qa(adb,serial,*,power=False):
     results=[]
-    for pkg in (QA_PACKAGE,TEST_PACKAGE):
+    packages=("ru.neurostenographer.app.solhigh", "ru.neurostenographer.app.solhigh.test") if power else (QA_PACKAGE,TEST_PACKAGE)
+    for pkg in packages:
         try:
             p=adb_call(adb,serial,"shell","am","force-stop",pkg,timeout=8)
             results.append({"package":pkg,"success":p.returncode==0})
@@ -100,33 +101,36 @@ def stop_qa(adb,serial):
     return results
 
 
-def remaining_qa_processes(ps_text):
+def remaining_qa_processes(ps_text,*,power=False):
     """Return only exact QA package names or their secondary processes."""
     found=[]
+    package="ru.neurostenographer.app.solhigh" if power else QA_PACKAGE
+    test_package=package+".test"
     for line in ps_text.splitlines():
         parts=line.split()
         if not parts:
             continue
         name=parts[-1]
-        if (name in (QA_PACKAGE, TEST_PACKAGE) or
-                name.startswith(QA_PACKAGE+":") or
-                name.startswith(TEST_PACKAGE+":")):
+        if (name in (package, test_package) or
+                name.startswith(package+":") or
+                name.startswith(test_package+":")):
             found.append(name)
     return sorted(set(found))
 
 
-def verify_qa_stopped(adb,serial):
+def verify_qa_stopped(adb,serial,*,power=False):
     p=adb_call(adb,serial,"shell","ps","-A")
     if p.returncode:
         return {"verified":False,"error":"Cannot inspect device process table"}
-    running=remaining_qa_processes(p.stdout)
+    running=remaining_qa_processes(p.stdout,power=power)
     return {"verified":True,"remaining":running,"stopped":not running}
 
 
 def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
-    # Restricted to two QA-only JUnit classes in the isolated application.
+    # Restricted to explicit QA-only JUnit classes in the isolated application.
     cases={
         "long":TEST_CLASS,
+        "power":"ru.neurostenographer.app.BatchPowerDeviceTest",
         "cross":"ru.neurostenographer.app.CrossWindowSpeakerBookDeviceTest",
     }
     if test_case not in cases:
@@ -138,11 +142,16 @@ def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
              "-w","-r","-e","class",cases[test_case]]
     if qa_mode is not None:
         command.extend(["-e","qaMode",qa_mode])
-    command.append(RUNNER)
+    if test_case=="power":
+        command.extend(["-e","batchPowerQa","honor_short"])
+        command.append("ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
+    else:
+        command.append(RUNNER)
     return command,cases[test_case]
 
 
 def run(a):
+    power=getattr(a,"test_case","long")=="power"
     battery_cutoff=int(getattr(a,"cutoff_tenths",450))
     battery_start=int(getattr(a,"start_max_tenths",390))
     battery_warning=int(getattr(a,"battery_warning_tenths",min(430,battery_cutoff-10)))
@@ -193,7 +202,7 @@ def run(a):
                 time.sleep(a.poll_s)
                 if time.monotonic()-started>a.limit_s:
                     report["status"]="HOST_TIMEOUT_ABORT"
-                    report["forced_stop"]=stop_qa(a.adb,a.serial)
+                    report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
                     break
                 try:
                     t,level=temperature(a.adb,a.serial)
@@ -201,7 +210,7 @@ def run(a):
                 except Exception as e:
                     report["status"]="THERMAL_TELEMETRY_LOST_ABORT"
                     report["error"]=type(e).__name__+": "+str(e)[:180]
-                    report["forced_stop"]=stop_qa(a.adb,a.serial)
+                    report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
                     break
                 report["max_temperature_c"]=max(report["max_temperature_c"],t/10)
                 report["max_cpu_temperature_c"]=max(report["max_cpu_temperature_c"],thermal["max_c"])
@@ -220,7 +229,7 @@ def run(a):
                         "cpu_sensors_c":thermal["sensors_c"],
                         "android_thermal_status":thermal["android_status"],
                         "max_cpu_sensor_status":thermal.get("max_sensor_status",0)}
-                    report["forced_stop"]=stop_qa(a.adb,a.serial)
+                    report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
                     break
                 if (t>=battery_warning or thermal["max_c"]>=cpu_warning or
                     thermal["android_status"]>=2 or thermal.get("max_sensor_status",0)>=2):
@@ -232,7 +241,7 @@ def run(a):
                     print("THERMAL_WARNING "+json.dumps(warning),flush=True)
             try:proc.wait(timeout=12)
             except subprocess.TimeoutExpired:
-                report["forced_stop"]=stop_qa(a.adb,a.serial)
+                report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
                 proc.terminate()
                 try:proc.wait(timeout=4)
                 except subprocess.TimeoutExpired:proc.kill()
@@ -250,9 +259,9 @@ def run(a):
         # Always force-stop our isolated QA packages, including when adb's
         # local client exits prematurely while native Android workers remain.
         # Never force-stop the ordinary product application.
-        report["forced_stop"]=stop_qa(a.adb,a.serial)
+        report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
         try:
-            report["cleanup_verified"]=verify_qa_stopped(a.adb,a.serial)
+            report["cleanup_verified"]=verify_qa_stopped(a.adb,a.serial,power=power)
         except Exception as cleanup_error:
             report["cleanup_verified"]={
                 "verified":False,"error":type(cleanup_error).__name__+
@@ -280,7 +289,7 @@ if __name__=="__main__":
     parser.add_argument("--cpu-start-max-c",type=float,default=65.0)
     parser.add_argument("--poll-s",type=float,default=2)
     parser.add_argument("--limit-s",type=int,default=900)
-    parser.add_argument("--test-case",choices=("long","cross"),default="long")
+    parser.add_argument("--test-case",choices=("long","cross","power"),default="long")
     parser.add_argument("--qa-mode",choices=("repeat","differentSources","withoutModel"),
                         default=None)
     args=parser.parse_args()

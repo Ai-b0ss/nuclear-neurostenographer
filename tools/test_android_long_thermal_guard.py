@@ -10,6 +10,22 @@ from run_android_long_thermal_guard import (parse_battery, remaining_qa_processe
 
 
 class ThermalWatchdogTests(unittest.TestCase):
+    def test_short_power_route_is_only_solhigh_and_is_opt_in(self):
+        command,name=watchdog.instrumentation_command(Path("adb"),"HONOR","power")
+        self.assertEqual(name,"ru.neurostenographer.app.BatchPowerDeviceTest")
+        self.assertEqual(command[-1],"ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
+        self.assertEqual(command[-4:-1],["-e","batchPowerQa","honor_short"])
+        with self.assertRaises(ValueError):
+            watchdog.instrumentation_command(Path("adb"),"HONOR","power","repeat")
+        with patch.object(watchdog,"adb_call",return_value=SimpleNamespace(returncode=0)) as adb:
+            watchdog.stop_qa("adb","HONOR",power=True)
+            self.assertEqual([c.args[-1] for c in adb.call_args_list],
+                ["ru.neurostenographer.app.solhigh","ru.neurostenographer.app.solhigh.test"])
+        self.assertEqual(watchdog.remaining_qa_processes(
+            "x ru.neurostenographer.app\nx ru.neurostenographer.app.solhigh_fake\n"
+            "x ru.neurostenographer.app.solhigh:diarization",power=True),
+            ["ru.neurostenographer.app.solhigh:diarization"])
+
     def test_normal_battery(self):
         self.assertEqual(parse_battery("  level: 83\n  temperature: 368\n"),(368,83))
         self.assertEqual(parse_battery("temperature: 420\nlevel: 40"),(420,40))
@@ -49,8 +65,8 @@ class ThermalWatchdogTests(unittest.TestCase):
                   patch.object(watchdog,"verify_qa_stopped",return_value={
                       "verified":True,"stopped":True,"remaining":[]}) as verified):
                 self.assertEqual(watchdog.run(cfg),1)
-                stopped.assert_called_once_with(cfg.adb,cfg.serial)
-                verified.assert_called_once_with(cfg.adb,cfg.serial)
+                stopped.assert_called_once_with(cfg.adb,cfg.serial,power=False)
+                verified.assert_called_once_with(cfg.adb,cfg.serial,power=False)
                 saved=json.loads(log.with_suffix(".status.json").read_text())
                 self.assertEqual(saved["status"],"FAIL")
                 self.assertTrue(saved["cleanup_verified"]["stopped"])
