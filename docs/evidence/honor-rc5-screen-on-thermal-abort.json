@@ -1,0 +1,851 @@
+{
+  "scope": "PHYSICAL_HONOR_RC5_SCREEN_ON_THERMAL_ABORT",
+  "status": "THERMAL_ABORT",
+  "configuration": {
+    "batch_asr_threads": 4,
+    "global_speakerbook": false,
+    "screen": "ON"
+  },
+  "last_device_progress": {
+    "status": "RUNNING",
+    "scope": "HONOR_ARM64_20M40S_ENDURANCE",
+    "audio_ms": 1240000,
+    "global_speakerbook": false,
+    "version": "0.4.1-rc5",
+    "realtime_compiled": true,
+    "sdk": 29,
+    "model": "DNN-LX9",
+    "foreground_activity_launched": true,
+    "elapsed_ms": 165908,
+    "processing_stage": 3,
+    "progress": 0.6000000238418579
+  },
+  "watchdog": {
+    "test": "ru.neurostenographer.app.BatchLongPowerDeviceTest",
+    "qa_only": true,
+    "qa_mode": null,
+    "initial_temperature_c": 34.0,
+    "initial_battery_percent": 82,
+    "max_temperature_c": 40.0,
+    "watchdog_cutoff_c": 45.0,
+    "battery_warning_c": 43.0,
+    "initial_cpu_temperatures_c": {
+      "cluster0": 35.0,
+      "cluster1": 35.0
+    },
+    "max_cpu_temperature_c": 78.0,
+    "max_cpu_temperatures_by_sensor_c": {
+      "cluster0": 66.0,
+      "cluster1": 78.0
+    },
+    "cpu_warning_c": 75.0,
+    "cpu_cutoff_c": 78.0,
+    "initial_android_thermal_status": 0,
+    "max_android_thermal_status": 0,
+    "max_cpu_sensor_status": 0,
+    "status": "THERMAL_ABORT",
+    "warnings": [
+      {
+        "elapsed_s": 143.3,
+        "battery_c": 39.0,
+        "cpu_max_c": 75.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 145.6,
+        "battery_c": 39.0,
+        "cpu_max_c": 75.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 147.8,
+        "battery_c": 39.0,
+        "cpu_max_c": 75.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 150.1,
+        "battery_c": 39.0,
+        "cpu_max_c": 76.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 152.3,
+        "battery_c": 39.0,
+        "cpu_max_c": 76.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 154.5,
+        "battery_c": 39.0,
+        "cpu_max_c": 76.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 156.8,
+        "battery_c": 39.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 159.0,
+        "battery_c": 40.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 161.3,
+        "battery_c": 40.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 163.5,
+        "battery_c": 40.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 165.8,
+        "battery_c": 40.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 168.0,
+        "battery_c": 40.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 170.2,
+        "battery_c": 40.0,
+        "cpu_max_c": 77.0,
+        "android_status": 0
+      }
+    ],
+    "thermal_samples": [
+      {
+        "elapsed_s": 2.17,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 38.0,
+          "cluster1": 41.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 4.39,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 40.0,
+          "cluster1": 43.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 6.59,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 40.0,
+          "cluster1": 43.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 8.83,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 41.0,
+          "cluster1": 44.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 11.05,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 41.0,
+          "cluster1": 43.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 13.3,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 40.0,
+          "cluster1": 42.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 15.52,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 44.0,
+          "cluster1": 51.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 17.73,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 45.0,
+          "cluster1": 53.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 19.95,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 49.0,
+          "cluster1": 58.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 22.19,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 50.0,
+          "cluster1": 55.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 24.44,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 51.0,
+          "cluster1": 60.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 26.67,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 51.0,
+          "cluster1": 61.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 28.89,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 51.0,
+          "cluster1": 60.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 31.12,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 52.0,
+          "cluster1": 61.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 33.36,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 51.0,
+          "cluster1": 61.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 35.58,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 53.0,
+          "cluster1": 62.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 37.81,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 53.0,
+          "cluster1": 61.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 40.05,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 54.0,
+          "cluster1": 64.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 42.3,
+        "battery_c": 34.0,
+        "cpu_sensors_c": {
+          "cluster0": 53.0,
+          "cluster1": 57.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 44.55,
+        "battery_c": 36.0,
+        "cpu_sensors_c": {
+          "cluster0": 54.0,
+          "cluster1": 63.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 46.8,
+        "battery_c": 36.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 64.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 49.05,
+        "battery_c": 36.0,
+        "cpu_sensors_c": {
+          "cluster0": 54.0,
+          "cluster1": 64.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 51.28,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 65.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 53.5,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 64.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 55.75,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 57.98,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 54.0,
+          "cluster1": 63.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 60.23,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 65.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 62.45,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 53.0,
+          "cluster1": 61.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 64.69,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 66.95,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 52.0,
+          "cluster1": 57.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 69.2,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 71.45,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 58.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 73.7,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 75.95,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 78.2,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 80.47,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 59.0,
+          "cluster1": 67.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 82.72,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 65.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 84.95,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 57.0,
+          "cluster1": 65.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 87.19,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 65.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 89.44,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 57.0,
+          "cluster1": 67.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 91.67,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 54.0,
+          "cluster1": 58.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 93.91,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 57.0,
+          "cluster1": 68.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 96.16,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 68.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 98.41,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 67.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 100.66,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 68.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 102.91,
+        "battery_c": 37.0,
+        "cpu_sensors_c": {
+          "cluster0": 57.0,
+          "cluster1": 65.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 105.16,
+        "battery_c": 38.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 69.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 107.41,
+        "battery_c": 38.0,
+        "cpu_sensors_c": {
+          "cluster0": 57.0,
+          "cluster1": 66.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 109.66,
+        "battery_c": 38.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 68.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 111.92,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 64.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 114.17,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 67.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 116.44,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 55.0,
+          "cluster1": 60.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 118.7,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 58.0,
+          "cluster1": 68.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 120.95,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 56.0,
+          "cluster1": 59.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 123.19,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 50.0,
+          "cluster1": 54.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 125.42,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 49.0,
+          "cluster1": 52.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 127.66,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 47.0,
+          "cluster1": 50.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 129.89,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 48.0,
+          "cluster1": 49.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 132.12,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 51.0,
+          "cluster1": 59.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 134.36,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 57.0,
+          "cluster1": 68.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 136.61,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 59.0,
+          "cluster1": 71.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 138.86,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 60.0,
+          "cluster1": 73.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 141.09,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 61.0,
+          "cluster1": 74.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 143.33,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 62.0,
+          "cluster1": 75.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 145.58,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 65.0,
+          "cluster1": 75.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 147.81,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 64.0,
+          "cluster1": 75.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 150.06,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 63.0,
+          "cluster1": 76.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 152.3,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 64.0,
+          "cluster1": 76.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 154.55,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 64.0,
+          "cluster1": 76.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 156.78,
+        "battery_c": 39.0,
+        "cpu_sensors_c": {
+          "cluster0": 64.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 159.03,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 66.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 161.28,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 64.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 163.53,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 65.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 165.77,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 64.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 168.02,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 65.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 170.25,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 65.0,
+          "cluster1": 77.0
+        },
+        "android_status": 0
+      },
+      {
+        "elapsed_s": 172.53,
+        "battery_c": 40.0,
+        "cpu_sensors_c": {
+          "cluster0": 65.0,
+          "cluster1": 78.0
+        },
+        "android_status": 0
+      }
+    ],
+    "trigger": {
+      "battery_c": 40.0,
+      "cpu_max_c": 78.0,
+      "cpu_sensors_c": {
+        "cluster0": 65.0,
+        "cluster1": 78.0
+      },
+      "android_thermal_status": 0,
+      "max_cpu_sensor_status": 0
+    },
+    "forced_stop": [
+      {
+        "package": "ru.neurostenographer.app.solhigh",
+        "success": true
+      },
+      {
+        "package": "ru.neurostenographer.app.solhigh.test",
+        "success": true
+      }
+    ],
+    "wall_seconds": 172.91,
+    "instrumentation_exit_code": 0,
+    "cleanup_verified": {
+      "verified": true,
+      "remaining": [],
+      "stopped": true
+    }
+  },
+  "note": "The lower live CPU reading after the run was post-abort cooling, not a still-running workload."
+}

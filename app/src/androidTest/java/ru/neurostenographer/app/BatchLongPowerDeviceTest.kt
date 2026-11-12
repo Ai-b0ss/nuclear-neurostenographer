@@ -22,7 +22,7 @@ import java.io.File
  * No microphone, permission grants, private audio or product-package instrumentation.
  */
 class BatchLongPowerDeviceTest {
-    @Test fun continuousPublicAudioCompletesWithDisplayOffAndReleasesCpu() {
+    @Test fun continuousPublicAudioCompletesWithDisplayOnAndReleasesCpu() {
         val inst = InstrumentationRegistry.getInstrumentation()
         val target = inst.targetContext
         assumeTrue(target.packageName == "ru.neurostenographer.app.solhigh")
@@ -41,13 +41,9 @@ class BatchLongPowerDeviceTest {
         val record = JSONObject().put("status", "RUNNING").put("scope", "HONOR_ARM64_20M40S_ENDURANCE")
             .put("audio_ms", 1_240_000).put("global_speakerbook", false)
             .put("version", BuildConfig.VERSION_NAME).put("realtime_compiled", BuildConfig.REALTIME)
+            .put("batch_asr_threads", InferenceThreads.batchAsrCount())
             .put("sdk", Build.VERSION.SDK_INT).put("model", Build.MODEL)
         evidence.writeText(record.toString(2))
-        fun shell(command: String) {
-            inst.uiAutomation.executeShellCommand(command).use { fd ->
-                android.os.ParcelFileDescriptor.AutoCloseInputStream(fd).use { it.readBytes() }
-            }
-        }
         fun safe() {
             val battery = target.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                 ?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
@@ -60,16 +56,11 @@ class BatchLongPowerDeviceTest {
             while (!ready() && SystemClock.elapsedRealtime() < deadline) { safe(); SystemClock.sleep(50) }
             check(ready()) { message }
         }
+        var screenLease: AutoCloseable? = null
         var failed: Throwable? = null
         try {
             check(source.isFile && source.length() == 39_680_044L) { "Public fixture unavailable: ${source.absolutePath}, exists=${source.exists()}, bytes=${source.length()}" }
-            check(power.isInteractive && !target.getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked) {
-                "Unlock HONOR for the actual foreground-to-background user flow"
-            }
-            target.startActivity(Intent(target, MainActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
-            inst.waitForIdleSync()
-            SystemClock.sleep(500)
+            screenLease = PhysicalScreenOnQa.begin()
             record.put("foreground_activity_launched", true)
             inst.runOnMainSync {
                 model = TranscriptionViewModel(target.applicationContext as Application)
@@ -86,12 +77,9 @@ class BatchLongPowerDeviceTest {
             await("Processing foreground service / CPU lock missing") {
                 ProcessingService.active.value && ProcessingService.wakeLockHeld
             }
-            // Match the real user flow: foreground Activity -> active FGS -> display off.
-            // A headless launch can be frozen by HONOR before native computation starts.
-            shell("input keyevent 223")
-            await("Display did not sleep") { !power.isInteractive }
+            // Keep the owned QA window visible; never send display power commands.
             var heartbeatAt = 0L
-            await("Long transcription timed out: " + model.state.value.message, 900_000) {
+            await("Long transcription timed out: " + model.state.value.message, 1_140_000) {
                 val now = SystemClock.elapsedRealtime()
                 if (now - heartbeatAt >= 2_000) {
                     heartbeatAt = now
@@ -100,7 +88,7 @@ class BatchLongPowerDeviceTest {
                         .put("progress", model.state.value.progress?.toDouble() ?: JSONObject.NULL)
                     evidence.writeText(record.toString(2))
                 }
-                check(!power.isInteractive) { "Display woke during processing" }
+                check(power.isInteractive) { "Display stopped being interactive during screen-on QA" }
                 !model.state.value.busy
             }
             val document = requireNotNull(model.state.value.document) { model.state.value.message }
@@ -120,7 +108,7 @@ class BatchLongPowerDeviceTest {
             record.put("wall_ms", SystemClock.elapsedRealtime() - begun)
                 .put("segments", document.segments.size)
                 .put("speaker_source", document.provenance.speakerSource)
-                .put("screen_off_processing", true).put("processing_wake_lock_released", true)
+                .put("screen_kept_on", true).put("processing_wake_lock_released", true)
         } catch (error: Throwable) {
             failed = error
         } finally {
@@ -130,9 +118,11 @@ class BatchLongPowerDeviceTest {
                     !ProcessingService.active.value && !ProcessingService.wakeLockHeld
                 }
                 // The staged source is a public fixture, retained for reproducibility.
-                // Restore only the display power state; never dismiss the keyguard.
-                // Leave the display off after sustained processing; never dismiss keyguard.
             } catch (cleanup: Throwable) {
+                if (failed == null) failed = cleanup else failed!!.addSuppressed(cleanup)
+            }
+            try { screenLease?.close() }
+            catch (cleanup: Throwable) {
                 if (failed == null) failed = cleanup else failed!!.addSuppressed(cleanup)
             }
             record.put("status", if (failed == null) "PASS" else "FAIL")

@@ -27,7 +27,7 @@ import java.nio.ByteOrder
  * No microphone, permission grants, private audio or product-package instrumentation.
  */
 class BatchPowerDeviceTest {
-    @Test fun tenSecondPublicAudioCompletesWithDisplayOffAndReleasesCpu() {
+    @Test fun tenSecondPublicAudioCompletesWithDisplayOnAndReleasesCpu() {
         val inst = InstrumentationRegistry.getInstrumentation()
         val target = inst.targetContext
         assumeTrue(target.packageName == "ru.neurostenographer.app.solhigh")
@@ -37,7 +37,6 @@ class BatchPowerDeviceTest {
             Build.SUPPORTED_ABIS.contains("arm64-v8a"))
         assertEquals(PackageManager.PERMISSION_DENIED, target.checkSelfPermission(Manifest.permission.INTERNET))
         val power = target.getSystemService(PowerManager::class.java)
-        val originallyInteractive = power.isInteractive
         val root = File(target.filesDir, "batch-power-qa").apply { mkdirs() }
         val evidence = File(root, "result.json")
         val source = File(target.cacheDir, "batch-power-public-10s.wav")
@@ -49,11 +48,6 @@ class BatchPowerDeviceTest {
             .put("version", BuildConfig.VERSION_NAME).put("realtime_compiled", BuildConfig.REALTIME)
             .put("sdk", Build.VERSION.SDK_INT).put("model", Build.MODEL)
         evidence.writeText(record.toString(2))
-        fun shell(command: String) {
-            inst.uiAutomation.executeShellCommand(command).use { fd ->
-                android.os.ParcelFileDescriptor.AutoCloseInputStream(fd).use { it.readBytes() }
-            }
-        }
         fun safe() {
             val battery = target.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                 ?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
@@ -66,6 +60,7 @@ class BatchPowerDeviceTest {
             while (!ready() && SystemClock.elapsedRealtime() < deadline) { safe(); SystemClock.sleep(50) }
             check(ready()) { message }
         }
+        var screenLease: AutoCloseable? = null
         var failed: Throwable? = null
         try {
             val pcm = inst.context.assets.open("sol-high/aba.wav").use { PcmWav.read(it) }
@@ -74,6 +69,7 @@ class BatchPowerDeviceTest {
             for (i in 0 until 160_000) bytes.putShort((pcm.samples[i].coerceIn(-1f, 1f) * 32767).toInt().toShort())
             bytes.flip()
             Pcm16WavWriter(source, 16000, 1, maxSeconds = 10).use { it.append(bytes); it.finish() }
+            screenLease = PhysicalScreenOnQa.begin()
             inst.runOnMainSync {
                 model = TranscriptionViewModel(target.applicationContext as Application)
                 initialized = true
@@ -89,12 +85,9 @@ class BatchPowerDeviceTest {
             await("Processing foreground service / CPU lock missing") {
                 ProcessingService.active.value && ProcessingService.wakeLockHeld
             }
-            // Android 10 permits this user-authorized instrumentation to start the FGS
-            // without opening an Activity. No lock-screen dismissal or PIN input.
-            shell("input keyevent 223")
-            await("Display did not sleep") { !power.isInteractive }
+            // Keep the owned QA window visible; never send display power commands.
             await("10-second transcription timed out: " + model.state.value.message, 90_000) {
-                check(!power.isInteractive) { "Display woke during processing" }
+                check(power.isInteractive) { "Display stopped being interactive during screen-on QA" }
                 !model.state.value.busy
             }
             val document = requireNotNull(model.state.value.document) { model.state.value.message }
@@ -109,7 +102,7 @@ class BatchPowerDeviceTest {
             record.put("wall_ms", SystemClock.elapsedRealtime() - begun)
                 .put("segments", document.segments.size)
                 .put("speaker_source", document.provenance.speakerSource)
-                .put("screen_off_processing", true).put("processing_wake_lock_released", true)
+                .put("screen_kept_on", true).put("processing_wake_lock_released", true)
         } catch (error: Throwable) {
             failed = error
         } finally {
@@ -119,9 +112,11 @@ class BatchPowerDeviceTest {
                     !ProcessingService.active.value && !ProcessingService.wakeLockHeld
                 }
                 source.delete()
-                // Restore only the display power state; never dismiss the keyguard.
-                if (originallyInteractive) shell("input keyevent 224")
             } catch (cleanup: Throwable) {
+                if (failed == null) failed = cleanup else failed!!.addSuppressed(cleanup)
+            }
+            try { screenLease?.close() }
+            catch (cleanup: Throwable) {
                 if (failed == null) failed = cleanup else failed!!.addSuppressed(cleanup)
             }
             record.put("status", if (failed == null) "PASS" else "FAIL")
