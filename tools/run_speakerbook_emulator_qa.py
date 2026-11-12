@@ -16,7 +16,7 @@ from evaluate_russian_bookmix_voice_link import SHA_TITANET
 
 PACKAGE = "ru.neurostenographer.app.speakerbookqa"
 TEST = PACKAGE + ".test"
-ALLOWED = {"run_id", "status", "scope", "execution_environment", "qa_mode",
+ALLOWED = {"screen_off_processing", "processing_wake_lock_released", "run_id", "status", "scope", "execution_environment", "qa_mode",
            "duration_ms", "wall_ms", "rtf", "segments", "profiled_blocks",
            "first_segments", "second_segments", "first_speaker_ids", "second_speaker_ids",
            "shared_speaker_ids", "speaker_source", "unknown_segments",

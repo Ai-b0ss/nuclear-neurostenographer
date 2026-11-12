@@ -73,7 +73,10 @@ object NemotronDiarization {
         val started = System.nanoTime()
         val environment = OrtEnvironment.getEnvironment()
         // Same thread count as C0 and ASR, so a phone comparison measures the models, not the settings.
-        val options = OrtSession.SessionOptions().apply { setIntraOpNumThreads(InferenceThreads.count()) }
+        val options = OrtSession.SessionOptions().apply {
+            setIntraOpNumThreads(InferenceThreads.count())
+            ru.neurostenographer.core.BatchInferencePolicy.configure { key, value -> addConfigEntry(key, value) }
+        }
         val session = environment.createSession(File(model, "model.int8.ir9.onnx").absolutePath, options)
         val loaded = System.nanoTime()
         try {

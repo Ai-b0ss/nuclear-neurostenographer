@@ -1,0 +1,162 @@
+{
+  "schema": "batch-runtime-host-v1",
+  "status": "COMPLETED",
+  "phone_accessed": false,
+  "audio_ms": 60000,
+  "modes": {
+    "four_spin": {
+      "median_wall_ms": 3922.6047,
+      "median_cpu_ms": 15046.875,
+      "median_idle200_cpu_ms": 46.875,
+      "all_ms_turns_equal": true
+    },
+    "four_sleep": {
+      "median_wall_ms": 3971.6221,
+      "median_cpu_ms": 12906.25,
+      "median_idle200_cpu_ms": 0.0,
+      "all_ms_turns_equal": true
+    },
+    "two_sleep": {
+      "median_wall_ms": 6535.2486,
+      "median_cpu_ms": 12125.0,
+      "median_idle200_cpu_ms": 0.0,
+      "all_ms_turns_equal": true
+    }
+  },
+  "rows": [
+    {
+      "mode": "four_spin",
+      "round": 0,
+      "wall_ms": 3922.6047,
+      "cpu_ms": 15046.875,
+      "idle200_cpu_ms": 46.875,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "four_sleep",
+      "round": 0,
+      "wall_ms": 3971.6221,
+      "cpu_ms": 12265.625,
+      "idle200_cpu_ms": 0.0,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "two_sleep",
+      "round": 0,
+      "wall_ms": 6454.4923,
+      "cpu_ms": 11937.5,
+      "idle200_cpu_ms": 0.0,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "four_sleep",
+      "round": 1,
+      "wall_ms": 4026.7556,
+      "cpu_ms": 12906.25,
+      "idle200_cpu_ms": 0.0,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "two_sleep",
+      "round": 1,
+      "wall_ms": 6545.8072,
+      "cpu_ms": 12281.25,
+      "idle200_cpu_ms": 15.625,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "four_spin",
+      "round": 1,
+      "wall_ms": 3910.9176,
+      "cpu_ms": 14937.5,
+      "idle200_cpu_ms": 46.875,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "two_sleep",
+      "round": 2,
+      "wall_ms": 6535.2486,
+      "cpu_ms": 12125.0,
+      "idle200_cpu_ms": 0.0,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "four_spin",
+      "round": 2,
+      "wall_ms": 3969.0834,
+      "cpu_ms": 15156.25,
+      "idle200_cpu_ms": 46.875,
+      "turns": 12,
+      "equal_ms_turns": true
+    },
+    {
+      "mode": "four_sleep",
+      "round": 2,
+      "wall_ms": 3904.6934,
+      "cpu_ms": 12921.875,
+      "idle200_cpu_ms": 0.0,
+      "turns": 12,
+      "equal_ms_turns": true
+    }
+  ],
+  "input_wav_sha256": "9c67479e2f4d03d4dd3d6093f3069e0f1e101196733e7a3f9b49dee55c8937a9",
+  "model_pins": {
+    "model.int8.ir9.onnx": "c465504c2f3a29242e1b3d894187ae5962be7320bed71a2ae203950285ee6025",
+    "mel_filters.bin": "bce5ec5f194a5913f6508cee5a85512e7bad2352db8fc28f5c6ff75af8b09137",
+    "hann400.bin": "c427e2029118cf789649e5a4d439b6115d0dd0cbf95dcd22f65e3c848add8c5b",
+    "silence_embeds.bin": "d4417b3c0eabdf7c47032fac2b5b5a7ee83d819a6ddda8fd8eaf74e2b5cc4ac7"
+  },
+  "ort_sha256": "a4e57e18a04b6c1b5b0e2885af1d8557873d4ca04bfcebf79743966c4c8eb20f",
+  "source_sha256": {
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AsrWindowEta.kt": "0532761c83ec710b8b67ca7d566d2f6e6a6f689edfd374585375999277df98c8",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AudioProcessingClock.kt": "1df29db2ad6faaee6659a2f8c377400e9b056463d85198b85ec48a1cc505823d",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AudioSnapshot.kt": "39bfff7549766936c0c2b7773bc357a3b0c37f1c5af4fa76ea47db71f990b4c4",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BatchInferencePolicy.kt": "19a1aae5fa34d0255e4a03b6df952f9c12d8869989b6cc98ba2c386cf592c61b",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BoundedWavRecorder.kt": "1f9202542141279d7272a077ef9aa77560c1e0460ef3acf31c5904c7d132a2dc",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BuiltinTerms.kt": "9a8b56fa8108bd07bb1fdc6ac17121ece055b1ad8c3b0c0cbb0d4572d5b5cb2d",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\CleanSpeakerFrames.kt": "ae7291f30c0e370599c6f77a339e46e21d3c9e1a2479095474554bef421e9157",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DecodeBudget.kt": "ef3eedf813eef50312d9057102a19a16ae7c8c20367eaa7b4e8bc90bd8f9a911",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DecodedPcmTimeline.kt": "4a754e42443f3708b8161029fc4b7638e8f664bac30d20e7473ad633f5c4f106",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationReply.kt": "bc3a30566e48a09a4a4c3c9aa463b97f33fad961787e39668b2a1c69eac1b2e0",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationTimeEstimate.kt": "b48951d80c4af66eacf1d95c0ece2cdeead2350f25dc1f2ed3f1405af1534255",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationTimeline.kt": "377788df62fd50cbfa1107ecaa0a4370a88a752e0bed68937a9905acb491fbd5",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\FddtOverlapPlan.kt": "2c3eb70ffcdc691802306391b3fa0ccd6253c342042d00ba1a4c53f90f134953",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\GlobalSpeakerBook.kt": "4e24733394705086458f280bd774dd18160e2e1dc8cdbc8bc5acd4589a5470af",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\LocalSpeakerScope.kt": "ea7f5302483dfe04c400121050ff0a41f721a79c4ef08d17e9a2d08368933f8f",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\Pcm16WavWriter.kt": "c970cbc91b770c31bb093df0a9f17059f43070cd9f6615497d8d5b371c2becdc",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\PcmFileAudio.kt": "3cbd9fb48c32ff29e02abe73666771df8485680dca9daada9662abf08030b8fa",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\PcmWav.kt": "62f09af971cd18d4b269a67ea98e03330e2f559cfb42bfc2249c347786f8d9ad",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\ProcessingTimeDisplay.kt": "cb61a6b48d9ba18a26301ff560a378bd4b013362d227b54441df9d1571ab1b62",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\ProvisionalTurns.kt": "7f3967515bfc77b33ac45e5a35b9cc97594d02eaa86e8ff0b279007a9a34d8cc",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\QuietCuts.kt": "2b3f618c3ec67ad4ecba3e616430a987ebf807ca1885728cec26c47b494e6868",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\RealtimeCore.kt": "36805b2ef3f580eabb6e9ce0bc857d9030c29359fc28af22f200de7d856ba76f",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\RealtimeTranscript.kt": "ad19d83584a37724e96f76f212b41f2578880e2fc1e7601697afb7c68e3de523",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\ShortProcessingEta.kt": "18286b8dc7113ff2cf813640bad5b9bf6489ca5be391814bae78f8f50b7747c3",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\SpeakerConsensus.kt": "6c12bc68a17a721eeb744b20b709621b7ce39474c4b539800a12b2dc2cccfd82",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\SpeakerIdentity.kt": "e7a04608d190e2cd7a100684d6910af0377601881a9669303cb6fe215588050c",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\StreamingPcm16.kt": "1263a8ed7d37327297e45661604a020353624186634a07f9a9737064e8290fe5",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TermDictionary.kt": "fc22deaac7eff6f1a7dcc043298e7fb0036d906b72d2c479174300ea7d1903f4",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TopicTitle.kt": "0bbc355875384ca2de2be684b50e48c5824745a81dcdd30f29cf7459af5828d5",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TranscriptCore.kt": "276907476686d0746dd87766d72a0f9d037a2f6383b1de8b0f650c2fec451fb1",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TranscriptSnapshotStore.kt": "58c8e71f740daac1be90ff2312d90a0b2d3eb8619db3ea14e9f005b14a3fd130",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VerifiedModelBundle.kt": "6c92fcef645c9cb6fed703c9bc30f0901dc4aa0dbc830f6d7972693c051091e1",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VoiceLevel.kt": "6dee7f5d3ae82de79371f50fde120d5bb24fb06145ea232899cfe5aaf7601701",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VoicePrintAgreement.kt": "f68c7dc6ca8712b645088291b2e6ad1ae14bc7259e8e41eb6f8d4ad23a734526",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VoicePrintReply.kt": "f79bf5bbe61b0f811ba82b3e0881f3de344823cecb648886750426b2a6fbebd5",
+    "app\\src\\nemotron\\java\\ru\\neurostenographer\\core\\NemotronDiarizer.kt": "a9ef4534edf41da6a9ffd94751f71228c48e117804832dc46e40ac148cc49e70",
+    "app\\src\\nemotron\\java\\ru\\neurostenographer\\core\\NemotronStreaming.kt": "c6764260b994c3b3478d7ff4b4ea3d8498f57fb3f8dac8bbcf09dd0b58b08c19",
+    "tools\\c2pp\\MeasureRuntime.kt": "d6301a569cd19aa4aa9e4aa25adc1c9ae41534b6e3cc4029abfa6bbb5bdf4ca8"
+  },
+  "limitations": [
+    "Windows CPU process time is not phone battery energy or temperature.",
+    "One fixed public clip, three rotated measured rounds after warmup; no statistical population claim.",
+    "Model weights, two-pass product logic and postprocessing unchanged."
+  ]
+}

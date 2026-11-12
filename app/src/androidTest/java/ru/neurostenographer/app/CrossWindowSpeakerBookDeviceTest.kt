@@ -94,6 +94,8 @@ class CrossWindowSpeakerBookDeviceTest {
         try {
             ensureSafeTemperature()
             SpeakerBookQaEnvironment.prepareOptionalModel()
+            ProcessingPowerQa.foreground()
+            if (mode == "repeat") ProcessingPowerQa.verifyLifecycle()
             assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
             if (missingModel) {
                 assertTrue("Missing QA TitaNet model must exist before test", optionalModel.isFile)
@@ -151,6 +153,7 @@ class CrossWindowSpeakerBookDeviceTest {
             stage = "transcribe"
             val began = SystemClock.elapsedRealtime()
             instrumentation.runOnMainSync { model.transcribe() }
+            ProcessingPowerQa.screenOffDuringProcessing()
             idle(780_000)
             val elapsed = SystemClock.elapsedRealtime() - began
             val doc = requireNotNull(model.state.value.document) {
@@ -224,6 +227,7 @@ class CrossWindowSpeakerBookDeviceTest {
                     assertTrue("Restored model missing", optionalModel.isFile)
                 }
                 instrumentation.runOnMainSync { owner.clear() }
+                ProcessingPowerQa.stopped()
             } catch (cleanupError: Throwable) {
                 evidence.writeText(JSONObject()
                     .put("run_id", runId).put("execution_environment", SpeakerBookQaEnvironment.label()).put("status", "FAIL")
@@ -237,6 +241,8 @@ class CrossWindowSpeakerBookDeviceTest {
         // Publish PASS only after assertions AND cleanup succeed.
         val record = requireNotNull(verifiedRecord)
         record.put("status", "PASS")
+        record.put("screen_off_processing", SpeakerBookQaEnvironment.emulator())
+        record.put("processing_wake_lock_released", SpeakerBookQaEnvironment.emulator())
         evidence.writeText(record.toString(2))
         Log.i("SpeakerBookDeviceQA", record.toString())
     }

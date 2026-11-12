@@ -91,9 +91,10 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
         if (file.parentFile == File(getApplication<Application>().cacheDir, "audio-input")) file.delete()
     }
 
-    private fun work(whileRecording: Boolean = false, block: suspend () -> Unit) {
+    private fun work(whileRecording: Boolean = false, sustained: Boolean = false, block: suspend () -> Unit) {
         if (mutable.value.busy || (recording.value && !whileRecording)) return
         mutable.value = mutable.value.copy(busy = true, cancelling = false)
+        val lease = if (sustained) ProcessingService.acquire(getApplication()) { cancel() } else null
         operation = viewModelScope.launch {
             try { block() }
             catch (_: CancellationException) {
@@ -103,9 +104,13 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
             catch (_: OutOfMemoryError) { mutable.value = mutable.value.copy(message = "Недостаточно RAM. Попробуйте более короткую запись.") }
             catch (e: LinkageError) { mutable.value = mutable.value.copy(message = "Ошибка JNI: ${e.message}") }
             catch (e: Exception) { mutable.value = mutable.value.copy(message = userMessage(e)) }
-            finally { mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, asrWindowEta = null, modelReady = store.current() != null,
+            finally {
+                lease?.close()
+                mutable.value = mutable.value.copy(busy = false, cancelling = false, progress = null, stage = 0, processingClock = null, shortEta = null, processingStartedAtMs = null, diarizationClock = null, asrWindowEta = null, modelReady = store.current() != null,
                 diarizationReady = speakerStore.current() != null, c2Supported = c2Available()) }
         }
+        // Completion also runs if the coroutine was cancelled before entering its body.
+        operation?.invokeOnCompletion { lease?.close() }
     }
 
     fun install(uri: Uri) = work {
@@ -273,7 +278,7 @@ class TranscriptionViewModel @JvmOverloads constructor(application: Application,
      * A C2 startup, model or worker failure falls back to the unchanged C0 implementation.
      * Ordinary (non-C2) builds remain byte-for-byte compatible in their inference choices.
      */
-    fun transcribe() = work {
+    fun transcribe() = work(sustained = true) {
         val source = requireNotNull(mutable.value.source) { "Выберите WAV" }
         mutable.value = mutable.value.copy(segments = emptyList(), document = null, current = null,
             message = "Готовлю запись…", stage = 1, processingClock = null, shortEta = null,
