@@ -70,12 +70,26 @@
     "asr_a3": true,
     "nemotron_c2": true
   },
-  "main_product_installed_version": "0.4.1-rc4",
-  "install_blocker": "Secure PIN keyguard after screen-off QA; no credential entered or lock policy changed",
+  "main_product_installed_version": "0.4.1-rc5",
   "power_condition": "Externally powered; battery energy not measured",
   "source_sha256": {
     "app/src/androidTest/java/ru/neurostenographer/app/BatchPowerDeviceTest.kt": "2c349b2d97435a60d9e37733241cb8815680fe62825e9d7a2b132bb2479e7885",
     "tools/run_android_long_thermal_guard.py": "c601b262e58dbcee71e5ab3caba506af703fa0f2e00c06a9b5f3a36e2d2c4160",
     "app/build.gradle.kts": "d37d15e81866959622b8626b975292d9038a7e7a034b4cb2a4d89aaa974c2f72"
+  },
+  "product_installation": {
+    "package": "ru.neurostenographer.app",
+    "version": "0.4.1-rc5",
+    "version_code": 26,
+    "matching_original_signer": true,
+    "in_place_update": true,
+    "launch_status": "ok",
+    "ui_verified": true,
+    "ui_node_count": 31,
+    "process_alive": true,
+    "owner_unlocked_before_install": true,
+    "adb_install_result": "Success",
+    "data_clear_or_uninstall": false,
+    "additional_inference_run": false
   }
 }

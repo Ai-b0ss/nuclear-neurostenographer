@@ -1813,3 +1813,10 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - Product RC5/code26 built, signed with the original matching external production certificate, and package/version/flags/SHA verified. Exactly one ready production APK and checksum retained. External key location saved in ignored .local/release-signing-context.json; cleanup safeguard added.
 - Main phone app still RC4: screen-off QA activated its secure PIN lock; the installer rejected the product update. No credential, uninstall, data clear or global security/power setting change. Normally unlocking HONOR is required before the in-place update. Sol QA data preserved.
 - Thirteen watchdog unit tests, local core checks and both QA/product builds passed. See [RC5 evidence](HONOR_BATCH_POWER_RC5_2026-11-12.md).
+
+
+## 2026-11-12 — RC5 main HONOR update completed
+
+- Owner unlocked the phone normally. Original-certificate RC5 installed successfully in place over main ru.neurostenographer.app; no uninstall or data clear. Installed code26/version0.4.1-rc5 and original certificate verified.
+- MainActivity cold launch returned Status: ok; process stayed alive, working screen and recording action verified, no startup error. No additional inference/endurance test. The earlier PIN installation blocker is resolved.
+- Ready APK/checksum unchanged; exactly one ready production APK. Updated [installation evidence](HONOR_BATCH_POWER_RC5_2026-11-12.md).

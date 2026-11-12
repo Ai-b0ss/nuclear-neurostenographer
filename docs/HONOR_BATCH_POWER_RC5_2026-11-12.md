@@ -26,8 +26,8 @@ Version 0.4.1-rc5 / code 26 built with A3, C2, realtime=true and globalSpeakerBo
 
 The original external production keystore was found and its public certificate matched the installed RC4. APK signature, application ID, version, product flags and SHA-256 were verified. Only the newest ready production APK is retained under .local/releases/current with its checksum. The original production key stays outside the working tree; its location and alias are recorded in ignored .local/release-signing-context.json. No key, password or APK is committed.
 
-## Installation boundary
+## Completed in-place installation
 
-**The main HONOR installation remains RC4.** Switching the display off during QA activated the phone's existing secure lock. Afterwards the normal Android installer rejected the product update with INSTALL_FAILED_ABORTED: User rejected permissions. Inspection confirmed a PIN-entry keyguard, not a signature mismatch. No PIN was entered, no lock/verification policy was disabled, and no uninstall or data clear was attempted. The ready signed RC5 can be installed in place after the owner normally unlocks the device.
+After the owner normally unlocked HONOR, the original-certificate RC5 APK installed successfully over the main ru.neurostenographer.app package using adb install -r. No uninstall or data clear was performed. Installed version code26 / 0.4.1-rc5 and the unchanged original signing certificate were verified. MainActivity cold launch returned Status: ok; the app process remained alive and its working screen was verified (31 app UI nodes, recording action present, no startup-error label). No additional inference or sustained load was started.
 
-Sol QA was successfully updated in place to RC5 and passed the physical test. Its existing data was preserved. Unknown-source prompts were handled only for those named QA installs; no global installer policy was changed.
+The earlier installation attempts were blocked after screen-off QA activated the existing PIN keyguard. The owner resolved that lock normally; no credential was entered by automation and no lock or global verification/power policy was changed. Sol QA had already updated in place and passed the short physical flow. Unknown-source confirmations were handled only for the named, verified application updates.
