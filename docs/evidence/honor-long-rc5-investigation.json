@@ -1,0 +1,76 @@
+{
+  "schema": "honor-rc5-endurance-investigation-v1",
+  "status": "BLOCKED_ON_CORRECT_FOREGROUND_FLOW",
+  "physical_endurance_pass": false,
+  "ordinary_product_version": "0.4.1-rc5",
+  "global_speakerbook": false,
+  "audio_ms": 1240000,
+  "fixture": {
+    "audio_ms": 1240000,
+    "bytes": 39680044,
+    "sha256": "d57edf4aee0fc50629e2c7239b74f7cd7ea24ed0a68382aad1d81f1f00f5ba45",
+    "source": "same pinned public continuous fixture used in emulator"
+  },
+  "attempts": [
+    {
+      "attempt": "qa",
+      "classification": "SETUP_FILE_ACCESS_FAILURE",
+      "host_status": "FAIL",
+      "wall_seconds": 4.38,
+      "max_battery_c": 33.0,
+      "max_cpu_c": 38.0,
+      "android_status_max": 0,
+      "thermal_sample_count": 2,
+      "cleanup_verified": {
+        "verified": true,
+        "remaining": [],
+        "stopped": true
+      }
+    },
+    {
+      "attempt": "qa-device-private",
+      "classification": "HEADLESS_BACKGROUND_STALL_MANUALLY_STOPPED",
+      "host_status": "FAIL",
+      "wall_seconds": 256.91,
+      "max_battery_c": 34.0,
+      "max_cpu_c": 42.0,
+      "android_status_max": 0,
+      "thermal_sample_count": 118,
+      "cleanup_verified": {
+        "verified": true,
+        "remaining": [],
+        "stopped": true
+      }
+    },
+    {
+      "attempt": "qa-power-whitelist",
+      "classification": "HEADLESS_BACKGROUND_STALL_WITH_QA_ONLY_DOZE_EXCEPTION",
+      "host_status": "FAIL",
+      "wall_seconds": 126.33,
+      "max_battery_c": 33.0,
+      "max_cpu_c": 37.0,
+      "android_status_max": 0,
+      "thermal_sample_count": 58,
+      "cleanup_verified": {
+        "verified": true,
+        "remaining": [],
+        "stopped": true
+      }
+    }
+  ],
+  "qa_forced_wakelock_release_observed": true,
+  "qa_progress_stalled_ms": [
+    679,
+    2693
+  ],
+  "qa_only_doze_exception_restored": {
+    "restored": true,
+    "qa_whitelisted_after": false
+  },
+  "product_and_global_power_settings_unchanged": true,
+  "limitations": [
+    "Headless QA runs are not proof of behavior after a real foreground user launch.",
+    "No completed long transcript, sustained thermal pass or energy improvement established.",
+    "Corrected test requires an unlocked device, launches MainActivity, then turns off the display. It has compiled but has not run on hardware yet."
+  ]
+}

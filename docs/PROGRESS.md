@@ -1820,3 +1820,10 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - Owner unlocked the phone normally. Original-certificate RC5 installed successfully in place over main ru.neurostenographer.app; no uninstall or data clear. Installed code26/version0.4.1-rc5 and original certificate verified.
 - MainActivity cold launch returned Status: ok; process stayed alive, working screen and recording action verified, no startup error. No additional inference/endurance test. The earlier PIN installation blocker is resolved.
 - Ready APK/checksum unchanged; exactly one ready production APK. Updated [installation evidence](HONOR_BATCH_POWER_RC5_2026-11-12.md).
+
+
+## 2026-11-12 — sustained RC5 QA: headless suspension, not thermal acceptance
+
+- Private public 20m40s fixture hash verified. Headless ordinary-RC5 QA stalled at679 ms; system listed its transcription lock as Force Released WakeLocks. Manually stopped, cleanup verified; max battery34 C / CPU42 C. Temporary Android Doze exception for QA alone also stalled (2693 ms, max33/37 C); original policy restored and verified. No endurance/energy or product-foreground failure claim.
+- Corrected test now requires an unlocked display and launches the real Activity before processing/screen-off. Compiled locally but current PIN keyguard prevents a representative run. Product RC5 stays installed, global linking stays OFF; product/global policies unchanged.
+- Host progress watchdog now stops a non-advancing long QA run after30 s (startup grace240 s); stale PASS/FAIL records do not suppress it. Seventeen host tests pass, including actual mocked run cleanup. See [investigation](HONOR_LONG_RC5_2026-11-12.md).

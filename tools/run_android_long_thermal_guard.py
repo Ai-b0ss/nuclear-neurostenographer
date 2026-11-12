@@ -8,6 +8,7 @@ The instrumentation itself also checks battery temperature on device.
 """
 import argparse
 import json
+import math
 from pathlib import Path
 import re
 import subprocess
@@ -131,6 +132,7 @@ def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
     cases={
         "long":TEST_CLASS,
         "power":"ru.neurostenographer.app.BatchPowerDeviceTest",
+        "powerLong":"ru.neurostenographer.app.BatchLongPowerDeviceTest",
         "cross":"ru.neurostenographer.app.CrossWindowSpeakerBookDeviceTest",
     }
     if test_case not in cases:
@@ -142,16 +144,47 @@ def instrumentation_command(adb, serial, test_case="long", qa_mode=None):
              "-w","-r","-e","class",cases[test_case]]
     if qa_mode is not None:
         command.extend(["-e","qaMode",qa_mode])
-    if test_case=="power":
-        command.extend(["-e","batchPowerQa","honor_short"])
+    if test_case in ("power","powerLong"):
+        command.extend(["-e","batchPowerQa","honor_long" if test_case=="powerLong" else "honor_short"])
         command.append("ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
     else:
         command.append(RUNNER)
     return command,cases[test_case]
 
 
+class PowerProgressWatchdog:
+    """Bound a frozen physical QA run without mistaking idle CPU for a pass."""
+    def __init__(self, started, timeout_s=30, startup_s=240):
+        self.started=started
+        self.changed=started
+        self.last_elapsed=None
+        self.timeout_s=timeout_s
+        self.startup_s=startup_s
+
+    def observe(self, record, now):
+        if isinstance(record,dict) and record.get("scope")=="HONOR_ARM64_20M40S_ENDURANCE":
+            elapsed=record.get("elapsed_ms")
+            valid=(record.get("status")=="RUNNING" and type(elapsed) in (int,float)
+                   and math.isfinite(elapsed) and elapsed>=0)
+            if valid and elapsed!=self.last_elapsed:
+                self.last_elapsed=elapsed
+                self.changed=now
+        if self.last_elapsed is None:
+            return "APP_PROGRESS_UNAVAILABLE_ABORT" if now-self.started>=self.startup_s else None
+        return "APP_PROGRESS_STALLED_ABORT" if now-self.changed>=self.timeout_s else None
+
+
+def read_power_progress(adb,serial):
+    response=adb_call(adb,serial,"shell","run-as","ru.neurostenographer.app.solhigh",
+        "cat","files/batch-power-qa/long-result.json",timeout=4)
+    if response.returncode:
+        return None
+    try:return json.loads(response.stdout)
+    except (ValueError,TypeError):return None  # A concurrent heartbeat write can be partial.
+
+
 def run(a):
-    power=getattr(a,"test_case","long")=="power"
+    power=getattr(a,"test_case","long") in ("power","powerLong")
     battery_cutoff=int(getattr(a,"cutoff_tenths",450))
     battery_start=int(getattr(a,"start_max_tenths",390))
     battery_warning=int(getattr(a,"battery_warning_tenths",min(430,battery_cutoff-10)))
@@ -192,9 +225,10 @@ def run(a):
         "initial_android_thermal_status":thermal["android_status"],
         "max_android_thermal_status":thermal["android_status"],
         "max_cpu_sensor_status":thermal.get("max_sensor_status",0),
-        "status":"RUNNING","warnings":[]}
+        "status":"RUNNING","warnings":[],"thermal_samples":[]}
     started=time.monotonic()
     proc=None
+    progress_watchdog=PowerProgressWatchdog(started) if getattr(a,"test_case","long")=="powerLong" else None
     try:
         with log.open("w",encoding="utf8") as handle:
             proc=subprocess.Popen(command,stdout=handle,stderr=subprocess.STDOUT)
@@ -212,6 +246,9 @@ def run(a):
                     report["error"]=type(e).__name__+": "+str(e)[:180]
                     report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
                     break
+                report["thermal_samples"].append({"elapsed_s":round(time.monotonic()-started,2),
+                    "battery_c":t/10,"cpu_sensors_c":dict(thermal["sensors_c"]),
+                    "android_status":thermal["android_status"]})
                 report["max_temperature_c"]=max(report["max_temperature_c"],t/10)
                 report["max_cpu_temperature_c"]=max(report["max_cpu_temperature_c"],thermal["max_c"])
                 report["max_android_thermal_status"]=max(
@@ -239,6 +276,16 @@ def run(a):
                         "android_status":thermal["android_status"]}
                     report["warnings"].append(warning)
                     print("THERMAL_WARNING "+json.dumps(warning),flush=True)
+                if progress_watchdog is not None:
+                    try:progress=read_power_progress(a.adb,a.serial)
+                    except Exception:progress=None
+                    reason=progress_watchdog.observe(progress,time.monotonic())
+                    if reason:
+                        report["status"]=reason
+                        report["last_app_elapsed_ms"]=progress_watchdog.last_elapsed
+                        report["last_processing_stage"]=progress.get("processing_stage") if isinstance(progress,dict) else None
+                        report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
+                        break
             try:proc.wait(timeout=12)
             except subprocess.TimeoutExpired:
                 report["forced_stop"]=stop_qa(a.adb,a.serial,power=power)
@@ -289,7 +336,7 @@ if __name__=="__main__":
     parser.add_argument("--cpu-start-max-c",type=float,default=65.0)
     parser.add_argument("--poll-s",type=float,default=2)
     parser.add_argument("--limit-s",type=int,default=900)
-    parser.add_argument("--test-case",choices=("long","cross","power"),default="long")
+    parser.add_argument("--test-case",choices=("long","cross","power","powerLong"),default="long")
     parser.add_argument("--qa-mode",choices=("repeat","differentSources","withoutModel"),
                         default=None)
     args=parser.parse_args()

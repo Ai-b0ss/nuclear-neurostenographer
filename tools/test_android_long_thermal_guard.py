@@ -26,6 +26,66 @@ class ThermalWatchdogTests(unittest.TestCase):
             "x ru.neurostenographer.app.solhigh:diarization",power=True),
             ["ru.neurostenographer.app.solhigh:diarization"])
 
+    def test_long_power_route_keeps_the_ordinary_qa_package(self):
+        command,name=watchdog.instrumentation_command(Path("adb"),"HONOR","powerLong")
+        self.assertEqual(name,"ru.neurostenographer.app.BatchLongPowerDeviceTest")
+        self.assertEqual(command[-4:-1],["-e","batchPowerQa","honor_long"])
+        self.assertEqual(command[-1],"ru.neurostenographer.app.solhigh.test/androidx.test.runner.AndroidJUnitRunner")
+        with self.assertRaises(ValueError):
+            watchdog.instrumentation_command(Path("adb"),"HONOR","powerLong","repeat")
+
+    def test_power_progress_stall_and_recovery_clock(self):
+        probe=watchdog.PowerProgressWatchdog(0)
+        row={"scope":"HONOR_ARM64_20M40S_ENDURANCE","status":"RUNNING","elapsed_ms":679}
+        self.assertIsNone(probe.observe(row,1))
+        self.assertIsNone(probe.observe(row,30))
+        self.assertEqual(probe.observe(row,31),"APP_PROGRESS_STALLED_ABORT")
+        row["elapsed_ms"]=2693
+        self.assertIsNone(probe.observe(row,32))
+        self.assertIsNone(probe.observe(None,60))
+        self.assertEqual(probe.observe(None,62),"APP_PROGRESS_STALLED_ABORT")
+
+    def test_power_progress_invalid_startup_and_terminal(self):
+        for elapsed in (True,-1,float("nan"),"679",None):
+            probe=watchdog.PowerProgressWatchdog(0)
+            row={"scope":"HONOR_ARM64_20M40S_ENDURANCE","status":"RUNNING","elapsed_ms":elapsed}
+            self.assertIsNone(probe.observe(row,239))
+            self.assertEqual(probe.observe(row,240),"APP_PROGRESS_UNAVAILABLE_ABORT")
+        for status in ("PASS","FAIL"):
+            probe=watchdog.PowerProgressWatchdog(0)
+            self.assertIsNone(probe.observe({"scope":"HONOR_ARM64_20M40S_ENDURANCE","status":status},10))
+            self.assertEqual(probe.observe({"scope":"HONOR_ARM64_20M40S_ENDURANCE","status":status},240),"APP_PROGRESS_UNAVAILABLE_ABORT")
+
+    def test_frozen_long_run_is_stopped_with_qa_only_cleanup(self):
+        class Active:
+            returncode=None
+            def poll(self):return self.returncode
+            def wait(self,timeout=None):self.returncode=0;return 0
+            def terminate(self):self.returncode=-15
+            def kill(self):self.returncode=-9
+        clock=[0.0]
+        def sleep(_):clock[0]+=31
+        with TemporaryDirectory() as directory:
+            cfg=SimpleNamespace(adb=Path("adb"),serial="FAKE",log=Path(directory)/"run.log",
+                poll_s=1,limit_s=600,test_case="powerLong",qa_mode=None)
+            row={"scope":"HONOR_ARM64_20M40S_ENDURANCE","status":"RUNNING","elapsed_ms":679,"processing_stage":1}
+            with (patch.object(watchdog,"temperature",return_value=(330,81)),
+                  patch.object(watchdog,"cpu_temperature",return_value={"sensors_c":{"cluster0":33.0},"max_c":33.0,"android_status":0}),
+                  patch.object(watchdog.subprocess,"Popen",return_value=Active()),
+                  patch.object(watchdog.time,"monotonic",side_effect=lambda:clock[0]),
+                  patch.object(watchdog.time,"sleep",side_effect=sleep),
+                  patch.object(watchdog,"read_power_progress",return_value=row),
+                  patch.object(watchdog,"stop_qa",return_value=[{"success":True}]) as stop,
+                  patch.object(watchdog,"verify_qa_stopped",return_value={"verified":True,"stopped":True,"remaining":[]}) as verify):
+                self.assertEqual(watchdog.run(cfg),1)
+                self.assertTrue(all(c.kwargs=={"power":True} for c in stop.call_args_list))
+                verify.assert_called_once_with(cfg.adb,cfg.serial,power=True)
+            report=json.loads(cfg.log.with_suffix(".status.json").read_text())
+            self.assertEqual(report["status"],"APP_PROGRESS_STALLED_ABORT")
+            self.assertEqual(report["last_app_elapsed_ms"],679)
+            self.assertEqual(report["max_cpu_temperature_c"],33)
+            self.assertEqual(report["wall_seconds"],62)
+
     def test_normal_battery(self):
         self.assertEqual(parse_battery("  level: 83\n  temperature: 368\n"),(368,83))
         self.assertEqual(parse_battery("temperature: 420\nlevel: 40"),(420,40))
