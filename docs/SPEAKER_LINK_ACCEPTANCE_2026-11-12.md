@@ -15,8 +15,8 @@ emotion. They are not natural spontaneous multi-party conversations.
 The test isolates TitaNet and the faithful global-book replay; it does not
 run C2, ASR, Android, DER or physical thermal testing.
 
-Selection was frozen before inference: CSV order, excluding all seven
-previously cached utterances; at most eight clips until32s per actor/style,
+Selection was frozen before inference: CSV order, excluding seven cached originals
+in the audited source directory; at most eight clips until32s per actor/style,
 then truncate to32s. No selection by model scores. Of129 selected clips,
 112 exist in the pinned repository;17 missing entries are explicitly
 recorded, without replacement. All source SHA256 values match HF LFS
@@ -104,3 +104,8 @@ Next work should compare a more robust embedding candidate on a separate
 development set, retaining this snapshot as a regression test. Do not lower
 thresholds using these three actors or enable the feature on this evidence.
 Physical HONOR sustained endurance also remains unverified; no phone was used.
+
+Clarification: an earlier41-utterance preview evaluation exists elsewhere in
+the local archive. Its potential overlap was not excluded by the seven-file
+original-source exclusion. Treat this as a reproducible snapshot, not an
+untouched actor/utterance holdout. See SPEAKER_MODEL_COMPARISON_2026-11-12.md.

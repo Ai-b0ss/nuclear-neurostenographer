@@ -1778,3 +1778,11 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - Acted studio utterances regrouped by actor/style, not spontaneous C2/DER evidence. Veche forbids voice profiling/re-identification; DAI is access-gated; commercial cards provide no free audio. No access request or third-party contact performed.
 - Decision: keep ordinary global speakerbook OFF. Eligible natural-conversation data and physical endurance remain open.
 - See docs/SPEAKER_LINK_ACCEPTANCE_2026-11-12.md. Eleven existing guards and result accounting passed. No app, threshold or thermal changes.
+
+## 2026-11-12: Three-model frozen-policy comparison
+
+- Compared pinned TitaNet Small/Large and bilingual CAM++ Advanced on identical16s-capped profiles and unchanged .84/.07 gates. All native models completed with no Android/phone work.
+- Dialogs admission14/13/12; correct admitted returns8/11,9/10,5/9. Oracle bookmix admission28/30/31; actual C2 admission26/28/28. No observed wrong links/mixed global IDs. Correlated, admission-dependent trials are not population safety.
+- Identical4.527s warm control median56.2/161.4/66.9ms; ONNX40.3/101.4/28.3MB. Large has no compelling mobile benefit; CAM++ gains bookmix coverage but loses style robustness under existing policy. No independently calibrated optimum claimed.
+- Decision: retain Small, ordinary global linking OFF. Metrics/licenses/source pins and reproduction: docs/SPEAKER_MODEL_COMPARISON_2026-11-12.md. No audio/weights/embeddings committed.
+- Archived41-utterance Dialogs preview comparisons found: the preceding seven-original-file exclusion did not establish an untouched utterance holdout. Clarification recorded in acceptance report.
