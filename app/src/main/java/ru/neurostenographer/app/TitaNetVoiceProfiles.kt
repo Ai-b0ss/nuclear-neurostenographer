@@ -24,10 +24,16 @@ object TitaNetVoiceProfiles {
     private const val HOP_MS = 40
     private const val RATE = 16000
     private const val SAMPLE_PER_HOP = RATE * HOP_MS / 1000
-    private const val MAX_VOICE_MS = 16000L
     private const val MIN_VOICE_MS = 3000L
 
     fun compute(context: Context, audio: PcmAudio, turns: List<SpeakerTurn>): List<VoicePrint> {
+        return computeForBudget(context, audio, turns, 16000)
+    }
+
+    /** Internal fixed-budget comparison for QA; both paths retain all safety gates. */
+    internal fun computeForBudget(context: Context, audio: PcmAudio,
+                                  turns: List<SpeakerTurn>, maxSampleMs: Int): List<VoicePrint> {
+        require(maxSampleMs == 8000 || maxSampleMs == 16000)
         if (!BuildConfig.GLOBAL_SPEAKER_BOOK || audio.sampleRate != RATE) return emptyList()
         val qa = context.getExternalFilesDir("qa") ?: return emptyList()
         val allowed = File(qa, "titanet").canonicalFile
@@ -55,12 +61,13 @@ object TitaNetVoiceProfiles {
         if (speakers.isEmpty()) return emptyList()
         val owners = selection.owners
         // Require two separate temporal samples, each at least 3 seconds.
-        // Sampling the first 16 seconds alone could authorize misattribution
+        // Samples now allow 16 seconds EACH; they remain temporally disjoint.
+        // Sampling a single prefix alone could authorize misattribution
         // of an unrelated speaker incorrectly reusing C2's slot later.
         val plans = speakers.indices.mapNotNull { index ->
             CleanSpeakerFrames.separate(owners, index,
                 minFramesPerSample = (MIN_VOICE_MS / HOP_MS).toInt(),
-                maxFramesPerSample = (MAX_VOICE_MS / 2 / HOP_MS).toInt())
+                maxFramesPerSample = maxSampleMs / HOP_MS)
                 ?.let { index to it }
         }
         if (plans.isEmpty()) return emptyList()

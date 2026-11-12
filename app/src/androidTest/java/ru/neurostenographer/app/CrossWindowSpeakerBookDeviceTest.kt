@@ -108,6 +108,41 @@ class CrossWindowSpeakerBookDeviceTest {
             }
             if (SpeakerBookQaEnvironment.emulator()) idle(240_000L)
             assertTrue("ASR not provisioned", model.state.value.modelReady)
+            // Paired native TitaNet measurements on identical C2 turns in one emulator.
+            // Warm both budgets first, then alternate order; no embedding is exported.
+            var budgetBenchmark: JSONObject? = null
+            if (mode == "repeat" && SpeakerBookQaEnvironment.emulator()) {
+                stage = "budget_benchmark"
+                val complete = source.inputStream().use { ru.neurostenographer.core.PcmWav.read(it) }
+                val audio = ru.neurostenographer.core.PcmAudio(
+                    complete.samples.copyOfRange(0, 60 * 16000), 16000)
+                val c2 = requireNotNull(NemotronBackend.current(target.filesDir))
+                val turns = NemotronBackend.process(audio, c2, {}).turns
+                assertTrue("Benchmark requires actual C2 speech", turns.isNotEmpty())
+                fun measured(ms: Int): Pair<Long, Int> {
+                    val began = SystemClock.elapsedRealtimeNanos()
+                    val profiles = TitaNetVoiceProfiles.computeForBudget(target, audio, turns, ms)
+                    return (SystemClock.elapsedRealtimeNanos() - began) to profiles.size
+                }
+                measured(8000); measured(16000)
+                val samples = mapOf(8000 to mutableListOf<Long>(), 16000 to mutableListOf<Long>())
+                val counts = mutableMapOf<Int, Int>()
+                for (ms in listOf(8000, 16000, 16000, 8000, 8000, 16000)) {
+                    val (elapsed, count) = measured(ms)
+                    samples.getValue(ms).add(elapsed)
+                    counts[ms]?.let { assertEquals("Nondeterministic profile count", it, count) }
+                    counts[ms] = count
+                }
+                assertTrue("Controlled positive fixture lost profiles", counts.getValue(16000) >= counts.getValue(8000))
+                assertTrue("No candidate profiles on positive fixture", counts.getValue(16000) > 0)
+                budgetBenchmark = JSONObject()
+                    .put("input_ms", audio.durationMs).put("turns", turns.size)
+                    .put("baseline_sample_ms", 8000).put("candidate_sample_ms", 16000)
+                    .put("baseline_wall_ms", JSONArray(samples.getValue(8000).map { it / 1_000_000.0 }))
+                    .put("candidate_wall_ms", JSONArray(samples.getValue(16000).map { it / 1_000_000.0 }))
+                    .put("baseline_profiles", counts.getValue(8000))
+                    .put("candidate_profiles", counts.getValue(16000))
+            }
             stage = "select"
             instrumentation.runOnMainSync { model.select(Uri.fromFile(source)) }
             idle(90_000)
@@ -137,6 +172,8 @@ class CrossWindowSpeakerBookDeviceTest {
                     else -> "repeated_public_clip_gain_changed_not_independent_accuracy"
                 })
                 .put("qa_mode", mode)
+                .put("sample_budget_benchmark", budgetBenchmark ?: JSONObject.NULL)
+                .put("max_sample_ms", 16000)
                 .put("duration_ms", doc.audioMs)
                 .put("wall_ms", elapsed).put("rtf", elapsed.toDouble() / doc.audioMs)
                 .put("segments", doc.segments.size)

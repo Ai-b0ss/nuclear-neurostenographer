@@ -1752,3 +1752,21 @@ after this final note and status update; source stays recoverable despite Git
 being read-only. Verdict **NOT READY**; the Android lifecycle/codec/ASR/microphone,
 physical ARM64/airplane-mode/visual/RAM/thermal and independent dialogue gates
 remain unexecuted/unscored, with native overlap and runtime redistribution open.
+
+
+## 2026-11-12: TitaNet rejection diagnosis on PC
+
+- Reproduced initial 14/60 accepted; longer two-excerpt evidence (16 s per half, same .84 threshold) admitted 28/60. Contiguous-only gave 6/60; 80 ms boundary trimming gave 16/60.
+- Other 66 cached files: 33/81 to 73/81. Actual cached C2 turns, 15 files: 12/30 to 26/30. No observed accepted-profile pairwise false accepts; not a population safety or global-link recall result.
+- Corrected compact initial pair count from 83 to 88; original detailed scorer already had 88.
+- Four extraction regressions pass. No product/default/thermal changes. Candidate needs full global-policy replay and Android cost validation.
+- See docs/TITANET_REJECTION_DIAGNOSIS_2026-11-12.md and docs/evidence/titanet-excerpt-length-20261112.json.
+- Full host global-policy replay on C2: longer evidence yields 7/7 correct admitted returning probes (baseline zero admitted returning probes), no false links/mixes/collisions observed. Android cost remains unverified.
+
+## 2026-11-12: Longer experimental profiles validated on Android emulator
+
+- Two disjoint samples now allow16s each; ordinary global speakerbook remains OFF and identity thresholds/physical thermal guards unchanged. Host replay mirrors400 frames/sample; historical diagnostic current mode stays200 frames.
+- All4 emulator cases passed in run43178565587 at ea5095b. Long20m40s:268331ms,252 segments,5 profiled blocks,21 unknown segments, full coverage.
+- Paired warmed native benchmark on identical60s/C2 turns:683.844ms to861.335ms median (+25.95%, ~177ms),2 accepted profiles with either budget. This is TitaNet-only emulator cost, not HONOR performance.
+- Initial Linux scorer failed from a slice typo; fixed and covered by fifth selector regression. Windows actualC2 replay26/30 admitted and7/7 correct returning links. Host-only workflow rerun avoids repeating unchanged Android jobs.
+- Evidence: docs/evidence/titanet16-android-validation-20261112.json. No natural-conversation safety/physical endurance claim.

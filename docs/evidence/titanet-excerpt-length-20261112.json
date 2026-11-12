@@ -1,0 +1,314 @@
+{
+  "schema": "titanet-excerpt-length-research-v1",
+  "date": "2026-11-12",
+  "production_changed": false,
+  "thresholds_changed": false,
+  "cases": {
+    "initial20": {
+      "status": "COMPLETED",
+      "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+      "manifest_sha256": "0c74a725eebcf2b187b2974e5350d582123ea83510786afa1439bbc06913d18f",
+      "runtime": "1.12.40",
+      "summary": {
+        "current": {
+          "total": 60,
+          "accepted": 14,
+          "agreement_rejected": 42,
+          "insufficient": 4,
+          "cosine_min": 0.5919827312319355,
+          "cosine_median": 0.8075108425631805,
+          "cosine_max": 0.9646748035030689,
+          "accepted_pairs": {
+            "positive_pairs": 3,
+            "negative_pairs": 88,
+            "positive_above_0_84": 3,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8804658178555659,
+            "negative_max": 0.5928538151996776,
+            "negative_p99": 0.585975179841791
+          },
+          "all_available_pairs": {
+            "positive_pairs": 30,
+            "negative_pairs": 1510,
+            "positive_above_0_84": 23,
+            "false_rejects_0_84": 7,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8679302792757078,
+            "negative_max": 0.6807501272406489,
+            "negative_p99": 0.5636970716007296
+          }
+        },
+        "contiguous": {
+          "total": 60,
+          "accepted": 6,
+          "agreement_rejected": 41,
+          "insufficient": 13,
+          "cosine_min": 0.5175045869805852,
+          "cosine_median": 0.7430374037970506,
+          "cosine_max": 0.9872146749298489,
+          "accepted_pairs": {
+            "positive_pairs": 1,
+            "negative_pairs": 14,
+            "positive_above_0_84": 1,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8686449000484087,
+            "negative_max": 0.48215043045602834,
+            "negative_p99": 0.4782644160711756
+          },
+          "all_available_pairs": {
+            "positive_pairs": 23,
+            "negative_pairs": 1058,
+            "positive_above_0_84": 15,
+            "false_rejects_0_84": 8,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8517935287610128,
+            "negative_max": 0.6138917751553036,
+            "negative_p99": 0.5539328365130654
+          }
+        },
+        "trim80ms": {
+          "total": 60,
+          "accepted": 16,
+          "agreement_rejected": 39,
+          "insufficient": 5,
+          "cosine_min": 0.5996431009375653,
+          "cosine_median": 0.8036564741002958,
+          "cosine_max": 0.9632253004283615,
+          "accepted_pairs": {
+            "positive_pairs": 3,
+            "negative_pairs": 117,
+            "positive_above_0_84": 3,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8801635668689851,
+            "negative_max": 0.5787434944020964,
+            "negative_p99": 0.5642648786186569
+          },
+          "all_available_pairs": {
+            "positive_pairs": 29,
+            "negative_pairs": 1456,
+            "positive_above_0_84": 21,
+            "false_rejects_0_84": 8,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8691740747732757,
+            "negative_max": 0.6754257945808062,
+            "negative_p99": 0.5617903874700267
+          }
+        },
+        "long16s": {
+          "total": 60,
+          "accepted": 28,
+          "agreement_rejected": 28,
+          "insufficient": 4,
+          "cosine_min": 0.5919827312319355,
+          "cosine_median": 0.8396109132678004,
+          "cosine_max": 0.9597853218768018,
+          "accepted_pairs": {
+            "positive_pairs": 7,
+            "negative_pairs": 371,
+            "positive_above_0_84": 7,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.9032457704168807,
+            "negative_max": 0.6359345198544502,
+            "negative_p99": 0.5783585871394656
+          },
+          "all_available_pairs": {
+            "positive_pairs": 30,
+            "negative_pairs": 1510,
+            "positive_above_0_84": 21,
+            "false_rejects_0_84": 9,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.874068992950148,
+            "negative_max": 0.6826467501167404,
+            "negative_p99": 0.5667129431170678
+          }
+        }
+      },
+      "wall_seconds": 36.5,
+      "recordings": 20
+    },
+    "followup66": {
+      "status": "COMPLETED",
+      "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+      "manifest_sha256": "f3f5acccc2e61e4728b3b1551ce5878a641eda6879863df3808f73e1d0d36143",
+      "runtime": "1.12.40",
+      "summary": {
+        "current": {
+          "total": 81,
+          "accepted": 33,
+          "agreement_rejected": 48,
+          "insufficient": 0,
+          "cosine_min": 0.31212136004629576,
+          "cosine_median": 0.8337129790380622,
+          "cosine_max": 0.9385571192629676,
+          "accepted_pairs": {
+            "positive_pairs": 15,
+            "negative_pairs": 513,
+            "positive_above_0_84": 14,
+            "false_rejects_0_84": 1,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8954521826744497,
+            "negative_max": 0.7439333772246036,
+            "negative_p99": 0.6469005973464049
+          },
+          "all_available_pairs": {
+            "positive_pairs": 58,
+            "negative_pairs": 3182,
+            "positive_above_0_84": 48,
+            "false_rejects_0_84": 10,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.8870370569812122,
+            "negative_max": 0.7439333772246036,
+            "negative_p99": 0.5906026115810777
+          }
+        },
+        "long16s": {
+          "total": 81,
+          "accepted": 73,
+          "agreement_rejected": 8,
+          "insufficient": 0,
+          "cosine_min": 0.7355341090774126,
+          "cosine_median": 0.89219288607624,
+          "cosine_max": 0.9571446638079096,
+          "accepted_pairs": {
+            "positive_pairs": 48,
+            "negative_pairs": 2580,
+            "positive_above_0_84": 48,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.9367578356522808,
+            "negative_max": 0.7520915779953643,
+            "negative_p99": 0.6261017401437324
+          },
+          "all_available_pairs": {
+            "positive_pairs": 58,
+            "negative_pairs": 3182,
+            "positive_above_0_84": 57,
+            "false_rejects_0_84": 1,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.9302377610681625,
+            "negative_max": 0.7520915779953643,
+            "negative_p99": 0.6234574026750581
+          }
+        }
+      },
+      "wall_seconds": 47.968,
+      "recordings": 66
+    },
+    "predictedC2_15": {
+      "status": "COMPLETED",
+      "model_sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+      "manifest_sha256": "f3f5acccc2e61e4728b3b1551ce5878a641eda6879863df3808f73e1d0d36143",
+      "runtime": "1.12.40",
+      "summary": {
+        "current": {
+          "total": 30,
+          "accepted": 12,
+          "agreement_rejected": 18,
+          "insufficient": 0,
+          "cosine_min": 0.7315067928165601,
+          "cosine_median": 0.8247843908420398,
+          "cosine_max": 0.8806562967623497,
+          "accepted_pairs": {
+            "positive_pairs": 0,
+            "negative_pairs": 66,
+            "positive_above_0_84": 0,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": null,
+            "negative_max": 0.5840794926253126,
+            "negative_p99": 0.5477545002530353
+          },
+          "all_available_pairs": {
+            "positive_pairs": 8,
+            "negative_pairs": 427,
+            "positive_above_0_84": 7,
+            "false_rejects_0_84": 1,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.9156444671654341,
+            "negative_max": 0.7422478216353259,
+            "negative_p99": 0.5894625459920223
+          },
+          "global_book": {
+            "total_expected_profiles": 30,
+            "profiles_consistent": 12,
+            "profiles_rejected_early_late": 18,
+            "profiles_rejected_insufficient_evidence": 0,
+            "first_valid_enrollments": 12,
+            "returning_valid_probes": 0,
+            "correct_returning_links": 0,
+            "returning_false_splits": 0,
+            "new_speaker_false_links": 0,
+            "wrong_returning_links": 0,
+            "speaker_mixes": 0,
+            "in_block_collisions": 0,
+            "distinct_true_voices_admitted": 12,
+            "total_global_ids_created": 12,
+            "returning_recall_accepted": null
+          }
+        },
+        "long16s": {
+          "total": 30,
+          "accepted": 26,
+          "agreement_rejected": 4,
+          "insufficient": 0,
+          "cosine_min": 0.8105266549787162,
+          "cosine_median": 0.8778894279642723,
+          "cosine_max": 0.9489528427670968,
+          "accepted_pairs": {
+            "positive_pairs": 8,
+            "negative_pairs": 317,
+            "positive_above_0_84": 8,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.927826330426719,
+            "negative_max": 0.7250676844890095,
+            "negative_p99": 0.6239582742830845
+          },
+          "all_available_pairs": {
+            "positive_pairs": 8,
+            "negative_pairs": 427,
+            "positive_above_0_84": 8,
+            "false_rejects_0_84": 0,
+            "false_accepts_0_84": 0,
+            "positive_median": 0.927826330426719,
+            "negative_max": 0.7250676844890095,
+            "negative_p99": 0.6175199335297096
+          },
+          "global_book": {
+            "total_expected_profiles": 30,
+            "profiles_consistent": 26,
+            "profiles_rejected_early_late": 4,
+            "profiles_rejected_insufficient_evidence": 0,
+            "first_valid_enrollments": 19,
+            "returning_valid_probes": 7,
+            "correct_returning_links": 7,
+            "returning_false_splits": 0,
+            "new_speaker_false_links": 0,
+            "wrong_returning_links": 0,
+            "speaker_mixes": 0,
+            "in_block_collisions": 0,
+            "distinct_true_voices_admitted": 19,
+            "total_global_ids_created": 19,
+            "returning_recall_accepted": 1.0
+          }
+        }
+      },
+      "wall_seconds": 15.766,
+      "script_sha256": "3f713d32766023e3ccffc497a6617644d1354b738b955c96ee2346147e46a0d6",
+      "recordings": 15
+    }
+  },
+  "correction": "Initial summary said 83 different-voice pairs; original detailed scorer and fresh replay both show 88 (14 choose 2 minus 3 same-voice pairs).",
+  "limits": [
+    "Oracle references on synthetic audiobook mixtures for initial20 and followup66.",
+    "Followup66 excludes initial recording IDs, not all source voices, and was evaluated previously in project. It is exploratory corroboration, not untouched held-out evidence.",
+    "PredictedC2_15 is cached actual C2 output; overlaps followup66, do not pool counts.",
+    "Host sherpa1.12.40 differs from Android1.12.20. No physical thermal or independent natural-conversation evidence.",
+    "More admitted profiles and pairwise verification do not establish global link policy correctness or population safety.",
+    "Longer excerpts can increase compute cost; Android performance has not been measured for this candidate."
+  ]
+}

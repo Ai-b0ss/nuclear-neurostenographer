@@ -20,7 +20,7 @@ ALLOWED = {"run_id", "status", "scope", "execution_environment", "qa_mode",
            "duration_ms", "wall_ms", "rtf", "segments", "profiled_blocks",
            "first_segments", "second_segments", "first_speaker_ids", "second_speaker_ids",
            "shared_speaker_ids", "speaker_source", "unknown_segments",
-           "segments_by_5min_interval", "max_battery_temperature_c", "stage", "error", "message", "processing_stage", "progress", "elapsed_ms"}
+           "segments_by_5min_interval", "max_battery_temperature_c", "stage", "error", "message", "processing_stage", "progress", "elapsed_ms", "sample_budget_benchmark", "max_sample_ms"}
 
 
 def verify_emulator(serial, qemu, abi):
