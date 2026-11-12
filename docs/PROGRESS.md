@@ -24,9 +24,29 @@ The physical HONOR was not accessed or loaded in this work.
   task-owned files in .local/speakerbook-offdevice-current.
 - GitHub integration can write the QA branch despite expired local Git
   credentials; no owner login or foreground browser is required.
-- Emulator execution remains PENDING CI until a real run completes.
-  See docs/SPEAKERBOOK_OFFDEVICE_QA.md and
+- Final accelerated x86_64 Android CI: all FOUR cases PASS. Repeat linked
+  both expected voices across the boundary; different-source control had no
+  shared IDs; absent optional model retained only block-local IDs.
+- Continuous 20m40s input completed: recognition 218.948 s (RTF 0.17657),
+  252 segments, 21 uncertain speaker segments, 5 profiled blocks and
+  [61,61,61,61,8] segments by five-minute interval. End/timeline checks PASS.
+  Full long-test wrapper 232.066 s. This is NOT HONOR performance evidence.
+- KVM version 12 explicitly checked usable in all four cases; no software
+  VM-acceleration fallback. Boot ~33 s. The bootstrap udev rule contained
+  an incorrect GROUP equality condition; runner-user ownership + strict
+  acceleration checks replaced it. Earlier slow runs were canceled.
+- The first accelerated tests exposed an unreadable host-staged TitaNet
+  file. Fixed by copying a pinned instrumentation asset under the target
+  app UID. Confirmed asset hash in test APK and absence from main APK.
+- Heavy QA now runs only on workflow_dispatch or a deliberate change to
+  .github/run-speakerbook-offdevice.txt, preventing repeated heavy runs on
+  ordinary edits. CI matrix case outputs are independent; normal CI PASS.
+- Linux current host: 107.15 s for 900 s corpus, same DER and admitted
+  profile counts as Windows. Independent identity readiness still NO-GO.
+- CI: https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43174151953
+  tested runtime code cac43214; results and source blob pins are saved in
   docs/evidence/speakerbook-offdevice-20261112.json.
+  Instructions: docs/SPEAKERBOOK_OFFDEVICE_QA.md.
 
 ## 2026-11-12 — final acceptance verification: Veche and corrected independent scope
 

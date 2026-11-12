@@ -6,7 +6,7 @@ from run_speakerbook_emulator_qa import accepted_result, verify_emulator
 class EmulatorIsolation(unittest.TestCase):
     def test_physical_serial_refused_even_with_spoofed_properties(self):
         with self.assertRaises(ValueError):
-            verify_emulator("AKPNU20B24113866", "1", "x86_64")
+            verify_emulator("USB_DEVICE_001", "1", "x86_64")
 
     def test_physical_properties_refused_with_emulator_serial(self):
         for qemu, abi in [("0", "x86_64"), ("1", "arm64-v8a"), ("", "")]:

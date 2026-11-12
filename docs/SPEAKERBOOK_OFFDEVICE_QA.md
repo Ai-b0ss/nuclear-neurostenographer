@@ -44,8 +44,11 @@ Workflow: .github/workflows/speakerbook-offdevice.yml. It has separate host and
 emulator jobs and uses standard public-repository Linux runners only.
 The four emulator cases run in independent matrix jobs (fail-fast=false),
 so every case publishes its own terminal result and diagnostic log.
-The workflow is initially push-enabled on the existing QA branch. After merge,
-it can be started manually; the long input controls the 20m40s emulator case.
+Heavy runs start only by workflow_dispatch or a deliberate change to
+.github/run-speakerbook-offdevice.txt on main/the QA branch. Ordinary code
+pushes do not restart this suite. The long input controls the 20m40s case
+for a manual run. The marker route also works through the connected GitHub
+integration without refreshing local Git credentials.
 
 The emulator uses an isolated .speakerbookqa APK with A3, product C2 and TitaNet.
 Three cross-window cases check repeat, different source voices, and absent
@@ -93,3 +96,18 @@ The thermal policy remains: start below 39 C battery / 65 C CPU, charge >=40%;
 stop at battery >=45 C, CPU >=78 C, Android SEVERE or lost telemetry.
 An emulator success does not erase the earlier physical THERMAL_ABORT.
 Global speaker linking remains disabled in ordinary builds.
+
+## Verified 12 November 2026
+
+All five jobs passed in Actions run 43174151953, runtime code cac43214.
+
+| Check | Result |
+|---|---|
+| Actual host C2 + TitaNet | 15 min corpus in 107.15 s; DER 3.20017%; 12/30 admitted profiles; no admitted returning probes |
+| Repeat after boundary | Both expected voices linked; 27.043 s recognition |
+| Different source control | No shared global IDs; 38.259 s recognition |
+| Optional model absent | All labels remain block-local; 36.454 s recognition |
+| 20m40s continuous input | 218.948 s recognition, 252 segments, five profiled blocks; timeline/end coverage PASS |
+
+The long case kept 21 uncertain speaker segments. Functional checks do not
+establish WER/cpWER, population identity accuracy or physical thermal readiness.

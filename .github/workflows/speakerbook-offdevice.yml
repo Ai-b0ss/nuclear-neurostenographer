@@ -7,13 +7,8 @@ on:
         type: boolean
         default: true
   push:
-    branches: ['qa/speakerbook-three-gates-20261112']
-    paths:
-      - '.github/workflows/speakerbook-offdevice.yml'
-      - 'tools/*speakerbook*'
-      - 'tools/c2pp/run_host.py'
-      - 'tools/fetch_russian_bookmix_sample.py'
-      - 'app/src/androidTest/java/ru/neurostenographer/app/*SpeakerBook*'
+    branches: ['main', 'qa/speakerbook-three-gates-20261112']
+    paths: ['.github/run-speakerbook-offdevice.txt']
 permissions:
   contents: read
   actions: read

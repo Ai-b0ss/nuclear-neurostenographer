@@ -74,7 +74,262 @@
   },
   "android_qa_build": "PASS: assembleDebug and assembleDebugAndroidTest, 71 Gradle tasks",
   "workflow_lint": "PASS: actionlint v1.7.12",
-  "emulator_execution": "PENDING_CI",
+  "emulator_execution": "PASS_ALL_FOUR_CASES",
   "physical_phone_accessed": false,
-  "production_feature_default": false
+  "production_feature_default": false,
+  "linux_actions_host": {
+    "schema": "speakerbook-offdevice-host-v1",
+    "run_id": "ce8b68b4495d4f9e8b55a294613ae17b",
+    "status": "COMPLETED",
+    "execution_environment": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+    "android_test": false,
+    "device_thermal_acceptance": false,
+    "quality_release_gate": "NOT_ESTABLISHED",
+    "stage": "done",
+    "recordings": 15,
+    "audio_seconds": 900,
+    "der_250ms": 0.03200165436662315,
+    "speaker_link": {
+      "total_expected_profiles": 30,
+      "profiles_consistent": 12,
+      "profiles_rejected_early_late": 18,
+      "profiles_rejected_insufficient_evidence": 0,
+      "first_valid_enrollments": 12,
+      "returning_valid_probes": 0,
+      "correct_returning_links": 0,
+      "returning_false_splits": 0,
+      "new_speaker_false_links": 0,
+      "wrong_returning_links": 0,
+      "speaker_mixes": 0,
+      "in_block_collisions": 0,
+      "distinct_true_voices_admitted": 12,
+      "total_global_ids_created": 12,
+      "returning_recall_accepted": null
+    },
+    "runtime": "sherpa-onnx 1.12.40",
+    "limitations": [
+      "The global linking and TitaNet samples are replayed on a host computer, not executed inside Android",
+      "C2 turns (actual model outputs) are used to extract voiceprints. RTTM is only used to map clusters to reference voice labels for scoring",
+      "When a C2 cluster contains both speakers, Hungarian label alone can conceal confusion; purity metric reports its extent",
+      "This is a 15-minute subset split into 15 one-minute files, not 20+ minute continuous processing",
+      "Synthetic audiobook voices and generator RTTM are not a human-labeled natural Russian conversation",
+      "Small sample, repeated voices correlated, model pretraining overlap not excluded"
+    ],
+    "wall_seconds": 107.15
+  },
+  "linux_actions_run": "https://github.com/Ai-b0ss/nuclear-neurostenographer/actions/runs/43174151953",
+  "linux_actions_commit": "cac43214e27fe93812e4e0ef2317996f729b9352",
+  "linux_windows_der_identical": true,
+  "emulator_cases": {
+    "repeat": {
+      "schema": "speakerbook-emulator-qa-v1",
+      "run_id": "95c63f4d76b44d8f9bf0571db3d65f5c",
+      "status": "PASS_EXECUTION",
+      "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+      "physical_device_accessed": false,
+      "thermal_performance_measured": false,
+      "cases": [
+        {
+          "mode": "repeat",
+          "status": "PASS",
+          "record": {
+            "run_id": "35278491477",
+            "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+            "scope": "repeated_public_clip_gain_changed_not_independent_accuracy",
+            "qa_mode": "repeat",
+            "duration_ms": 362000,
+            "wall_ms": 27043,
+            "rtf": 0.07470441988950276,
+            "segments": 24,
+            "first_segments": 12,
+            "second_segments": 12,
+            "first_speaker_ids": [
+              "Speaker 1",
+              "Speaker 2"
+            ],
+            "second_speaker_ids": [
+              "Speaker 1",
+              "Speaker 2"
+            ],
+            "shared_speaker_ids": [
+              "Speaker 1",
+              "Speaker 2"
+            ],
+            "profiled_blocks": 2,
+            "speaker_source": "chunked_titanet_small_voice_embeddings_qa",
+            "status": "PASS"
+          },
+          "cleanup": {
+            "verified": true,
+            "errors": []
+          }
+        }
+      ],
+      "cleanup": {
+        "verified": true,
+        "errors": []
+      },
+      "wall_seconds": 51.995
+    },
+    "differentSources": {
+      "schema": "speakerbook-emulator-qa-v1",
+      "run_id": "a455d1ed75354959945f0f1f829b2d65",
+      "status": "PASS_EXECUTION",
+      "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+      "physical_device_accessed": false,
+      "thermal_performance_measured": false,
+      "cases": [
+        {
+          "mode": "differentSources",
+          "status": "PASS",
+          "record": {
+            "run_id": "45258069920",
+            "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+            "scope": "different_source_clips_speakers_not_identity_annotated",
+            "qa_mode": "differentSources",
+            "duration_ms": 362000,
+            "wall_ms": 38259,
+            "rtf": 0.1056878453038674,
+            "segments": 25,
+            "first_segments": 12,
+            "second_segments": 13,
+            "first_speaker_ids": [
+              "Speaker 1",
+              "Speaker 2"
+            ],
+            "second_speaker_ids": [
+              "Block 2 / Speaker 1",
+              "Speaker 3"
+            ],
+            "shared_speaker_ids": [],
+            "profiled_blocks": 2,
+            "speaker_source": "chunked_titanet_small_voice_embeddings_qa",
+            "status": "PASS"
+          },
+          "cleanup": {
+            "verified": true,
+            "errors": []
+          }
+        }
+      ],
+      "cleanup": {
+        "verified": true,
+        "errors": []
+      },
+      "wall_seconds": 56.636
+    },
+    "withoutModel": {
+      "schema": "speakerbook-emulator-qa-v1",
+      "run_id": "75f6baa90f304d6094f7b53719de27c7",
+      "status": "PASS_EXECUTION",
+      "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+      "physical_device_accessed": false,
+      "thermal_performance_measured": false,
+      "cases": [
+        {
+          "mode": "withoutModel",
+          "status": "PASS",
+          "record": {
+            "run_id": "47166929704",
+            "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+            "scope": "missing_optional_model_must_keep_block_local_ids",
+            "qa_mode": "withoutModel",
+            "duration_ms": 362000,
+            "wall_ms": 36454,
+            "rtf": 0.10070165745856353,
+            "segments": 24,
+            "first_segments": 12,
+            "second_segments": 12,
+            "first_speaker_ids": [
+              "Block 1 / Speaker 1",
+              "Block 1 / Speaker 2"
+            ],
+            "second_speaker_ids": [
+              "Block 2 / Speaker 1",
+              "Block 2 / Speaker 2"
+            ],
+            "shared_speaker_ids": [],
+            "profiled_blocks": 0,
+            "speaker_source": "chunked_locally_scoped_speakers_no_global_link",
+            "status": "PASS"
+          },
+          "cleanup": {
+            "verified": true,
+            "errors": []
+          }
+        }
+      ],
+      "cleanup": {
+        "verified": true,
+        "errors": []
+      },
+      "wall_seconds": 56.661
+    },
+    "long": {
+      "schema": "speakerbook-emulator-qa-v1",
+      "run_id": "ab3975184af04e578b81df07407d8370",
+      "status": "PASS_EXECUTION",
+      "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+      "physical_device_accessed": false,
+      "thermal_performance_measured": false,
+      "cases": [
+        {
+          "mode": "long",
+          "status": "PASS",
+          "record": {
+            "run_id": "36102510058",
+            "execution_environment": "ANDROID_X86_64_EMULATOR_NOT_PHONE",
+            "scope": "20min40s_continuous_test_audio_no_ground_truth",
+            "duration_ms": 1240000,
+            "wall_ms": 218948,
+            "rtf": 0.17657096774193548,
+            "max_battery_temperature_c": 0,
+            "segments": 252,
+            "unknown_segments": 21,
+            "profiled_blocks": 5,
+            "speaker_source": "chunked_titanet_small_voice_embeddings_qa",
+            "segments_by_5min_interval": [
+              61,
+              61,
+              61,
+              61,
+              8
+            ],
+            "status": "PASS"
+          },
+          "cleanup": {
+            "verified": true,
+            "errors": []
+          }
+        }
+      ],
+      "cleanup": {
+        "verified": true,
+        "errors": []
+      },
+      "wall_seconds": 232.066
+    }
+  },
+  "kvm_verified_by_case": {
+    "repeat": true,
+    "differentSources": true,
+    "withoutModel": true,
+    "long": true
+  },
+  "ordinary_android_ci": "PASS",
+  "infrastructure_fixes": [
+    "Require usable KVM, correct runner device permissions and force acceleration on; no software fallback",
+    "Stage pinned TitaNet as a test-only asset under target UID, not a host-owned nested directory",
+    "Independent case jobs with numeric progress heartbeat, fresh terminal evidence and verified cleanup",
+    "Heavy suite requires explicit dispatch or deliberate marker change after bootstrap"
+  ],
+  "release_decision": "GLOBAL_SPEAKER_BOOK_REMAINS_OFF; functional emulator success does not establish independent identity accuracy or HONOR endurance",
+  "tested_runtime_file_blobs": {
+    "app/src/androidTest/java/ru/neurostenographer/app/SpeakerBookQaEnvironment.kt": "c191db61e4400da99dac1df3503f395ab5699ece",
+    "app/src/androidTest/java/ru/neurostenographer/app/CrossWindowSpeakerBookDeviceTest.kt": "3112edb04296efb806c3ee31cd62e31d28ff7b2a",
+    "app/src/androidTest/java/ru/neurostenographer/app/LongContinuousSpeakerBookDeviceTest.kt": "33d174a489bed83c373d25418a6f1f3e39cad6e4",
+    "tools/run_speakerbook_emulator_qa.py": "740e13a1bd1128ba8e069e2f630e37b38e829082",
+    "tools/provision_speakerbook_qa.py": "dff5ca7fcbe63bfbe07dff0e1c2225ea2c641c97",
+    "tools/run_speakerbook_host_qa.py": "831f1993b43433470dc64ff23281601d21f7bf8c"
+  }
 }
