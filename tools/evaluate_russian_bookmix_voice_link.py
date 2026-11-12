@@ -68,13 +68,13 @@ def ground_truth_owners(rttm_text,expected_speakers,frame_count=1500):
     return names,owners
 
 
-def separate(owners,who):
-    """Exact CleanSpeakerFrames.separate - two 8-sec, >=3-sec clean extracts."""
+def separate(owners,who,max_frames=400):
+    """Exact CleanSpeakerFrames.separate - two 16-sec, >=3-sec clean extracts."""
     active=[i for i,s in enumerate(owners) if s==who]
     if len(active)<150:return None
     middle=len(active)//2
-    early=active[:middle][:200]
-    late=active[middle:][-200:]
+    early=active[:middle][:max_frames]
+    late=active[middle:][-max_frames]
     if len(early)<75 or len(late)<75 or early[-1]>=late[0]:
         return None
     return early,late

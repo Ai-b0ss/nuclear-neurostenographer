@@ -7,6 +7,8 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"tools"))
 from evaluate_russian_bookmix_voice_link import (
     ground_truth_owners,separate,normalized,sha256,SHA_TITANET,calculate_pairs,global_book_simulation)
+def current(owners,who):
+    return separate(owners,who,max_frames=200)
 def contiguous(owners,who):
     active=[i for i,v in enumerate(owners) if v==who]
     if len(active)<150:return None
@@ -30,7 +32,7 @@ def longer(owners,who):
 def trimmed(owners,who):
     clean=[v if i>=2 and i+2<len(owners) and all(x==who for x in owners[i-2:i+3]) else -1
            for i,v in enumerate(owners)]
-    return separate(clean,who)
+    return current(clean,who)
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     for n in ("data","model","site","output"):ap.add_argument("--"+n,type=Path,required=True)
@@ -65,7 +67,7 @@ def main():
         st.input_finished()
         if not encoder.is_ready(st):raise ValueError("Model not ready")
         return normalized(encoder.compute(st),np)
-    methods={"current":separate,"contiguous":contiguous,"trim80ms":trimmed,"long16s":longer}
+    methods={"current":current,"contiguous":contiguous,"trim80ms":trimmed,"long16s":longer}
     methods={k:methods[k] for k in a.methods.split(",")}
     books={k:[] for k in methods}
     rows=[]; pools={k:[] for k in methods}; start=time.monotonic()
