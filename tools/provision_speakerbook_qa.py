@@ -92,6 +92,9 @@ def main():
                  HARNESS/"onnxruntime-1.17.1.jar",
                  "a4e57e18a04b6c1b5b0e2885af1d8557873d4ca04bfcebf79743966c4c8eb20f")
     if a.android:
+        test_assets = ROOT/".local/androidTestAssets/speakerbook"
+        test_assets.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(TITANET, test_assets/"nemo_en_titanet_small.onnx")
         subprocess.run([sys.executable, str(ROOT/"tools/provision_asr.py")], check=True)
         spec = (ROOT/"app/src/main/java/ru/neurostenographer/app/AsrModelSpec.kt").read_text(encoding="utf8")
         import re

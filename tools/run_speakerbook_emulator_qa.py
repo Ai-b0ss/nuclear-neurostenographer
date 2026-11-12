@@ -107,8 +107,9 @@ def main():
                 raise ValueError("Refusing APK with unexpected package")
             adb("install", "-r", "-t", apk, timeout=300)
         base = "/sdcard/Android/data/"+PACKAGE+"/files/qa"
-        adb("shell", "mkdir", "-p", base+"/titanet")
-        adb("push", a.titanet, base+"/titanet/"+a.titanet.name, timeout=120)
+        # The instrumentation copies the pinned test asset under the target UID.
+        # Host-created nested directories can be unreadable on scoped storage.
+        adb("shell", "mkdir", "-p", base)
         for name in fixtures["files"]:
             adb("push", a.fixtures/name, base+"/"+name, timeout=120)
             actual = adb("shell", "sha256sum", base+"/"+name).stdout.split()[0]

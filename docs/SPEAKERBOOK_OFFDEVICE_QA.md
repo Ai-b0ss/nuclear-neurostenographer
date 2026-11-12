@@ -72,6 +72,10 @@ Only explicit qaEnvironment=emulator on a ranchu/goldfish x86_64 build bypasses
 simulated temperature checks and extends timeouts. The physical path retains
 the existing battery/OS checks and mandatory host CPU watchdog.
 A fresh emulator waits for bundled model installation before asserting readiness.
+TitaNet is staged as a checksum-pinned instrumentation-only asset; the test
+copies it into the external QA directory under the target app UID before
+running. This avoids host-created nested-directory visibility problems on
+scoped storage. No model is added to the product APK.
 
 Each case needs both JUnit OK (1 test) and fresh PASS app evidence marked as
 ANDROID_X86_64_EMULATOR_NOT_PHONE. Prior evidence is removed first; RUNNING,

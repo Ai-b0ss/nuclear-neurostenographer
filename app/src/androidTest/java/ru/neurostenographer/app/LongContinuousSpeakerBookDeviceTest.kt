@@ -85,6 +85,7 @@ class LongContinuousSpeakerBookDeviceTest {
 
         try {
             verifyCoolBattery()
+            SpeakerBookQaEnvironment.prepareOptionalModel()
             inst.runOnMainSync {
                 model = TranscriptionViewModel(target.applicationContext as Application)
                 modelInitialized = true

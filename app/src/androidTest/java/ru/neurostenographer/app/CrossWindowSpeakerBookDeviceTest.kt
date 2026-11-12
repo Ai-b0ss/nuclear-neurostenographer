@@ -93,6 +93,7 @@ class CrossWindowSpeakerBookDeviceTest {
         var movedModel = false
         try {
             ensureSafeTemperature()
+            SpeakerBookQaEnvironment.prepareOptionalModel()
             assertTrue("Push a permitted test WAV to QA app's external sandbox", source.isFile)
             if (missingModel) {
                 assertTrue("Missing QA TitaNet model must exist before test", optionalModel.isFile)
