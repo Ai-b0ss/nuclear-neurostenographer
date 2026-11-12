@@ -20,7 +20,7 @@ ALLOWED = {"run_id", "status", "scope", "execution_environment", "qa_mode",
            "duration_ms", "wall_ms", "rtf", "segments", "profiled_blocks",
            "first_segments", "second_segments", "first_speaker_ids", "second_speaker_ids",
            "shared_speaker_ids", "speaker_source", "unknown_segments",
-           "segments_by_5min_interval", "max_battery_temperature_c", "stage", "error"}
+           "segments_by_5min_interval", "max_battery_temperature_c", "stage", "error", "message"}
 
 
 def verify_emulator(serial, qemu, abi):
@@ -39,10 +39,13 @@ def main():
     p.add_argument("--serial")
     p.add_argument("--aapt", required=True)
     p.add_argument("--long", action="store_true")
+    p.add_argument("--case", choices=("all", "repeat", "differentSources", "withoutModel", "long"), default="all")
     p.add_argument("--fixtures", type=Path, default=ROOT/".local/speakerbook-offdevice-current/fixtures")
     p.add_argument("--titanet", type=Path, default=ROOT/".local/speakerbook-active/scratch/models/nemo_en_titanet_small.onnx")
     p.add_argument("--output", type=Path, default=ROOT/".local/speakerbook-offdevice-current/emulator")
     a = p.parse_args()
+    if a.case == "long" and not a.long:
+        p.error("The long case requires explicit --long")
     listing = subprocess.check_output([a.adb, "devices"], text=True)
     targets = [x.split()[0] for x in listing.splitlines()[1:]
                if len(x.split()) == 2 and x.split()[1] == "device" and x.startswith("emulator-")]
@@ -50,6 +53,8 @@ def main():
         if len(targets) != 1:
             p.error("Need exactly one emulator or an explicit --serial")
         a.serial = targets[0]
+    if not re.fullmatch(r"emulator-\d+", a.serial):
+        p.error("Refusing physical serial before any target ADB command")
     def adb(*args, timeout=60, check=True):
         return subprocess.run([a.adb, "-s", a.serial, *map(str, args)], check=check,
                               capture_output=True, text=True, encoding="utf8", errors="replace", timeout=timeout)
@@ -116,6 +121,8 @@ def main():
                  ("withoutModel", "CrossWindowSpeakerBookDeviceTest", "speakerbook-without-model-evidence.json")]
         if a.long:
             cases.append(("long", "LongContinuousSpeakerBookDeviceTest", "speakerbook-long-20min-evidence.json"))
+        if a.case != "all":
+            cases = [case for case in cases if case[0] == a.case]
         for mode, klass, filename in cases:
             item = {"mode": mode, "status": "RUNNING"}
             summary["cases"].append(item)
@@ -133,6 +140,7 @@ def main():
                 (a.output/(mode+".json")).write_text(json.dumps(clean, indent=2)+"\n", encoding="utf8")
                 item["status"] = "PASS" if run.returncode == 0 and accepted_result(run.stdout, record) else "FAIL"
                 item["record"] = clean
+                print("EMULATOR_CASE", json.dumps(item), flush=True)
                 if adb("shell", "sha256sum", base+"/titanet/"+a.titanet.name).stdout.split()[0] != SHA_TITANET:
                     raise ValueError("QA model was not restored after missing-model test")
             except Exception as error:

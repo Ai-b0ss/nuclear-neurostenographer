@@ -55,9 +55,14 @@ jobs:
           include-hidden-files: true
           path: .local/speakerbook-offdevice-current/host/*.json
   emulator:
+    name: emulator-${{ matrix.mode }}
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: ${{ fromJSON((github.event_name == 'workflow_dispatch' && !inputs.long) && '["repeat","differentSources","withoutModel"]' || '["repeat","differentSources","withoutModel","long"]') }}
     if: github.event.repository.private == false
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 100
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -94,6 +99,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - uses: reactivecircus/android-emulator-runner@v2
         env:
+          QA_CASE: ${{ matrix.mode }}
           RUN_LONG: ${{ github.event_name != 'workflow_dispatch' || inputs.long }}
         with:
           api-level: 33
@@ -107,7 +113,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: speakerbook-emulator-metadata-NOT-HONOR-performance
+          name: speakerbook-emulator-${{ matrix.mode }}-metadata-NOT-HONOR-performance
           retention-days: 7
           include-hidden-files: true
           path: |

@@ -42,6 +42,8 @@ NOT_ESTABLISHED.
 
 Workflow: .github/workflows/speakerbook-offdevice.yml. It has separate host and
 emulator jobs and uses standard public-repository Linux runners only.
+The four emulator cases run in independent matrix jobs (fail-fast=false),
+so every case publishes its own terminal result and diagnostic log.
 The workflow is initially push-enabled on the existing QA branch. After merge,
 it can be started manually; the long input controls the 20m40s emulator case.
 
