@@ -1827,3 +1827,8 @@ remain unexecuted/unscored, with native overlap and runtime redistribution open.
 - Private public 20m40s fixture hash verified. Headless ordinary-RC5 QA stalled at679 ms; system listed its transcription lock as Force Released WakeLocks. Manually stopped, cleanup verified; max battery34 C / CPU42 C. Temporary Android Doze exception for QA alone also stalled (2693 ms, max33/37 C); original policy restored and verified. No endurance/energy or product-foreground failure claim.
 - Corrected test now requires an unlocked display and launches the real Activity before processing/screen-off. Compiled locally but current PIN keyguard prevents a representative run. Product RC5 stays installed, global linking stays OFF; product/global policies unchanged.
 - Host progress watchdog now stops a non-advancing long QA run after30 s (startup grace240 s); stale PASS/FAIL records do not suppress it. Seventeen host tests pass, including actual mocked run cleanup. See [investigation](HONOR_LONG_RC5_2026-11-12.md).
+
+
+## PC quality continuation after HONOR testing suspended
+
+Owner requested that physical heating must not block system development. No further physical endurance run or cooling-pause implementation. Fresh current-source C2 inference on3 Veche hard recordings (848.247 s,2/3/5 speakers) completed on PC; correct speaker counts3/3, pooled DER6.787% without collar and2.778% at250 ms, overlap included. Scripted human speech, not spontaneous or a new unseen holdout. [Evidence and limitations](PC_QUALITY_CHECKPOINT_2026-11-13.md). Global identity remains disabled.

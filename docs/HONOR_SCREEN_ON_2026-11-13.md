@@ -16,6 +16,10 @@ RC6/code27 candidate limits batch OfflineAsr inference to two threads per sessio
 
 An explicit inferenceThreads argument allows the physical test to compare the same public10-second probe at4 then2 threads using the exact Android runtime. The emitted text hashes match. Times were7580 and7973 ms; one ordered cold/warm pair is not a statistical speed, accuracy or energy benchmark. Host max CPU63 C / battery36 C; normal cleanup verified. Runtime assertions also confirmed the batch default2 and unchanged realtime model-config default4. [Paired numeric evidence](evidence/honor-rc6-asr-thread-parity.json).
 
-The RC6 long run with two ASR threads is RUNNING. Existing cool start and stop/warning thresholds are unchanged. The app wait bound is19 min within the existing20-min host bound to accommodate slower processing. No RC6 endurance pass, production installation or updated ready release is claimed yet; the installed and sole ready product APK remains RC5 until validation finishes.
+The RC6 long run ended THERMAL_ABORT after607.16 s: battery45 C, peak CPU71 C. Both QA processes were stopped and cleanup verified. See [terminal evidence](evidence/honor-rc6-screen-on-result.json). Existing cool start and stop/warning thresholds are unchanged. The app wait bound is19 min within the existing20-min host bound to accommodate slower processing. No RC6 endurance pass, production installation or updated ready release is claimed yet; the installed and sole ready product APK remains RC5 until validation finishes.
 
 Local core checks, QA app/instrumentation builds and18 host watchdog unit tests passed. Only the test route can select the paired probe, and forced cleanup is still restricted to Sol QA and its test package.
+
+## Current owner direction
+
+Physical HONOR endurance testing is suspended. Do not implement cooling pauses now. Continue quality evaluation and development on PC and accelerated cloud Android emulators. Hardware endurance remains unverified and is not a blocker for off-device development. Never lock or turn off the physical display.

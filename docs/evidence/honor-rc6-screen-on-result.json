@@ -1,0 +1,24 @@
+{
+  "status": "THERMAL_ABORT",
+  "wall_seconds": 607.16,
+  "max_temperature_c": 45.0,
+  "max_cpu_temperature_c": 71.0,
+  "trigger": {
+    "battery_c": 45.0,
+    "cpu_max_c": 61.0,
+    "cpu_sensors_c": {
+      "cluster0": 58.0,
+      "cluster1": 61.0
+    },
+    "android_thermal_status": 0,
+    "max_cpu_sensor_status": 0
+  },
+  "cleanup_verified": {
+    "verified": true,
+    "remaining": [],
+    "stopped": true
+  },
+  "scope": "HISTORICAL_HONOR_SCREEN_ON_RC6_NOT_COMPLETED",
+  "development_blocker": false,
+  "owner_direction": "Continue PC and emulator development; no further physical endurance tests or cooling implementation now"
+}

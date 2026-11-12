@@ -1,0 +1,228 @@
+{
+  "schema": "russian-veche-hard-independent-diarization-audit-v1",
+  "date": "2026-11-12",
+  "dataset": "artem-tish/veche-bench",
+  "official_url": "https://huggingface.co/datasets/artem-tish/veche-bench",
+  "dataset_license": "CC-BY-4.0, restricted by explicit ethical prohibition on biometric voice profiling/re-identification",
+  "variant": "data_hard; real volunteers reading scripted meeting speech with background noise",
+  "reference": "supplied speaker-ID and start/end CSV; timestamps may be scripted, not independently human timed",
+  "model": "Kotlin product Nemotron3 C2 INT8, ORT pinned 1.17.1, host Windows",
+  "not_tested": "No TitaNet, voiceprints, persistent speaker ID, Android, ASR/cpWER",
+  "meetings": 3,
+  "audio_duration_s": 848.247,
+  "diarization": {
+    "product_0ms": {
+      "DER_pct": 6.786987030418825,
+      "reference_speech_s": 788.229,
+      "error_parts_pct": {
+        "miss_ms": 3.403325683272247,
+        "false_alarm_ms": 3.2765858652751927,
+        "confusion_ms": 0.10707548187138509
+      }
+    },
+    "product_250ms": {
+      "DER_pct": 2.7784256131830065,
+      "reference_speech_s": 613.153,
+      "error_parts_pct": {
+        "miss_ms": 1.8991997103496192,
+        "false_alarm_ms": 0.8792259028333874,
+        "confusion_ms": 0.0
+      }
+    },
+    "raw_0ms": {
+      "DER_pct": 6.994414059873463,
+      "reference_speech_s": 788.229,
+      "error_parts_pct": {
+        "miss_ms": 6.270005290340751,
+        "false_alarm_ms": 0.6651620277863413,
+        "confusion_ms": 0.05924674174637066
+      }
+    },
+    "raw_250ms": {
+      "DER_pct": 4.0348819951953265,
+      "reference_speech_s": 613.153,
+      "error_parts_pct": {
+        "miss_ms": 4.0348819951953265,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0
+      }
+    }
+  },
+  "files": [
+    {
+      "meeting": "2-one-to-one",
+      "sample": "data_hard",
+      "wav_sha256": "b5d3db192f2f0d18297364662f1988a246de14ef74866f7bd7848ce33652f22b",
+      "duration_ms": 153189,
+      "reference_utterances": 50,
+      "reference_speakers": 2,
+      "product_clusters": 2,
+      "product_segments": 51,
+      "product_collar_0ms": {
+        "rate": 0.060208025423787614,
+        "miss_ms": 3343,
+        "false_alarm_ms": 5196,
+        "confusion_ms": 138,
+        "reference_speaker_ms": 144117
+      },
+      "product_collar_250ms": {
+        "rate": 0.020046046730959492,
+        "miss_ms": 2168,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 108151
+      },
+      "raw_collar_0ms": {
+        "rate": 0.05768923860474476,
+        "miss_ms": 6427,
+        "false_alarm_ms": 1810,
+        "confusion_ms": 77,
+        "reference_speaker_ms": 144117
+      },
+      "raw_collar_250ms": {
+        "rate": 0.03637506819169495,
+        "miss_ms": 3934,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 108151
+      },
+      "hypothesis_sha256": "25ec982e3ef28178d51e8743c0dfe7d01376fda092b5a2f516081f235d57af02"
+    },
+    {
+      "meeting": "3-auth-incident",
+      "sample": "data_hard",
+      "wav_sha256": "5ef7596327d38d9f1120fd07671acf6439339aaa51a26f255f9ac4e5e97faf57",
+      "duration_ms": 304520,
+      "reference_utterances": 90,
+      "reference_speakers": 3,
+      "product_clusters": 3,
+      "product_segments": 93,
+      "product_collar_0ms": {
+        "rate": 0.06950768305391776,
+        "miss_ms": 13217,
+        "false_alarm_ms": 6333,
+        "confusion_ms": 326,
+        "reference_speaker_ms": 285954
+      },
+      "product_collar_250ms": {
+        "rate": 0.02764441345027671,
+        "miss_ms": 6184,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 223698
+      },
+      "raw_collar_0ms": {
+        "rate": 0.08273708358687061,
+        "miss_ms": 21751,
+        "false_alarm_ms": 1667,
+        "confusion_ms": 241,
+        "reference_speaker_ms": 285954
+      },
+      "raw_collar_250ms": {
+        "rate": 0.053737628409730974,
+        "miss_ms": 12021,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 223698
+      },
+      "hypothesis_sha256": "c49e0ddb3cea079b02b64f5d67faa1601713f46b2d553f1186fd913fa81fe42e"
+    },
+    {
+      "meeting": "5-it-product",
+      "sample": "data_hard",
+      "wav_sha256": "dd2dddc162151084082f836c9f5dd8c1479769bb89900a996db6d4d38f3a1705",
+      "duration_ms": 390538,
+      "reference_utterances": 110,
+      "reference_speakers": 5,
+      "product_clusters": 5,
+      "product_segments": 112,
+      "product_collar_0ms": {
+        "rate": 0.06964524036877578,
+        "miss_ms": 10266,
+        "false_alarm_ms": 14298,
+        "confusion_ms": 380,
+        "reference_speaker_ms": 358158
+      },
+      "product_collar_250ms": {
+        "rate": 0.030870517305121862,
+        "miss_ms": 3293,
+        "false_alarm_ms": 5391,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 281304
+      },
+      "raw_collar_0ms": {
+        "rate": 0.06466140641839635,
+        "miss_ms": 21244,
+        "false_alarm_ms": 1766,
+        "confusion_ms": 149,
+        "reference_speaker_ms": 358158
+      },
+      "raw_collar_250ms": {
+        "rate": 0.03122955948013537,
+        "miss_ms": 8785,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 281304
+      },
+      "hypothesis_sha256": "6ec8d35442fdcce890bf9aefd3ed4ad37db89ef5df3566d910816fae1b2372f9"
+    }
+  ],
+  "caveats": [
+    "Veche human voices are scripted and assembled to synthetic meeting flow.",
+    "The dataset's ethical policy permits diarization benchmarking but prohibits voice profiling/re-identification. No global linking is performed.",
+    "This is the hard-noise variant; scripts 2/3 were seen previously in other variants, script 5 is a new meeting.",
+    "DER counts overlap and uses per-recording optimal speaker mapping.",
+    "WER/cpWER not scored without actual transcription of these exact waveforms."
+  ],
+  "tested_code_sha": "8c976e753d3b25c04d8c936628dcf76e328add5d",
+  "source_fingerprints": {
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AsrWindowEta.kt": "0532761c83ec710b8b67ca7d566d2f6e6a6f689edfd374585375999277df98c8",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AudioProcessingClock.kt": "1df29db2ad6faaee6659a2f8c377400e9b056463d85198b85ec48a1cc505823d",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\AudioSnapshot.kt": "39bfff7549766936c0c2b7773bc357a3b0c37f1c5af4fa76ea47db71f990b4c4",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BatchInferencePolicy.kt": "19a1aae5fa34d0255e4a03b6df952f9c12d8869989b6cc98ba2c386cf592c61b",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BoundedWavRecorder.kt": "1f9202542141279d7272a077ef9aa77560c1e0460ef3acf31c5904c7d132a2dc",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\BuiltinTerms.kt": "9a8b56fa8108bd07bb1fdc6ac17121ece055b1ad8c3b0c0cbb0d4572d5b5cb2d",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\CleanSpeakerFrames.kt": "ae7291f30c0e370599c6f77a339e46e21d3c9e1a2479095474554bef421e9157",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DecodeBudget.kt": "ef3eedf813eef50312d9057102a19a16ae7c8c20367eaa7b4e8bc90bd8f9a911",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DecodedPcmTimeline.kt": "4a754e42443f3708b8161029fc4b7638e8f664bac30d20e7473ad633f5c4f106",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationReply.kt": "bc3a30566e48a09a4a4c3c9aa463b97f33fad961787e39668b2a1c69eac1b2e0",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationTimeEstimate.kt": "b48951d80c4af66eacf1d95c0ece2cdeead2350f25dc1f2ed3f1405af1534255",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\DiarizationTimeline.kt": "377788df62fd50cbfa1107ecaa0a4370a88a752e0bed68937a9905acb491fbd5",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\FddtOverlapPlan.kt": "2c3eb70ffcdc691802306391b3fa0ccd6253c342042d00ba1a4c53f90f134953",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\GlobalSpeakerBook.kt": "4e24733394705086458f280bd774dd18160e2e1dc8cdbc8bc5acd4589a5470af",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\LocalSpeakerScope.kt": "ea7f5302483dfe04c400121050ff0a41f721a79c4ef08d17e9a2d08368933f8f",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\Pcm16WavWriter.kt": "c970cbc91b770c31bb093df0a9f17059f43070cd9f6615497d8d5b371c2becdc",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\PcmFileAudio.kt": "3cbd9fb48c32ff29e02abe73666771df8485680dca9daada9662abf08030b8fa",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\PcmWav.kt": "62f09af971cd18d4b269a67ea98e03330e2f559cfb42bfc2249c347786f8d9ad",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\ProcessingTimeDisplay.kt": "cb61a6b48d9ba18a26301ff560a378bd4b013362d227b54441df9d1571ab1b62",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\ProvisionalTurns.kt": "7f3967515bfc77b33ac45e5a35b9cc97594d02eaa86e8ff0b279007a9a34d8cc",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\QuietCuts.kt": "2b3f618c3ec67ad4ecba3e616430a987ebf807ca1885728cec26c47b494e6868",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\RealtimeCore.kt": "36805b2ef3f580eabb6e9ce0bc857d9030c29359fc28af22f200de7d856ba76f",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\RealtimeTranscript.kt": "ad19d83584a37724e96f76f212b41f2578880e2fc1e7601697afb7c68e3de523",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\ShortProcessingEta.kt": "18286b8dc7113ff2cf813640bad5b9bf6489ca5be391814bae78f8f50b7747c3",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\SpeakerConsensus.kt": "6c12bc68a17a721eeb744b20b709621b7ce39474c4b539800a12b2dc2cccfd82",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\SpeakerIdentity.kt": "e7a04608d190e2cd7a100684d6910af0377601881a9669303cb6fe215588050c",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\StreamingPcm16.kt": "1263a8ed7d37327297e45661604a020353624186634a07f9a9737064e8290fe5",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TermDictionary.kt": "fc22deaac7eff6f1a7dcc043298e7fb0036d906b72d2c479174300ea7d1903f4",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TopicTitle.kt": "0bbc355875384ca2de2be684b50e48c5824745a81dcdd30f29cf7459af5828d5",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TranscriptCore.kt": "276907476686d0746dd87766d72a0f9d037a2f6383b1de8b0f650c2fec451fb1",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\TranscriptSnapshotStore.kt": "58c8e71f740daac1be90ff2312d90a0b2d3eb8619db3ea14e9f005b14a3fd130",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VerifiedModelBundle.kt": "6c92fcef645c9cb6fed703c9bc30f0901dc4aa0dbc830f6d7972693c051091e1",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VoiceLevel.kt": "6dee7f5d3ae82de79371f50fde120d5bb24fb06145ea232899cfe5aaf7601701",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VoicePrintAgreement.kt": "f68c7dc6ca8712b645088291b2e6ad1ae14bc7259e8e41eb6f8d4ad23a734526",
+    "core\\src\\main\\kotlin\\ru\\neurostenographer\\core\\VoicePrintReply.kt": "f79bf5bbe61b0f811ba82b3e0881f3de344823cecb648886750426b2a6fbebd5",
+    "app\\src\\nemotron\\java\\ru\\neurostenographer\\core\\NemotronDiarizer.kt": "a9ef4534edf41da6a9ffd94751f71228c48e117804832dc46e40ac148cc49e70",
+    "app\\src\\nemotron\\java\\ru\\neurostenographer\\core\\NemotronStreaming.kt": "c6764260b994c3b3478d7ff4b4ea3d8498f57fb3f8dac8bbcf09dd0b58b08c19",
+    "tools\\c2pp\\DumpLogits.kt": "b85ba6ffb2851a89ce0e8d316382a3a97c8352cf11c2f6714c2d2a472cff9c39",
+    "app\\src\\realtime\\java\\ru\\neurostenographer\\app\\JournalBlocks.kt": "1c6342b6aa64e710fb746f7f9836fcd7b6e508cc9267f82cf32063693db714bf"
+  },
+  "model_pins": {
+    "model.int8.ir9.onnx": "c465504c2f3a29242e1b3d894187ae5962be7320bed71a2ae203950285ee6025",
+    "mel_filters.bin": "bce5ec5f194a5913f6508cee5a85512e7bad2352db8fc28f5c6ff75af8b09137",
+    "hann400.bin": "c427e2029118cf789649e5a4d439b6115d0dd0cbf95dcd22f65e3c848add8c5b",
+    "silence_embeds.bin": "d4417b3c0eabdf7c47032fac2b5b5a7ee83d819a6ddda8fd8eaf74e2b5cc4ac7"
+  },
+  "ort_jar_sha256": "a4e57e18a04b6c1b5b0e2885af1d8557873d4ca04bfcebf79743966c4c8eb20f",
+  "fresh_inference": true,
+  "phone_used": false
+}
