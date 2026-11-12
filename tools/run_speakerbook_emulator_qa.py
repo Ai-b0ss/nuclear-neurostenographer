@@ -20,7 +20,7 @@ ALLOWED = {"run_id", "status", "scope", "execution_environment", "qa_mode",
            "duration_ms", "wall_ms", "rtf", "segments", "profiled_blocks",
            "first_segments", "second_segments", "first_speaker_ids", "second_speaker_ids",
            "shared_speaker_ids", "speaker_source", "unknown_segments",
-           "segments_by_5min_interval", "max_battery_temperature_c", "stage", "error", "message"}
+           "segments_by_5min_interval", "max_battery_temperature_c", "stage", "error", "message", "processing_stage", "progress", "elapsed_ms"}
 
 
 def verify_emulator(serial, qemu, abi):
@@ -129,11 +129,35 @@ def main():
             save()
             adb("shell", "run-as", PACKAGE, "rm", "-f", "files/"+filename)
             try:
-                run = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
-                          "ru.neurostenographer.app."+klass, "-e", "qaEnvironment", "emulator",
-                          "-e", "qaMode", mode if mode != "long" else "repeat",
-                          TEST+"/androidx.test.runner.AndroidJUnitRunner", timeout=4800, check=False)
-                (a.output/(mode+".local.log")).write_text(run.stdout+run.stderr, encoding="utf8")
+                command = [a.adb, "-s", a.serial, "shell", "am", "instrument", "-w", "-r", "-e", "class",
+                           "ru.neurostenographer.app."+klass, "-e", "qaEnvironment", "emulator",
+                           "-e", "qaMode", mode if mode != "long" else "repeat",
+                           TEST+"/androidx.test.runner.AndroidJUnitRunner"]
+                log_path = a.output/(mode+".local.log")
+                deadline = time.monotonic() + 4800
+                with log_path.open("w", encoding="utf8") as log:
+                    process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)
+                    try:
+                        while process.poll() is None:
+                            if time.monotonic() >= deadline:
+                                raise subprocess.TimeoutExpired(command, 4800)
+                            time.sleep(15)
+                            beat = adb("exec-out", "run-as", PACKAGE, "cat", "files/"+filename, check=False)
+                            try:
+                                current = json.loads(beat.stdout)
+                            except (ValueError, TypeError):
+                                continue  # concurrent atomicity/first-start gaps never count as PASS
+                            clean_beat = {k:v for k,v in current.items() if k in ALLOWED}
+                            item["record"] = clean_beat
+                            (a.output/(mode+".json")).write_text(json.dumps(clean_beat, indent=2)+"\n", encoding="utf8")
+                            save()
+                            print("EMULATOR_PROGRESS", json.dumps({"mode": mode, **clean_beat}), flush=True)
+                    finally:
+                        if process.poll() is None:
+                            process.kill()
+                        process.wait(timeout=20)
+                run = subprocess.CompletedProcess(command, process.returncode,
+                    stdout=log_path.read_text(encoding="utf8", errors="replace"), stderr="")
                 raw = adb("exec-out", "run-as", PACKAGE, "cat", "files/"+filename, check=False)
                 record = json.loads(raw.stdout) if raw.returncode == 0 and raw.stdout.strip() else {}
                 clean = {k:v for k,v in record.items() if k in ALLOWED}

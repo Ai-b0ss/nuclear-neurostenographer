@@ -72,7 +72,18 @@ class CrossWindowSpeakerBookDeviceTest {
         fun idle(limitMs: Long) {
             val deadline = SystemClock.elapsedRealtime() + SpeakerBookQaEnvironment.timeout(limitMs)
             ensureSafeTemperature()
+            var heartbeatAt = 0L
             while (model.state.value.busy && SystemClock.elapsedRealtime() < deadline) {
+                if (SpeakerBookQaEnvironment.emulator() && SystemClock.elapsedRealtime() - heartbeatAt >= 2_000L) {
+                    heartbeatAt = SystemClock.elapsedRealtime()
+                    val current = model.state.value
+                    evidence.writeText(JSONObject()
+                        .put("run_id", runId).put("status", "RUNNING")
+                        .put("execution_environment", SpeakerBookQaEnvironment.label())
+                        .put("stage", stage).put("processing_stage", current.stage)
+                        .put("progress", current.progress?.toDouble() ?: JSONObject.NULL)
+                        .put("elapsed_ms", heartbeatAt - start).toString(2))
+                }
                 SystemClock.sleep(200)
                 ensureSafeTemperature()
             }

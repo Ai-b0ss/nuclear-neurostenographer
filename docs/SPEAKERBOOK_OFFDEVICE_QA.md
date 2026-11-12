@@ -57,6 +57,11 @@ continues to score ALL 15 frozen two-speaker recordings, including failures.
 Fixtures prove functional behavior; repetition and digital silence cannot
 establish independent accuracy or natural meeting performance.
 
+The ephemeral Linux runner grants KVM only to its own user, requires
+emulator -accel-check to pass, explicitly enables VM acceleration and
+never silently falls back to CPU software emulation. Numeric stage/progress
+heartbeats distinguish model installation, import, diarization and ASR.
+
 Before installing any APK, the runner requires ALL of:
 - emulator-NNNN ADB serial;
 - ro.kernel.qemu=1;
