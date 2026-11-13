@@ -46,6 +46,7 @@ jobs:
           python3 tools/test_runtime_identity.py
           python3 -O tools/test_runtime_identity.py
           python3 tools/test_android_ui.py
+          python3 -m unittest discover -s tools -p test_processing_layout_qa.py -v
           python3 tools/test_app_failure_detector.py
           python3 tools/test_phone_kit.py
           python3 tools/test_score_live_run.py
