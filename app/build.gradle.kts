@@ -72,6 +72,12 @@ check(!realtime || (asrA3 && nemotronProduct && !c2Candidate && !nemotronPrototy
 check(!realtime || (providers.gradleProperty("litertProbe").orNull != "true" &&
     providers.gradleProperty("asrSmoke").orNull != "true")) { "Realtime cannot share another experiment's manifest or applicationId" }
 check(!(asrA3 && (c2Candidate || nemotronPrototype))) { "A3 test build is separate from C2 candidate/prototype" }
+val layoutQa = providers.gradleProperty("layoutQa").orNull == "true"
+check(!layoutQa || (!nemotronEnabled && !asrA3 && !englishAuto && !fddtHybrid &&
+    !globalSpeakerBook && !solHighAcceptance && !realtime &&
+    listOf("checkpointQa", "asrSmoke", "a3SideBySide", "litertProbe").none {
+        providers.gradleProperty(it).orNull == "true"
+    })) { "Layout QA is a separate model-free build" }
 android {
     namespace = "ru.neurostenographer.app"
     compileSdk = 35
@@ -230,6 +236,13 @@ android {
         defaultConfig.applicationIdSuffix = ".speakerbookqa"
         defaultConfig.manifestPlaceholders["appLabel"] = "Нейростенограф Voice QA"
     }
+    if (layoutQa) {
+        defaultConfig.applicationIdSuffix = ".layoutqa"
+        defaultConfig.manifestPlaceholders["appLabel"] = "Neurostenographer Layout QA"
+        sourceSets.getByName("androidTest").java.srcDir("src/layoutTest/java")
+        sourceSets.getByName("androidTest").assets.setSrcDirs(emptyList<String>())
+        defaultConfig.ndk.abiFilters.apply { clear(); add("x86_64") }
+    }
 }
 dependencies {
     implementation(files("libs/sherpa-onnx-1.12.20.aar"))
@@ -237,6 +250,11 @@ dependencies {
     // The unused JNI implementation is excluded when Nemotron is disabled.
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
     if (providers.gradleProperty("litertProbe").orNull == "true") androidTestImplementation("com.google.ai.edge.litert:litert:2.2.0")
+    if (layoutQa) {
+        androidTestImplementation(platform("androidx.compose:compose-bom:2024.12.01"))
+        androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+        debugImplementation("androidx.compose.ui:ui-test-manifest")
+    }
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.activity:activity-compose:1.9.3")

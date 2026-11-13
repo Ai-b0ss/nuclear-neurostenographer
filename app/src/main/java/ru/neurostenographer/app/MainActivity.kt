@@ -85,6 +85,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
@@ -493,7 +494,7 @@ private fun RecordingHero(enabled: Boolean, level: Float, startedAtMs: Long?, on
 }
 
 @Composable
-private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
+internal fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
     val timeline = state.processingClock
     // One tick is shared by the ETA label and progress. It does not restart
     // when the app switches from diarization to text recognition.
@@ -512,7 +513,7 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             // The ETA can be one, two or three lines. Reserve a stable layout
             // slot so updates never move the progress track.
-            Box(Modifier.fillMaxWidth().height(184.dp), contentAlignment = Alignment.TopCenter) {
+            Box(Modifier.fillMaxWidth().height(184.dp).testTag("processing_status"), contentAlignment = Alignment.TopCenter) {
                 Column(Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -596,15 +597,15 @@ private fun ProcessingCard(state: ScreenState, onCancel: () -> Unit) {
                 timeline != null -> timeline.fractionAt(tick)
                 else -> state.progress
             }
-            if (progress == null) LinearProgressIndicator(Modifier.fillMaxWidth())
-            else LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth())
+            if (progress == null) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("processing_progress"))
+            else LinearProgressIndicator(progress = { progress }, Modifier.fillMaxWidth().testTag("processing_progress"))
         }
         Text("Всё обрабатывается на телефоне",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
         // Cancel is a secondary action, not a 136 dp hero above the actual task.
         OutlinedButton(onClick = onCancel, enabled = !state.cancelling,
-            modifier = Modifier.heightIn(min = 48.dp),
+            modifier = Modifier.heightIn(min = 48.dp).testTag("processing_cancel"),
             contentPadding = PaddingValues(horizontal = 24.dp, vertical = 10.dp)) {
             Icon(Icons.Filled.Close, contentDescription = null, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(8.dp))
